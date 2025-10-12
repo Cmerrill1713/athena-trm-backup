@@ -25,6 +25,8 @@ final class ProviderOverrideManager: ObservableObject {
     }
 
     func set(_ route: ProviderRoute) {
+        let timestamp = ISO8601DateFormatter().string(from: Date())
+        print("[ProviderInspector] override=\(route.rawValue) source=client timestamp=\(timestamp)")
         active = route
         UserDefaults.standard.set(route.rawValue, forKey: storeKey)
         Task { await pushToBackendIfSupported() }
@@ -73,22 +75,38 @@ final class ProviderOverrideManager: ObservableObject {
     }
 
     private func probe(route: ProviderRoute) async -> Bool {
-        let path: String
+        // Direct URLs to actual services (not proxied through backend)
+        let urlString: String
         switch route {
-        case .auto:    path = "/health"             // generic app health
-        case .fastvlm: path = "/provider/fastvlm/health" // backend pass-through (or proxy)
-        case .ollama:  path = "/provider/ollama/health"
-        case .trm:     path = "/provider/trm/health"
+        case .auto:
+            // Generic app health through backend
+            urlString = "\(backendBase)/health"
+        case .fastvlm:
+            // Direct FastVLM health check
+            urlString = "http://127.0.0.1:8811/health"
+        case .ollama:
+            // Direct Ollama health check (api/version or api/tags)
+            urlString = "http://127.0.0.1:11434/api/version"
+        case .trm:
+            // TRM router health (could be through backend or direct)
+            // Check if TRM is at :3033 or through backend
+            urlString = "\(backendBase)/health"  // Adjust if TRM has separate endpoint
         }
-        guard let url = URL(string: "\(backendBase)\(path)") else { return false }
+
+        guard let url = URL(string: urlString) else { return false }
         var req = URLRequest(url: url)
         req.timeoutInterval = 3.0
-        // Tell backend which probe we're doing; harmless if ignored.
+        // Tell backend which probe we're doing; harmless if ignored
         req.setValue(route.rawValue, forHTTPHeaderField: "X-Provider-Probe")
+
         do {
             let (_, resp) = try await URLSession.shared.data(for: req)
-            if let http = resp as? HTTPURLResponse { return (200..<300).contains(http.statusCode) }
-        } catch { }
+            if let http = resp as? HTTPURLResponse {
+                return (200..<300).contains(http.statusCode)
+            }
+        } catch {
+            print("⚠️ Provider probe failed for \(route.rawValue): \(error.localizedDescription)")
+        }
         return false
     }
 }

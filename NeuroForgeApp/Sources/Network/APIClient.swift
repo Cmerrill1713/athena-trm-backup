@@ -29,8 +29,15 @@ struct APIClient {
         // Inject provider override header if set
         NetworkInterceptor.injectProviderHeader(into: &req)
 
+        let start = Date()
         let (data, resp) = try await session.data(for: req)
+        let rtt = Int(-start.timeIntervalSinceNow * 1000)
         let code = (resp as? HTTPURLResponse)?.statusCode ?? -1
+
+        // Log request with override header if present
+        let overrideHeader = req.value(forHTTPHeaderField: "X-Provider-Override") ?? "none"
+        print("[APIClient] POST /api/chat hdr:X-Provider-Override=\(overrideHeader) rtt=\(rtt)ms code=\(code)")
+
         guard (200..<300).contains(code) || code == 422 else {
             throw APIError.badStatus(code, data)
         }

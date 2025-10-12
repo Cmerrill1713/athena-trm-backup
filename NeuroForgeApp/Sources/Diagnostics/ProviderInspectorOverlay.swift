@@ -59,7 +59,7 @@ struct ProviderInspectorOverlay: View {
                             .fill((h?.healthy ?? false) ? .green : .red)
                             .frame(width: 10, height: 10)
                         Text(latencyText(h?.latencyMs))
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(latencyColor(h?.latencyMs))
                             .font(.caption)
                         Spacer()
                         if vm.active == r {
@@ -116,5 +116,13 @@ struct ProviderInspectorOverlay: View {
 
     private func latencyText(_ ms: Int?) -> String {
         ms.map { "\($0) ms" } ?? "—"
+    }
+
+    private func latencyColor(_ ms: Int?) -> Color {
+        guard let ms = ms else { return .secondary }
+        // ≤150ms 🟢, 150–600ms 🟡, >600ms 🟠
+        if ms <= 150 { return .green }
+        if ms <= 600 { return .orange }
+        return .red
     }
 }
