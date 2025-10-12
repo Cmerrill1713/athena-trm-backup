@@ -92,13 +92,21 @@ help:
 	@echo "  smoke                 - Smoke test bridge endpoints"
 	@echo ""
 	@echo "🎯 Stack Management (UAT + Athena + Bridge):"
-	@echo "  stack-up              - Start full stack (real mode)"
-	@echo "  stack-down            - Stop full stack"
-	@echo "  stack-status          - Show stack status"
-	@echo "  stack-restart         - Restart full stack"
+	@echo "  stack-up              - Start core stack (real mode)"
+	@echo "  stack-down            - Stop core stack"
+	@echo "  stack-status          - Show core stack status"
+	@echo "  stack-restart         - Restart core stack"
 	@echo "  stack-validate        - Validate stack health"
 	@echo "  nuke-ports            - 💥 Kill all processes on 8014/8090/8181"
 	@echo "  truth                 - 🔍 Reality check (receipts not vibes)"
+	@echo ""
+	@echo "🎚️  Tiered Stack (Optional Layers):"
+	@echo "  stack-voice           - Add Kokoro TTS (:8020)"
+	@echo "  stack-rag             - Add RAG service (:8015)"
+	@echo "  stack-vision          - Add FastVLM + Vision RAG (:8811/:8016)"
+	@echo "  stack-full            - Start everything (core + voice + RAG + vision)"
+	@echo "  stack-full-down       - Stop everything"
+	@echo "  stack-status-full     - Show all services status"
 	@echo ""
 	@echo "🤖 Self-Healing Watchdog:"
 	@echo "  auto-heal-start       - Start watchdog (monitors + auto-heals)"
@@ -1266,7 +1274,7 @@ UAT_PID := $(STACK_DIR)/uat.pid
 ATH_PID := $(STACK_DIR)/athena.pid
 BRIDGE_PID := $(STACK_DIR)/bridge.pid
 
-.PHONY: stack-up stack-down stack-status stack-restart stack-validate athena-tests nuke-ports truth
+.PHONY: stack-up stack-down stack-status stack-restart stack-validate athena-tests nuke-ports truth stack-voice stack-voice-down stack-rag stack-rag-down stack-vision stack-vision-down stack-full stack-full-down
 
 # Nuclear option: kill all processes on stack ports
 nuke-ports:
@@ -1364,6 +1372,88 @@ stack-restart: stack-down stack-up
 stack-validate:
 	@echo "🔍 Validating full stack health and integration..."
 	@bash scripts/validate_stack.sh
+
+# ════════════════════════════════════════════════════════════════
+# Tiered Stack Targets (Optional Services)
+# ════════════════════════════════════════════════════════════════
+
+# Voice layer (Kokoro TTS)
+stack-voice:
+	@echo "🎙️  Starting Kokoro TTS (:8020)..."
+	@mkdir -p $(STACK_DIR)
+	@pgrep -f "kokoro_server.py" >/dev/null || \
+	  (nohup python3 scripts/kokoro_server.py > logs/kokoro_8020.log 2>&1 & echo $$! > $(STACK_DIR)/kokoro.pid)
+	@sleep 1
+	@curl -fsS http://127.0.0.1:8020/health >/dev/null && echo "✅ Kokoro ready" || echo "⚠️  Kokoro starting..."
+
+stack-voice-down:
+	@echo "🛑 Stopping Kokoro..."
+	@[ -f $(STACK_DIR)/kokoro.pid ] && kill $$(cat $(STACK_DIR)/kokoro.pid) 2>/dev/null || true
+	@rm -f $(STACK_DIR)/kokoro.pid
+	@lsof -ti:8020 2>/dev/null | xargs kill -9 2>/dev/null || true
+
+# RAG layer (Knowledge search)
+stack-rag:
+	@echo "📚 Starting RAG service (:8015)..."
+	@mkdir -p $(STACK_DIR)
+	@pgrep -f "rag_service.py" >/dev/null || \
+	  (cd AI-Projects/universal-ai-tools && nohup python3 rag_service.py > $(CURDIR)/logs/rag_8015.log 2>&1 & echo $$! > $(CURDIR)/$(STACK_DIR)/rag.pid)
+	@sleep 1
+	@curl -fsS http://127.0.0.1:8015/ready >/dev/null && echo "✅ RAG ready" || echo "⚠️  RAG starting..."
+
+stack-rag-down:
+	@echo "🛑 Stopping RAG..."
+	@[ -f $(STACK_DIR)/rag.pid ] && kill $$(cat $(STACK_DIR)/rag.pid) 2>/dev/null || true
+	@rm -f $(STACK_DIR)/rag.pid
+	@lsof -ti:8015 2>/dev/null | xargs kill -9 2>/dev/null || true
+
+# Vision layer (FastVLM + Vision RAG)
+stack-vision:
+	@echo "👁️  Starting Vision services..."
+	@mkdir -p $(STACK_DIR)
+	@echo "  FastVLM (:8811)..."
+	@pgrep -f "fastvlm_server.py" >/dev/null || \
+	  (cd fastvlm && nohup python3 fastvlm_server.py --port 8811 > $(CURDIR)/logs/fastvlm_8811.log 2>&1 & echo $$! > $(CURDIR)/$(STACK_DIR)/fastvlm.pid) || echo "⚠️  FastVLM not available"
+	@sleep 1
+	@echo "  Vision RAG (:8016)..."
+	@pgrep -f "vision_rag_service.py" >/dev/null || \
+	  (cd AI-Projects/universal-ai-tools && nohup python3 vision_rag_service.py --port 8016 > $(CURDIR)/logs/vision_rag_8016.log 2>&1 & echo $$! > $(CURDIR)/$(STACK_DIR)/vision_rag.pid) || echo "⚠️  Vision RAG not available"
+	@sleep 1
+	@echo "✅ Vision services launched (check logs if errors)"
+
+stack-vision-down:
+	@echo "🛑 Stopping Vision services..."
+	@[ -f $(STACK_DIR)/fastvlm.pid ] && kill $$(cat $(STACK_DIR)/fastvlm.pid) 2>/dev/null || true
+	@[ -f $(STACK_DIR)/vision_rag.pid ] && kill $$(cat $(STACK_DIR)/vision_rag.pid) 2>/dev/null || true
+	@rm -f $(STACK_DIR)/fastvlm.pid $(STACK_DIR)/vision_rag.pid
+	@lsof -ti:8811,8016 2>/dev/null | xargs kill -9 2>/dev/null || true
+
+# Full stack (everything)
+stack-full: stack-up stack-voice stack-rag stack-vision
+	@echo "🚀 Full stack online (core + voice + RAG + vision)"
+	@make stack-status-full
+
+stack-full-down: stack-vision-down stack-rag-down stack-voice-down stack-down
+	@echo "✅ Full stack down"
+
+# Extended status (includes optional services)
+stack-status-full:
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@echo "📊 Full Stack Status"
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@echo ""
+	@echo "Core Services:"
+	@curl -fsS http://127.0.0.1:8014/ready >/dev/null && echo "  ✅ Bridge :8014" || echo "  ❌ Bridge :8014"
+	@curl -fsS http://127.0.0.1:8090/ready >/dev/null && echo "  ✅ Athena :8090" || echo "  ❌ Athena :8090"
+	@curl -fsS http://127.0.0.1:8181/ready >/dev/null && echo "  ✅ UAT :8181" || echo "  ❌ UAT :8181"
+	@echo ""
+	@echo "Optional Services:"
+	@curl -fsS http://127.0.0.1:8020/health >/dev/null && echo "  ✅ Kokoro :8020" || echo "  ⚠️  Kokoro :8020 (not running)"
+	@curl -fsS http://127.0.0.1:8015/ready >/dev/null && echo "  ✅ RAG :8015" || echo "  ⚠️  RAG :8015 (not running)"
+	@curl -fsS http://127.0.0.1:8811/health >/dev/null && echo "  ✅ FastVLM :8811" || echo "  ⚠️  FastVLM :8811 (not running)"
+	@curl -fsS http://127.0.0.1:8016/ready >/dev/null && echo "  ✅ Vision RAG :8016" || echo "  ⚠️  Vision RAG :8016 (not running)"
+	@echo ""
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 stack-truth:
 	@echo "🔍 Stack Truth (Port + PID Fingerprint)"
