@@ -32,6 +32,9 @@ DerivedData/
 *.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
 *.swiftmodule
 *.swiftdoc
+.build/
+*.dSYM/
+*.app/
 
 # Go / Rust cache
 target/
