@@ -4,6 +4,7 @@ struct ChatView: View {
     @State private var input = ""
     @State private var messages: [String] = []
     @State private var sending = false
+    @StateObject private var voice = VoiceManager()
     let api = APIClient()
 
     var body: some View {
@@ -34,10 +35,28 @@ struct ChatView: View {
             .accessibilityIdentifier("chat_input")
 
             HStack {
-                Text("Enter = send, Shift+Enter = newline")
+                Text("Enter = send, Shift+Enter = newline, Space = voice")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Spacer()
+                
+                // Voice button (push-to-talk)
+                Button {
+                    Task {
+                        if case .listening = voice.state {
+                            voice.finishListening()
+                        } else {
+                            await voice.startListening()
+                        }
+                    }
+                } label: {
+                    Image(systemName: voice.state == .listening ? "waveform.circle.fill" : "mic.fill")
+                        .font(.system(size: 16))
+                        .foregroundColor(voice.state == .listening ? .blue : .primary)
+                }
+                .help("Hold to talk (Space also works)")
+                .accessibilityIdentifier("voice_button")
+                
                 Button(sending ? "Sending…" : "Send") {
                     Task { await send() }
                 }
@@ -46,6 +65,12 @@ struct ChatView: View {
             }
         }
         .padding(12)
+        .onChange(of: voice.state) { newState in
+            // When voice finishes transcribing, auto-send
+            if case .sending(let text) = newState {
+                Task { await sendVoiceMessage(text) }
+            }
+        }
         .onReceive(NotificationCenter.default.publisher(for: .nfInsertPrompt)) { note in
             guard let txt = note.object as? String else { return }
             // Insert at end or append with newline if not empty
@@ -76,6 +101,31 @@ struct ChatView: View {
             let reply = try await api.chat(task)
             await MainActor.run { append("AI: \(reply)") }
             await MainActor.run { input = "" }
+            
+            // TTS response if enabled
+            if voice.ttsEnabled {
+                voice.speak(reply)
+            }
+        } catch {
+            await MainActor.run { append("⚠️ \(error.localizedDescription)") }
+        }
+    }
+    
+    private func sendVoiceMessage(_ text: String) async {
+        sending = true
+        defer { sending = false }
+        await MainActor.run { append("You (voice): \(text)") }
+        do {
+            // classify client-side; backend routes by task
+            let kind: ChatTaskKind = text.contains("image") ? .visionDescribe :
+                                     text.contains("code") ? .coding :
+                                     text.contains("why") ? .reasoning : .smalltalk
+            let task = ChatTask(kind: kind, text: text, imageBase64: nil)
+            let reply = try await api.chat(task)
+            await MainActor.run { append("AI: \(reply)") }
+            
+            // TTS response (voice triggered voice response)
+            voice.speak(reply)
         } catch {
             await MainActor.run { append("⚠️ \(error.localizedDescription)") }
         }
