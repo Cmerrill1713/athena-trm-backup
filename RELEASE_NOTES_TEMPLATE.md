@@ -257,10 +257,20 @@ We're listening! File issues or suggestions on GitHub.
 **Included in this release:**
 - [x] `NeuroForge.dmg` - macOS installer (notarized & stapled)
 - [x] `NeuroForge.dmg.sha256` - Checksum for verification
-- [x] `bandit-launch.json` - Bandit state snapshot
-- [x] `telemetry-launch.sqlite` - Trace history snapshot
+- [x] `CODE_INVENTORY.md` - Exact source code metrics at release
+- [x] `METRICS_SUMMARY.md` - Component breakdown and quality gates
+- [x] `code_inventory.json` - Machine-readable inventory
+- [x] `bandit-v0.9.2.json` - Bandit state snapshot
+- [x] `telemetry-v0.9.2.sqlite` - Trace history snapshot
 - [x] `RUNBOOKS.md` - Operational playbooks
 - [x] `SHIP_IT_CHECKLIST.md` - Launch verification
+
+**Code Metrics (Snapshot):**
+- Core Source: ~36,000 lines (Swift, Python, Shell, YAML)
+- Documentation: ~15,000 lines (57 Markdown files)
+- Total: ~51,000 lines of hand-written code
+- Components: 11 active modules
+- Git Commit: [PASTE COMMIT HASH]
 
 ---
 
