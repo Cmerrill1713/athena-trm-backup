@@ -3,7 +3,9 @@ import SwiftUI
 @main
 struct NeuroForgeApp: App {
 
+    @StateObject private var prompts = PromptStore()
     @State private var showInspector = false
+    @State private var showSidebar = false
 
     init() {
         // Set the app icon
@@ -13,6 +15,17 @@ struct NeuroForgeApp: App {
     var body: some Scene {
         WindowGroup {
             ChatView() // uses HealthBanner + model-agnostic routing
+                .environmentObject(prompts)
+                .overlay(alignment: .leading) {
+                    if ProcessInfo.processInfo.environment["QA_MODE"] == "1",
+                       showSidebar {
+                        PromptSidebar(store: prompts) { text in
+                            NotificationCenter.default.post(name: .nfInsertPrompt, object: text)
+                        }
+                        .transition(.move(edge: .leading).combined(with: .opacity))
+                        .zIndex(2)
+                    }
+                }
                 .overlay(alignment: .bottomTrailing) {
                     if showInspector {
                         ProviderInspectorOverlay()
@@ -20,7 +33,14 @@ struct NeuroForgeApp: App {
                             .allowsHitTesting(true)
                     }
                 }
+                .onReceive(NotificationCenter.default.publisher(for: .togglePromptSidebar)) { _ in
+                    withAnimation {
+                        showSidebar.toggle()
+                    }
+                }
                 .onAppear {
+                    prompts.load()
+
                     #if DEBUG
                     showInspector = true
                     #endif
@@ -32,6 +52,13 @@ struct NeuroForgeApp: App {
         }
         .windowStyle(.hiddenTitleBar)
         .commands {
+            CommandMenu("Prompts") {
+                Button("Toggle Prompt Sidebar") {
+                    NotificationCenter.default.post(name: .togglePromptSidebar, object: nil)
+                }
+                .keyboardShortcut("T", modifiers: [.command, .shift])
+            }
+
             CommandMenu("QA") {
                 Button("\(showInspector ? "Hide" : "Show") Provider Inspector") {
                     showInspector.toggle()
@@ -40,4 +67,11 @@ struct NeuroForgeApp: App {
             }
         }
     }
+}
+
+// MARK: - Notifications
+
+extension Notification.Name {
+    static let togglePromptSidebar = Notification.Name("nf.togglePromptSidebar")
+    static let nfInsertPrompt = Notification.Name("nf.insertPrompt")
 }

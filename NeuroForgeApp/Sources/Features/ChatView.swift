@@ -46,6 +46,15 @@ struct ChatView: View {
             }
         }
         .padding(12)
+        .onReceive(NotificationCenter.default.publisher(for: .nfInsertPrompt)) { note in
+            guard let txt = note.object as? String else { return }
+            // Insert at end or append with newline if not empty
+            if input.isEmpty {
+                input = txt
+            } else {
+                input += (input.hasSuffix("\n") ? "" : "\n") + txt
+            }
+        }
     }
 
     @MainActor private func append(_ s: String) {
