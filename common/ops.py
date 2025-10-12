@@ -36,25 +36,36 @@ logger = logging.getLogger("ops")
 # Tracing
 # ----------------
 def wire_tracing(app: FastAPI, service_name: str):
-    """Wire OpenTelemetry tracing to FastAPI app"""
-    otlp_endpoint = os.getenv("OTLP_ENDPOINT", "http://localhost:4318/v1/traces")
+    """Wire OpenTelemetry tracing to FastAPI app (gracefully degrades if collector unavailable)"""
+    # Skip tracing if explicitly disabled
+    if os.getenv("OTEL_DISABLED", "0") == "1":
+        logger.info(f"[Tracing] Disabled for {service_name} (OTEL_DISABLED=1)")
+        app.state.tracing = False
+        return
 
-    resource = Resource.create({"service.name": service_name})
-    provider = TracerProvider(resource=resource)
-    provider.add_span_processor(
-        BatchSpanProcessor(OTLPSpanExporter(endpoint=otlp_endpoint))
-    )
+    try:
+        otlp_endpoint = os.getenv("OTLP_ENDPOINT", "http://localhost:4318/v1/traces")
 
-    # Set global provider
-    from opentelemetry import trace
-    trace.set_tracer_provider(provider)
+        resource = Resource.create({"service.name": service_name})
+        provider = TracerProvider(resource=resource)
+        provider.add_span_processor(
+            BatchSpanProcessor(OTLPSpanExporter(endpoint=otlp_endpoint))
+        )
 
-    # Instrument frameworks
-    RequestsInstrumentor().instrument()  # outbound HTTP
-    FastAPIInstrumentor.instrument_app(app, tracer_provider=provider)
+        # Set global provider
+        from opentelemetry import trace
+        trace.set_tracer_provider(provider)
 
-    app.state.tracing = True
-    logger.info(f"[Tracing] {service_name} -> {otlp_endpoint}")
+        # Instrument frameworks
+        RequestsInstrumentor().instrument()  # outbound HTTP
+        FastAPIInstrumentor.instrument_app(app, tracer_provider=provider)
+
+        app.state.tracing = True
+        logger.info(f"[Tracing] {service_name} -> {otlp_endpoint}")
+    except Exception as e:
+        logger.warning(f"[Tracing] Failed to initialize for {service_name}: {e}")
+        logger.warning("[Tracing] Continuing without tracing (set OTEL_DISABLED=1 to suppress)")
+        app.state.tracing = False
 
 # ----------------
 # Rate limit & guardrails

@@ -1314,20 +1314,20 @@ watchdog-uninstall:
 	@echo "✅ Watchdog uninstalled"
 
 stack-up:
-	@mkdir -p $(STACK_DIR)
+	@mkdir -p $(STACK_DIR) logs
 	@echo "🔪 killing squatters on $(UAT_PORT) $(ATH_PORT) $(BRIDGE_PORT)"
 	@lsof -ti:$(UAT_PORT) 2>/dev/null | xargs kill -9 2>/dev/null || true
 	@lsof -ti:$(ATH_PORT) 2>/dev/null | xargs kill -9 2>/dev/null || true
 	@lsof -ti:$(BRIDGE_PORT) 2>/dev/null | xargs kill -9 2>/dev/null || true
 	@echo "🚀 UAT @ $(UAT_BASE)"
-	@cd AI-Projects/universal-ai-tools && nohup python3 -m uvicorn uat.api:app --host 127.0.0.1 --port $(UAT_PORT) --reload >../../logs/uat_$(UAT_PORT).log 2>&1 & echo $$! > ../../$(UAT_PID)
+	@cd AI-Projects/universal-ai-tools && nohup python3 -m uvicorn uat.api:app --host 127.0.0.1 --port $(UAT_PORT) --reload >$(CURDIR)/logs/uat_$(UAT_PORT).log 2>&1 & echo $$! > $(CURDIR)/$(UAT_PID)
 	@sleep 0.5
 	@echo "🤖 Athena @ $(ATHENA_BASE)"
-	@cd AI-Projects/universal-ai-tools && ATH_TOKEN=$(ATH_TOKEN) nohup python3 -m uvicorn athena.api:app --host 127.0.0.1 --port $(ATH_PORT) --reload >../../logs/athena_$(ATH_PORT).log 2>&1 & echo $$! > ../../$(ATH_PID)
+	@cd AI-Projects/universal-ai-tools && ATH_TOKEN=$(ATH_TOKEN) nohup python3 -m uvicorn athena.api:app --host 127.0.0.1 --port $(ATH_PORT) --reload >$(CURDIR)/logs/athena_$(ATH_PORT).log 2>&1 & echo $$! > $(CURDIR)/$(ATH_PID)
 	@sleep 0.5
 	@echo "🧱 Bridge (real mode) @ $(BRIDGE_BASE)"
 	@cd bridge && ENV=$(ENV) USE_MOCK=0 UAT_BASE=$(UAT_BASE) ATHENA_BASE=$(ATHENA_BASE) UAT_TOKEN=$(UAT_TOKEN) ATH_TOKEN=$(ATH_TOKEN) \
-	  nohup python3 -m uvicorn adapter:app --host 127.0.0.1 --port $(BRIDGE_PORT) --reload >../logs/bridge_$(BRIDGE_PORT).log 2>&1 & echo $$! > ../$(BRIDGE_PID)
+	  nohup python3 -m uvicorn adapter:app --host 127.0.0.1 --port $(BRIDGE_PORT) --reload >$(CURDIR)/logs/bridge_$(BRIDGE_PORT).log 2>&1 & echo $$! > $(CURDIR)/$(BRIDGE_PID)
 	@sleep 1
 	@echo "✅ stack is up"
 	@echo "Health:" && curl -sf $(BRIDGE_BASE)/health || echo "⚠️  Bridge starting..."
@@ -1519,7 +1519,65 @@ notify-setup-telegram:
 # Tier 4: Production Hardening
 # ============================================================================
 
-.PHONY: prod-up prod-down prod-build prod-logs sec-check chaos-test
+.PHONY: install-tier4-deps otel-up otel-down prod-up prod-down prod-build prod-logs sec-check chaos-test guardrails-smoke shutdown-drain-test
+
+# Install Tier 4 dependencies
+install-tier4-deps:
+	@echo "📦 Installing Tier 4 dependencies..."
+	@pip3 install -q -r requirements-tier4.txt
+	@echo "✅ Dependencies installed"
+	@echo "   OpenTelemetry, slowapi, keyring, ruff, bandit, pip-audit"
+
+# OpenTelemetry collector
+otel-up:
+	@echo "🔍 Starting OpenTelemetry collector..."
+	@docker run -d --name otel-collector \
+		-p 4318:4318 \
+		-v $(CURDIR)/otel/collector.yaml:/etc/otel/config.yaml \
+		otel/opentelemetry-collector:latest \
+		--config=/etc/otel/config.yaml
+	@sleep 2
+	@echo "✅ OTLP collector running on :4318"
+	@echo "   Jaeger UI: http://localhost:16686"
+
+otel-down:
+	@echo "🛑 Stopping OTLP collector..."
+	@docker stop otel-collector 2>/dev/null || true
+	@docker rm otel-collector 2>/dev/null || true
+	@echo "✅ Collector stopped"
+
+# Test guardrails
+guardrails-smoke:
+	@echo "🧪 Testing guardrails..."
+	@echo "1/3: Rate limit test (expect 429 after 100 requests)"
+	@for i in $$(seq 1 110); do \
+		curl -s http://127.0.0.1:8014/health > /dev/null; \
+	done
+	@curl -i http://127.0.0.1:8014/health 2>&1 | head -1
+	@echo ""
+	@echo "2/3: Payload size test (expect 413 for > 5MB)"
+	@dd if=/dev/zero bs=1M count=6 2>/dev/null | \
+		curl -s -X POST http://127.0.0.1:8014/chat \
+		-H "Content-Type: application/json" \
+		--data-binary @- -o /dev/null -w "Status: %{http_code}\n"
+	@echo ""
+	@echo "3/3: Timeout test (slow endpoint)"
+	@echo "   (Would test if /slow endpoint exists)"
+	@echo "✅ Guardrails smoke test complete"
+
+# Test graceful shutdown
+shutdown-drain-test:
+	@echo "🧪 Testing graceful shutdown..."
+	@echo "Starting bridge in background..."
+	@cd bridge && python3 -m uvicorn adapter:app --port 9999 > /tmp/shutdown_test.log 2>&1 &
+	@SHUTDOWN_PID=$$!; \
+	sleep 3; \
+	echo "Sending SIGTERM..."; \
+	kill -TERM $$SHUTDOWN_PID; \
+	sleep 7; \
+	echo "Checking logs for drain message..."; \
+	grep -q "Draining for 5s" /tmp/shutdown_test.log && echo "✅ Graceful shutdown working" || echo "❌ No drain message"; \
+	cat /tmp/shutdown_test.log | grep -E "Shutdown|Draining"
 
 # Production deployment (Docker Compose)
 prod-build:
