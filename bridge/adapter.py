@@ -10,12 +10,24 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import httpx
 import os
+import sys
 import json
 import time
 import uuid
 from typing import Dict, Any, Optional, List
 from pydantic import BaseModel
 import logging
+
+# Add parent directory to path for common imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from common.ops import (
+    wire_tracing,
+    attach_guardrails,
+    install_graceful_shutdown,
+    add_health_endpoints,
+)
+from common.secrets import load_secret
 
 # Import rate limiter
 try:
@@ -33,9 +45,11 @@ ENV = os.environ.get("ENV", "dev")
 USE_MOCK = os.environ.get("USE_MOCK", "1") == "1"
 UAT_BASE = os.environ.get("UAT_BASE", "http://127.0.0.1:8080")
 ATHENA_BASE = os.environ.get("ATHENA_BASE", "http://127.0.0.1:8090")
-UAT_TOKEN = os.environ.get("UAT_TOKEN", "")
-ATH_TOKEN = os.environ.get("ATH_TOKEN", "")
-BRIDGE_TOKEN = os.environ.get("BRIDGE_TOKEN", "")
+
+# Load tokens (keychain-first, env fallback)
+UAT_TOKEN = load_secret("uat_token", "UAT_TOKEN", "")
+ATH_TOKEN = load_secret("ath_token", "ATH_TOKEN", "")
+BRIDGE_TOKEN = load_secret("bridge_token", "BRIDGE_TOKEN", "")
 
 # Security: Refuse to start with mock in production
 if ENV == "prod" and USE_MOCK:
@@ -49,6 +63,17 @@ app = FastAPI(
     version=ADAPTER_VERSION
 )
 
+# Tier 4: Production hardening
+add_health_endpoints(app)  # /live, /ready for K8s-style probes
+wire_tracing(app, service_name="neuroforge-bridge")  # OTLP tracing
+attach_guardrails(
+    app,
+    per_ip_rate=os.getenv("RATE_LIMIT", "100/minute"),
+    max_body_mb=int(os.getenv("MAX_BODY_MB", "5")),
+    request_timeout_s=int(os.getenv("REQ_TIMEOUT_S", "30"))
+)
+install_graceful_shutdown(app, drain_seconds=int(os.getenv("DRAIN_S", "5")))
+
 # Enable CORS for SwiftUI
 app.add_middleware(
     CORSMiddleware,
@@ -57,6 +82,22 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Self-identification (make it impossible to lie about who answered)
+import socket
+import sys
+import subprocess
+
+BOOT_TS = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+PID = os.getpid()
+CWD = os.getcwd()
+PY = sys.executable
+HOST = socket.gethostname()
+try:
+    GIT = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"],
+                                   stderr=subprocess.DEVNULL, text=True).strip()
+except:
+    GIT = "nogit"
 
 # Middleware for correlation ID and logging
 @app.middleware("http")
@@ -74,9 +115,16 @@ async def add_correlation_id(request: Request, call_next):
     # Calculate latency
     latency_ms = int((time.perf_counter() - start_time) * 1000)
 
-    # Add headers
+    # Add headers (with self-identification)
     response.headers["x-correlation-id"] = corr_id
     response.headers["x-adapter-version"] = ADAPTER_VERSION
+    response.headers["x-service"] = "neuroforge-bridge"
+    response.headers["x-pid"] = str(PID)
+    response.headers["x-cwd"] = CWD
+    response.headers["x-py"] = PY
+    response.headers["x-build"] = GIT
+    response.headers["x-boot"] = BOOT_TS
+    response.headers["x-mode"] = "mock" if USE_MOCK else "real"
 
     # Log response
     source = "mock" if USE_MOCK else "real"

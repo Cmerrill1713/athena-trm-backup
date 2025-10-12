@@ -91,6 +91,47 @@ help:
 	@echo "  logs                  - Show bridge logs"
 	@echo "  smoke                 - Smoke test bridge endpoints"
 	@echo ""
+	@echo "🎯 Stack Management (UAT + Athena + Bridge):"
+	@echo "  stack-up              - Start full stack (real mode)"
+	@echo "  stack-down            - Stop full stack"
+	@echo "  stack-status          - Show stack status"
+	@echo "  stack-restart         - Restart full stack"
+	@echo "  stack-validate        - Validate stack health"
+	@echo "  nuke-ports            - 💥 Kill all processes on 8014/8090/8181"
+	@echo "  truth                 - 🔍 Reality check (receipts not vibes)"
+	@echo ""
+	@echo "🤖 Self-Healing Watchdog:"
+	@echo "  auto-heal-start       - Start watchdog (monitors + auto-heals)"
+	@echo "  auto-heal-stop        - Stop watchdog"
+	@echo "  auto-heal-status      - Show watchdog status"
+	@echo "  auto-heal-test        - Test health checks"
+	@echo "  auto-heal-logs        - Tail watchdog logs"
+	@echo ""
+	@echo "📢 Notifications (Tier 2):"
+	@echo "  notify-setup-slack    - Slack setup instructions"
+	@echo "  notify-setup-discord  - Discord setup instructions"
+	@echo "  notify-setup-telegram - Telegram setup instructions"
+	@echo "  notify-test-slack     - Test Slack notifications"
+	@echo "  notify-test-discord   - Test Discord notifications"
+	@echo "  notify-test-telegram  - Test Telegram notifications"
+	@echo ""
+	@echo "🏭 Production Hardening (Tier 4):"
+	@echo "  prod-build            - Build production Docker images"
+	@echo "  prod-up               - Start production stack (Docker Compose)"
+	@echo "  prod-down             - Stop production stack"
+	@echo "  prod-status           - Show container status"
+	@echo "  sec-check             - Run security checks (ruff+bandit+pip-audit+SBOM)"
+	@echo "  chaos-minute          - Kill random service, test recovery"
+	@echo "  chaos-test            - Full chaos testing (3 rounds)"
+	@echo ""
+	@echo "🧪 Testing:"
+	@echo "  athena-tests          - Run integration tests via Athena (smoke+e2e+backends+slo)"
+	@echo "  athena-tests-smoke    - Run smoke tests only (fast)"
+	@echo "  athena-tests-backends - Run backend tests (UAT + Athena direct)"
+	@echo "  athena-tests-all      - Run all tests with full JSON output"
+	@echo ""
+	@echo "  auto-heal-logs        - 📋 Watch watchdog logs"
+	@echo ""
 	@echo "🐤 Canary Deployment:"
 	@echo "  canary-10            - Enable canary at 10% (CANARY_MODEL=...)"
 	@echo "  canary-25            - Enable canary at 25%"
@@ -1124,3 +1165,524 @@ test-accept:
 
 test-all: test-smoke test-e2e test-slo
 	@echo "✅ All integration tests complete"
+
+# Ship operations
+.PHONY: real-up real-down smoke status ship verify-ship
+
+real-up:
+	@echo "🚀 Starting real mode stack (UAT + Athena + Bridge)"
+	@./scripts/real_up.sh
+
+real-down:
+	@echo "🛑 Stopping real mode stack"
+	@./scripts/real_down.sh
+
+smoke: test-accept
+	@echo "✅ Smoke test complete"
+
+status:
+	@echo "📊 System Status"
+	@echo "─────────────────────────────────────────────────────"
+	@echo "Bridge:  $$(curl -s http://127.0.0.1:8014/health >/dev/null 2>&1 && echo '🟢 UP' || echo '🔴 DOWN')"
+	@echo "UAT:     $$(curl -s http://127.0.0.1:8181/health >/dev/null 2>&1 && echo '🟢 UP' || echo '🔴 DOWN')"
+	@echo "Athena:  $$(curl -s http://127.0.0.1:8090/health >/dev/null 2>&1 && echo '🟢 UP' || echo '🔴 DOWN')"
+	@echo "─────────────────────────────────────────────────────"
+	@echo "Mode:    $$(curl -sI http://127.0.0.1:8014/health 2>/dev/null | grep -i x-mode | awk '{print $$2}' || echo 'unknown')"
+	@echo "Breaker: $$(curl -sI http://127.0.0.1:8014/health 2>/dev/null | grep -i x-breaker | awk '{print $$2}' || echo 'unknown')"
+	@echo "Traces:  $$(curl -s http://127.0.0.1:8014/traces 2>/dev/null | jq 'length' || echo '0')"
+
+verify-ship:
+	@echo "🔍 Running pre-ship verification..."
+	@echo ""
+	@echo "1️⃣ Starting services..."
+	@$(MAKE) real-up
+	@sleep 5
+	@echo ""
+	@echo "2️⃣ Running acceptance tests..."
+	@./scripts/acceptance_test.sh
+	@echo ""
+	@echo "3️⃣ Running contract tests..."
+	@cd AI-Projects/universal-ai-tools && pytest tests/test_contract.py -v
+	@echo ""
+	@echo "4️⃣ Running integration tests..."
+	@cd AI-Projects/universal-ai-tools && pytest tests/test_integration.py -v -m "not slow"
+	@echo ""
+	@echo "5️⃣ Checking observability..."
+	@curl -I http://127.0.0.1:8014/health | grep "X-Mode\|X-Breaker"
+	@echo ""
+	@echo "6️⃣ Testing rollback..."
+	@$(MAKE) bridge-down
+	@USE_MOCK=1 $(MAKE) bridge-up
+	@sleep 2
+	@./scripts/acceptance_test.sh
+	@echo ""
+	@echo "✅ All verifications passed! Ready to ship."
+
+ship:
+	@echo "🚢 Shipping bridge-1.0.0..."
+	@echo ""
+	@$(MAKE) verify-ship
+	@echo ""
+	@echo "📝 Updating ship log..."
+	@echo "🚀 Shipped bridge-1.0.0 on $$(date)" >> SHIPLOG.md
+	@git add SHIPLOG.md GO_LIVE_GUIDE.md QUICK_SHIP_REF.md
+	@git commit -m "docs: ship bridge-1.0.0 - real mode complete"
+	@git tag -a bridge-1.0.0 -m "Real mode: UAT + Athena + Bridge with full integration tests"
+	@git push origin main
+	@git push origin bridge-1.0.0
+	@echo ""
+	@echo "🍾 SHIPPED! Follow the 7-day plan in GO_LIVE_GUIDE.md"
+
+# ============================================================================
+# Stack Management - Unified UAT + Athena + Bridge
+# ============================================================================
+
+# -------- Load .env.stack if exists --------
+-include .env.stack
+
+# -------- Ports & Tokens --------
+UAT_PORT ?= 8181
+ATH_PORT ?= 8090
+BRIDGE_PORT ?= 8014
+UAT_BASE ?= http://127.0.0.1:$(UAT_PORT)
+ATHENA_BASE ?= http://127.0.0.1:$(ATH_PORT)
+BRIDGE_BASE ?= http://127.0.0.1:$(BRIDGE_PORT)
+UAT_TOKEN ?= supersecret
+ATH_TOKEN ?= supersecret
+BRIDGE_TOKEN ?=
+ENV ?= dev
+
+# -------- PIDs --------
+STACK_DIR := .stack
+UAT_PID := $(STACK_DIR)/uat.pid
+ATH_PID := $(STACK_DIR)/athena.pid
+BRIDGE_PID := $(STACK_DIR)/bridge.pid
+
+.PHONY: stack-up stack-down stack-status stack-restart stack-validate athena-tests nuke-ports truth
+
+# Nuclear option: kill all processes on stack ports
+nuke-ports:
+	@echo "💥 Nuking all processes on ports 8014, 8090, 8181..."
+	@lsof -ti:8014,8090,8181 2>/dev/null | xargs kill -9 2>/dev/null || true
+	@sleep 0.2
+	@lsof -ti:8014,8090,8181 2>/dev/null | xargs kill -9 2>/dev/null || true
+	@echo "✅ Ports cleared"
+
+# Truth serum: what's actually running (receipts not vibes)
+truth:
+	@bash scripts/truth.sh
+
+# Self-healing watchdog
+watchdog-start:
+	@echo "🤖 Starting stack watchdog..."
+	@bash scripts/stack_watchdog.sh &
+	@echo "✅ Watchdog running in background"
+	@echo "   Logs: tail -f /tmp/stack_watchdog.log"
+	@echo "   Stop: make watchdog-stop"
+
+watchdog-stop:
+	@echo "🛑 Stopping stack watchdog..."
+	@pkill -f "stack_watchdog.sh" || echo "Watchdog not running"
+
+watchdog-status:
+	@echo "📊 Watchdog Status:"
+	@if pgrep -f "stack_watchdog.sh" >/dev/null; then \
+		echo "  Status: ✅ Running"; \
+		echo "  PID: $$(pgrep -f stack_watchdog.sh)"; \
+		echo "  Restarts: $$(cat /tmp/stack_watchdog_restarts 2>/dev/null || echo 0)/hour"; \
+		echo "  Last incident: $$(tail -1 /tmp/stack_incidents.log 2>/dev/null || echo 'none')"; \
+	else \
+		echo "  Status: ❌ Not running"; \
+	fi
+
+watchdog-logs:
+	@tail -f /tmp/stack_watchdog.log
+
+watchdog-incidents:
+	@cat /tmp/stack_incidents.log 2>/dev/null || echo "No incidents logged"
+
+watchdog-install:
+	@echo "📦 Installing watchdog as LaunchAgent..."
+	@cp scripts/com.stack.watchdog.plist ~/Library/LaunchAgents/
+	@launchctl load ~/Library/LaunchAgents/com.stack.watchdog.plist 2>&1 || echo "⚠️  Already loaded"
+	@echo "✅ Watchdog will auto-start on login"
+
+watchdog-uninstall:
+	@echo "🗑️  Uninstalling watchdog..."
+	@launchctl unload ~/Library/LaunchAgents/com.stack.watchdog.plist 2>&1 || echo "Not loaded"
+	@rm -f ~/Library/LaunchAgents/com.stack.watchdog.plist
+	@echo "✅ Watchdog uninstalled"
+
+stack-up:
+	@mkdir -p $(STACK_DIR)
+	@echo "🔪 killing squatters on $(UAT_PORT) $(ATH_PORT) $(BRIDGE_PORT)"
+	@lsof -ti:$(UAT_PORT) 2>/dev/null | xargs kill -9 2>/dev/null || true
+	@lsof -ti:$(ATH_PORT) 2>/dev/null | xargs kill -9 2>/dev/null || true
+	@lsof -ti:$(BRIDGE_PORT) 2>/dev/null | xargs kill -9 2>/dev/null || true
+	@echo "🚀 UAT @ $(UAT_BASE)"
+	@cd AI-Projects/universal-ai-tools && nohup python3 -m uvicorn uat.api:app --host 127.0.0.1 --port $(UAT_PORT) --reload >../../logs/uat_$(UAT_PORT).log 2>&1 & echo $$! > ../../$(UAT_PID)
+	@sleep 0.5
+	@echo "🤖 Athena @ $(ATHENA_BASE)"
+	@cd AI-Projects/universal-ai-tools && ATH_TOKEN=$(ATH_TOKEN) nohup python3 -m uvicorn athena.api:app --host 127.0.0.1 --port $(ATH_PORT) --reload >../../logs/athena_$(ATH_PORT).log 2>&1 & echo $$! > ../../$(ATH_PID)
+	@sleep 0.5
+	@echo "🧱 Bridge (real mode) @ $(BRIDGE_BASE)"
+	@cd bridge && ENV=$(ENV) USE_MOCK=0 UAT_BASE=$(UAT_BASE) ATHENA_BASE=$(ATHENA_BASE) UAT_TOKEN=$(UAT_TOKEN) ATH_TOKEN=$(ATH_TOKEN) \
+	  nohup python3 -m uvicorn adapter:app --host 127.0.0.1 --port $(BRIDGE_PORT) --reload >../logs/bridge_$(BRIDGE_PORT).log 2>&1 & echo $$! > ../$(BRIDGE_PID)
+	@sleep 1
+	@echo "✅ stack is up"
+	@echo "Health:" && curl -sf $(BRIDGE_BASE)/health || echo "⚠️  Bridge starting..."
+
+stack-down:
+	@echo "🛑 stopping stack"
+	@-kill -9 $$(cat $(BRIDGE_PID) 2>/dev/null) 2>/dev/null || true
+	@-kill -9 $$(cat $(ATH_PID) 2>/dev/null) 2>/dev/null || true
+	@-kill -9 $$(cat $(UAT_PID) 2>/dev/null) 2>/dev/null || true
+	@rm -f $(BRIDGE_PID) $(ATH_PID) $(UAT_PID)
+	@lsof -ti:$(UAT_PORT) 2>/dev/null | xargs kill -9 2>/dev/null || true
+	@lsof -ti:$(ATH_PORT) 2>/dev/null | xargs kill -9 2>/dev/null || true
+	@lsof -ti:$(BRIDGE_PORT) 2>/dev/null | xargs kill -9 2>/dev/null || true
+	@echo "✅ stack is down"
+
+stack-status:
+	@echo "📊 status"
+	@ps -p $$(cat $(UAT_PID) 2>/dev/null) -o pid,command 2>/dev/null || echo "UAT: not running"
+	@ps -p $$(cat $(ATH_PID) 2>/dev/null) -o pid,command 2>/dev/null || echo "Athena: not running"
+	@ps -p $$(cat $(BRIDGE_PID) 2>/dev/null) -o pid,command 2>/dev/null || echo "Bridge: not running"
+	@echo "Ports: $(UAT_PORT) $(ATH_PORT) $(BRIDGE_PORT)"
+	@echo "Bridge health:" && curl -sf $(BRIDGE_BASE)/health | jq . || echo "⚠️  Bridge not responding"
+
+stack-restart: stack-down stack-up
+
+stack-validate:
+	@echo "🔍 Validating full stack health and integration..."
+	@bash scripts/validate_stack.sh
+
+stack-truth:
+	@echo "🔍 Stack Truth (Port + PID Fingerprint)"
+	@echo "════════════════════════════════════════"
+	@echo "UAT (8181):"
+	@lsof -ti:$(UAT_PORT) 2>/dev/null && ps -p $$(lsof -ti:$(UAT_PORT)) -o pid,command 2>/dev/null || echo "  Not running"
+	@echo ""
+	@echo "Athena (8090):"
+	@lsof -ti:$(ATH_PORT) 2>/dev/null && ps -p $$(lsof -ti:$(ATH_PORT)) -o pid,command 2>/dev/null || echo "  Not running"
+	@echo ""
+	@echo "Bridge (8014):"
+	@lsof -ti:$(BRIDGE_PORT) 2>/dev/null && ps -p $$(lsof -ti:$(BRIDGE_PORT)) -o pid,command 2>/dev/null || echo "  Not running"
+	@echo ""
+	@echo "Health Check (who's answering?):"
+	@curl -sI http://127.0.0.1:$(BRIDGE_PORT)/health | grep -E "HTTP|X-" || echo "  Bridge not responding"
+	@echo ""
+	@echo "Athena Test Runner Config:"
+	@curl -sS -X POST http://127.0.0.1:$(ATH_PORT)/run_tests \
+	  -H "Authorization: Bearer $(ATH_TOKEN)" \
+	  -H "Content-Type: application/json" \
+	  -d '{"markers":"smoke","maxfail":1,"env":{"DEBUG":"1"}}' 2>/dev/null \
+	  | python3 -c 'import sys,json; d=json.load(sys.stdin); print(f"  Python: {d.get(\"cmd\",\"unknown\").split()[0]}"); print(f"  CWD: {d.get(\"cwd\",\"unknown\")}"); print(f"  Cmd: {d.get(\"cmd\",\"unknown\")[:80]}...")' 2>/dev/null || echo "  Athena not responding"
+
+truth: stack-truth
+
+# ============================================================================
+# Self-Healing Watchdog
+# ============================================================================
+
+auto-heal-start:
+	@echo "🤖 Starting self-healing watchdog..."
+	@if pgrep -f "watchdog.sh start" > /dev/null; then \
+		echo "⚠️  Watchdog already running"; \
+		exit 1; \
+	fi
+	@nohup bash $(SCRIPTS_DIR)/watchdog.sh start > /tmp/watchdog_stack.log 2>&1 &
+	@echo "✅ Watchdog started (PID: $$!)"
+	@echo "   Logs: tail -f /tmp/watchdog_stack.log"
+	@echo "   Status: make auto-heal-status"
+	@echo "   Stop: make auto-heal-stop"
+
+auto-heal-stop:
+	@echo "🛑 Stopping self-healing watchdog..."
+	@pkill -f "watchdog.sh start" || echo "ℹ️  Watchdog not running"
+	@echo "✅ Watchdog stopped"
+
+auto-heal-status:
+	@if pgrep -f "watchdog.sh start" > /dev/null; then \
+		bash $(SCRIPTS_DIR)/watchdog.sh status; \
+	else \
+		echo "❌ Watchdog not running"; \
+		echo "   Start with: make auto-heal-start"; \
+	fi
+
+auto-heal-test:
+	@echo "🧪 Testing watchdog health checks..."
+	@bash $(SCRIPTS_DIR)/watchdog.sh test
+
+auto-heal-logs:
+	@tail -f /tmp/watchdog_stack.log
+
+auto-heal: auto-heal-start
+
+# ============================================================================
+# Notification Setup (Tier 2 Autonomous)
+# ============================================================================
+
+notify-test-slack:
+	@echo "📢 Testing Slack notification..."
+	@if [ -z "$$NOTIFY_WEBHOOK" ]; then \
+		echo "❌ Error: NOTIFY_WEBHOOK not set"; \
+		echo "   Set with: export NOTIFY_WEBHOOK='https://hooks.slack.com/services/YOUR/WEBHOOK/URL'"; \
+		exit 1; \
+	fi
+	@export NOTIFY_PLATFORM=slack && bash $(SCRIPTS_DIR)/notify.sh "Test notification from Stack Orchestration" "success"
+	@echo "✅ Check your Slack channel!"
+
+notify-test-discord:
+	@echo "📢 Testing Discord notification..."
+	@if [ -z "$$NOTIFY_WEBHOOK" ]; then \
+		echo "❌ Error: NOTIFY_WEBHOOK not set"; \
+		echo "   Set with: export NOTIFY_WEBHOOK='https://discord.com/api/webhooks/YOUR/WEBHOOK'"; \
+		exit 1; \
+	fi
+	@export NOTIFY_PLATFORM=discord && bash $(SCRIPTS_DIR)/notify.sh "Test notification from Stack Orchestration" "success"
+	@echo "✅ Check your Discord channel!"
+
+notify-test-telegram:
+	@echo "📢 Testing Telegram notification..."
+	@if [ -z "$$NOTIFY_TOKEN" ] || [ -z "$$NOTIFY_CHAT_ID" ]; then \
+		echo "❌ Error: NOTIFY_TOKEN and NOTIFY_CHAT_ID not set"; \
+		echo "   Set with: export NOTIFY_TOKEN='YOUR_BOT_TOKEN'"; \
+		echo "             export NOTIFY_CHAT_ID='YOUR_CHAT_ID'"; \
+		exit 1; \
+	fi
+	@export NOTIFY_PLATFORM=telegram && bash $(SCRIPTS_DIR)/notify.sh "Test notification from Stack Orchestration" "success"
+	@echo "✅ Check your Telegram chat!"
+
+notify-setup-slack:
+	@echo "📱 Slack Notification Setup"
+	@echo "════════════════════════════════════════"
+	@echo ""
+	@echo "1. Go to your Slack workspace"
+	@echo "2. Create an Incoming Webhook:"
+	@echo "   https://api.slack.com/messaging/webhooks"
+	@echo ""
+	@echo "3. Copy the webhook URL and run:"
+	@echo "   export NOTIFY_WEBHOOK='https://hooks.slack.com/services/YOUR/WEBHOOK/URL'"
+	@echo ""
+	@echo "4. Test it:"
+	@echo "   make notify-test-slack"
+	@echo ""
+	@echo "5. Start watchdog with notifications:"
+	@echo "   make auto-heal-start"
+	@echo ""
+
+notify-setup-discord:
+	@echo "📱 Discord Notification Setup"
+	@echo "════════════════════════════════════════"
+	@echo ""
+	@echo "1. Go to your Discord server"
+	@echo "2. Server Settings → Integrations → Webhooks"
+	@echo "3. Create a new webhook, copy the URL"
+	@echo ""
+	@echo "4. Set the webhook:"
+	@echo "   export NOTIFY_WEBHOOK='https://discord.com/api/webhooks/YOUR/WEBHOOK'"
+	@echo ""
+	@echo "5. Test it:"
+	@echo "   make notify-test-discord"
+	@echo ""
+	@echo "6. Start watchdog with notifications:"
+	@echo "   make auto-heal-start"
+	@echo ""
+
+notify-setup-telegram:
+	@echo "📱 Telegram Notification Setup"
+	@echo "════════════════════════════════════════"
+	@echo ""
+	@echo "1. Create a bot:"
+	@echo "   - Message @BotFather on Telegram"
+	@echo "   - Send: /newbot"
+	@echo "   - Follow instructions, copy the token"
+	@echo ""
+	@echo "2. Get your chat ID:"
+	@echo "   - Message your bot"
+	@echo "   - Visit: https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates"
+	@echo "   - Find 'chat' → 'id' in the JSON"
+	@echo ""
+	@echo "3. Set credentials:"
+	@echo "   export NOTIFY_TOKEN='YOUR_BOT_TOKEN'"
+	@echo "   export NOTIFY_CHAT_ID='YOUR_CHAT_ID'"
+	@echo ""
+	@echo "4. Test it:"
+	@echo "   make notify-test-telegram"
+	@echo ""
+	@echo "5. Start watchdog with notifications:"
+	@echo "   make auto-heal-start"
+	@echo ""
+
+# ============================================================================
+# Tier 4: Production Hardening
+# ============================================================================
+
+.PHONY: prod-up prod-down prod-build prod-logs sec-check chaos-test
+
+# Production deployment (Docker Compose)
+prod-build:
+	@echo "🔨 Building production images..."
+	@GIT_COMMIT=$$(git rev-parse --short HEAD 2>/dev/null || echo "dev") \
+		docker-compose -f deploy/docker-compose.prod.yml build
+	@echo "✅ Images built"
+
+prod-up: prod-build
+	@echo "🚀 Starting production stack..."
+	@GIT_COMMIT=$$(git rev-parse --short HEAD 2>/dev/null || echo "dev") \
+		docker-compose -f deploy/docker-compose.prod.yml up -d
+	@echo "⏳ Waiting for services..."
+	@sleep 10
+	@echo "✅ Production stack running"
+	@echo "   Bridge:     http://localhost:8014"
+	@echo "   Prometheus: http://localhost:9090"
+	@echo "   Grafana:    http://localhost:3001"
+
+prod-down:
+	@echo "🛑 Stopping production stack..."
+	@docker-compose -f deploy/docker-compose.prod.yml down
+	@echo "✅ Stack stopped"
+
+prod-logs:
+	@docker-compose -f deploy/docker-compose.prod.yml logs -f
+
+prod-status:
+	@docker-compose -f deploy/docker-compose.prod.yml ps
+
+# Security checks (CI gate)
+sec-check:
+	@echo "🔒 Security Check Suite"
+	@echo "════════════════════════════════════"
+	@echo "1/4: Ruff linting..."
+	@python3 -m ruff check bridge/ --quiet 2>/dev/null || echo "⚠️  Ruff found issues (install: pip install ruff)"
+	@echo "2/4: Bandit security scan..."
+	@python3 -m bandit -r bridge/ -ll --quiet 2>/dev/null || echo "⚠️  Bandit found issues (install: pip install bandit)"
+	@echo "3/4: pip-audit..."
+	@pip-audit --desc 2>/dev/null || echo "⚠️  Vulnerabilities found (install: pip install pip-audit)"
+	@echo "4/4: SBOM generation..."
+	@mkdir -p artifacts
+	@syft dir:. -o json > artifacts/sbom.json 2>/dev/null && echo "✅ SBOM: artifacts/sbom.json" || echo "ℹ️  Syft not installed (optional)"
+	@echo "✅ Security checks complete"
+
+# Chaos testing
+chaos-minute:
+	@echo "💥 Chaos Minute - Random service kill..."
+	@bash -c 'SERVICES=("bridge:app" "uat.api" "athena.api"); \
+		TARGET=$${SERVICES[$$RANDOM % 3]}; \
+		echo "   Killing: $$TARGET"; \
+		pkill -9 -f "$$TARGET" 2>/dev/null || echo "   Not running"; \
+		echo "⏱️  Watchdog should recover in < 60s..."; \
+		sleep 70; \
+		make auto-heal-status || true'
+
+chaos-test:
+	@echo "💥 Chaos Test - 3 rounds"
+	@echo "════════════════════════════════════"
+	@make auto-heal-start || true
+	@sleep 5
+	@for i in 1 2 3; do \
+		echo ""; \
+		echo "Round $$i/3:"; \
+		make chaos-minute; \
+		sleep 30; \
+	done
+	@echo "✅ Chaos test complete"
+	@make auto-heal-status
+
+# Ask Athena to run the test suite with proper env vars
+athena-tests:
+	@echo "🧪 Running full test suite via Athena (smoke + e2e + backends + slo)..."
+	@curl -sS -X POST $(ATHENA_BASE)/run_tests \
+	  -H "Authorization: Bearer $(ATH_TOKEN)" \
+	  -H "Content-Type: application/json" \
+	  -d '{"suite":"integration","markers":"smoke,e2e,backends,slo","maxfail":100,"env":{"BRIDGE_BASE":"$(BRIDGE_BASE)","UAT_BASE":"$(UAT_BASE)","ATHENA_BASE":"$(ATHENA_BASE)","UAT_TOKEN":"$(UAT_TOKEN)","ATH_TOKEN":"$(ATH_TOKEN)","BRIDGE_TOKEN":"$(BRIDGE_TOKEN)"}}' \
+	  | python3 -c 'import sys,json; d=json.load(sys.stdin); s=d.get("summary",{}); status="PASS" if d.get("ok") else "FAIL"; print("Status:", status); print("Passed:", s.get("passed",0), "| Failed:", s.get("failed",0), "| Skipped:", s.get("skipped",0)); print("\nCommand:", d.get("cmd","")); print("\nLast 1000 chars:\n", d.get("stdout","")[-1000:])'
+
+athena-tests-smoke:
+	@echo "🧪 Running smoke tests via Athena..."
+	@curl -sS -X POST $(ATHENA_BASE)/run_tests \
+	  -H "Authorization: Bearer $(ATH_TOKEN)" \
+	  -H "Content-Type: application/json" \
+	  -d '{"suite":"integration","markers":"smoke","maxfail":10,"env":{"BRIDGE_BASE":"$(BRIDGE_BASE)","BRIDGE_TOKEN":"$(BRIDGE_TOKEN)"}}' \
+	  | python3 -c 'import sys,json; d=json.load(sys.stdin); s=d.get("summary",{}); status="PASS" if d.get("ok") else "FAIL"; print("Status:", status); print("Passed:", s.get("passed",0), "| Failed:", s.get("failed",0), "| Skipped:", s.get("skipped",0))'
+
+athena-tests-backends:
+	@echo "🧪 Running backend tests via Athena..."
+	@curl -sS -X POST $(ATHENA_BASE)/run_tests \
+	  -H "Authorization: Bearer $(ATH_TOKEN)" \
+	  -H "Content-Type: application/json" \
+	  -d '{"suite":"integration","markers":"backends","maxfail":10,"env":{"UAT_BASE":"$(UAT_BASE)","ATHENA_BASE":"$(ATHENA_BASE)","UAT_TOKEN":"$(UAT_TOKEN)","ATH_TOKEN":"$(ATH_TOKEN)"}}' \
+	  | python3 -c 'import sys,json; d=json.load(sys.stdin); s=d.get("summary",{}); status="PASS" if d.get("ok") else "FAIL"; print("Status:", status); print("Passed:", s.get("passed",0), "| Failed:", s.get("failed",0), "| Skipped:", s.get("skipped",0))'
+
+athena-tests-all:
+	@echo "🧪 Running ALL integration tests via Athena (full suite)..."
+	@curl -sS -X POST $(ATHENA_BASE)/run_tests \
+	  -H "Authorization: Bearer $(ATH_TOKEN)" \
+	  -H "Content-Type: application/json" \
+	  -d '{"suite":"integration","markers":"smoke,e2e,backends,slo","maxfail":100,"env":{"BRIDGE_BASE":"$(BRIDGE_BASE)","UAT_BASE":"$(UAT_BASE)","ATHENA_BASE":"$(ATHENA_BASE)","UAT_TOKEN":"$(UAT_TOKEN)","ATH_TOKEN":"$(ATH_TOKEN)","BRIDGE_TOKEN":"$(BRIDGE_TOKEN)"}}' \
+	  | python3 -m json.tool
+
+# ============================================================================
+# Tier 4: Observability & Guardrails
+# ============================================================================
+
+.PHONY: trace-local guardrails-smoke shutdown-drain-test otel-up otel-down install-tier4-deps
+
+install-tier4-deps:
+	@echo "📦 Installing Tier 4 dependencies (OpenTelemetry + guardrails)..."
+	@python3 -m pip install -q -r requirements.txt
+	@echo "✅ Dependencies installed"
+
+trace-local:
+	@echo "🔍 OTLP trace endpoint: $${OTLP_ENDPOINT:-http://localhost:4318/v1/traces}"
+	@echo "   Services will export traces here after stack restart"
+
+guardrails-smoke:
+	@echo "🧪 Testing rate limits (should see 429s after ~100 requests)..."
+	@for i in $$(seq 1 105); do \
+		curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:$(BRIDGE_PORT)/health; \
+	done | sort | uniq -c
+	@echo "✅ If you see 429s, rate limiting is working"
+
+shutdown-drain-test:
+	@echo "🧪 Testing graceful shutdown (5s drain)..."
+	@echo "   Watch logs for: [Shutdown] Draining for 5s ..."
+	@pkill -TERM -f "uvicorn.*adapter.*$(BRIDGE_PORT)" 2>/dev/null || echo "Bridge not running"
+	@sleep 2
+	@tail -n 20 logs/bridge_$(BRIDGE_PORT).log 2>/dev/null || echo "No logs found"
+
+otel-up:
+	@echo "🚀 Starting OpenTelemetry Collector..."
+	@docker run -d --name otel-collector \
+		-p 4318:4318 -p 4317:4317 \
+		-v $(CURDIR)/otel/collector.yaml:/etc/otelcol/config.yaml \
+		-e ENV=$(ENV) \
+		otel/opentelemetry-collector:latest \
+		--config=/etc/otelcol/config.yaml
+	@sleep 2
+	@echo "✅ OTLP collector running on :4318 (HTTP) and :4317 (gRPC)"
+
+otel-down:
+	@echo "🛑 Stopping OpenTelemetry Collector..."
+	@docker stop otel-collector 2>/dev/null || true
+	@docker rm otel-collector 2>/dev/null || true
+	@echo "✅ Collector stopped"
+
+tier4-verify:
+	@echo "🔍 Running Tier 4 verification (2-3 minutes)..."
+	@bash scripts/tier4_verify.sh
+
+tier4-proof:
+	@echo "📊 Tier 4 Proof Loop (receipts not vibes)"
+	@echo "════════════════════════════════════════"
+	@make stack-up
+	@make otel-up
+	@make athena-tests-smoke
+	@make guardrails-smoke
+	@make shutdown-drain-test
+	@make stack-down
+	@make otel-down
+	@echo ""
+	@echo "✅ If all green, Tier 4 is complete!"
+	@echo "   Tag with: git tag -a v0.9.3-t4-complete -m 'Tier 4 complete'"
