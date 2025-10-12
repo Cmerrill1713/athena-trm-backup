@@ -17,7 +17,7 @@ struct NeuroForgeApp: App {
     var body: some Scene {
         WindowGroup {
             if hasCompletedFirstRun {
-                ChatView() // uses HealthBanner + model-agnostic routing
+                ChatViewEnhanced() // ✅ Meta-aware + voice + confidence sparkline
                 .environmentObject(prompts)
                 .overlay(alignment: .leading) {
                     if ProcessInfo.processInfo.environment["QA_MODE"] == "1",

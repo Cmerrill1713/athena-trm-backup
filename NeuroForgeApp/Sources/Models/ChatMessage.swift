@@ -7,7 +7,7 @@ struct ChatMessage: Identifiable {
     let role: Role
     let content: String
     let timestamp: Date
-    var meta: MetaPromptResponse?
+    var meta: MetaPromptInfo?  // ✅ Updated to use MetaPromptInfo
     
     enum Role {
         case user
@@ -20,7 +20,7 @@ struct ChatMessage: Identifiable {
         }
     }
     
-    init(role: Role, content: String, meta: MetaPromptResponse? = nil) {
+    init(role: Role, content: String, meta: MetaPromptInfo? = nil) {
         self.role = role
         self.content = content
         self.timestamp = Date()
