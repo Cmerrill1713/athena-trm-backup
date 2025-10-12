@@ -1,0 +1,9 @@
+# NeuroForge Orchestrator Dependencies
+# Minimal - runs on stdlib!
+
+pyyaml>=6.0
+pytest>=7.4.0
+
+# Optional: For future enhancements
+# sentence-transformers  # Real embeddings
+# requests              # API providers
