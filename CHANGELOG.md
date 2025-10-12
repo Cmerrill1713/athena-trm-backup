@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased] (v0.9.2-dev)
+## [0.9.2] - 2025-10-12
 
 ### Added
 - **Provider Inspector Toggle** - QA overlay for runtime routing control
