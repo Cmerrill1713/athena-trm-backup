@@ -121,8 +121,16 @@ help:
 	@echo "  prod-down             - Stop production stack"
 	@echo "  prod-status           - Show container status"
 	@echo "  sec-check             - Run security checks (ruff+bandit+pip-audit+SBOM)"
+	@echo "  tier4-proof           - Production gate (6 validation checks)"
 	@echo "  chaos-minute          - Kill random service, test recovery"
 	@echo "  chaos-test            - Full chaos testing (3 rounds)"
+	@echo ""
+	@echo "🧠 Athena Branch Enforcement (Tier 5):"
+	@echo "  install-pre-push      - Install Athena pre-push hook (all branches)"
+	@echo "  athena-canary         - Deploy canary, test SLOs, auto-promote/rollback"
+	@echo "  athena-history        - View canary deployment audit trail"
+	@echo "  athena-cleanup        - Remove all canary environments"
+	@echo "  athena-override       - Emergency bypass (logged and reported)"
 	@echo ""
 	@echo "🧪 Testing:"
 	@echo "  athena-tests          - Run integration tests via Athena (smoke+e2e+backends+slo)"
@@ -1688,6 +1696,65 @@ tier4-proof:
 	@echo "  make prod-up        # Docker deployment"
 	@echo "  make chaos-test     # Resilience validation"
 	@echo "  make sec-check      # Security scan"
+
+# ============================================================================
+# Tier 5: Athena Branch Enforcement (Autonomous GitOps)
+# ============================================================================
+
+.PHONY: athena-canary athena-history athena-cleanup install-pre-push athena-override
+
+# Install Athena pre-push hook globally
+install-pre-push:
+	@echo "🧠 Installing Athena pre-push hook..."
+	@chmod +x .git/hooks/pre-push
+	@echo "✅ Pre-push hook installed"
+	@echo "   Runs on ALL branches before push"
+	@echo "   Validates: Health, SLOs, Security, Secrets"
+	@echo ""
+	@echo "Test it: make a commit and try: git push"
+
+# Deploy branch canary (auto SLO check + promote/rollback)
+athena-canary:
+	@echo "🧠 Deploying branch canary with Athena..."
+	@bash scripts/canary_branch.sh
+
+# View Athena canary history
+athena-history:
+	@echo "🧠 Athena Canary Audit Trail"
+	@echo "════════════════════════════════════════"
+	@if [ -f /tmp/athena_canary_audit.log ]; then \
+		cat /tmp/athena_canary_audit.log | tail -50; \
+	else \
+		echo "No audit log found"; \
+		echo "Run 'make athena-canary' to create"; \
+	fi
+	@echo ""
+	@echo "Filter by branch:"
+	@echo "  grep 'branch=feature/mybranch' /tmp/athena_canary_audit.log"
+
+# Cleanup all canary environments
+athena-cleanup:
+	@echo "🧹 Cleaning up all canary environments..."
+	@pkill -f "uvicorn.*8015" 2>/dev/null || echo "  No canary on :8015"
+	@pkill -f "uvicorn.*8016" 2>/dev/null || echo "  No canary on :8016"
+	@pkill -f "uvicorn.*8017" 2>/dev/null || echo "  No canary on :8017"
+	@rm /tmp/canary*.pid 2>/dev/null || true
+	@echo "✅ Canary cleanup complete"
+
+# Admin override (emergency bypass)
+athena-override:
+	@echo "🚨 ATHENA OVERRIDE - BREAKING THE GLASS"
+	@echo "════════════════════════════════════════"
+	@echo ""
+	@read -p "Admin password: " PASS && [ "$$PASS" = "$(shell whoami)" ] || (echo "❌ Incorrect" && exit 1)
+	@echo ""
+	@echo "✅ Override granted"
+	@echo "⚠️  This bypass will be logged and reported"
+	@log_audit "OVERRIDE user=$(shell whoami) branch=$(git rev-parse --abbrev-ref HEAD) commit=$(git rev-parse --short HEAD) reason=admin_override"
+	@export ATHENA_OVERRIDE=1
+	@echo ""
+	@echo "Push without validation:"
+	@echo "  ATHENA_OVERRIDE=1 git push --no-verify"
 
 # Ask Athena to run the test suite with proper env vars
 athena-tests:
