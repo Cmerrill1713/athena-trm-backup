@@ -67,7 +67,7 @@ struct TracePanelView: View {
                             Task { await loadDetail(t.id) }
                         } label: {
                             HStack {
-                                Text(t.capability.uppercased())
+                                Text(t.capability)
                                     .font(.caption2)
                                     .padding(.horizontal, 6)
                                     .padding(.vertical, 3)

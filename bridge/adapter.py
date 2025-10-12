@@ -17,6 +17,13 @@ from typing import Dict, Any, Optional, List
 from pydantic import BaseModel
 import logging
 
+# Import rate limiter
+try:
+    from rate_limiter import RateLimiter
+    rate_limiter = RateLimiter(requests_per_minute=60)
+except ImportError:
+    rate_limiter = None  # Graceful degradation
+
 # Logging setup
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -181,8 +188,20 @@ async def get_trace(trace_id: str):
 
 # === Chat / Task to Athena ===
 @app.post("/chat", response_model=ChatResponse)
-async def chat(request: ChatRequest, x_route: Optional[str] = Header(default=None)):
+async def chat(
+    request: ChatRequest,
+    x_route: Optional[str] = Header(default=None),
+    x_bridge_token: Optional[str] = Header(default=None)
+):
     """Forward chat requests to Athena agent system"""
+    require_bridge_auth(x_bridge_token)
+
+    # Rate limiting
+    if rate_limiter:
+        token = x_bridge_token or "anonymous"
+        if not rate_limiter.is_allowed(token):
+            raise HTTPException(status_code=429, detail="Rate limit exceeded (60 req/min)")
+
     # Use header override if provided, otherwise use request route
     route = x_route or request.route or "auto"
 
