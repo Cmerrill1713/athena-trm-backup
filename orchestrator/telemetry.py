@@ -78,3 +78,90 @@ def finish_trace(trace: Dict, output: Dict) -> Dict:
 def export_trace(trace: Dict) -> str:
     """Export trace as JSON string"""
     return json.dumps(trace, indent=2, default=str)
+
+
+# ============================================
+# Optional: SQLite Persistence
+# ============================================
+
+import sqlite3
+import os
+
+_DB = os.environ.get("TELEMETRY_DB", "./state/telemetry.sqlite")
+
+
+def _ensure_db():
+    """Ensure telemetry database exists"""
+    os.makedirs(os.path.dirname(_DB), exist_ok=True)
+    with sqlite3.connect(_DB) as c:
+        c.execute("""CREATE TABLE IF NOT EXISTS traces(
+            trace_id TEXT PRIMARY KEY,
+            capability TEXT,
+            policy_version TEXT,
+            started_at REAL,
+            ended_at REAL,
+            duration_ms INTEGER,
+            input_hash TEXT,
+            output_hash TEXT,
+            raw_json TEXT
+        )""")
+        c.commit()
+
+
+def persist_trace(trace: Dict):
+    """
+    Persist trace to SQLite for queryable history
+
+    Args:
+        trace: Completed trace dictionary
+    """
+    _ensure_db()
+
+    with sqlite3.connect(_DB) as c:
+        c.execute("""INSERT OR REPLACE INTO traces
+            (trace_id, capability, policy_version, started_at, ended_at,
+             duration_ms, input_hash, output_hash, raw_json)
+            VALUES (?,?,?,?,?,?,?,?,?)""",
+            (
+                trace["trace_id"],
+                trace["capability"],
+                trace["policy_version"],
+                trace["started_at"],
+                trace.get("ended_at"),
+                trace.get("duration_ms"),
+                trace["input_hash"],
+                trace.get("output_hash"),
+                json.dumps(trace, default=str)
+            )
+        )
+        c.commit()
+
+
+def query_traces(capability: str = None, limit: int = 100) -> list:
+    """
+    Query traces from SQLite
+
+    Args:
+        capability: Optional capability filter
+        limit: Max results
+
+    Returns:
+        List of trace dicts
+    """
+    _ensure_db()
+
+    with sqlite3.connect(_DB) as c:
+        c.row_factory = sqlite3.Row
+
+        if capability:
+            cursor = c.execute(
+                "SELECT * FROM traces WHERE capability = ? ORDER BY started_at DESC LIMIT ?",
+                (capability, limit)
+            )
+        else:
+            cursor = c.execute(
+                "SELECT * FROM traces ORDER BY started_at DESC LIMIT ?",
+                (limit,)
+            )
+
+        return [dict(row) for row in cursor.fetchall()]

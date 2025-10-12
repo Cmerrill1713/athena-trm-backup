@@ -41,6 +41,17 @@ def get_providers(capability: str) -> List[ProviderSpec]:
     return REGISTRY.get(capability, [])
 
 
+def unregister_provider(capability: str, name: str) -> None:
+    """Remove a provider from registry"""
+    if capability in REGISTRY:
+        REGISTRY[capability] = [p for p in REGISTRY[capability] if p["name"] != name]
+
+
+def list_providers(capability: str) -> List[ProviderSpec]:
+    """Get all providers for a specific capability"""
+    return list(REGISTRY.get(capability, []))
+
+
 def list_capabilities() -> List[str]:
     """List all registered capabilities"""
     return list(REGISTRY.keys())

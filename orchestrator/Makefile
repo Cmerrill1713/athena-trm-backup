@@ -34,12 +34,18 @@ demo:
 	@echo "🎬 Running demo..."
 	@$(PY) -c "from router import run_capability; import json; result = run_capability('summarize', {'id':'DEMO','subject':'Example','body':'Hello world'}, {'max_tokens':256}); print(json.dumps(result, indent=2, default=str))"
 
+api:
+	@echo "🚀 Starting API server on :8765..."
+	@$(PY) -m uvicorn api:app --reload --port 8765
+
 all: install preflight test demo
 	@echo ""
 	@echo "🎉 Orchestrator ready to use!"
+	@echo ""
+	@echo "Run 'make api' to start REST API on :8765"
 
 clean:
 	@rm -rf __pycache__ */__pycache__ */*/__pycache__
 	@rm -rf .pytest_cache
-	@rm -rf memory/*.db
+	@rm -rf state/
 	@echo "✅ Cleaned artifacts"
