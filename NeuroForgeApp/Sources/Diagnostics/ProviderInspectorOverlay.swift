@@ -22,11 +22,22 @@ struct ProviderInspectorOverlay: View {
                 ForEach(ProviderRoute.allCases, id: \.self) { r in
                     Text(label(r)).tag(r)
                 }
-            }
-            .pickerStyle(.segmented)
-            .onChange(of: vm.active) { _, newValue in
-                Task { await vm.pushToBackendIfSupported() }
-            }
+                }
+                .pickerStyle(.segmented)
+                .onChange(of: vm.active) { _, newValue in
+                    Task { await vm.pushToBackendIfSupported() }
+                }
+
+                // Show which route is actually being used
+                HStack {
+                    Text("Active route:")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Text(vm.active == .auto ? "Auto (policy)" : vm.active.rawValue)
+                        .font(.caption)
+                        .fontWeight(.medium)
+                    Spacer()
+                }
             .accessibilityIdentifier("provider_picker")
 
             Divider().padding(.vertical, 4)
