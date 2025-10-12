@@ -205,6 +205,94 @@ async def health():
         timestamp=datetime.datetime.utcnow().isoformat()
     )
 
+@app.get("/api/probe/e2e")
+async def probe_e2e():
+    """
+    QA frontend probe endpoint - simplified health check
+    Returns minimal status for QA mode compatibility
+    """
+    import datetime
+    import time as time_mod
+    
+    start = time_mod.time()
+    results = []
+    
+    async with httpx.AsyncClient(timeout=3) as client:
+        # Check Bridge itself
+        results.append({
+            "service": "bridge",
+            "url": "http://127.0.0.1:8014",
+            "status": "pass",
+            "http": 200,
+            "latency_ms": 0.1,
+            "note": "Bridge adapter healthy",
+            "critical": True
+        })
+        
+        # Check UAT
+        try:
+            uat_resp = await client.get(f"{UAT_BASE}/health", headers=auth_headers(UAT_TOKEN))
+            results.append({
+                "service": "uat",
+                "url": UAT_BASE,
+                "status": "pass" if uat_resp.status_code == 200 else "fail",
+                "http": uat_resp.status_code,
+                "latency_ms": uat_resp.elapsed.total_seconds() * 1000,
+                "note": "UAT service" if uat_resp.status_code == 200 else f"HTTP {uat_resp.status_code}",
+                "critical": True
+            })
+        except Exception as e:
+            results.append({
+                "service": "uat",
+                "url": UAT_BASE,
+                "status": "fail",
+                "http": 0,
+                "latency_ms": 0,
+                "note": str(e)[:50],
+                "critical": True
+            })
+        
+        # Check Athena
+        try:
+            ath_resp = await client.get(f"{ATHENA_BASE}/health", headers=auth_headers(ATH_TOKEN))
+            results.append({
+                "service": "athena",
+                "url": ATHENA_BASE,
+                "status": "pass" if ath_resp.status_code == 200 else "fail",
+                "http": ath_resp.status_code,
+                "latency_ms": ath_resp.elapsed.total_seconds() * 1000,
+                "note": "Athena service" if ath_resp.status_code == 200 else f"HTTP {ath_resp.status_code}",
+                "critical": True
+            })
+        except Exception as e:
+            results.append({
+                "service": "athena",
+                "url": ATHENA_BASE,
+                "status": "fail",
+                "http": 0,
+                "latency_ms": 0,
+                "note": str(e)[:50],
+                "critical": True
+            })
+    
+    duration_ms = (time_mod.time() - start) * 1000
+    
+    # Count statuses
+    counts = {
+        "pass": sum(1 for r in results if r["status"] == "pass"),
+        "warn": sum(1 for r in results if r["status"] == "warn"),
+        "fail": sum(1 for r in results if r["status"] == "fail"),
+        "unused": sum(1 for r in results if r["status"] == "unused"),
+    }
+    
+    return {
+        "started_at": datetime.datetime.utcnow().isoformat(),
+        "duration_ms": duration_ms,
+        "total_services": len(results),
+        "counts": counts,
+        "services": results
+    }
+
 # === Traces (UAT owns telemetry) ===
 @app.get("/traces")
 async def traces(
