@@ -1,9 +1,53 @@
 {
-  "version": "1",
+  "version": "2",
   "defaults": {
     "provider": "router",
     "latency_budget_ms": 2500,
     "max_tokens": 1024
+  },
+  "vision": {
+    "enabled": true,
+    "providers": [
+      {
+        "name": "fastvlm",
+        "base": "http://127.0.0.1:8811",
+        "weight": 0.7,
+        "modes": ["describe", "ocr", "qa"]
+      },
+      {
+        "name": "ollama-vision",
+        "base": "http://127.0.0.1:11434",
+        "weight": 0.3,
+        "modes": ["describe", "ocr"]
+      }
+    ],
+    "strategy": "health_then_latency",
+    "timeouts_ms": {
+      "health": 800,
+      "inference": 30000
+    }
+  },
+  "chat": {
+    "enabled": true,
+    "providers": [
+      {
+        "name": "ollama",
+        "base": "http://127.0.0.1:11434",
+        "bucket": "fast"
+      },
+      {
+        "name": "mlx",
+        "base": "http://127.0.0.1:8877",
+        "bucket": "balanced"
+      },
+      {
+        "name": "trm",
+        "base": "http://127.0.0.1:3033",
+        "bucket": "reasoning"
+      }
+    ],
+    "classifier": "TaskClassifier.v1",
+    "strategy": "bucket_then_latency"
   },
   "tasks": {
     "chat.smalltalk": {
@@ -22,16 +66,16 @@
       "budget_ms": 5000
     },
     "vision.describe": {
-      "provider": "llm_router",
+      "provider": "vision_router",
       "modality": "vision"
     },
     "vision.ocr": {
-      "provider": "llm_router",
+      "provider": "vision_router",
       "modality": "vision",
       "task_type": "ocr"
     },
     "vision.chart": {
-      "provider": "llm_router",
+      "provider": "vision_router",
       "modality": "vision",
       "task_type": "chart"
     },
@@ -45,6 +89,9 @@
     }
   },
   "providers": {
+    "vision_router": {
+      "endpoint": "http://localhost:8014/api/vision/route"
+    },
     "llm_router": {
       "endpoint": "http://localhost:8014/api/chat"
     },
@@ -60,6 +107,11 @@
     "router": {
       "endpoint": "http://localhost:8014/api/route"
     }
+  },
+  "circuit_breaker": {
+    "open_threshold": 5,
+    "half_open_after_ms": 30000,
+    "success_threshold": 2
   },
   "fallbacks": [
     {

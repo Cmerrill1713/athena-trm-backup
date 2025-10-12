@@ -120,6 +120,10 @@ help:
 	@echo "  GO_LIVE_CHECKLIST.md                    # Deployment guide"
 	@echo "  FASTVLM_FINAL_SUMMARY.md                # Complete reference"
 	@echo ""
+	@echo "🎮 Control Panel:"
+	@echo "  athena-menu          - Interactive menu (or just type: athena)"
+	@echo "  Desktop shortcuts:   Start Athena.command, Panic Athena.command"
+	@echo ""
 
 # ============================================================================
 # Assistant Broker
@@ -733,6 +737,13 @@ model-pipeline:
 		exit 1; \
 	fi
 	@bash scripts/model_pipeline.sh --base "$(BASE)" --data "$(DATA)" --name "$(NAME)"
+
+# ============================================================================
+# Athena Control Menu
+# ============================================================================
+
+athena-menu:
+	@bash scripts/athena_menu.sh
 
 # Kokoro TTS Server
 kokoro-start:

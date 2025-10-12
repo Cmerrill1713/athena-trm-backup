@@ -121,3 +121,18 @@ test_kokoro.py
 *.pkl
 *.pickle
 
+
+# Transcript files (too large, already embedded in Weaviate)
+*.vtt
+*_transcripts/
+ai_coding_transcripts/
+indydevdan_transcripts/
+.embed_state.jsonl
+
+# Service logs
+/tmp/*.log
+*.log
+
+# Python cache
+__pycache__/
+*.pyc

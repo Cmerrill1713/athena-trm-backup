@@ -116,3 +116,35 @@ qa:
 	@echo "  ✅ All UI flows"
 	@echo ""
 	@echo "🚀 Ready to ship!"
+
+# Complete QA Sweep
+.PHONY: qa
+qa:
+	@echo "🔥 Running Full QA Sweep..."
+	@echo "=================================="
+	@echo
+	@echo "🧹 Step 1: Clean build artifacts"
+	@$(MAKE) clean
+	@echo
+	@echo "🧠 Step 2: Backend health check (6 services)"
+	@cd .. && make green || true
+	@echo
+	@echo "🚀 Step 3: Warmup services"
+	@bash scripts/warmup_services.sh || true
+	@echo
+	@echo "🧪 Step 4: Running full test suite..."
+	@$(MAKE) xctest
+	@echo
+	@echo "📊 Step 5: Generating summary..."
+	@echo "=================================="
+	@echo "✅ QA Sweep Complete!"
+	@echo
+	@echo "📁 Artifacts:"
+	@ls -lh artifacts/ 2>/dev/null || echo "  (artifacts directory empty or not created)"
+	@echo
+	@echo "🎯 Next: Check artifacts/xcodebuild-ui-tests.log for details"
+
+.PHONY: golden-ci
+golden-ci:
+	@echo "🧪 Running Golden CI (with tolerance)..."
+	@GOLDEN_TOLERANCE=0.003 $(MAKE) xctest

@@ -1,12 +1,13 @@
 import Foundation
 
 public struct VisionDescribeRequest: Codable {
-    public let kind: String = "vision.describe"
+    public var kind: String  // Will be set to "vision.describe" by init
     public let prompt: String
     public let imageBase64: String   // data:image/png;base64,....
     public let metadata: [String: String]?
 
     public init(prompt: String, imageBase64: String, metadata: [String: String]? = nil) {
+        self.kind = "vision.describe"
         self.prompt = prompt
         self.imageBase64 = imageBase64
         self.metadata = metadata
