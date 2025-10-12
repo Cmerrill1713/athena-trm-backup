@@ -1,0 +1,149 @@
+#!/bin/bash
+
+# Universal AI Tools - macOS Application Launcher
+# This script launches the Universal AI Tools platform
+
+set -e
+
+# Get the directory where the app bundle is located
+APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+# Use the main project directory instead of the app bundle resources
+PROJECT_DIR="$(dirname "$APP_DIR")"
+
+# Colors for output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+echo -e "${BLUE}🚀 Universal AI Tools${NC}"
+echo "=============================================="
+echo ""
+
+# Check if Docker is installed
+if ! command -v docker &> /dev/null; then
+    echo -e "${RED}❌ Docker is not installed!${NC}"
+    echo ""
+    echo "Please install Docker Desktop from: https://www.docker.com/products/docker-desktop"
+    echo ""
+    read -p "Press Enter to open Docker download page..."
+    open "https://www.docker.com/products/docker-desktop"
+    exit 1
+fi
+
+# Check if Docker is running
+if ! docker info &> /dev/null; then
+    echo -e "${YELLOW}⚠️  Docker is not running!${NC}"
+    echo ""
+    echo "Please start Docker Desktop and try again."
+    echo ""
+    read -p "Press Enter to continue..."
+    exit 1
+fi
+
+# Navigate to the project directory
+cd "$PROJECT_DIR"
+
+# Check if docker-compose.yml exists
+if [ ! -f "docker-compose.yml" ]; then
+    echo -e "${RED}❌ Error: docker-compose.yml not found in project directory!${NC}"
+    exit 1
+fi
+
+echo -e "${BLUE}🐳 Starting Universal AI Tools...${NC}"
+echo ""
+
+# Start only the database services (PostgreSQL)
+echo -e "${YELLOW}🚀 Starting database services...${NC}"
+docker-compose up -d postgres
+
+# Wait for database to be ready
+echo "Waiting for database to initialize..."
+sleep 10
+
+# Start the Node.js backend
+echo -e "${YELLOW}🚀 Starting Node.js backend...${NC}"
+cd nodejs-api-server
+if [ ! -f "package.json" ]; then
+    echo -e "${RED}❌ Error: Node.js API server not found!${NC}"
+    exit 1
+fi
+
+# Install dependencies if needed
+if [ ! -d "node_modules" ]; then
+    echo "Installing Node.js dependencies..."
+    npm install
+fi
+
+# Start the Node.js server in background
+echo "Starting Node.js server..."
+npm run dev &
+NODE_PID=$!
+
+# Wait for services to start
+sleep 5
+
+# Check if services are running
+echo -e "${BLUE}🔍 Checking service status...${NC}"
+cd ..
+
+# Check database
+if docker exec universal-ai-tools-postgres pg_isready -U postgres > /dev/null 2>&1; then
+    echo -e "${GREEN}✅ PostgreSQL Database: Running${NC}"
+else
+    echo -e "${YELLOW}⚠️  PostgreSQL Database: Starting...${NC}"
+fi
+
+# Check Node.js service
+if curl -s http://localhost:3000 > /dev/null 2>&1; then
+    echo -e "${GREEN}✅ Node.js Backend: Running${NC}"
+else
+    echo -e "${YELLOW}⚠️  Node.js Backend: Starting...${NC}"
+fi
+
+echo ""
+echo -e "${GREEN}✅ Universal AI Tools is now running!${NC}"
+echo ""
+echo -e "${BLUE}🌐 Access your AI assistant at:${NC}"
+echo "   http://localhost:3000"
+echo ""
+echo -e "${BLUE}📊 Service endpoints:${NC}"
+echo "   • Node.js Backend: http://localhost:3000"
+echo "   • PostgreSQL Database: localhost:5432"
+echo ""
+echo -e "${BLUE}🔧 Management commands:${NC}"
+echo "   • Stop services: docker-compose down"
+echo "   • View logs: docker-compose logs -f"
+echo "   • Restart: docker-compose restart"
+echo ""
+
+# Open the web interface
+echo -e "${YELLOW}🌐 Opening web interface...${NC}"
+open "http://localhost:3000"
+
+echo ""
+echo -e "${GREEN}🎉 Universal AI Tools is ready!${NC}"
+echo "The web interface should open in your browser."
+echo ""
+echo "Press Ctrl+C to stop the services when you're done."
+echo ""
+
+# Keep the script running and show logs
+echo "Monitoring services..."
+while true; do
+    sleep 30
+    if ! docker exec universal-ai-tools-postgres pg_isready -U postgres > /dev/null 2>&1; then
+        echo -e "${RED}❌ Database connection lost!${NC}"
+        break
+    fi
+    if ! curl -s http://localhost:3000 > /dev/null 2>&1; then
+        echo -e "${RED}❌ Node.js backend connection lost!${NC}"
+        break
+    fi
+done
+
+# Cleanup on exit
+echo "Shutting down services..."
+kill $NODE_PID 2>/dev/null || true
+docker-compose down

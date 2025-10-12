@@ -1,0 +1,152 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: universal-ai-postgres
+    environment:
+      POSTGRES_DB: universal_ai_tools
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./supabase/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - universal-ai-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: universal-ai-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - universal-ai-network
+
+  # LLM Router Service
+  llm-router:
+    build:
+      context: .
+      dockerfile: Dockerfile.llm-router
+    container_name: universal-ai-llm-router
+    ports:
+      - "3033:3033"
+    environment:
+      - LLM_ROUTER_PORT=3033
+      - OLLAMA_URL=${OLLAMA_URL:-http://host.docker.internal:11434}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3033/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - universal-ai-network
+
+  # Intelligent Librarian Service
+  intelligent-librarian:
+    build:
+      context: .
+      dockerfile: Dockerfile.intelligent-librarian
+    container_name: universal-ai-librarian
+    ports:
+      - "8082:8082"
+    environment:
+      - LIBRARIAN_PORT=8082
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-password}@postgres:5432/universal_ai_tools
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - universal-ai-network
+
+  # Assistant Service
+  assistantd:
+    build:
+      context: .
+      dockerfile: Dockerfile.assistantd
+    container_name: universal-ai-assistant
+    ports:
+      - "8086:8086"
+    environment:
+      - ASSISTANTD_PORT=8086
+      - LLM_ROUTER_URL=http://llm-router:3033
+      - LIBRARIAN_URL=http://intelligent-librarian:8082
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-password}@postgres:5432/universal_ai_tools
+      - REDIS_URL=redis://redis:6379
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-mxbai-embed-large:latest}
+      - RATE_LIMITING_ENABLED=${RATE_LIMITING_ENABLED:-true}
+      - AUTHENTICATION_ENABLED=${AUTHENTICATION_ENABLED:-false}
+      - CORS_ENABLED=${CORS_ENABLED:-true}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      llm-router:
+        condition: service_healthy
+      intelligent-librarian:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8086/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - universal-ai-network
+
+  # Monitoring Dashboard (Optional)
+  monitoring:
+    image: prom/prometheus:latest
+    container_name: universal-ai-monitoring
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - universal-ai-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  prometheus_data:
+    driver: local
+
+networks:
+  universal-ai-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

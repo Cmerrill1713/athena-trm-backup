@@ -1,0 +1,16 @@
+{
+  "provider": "kokoro",
+  "kokoro_url": "http://127.0.0.1:8020",
+  "voice_aliases": {
+    "serna": "af_heart",
+    "athena": "af_heart",
+    "warm": "af_heart",
+    "clear": "af_sky",
+    "neutral": "af",
+    "male": "am"
+  },
+  "default_voice": "serna",
+  "rate": 0.95,
+  "pitch": 1.05,
+  "volume": 0.9
+}

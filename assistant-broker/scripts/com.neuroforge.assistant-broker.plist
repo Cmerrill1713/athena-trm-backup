@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.neuroforge.assistant-broker</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/release/assistant-broker</string>
+    <string>serve</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PORT</key><string>8080</string>
+    <key>ASSISTANT_BROKER_TOKEN</key><string>CHANGE_ME_TO_RANDOM_TOKEN</string>
+  </dict>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>StandardOutPath</key><string>/Users/christianmerrill/Library/Logs/AssistantBroker.out.log</string>
+  <key>StandardErrorPath</key><string>/Users/christianmerrill/Library/Logs/AssistantBroker.err.log</string>
+</dict>
+</plist>

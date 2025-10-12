@@ -1,0 +1,120 @@
+# Node / web
+node_modules/
+.next/
+dist/
+build/
+.npm/
+.yarn/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+ENV/
+env/
+kokoro-venv/
+.env
+.env.*
+!.env.example
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Swift / Xcode
+DerivedData/
+*.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+*.xcuserdatad/
+*.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+*.swiftmodule
+*.swiftdoc
+
+# Go / Rust cache
+target/
+*.prof
+coverage/
+Cargo.lock
+
+# Docker & local
+docker-data/
+*.log
+*.tmp
+.tmp/
+.cache/
+/tmp/
+
+# Artifacts & datasets
+artifacts/*.log
+artifacts/*.zip
+artifacts/*.json
+!artifacts/.gitkeep
+*.tar
+*.tar.gz
+*.sqlite
+*.db
+*.csv
+*.parquet
+
+# Models / weights (use LFS)
+models/*.pt
+models/*.bin
+models/*.safetensors
+checkpoints/
+*.ckpt
+
+# Backups
+backups/*.sql
+backups/*.dump
+backups/*.zst
+!backups/.gitkeep
+
+# OS noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+logs/*.log
+/tmp/
+*.out
+*.err
+
+# Secrets & credentials
+*.key
+*.pem
+*.crt
+credentials/
+secrets/
+.secrets/
+
+# Temp files
+*.bak
+*.backup
+.env.shadow
+models/routing_flags.json
+
+# Test outputs
+test_*.swift
+VoiceProof
+VoiceProof.swift
+test_kokoro.py
+*.wav
+*.mp3
+
+# Large data files
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+

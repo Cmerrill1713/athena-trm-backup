@@ -1,0 +1,16 @@
+# TRM Evolution - Nightly Autopilot Schedule
+# Install with: crontab crontab.example
+
+# Run full evolution cycle at 2 AM daily
+# Trains from last 7 days, evaluates, and auto-promotes if safe
+0 2 * * * cd ~/Documents/GitHub && make learn DAYS=7 >> logs/evolution.log 2>&1
+
+# Optional: Weekly health check on Sundays at midnight
+0 0 * * 0 cd ~/Documents/GitHub && make check-health >> logs/health.log 2>&1
+
+# Optional: Archive old routing outcomes monthly (first day of month at 3 AM)
+# 0 3 1 * * cd ~/Documents/GitHub && psql "$DATABASE_URL" -f scripts/learn/archive_old_outcomes.sql >> logs/archive.log 2>&1
+
+# Optional: Metrics snapshot every hour (for long-term trending)
+# 0 * * * * curl -s http://localhost:8080/metrics > ~/Documents/GitHub/logs/metrics/$(date +\%Y\%m\%d_\%H00).txt
+

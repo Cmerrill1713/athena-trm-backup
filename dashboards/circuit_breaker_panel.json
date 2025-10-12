@@ -1,0 +1,44 @@
+{
+  "title": "Circuit Breaker Status",
+  "type": "stat",
+  "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 },
+  "targets": [
+    {
+      "expr": "circuit_breaker_open",
+      "legendFormat": "{{model}}",
+      "refId": "A"
+    }
+  ],
+  "options": {
+    "reduceOptions": {
+      "values": false,
+      "calcs": ["lastNotNull"]
+    },
+    "orientation": "auto",
+    "textMode": "value_and_name",
+    "colorMode": "background",
+    "graphMode": "none",
+    "justifyMode": "auto"
+  },
+  "fieldConfig": {
+    "defaults": {
+      "mappings": [
+        {
+          "type": "value",
+          "options": {
+            "0": { "text": "CLOSED ✅", "color": "green" },
+            "1": { "text": "OPEN 🔥", "color": "red" }
+          }
+        }
+      ],
+      "thresholds": {
+        "mode": "absolute",
+        "steps": [
+          { "value": 0, "color": "green" },
+          { "value": 1, "color": "red" }
+        ]
+      }
+    }
+  }
+}
+
