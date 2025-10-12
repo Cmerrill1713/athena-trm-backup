@@ -1,0 +1,57 @@
+{
+  "ship it": "make athena-canary && make athena-promote",
+  "backtrack": "make athena-rollback",
+  "stabilize": "make athena-stabilize",
+  "push it through": "make athena-override",
+  
+  "bring it online": "make stack-up",
+  "bring everything online": "make stack-up",
+  "shut it down": "make stack-down",
+  "shut everything down": "make stack-down",
+  "start fresh": "make stack-restart",
+  "restart everything": "make stack-restart",
+  "status check": "make tier4-proof",
+  
+  "smoke it": "make athena-tests-smoke",
+  "run smoke tests": "make athena-tests-smoke",
+  "shake the tree": "make chaos-test",
+  "run chaos": "make chaos-test",
+  "proof it": "make tier4-proof",
+  "run proof": "make tier4-proof",
+  "ghost check": "make truth",
+  "check for ghosts": "make truth",
+  "kill ghosts": "make nuke-ports",
+  "nuke everything": "make nuke-ports && make stack-up",
+  
+  "open the dashboard": "open http://localhost:3001",
+  "open grafana": "open http://localhost:3001",
+  "show me the numbers": "make watchdog-status && make stack-status",
+  "show metrics": "curl -s http://127.0.0.1:8014/metrics | head -30",
+  
+  "lock it down": "make sec-check",
+  "check the gate": "make athena-validate",
+  "limit test": "make guardrails-smoke",
+  "test guardrails": "make guardrails-smoke",
+  
+  "launch ui": "make frontend-up",
+  "reset ui": "make frontend-restart",
+  "ui status": "curl http://127.0.0.1:8014/ready",
+  
+  "watchdog status": "make watchdog-status",
+  "show watchdog": "make watchdog-status",
+  "watchdog logs": "make watchdog-logs",
+  "show incidents": "make watchdog-incidents",
+  "enable autopilot": "make watchdog-install",
+  "disable autopilot": "make watchdog-stop",
+  
+  "run tests": "make athena-tests",
+  "full tests": "make athena-tests",
+  "backend tests": "make athena-tests-backends",
+  "all tests": "make athena-tests-all",
+  
+  "validate stack": "make stack-validate",
+  "health check": "make stack-status",
+  "what's running": "make truth",
+  "show truth": "make truth"
+}
+
