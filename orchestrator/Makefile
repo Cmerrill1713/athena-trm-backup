@@ -44,6 +44,23 @@ all: install preflight test demo
 	@echo ""
 	@echo "Run 'make api' to start REST API on :8765"
 
+rotate:
+	@echo "🔄 Rotating telemetry..."
+	@TELEMETRY_DB=./state/telemetry.sqlite DAYS_TO_KEEP=14 MAX_ROWS=50000 \
+		python3 tools/telemetry_rotate.py
+
+backup:
+	@echo "🔐 Creating encrypted backup..."
+	@BACKUP_PASSPHRASE="$(BACKUP_PASSPHRASE)" bash scripts/snapshot_backup.sh
+
+restore:
+	@echo "🔓 Restoring from backup..."
+	@BACKUP_PASSPHRASE="$(BACKUP_PASSPHRASE)" bash scripts/snapshot_restore.sh "$(FILE)"
+
+dmg-smoke:
+	@echo "🧪 Running DMG smoke test..."
+	@bash ci/dmg_smoke.sh
+
 clean:
 	@rm -rf __pycache__ */__pycache__ */*/__pycache__
 	@rm -rf .pytest_cache
