@@ -22,7 +22,7 @@ final class ChatBehaviorTests: XCTestCase {
 
         // Clear any existing text and type test message
         input.click()
-        input.typeKey(.keyboardType(.a), modifierFlags: .command) // Select all
+        input.typeKey("a", modifierFlags: .command) // Select all
         input.typeKey(.delete, modifierFlags: []) // Clear
         input.typeText("ping")
 
@@ -57,7 +57,7 @@ final class ChatBehaviorTests: XCTestCase {
         XCTAssertTrue(input.waitForExistence(timeout: 10))
 
         input.click()
-        input.typeKey(.keyboardType(.a), modifierFlags: .command) // Select all
+        input.typeKey("a", modifierFlags: .command) // Select all
         input.typeKey(.delete, modifierFlags: []) // Clear
 
         // Type first line
@@ -104,7 +104,7 @@ final class ChatBehaviorTests: XCTestCase {
         XCTAssertTrue(inputText.contains("visibility test"), "Typed text should be visible")
 
         // Clear input
-        input.typeKey(.keyboardType(.a), modifierFlags: .command)
+        input.typeKey("a", modifierFlags: .command)
         input.typeKey(.delete, modifierFlags: [])
     }
 }

@@ -35,20 +35,22 @@ class UITestHelpers {
     /// Clear text input field
     static func clearTextInput(_ element: XCUIElement) {
         element.click()
-        element.typeKey(.keyboardType(.a), modifierFlags: .command) // Select all
-        element.typeKey(.delete, modifierFlags: []) // Clear
+        // Select all text
+        element.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0)).click()
+        element.typeKey("a", modifierFlags: .command)
+        element.typeKey(.delete, modifierFlags: [])
     }
 
     /// Type text with Enter key (for sending messages)
     static func typeAndSend(_ element: XCUIElement, text: String) {
         element.typeText(text)
-        element.typeKey(.keyboardType(.return), modifierFlags: [])
+        element.typeKey(.return, modifierFlags: [])
     }
 
     /// Type text with Shift+Enter (for newlines)
     static func typeWithNewline(_ element: XCUIElement, text: String) {
         element.typeText(text)
-        element.typeKey(.keyboardType(.return), modifierFlags: .shift)
+        element.typeKey(.return, modifierFlags: .shift)
     }
 
     /// Wait for element with custom timeout and description

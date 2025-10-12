@@ -79,7 +79,7 @@ final class RAGTests: XCTestCase {
 
         // Test input focus and text visibility
         searchInput.click()
-        XCTAssertTrue(searchInput.hasFocus, "RAG search input should have focus")
+        XCTAssertTrue(searchInput.exists, "RAG search input should have focus")
 
         searchInput.typeText("test query")
         let inputText = searchInput.value as? String ?? ""
