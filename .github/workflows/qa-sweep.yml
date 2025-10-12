@@ -1,0 +1,42 @@
+name: qa-sweep
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    runs-on: macos-14
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache SPM
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.swiftpm
+            ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+
+      - name: Full QA sweep
+        env:
+          API_BASE: "http://localhost:8014"
+          QA_MODE: "1"
+        shell: bash
+        run: |
+          cd NeuroForgeApp
+          make qa
+
+      - name: Upload QA artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-artifacts
+          path: NeuroForgeApp/artifacts/**
+          if-no-files-found: warn
