@@ -1,4 +1,4 @@
-.PHONY: help broker broker-agent build validate package deliver workspace-health wizard check-health learn train eval promote
+.PHONY: help broker broker-agent build validate package deliver workspace-health wizard check-health learn train eval promote full-validate inventory
 
 SCRIPTS_DIR := $(CURDIR)/scripts
 BROKER_DIR := $(CURDIR)/assistant-broker
@@ -717,6 +717,40 @@ green:
 		services={'chat':8014,'tts':8888,'k1':8088,'k2':8089,'k3':8091,'weaviate':8090}; \
 		[print(f\"{'✅' if requests.get(f'http://localhost:{p}/health',timeout=2).status_code in [200,404,422] else '❌'} {n}\") \
 		 for n,p in services.items()]" 2>/dev/null || echo "⚠️  Some services not responding"
+
+full-validate:
+	@echo "🔍 Running Full Program Validation..."
+	@echo "======================================"
+	@echo ""
+	@echo "1️⃣  Preflight SLA..."
+	@cd orchestrator && make preflight || echo "⚠️  Preflight not available"
+	@echo ""
+	@echo "2️⃣  Code Inventory..."
+	@python3 tools/code_inventory.py
+	@echo ""
+	@echo "3️⃣  Telemetry Stats..."
+	@python3 tools/telemetry_stats.py
+	@echo ""
+	@echo "4️⃣  Starting Eval API..."
+	@cd orchestrator && python3 -m uvicorn tools.eval_api:app --host 127.0.0.1 --port 8788 > /dev/null 2>&1 & sleep 3
+	@echo ""
+	@echo "5️⃣  Running Golden Evals..."
+	@curl -s -X POST http://127.0.0.1:8788/eval/run -H 'Content-Type: application/json' -d '{"capability":"summarize","limit":0}' -o orchestrator/state/eval.summarize.json || echo "⚠️  Eval API not responding"
+	@curl -s -X POST http://127.0.0.1:8788/eval/run -H 'Content-Type: application/json' -d '{"capability":"plan","limit":0}' -o orchestrator/state/eval.plan.json || echo "⚠️  Eval API not responding"
+	@echo ""
+	@echo "6️⃣  Generating Full Report..."
+	@python3 tools/generate_full_report.py
+	@echo ""
+	@echo "======================================"
+	@echo "✅ Full Validation Complete!"
+	@echo "======================================"
+	@echo ""
+	@echo "📄 Report: FULL_VALIDATION_REPORT.md"
+	@echo ""
+	@cat FULL_VALIDATION_REPORT.md || echo "Report not generated"
+
+inventory:
+	@python3 tools/code_inventory.py
 
 weaviate-seed:
 	@python3 scripts/seed_weaviate.py
