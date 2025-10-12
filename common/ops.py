@@ -159,7 +159,9 @@ def install_graceful_shutdown(
 # Lightweight liveness/readiness
 # ----------------
 def add_health_endpoints(app: FastAPI):
-    """Add /live and /ready endpoints for K8s-style health checks"""
+    """Add /live, /ready, and /metrics endpoints for K8s-style health checks"""
+    from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
+    from fastapi.responses import Response
 
     @app.get("/live")
     async def live():
@@ -171,3 +173,8 @@ def add_health_endpoints(app: FastAPI):
         """Readiness probe - is the service ready to accept traffic?"""
         # Simple readiness; extend with dependency checks as needed
         return {"status": "ready"}
+    
+    @app.get("/metrics")
+    async def metrics():
+        """Prometheus metrics endpoint"""
+        return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
