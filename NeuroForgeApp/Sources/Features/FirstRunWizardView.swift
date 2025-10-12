@@ -118,7 +118,7 @@ struct FirstRunWizardView: View {
             let (data, resp) = try await URLSession.shared.data(from: ragURL)
             if let httpResp = resp as? HTTPURLResponse,
                httpResp.statusCode == 200,
-               let json = try? JSONDecoder().decode([String: AnyCodable].self, from: data) {
+               let _ = try? JSONDecoder().decode([String: AnyCodable].self, from: data) {
                 DispatchQueue.main.async {
                     self.warmOK = true
                     self.warming = false

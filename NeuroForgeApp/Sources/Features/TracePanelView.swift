@@ -3,7 +3,7 @@ import SwiftUI
 import AppKit
 #endif
 
-struct TraceSummary: Identifiable, Decodable {
+struct TraceSummary: Identifiable, Decodable, Hashable {
     let id: String           // trace_id
     let capability: String
     let duration_ms: Int
@@ -124,7 +124,9 @@ struct TracePanelView: View {
         .padding(16)
         .frame(minWidth: 800, minHeight: 600)
         .onAppear { Task { await refreshAll() } }
-        .onChange(of: capability) { _ in Task { await refreshAll() } }
+        .onChange(of: capability) { oldValue, newValue in
+            Task { await refreshAll() }
+        }
         .accessibilityIdentifier("TP_Root")
     }
 

@@ -11,9 +11,6 @@ let package = Package(
         .executableTarget(
             name: "NeuroForgeApp",
             path: "Sources",
-            resources: [
-                .process("Resources")
-            ],
             swiftSettings: [
                 .unsafeFlags(["-parse-as-library"])
             ]
