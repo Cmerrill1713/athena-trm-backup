@@ -13,9 +13,22 @@
   - 7 comprehensive UI tests (visibility, selection, persistence, health)
   - Only visible in DEBUG or QA_MODE=1
 
+- **Golden Screenshot Diffing** - Automatic visual regression detection
+  - Pixel-diff comparison with configurable tolerance (default 0.25%)
+  - Color-coded latency indicators (≤150ms green, 151-600ms orange, >600ms red)
+  - Baseline management with update script
+  - CI integration for PR checks
+  - Diff images attached to test failures
+  - Environment variable controls (GOLDEN_UPDATE, GOLDEN_TOLERANCE)
+  - Makefile targets: golden-update, golden-ci
+  - GitHub Actions workflow for PR validation
+
 ### Changed
 - Updated APIClient to inject provider override header
 - Enhanced NetworkInterceptor for header-based routing
+- Updated GoldenScreenshotTests to use pixel-diff comparison
+- Updated health probe endpoints for direct service URLs
+- Added comprehensive logging for override changes and API requests
 
 ### Fixed
 - (None yet)

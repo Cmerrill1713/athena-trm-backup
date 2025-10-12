@@ -45,5 +45,15 @@ xctest:
 	 test | tee artifacts/xcodebuild-ui-tests.log; \
 	/usr/bin/zip -qry artifacts/UITestArtifacts.zip \
 	 artifacts/NeuroForgeUI.xcresult \
-	 DerivedData/Logs || true
+	 DerivedData/Logs \
+	 UITests/Golden/Actual \
+	 UITests/Golden/Diffs || true
 	@echo "✅ UI tests complete - artifacts in artifacts/UITestArtifacts.zip"
+
+golden-update:
+	@echo "🔄 Updating golden baselines..."
+	@./scripts/golden_update.sh
+
+golden-ci:
+	@echo "🧪 Running golden diff with CI tolerance..."
+	@GOLDEN_TOLERANCE=0.003 $(MAKE) xctest
