@@ -11,7 +11,7 @@ from typing import Dict, Any, Optional
 from router import run_capability
 from scorer import get_stats, get_all_stats
 from registry import list_capabilities, list_providers
-from telemetry import query_traces
+from telemetry import query_traces, get_trace_by_id
 
 
 app = FastAPI(title="NeuroForge Orchestrator API", version="1.0.0")
@@ -104,6 +104,15 @@ def traces(capability: Optional[str] = None, limit: int = 100):
         "traces": results,
         "count": len(results)
     }
+
+
+@app.get("/trace/{trace_id}")
+def get_trace(trace_id: str):
+    """Get detailed trace by ID"""
+    trace = get_trace_by_id(trace_id)
+    if not trace:
+        raise HTTPException(status_code=404, detail="Trace not found")
+    return trace
 
 
 # ============================================

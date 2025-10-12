@@ -8,7 +8,7 @@ import time
 import uuid
 import hashlib
 import json
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 
 def _hash_obj(obj: Any) -> str:
@@ -165,3 +165,25 @@ def query_traces(capability: str = None, limit: int = 100) -> list:
             )
 
         return [dict(row) for row in cursor.fetchall()]
+
+
+def get_trace_by_id(trace_id: str) -> Optional[dict]:
+    """
+    Get a specific trace by ID
+
+    Args:
+        trace_id: Trace identifier
+
+    Returns:
+        Trace dict or None if not found
+    """
+    _ensure_db()
+
+    with sqlite3.connect(_DB) as c:
+        c.row_factory = sqlite3.Row
+        cursor = c.execute(
+            "SELECT * FROM traces WHERE trace_id = ?",
+            (trace_id,)
+        )
+        row = cursor.fetchone()
+        return dict(row) if row else None
