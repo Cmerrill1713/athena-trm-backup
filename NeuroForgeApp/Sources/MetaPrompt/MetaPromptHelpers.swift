@@ -71,13 +71,11 @@ struct ExampleNetworkIntegration {
         let content = json?["message"] as? String ?? ""
         
         // ✅ Create message with meta attached
-        var message = ChatMessage(
-            id: UUID(),
+        let message = ChatMessage(
             role: .assistant,
             content: content,
-            timestamp: Date()
+            meta: meta  // Pass meta directly in init
         )
-        message.metaPrompt = meta
         
         return message
     }

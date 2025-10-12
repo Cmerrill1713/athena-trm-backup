@@ -118,10 +118,9 @@ struct ChatViewEnhanced: View {
                 Task { await sendVoice(text) }
             }
         }
-        .keyboardShortcut("p", modifiers: [.command, .shift]) {
-            withAnimation(.spring(response: 0.3)) {
-                showDebugOverlay.toggle()
-            }
+        .onAppear {
+            // ✅ Keyboard shortcut handled via menu command in main.swift
+            // Or use a Button with .keyboardShortcut modifier
         }
     }
     
@@ -257,15 +256,15 @@ struct ChatViewEnhanced: View {
             
             // Record debug data
             await MainActor.run {
-                if let meta = meta {
+                if let meta = meta, let confidence = meta.confidence {
                     debugHistory.append(PromptDebugData(
                         originalPrompt: text,
                         rewrittenPrompt: simulateRewrite(text),
-                        confidenceDelta: meta.confidence - 0.5,
-                        reflectionSteps: meta.plan,
+                        confidenceDelta: confidence - 0.5,  // ✅ Unwrapped optional
+                        reflectionSteps: meta.plan ?? [],  // ✅ Unwrapped optional with default
                         timestamp: Date()
                     ))
-                    confidenceHistory.append(meta.confidence)
+                    confidenceHistory.append(confidence)  // ✅ Unwrapped optional
                     if confidenceHistory.count > 10 {
                         confidenceHistory.removeFirst()
                     }
@@ -298,35 +297,38 @@ struct ChatViewEnhanced: View {
     
     // MARK: - Helpers
     
-    private func generateMetaSummary(_ meta: MetaPromptResponse) -> String {
-        let conf = Int(meta.confidence * 100)
-        if meta.confidence >= 0.8 {
+    private func generateMetaSummary(_ meta: MetaPromptInfo) -> String {
+        guard let confidence = meta.confidence else {
+            return "Let me help with that:"
+        }
+        let conf = Int(confidence * 100)
+        if confidence >= 0.8 {
             return "I'm \(conf)% confident. Here's what I'll do:"
-        } else if meta.confidence >= 0.6 {
+        } else if confidence >= 0.6 {
             return "I'm \(conf)% confident. Let me think through this:"
         } else {
             return "I'm only \(conf)% confident. Let me reason carefully:"
         }
     }
     
-    private func simulateMetaResponse(for text: String) -> MetaPromptResponse? {
+    private func simulateMetaResponse(for text: String) -> MetaPromptInfo? {
         // TODO: Parse from actual backend response headers or JSON
         let confidence = text.count > 20 ? 0.85 : 0.65
-        return MetaPromptResponse(
+        return MetaPromptInfo(
+            enabled: true,
             confidence: confidence,
+            style: text.contains("why") ? "reasoned" : "direct",
+            rag: text.count > 30,
+            reflection: text.contains("?"),
             plan: [
                 "Parse user intent",
                 "Check relevant context",
                 "Generate structured response"
             ],
             tools: text.contains("log") ? ["curl", "jq"] : [],
-            style: text.contains("why") ? "reasoned" : "direct",
-            flags: MetaPromptResponse.Flags(
-                rag: text.count > 30,
-                reflection: text.contains("?"),
-                selfCritique: text.contains("why"),
-                chaining: false
-            )
+            latencyMs: nil,
+            promptTokens: nil,
+            completionTokens: nil
         )
     }
     

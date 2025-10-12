@@ -1,270 +1,291 @@
-# 🚀 Christian's GitHub Workspace
+# 🚀 NeuroForge - Voice-Controlled Autonomous AI Infrastructure
 
-**Multi-Project Development Environment with AI-Driven Build Orchestration**
-
----
-
-## 📊 Status Dashboard
-
-| Component | Status | Quick Link |
-|-----------|--------|------------|
-| **Assistant Broker** | 🟢 Operational | [Guide](ASSISTANT_BROKER_COMPLETE.md) |
-| **Knowledge System** | 🟢 48,589+ docs | [Integration](EXISTING_SYSTEMS_INTEGRATION.md) |
-| **App Wizard** | 🟢 Ready | [Guide](WIZARD_COMPLETE.md) |
-| **Workspace Health** | 🟢 Good | Run: `bash scripts/launch_checklist.sh` |
-| **Python Projects** | 🟢 Configured | Python 3.11, pytest, ruff |
-| **Build Pipeline** | 🟢 Ready | [Quick Start](QUICK_START.md) |
+> **Production-grade AI stack with self-healing, observability, and voice control**
 
 ---
 
-## 🚀 Try This NOW (2 Minutes)
+## ⚡ Quick Start (5 Minutes)
 
 ```bash
-# 1. Verify all systems
-make check-health
+# Start the complete stack
+make stack-up
 
-# 2. Query your 48K+ knowledge docs
-python3 scripts/knowledge_helper.py "transformer architecture patterns"
+# Verify health
+make truth
 
-# 3. Build your first app with the AI wizard
-make wizard NAME=MyFirstApp TYPE=swift PROMPT='simple SwiftUI hello world app'
+# Run tests via Athena
+make athena-tests
+
+# Enable self-healing autopilot
+make watchdog-start
 ```
+
+**That's it!** Your autonomous infrastructure is running.
 
 ---
 
-## 🎯 What's Here
+## 🎯 What You Have
 
-### Core Infrastructure
+### Complete AI Stack
+- **Athena AI** - Autonomous agent with tool calls (port 8090)
+- **UAT** - Universal AI Tools orchestrator (port 8181)  
+- **Bridge** - FastAPI adapter with Tier 4 observability (port 8014)
+- **Kokoro TTS** - Natural voice synthesis (port 8020)
+- **NeuroForgeApp** - SwiftUI macOS chat interface
 
-1. **[Assistant Broker](assistant-broker/)** - Local HTTP API for macOS app control
-   - Open/quit apps by bundle ID
-   - Run whitelisted commands
-   - Read/write files (Desktop/Documents)
-   - Auto-starts at login
-
-2. **[Build Scripts](scripts/)** - Orchestration for Swift/Tauri/Python
-   - `build_swift_app.sh` - Build Xcode/Swift projects
-   - `build_tauri_app.sh` - Build Tauri apps
-   - `package_dmg.sh` - Create signed DMGs
-   - `validate_*.sh` - Run tests before packaging
-
-3. **[Workspace Doctor](workspace_doctor.sh)** - Health monitoring
-   - Scans all projects
-   - Reports Python/Node/Rust/Swift status
-   - Validates dependencies
-
-### Projects
-
-| Project | Type | Path | Status |
-|---------|------|------|--------|
-| **universal-ai-tools** | Python | `AI-Projects/universal-ai-tools` | ✅ Python 3.11 + venv |
-| **TinyRecursiveModels** | Python/MLX | `TinyRecursiveModels` | ✅ MLX 0.29.2 installed |
-| **pydantic-ai** | Python | `pydantic-ai` | ℹ️ UV monorepo |
-| **A2A Types** | TypeScript | `A2A/types` | ℹ️ Node 24.4.1 |
+### Production Features
+- 🗣️ **Voice Control** - CLI and SwiftUI voice interfaces
+- 🧠 **Meta-Awareness** - See AI confidence and thinking
+- 📊 **Full Observability** - OpenTelemetry, Prometheus, Grafana
+- 🤖 **Self-Healing** - Watchdog autopilot (8-23s MTTR)
+- 🛡️ **Quality Gates** - Pre-push validation
+- 🔍 **Forensic Debugging** - Truth checks, PID tracking
 
 ---
 
-## ⚡ Quick Commands
+## 📚 Documentation
 
-### Health Check
-```bash
-bash workspace_doctor.sh
-```
+**See:** [`START_HERE.md`](START_HERE.md) for quick start  
+**See:** [`docs/INDEX.md`](docs/INDEX.md) for full navigation
 
-### Build & Deliver (Full Pipeline)
-```bash
-make deliver NAME=MyApp PROJ=/path/to/project TYPE=swift
-```
-
-### Broker Management
-```bash
-# Start broker
-cd assistant-broker && make run
-
-# Install as LaunchAgent (auto-start)
-cd assistant-broker && make install-agent
-
-# Test broker
-curl -s http://127.0.0.1:8080/v1/health
-```
-
-### Python Projects
-```bash
-# universal-ai-tools
-cd AI-Projects/universal-ai-tools
-make test
-
-# TinyRecursiveModels
-cd TinyRecursiveModels
-make test
-```
+### Quick Links
+- 🚀 [Launch Procedures](docs/launch/) - Deployment guides
+- 🔧 [Operations](docs/operations/) - Day 2 ops, monitoring
+- 📖 [Guides](docs/guides/) - How-to guides
+- ⚡ [Reference](docs/reference/) - Quick command cards
+- 🧠 [Athena Docs](docs/athena/) - AI system documentation
 
 ---
 
-## 📖 Documentation
+## 🎙️ Voice Control
 
-- **[Workspace Setup](WORKSPACE_SETUP_COMPLETE.md)** - Complete setup summary
-- **[Quick Start Guide](QUICK_START.md)** - Fast reference
-- **[Assistant Broker Guide](ASSISTANT_BROKER_COMPLETE.md)** - Full API docs
-- **[Broker README](assistant-broker/README.md)** - Broker-specific docs
+### CLI Voice (Backend Ops)
+```bash
+./athena_voice.sh
+
+# Say:
+"bring everything online"   → Starts stack
+"run smoke tests"           → Runs tests
+"ghost check"               → Forensic scan
+"enable watchdog"           → Self-healing on
+"ship it"                   → Deploy canary
+```
+
+**50+ commands** - See [`athena_voice_map.json`](athena_voice_map.json)
+
+### SwiftUI Voice (Chat Interface)
+- Click mic in NeuroForgeApp
+- Speak naturally to Athena
+- Hear responses with Kokoro TTS
+- See confidence and thinking process
 
 ---
 
-## 🛠️ Make Targets
+## 🚀 Common Commands
 
-From workspace root (`~/Documents/GitHub/`):
-
+### Stack Management
 ```bash
-make help                           # Show all commands
-
-# Broker
-make broker                         # Build & run broker
-make broker-agent                   # Install LaunchAgent
-make broker-logs                    # View logs
-
-# Build Pipeline
-make build NAME=App PROJ=/path TYPE=swift
-make validate NAME=App PROJ=/path TYPE=swift
-make package APP=/path/to/App.app
-make deliver NAME=App PROJ=/path TYPE=swift
-
-# Workspace
-make workspace-health               # Run health check
-make uat CMD=test                   # Run in universal-ai-tools
-make trm CMD=lint                   # Run in TinyRecursiveModels
+make stack-up           # Start everything
+make stack-down         # Stop everything
+make stack-restart      # Restart cleanly
+make stack-status       # Health check
+make truth              # Reality check (PIDs, ports)
 ```
+
+### Testing
+```bash
+make athena-tests       # Run all tests
+make athena-tests-smoke # Smoke tests only
+make tier4-proof        # Full observability proof
+```
+
+### Self-Healing
+```bash
+make watchdog-start     # Enable autopilot
+make watchdog-status    # Check status
+make auto-heal-test     # Test recovery
+```
+
+### Debugging
+```bash
+make nuke-ports         # Kill ghosts
+make stack-validate     # Full validation
+```
+
+**Full reference:** [`docs/reference/`](docs/reference/)
 
 ---
 
 ## 🏗️ Architecture
 
 ```
-GitHub Workspace
-├── assistant-broker/          # macOS app control API (Swift/Vapor)
-├── scripts/                   # Build orchestration scripts
-├── AI-Projects/
-│   └── universal-ai-tools/   # Multi-model LLM platform
-├── TinyRecursiveModels/      # MLX-based reasoning models
-├── pydantic-ai/              # Pydantic AI framework
-└── A2A/                      # A2A specification
+┌─────────────────────────────────┐
+│  NeuroForgeApp (SwiftUI)        │
+│  • Voice chat interface         │
+│  • Meta-awareness UI            │
+│  • Confidence tracking          │
+└──────────┬──────────────────────┘
+           │ :8014
+┌──────────┴──────────────────────┐
+│  Bridge (FastAPI)               │
+│  • Tier 4 observability         │
+│  • Rate limiting                │
+│  • Graceful shutdown            │
+│  • Self-identification          │
+└──────┬────────┬─────────────────┘
+       │        │
+       ▼        ▼
+    ┌────┐  ┌────────┐
+    │UAT │  │ Athena │
+    │8181│  │  8090  │
+    └────┘  └────────┘
+       │        │
+       └────┬───┘
+            ▼
+    ┌───────────────┐
+    │  Kokoro TTS   │
+    │     8020      │
+    └───────────────┘
 ```
 
 ---
 
-## 🔧 Development Workflow
+## 🔧 Development
 
-### 1. Check Workspace Health
+### Work on Backend
 ```bash
-bash workspace_doctor.sh
+cd AI-Projects/universal-ai-tools
+make test
+make lint
 ```
 
-### 2. Work on a Project
+### Work on Frontend
 ```bash
-cd <project-dir>
-make install    # Install dependencies
-make test       # Run tests
-make lint       # Check code quality
+cd NeuroForgeApp
+API_BASE=http://127.0.0.1:8014 QA_MODE=1 swift run
 ```
 
-### 3. Build & Deliver App
+### Deploy Changes
 ```bash
-# From workspace root
-make deliver NAME=MyApp PROJ=/path/to/project TYPE=swift
-```
-
-### 4. Open App via Broker
-```bash
-curl -X POST http://127.0.0.1:8080/v1/open_app \
-  -H 'Content-Type: application/json' \
-  -d '{"bundle_id":"com.mycompany.myapp"}'
+git commit -am "feature"
+git push
+# Pre-push gate validates automatically
 ```
 
 ---
 
-## 🔒 Security
+## 🧠 Key Features
 
-- **Command Whitelist:** Only `open`, `osascript`, `xcrun`, `xcodebuild` allowed
-- **Path Restrictions:** File operations limited to Desktop/Documents
-- **Local Only:** Broker binds to `127.0.0.1` (not exposed to network)
-- **Permissions:** Requires Automation/Accessibility grants from macOS
+### 1. Transparent AI
+- See Athena's confidence level (0-100%)
+- View her thinking process (plan steps)
+- Watch tools being used
+- Understand reasoning (RAG, Reflection, Chaining)
+
+### 2. Self-Healing
+- Watchdog monitors health 24/7
+- Auto-detects issues (ghosts, crashes)
+- Recovers automatically (8-23s MTTR)
+- Sends notifications (Slack/Telegram)
+
+### 3. Voice Control
+- CLI commands for operations
+- Natural language in SwiftUI app
+- Kokoro TTS for responses
+- Speech recognition for input
+
+### 4. Production Observability
+- OpenTelemetry tracing
+- Prometheus metrics
+- Grafana dashboards
+- Health endpoints (/live, /ready)
+- Rate limiting and guardrails
 
 ---
 
 ## 📊 Stats
 
-- **Projects:** 4 major, 10+ total
-- **Languages:** Python, Swift, TypeScript, Rust, Go
-- **Test Coverage:** 85%+ target
-- **Build Time:** ~2 min (Swift), <1 min (Python)
-- **Broker Startup:** <1 sec
+- **Services:** 5 (Bridge, Athena, UAT, Kokoro, Frontend)
+- **Startup Time:** ~2 seconds
+- **MTTR:** 8-23 seconds (self-healing)
+- **Test Coverage:** Full e2e validation
+- **Documentation:** 160+ guides
+- **Scripts:** 90+ automation tools
+- **Voice Commands:** 50+
 
 ---
 
-## 🐛 Troubleshooting
+## 🛠️ Troubleshooting
 
-### Broker Not Running
+### Quick Fixes
 ```bash
-cd assistant-broker
-make build
-make run
+# Ghosts (multiple PIDs)
+make nuke-ports && make stack-up
+
+# No voice
+python3 scripts/kokoro_server.py
+
+# Meta panels missing
+export META_PROMPTING=1 && make stack-restart
+
+# Full reset
+make stack-down && make nuke-ports && make stack-up
 ```
 
-### Tests Failing
-```bash
-cd <project>
-make install  # Reinstall dependencies
-make test
-```
-
-### Port Conflict
-```bash
-PORT=8099 make broker-run
-```
+**See:** [`docs/guides/`](docs/guides/) for detailed troubleshooting
 
 ---
 
-## 🎓 Resources
+## 📝 Recent Updates
 
-- [Vapor Docs](https://docs.vapor.codes/) - For broker development
-- [Swift Package Manager](https://www.swift.org/package-manager/) - For Swift projects
-- [MLX Documentation](https://ml-explore.github.io/mlx/) - For TinyRecursiveModels
-- [Pydantic AI](https://ai.pydantic.dev/) - For pydantic-ai
+**October 12, 2025:**
+- ✅ Meta UX integrated (confidence tracking, sparklines)
+- ✅ Voice control for frontend and backend
+- ✅ Kokoro TTS integration
+- ✅ Prompt engineering visibility
+- ✅ Root directory cleanup (100+ files organized)
+- ✅ Complete documentation structure
 
----
-
-## 📝 Recent Changes
-
-**October 11, 2025:**
-- ✅ Implemented Assistant Broker (Swift/Vapor)
-- ✅ Added build orchestration scripts
-- ✅ Created validation harness
-- ✅ Set up LaunchAgent auto-start
-- ✅ Fixed NumPy compatibility issues
-- ✅ Configured Python 3.11 venvs
-- ✅ Added pytest configurations
-- ✅ Created workspace doctor script
+**See:** [`docs/changelog/`](docs/changelog/) for version history
 
 ---
 
 ## 🚀 Next Steps
 
-1. **Wire broker into AI assistant** - Connect your chat agent to the API
-2. **Test full pipeline** - Build an app from scratch
-3. **Add code signing** - Configure `codesign` for distribution
-4. **Create app templates** - Scaffolding for common patterns
-5. **Add notarization** - Apple notary service integration
+### First Time
+1. Read [`START_HERE.md`](START_HERE.md)
+2. Run `make stack-up`
+3. Try voice: `./athena_voice.sh`
+4. Launch app: `cd NeuroForgeApp && swift run`
+
+### Operations
+- See [`docs/operations/`](docs/operations/)
+- Enable watchdog: `make watchdog-start`
+- Monitor: [`docs/tier4/`](docs/tier4/)
+
+### Development
+- See [`docs/guides/`](docs/guides/)
+- Check [`docs/reference/`](docs/reference/)
 
 ---
 
-## 📞 Support
+## 🏆 What This Is
 
-- **Broker Issues:** Check `~/Library/Logs/AssistantBroker.*.log`
-- **Build Issues:** Review script output in terminal
-- **Test Issues:** Run `make test` with verbose flags
+**An autonomous, voice-controlled AI infrastructure** that:
+- Learns from every conversation
+- Heals itself automatically  
+- Shows its thinking process
+- Speaks with confidence
+- Gates itself with quality checks
+- Provides complete visibility
+
+**Built for production. Ready to scale.**
 
 ---
 
-**Last Updated:** October 11, 2025  
-**Maintained By:** Christian Merrill  
-**Build System:** Make + Shell Scripts  
-**Platform:** macOS 13+ (Apple Silicon)
+**Version:** v0.9.4-meta-ux  
+**Status:** ✅ Production-Ready  
+**Updated:** October 12, 2025  
+**Maintained By:** Christian Merrill
+
+🎙️ **Talk to your infrastructure. It listens.** 🚀

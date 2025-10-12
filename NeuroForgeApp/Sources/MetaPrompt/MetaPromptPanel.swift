@@ -1,4 +1,7 @@
 import SwiftUI
+#if os(macOS)
+import AppKit
+#endif
 
 /// Visual dashboard showing Athena's meta-prompt orchestration data
 /// Displays: confidence, style, flags (RAG/reflection), plan, tools, metrics
@@ -334,7 +337,11 @@ struct MetaPromptPanel_Previews: PreviewProvider {
             ))
         }
         .padding()
+        #if os(macOS)
+        .background(Color(NSColor.windowBackgroundColor))
+        #else
         .background(Color(.systemBackground))
+        #endif
     }
 }
 #endif

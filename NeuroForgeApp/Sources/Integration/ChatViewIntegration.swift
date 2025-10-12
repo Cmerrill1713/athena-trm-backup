@@ -1,3 +1,7 @@
+#if false
+// ✅ EXAMPLE CODE ONLY - Not compiled to avoid type conflicts
+// Copy patterns below into your actual ChatView
+
 import SwiftUI
 
 // MARK: - ChatView Integration Example
@@ -326,3 +330,4 @@ struct ChatViewIntegration_Previews: PreviewProvider {
 }
 #endif
 
+#endif  // ✅ End example code

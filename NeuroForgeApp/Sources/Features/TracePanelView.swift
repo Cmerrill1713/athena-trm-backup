@@ -15,7 +15,7 @@ struct ChoiceExplain {
 struct TracePanelView: View {
     @State private var capability = "summarize"
     @State private var traces: [TraceSummary] = []
-    @State private var selected: TraceSummary?
+    @State private var selected: TraceSummary.ID? = nil  // ✅ Track by ID, not binding
     @State private var detailJSON = ""
     @State private var whyExplain: ChoiceExplain? = nil
     @State private var selectedTraceRawJSON: Any? = nil
@@ -61,28 +61,31 @@ struct TracePanelView: View {
                 // Left: trace list
                 VStack(alignment: .leading) {
                     Text("Recent Traces").font(.headline)
-                    List(traces, selection: $selected) { t in
-                        Button {
-                            selected = t
-                            Task { await loadDetail(t.id) }
-                        } label: {
-                            HStack {
-                                Text(t.capability)
+                    List(selection: $selected) {  // ✅ Non-binding List with ID selection
+                        ForEach(traces) { t in
+                            Button {
+                                selected = t.id  // ✅ Select by ID
+                                Task { await loadDetail(t.id) }
+                            } label: {
+                                HStack {
+                                    Text(t.capability)  // ✅ Plain string access
                                     .font(.caption2)
                                     .padding(.horizontal, 6)
                                     .padding(.vertical, 3)
                                     .background(Color.secondary.opacity(0.15))
                                     .cornerRadius(4)
 
-                                Text(t.provider ?? "—").foregroundColor(.secondary)
-                                Spacer()
-                                Text("\(t.duration_ms) ms").monospaced()
-                                if let s = t.score {
-                                    Text(String(format: "· %.2f", s)).monospaced()
+                                    Text(t.provider ?? "—").foregroundColor(.secondary)
+                                    Spacer()
+                                    Text("\(t.durationMs) ms").monospaced()  // ✅ Fixed: durationMs
+                                    if let s = t.score {
+                                        Text(String(format: "· %.2f", s)).monospaced()
+                                    }
                                 }
                             }
-                        }
-                        .buttonStyle(.plain)
+                            .buttonStyle(.plain)
+                            .tag(t.id)  // ✅ Tag for selection
+                        }  // ✅ Close ForEach
                     }
                     .accessibilityIdentifier("TP_TraceList")
                 }
@@ -267,7 +270,7 @@ struct TracePanelView: View {
         guard let text = self.detailJSON.data(using: .utf8) else { return }
         let panel = NSSavePanel()
         panel.title = "Export Trace JSON"
-        panel.nameFieldStringValue = "trace_\(selected?.id ?? "unknown").json"
+        panel.nameFieldStringValue = "trace_\(selected ?? "unknown").json"  // ✅ selected is already ID (String)
         panel.allowedContentTypes = [.json]
         panel.directoryURL = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first
 

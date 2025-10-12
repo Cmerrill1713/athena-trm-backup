@@ -125,9 +125,9 @@ struct TraceDTO: Codable {
     let score: Double?
 }
 
-struct TraceSummary: Identifiable {
+struct TraceSummary: Identifiable, Hashable {  // ✅ Added Hashable for List selection
     let id: String
-    let capability: String
+    var capability: String
     let durationMs: Int
     let startedAt: Date
     let provider: String?

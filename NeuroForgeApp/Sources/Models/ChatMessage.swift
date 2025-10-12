@@ -28,18 +28,5 @@ struct ChatMessage: Identifiable {
     }
 }
 
-// MARK: - Chat Task (existing)
-
-enum ChatTaskKind: String, Codable {
-    case smalltalk
-    case coding
-    case reasoning
-    case visionDescribe = "vision_describe"
-}
-
-struct ChatTask: Codable {
-    let kind: ChatTaskKind
-    let text: String
-    let imageBase64: String?
-}
-
+// ✅ ChatTask and ChatTaskKind are defined in Routing/TaskClassifier.swift
+// Removed duplicate definitions to avoid conflicts

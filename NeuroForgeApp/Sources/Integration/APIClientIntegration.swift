@@ -1,3 +1,7 @@
+#if false
+// ✅ EXAMPLE CODE ONLY - Not compiled to avoid type conflicts
+// Copy patterns below into your actual APIClient
+
 import Foundation
 
 // MARK: - API Client Integration Example
@@ -140,3 +144,4 @@ struct MetaPromptIntegrationTests {
 }
 #endif
 
+#endif  // ✅ End example code

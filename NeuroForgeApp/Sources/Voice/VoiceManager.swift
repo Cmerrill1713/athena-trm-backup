@@ -3,9 +3,11 @@ import Foundation
 import AVFoundation
 import Speech
 import Combine
+#if os(macOS)
+import AppKit
+#endif
 
-@MainActor
-final class VoiceManager: ObservableObject {
+final class VoiceManager: NSObject, ObservableObject {  // ✅ NSObject for delegates, no @MainActor on class
     enum State: Equatable {
         case idle
         case requestingPermission
@@ -35,6 +37,7 @@ final class VoiceManager: ObservableObject {
     init(localeIdentifier: String? = nil) {
         let id = localeIdentifier ?? "en-US"
         self.speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: id)) ?? SFSpeechRecognizer()!
+        super.init()  // ✅ Call super.init() before using self
         synthesizer.delegate = self
     }
 
@@ -50,7 +53,11 @@ final class VoiceManager: ObservableObject {
             return false
         }
 
-        let sttAuth = await SFSpeechRecognizer.requestAuthorization()
+        let sttAuth = await withCheckedContinuation { continuation in
+            SFSpeechRecognizer.requestAuthorization { status in
+                continuation.resume(returning: status)
+            }
+        }
         guard sttAuth == .authorized else {
             state = .error("Speech recognition permission denied")
             return false
@@ -87,8 +94,10 @@ final class VoiceManager: ObservableObject {
         try? startEngine()
         beginMetering()
         
-        // Haptic feedback
-        NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .default)
+        // Haptic feedback (optional - disabled for now)
+        // #if os(macOS)
+        // NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .default)
+        // #endif
     }
 
     func finishListening() {
@@ -209,9 +218,12 @@ final class VoiceManager: ObservableObject {
     // MARK: - Audio plumbing
 
     private func configureAudioSession() {
+        #if os(iOS)
         let session = AVAudioSession.sharedInstance()
         try? session.setCategory(.playAndRecord, mode: .measurement, options: [.duckOthers, .defaultToSpeaker, .allowBluetooth])
         try? session.setActive(true, options: .notifyOthersOnDeactivation)
+        #endif
+        // ✅ AVAudioSession not available on macOS - iOS only
     }
 
     private func startEngine() throws {
@@ -247,27 +259,39 @@ final class VoiceManager: ObservableObject {
 }
 
 extension VoiceManager: AVSpeechSynthesizerDelegate {
-    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         Task { @MainActor in
-            state = .idle
+            self.state = .speaking
+        }
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        Task { @MainActor in
+            self.state = .idle
+        }
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        Task { @MainActor in
+            self.state = .idle
         }
     }
 }
 
 extension VoiceManager: AVAudioPlayerDelegate {
-    nonisolated func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         Task { @MainActor in
-            state = .idle
-            print("✅ Kokoro playback finished")
+            self.state = .idle
         }
+        print("✅ Kokoro playback finished")
     }
     
-    nonisolated func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         Task { @MainActor in
-            state = .idle
-            if let error = error {
-                print("❌ Kokoro playback error: \(error.localizedDescription)")
-            }
+            self.state = .idle
+        }
+        if let error = error {
+            print("❌ Kokoro playback error: \(error.localizedDescription)")
         }
     }
 }
