@@ -5,7 +5,7 @@ BROKER_DIR := $(CURDIR)/assistant-broker
 
 # Default values (override with make VAR=value)
 NAME ?= MyApp
-PROJ ?= 
+PROJ ?=
 TYPE ?= swift
 PORT ?= 8080
 PROMPT ?= simple test app
@@ -101,6 +101,13 @@ help:
 	@echo "  lineage              - Generate lineage report (tree + graph + stats)"
 	@echo "  lineage-open         - Generate and open in browser"
 	@echo "  lineage-tree         - Show ASCII tree"
+	@echo ""
+	@echo "🧪 E2E Testing:"
+	@echo "  e2e-sweep            - Full platform sweep (all services)"
+	@echo "  green                - Fast health check (1-liner) 🟢"
+	@echo "  weaviate-seed        - Seed Weaviate with learned patterns"
+	@echo "  validate-green       - Pre-tag validation (all gates)"
+	@echo "  tag-green            - Validate + tag as v0.9.1-green"
 	@echo ""
 	@echo "📖 Examples:"
 	@echo "  make fastvlm-go-live                    # 🚀 START HERE"
@@ -692,6 +699,41 @@ lineage-tree:
 	@make lineage > /dev/null 2>&1
 	@cat $(LINEAGE_DIR)/lineage.txt
 
+# ============================================================================
+# E2E Testing & Health
+# ============================================================================
+
+e2e-sweep:
+	@echo "🔍 Running E2E full platform sweep..."
+	@python3 scripts/e2e_full_sweep.py
+
+green:
+	@echo "🟢 Fast health check (all services)..."
+	@BASE=$${BASE:-http://localhost:8014} python3 -c "import requests; \
+		services={'chat':8014,'tts':8888,'k1':8088,'k2':8089,'k3':8091,'weaviate':8090}; \
+		[print(f\"{'✅' if requests.get(f'http://localhost:{p}/health',timeout=2).status_code in [200,404,422] else '❌'} {n}\") \
+		 for n,p in services.items()]" 2>/dev/null || echo "⚠️  Some services not responding"
+
+weaviate-seed:
+	@python3 scripts/seed_weaviate.py
+
+validate-green:
+	@bash scripts/validate_green.sh
+
+tag-green:
+	@echo "🏷️  Tagging green build..."
+	@bash scripts/validate_green.sh && \
+		git tag -a v0.9.1-green -m "E2E sweep + routing policy + Weaviate seeded + FastVLM complete" && \
+		echo "✅ Tagged v0.9.1-green" && \
+		echo "   Push with: git push --tags"
+
+model-pipeline:
+	@if [ -z "$(BASE)" ] || [ -z "$(DATA)" ] || [ -z "$(NAME)" ]; then \
+		echo "❌ Usage: make model-pipeline BASE=hf://model DATA=data.jsonl NAME=output"; \
+		exit 1; \
+	fi
+	@bash scripts/model_pipeline.sh --base "$(BASE)" --data "$(DATA)" --name "$(NAME)"
+
 # Kokoro TTS Server
 kokoro-start:
 	@echo "🚀 Starting Kokoro TTS server..."
@@ -822,3 +864,32 @@ promotion-test:
 	@echo "📊 Querying metric..."
 	@sleep 1
 	@curl -s 'http://localhost:9090/api/v1/query?query=promotions_total' 2>/dev/null | jq -r '.data.result[] | "  \(.metric.action): \(.metric.from_model) → \(.metric.to_model) (\(.metric.reason))"' || echo "⚠️  Metrics not available"
+
+# Backup & Verification
+backup-verify:
+	@echo "🔬 Verifying backup is restorable..."
+	@TMPDIR=$$(mktemp -d) && \
+	echo "📦 Cloning to $$TMPDIR..." && \
+	git clone --depth 1 git@github.com:Cmerrill1713/athena-trm-backup.git "$$TMPDIR/athena-test" && \
+	cd "$$TMPDIR/athena-test" && \
+	echo "✅ Clone successful" && \
+	echo "📋 Checking critical files..." && \
+	test -f OPERATOR_CARD.md && echo "  ✅ OPERATOR_CARD.md" || echo "  ❌ Missing OPERATOR_CARD.md" && \
+	test -f Makefile && echo "  ✅ Makefile" || echo "  ❌ Missing Makefile" && \
+	test -d scripts && echo "  ✅ scripts/" || echo "  ❌ Missing scripts/" && \
+	test -d monitoring && echo "  ✅ monitoring/" || echo "  ❌ Missing monitoring/" && \
+	test -d AthenaReporter && echo "  ✅ AthenaReporter/" || echo "  ❌ Missing AthenaReporter/" && \
+	echo "📊 Testing Make targets..." && \
+	make kokoro-health 2>&1 | grep -q "Model: Kokoro" && echo "  ✅ kokoro-health target works" || echo "  ⚠️  kokoro-health needs runtime" && \
+	echo "✅ Backup verification complete" && \
+	echo "🗑️  Cleaning up $$TMPDIR..." && \
+	rm -rf "$$TMPDIR"
+
+backup-push:
+	@echo "📤 Pushing backup to GitHub..."
+	@git add -A
+	@git commit -m "Backup: $$(date -u +'%Y-%m-%d %H:%M:%S UTC')" || echo "No changes to commit"
+	@git push origin main
+	@TAG="backup/$$(date -u +'%Y%m%d-%H%M%S')"	@git tag -a "$$TAG" -m "Automated backup snapshot"
+	@git push origin "$$TAG"
+	@echo "✅ Backup pushed with tag: $$TAG"

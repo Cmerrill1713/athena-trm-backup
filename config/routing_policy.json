@@ -1,0 +1,73 @@
+{
+  "version": "1",
+  "defaults": {
+    "provider": "router",
+    "latency_budget_ms": 2500,
+    "max_tokens": 1024
+  },
+  "tasks": {
+    "chat.smalltalk": {
+      "provider": "llm_router",
+      "tier": "fast",
+      "requires_tools": false
+    },
+    "chat.coding": {
+      "provider": "llm_router",
+      "tier": "accurate",
+      "requires_tools": true
+    },
+    "chat.reasoning": {
+      "provider": "trm_router",
+      "depth": "auto",
+      "budget_ms": 5000
+    },
+    "vision.describe": {
+      "provider": "llm_router",
+      "modality": "vision"
+    },
+    "vision.ocr": {
+      "provider": "llm_router",
+      "modality": "vision",
+      "task_type": "ocr"
+    },
+    "vision.chart": {
+      "provider": "llm_router",
+      "modality": "vision",
+      "task_type": "chart"
+    },
+    "audio.tts": {
+      "provider": "tts_proxy"
+    },
+    "rag.query": {
+      "provider": "rag_router",
+      "dedupe": true,
+      "rerank": "cross-encoder"
+    }
+  },
+  "providers": {
+    "llm_router": {
+      "endpoint": "http://localhost:8014/api/chat"
+    },
+    "trm_router": {
+      "endpoint": "http://localhost:8014/api/trm/route"
+    },
+    "rag_router": {
+      "endpoint": "http://localhost:8088/api/rag/search"
+    },
+    "tts_proxy": {
+      "endpoint": "http://localhost:8888/api/tts/speak"
+    },
+    "router": {
+      "endpoint": "http://localhost:8014/api/route"
+    }
+  },
+  "fallbacks": [
+    {
+      "match": {
+        "http": [500, 503],
+        "timeout_ms": 2500
+      },
+      "to": "router"
+    }
+  ]
+}

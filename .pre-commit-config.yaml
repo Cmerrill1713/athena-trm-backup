@@ -1,0 +1,23 @@
+# Pre-commit hooks for Athena
+# Prevents secrets, broken YAML, and common issues from entering the repo
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-ast           # Python syntax
+      - id: check-yaml          # YAML syntax
+      - id: check-json          # JSON syntax
+      - id: end-of-file-fixer   # Ensure files end with newline
+      - id: trailing-whitespace # Remove trailing whitespace
+      - id: check-added-large-files  # Block files >500KB
+        args: ['--maxkb=500']
+      - id: detect-private-key  # Block SSH/PEM keys
+      - id: check-merge-conflict  # Block merge conflict markers
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets      # Detect hardcoded secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: '\.env\.example$'
