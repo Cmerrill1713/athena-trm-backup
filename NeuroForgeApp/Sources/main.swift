@@ -83,7 +83,7 @@ struct NeuroForgeApp: App {
                     if let window = NSApp.windows.first(where: { $0.identifier?.rawValue == "trace-panel" }) {
                         window.makeKeyAndOrderFront(nil)
                     } else {
-                        NSApp.sendAction(#selector(NSApplication.newDocument(_:)), to: nil, from: nil)
+                        NSApp.activate(ignoringOtherApps: true)
                     }
                 }
                 .keyboardShortcut("t", modifiers: [.command, .shift])

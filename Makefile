@@ -1,4 +1,4 @@
-.PHONY: help broker broker-agent build validate package deliver workspace-health wizard check-health learn train eval promote full-validate inventory
+.PHONY: help broker broker-agent build validate package deliver workspace-health wizard check-health learn train eval promote full-validate inventory bridge-up bridge-down app all logs smoke
 
 SCRIPTS_DIR := $(CURDIR)/scripts
 BROKER_DIR := $(CURDIR)/assistant-broker
@@ -82,6 +82,14 @@ help:
 	@echo "  vision-chart           - Extract chart data (IMG=chart.png)"
 	@echo "  vision-ui              - Analyze UI (IMG=screenshot.png)"
 	@echo "  vision-diagram         - Explain diagram (IMG=arch.png)"
+	@echo ""
+	@echo "🌉 NeuroForge Bridge:"
+	@echo "  bridge-up             - Start bridge service on port 8014"
+	@echo "  bridge-down           - Stop bridge service"
+	@echo "  app                   - Run NeuroForge app with bridge"
+	@echo "  all                   - Start bridge + app together"
+	@echo "  logs                  - Show bridge logs"
+	@echo "  smoke                 - Smoke test bridge endpoints"
 	@echo ""
 	@echo "🐤 Canary Deployment:"
 	@echo "  canary-10            - Enable canary at 10% (CANARY_MODEL=...)"
@@ -938,3 +946,155 @@ backup-push:
 	@TAG="backup/$$(date -u +'%Y%m%d-%H%M%S')"	@git tag -a "$$TAG" -m "Automated backup snapshot"
 	@git push origin "$$TAG"
 	@echo "✅ Backup pushed with tag: $$TAG"
+
+# ============================================================================
+# NeuroForge Bridge - Durable 1-Command Ops
+# ============================================================================
+
+bridge-up:
+	@echo "🌉 Starting NeuroForge Bridge on port 8014..."
+	@UAT_BASE=$${UAT_BASE:-http://127.0.0.1:8080}
+	@ATHENA_BASE=$${ATHENA_BASE:-http://127.0.0.1:8090}
+	@UAT_TOKEN=$${UAT_TOKEN:-}
+	@ATH_TOKEN=$${ATH_TOKEN:-}
+	@USE_MOCK=$${USE_MOCK:-1}
+	@pkill -f "uvicorn bridge:app" || true
+	@cd AI-Projects/universal-ai-tools && \
+	UAT_BASE=$$UAT_BASE ATHENA_BASE=$$ATHENA_BASE UAT_TOKEN=$$UAT_TOKEN ATH_TOKEN=$$ATH_TOKEN USE_MOCK=$$USE_MOCK \
+	uvicorn bridge:app --host 127.0.0.1 --port 8014 --reload > /tmp/bridge_8014.log 2>&1 &
+	@sleep 3
+	@echo "✅ Bridge started (PID: $$!)"
+	@echo "   Logs: tail -f /tmp/bridge_8014.log"
+
+bridge-down:
+	@echo "🛑 Stopping NeuroForge Bridge..."
+	@pkill -f "uvicorn bridge:app" || true
+	@echo "✅ Bridge stopped"
+
+app:
+	@echo "🚀 Starting NeuroForge app..."
+	@cd NeuroForgeApp && API_BASE=http://127.0.0.1:8014 QA_MODE=1 swift run
+
+all: bridge-up app
+
+logs:
+	@echo "📋 Bridge logs (port 8014):"
+	@lsof -iTCP:8014 -sTCP:LISTEN || echo "No process on port 8014"
+	@echo ""
+	@echo "📋 Recent bridge log entries:"
+	@tail -20 /tmp/bridge_8014.log 2>/dev/null || echo "No bridge logs found"
+
+smoke:
+	@echo "🧪 Smoke testing bridge endpoints..."
+	@curl -sf http://127.0.0.1:8014/health && echo " ✅ Health OK" || echo " ❌ Health FAIL"
+	@curl -sf http://127.0.0.1:8014/traces | head -c 200 && echo " ✅ Traces OK" || echo " ❌ Traces FAIL"
+
+# Real Backend Services
+uat-up:
+	@echo "🚀 Starting UAT service on port 8080..."
+	@cd AI-Projects/universal-ai-tools && \
+	UAT_TOKEN=$${UAT_TOKEN:-supersecret} UAT_AUTO_SEED=1 \
+	python3 -m uvicorn uat.api:app --host 127.0.0.1 --port 8080 --reload > /tmp/uat_8080.log 2>&1 &
+	@sleep 3
+	@echo "✅ UAT started (PID: $$!)"
+	@echo "   Logs: tail -f /tmp/uat_8080.log"
+
+uat-down:
+	@echo "🛑 Stopping UAT service..."
+	@pkill -f "uvicorn uat.api:app" || true
+	@echo "✅ UAT stopped"
+
+athena-up:
+	@echo "🚀 Starting Athena service on port 8090..."
+	@cd AI-Projects/universal-ai-tools && \
+	ATH_TOKEN=$${ATH_TOKEN:-supersecret} \
+	python3 -m uvicorn athena.api:app --host 127.0.0.1 --port 8090 --reload > /tmp/athena_8090.log 2>&1 &
+	@sleep 3
+	@echo "✅ Athena started (PID: $$!)"
+	@echo "   Logs: tail -f /tmp/athena_8090.log"
+
+athena-down:
+	@echo "🛑 Stopping Athena service..."
+	@pkill -f "uvicorn athena.api:app" || true
+	@echo "✅ Athena stopped"
+
+all-real: uat-up athena-up
+	@sleep 2
+	@echo "🚀 Starting bridge in real mode..."
+	@cd AI-Projects/universal-ai-tools && \
+	USE_MOCK=0 UAT_BASE=http://127.0.0.1:8080 ATHENA_BASE=http://127.0.0.1:8090 \
+	UAT_TOKEN=$${UAT_TOKEN:-supersecret} ATH_TOKEN=$${ATH_TOKEN:-supersecret} \
+	python3 bridge.py > /tmp/bridge_8014.log 2>&1 &
+	@sleep 3
+	@echo "✅ All services started in real mode!"
+	@echo ""
+	@echo "📊 Services:"
+	@echo "   UAT:    http://127.0.0.1:8080"
+	@echo "   Athena: http://127.0.0.1:8090"
+	@echo "   Bridge: http://127.0.0.1:8014"
+	@echo ""
+	@echo "🧪 Test with:"
+	@echo "   curl -H 'Authorization: Bearer supersecret' http://127.0.0.1:8014/traces"
+
+stop-all:
+	@echo "🛑 Stopping all services..."
+	@$(MAKE) bridge-down
+	@$(MAKE) uat-down
+	@$(MAKE) athena-down
+	@echo "✅ All services stopped"
+
+# NeuroForge Adapter Wiring
+.PHONY: bridge-up bridge-down bridge-all bridge-smoke bridge-slo bridge-chaos
+
+BRIDGE_PID := .bridge.pid
+
+bridge-up:
+	@echo "🔗 Starting NeuroForge Adapter on :8014"
+	@# Check if already running
+	@test -f $(BRIDGE_PID) && kill -0 $$(cat $(BRIDGE_PID)) 2>/dev/null && { echo "✅ Bridge already running"; exit 0; } || true
+	@# Kill any process on port 8014
+	@lsof -ti:8014 2>/dev/null | xargs -n 1 kill -9 2>/dev/null || true
+	@# Install deps
+	@cd bridge && python3 -m pip install -r requirements.txt >/dev/null 2>&1 || true
+	@# Start bridge
+	@cd bridge && UAT_BASE=$${UAT_BASE:-http://127.0.0.1:8080} \
+		ATHENA_BASE=$${ATHENA_BASE:-http://127.0.0.1:8090} \
+		UAT_TOKEN=$${UAT_TOKEN:-} \
+		ATH_TOKEN=$${ATH_TOKEN:-} \
+		ENV=$${ENV:-dev} \
+		USE_MOCK=$${USE_MOCK:-1} \
+		BRIDGE_TOKEN=$${BRIDGE_TOKEN:-} \
+		python3 -m uvicorn adapter:app --host 127.0.0.1 --port 8014 --reload > ../logs/adapter.log 2>&1 & echo $$! > ../$(BRIDGE_PID)
+	@sleep 3
+	@echo "✅ Adapter started on http://127.0.0.1:8014 (PID: $$(cat $(BRIDGE_PID)))"
+
+bridge-down:
+	@echo "🔗 Stopping NeuroForge Adapter"
+	@-kill -9 $$(cat $(BRIDGE_PID)) 2>/dev/null || true
+	@rm -f $(BRIDGE_PID)
+	@echo "✅ Adapter stopped"
+
+bridge-all: bridge-up
+	@echo "🚀 Launching NeuroForge pointing to adapter"
+	@sleep 2
+	@cd NeuroForgeApp && API_BASE=http://127.0.0.1:8014 QA_MODE=1 EVO_SUGGESTIONS=0 swift run
+
+bridge-smoke:
+	@echo "🧪 Running smoke tests"
+	@python3 scripts/health_smoke.py
+
+bridge-slo:
+	@echo "📊 Running SLO checks (p95 < 250ms)"
+	@python3 scripts/slo_check.py
+
+bridge-chaos:
+	@echo "💥 Chaos test: Kill UAT, confirm fallback to mock"
+	@pkill -f ":8080" 2>/dev/null || true
+	@sleep 1
+	@curl -s http://127.0.0.1:8014/traces | jq -e '.source == "mock-data"' && echo "✅ Fallback working" || echo "❌ Fallback failed"
+
+# Legacy aliases
+wire-up: bridge-up
+wire-down: bridge-down
+wire-all: bridge-all
+wire-test: bridge-smoke

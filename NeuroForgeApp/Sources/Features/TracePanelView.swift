@@ -3,20 +3,6 @@ import SwiftUI
 import AppKit
 #endif
 
-struct TraceSummary: Identifiable, Decodable, Hashable {
-    let id: String           // trace_id
-    let capability: String
-    let duration_ms: Int
-    let started_at: Double
-    let provider: String?
-    let score: Double?
-}
-
-struct TraceDetail: Decodable {
-    let output: [String: AnyDecodable]
-    let trace: [String: AnyDecodable]
-}
-
 // MARK: - WHY THIS CHOICE: models & parsing
 
 struct ChoiceExplain {
