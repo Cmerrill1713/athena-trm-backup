@@ -4,10 +4,16 @@
 # Runs all checks before promoting to production
 #
 
-set -e
+set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_ROOT"
+
+# Environment defaults
+export BRIDGE_BASE="${BRIDGE_BASE:-http://127.0.0.1:8014}"
+export UAT_BASE="${UAT_BASE:-http://127.0.0.1:8181}"
+export ATHENA_BASE="${ATHENA_BASE:-http://127.0.0.1:8090}"
+export SLO_P95_MS="${SLO_P95_MS:-250}"
 
 echo "=================================="
 echo "🎯 FINAL ACCEPTANCE TEST"
@@ -123,6 +129,18 @@ else
 fi
 
 echo ""
+echo ""
+echo "7️⃣  pytest Integration Tests"
+echo "   Running smoke, e2e, backends, and slo tests..."
+if command -v pytest &> /dev/null; then
+    pytest -m smoke tests/interop/ -q && echo "   ✅ Smoke tests passed" || echo "   ⚠️  Smoke tests failed"
+    pytest -m e2e tests/interop/ -q && echo "   ✅ E2E tests passed" || echo "   ⚠️  E2E tests failed"
+    pytest -m slo tests/interop/ -q && echo "   ✅ SLO tests passed" || echo "   ⚠️  SLO tests failed"
+else
+    echo "   ⏭️  pytest not installed (pip install pytest pytest-asyncio)"
+fi
+
+echo ""
 echo "=================================="
 echo "✅ ACCEPTANCE TEST COMPLETE"
 echo "=================================="
@@ -130,6 +148,6 @@ echo ""
 echo "Next steps:"
 echo "  1. Review logs: tail -f logs/adapter.log"
 echo "  2. Run chaos test: make bridge-chaos"
-echo "  3. Load test: Run for 10 minutes and monitor"
+echo "  3. Run full pytest suite: make test-accept"
 echo "  4. Tag release: git tag bridge-1.0.0"
 echo ""

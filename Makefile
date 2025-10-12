@@ -989,59 +989,50 @@ smoke:
 	@curl -sf http://127.0.0.1:8014/health && echo " ✅ Health OK" || echo " ❌ Health FAIL"
 	@curl -sf http://127.0.0.1:8014/traces | head -c 200 && echo " ✅ Traces OK" || echo " ❌ Traces FAIL"
 
-# Real Backend Services
-uat-up:
-	@echo "🚀 Starting UAT service on port 8080..."
-	@cd AI-Projects/universal-ai-tools && \
-	UAT_TOKEN=$${UAT_TOKEN:-supersecret} UAT_AUTO_SEED=1 \
-	python3 -m uvicorn uat.api:app --host 127.0.0.1 --port 8080 --reload > /tmp/uat_8080.log 2>&1 &
-	@sleep 3
-	@echo "✅ UAT started (PID: $$!)"
-	@echo "   Logs: tail -f /tmp/uat_8080.log"
+# Real Backend Services - Clean, No Port Conflicts
+UAT_PORT ?= 8181
+ATHENA_PORT ?= 8090
+BRIDGE_PORT ?= 8014
+UAT_TOKEN ?= supersecret
+ATH_TOKEN ?= supersecret
+UAT_BASE ?= http://127.0.0.1:$(UAT_PORT)
+ATHENA_BASE ?= http://127.0.0.1:$(ATHENA_PORT)
 
-uat-down:
-	@echo "🛑 Stopping UAT service..."
-	@pkill -f "uvicorn uat.api:app" || true
-	@echo "✅ UAT stopped"
+real-up:
+	@echo "🚀 Starting Real Mode (clean, scripted)..."
+	@bash scripts/real_up.sh
+
+real-down:
+	@echo "🛑 Stopping Real Mode..."
+	@bash scripts/real_down.sh
+
+# Legacy individual targets (use real-up instead)
+uat-up:
+	@echo "🚀 Starting UAT service on port $(UAT_PORT)..."
+	@lsof -ti:$(UAT_PORT) | xargs -r kill -9 || true
+	@cd AI-Projects/universal-ai-tools && \
+	UAT_TOKEN=$(UAT_TOKEN) UAT_AUTO_SEED=1 \
+	python3 -m uvicorn uat.api:app --host 127.0.0.1 --port $(UAT_PORT) --reload > /tmp/uat_$(UAT_PORT).log 2>&1 &
+	@sleep 3
+	@echo "✅ UAT started on port $(UAT_PORT)"
+	@echo "   Logs: tail -f /tmp/uat_$(UAT_PORT).log"
 
 athena-up:
-	@echo "🚀 Starting Athena service on port 8090..."
+	@echo "🚀 Starting Athena service on port $(ATHENA_PORT)..."
+	@lsof -ti:$(ATHENA_PORT) | xargs -r kill -9 || true
 	@cd AI-Projects/universal-ai-tools && \
-	ATH_TOKEN=$${ATH_TOKEN:-supersecret} \
-	python3 -m uvicorn athena.api:app --host 127.0.0.1 --port 8090 --reload > /tmp/athena_8090.log 2>&1 &
+	ATH_TOKEN=$(ATH_TOKEN) \
+	python3 -m uvicorn athena.api:app --host 127.0.0.1 --port $(ATHENA_PORT) --reload > /tmp/athena_$(ATHENA_PORT).log 2>&1 &
 	@sleep 3
-	@echo "✅ Athena started (PID: $$!)"
-	@echo "   Logs: tail -f /tmp/athena_8090.log"
+	@echo "✅ Athena started on port $(ATHENA_PORT)"
+	@echo "   Logs: tail -f /tmp/athena_$(ATHENA_PORT).log"
 
-athena-down:
-	@echo "🛑 Stopping Athena service..."
-	@pkill -f "uvicorn athena.api:app" || true
-	@echo "✅ Athena stopped"
-
-all-real: uat-up athena-up
-	@sleep 2
-	@echo "🚀 Starting bridge in real mode..."
-	@cd AI-Projects/universal-ai-tools && \
-	USE_MOCK=0 UAT_BASE=http://127.0.0.1:8080 ATHENA_BASE=http://127.0.0.1:8090 \
-	UAT_TOKEN=$${UAT_TOKEN:-supersecret} ATH_TOKEN=$${ATH_TOKEN:-supersecret} \
-	python3 bridge.py > /tmp/bridge_8014.log 2>&1 &
-	@sleep 3
-	@echo "✅ All services started in real mode!"
-	@echo ""
-	@echo "📊 Services:"
-	@echo "   UAT:    http://127.0.0.1:8080"
-	@echo "   Athena: http://127.0.0.1:8090"
-	@echo "   Bridge: http://127.0.0.1:8014"
-	@echo ""
-	@echo "🧪 Test with:"
-	@echo "   curl -H 'Authorization: Bearer supersecret' http://127.0.0.1:8014/traces"
+all-real:
+	@echo "🚀 Starting all services in real mode..."
+	@bash scripts/real_up.sh
 
 stop-all:
-	@echo "🛑 Stopping all services..."
-	@$(MAKE) bridge-down
-	@$(MAKE) uat-down
-	@$(MAKE) athena-down
-	@echo "✅ All services stopped"
+	@bash scripts/real_down.sh
 
 # NeuroForge Adapter Wiring
 .PHONY: bridge-up bridge-down bridge-all bridge-smoke bridge-slo bridge-chaos
@@ -1098,3 +1089,38 @@ wire-up: bridge-up
 wire-down: bridge-down
 wire-all: bridge-all
 wire-test: bridge-smoke
+
+# Integration testing
+.PHONY: test-smoke test-backends test-e2e test-slo test-accept test-all
+
+test-smoke:
+	@echo "🧪 Running smoke tests (fast contract checks)"
+	@BRIDGE_BASE=$${BRIDGE_BASE:-http://127.0.0.1:8014} pytest -m smoke tests/interop/
+
+test-backends:
+	@echo "🔗 Testing backends directly (UAT + Athena)"
+	@UAT_BASE=$${UAT_BASE:-http://127.0.0.1:8181} \
+	 ATHENA_BASE=$${ATHENA_BASE:-http://127.0.0.1:8090} \
+	 UAT_TOKEN=$${UAT_TOKEN} \
+	 ATH_TOKEN=$${ATH_TOKEN} \
+	 pytest -m backends tests/interop/
+
+test-e2e:
+	@echo "🌊 Running end-to-end tests (full flow)"
+	@BRIDGE_BASE=$${BRIDGE_BASE:-http://127.0.0.1:8014} \
+	 BRIDGE_TOKEN=$${BRIDGE_TOKEN} \
+	 pytest -m e2e tests/interop/
+
+test-slo:
+	@echo "⚡ Running SLO tests (p95 < 250ms)"
+	@BRIDGE_BASE=$${BRIDGE_BASE:-http://127.0.0.1:8014} \
+	 SLO_P95_MS=$${SLO_P95_MS:-250} \
+	 BRIDGE_TOKEN=$${BRIDGE_TOKEN} \
+	 pytest -m slo tests/interop/
+
+test-accept:
+	@echo "🎯 Running full acceptance test suite"
+	@./scripts/acceptance_test.sh
+
+test-all: test-smoke test-e2e test-slo
+	@echo "✅ All integration tests complete"
