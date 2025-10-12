@@ -6,6 +6,7 @@ struct NeuroForgeApp: App {
     @StateObject private var prompts = PromptStore()
     @State private var showInspector = false
     @State private var showSidebar = false
+    @AppStorage("hasCompletedFirstRun") private var hasCompletedFirstRun = false
 
     init() {
         // Set the app icon
@@ -14,7 +15,8 @@ struct NeuroForgeApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ChatView() // uses HealthBanner + model-agnostic routing
+            if hasCompletedFirstRun {
+                ChatView() // uses HealthBanner + model-agnostic routing
                 .environmentObject(prompts)
                 .overlay(alignment: .leading) {
                     if ProcessInfo.processInfo.environment["QA_MODE"] == "1",
@@ -49,6 +51,11 @@ struct NeuroForgeApp: App {
                         showInspector = true
                     }
                 }
+            } else {
+                FirstRunWizardView(onComplete: {
+                    hasCompletedFirstRun = true
+                })
+            }
         }
         .windowStyle(.hiddenTitleBar)
         .commands {

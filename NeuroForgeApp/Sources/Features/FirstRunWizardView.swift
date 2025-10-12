@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct FirstRunWizardView: View {
+    let onComplete: () -> Void
+
     @State private var step: Int = 0
     @State private var healthOK = false
     @State private var offlineLock = true
@@ -74,7 +76,7 @@ struct FirstRunWizardView: View {
             // Done button
             HStack {
                 Spacer()
-                Button(action: { /* Store preference and dismiss */ }) {
+                Button(action: { onComplete() }) {
                     Text(healthOK && warmOK && smokeOK ? "Finish (All Green ✅)" : "Finish Anyway")
                         .frame(minWidth: 180)
                 }
