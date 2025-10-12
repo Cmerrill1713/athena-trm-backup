@@ -205,6 +205,61 @@
       "command": "curl -s http://127.0.0.1:8014/health | jq .",
       "response": "Checking system health...",
       "requires_confirmation": false
+    },
+    "shadow_traffic": {
+      "phrases": [
+        "shadow traffic 10 percent",
+        "mirror 10 percent",
+        "enable shadow mode",
+        "split traffic"
+      ],
+      "command": "echo 'Canary mirroring 10% traffic to :8015' && make athena-canary MIRROR_PERCENT=10",
+      "response": "Enabling 10% traffic shadow to canary...",
+      "requires_confirmation": true
+    },
+    "incident_report": {
+      "phrases": [
+        "generate incident report",
+        "create postmortem",
+        "incident summary",
+        "what went wrong"
+      ],
+      "command": "echo '=== INCIDENT REPORT ===' && make athena-history | tail -20 && echo '' && make auto-heal-logs | grep -E 'unhealthy|recovery|failed' | tail -10",
+      "response": "Generating incident report from audit trail and watchdog logs...",
+      "requires_confirmation": false
+    },
+    "tail_errors": {
+      "phrases": [
+        "show recent errors",
+        "tail errors last 5 minutes",
+        "what's failing",
+        "recent failures"
+      ],
+      "command": "echo '=== RECENT ERRORS ===' && tail -100 /tmp/bridge_8014.log /tmp/athena_8090.log /tmp/uat_8181.log 2>/dev/null | grep -iE 'error|exception|fail|traceback' | tail -20",
+      "response": "Showing recent errors from all services...",
+      "requires_confirmation": false
+    },
+    "create_rollback_point": {
+      "phrases": [
+        "create rollback point",
+        "snapshot current state",
+        "save checkpoint",
+        "create restore point"
+      ],
+      "command": "git tag -a rollback-$(date +%Y%m%d-%H%M%S) -m 'Rollback point created via Athena' && echo 'Rollback point created. Restore with: git reset --hard <tag>'",
+      "response": "Creating rollback point (git tag)...",
+      "requires_confirmation": false
+    },
+    "snapshot_traces": {
+      "phrases": [
+        "snapshot traces",
+        "backup traces",
+        "export trace data",
+        "save current traces"
+      ],
+      "command": "curl -s http://127.0.0.1:8181/traces > /tmp/traces_snapshot_$(date +%Y%m%d_%H%M%S).json && echo 'Traces exported to /tmp/traces_snapshot_*.json' && ls -lh /tmp/traces_snapshot_*.json | tail -1",
+      "response": "Snapshotting current trace data...",
+      "requires_confirmation": false
     }
   },
   "confirmations": {
@@ -243,18 +298,26 @@
       "Deployment": [
         "ship it",
         "backtrack",
-        "deploy to production"
+        "deploy to production",
+        "shadow traffic 10 percent"
       ],
       "Monitoring": [
         "watchdog status",
         "show deployment history",
         "open the dashboard",
-        "health check"
+        "health check",
+        "show recent errors"
       ],
       "Emergency": [
         "kill the ghosts",
         "fresh start",
         "check the gate"
+      ],
+      "Data & Audit": [
+        "snapshot traces",
+        "create rollback point",
+        "generate incident report",
+        "tail errors last 5 minutes"
       ]
     }
   }

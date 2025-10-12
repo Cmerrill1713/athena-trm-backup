@@ -52,6 +52,23 @@
   "validate stack": "make stack-validate",
   "health check": "make stack-status",
   "what's running": "make truth",
-  "show truth": "make truth"
+  "show truth": "make truth",
+  
+  "shadow traffic ten percent": "make canary-shadow-10",
+  "shadow traffic": "make canary-shadow-10",
+  "generate incident report": "make watchdog-incidents && make truth",
+  "tail errors": "tail -50 logs/*.log | grep -i error",
+  "tail errors last five minutes": "tail -300 logs/*.log | grep -i error",
+  "create rollback point": "git tag -a rollback-$(date +%s) -m 'Manual rollback point'",
+  "snapshot traces": "curl -s http://127.0.0.1:8014/traces > traces-$(date +%s).json",
+  "show me incidents": "make watchdog-incidents",
+  "restart the ui": "make frontend-restart",
+  "restart bridge": "pkill -TERM -f uvicorn.*adapter && make stack-up",
+  "restart athena": "pkill -TERM -f uvicorn.*athena && make stack-up",
+  "point app at canary": "export API_BASE=http://127.0.0.1:8015 && make app",
+  "open logs": "tail -f logs/*.log",
+  "clear logs": "truncate -s 0 logs/*.log",
+  "nuke everything": "make nuke-ports && make stack-up",
+  "emergency restart": "make nuke-ports && make stack-up && make truth"
 }
 
