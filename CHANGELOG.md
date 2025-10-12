@@ -3,18 +3,22 @@
 ## [Unreleased] (v0.9.2-dev)
 
 ### Added
-- (placeholder) Vision→RAG wiring from frontend
-- (placeholder) Provider inspector toggle in QA overlay
-- (placeholder) Prompt tooling sidebar with templates
-- (placeholder) Fast onboarding wizard for service setup
+- **Provider Inspector Toggle** - QA overlay for runtime routing control
+  - Select provider: Auto / FastVLM / Ollama / TRM
+  - Real-time health indicators with latency metrics
+  - Keyboard shortcuts: ⌘⌥I (toggle), ⌘⇧0 (reset to auto), ⌘⇧R (refresh health)
+  - Sticky selection (persists via UserDefaults)
+  - Client-side header fallback (X-Provider-Override)
+  - Optional backend endpoint support (/api/router/override)
+  - 7 comprehensive UI tests (visibility, selection, persistence, health)
+  - Only visible in DEBUG or QA_MODE=1
 
 ### Changed
-- (placeholder) Model-agnostic routing polish
-- (placeholder) Enhanced error messages and loading states
+- Updated APIClient to inject provider override header
+- Enhanced NetworkInterceptor for header-based routing
 
 ### Fixed
-- (placeholder) Minor UI polish items from QA
-- (placeholder) Performance optimizations
+- (None yet)
 
 ---
 

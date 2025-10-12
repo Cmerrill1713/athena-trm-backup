@@ -19,11 +19,15 @@ struct APIClient {
     }
 
     // Model-agnostic chat endpoint
+    @MainActor
     func chat(_ task: ChatTask) async throws -> String {
         var req = URLRequest(url: base.appendingPathComponent("api/chat"))
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try JSONEncoder().encode(task)
+
+        // Inject provider override header if set
+        NetworkInterceptor.injectProviderHeader(into: &req)
 
         let (data, resp) = try await session.data(for: req)
         let code = (resp as? HTTPURLResponse)?.statusCode ?? -1
