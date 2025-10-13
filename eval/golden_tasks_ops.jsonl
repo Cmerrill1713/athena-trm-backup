@@ -1,0 +1,6 @@
+{"id": "ops-001", "task": "Check if Bridge service is running", "domain": "ops", "expected_tools": ["curl"], "expected_answer": "Bridge is running on port 8014", "difficulty": "easy"}
+{"id": "ops-002", "task": "Show me the status of all services", "domain": "ops", "expected_tools": ["curl", "grep"], "expected_answer_contains": ["Bridge", "Athena", "UAT", "Kokoro"], "difficulty": "easy"}
+{"id": "ops-003", "task": "What services are listening on ports 8014, 8090, 8181, 8020?", "domain": "ops", "expected_tools": ["lsof"], "expected_answer_contains": ["Bridge", "Athena", "UAT", "Kokoro"], "difficulty": "medium"}
+{"id": "ops-004", "task": "Probe all services and tell me which are down", "domain": "ops", "expected_tools": ["curl"], "requires_rag": false, "difficulty": "medium"}
+{"id": "ops-005", "task": "If Kokoro is down, what's the fallback voice strategy?", "domain": "ops", "requires_rag": true, "expected_answer_contains": ["system", "TTS", "fallback"], "difficulty": "hard"}
+

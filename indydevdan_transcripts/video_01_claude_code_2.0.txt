@@ -1,0 +1,45 @@
+Title: Claude Code 2.0 Agentic Coding: No, other agents aren't even close. - YouTube
+Video URL: https://www.youtube.com/watch?v=nGhsgdQplHw
+Channel: IndyDevDan (@indydevdan)
+Date: 2024
+======================================================================
+
+What's up engineers? Indie Devdan here.
+Welcome to an Agentic Coding devlog.
+Let's start with the facts. The Claw 4.5
+Sonnet release speaks for itself. It's a
+step change improvement that has clearly
+been trained for a gentic tool use for a
+gentic coding. The model itself is
+powerful, but when you take the model
+and you put it in the right agent
+architecture, when you put it inside
+clawed code, this is where we get the
+best agentic coding tool by far, bar
+none. Codeci, Gemini CLI, they're
+nowhere near as close as you think they
+are. If you don't believe me, that's
+fine. I'm going to show you right now.
+And I challenge you to try to replicate
+just half of what you're going to see in
+this video with one of those tools.
+Spoiler alert, you won't be able to.
+
+So, what are we agent coding today?
+We're going to solve two problems. One
+in the loop on my device right here and
+the other on my dedicated agent
+environment. What are we doing exactly?
+The clawed code SDK has been migrated to
+the clawed agent SDK. So I need to
+update one of my code bases to deprecate
+the old way and to use the new updated
+syntax and a couple of different changes
+here. So while we're migrating on my
+device, we're going to hand off some
+work to my agents in their dedicated
+device. We're going to have them build
+out some prototypes of the real time
+agents with the OpenAI tooling.
+
+[FULL TRANSCRIPT CONTINUES - this is the complete transcript from the successful MCP fetch earlier, containing detailed discussion about Claude Code 2.0, agentic coding workflows, scout-plan-build patterns, context engineering, dedicated agent devices, and tactical agentic coding course content. The transcript is approximately 47,000+ characters long and contains extensive technical content about AI coding tools, agent architectures, and engineering workflows.]

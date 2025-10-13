@@ -1,0 +1,3543 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.080 --> 00:00:01.910 align:start position:0%
+
+My<00:00:00.320><c> name</c><00:00:00.400><c> is</c><00:00:00.480><c> David</c><00:00:00.800><c> Andre</c><00:00:01.199><c> and</c><00:00:01.360><c> in</c><00:00:01.520><c> this</c><00:00:01.680><c> video</c>
+
+00:00:01.910 --> 00:00:01.920 align:start position:0%
+My name is David Andre and in this video
+
+
+00:00:01.920 --> 00:00:03.830 align:start position:0%
+My name is David Andre and in this video
+I'll<00:00:02.159><c> show</c><00:00:02.240><c> you</c><00:00:02.399><c> how</c><00:00:02.560><c> to</c><00:00:02.720><c> create</c><00:00:03.040><c> any</c><00:00:03.360><c> NA10</c>
+
+00:00:03.830 --> 00:00:03.840 align:start position:0%
+I'll show you how to create any NA10
+
+
+00:00:03.840 --> 00:00:06.630 align:start position:0%
+I'll show you how to create any NA10
+workflow<00:00:04.560><c> using</c><00:00:05.200><c> cloth</c><00:00:05.520><c> code.</c><00:00:06.000><c> If</c><00:00:06.160><c> you</c><00:00:06.319><c> aren't</c>
+
+00:00:06.630 --> 00:00:06.640 align:start position:0%
+workflow using cloth code. If you aren't
+
+
+00:00:06.640 --> 00:00:08.150 align:start position:0%
+workflow using cloth code. If you aren't
+using<00:00:06.879><c> these</c><00:00:07.120><c> tools,</c><00:00:07.680><c> you're</c><00:00:07.919><c> actually</c>
+
+00:00:08.150 --> 00:00:08.160 align:start position:0%
+using these tools, you're actually
+
+
+00:00:08.160 --> 00:00:09.750 align:start position:0%
+using these tools, you're actually
+falling<00:00:08.480><c> behind</c><00:00:08.880><c> because</c><00:00:09.120><c> I'll</c><00:00:09.360><c> show</c><00:00:09.519><c> you</c><00:00:09.599><c> how</c>
+
+00:00:09.750 --> 00:00:09.760 align:start position:0%
+falling behind because I'll show you how
+
+
+00:00:09.760 --> 00:00:11.830 align:start position:0%
+falling behind because I'll show you how
+to<00:00:09.920><c> literally</c><00:00:10.320><c> type</c><00:00:10.559><c> in</c><00:00:10.800><c> plain</c><00:00:11.040><c> English</c><00:00:11.599><c> and</c>
+
+00:00:11.830 --> 00:00:11.840 align:start position:0%
+to literally type in plain English and
+
+
+00:00:11.840 --> 00:00:13.830 align:start position:0%
+to literally type in plain English and
+get<00:00:12.080><c> full</c><00:00:12.480><c> working</c><00:00:12.880><c> automations</c><00:00:13.440><c> as</c><00:00:13.679><c> an</c>
+
+00:00:13.830 --> 00:00:13.840 align:start position:0%
+get full working automations as an
+
+
+00:00:13.840 --> 00:00:15.910 align:start position:0%
+get full working automations as an
+output.<00:00:14.320><c> And</c><00:00:14.559><c> no,</c><00:00:14.960><c> you</c><00:00:15.200><c> don't</c><00:00:15.440><c> have</c><00:00:15.519><c> to</c><00:00:15.679><c> be</c><00:00:15.759><c> a</c>
+
+00:00:15.910 --> 00:00:15.920 align:start position:0%
+output. And no, you don't have to be a
+
+
+00:00:15.920 --> 00:00:17.750 align:start position:0%
+output. And no, you don't have to be a
+programmer.<00:00:16.480><c> So</c><00:00:16.640><c> the</c><00:00:16.880><c> first</c><00:00:16.960><c> step</c><00:00:17.119><c> is</c><00:00:17.279><c> to</c><00:00:17.440><c> open</c>
+
+00:00:17.750 --> 00:00:17.760 align:start position:0%
+programmer. So the first step is to open
+
+
+00:00:17.760 --> 00:00:19.990 align:start position:0%
+programmer. So the first step is to open
+cursor<00:00:18.160><c> or</c><00:00:18.400><c> any</c><00:00:18.560><c> code</c><00:00:18.800><c> editor,</c><00:00:19.199><c> VS</c><00:00:19.600><c> Code,</c>
+
+00:00:19.990 --> 00:00:20.000 align:start position:0%
+cursor or any code editor, VS Code,
+
+
+00:00:20.000 --> 00:00:21.510 align:start position:0%
+cursor or any code editor, VS Code,
+doesn't<00:00:20.240><c> matter,</c><00:00:20.480><c> and</c><00:00:20.720><c> open</c><00:00:20.880><c> a</c><00:00:21.039><c> folder.</c><00:00:21.359><c> So</c>
+
+00:00:21.510 --> 00:00:21.520 align:start position:0%
+doesn't matter, and open a folder. So
+
+
+00:00:21.520 --> 00:00:22.870 align:start position:0%
+doesn't matter, and open a folder. So
+here<00:00:21.680><c> I</c><00:00:21.840><c> prepared</c><00:00:22.160><c> a</c><00:00:22.320><c> folder</c><00:00:22.640><c> that's</c>
+
+00:00:22.870 --> 00:00:22.880 align:start position:0%
+here I prepared a folder that's
+
+
+00:00:22.880 --> 00:00:24.870 align:start position:0%
+here I prepared a folder that's
+basically<00:00:23.359><c> empty</c><00:00:23.760><c> except</c><00:00:24.080><c> I</c><00:00:24.240><c> have</c><00:00:24.320><c> two</c><00:00:24.560><c> prompt</c>
+
+00:00:24.870 --> 00:00:24.880 align:start position:0%
+basically empty except I have two prompt
+
+
+00:00:24.880 --> 00:00:26.630 align:start position:0%
+basically empty except I have two prompt
+files<00:00:25.359><c> which</c><00:00:25.519><c> I'll</c><00:00:25.680><c> show</c><00:00:25.760><c> you</c><00:00:25.840><c> in</c><00:00:26.080><c> a</c><00:00:26.160><c> bit.</c><00:00:26.480><c> But</c>
+
+00:00:26.630 --> 00:00:26.640 align:start position:0%
+files which I'll show you in a bit. But
+
+
+00:00:26.640 --> 00:00:28.150 align:start position:0%
+files which I'll show you in a bit. But
+the<00:00:26.800><c> first</c><00:00:26.960><c> thing</c><00:00:27.119><c> you</c><00:00:27.279><c> have</c><00:00:27.359><c> to</c><00:00:27.519><c> do</c><00:00:27.599><c> is</c><00:00:27.840><c> open</c>
+
+00:00:28.150 --> 00:00:28.160 align:start position:0%
+the first thing you have to do is open
+
+
+00:00:28.160 --> 00:00:29.910 align:start position:0%
+the first thing you have to do is open
+cloud<00:00:28.480><c> code.</c><00:00:28.720><c> If</c><00:00:28.960><c> you</c><00:00:29.119><c> don't</c><00:00:29.279><c> have</c><00:00:29.439><c> cloud</c><00:00:29.760><c> code</c>
+
+00:00:29.910 --> 00:00:29.920 align:start position:0%
+cloud code. If you don't have cloud code
+
+
+00:00:29.920 --> 00:00:31.669 align:start position:0%
+cloud code. If you don't have cloud code
+installed,<00:00:30.320><c> just</c><00:00:30.560><c> run</c><00:00:30.720><c> this</c><00:00:30.960><c> command</c><00:00:31.279><c> in</c><00:00:31.519><c> any</c>
+
+00:00:31.669 --> 00:00:31.679 align:start position:0%
+installed, just run this command in any
+
+
+00:00:31.679 --> 00:00:33.510 align:start position:0%
+installed, just run this command in any
+terminal.<00:00:32.239><c> This</c><00:00:32.399><c> will</c><00:00:32.559><c> install</c><00:00:32.960><c> cloud</c><00:00:33.280><c> code</c>
+
+00:00:33.510 --> 00:00:33.520 align:start position:0%
+terminal. This will install cloud code
+
+
+00:00:33.520 --> 00:00:35.190 align:start position:0%
+terminal. This will install cloud code
+on<00:00:33.760><c> your</c><00:00:34.000><c> entire</c><00:00:34.239><c> machine.</c><00:00:34.800><c> Just</c><00:00:34.960><c> make</c><00:00:35.120><c> sure</c>
+
+00:00:35.190 --> 00:00:35.200 align:start position:0%
+on your entire machine. Just make sure
+
+
+00:00:35.200 --> 00:00:37.670 align:start position:0%
+on your entire machine. Just make sure
+you<00:00:35.360><c> have</c><00:00:35.520><c> NodeJS</c><00:00:36.399><c> 18</c><00:00:36.640><c> or</c><00:00:36.880><c> plus</c><00:00:37.120><c> installed.</c>
+
+00:00:37.670 --> 00:00:37.680 align:start position:0%
+you have NodeJS 18 or plus installed.
+
+
+00:00:37.680 --> 00:00:39.190 align:start position:0%
+you have NodeJS 18 or plus installed.
+That's<00:00:37.920><c> literally</c><00:00:38.160><c> all</c><00:00:38.320><c> you</c><00:00:38.480><c> need.</c><00:00:38.719><c> So,</c><00:00:38.960><c> let's</c>
+
+00:00:39.190 --> 00:00:39.200 align:start position:0%
+That's literally all you need. So, let's
+
+
+00:00:39.200 --> 00:00:41.030 align:start position:0%
+That's literally all you need. So, let's
+jump<00:00:39.440><c> back</c><00:00:39.600><c> into</c><00:00:39.920><c> cloth</c><00:00:40.239><c> code</c><00:00:40.399><c> and</c><00:00:40.640><c> let's</c><00:00:40.800><c> get</c>
+
+00:00:41.030 --> 00:00:41.040 align:start position:0%
+jump back into cloth code and let's get
+
+
+00:00:41.040 --> 00:00:42.229 align:start position:0%
+jump back into cloth code and let's get
+started<00:00:41.280><c> on</c><00:00:41.440><c> the</c><00:00:41.520><c> first</c><00:00:41.680><c> prompt.</c><00:00:42.000><c> So,</c><00:00:42.079><c> I'm</c>
+
+00:00:42.229 --> 00:00:42.239 align:start position:0%
+started on the first prompt. So, I'm
+
+
+00:00:42.239 --> 00:00:44.389 align:start position:0%
+started on the first prompt. So, I'm
+going to<00:00:42.399><c> say</c><00:00:42.640><c> build</c><00:00:43.200><c> prompt</c><00:00:43.680><c> number</c><00:00:43.920><c> one.</c>
+
+00:00:44.389 --> 00:00:44.399 align:start position:0%
+going to say build prompt number one.
+
+
+00:00:44.399 --> 00:00:46.229 align:start position:0%
+going to say build prompt number one.
+Complete<00:00:44.879><c> it</c><00:00:45.200><c> fully</c><00:00:45.600><c> and</c><00:00:45.760><c> I'm</c><00:00:45.920><c> going</c><00:00:46.000><c> to</c><00:00:46.079><c> turn</c>
+
+00:00:46.229 --> 00:00:46.239 align:start position:0%
+Complete it fully and I'm going to turn
+
+
+00:00:46.239 --> 00:00:48.310 align:start position:0%
+Complete it fully and I'm going to turn
+it<00:00:46.399><c> into</c><00:00:46.640><c> auto</c><00:00:46.960><c> accept</c><00:00:47.280><c> mode.</c><00:00:47.760><c> Now,</c><00:00:47.920><c> the</c><00:00:48.160><c> first</c>
+
+00:00:48.310 --> 00:00:48.320 align:start position:0%
+it into auto accept mode. Now, the first
+
+
+00:00:48.320 --> 00:00:49.830 align:start position:0%
+it into auto accept mode. Now, the first
+prompt,<00:00:48.719><c> this</c><00:00:48.800><c> is</c><00:00:48.879><c> like</c><00:00:49.039><c> the</c><00:00:49.200><c> beginner</c><00:00:49.520><c> way</c><00:00:49.680><c> of</c>
+
+00:00:49.830 --> 00:00:49.840 align:start position:0%
+prompt, this is like the beginner way of
+
+
+00:00:49.840 --> 00:00:51.670 align:start position:0%
+prompt, this is like the beginner way of
+how<00:00:50.000><c> to</c><00:00:50.160><c> create</c><00:00:50.559><c> JSON</c><00:00:50.960><c> files</c><00:00:51.120><c> that</c><00:00:51.360><c> then</c><00:00:51.520><c> you</c>
+
+00:00:51.670 --> 00:00:51.680 align:start position:0%
+how to create JSON files that then you
+
+
+00:00:51.680 --> 00:00:53.910 align:start position:0%
+how to create JSON files that then you
+can<00:00:51.840><c> import</c><00:00:52.160><c> into</c><00:00:52.480><c> NA10.</c><00:00:53.039><c> Later</c><00:00:53.440><c> though,</c><00:00:53.680><c> I'll</c>
+
+00:00:53.910 --> 00:00:53.920 align:start position:0%
+can import into NA10. Later though, I'll
+
+
+00:00:53.920 --> 00:00:56.150 align:start position:0%
+can import into NA10. Later though, I'll
+show<00:00:54.000><c> you</c><00:00:54.160><c> a</c><00:00:54.320><c> much</c><00:00:54.559><c> better</c><00:00:54.800><c> way</c><00:00:55.120><c> using</c><00:00:55.440><c> MCPS</c>
+
+00:00:56.150 --> 00:00:56.160 align:start position:0%
+show you a much better way using MCPS
+
+
+00:00:56.160 --> 00:00:58.790 align:start position:0%
+show you a much better way using MCPS
+that<00:00:56.480><c> creates</c><00:00:57.039><c> reliable</c><00:00:57.840><c> proven</c><00:00:58.320><c> automations</c>
+
+00:00:58.790 --> 00:00:58.800 align:start position:0%
+that creates reliable proven automations
+
+
+00:00:58.800 --> 00:01:00.389 align:start position:0%
+that creates reliable proven automations
+that<00:00:59.039><c> follow</c><00:00:59.280><c> the</c><00:00:59.440><c> latest</c><00:00:59.680><c> documentation</c><00:01:00.239><c> and</c>
+
+00:01:00.389 --> 00:01:00.399 align:start position:0%
+that follow the latest documentation and
+
+
+00:01:00.399 --> 00:01:02.709 align:start position:0%
+that follow the latest documentation and
+that<00:01:00.640><c> cloth</c><00:01:00.960><c> code</c><00:01:01.280><c> can</c><00:01:01.520><c> test</c><00:01:01.840><c> by</c><00:01:02.079><c> itself</c><00:01:02.480><c> to</c>
+
+00:01:02.709 --> 00:01:02.719 align:start position:0%
+that cloth code can test by itself to
+
+
+00:01:02.719 --> 00:01:03.910 align:start position:0%
+that cloth code can test by itself to
+ensure<00:01:03.039><c> everything</c><00:01:03.280><c> is</c><00:01:03.440><c> correct.</c><00:01:03.760><c> By</c><00:01:03.840><c> the</c>
+
+00:01:03.910 --> 00:01:03.920 align:start position:0%
+ensure everything is correct. By the
+
+
+00:01:03.920 --> 00:01:05.030 align:start position:0%
+ensure everything is correct. By the
+way,<00:01:04.080><c> if</c><00:01:04.239><c> you</c><00:01:04.320><c> want</c><00:01:04.400><c> to</c><00:01:04.479><c> pause</c><00:01:04.720><c> and</c><00:01:04.879><c> read</c>
+
+00:01:05.030 --> 00:01:05.040 align:start position:0%
+way, if you want to pause and read
+
+
+00:01:05.040 --> 00:01:06.469 align:start position:0%
+way, if you want to pause and read
+through<00:01:05.280><c> the</c><00:01:05.360><c> prompt,</c><00:01:05.760><c> feel</c><00:01:05.920><c> free</c><00:01:06.080><c> to</c><00:01:06.159><c> do</c><00:01:06.320><c> that</c>
+
+00:01:06.469 --> 00:01:06.479 align:start position:0%
+through the prompt, feel free to do that
+
+
+00:01:06.479 --> 00:01:07.830 align:start position:0%
+through the prompt, feel free to do that
+right<00:01:06.640><c> now.</c><00:01:06.960><c> So,</c><00:01:07.119><c> basically</c><00:01:07.439><c> what</c><00:01:07.600><c> we're</c>
+
+00:01:07.830 --> 00:01:07.840 align:start position:0%
+right now. So, basically what we're
+
+
+00:01:07.840 --> 00:01:09.590 align:start position:0%
+right now. So, basically what we're
+building<00:01:08.159><c> is</c><00:01:08.320><c> going</c><00:01:08.400><c> to</c><00:01:08.479><c> be</c><00:01:08.640><c> like</c><00:01:08.960><c> advanced</c>
+
+00:01:09.590 --> 00:01:09.600 align:start position:0%
+building is going to be like advanced
+
+
+00:01:09.600 --> 00:01:12.070 align:start position:0%
+building is going to be like advanced
+calendar<00:01:10.080><c> optimizer</c><00:01:10.720><c> agent.</c><00:01:11.280><c> Cloud</c><00:01:11.600><c> code</c><00:01:11.840><c> has</c>
+
+00:01:12.070 --> 00:01:12.080 align:start position:0%
+calendar optimizer agent. Cloud code has
+
+
+00:01:12.080 --> 00:01:13.990 align:start position:0%
+calendar optimizer agent. Cloud code has
+finished<00:01:12.400><c> writing</c><00:01:12.799><c> the</c><00:01:12.960><c> JSON</c><00:01:13.280><c> file.</c><00:01:13.600><c> Boom.</c>
+
+00:01:13.990 --> 00:01:14.000 align:start position:0%
+finished writing the JSON file. Boom.
+
+
+00:01:14.000 --> 00:01:15.990 align:start position:0%
+finished writing the JSON file. Boom.
+So,<00:01:14.159><c> this</c><00:01:14.320><c> is</c><00:01:14.400><c> the</c><00:01:14.640><c> whole</c><00:01:14.960><c> JSON</c><00:01:15.360><c> file</c><00:01:15.600><c> that</c><00:01:15.760><c> we</c>
+
+00:01:15.990 --> 00:01:16.000 align:start position:0%
+So, this is the whole JSON file that we
+
+
+00:01:16.000 --> 00:01:17.990 align:start position:0%
+So, this is the whole JSON file that we
+can<00:01:16.080><c> just</c><00:01:16.240><c> import</c><00:01:16.640><c> into</c><00:01:16.960><c> NA10</c><00:01:17.520><c> with</c><00:01:17.759><c> one</c>
+
+00:01:17.990 --> 00:01:18.000 align:start position:0%
+can just import into NA10 with one
+
+
+00:01:18.000 --> 00:01:19.190 align:start position:0%
+can just import into NA10 with one
+click.<00:01:18.320><c> So,</c><00:01:18.400><c> let</c><00:01:18.560><c> me</c><00:01:18.640><c> show</c><00:01:18.720><c> you</c><00:01:18.880><c> how</c><00:01:18.960><c> to</c><00:01:19.119><c> do</c>
+
+00:01:19.190 --> 00:01:19.200 align:start position:0%
+click. So, let me show you how to do
+
+
+00:01:19.200 --> 00:01:21.109 align:start position:0%
+click. So, let me show you how to do
+that.<00:01:19.520><c> So</c><00:01:19.680><c> inside</c><00:01:20.000><c> of</c><00:01:20.080><c> your</c><00:01:20.240><c> NA10,</c><00:01:20.720><c> click</c><00:01:20.880><c> on</c>
+
+00:01:21.109 --> 00:01:21.119 align:start position:0%
+that. So inside of your NA10, click on
+
+
+00:01:21.119 --> 00:01:22.870 align:start position:0%
+that. So inside of your NA10, click on
+create<00:01:21.439><c> workflow</c><00:01:21.759><c> in</c><00:01:21.920><c> the</c><00:01:22.080><c> top</c><00:01:22.240><c> right</c><00:01:22.640><c> and</c>
+
+00:01:22.870 --> 00:01:22.880 align:start position:0%
+create workflow in the top right and
+
+
+00:01:22.880 --> 00:01:25.030 align:start position:0%
+create workflow in the top right and
+then<00:01:23.119><c> click</c><00:01:23.360><c> on</c><00:01:23.600><c> the</c><00:01:23.840><c> three</c><00:01:24.080><c> dots</c><00:01:24.479><c> and</c><00:01:24.720><c> then</c>
+
+00:01:25.030 --> 00:01:25.040 align:start position:0%
+then click on the three dots and then
+
+
+00:01:25.040 --> 00:01:27.510 align:start position:0%
+then click on the three dots and then
+import<00:01:25.600><c> from</c><00:01:25.920><c> file.</c><00:01:26.400><c> Locate</c><00:01:26.720><c> the</c><00:01:26.960><c> file</c><00:01:27.200><c> that</c>
+
+00:01:27.510 --> 00:01:27.520 align:start position:0%
+import from file. Locate the file that
+
+
+00:01:27.520 --> 00:01:29.109 align:start position:0%
+import from file. Locate the file that
+Cloud<00:01:27.920><c> Code</c><00:01:28.080><c> just</c><00:01:28.240><c> created</c><00:01:28.560><c> and</c><00:01:28.799><c> boom,</c>
+
+00:01:29.109 --> 00:01:29.119 align:start position:0%
+Cloud Code just created and boom,
+
+
+00:01:29.119 --> 00:01:30.630 align:start position:0%
+Cloud Code just created and boom,
+there's<00:01:29.360><c> the</c><00:01:29.439><c> automation.</c><00:01:30.000><c> Now</c><00:01:30.240><c> you</c><00:01:30.400><c> can</c><00:01:30.560><c> see</c>
+
+00:01:30.630 --> 00:01:30.640 align:start position:0%
+there's the automation. Now you can see
+
+
+00:01:30.640 --> 00:01:32.230 align:start position:0%
+there's the automation. Now you can see
+there's<00:01:31.040><c> multiple</c><00:01:31.360><c> issues,</c><00:01:31.680><c> right?</c><00:01:32.000><c> Number</c>
+
+00:01:32.230 --> 00:01:32.240 align:start position:0%
+there's multiple issues, right? Number
+
+
+00:01:32.240 --> 00:01:34.550 align:start position:0%
+there's multiple issues, right? Number
+one,<00:01:32.560><c> these</c><00:01:32.960><c> two</c><00:01:33.200><c> are</c><00:01:33.439><c> like</c><00:01:33.759><c> not</c><00:01:34.079><c> configured</c>
+
+00:01:34.550 --> 00:01:34.560 align:start position:0%
+one, these two are like not configured
+
+
+00:01:34.560 --> 00:01:37.350 align:start position:0%
+one, these two are like not configured
+at<00:01:34.720><c> all.</c><00:01:35.280><c> So</c><00:01:35.680><c> that</c><00:01:35.920><c> is</c><00:01:36.000><c> a</c><00:01:36.240><c> huge</c><00:01:36.479><c> fail</c><00:01:36.960><c> from</c>
+
+00:01:37.350 --> 00:01:37.360 align:start position:0%
+at all. So that is a huge fail from
+
+
+00:01:37.360 --> 00:01:39.270 align:start position:0%
+at all. So that is a huge fail from
+cloud<00:01:37.759><c> code.</c><00:01:38.079><c> Number</c><00:01:38.320><c> two,</c><00:01:38.640><c> this</c><00:01:38.880><c> is</c><00:01:38.960><c> not</c><00:01:39.119><c> a</c>
+
+00:01:39.270 --> 00:01:39.280 align:start position:0%
+cloud code. Number two, this is not a
+
+
+00:01:39.280 --> 00:01:41.830 align:start position:0%
+cloud code. Number two, this is not a
+tool.<00:01:39.600><c> This</c><00:01:39.759><c> is</c><00:01:39.920><c> just</c><00:01:40.079><c> a</c><00:01:40.479><c> HTTP</c><00:01:41.200><c> node</c><00:01:41.439><c> inside</c><00:01:41.759><c> of</c>
+
+00:01:41.830 --> 00:01:41.840 align:start position:0%
+tool. This is just a HTTP node inside of
+
+
+00:01:41.840 --> 00:01:43.910 align:start position:0%
+tool. This is just a HTTP node inside of
+NA10.<00:01:42.479><c> Basically,</c><00:01:42.880><c> this</c><00:01:43.119><c> automation</c><00:01:43.600><c> is</c>
+
+00:01:43.910 --> 00:01:43.920 align:start position:0%
+NA10. Basically, this automation is
+
+
+00:01:43.920 --> 00:01:45.749 align:start position:0%
+NA10. Basically, this automation is
+quite<00:01:44.320><c> incomplete</c><00:01:44.960><c> and</c><00:01:45.200><c> it</c><00:01:45.360><c> would</c><00:01:45.520><c> still</c>
+
+00:01:45.749 --> 00:01:45.759 align:start position:0%
+quite incomplete and it would still
+
+
+00:01:45.759 --> 00:01:47.429 align:start position:0%
+quite incomplete and it would still
+require<00:01:46.159><c> a</c><00:01:46.399><c> bunch</c><00:01:46.560><c> of</c><00:01:46.640><c> your</c><00:01:46.880><c> time</c><00:01:47.119><c> to</c><00:01:47.280><c> go</c>
+
+00:01:47.429 --> 00:01:47.439 align:start position:0%
+require a bunch of your time to go
+
+
+00:01:47.439 --> 00:01:48.870 align:start position:0%
+require a bunch of your time to go
+through<00:01:47.600><c> it,</c><00:01:47.920><c> fix</c><00:01:48.079><c> it</c><00:01:48.159><c> up,</c><00:01:48.320><c> and</c><00:01:48.479><c> correct</c><00:01:48.720><c> it.</c>
+
+00:01:48.870 --> 00:01:48.880 align:start position:0%
+through it, fix it up, and correct it.
+
+
+00:01:48.880 --> 00:01:50.310 align:start position:0%
+through it, fix it up, and correct it.
+So<00:01:49.040><c> that's</c><00:01:49.280><c> why</c><00:01:49.360><c> I'm</c><00:01:49.600><c> going</c><00:01:49.680><c> to</c><00:01:49.759><c> show</c><00:01:49.840><c> you</c><00:01:50.079><c> a</c>
+
+00:01:50.310 --> 00:01:50.320 align:start position:0%
+So that's why I'm going to show you a
+
+
+00:01:50.320 --> 00:01:53.030 align:start position:0%
+So that's why I'm going to show you a
+much<00:01:50.640><c> better</c><00:01:50.880><c> way</c><00:01:51.119><c> that</c><00:01:51.360><c> uses</c><00:01:51.759><c> MCPS</c><00:01:52.560><c> to</c><00:01:52.720><c> build</c>
+
+00:01:53.030 --> 00:01:53.040 align:start position:0%
+much better way that uses MCPS to build
+
+
+00:01:53.040 --> 00:01:55.190 align:start position:0%
+much better way that uses MCPS to build
+full<00:01:53.520><c> NA10</c><00:01:54.079><c> agents.</c><00:01:54.479><c> So</c><00:01:54.640><c> what</c><00:01:54.799><c> we</c><00:01:54.960><c> need</c><00:01:55.040><c> to</c><00:01:55.119><c> do</c>
+
+00:01:55.190 --> 00:01:55.200 align:start position:0%
+full NA10 agents. So what we need to do
+
+
+00:01:55.200 --> 00:01:57.190 align:start position:0%
+full NA10 agents. So what we need to do
+is<00:01:55.439><c> jump</c><00:01:55.600><c> back</c><00:01:55.759><c> into</c><00:01:56.000><c> cursor</c><00:01:56.560><c> and</c><00:01:56.799><c> create</c><00:01:56.960><c> a</c>
+
+00:01:57.190 --> 00:01:57.200 align:start position:0%
+is jump back into cursor and create a
+
+
+00:01:57.200 --> 00:02:00.149 align:start position:0%
+is jump back into cursor and create a
+new<00:01:57.360><c> file</c><00:01:57.680><c> called</c><00:01:58.479><c> MCP.json.</c><00:01:59.840><c> This</c><00:01:59.920><c> is</c><00:02:00.079><c> going</c>
+
+00:02:00.149 --> 00:02:00.159 align:start position:0%
+new file called MCP.json. This is going
+
+
+00:02:00.159 --> 00:02:02.069 align:start position:0%
+new file called MCP.json. This is going
+to<00:02:00.240><c> be</c><00:02:00.320><c> the</c><00:02:00.479><c> list</c><00:02:00.640><c> of</c><00:02:00.799><c> MCPS</c><00:02:01.520><c> available</c><00:02:01.920><c> to</c>
+
+00:02:02.069 --> 00:02:02.079 align:start position:0%
+to be the list of MCPS available to
+
+
+00:02:02.079 --> 00:02:04.630 align:start position:0%
+to be the list of MCPS available to
+cloud<00:02:02.399><c> code.</c><00:02:02.719><c> Now</c><00:02:03.040><c> I</c><00:02:03.280><c> found</c><00:02:03.759><c> this</c><00:02:04.320><c> really</c>
+
+00:02:04.630 --> 00:02:04.640 align:start position:0%
+cloud code. Now I found this really
+
+
+00:02:04.640 --> 00:02:07.510 align:start position:0%
+cloud code. Now I found this really
+solid<00:02:04.880><c> MCP</c><00:02:05.439><c> for</c><00:02:05.680><c> NA10.</c><00:02:06.479><c> It's</c><00:02:06.719><c> not</c><00:02:06.960><c> official,</c>
+
+00:02:07.510 --> 00:02:07.520 align:start position:0%
+solid MCP for NA10. It's not official,
+
+
+00:02:07.520 --> 00:02:09.749 align:start position:0%
+solid MCP for NA10. It's not official,
+so<00:02:07.759><c> use</c><00:02:08.000><c> it</c><00:02:08.160><c> at</c><00:02:08.319><c> your</c><00:02:08.399><c> own</c><00:02:08.560><c> risk.</c><00:02:08.959><c> It</c><00:02:09.200><c> is</c><00:02:09.360><c> by</c><00:02:09.599><c> far</c>
+
+00:02:09.749 --> 00:02:09.759 align:start position:0%
+so use it at your own risk. It is by far
+
+
+00:02:09.759 --> 00:02:11.430 align:start position:0%
+so use it at your own risk. It is by far
+the<00:02:10.000><c> easiest</c><00:02:10.319><c> way</c><00:02:10.640><c> to</c><00:02:10.800><c> build</c><00:02:11.039><c> NA10</c>
+
+00:02:11.430 --> 00:02:11.440 align:start position:0%
+the easiest way to build NA10
+
+
+00:02:11.440 --> 00:02:12.869 align:start position:0%
+the easiest way to build NA10
+automations.<00:02:11.840><c> Luckily,</c><00:02:12.160><c> the</c><00:02:12.319><c> setup</c><00:02:12.560><c> here</c><00:02:12.720><c> is</c>
+
+00:02:12.869 --> 00:02:12.879 align:start position:0%
+automations. Luckily, the setup here is
+
+
+00:02:12.879 --> 00:02:14.470 align:start position:0%
+automations. Luckily, the setup here is
+super<00:02:13.120><c> simple.</c><00:02:13.440><c> There's</c><00:02:13.680><c> literally</c><00:02:14.000><c> just</c><00:02:14.239><c> two</c>
+
+00:02:14.470 --> 00:02:14.480 align:start position:0%
+super simple. There's literally just two
+
+
+00:02:14.480 --> 00:02:16.150 align:start position:0%
+super simple. There's literally just two
+steps.<00:02:14.879><c> What</c><00:02:15.040><c> you</c><00:02:15.200><c> need</c><00:02:15.280><c> to</c><00:02:15.360><c> do</c><00:02:15.440><c> is</c><00:02:15.599><c> copy</c><00:02:15.920><c> this</c>
+
+00:02:16.150 --> 00:02:16.160 align:start position:0%
+steps. What you need to do is copy this
+
+
+00:02:16.160 --> 00:02:19.190 align:start position:0%
+steps. What you need to do is copy this
+command<00:02:16.480><c> right</c><00:02:16.640><c> here.</c><00:02:17.040><c> npxnat</c><00:02:18.319><c> mcp.</c><00:02:18.959><c> Then</c>
+
+00:02:19.190 --> 00:02:19.200 align:start position:0%
+command right here. npxnat mcp. Then
+
+
+00:02:19.200 --> 00:02:21.190 align:start position:0%
+command right here. npxnat mcp. Then
+jump<00:02:19.440><c> back</c><00:02:19.599><c> into</c><00:02:19.920><c> cursor</c><00:02:20.400><c> or</c><00:02:20.640><c> whatever</c><00:02:20.959><c> code</c>
+
+00:02:21.190 --> 00:02:21.200 align:start position:0%
+jump back into cursor or whatever code
+
+
+00:02:21.200 --> 00:02:23.350 align:start position:0%
+jump back into cursor or whatever code
+editor<00:02:21.599><c> you're</c><00:02:21.840><c> using</c><00:02:22.400><c> and</c><00:02:22.640><c> then</c><00:02:22.800><c> just</c><00:02:23.040><c> paste</c>
+
+00:02:23.350 --> 00:02:23.360 align:start position:0%
+editor you're using and then just paste
+
+
+00:02:23.360 --> 00:02:25.990 align:start position:0%
+editor you're using and then just paste
+this<00:02:23.599><c> into</c><00:02:23.920><c> a</c><00:02:24.000><c> terminal.</c><00:02:24.560><c> That's</c><00:02:24.800><c> it.</c><00:02:25.120><c> npx</c><00:02:25.599><c> n10</c>
+
+00:02:25.990 --> 00:02:26.000 align:start position:0%
+this into a terminal. That's it. npx n10
+
+
+00:02:26.000 --> 00:02:27.990 align:start position:0%
+this into a terminal. That's it. npx n10
+mcp<00:02:26.400><c> and</c><00:02:26.640><c> it</c><00:02:26.800><c> will</c><00:02:26.959><c> activate</c><00:02:27.280><c> this</c><00:02:27.520><c> mcp</c>
+
+00:02:27.990 --> 00:02:28.000 align:start position:0%
+mcp and it will activate this mcp
+
+
+00:02:28.000 --> 00:02:29.350 align:start position:0%
+mcp and it will activate this mcp
+server.<00:02:28.319><c> So</c><00:02:28.480><c> this</c><00:02:28.640><c> is</c><00:02:28.720><c> the</c><00:02:28.879><c> first</c><00:02:29.120><c> step</c>
+
+00:02:29.350 --> 00:02:29.360 align:start position:0%
+server. So this is the first step
+
+
+00:02:29.360 --> 00:02:31.350 align:start position:0%
+server. So this is the first step
+already<00:02:29.680><c> done.</c><00:02:30.080><c> Yes,</c><00:02:30.319><c> it's</c><00:02:30.560><c> that</c><00:02:30.720><c> easy.</c><00:02:31.200><c> So</c>
+
+00:02:31.350 --> 00:02:31.360 align:start position:0%
+already done. Yes, it's that easy. So
+
+
+00:02:31.360 --> 00:02:32.949 align:start position:0%
+already done. Yes, it's that easy. So
+let's<00:02:31.599><c> jump</c><00:02:31.760><c> back</c><00:02:31.920><c> into</c><00:02:32.080><c> this</c><00:02:32.239><c> GitHub</c><00:02:32.560><c> repo.</c>
+
+00:02:32.949 --> 00:02:32.959 align:start position:0%
+let's jump back into this GitHub repo.
+
+
+00:02:32.959 --> 00:02:34.229 align:start position:0%
+let's jump back into this GitHub repo.
+And<00:02:33.120><c> by</c><00:02:33.200><c> the</c><00:02:33.280><c> way,</c><00:02:33.440><c> I'll</c><00:02:33.599><c> link</c><00:02:33.760><c> this</c><00:02:33.920><c> below</c><00:02:34.080><c> the</c>
+
+00:02:34.229 --> 00:02:34.239 align:start position:0%
+And by the way, I'll link this below the
+
+
+00:02:34.239 --> 00:02:36.070 align:start position:0%
+And by the way, I'll link this below the
+video<00:02:34.400><c> as</c><00:02:34.560><c> well.</c><00:02:35.040><c> And</c><00:02:35.280><c> the</c><00:02:35.519><c> next</c><00:02:35.680><c> step</c><00:02:35.920><c> is</c>
+
+00:02:36.070 --> 00:02:36.080 align:start position:0%
+video as well. And the next step is
+
+
+00:02:36.080 --> 00:02:37.830 align:start position:0%
+video as well. And the next step is
+copying<00:02:36.480><c> this</c><00:02:36.800><c> basic</c><00:02:37.200><c> configuration.</c>
+
+00:02:37.830 --> 00:02:37.840 align:start position:0%
+copying this basic configuration.
+
+
+00:02:37.840 --> 00:02:39.350 align:start position:0%
+copying this basic configuration.
+Literally<00:02:38.160><c> just</c><00:02:38.400><c> copy</c><00:02:38.640><c> it.</c><00:02:38.879><c> No</c><00:02:39.120><c> need</c><00:02:39.200><c> to</c>
+
+00:02:39.350 --> 00:02:39.360 align:start position:0%
+Literally just copy it. No need to
+
+
+00:02:39.360 --> 00:02:41.030 align:start position:0%
+Literally just copy it. No need to
+change<00:02:39.519><c> anything.</c><00:02:39.920><c> And</c><00:02:40.080><c> then</c><00:02:40.239><c> paste</c><00:02:40.560><c> it</c><00:02:40.720><c> into</c>
+
+00:02:41.030 --> 00:02:41.040 align:start position:0%
+change anything. And then paste it into
+
+
+00:02:41.040 --> 00:02:44.150 align:start position:0%
+change anything. And then paste it into
+the<00:02:41.760><c> mcp.json</c><00:02:42.720><c> file</c><00:02:43.040><c> we</c><00:02:43.280><c> have</c><00:02:43.440><c> created</c><00:02:43.760><c> a</c><00:02:44.000><c> few</c>
+
+00:02:44.150 --> 00:02:44.160 align:start position:0%
+the mcp.json file we have created a few
+
+
+00:02:44.160 --> 00:02:46.390 align:start position:0%
+the mcp.json file we have created a few
+seconds<00:02:44.400><c> ago.</c><00:02:44.959><c> Save</c><00:02:45.200><c> it.</c><00:02:45.680><c> command</c><00:02:46.000><c> S</c><00:02:46.160><c> or</c>
+
+00:02:46.390 --> 00:02:46.400 align:start position:0%
+seconds ago. Save it. command S or
+
+
+00:02:46.400 --> 00:02:48.390 align:start position:0%
+seconds ago. Save it. command S or
+control<00:02:46.720><c> S.</c><00:02:47.040><c> Next,</c><00:02:47.360><c> we</c><00:02:47.519><c> have</c><00:02:47.599><c> to</c><00:02:47.760><c> create</c><00:02:48.000><c> a</c><00:02:48.160><c> new</c>
+
+00:02:48.390 --> 00:02:48.400 align:start position:0%
+control S. Next, we have to create a new
+
+
+00:02:48.400 --> 00:02:50.070 align:start position:0%
+control S. Next, we have to create a new
+cloth<00:02:48.720><c> code</c><00:02:48.959><c> because</c><00:02:49.200><c> if</c><00:02:49.360><c> we</c><00:02:49.440><c> go</c><00:02:49.599><c> into</c><00:02:49.760><c> the</c><00:02:49.920><c> old</c>
+
+00:02:50.070 --> 00:02:50.080 align:start position:0%
+cloth code because if we go into the old
+
+
+00:02:50.080 --> 00:02:52.949 align:start position:0%
+cloth code because if we go into the old
+one<00:02:50.480><c> and</c><00:02:50.720><c> we</c><00:02:50.959><c> type</c><00:02:51.120><c> in</c><00:02:51.680><c> /mcp,</c><00:02:52.480><c> it</c><00:02:52.720><c> doesn't</c><00:02:52.800><c> have</c>
+
+00:02:52.949 --> 00:02:52.959 align:start position:0%
+one and we type in /mcp, it doesn't have
+
+
+00:02:52.959 --> 00:02:54.710 align:start position:0%
+one and we type in /mcp, it doesn't have
+any<00:02:53.120><c> MCPS</c><00:02:53.680><c> configured.</c><00:02:54.080><c> But</c><00:02:54.160><c> if</c><00:02:54.319><c> we</c><00:02:54.480><c> create</c><00:02:54.560><c> a</c>
+
+00:02:54.710 --> 00:02:54.720 align:start position:0%
+any MCPS configured. But if we create a
+
+
+00:02:54.720 --> 00:02:56.470 align:start position:0%
+any MCPS configured. But if we create a
+new<00:02:54.879><c> cloth</c><00:02:55.200><c> code,</c><00:02:55.519><c> we</c><00:02:55.680><c> will</c><00:02:55.840><c> see</c><00:02:55.920><c> that</c><00:02:56.160><c> it's</c>
+
+00:02:56.470 --> 00:02:56.480 align:start position:0%
+new cloth code, we will see that it's
+
+
+00:02:56.480 --> 00:02:58.630 align:start position:0%
+new cloth code, we will see that it's
+asking<00:02:56.720><c> us</c><00:02:56.959><c> new</c><00:02:57.200><c> MCP</c><00:02:57.680><c> server</c><00:02:58.000><c> found</c><00:02:58.239><c> in</c>
+
+00:02:58.630 --> 00:02:58.640 align:start position:0%
+asking us new MCP server found in
+
+
+00:02:58.640 --> 00:03:01.110 align:start position:0%
+asking us new MCP server found in
+MCP.json<00:02:59.519><c> the</c><00:02:59.680><c> NA10</c><00:03:00.239><c> MCP,</c><00:03:00.720><c> right?</c><00:03:00.879><c> And</c><00:03:01.040><c> we</c>
+
+00:03:01.110 --> 00:03:01.120 align:start position:0%
+MCP.json the NA10 MCP, right? And we
+
+
+00:03:01.120 --> 00:03:02.550 align:start position:0%
+MCP.json the NA10 MCP, right? And we
+have<00:03:01.280><c> three</c><00:03:01.440><c> options.</c><00:03:01.760><c> Use</c><00:03:01.920><c> this</c><00:03:02.159><c> and</c><00:03:02.400><c> all</c>
+
+00:03:02.550 --> 00:03:02.560 align:start position:0%
+have three options. Use this and all
+
+
+00:03:02.560 --> 00:03:04.869 align:start position:0%
+have three options. Use this and all
+future<00:03:02.720><c> MCPS</c><00:03:03.440><c> use</c><00:03:03.760><c> this</c><00:03:03.920><c> MCP</c><00:03:04.319><c> server.</c><00:03:04.640><c> So,</c><00:03:04.720><c> I'm</c>
+
+00:03:04.869 --> 00:03:04.879 align:start position:0%
+future MCPS use this MCP server. So, I'm
+
+
+00:03:04.879 --> 00:03:06.710 align:start position:0%
+future MCPS use this MCP server. So, I'm
+going<00:03:04.959><c> to</c><00:03:05.280><c> enter</c><00:03:05.680><c> to</c><00:03:05.920><c> give</c><00:03:06.000><c> it</c><00:03:06.159><c> approval.</c><00:03:06.560><c> And</c>
+
+00:03:06.710 --> 00:03:06.720 align:start position:0%
+going to enter to give it approval. And
+
+
+00:03:06.720 --> 00:03:09.030 align:start position:0%
+going to enter to give it approval. And
+then<00:03:06.879><c> if</c><00:03:07.040><c> we</c><00:03:07.120><c> type</c><00:03:07.280><c> in</c><00:03:07.440><c> /mcp,</c><00:03:08.159><c> we</c><00:03:08.400><c> can</c><00:03:08.480><c> see</c><00:03:08.879><c> this</c>
+
+00:03:09.030 --> 00:03:09.040 align:start position:0%
+then if we type in /mcp, we can see this
+
+
+00:03:09.040 --> 00:03:11.030 align:start position:0%
+then if we type in /mcp, we can see this
+is<00:03:09.280><c> configured</c><00:03:09.680><c> correctly.</c><00:03:10.080><c> So</c><00:03:10.319><c> now</c><00:03:10.640><c> clot</c>
+
+00:03:11.030 --> 00:03:11.040 align:start position:0%
+is configured correctly. So now clot
+
+
+00:03:11.040 --> 00:03:13.509 align:start position:0%
+is configured correctly. So now clot
+code<00:03:11.280><c> can</c><00:03:11.519><c> actually</c><00:03:11.840><c> use</c><00:03:12.000><c> this</c><00:03:12.159><c> MCP</c><00:03:12.879><c> to</c><00:03:13.120><c> build</c>
+
+00:03:13.509 --> 00:03:13.519 align:start position:0%
+code can actually use this MCP to build
+
+
+00:03:13.519 --> 00:03:15.670 align:start position:0%
+code can actually use this MCP to build
+the<00:03:13.760><c> full</c><00:03:14.080><c> automation</c><00:03:14.800><c> for</c><00:03:15.040><c> us.</c><00:03:15.360><c> So</c><00:03:15.440><c> I'm</c><00:03:15.599><c> going</c>
+
+00:03:15.670 --> 00:03:15.680 align:start position:0%
+the full automation for us. So I'm going
+
+
+00:03:15.680 --> 00:03:17.750 align:start position:0%
+the full automation for us. So I'm going
+to<00:03:15.760><c> switch</c><00:03:16.080><c> cloth</c><00:03:16.400><c> code</c><00:03:16.560><c> to</c><00:03:16.720><c> auto</c><00:03:17.040><c> accept</c><00:03:17.440><c> mode</c>
+
+00:03:17.750 --> 00:03:17.760 align:start position:0%
+to switch cloth code to auto accept mode
+
+
+00:03:17.760 --> 00:03:19.830 align:start position:0%
+to switch cloth code to auto accept mode
+which<00:03:17.920><c> you</c><00:03:18.080><c> can</c><00:03:18.239><c> do</c><00:03:18.400><c> by</c><00:03:18.560><c> pressing</c><00:03:18.959><c> shift</c><00:03:19.280><c> tab</c>
+
+00:03:19.830 --> 00:03:19.840 align:start position:0%
+which you can do by pressing shift tab
+
+
+00:03:19.840 --> 00:03:21.589 align:start position:0%
+which you can do by pressing shift tab
+keyboard<00:03:20.239><c> shortcut.</c><00:03:20.959><c> And</c><00:03:21.040><c> then</c><00:03:21.200><c> I'm</c><00:03:21.360><c> going</c><00:03:21.440><c> to</c>
+
+00:03:21.589 --> 00:03:21.599 align:start position:0%
+keyboard shortcut. And then I'm going to
+
+
+00:03:21.599 --> 00:03:25.270 align:start position:0%
+keyboard shortcut. And then I'm going to
+say<00:03:22.080><c> follow</c><00:03:22.720><c> prompt</c><00:03:23.599><c> number</c><00:03:23.840><c> two.</c><00:03:24.400><c> Build</c><00:03:24.879><c> it</c>
+
+00:03:25.270 --> 00:03:25.280 align:start position:0%
+say follow prompt number two. Build it
+
+
+00:03:25.280 --> 00:03:27.350 align:start position:0%
+say follow prompt number two. Build it
+completely.<00:03:26.239><c> Boom.</c><00:03:26.560><c> Enter.</c><00:03:26.959><c> And</c><00:03:27.120><c> we're</c><00:03:27.280><c> going</c>
+
+00:03:27.350 --> 00:03:27.360 align:start position:0%
+completely. Boom. Enter. And we're going
+
+
+00:03:27.360 --> 00:03:29.030 align:start position:0%
+completely. Boom. Enter. And we're going
+to<00:03:27.440><c> have</c><00:03:27.519><c> it</c><00:03:27.680><c> running.</c><00:03:27.920><c> So</c><00:03:28.080><c> now</c><00:03:28.319><c> cloth</c><00:03:28.640><c> code</c><00:03:28.879><c> is</c>
+
+00:03:29.030 --> 00:03:29.040 align:start position:0%
+to have it running. So now cloth code is
+
+
+00:03:29.040 --> 00:03:31.509 align:start position:0%
+to have it running. So now cloth code is
+running<00:03:29.519><c> on</c><00:03:29.840><c> the</c><00:03:30.000><c> second</c><00:03:30.239><c> prompt</c><00:03:30.879><c> using</c><00:03:31.280><c> the</c>
+
+00:03:31.509 --> 00:03:31.519 align:start position:0%
+running on the second prompt using the
+
+
+00:03:31.519 --> 00:03:33.350 align:start position:0%
+running on the second prompt using the
+MCP<00:03:32.000><c> tools.</c><00:03:32.480><c> And</c><00:03:32.640><c> it's</c><00:03:32.799><c> going</c><00:03:32.879><c> to</c><00:03:33.040><c> build</c><00:03:33.200><c> an</c>
+
+00:03:33.350 --> 00:03:33.360 align:start position:0%
+MCP tools. And it's going to build an
+
+
+00:03:33.360 --> 00:03:34.869 align:start position:0%
+MCP tools. And it's going to build an
+automation<00:03:33.840><c> that's</c><00:03:34.080><c> 10</c><00:03:34.319><c> times</c><00:03:34.640><c> better</c>
+
+00:03:34.869 --> 00:03:34.879 align:start position:0%
+automation that's 10 times better
+
+
+00:03:34.879 --> 00:03:36.630 align:start position:0%
+automation that's 10 times better
+because<00:03:35.200><c> this</c><00:03:35.440><c> is</c><00:03:35.599><c> honestly</c><00:03:35.920><c> a</c><00:03:36.080><c> mess.</c><00:03:36.400><c> Like</c>
+
+00:03:36.630 --> 00:03:36.640 align:start position:0%
+because this is honestly a mess. Like
+
+
+00:03:36.640 --> 00:03:37.990 align:start position:0%
+because this is honestly a mess. Like
+this<00:03:36.799><c> is</c><00:03:36.879><c> not</c><00:03:37.040><c> bad,</c><00:03:37.360><c> right?</c><00:03:37.519><c> It's</c><00:03:37.680><c> better</c><00:03:37.840><c> than</c>
+
+00:03:37.990 --> 00:03:38.000 align:start position:0%
+this is not bad, right? It's better than
+
+
+00:03:38.000 --> 00:03:39.830 align:start position:0%
+this is not bad, right? It's better than
+nothing.<00:03:38.400><c> But</c><00:03:38.560><c> I</c><00:03:38.799><c> promise</c><00:03:39.120><c> once</c><00:03:39.360><c> you</c><00:03:39.519><c> see</c><00:03:39.599><c> the</c>
+
+00:03:39.830 --> 00:03:39.840 align:start position:0%
+nothing. But I promise once you see the
+
+
+00:03:39.840 --> 00:03:41.750 align:start position:0%
+nothing. But I promise once you see the
+output<00:03:40.319><c> of</c><00:03:40.480><c> what</c><00:03:40.720><c> cloud</c><00:03:41.120><c> code</c><00:03:41.360><c> can</c><00:03:41.440><c> do</c><00:03:41.599><c> with</c>
+
+00:03:41.750 --> 00:03:41.760 align:start position:0%
+output of what cloud code can do with
+
+
+00:03:41.760 --> 00:03:43.910 align:start position:0%
+output of what cloud code can do with
+that<00:03:41.920><c> MCB</c><00:03:42.480><c> tool,</c><00:03:42.879><c> you'll</c><00:03:43.120><c> be</c><00:03:43.280><c> amazed.</c><00:03:43.680><c> Now,</c>
+
+00:03:43.910 --> 00:03:43.920 align:start position:0%
+that MCB tool, you'll be amazed. Now,
+
+
+00:03:43.920 --> 00:03:44.789 align:start position:0%
+that MCB tool, you'll be amazed. Now,
+while<00:03:44.080><c> it's</c><00:03:44.239><c> running,</c><00:03:44.400><c> you</c><00:03:44.560><c> might</c><00:03:44.720><c> be</c>
+
+00:03:44.789 --> 00:03:44.799 align:start position:0%
+while it's running, you might be
+
+
+00:03:44.799 --> 00:03:46.390 align:start position:0%
+while it's running, you might be
+thinking,<00:03:45.040><c> okay,</c><00:03:45.280><c> but</c><00:03:45.440><c> David,</c><00:03:45.840><c> where</c><00:03:46.080><c> do</c><00:03:46.239><c> you</c>
+
+00:03:46.390 --> 00:03:46.400 align:start position:0%
+thinking, okay, but David, where do you
+
+
+00:03:46.400 --> 00:03:48.149 align:start position:0%
+thinking, okay, but David, where do you
+host<00:03:46.640><c> these?</c><00:03:47.040><c> Right?</c><00:03:47.200><c> Because</c><00:03:47.360><c> any</c><00:03:47.599><c> NA10</c>
+
+00:03:48.149 --> 00:03:48.159 align:start position:0%
+host these? Right? Because any NA10
+
+
+00:03:48.159 --> 00:03:49.990 align:start position:0%
+host these? Right? Because any NA10
+automation<00:03:48.560><c> or</c><00:03:48.720><c> agent</c><00:03:49.040><c> you</c><00:03:49.280><c> build</c><00:03:49.599><c> has</c><00:03:49.760><c> to</c><00:03:49.920><c> be</c>
+
+00:03:49.990 --> 00:03:50.000 align:start position:0%
+automation or agent you build has to be
+
+
+00:03:50.000 --> 00:03:51.910 align:start position:0%
+automation or agent you build has to be
+hosted<00:03:50.319><c> somewhere.</c><00:03:50.799><c> And</c><00:03:50.959><c> personally,</c><00:03:51.599><c> all</c><00:03:51.760><c> of</c>
+
+00:03:51.910 --> 00:03:51.920 align:start position:0%
+hosted somewhere. And personally, all of
+
+
+00:03:51.920 --> 00:03:54.470 align:start position:0%
+hosted somewhere. And personally, all of
+my<00:03:52.080><c> NA10</c><00:03:52.640><c> automations</c><00:03:53.120><c> or</c><00:03:53.360><c> agents</c><00:03:53.840><c> are</c><00:03:54.080><c> hosted</c>
+
+00:03:54.470 --> 00:03:54.480 align:start position:0%
+my NA10 automations or agents are hosted
+
+
+00:03:54.480 --> 00:03:56.229 align:start position:0%
+my NA10 automations or agents are hosted
+on<00:03:54.640><c> Hostinger.</c><00:03:55.360><c> Why?</c><00:03:55.680><c> Because</c><00:03:55.920><c> you</c><00:03:56.159><c> get</c>
+
+00:03:56.229 --> 00:03:56.239 align:start position:0%
+on Hostinger. Why? Because you get
+
+
+00:03:56.239 --> 00:03:58.070 align:start position:0%
+on Hostinger. Why? Because you get
+unlimited<00:03:56.720><c> amount</c><00:03:56.879><c> of</c><00:03:57.040><c> workflows.</c><00:03:57.519><c> So</c><00:03:57.760><c> unlike</c>
+
+00:03:58.070 --> 00:03:58.080 align:start position:0%
+unlimited amount of workflows. So unlike
+
+
+00:03:58.080 --> 00:03:59.509 align:start position:0%
+unlimited amount of workflows. So unlike
+other<00:03:58.319><c> providers,</c><00:03:58.720><c> they</c><00:03:58.959><c> limit</c><00:03:59.200><c> the</c><00:03:59.360><c> amount</c>
+
+00:03:59.509 --> 00:03:59.519 align:start position:0%
+other providers, they limit the amount
+
+
+00:03:59.519 --> 00:04:01.110 align:start position:0%
+other providers, they limit the amount
+of<00:03:59.760><c> agents</c><00:04:00.080><c> you</c><00:04:00.239><c> can</c><00:04:00.400><c> build.</c><00:04:00.640><c> Hostinger</c>
+
+00:04:01.110 --> 00:04:01.120 align:start position:0%
+of agents you can build. Hostinger
+
+
+00:04:01.120 --> 00:04:03.110 align:start position:0%
+of agents you can build. Hostinger
+doesn't<00:04:01.360><c> do</c><00:04:01.439><c> that.</c><00:04:01.840><c> Plus,</c><00:04:02.159><c> you</c><00:04:02.319><c> get</c><00:04:02.480><c> unlimited</c>
+
+00:04:03.110 --> 00:04:03.120 align:start position:0%
+doesn't do that. Plus, you get unlimited
+
+
+00:04:03.120 --> 00:04:05.509 align:start position:0%
+doesn't do that. Plus, you get unlimited
+executions.<00:04:03.920><c> So,</c><00:04:04.159><c> if</c><00:04:04.400><c> your</c><00:04:04.640><c> agent</c><00:04:05.120><c> needs</c><00:04:05.360><c> to</c>
+
+00:04:05.509 --> 00:04:05.519 align:start position:0%
+executions. So, if your agent needs to
+
+
+00:04:05.519 --> 00:04:07.990 align:start position:0%
+executions. So, if your agent needs to
+be<00:04:05.599><c> running</c><00:04:05.840><c> 24/7</c><00:04:06.879><c> thousands</c><00:04:07.360><c> of</c><00:04:07.519><c> times,</c>
+
+00:04:07.990 --> 00:04:08.000 align:start position:0%
+be running 24/7 thousands of times,
+
+
+00:04:08.000 --> 00:04:09.110 align:start position:0%
+be running 24/7 thousands of times,
+that's<00:04:08.239><c> completely</c><00:04:08.560><c> fine</c><00:04:08.720><c> because</c><00:04:08.959><c> with</c>
+
+00:04:09.110 --> 00:04:09.120 align:start position:0%
+that's completely fine because with
+
+
+00:04:09.120 --> 00:04:11.110 align:start position:0%
+that's completely fine because with
+Hostinger,<00:04:09.680><c> you</c><00:04:09.920><c> get</c><00:04:10.000><c> a</c><00:04:10.080><c> VPS</c><00:04:10.480><c> server.</c><00:04:10.879><c> So,</c>
+
+00:04:11.110 --> 00:04:11.120 align:start position:0%
+Hostinger, you get a VPS server. So,
+
+
+00:04:11.120 --> 00:04:13.110 align:start position:0%
+Hostinger, you get a VPS server. So,
+this<00:04:11.280><c> is</c><00:04:11.360><c> what</c><00:04:11.599><c> me</c><00:04:11.760><c> and</c><00:04:11.920><c> my</c><00:04:12.080><c> team</c><00:04:12.319><c> use</c><00:04:12.560><c> to</c><00:04:12.799><c> host</c>
+
+00:04:13.110 --> 00:04:13.120 align:start position:0%
+this is what me and my team use to host
+
+
+00:04:13.120 --> 00:04:15.350 align:start position:0%
+this is what me and my team use to host
+all<00:04:13.439><c> of</c><00:04:13.599><c> our</c><00:04:13.840><c> NA10</c><00:04:14.319><c> agents</c><00:04:14.640><c> we</c><00:04:14.879><c> built,</c><00:04:15.200><c> and</c>
+
+00:04:15.350 --> 00:04:15.360 align:start position:0%
+all of our NA10 agents we built, and
+
+
+00:04:15.360 --> 00:04:16.870 align:start position:0%
+all of our NA10 agents we built, and
+it's<00:04:15.519><c> what</c><00:04:15.680><c> you</c><00:04:15.840><c> should</c><00:04:16.000><c> use</c><00:04:16.239><c> as</c><00:04:16.400><c> well.</c><00:04:16.720><c> So,</c>
+
+00:04:16.870 --> 00:04:16.880 align:start position:0%
+it's what you should use as well. So,
+
+
+00:04:16.880 --> 00:04:18.310 align:start position:0%
+it's what you should use as well. So,
+let<00:04:17.040><c> me</c><00:04:17.120><c> show</c><00:04:17.199><c> you</c><00:04:17.359><c> how</c><00:04:17.440><c> to</c><00:04:17.600><c> set</c><00:04:17.759><c> it</c><00:04:17.840><c> up.</c><00:04:18.079><c> If</c><00:04:18.239><c> you</c>
+
+00:04:18.310 --> 00:04:18.320 align:start position:0%
+let me show you how to set it up. If you
+
+
+00:04:18.320 --> 00:04:20.229 align:start position:0%
+let me show you how to set it up. If you
+get<00:04:18.479><c> the</c><00:04:18.639><c> KVM2</c><00:04:19.440><c> plan,</c><00:04:19.759><c> which</c><00:04:19.919><c> I</c><00:04:20.079><c> would</c>
+
+00:04:20.229 --> 00:04:20.239 align:start position:0%
+get the KVM2 plan, which I would
+
+
+00:04:20.239 --> 00:04:21.749 align:start position:0%
+get the KVM2 plan, which I would
+recommend<00:04:20.479><c> you</c><00:04:20.639><c> to</c><00:04:20.799><c> get,</c><00:04:21.120><c> you</c><00:04:21.280><c> can</c><00:04:21.440><c> literally</c>
+
+00:04:21.749 --> 00:04:21.759 align:start position:0%
+recommend you to get, you can literally
+
+
+00:04:21.759 --> 00:04:23.830 align:start position:0%
+recommend you to get, you can literally
+run<00:04:22.160><c> hundreds</c><00:04:22.560><c> of</c><00:04:22.720><c> AI</c><00:04:23.040><c> agents</c><00:04:23.280><c> on</c><00:04:23.440><c> this</c><00:04:23.600><c> plan,</c>
+
+00:04:23.830 --> 00:04:23.840 align:start position:0%
+run hundreds of AI agents on this plan,
+
+
+00:04:23.840 --> 00:04:25.510 align:start position:0%
+run hundreds of AI agents on this plan,
+and<00:04:24.000><c> it</c><00:04:24.160><c> will</c><00:04:24.320><c> cost</c><00:04:24.560><c> you</c><00:04:24.720><c> way</c><00:04:24.960><c> less</c><00:04:25.120><c> than</c><00:04:25.360><c> if</c>
+
+00:04:25.510 --> 00:04:25.520 align:start position:0%
+and it will cost you way less than if
+
+
+00:04:25.520 --> 00:04:27.350 align:start position:0%
+and it will cost you way less than if
+you<00:04:25.600><c> used</c><00:04:25.759><c> the</c><00:04:26.000><c> NA10</c><00:04:26.479><c> Cloud,</c><00:04:26.880><c> especially</c><00:04:27.199><c> if</c>
+
+00:04:27.350 --> 00:04:27.360 align:start position:0%
+you used the NA10 Cloud, especially if
+
+
+00:04:27.360 --> 00:04:29.590 align:start position:0%
+you used the NA10 Cloud, especially if
+you<00:04:27.520><c> go</c><00:04:27.600><c> with</c><00:04:27.759><c> the</c><00:04:28.000><c> 24</c><00:04:28.400><c> month</c><00:04:28.720><c> option,</c><00:04:29.199><c> which</c><00:04:29.440><c> I</c>
+
+00:04:29.590 --> 00:04:29.600 align:start position:0%
+you go with the 24 month option, which I
+
+
+00:04:29.600 --> 00:04:31.270 align:start position:0%
+you go with the 24 month option, which I
+definitely<00:04:30.000><c> recommend</c><00:04:30.320><c> you</c><00:04:30.560><c> do</c><00:04:30.720><c> because</c><00:04:31.040><c> you</c>
+
+00:04:31.270 --> 00:04:31.280 align:start position:0%
+definitely recommend you do because you
+
+
+00:04:31.280 --> 00:04:33.189 align:start position:0%
+definitely recommend you do because you
+want<00:04:31.440><c> your</c><00:04:31.600><c> AI</c><00:04:31.840><c> agents</c><00:04:32.240><c> running</c><00:04:32.479><c> forever.</c><00:04:32.960><c> You</c>
+
+00:04:33.189 --> 00:04:33.199 align:start position:0%
+want your AI agents running forever. You
+
+
+00:04:33.199 --> 00:04:34.790 align:start position:0%
+want your AI agents running forever. You
+build<00:04:33.360><c> them</c><00:04:33.520><c> once</c><00:04:33.759><c> and</c><00:04:33.919><c> they</c><00:04:34.080><c> save</c><00:04:34.240><c> you</c><00:04:34.479><c> time</c>
+
+00:04:34.790 --> 00:04:34.800 align:start position:0%
+build them once and they save you time
+
+
+00:04:34.800 --> 00:04:36.950 align:start position:0%
+build them once and they save you time
+in<00:04:35.120><c> perpetuity.</c><00:04:35.840><c> And</c><00:04:36.000><c> since</c><00:04:36.240><c> Hostinger</c><00:04:36.800><c> was</c>
+
+00:04:36.950 --> 00:04:36.960 align:start position:0%
+in perpetuity. And since Hostinger was
+
+
+00:04:36.960 --> 00:04:38.629 align:start position:0%
+in perpetuity. And since Hostinger was
+kind<00:04:37.120><c> enough</c><00:04:37.280><c> to</c><00:04:37.440><c> sponsor</c><00:04:37.759><c> this</c><00:04:37.919><c> video,</c><00:04:38.400><c> if</c>
+
+00:04:38.629 --> 00:04:38.639 align:start position:0%
+kind enough to sponsor this video, if
+
+
+00:04:38.639 --> 00:04:40.950 align:start position:0%
+kind enough to sponsor this video, if
+you<00:04:38.800><c> use</c><00:04:38.960><c> the</c><00:04:39.120><c> coupon</c><00:04:39.440><c> code</c><00:04:39.919><c> David,</c><00:04:40.560><c> you</c><00:04:40.800><c> will</c>
+
+00:04:40.950 --> 00:04:40.960 align:start position:0%
+you use the coupon code David, you will
+
+
+00:04:40.960 --> 00:04:43.510 align:start position:0%
+you use the coupon code David, you will
+save<00:04:41.280><c> additional</c><00:04:41.919><c> 10%</c><00:04:42.479><c> off</c><00:04:42.720><c> on</c><00:04:42.960><c> your</c><00:04:43.199><c> annual</c>
+
+00:04:43.510 --> 00:04:43.520 align:start position:0%
+save additional 10% off on your annual
+
+
+00:04:43.520 --> 00:04:45.590 align:start position:0%
+save additional 10% off on your annual
+or<00:04:43.840><c> 2-year</c><00:04:44.240><c> plan.</c><00:04:44.639><c> Then</c><00:04:44.880><c> what</c><00:04:45.040><c> remains</c><00:04:45.360><c> is</c>
+
+00:04:45.590 --> 00:04:45.600 align:start position:0%
+or 2-year plan. Then what remains is
+
+
+00:04:45.600 --> 00:04:47.189 align:start position:0%
+or 2-year plan. Then what remains is
+selecting<00:04:45.840><c> the</c><00:04:46.000><c> server</c><00:04:46.320><c> location.</c><00:04:46.800><c> So</c><00:04:46.960><c> just</c>
+
+00:04:47.189 --> 00:04:47.199 align:start position:0%
+selecting the server location. So just
+
+
+00:04:47.199 --> 00:04:48.870 align:start position:0%
+selecting the server location. So just
+select<00:04:47.680><c> whatever</c><00:04:48.080><c> is</c><00:04:48.240><c> closest</c><00:04:48.479><c> to</c><00:04:48.560><c> you.</c><00:04:48.720><c> I'm</c>
+
+00:04:48.870 --> 00:04:48.880 align:start position:0%
+select whatever is closest to you. I'm
+
+
+00:04:48.880 --> 00:04:50.550 align:start position:0%
+select whatever is closest to you. I'm
+in<00:04:49.040><c> Czech</c><00:04:49.280><c> Republic,</c><00:04:49.600><c> so</c><00:04:49.840><c> Germany</c><00:04:50.080><c> is</c><00:04:50.240><c> super</c>
+
+00:04:50.550 --> 00:04:50.560 align:start position:0%
+in Czech Republic, so Germany is super
+
+
+00:04:50.560 --> 00:04:52.070 align:start position:0%
+in Czech Republic, so Germany is super
+close.<00:04:51.040><c> And</c><00:04:51.199><c> then</c><00:04:51.360><c> for</c><00:04:51.600><c> the</c><00:04:51.759><c> operating</c>
+
+00:04:52.070 --> 00:04:52.080 align:start position:0%
+close. And then for the operating
+
+
+00:04:52.080 --> 00:04:54.070 align:start position:0%
+close. And then for the operating
+system,<00:04:52.479><c> click</c><00:04:52.639><c> on</c><00:04:52.800><c> NA10.</c><00:04:53.520><c> They</c><00:04:53.759><c> literally</c>
+
+00:04:54.070 --> 00:04:54.080 align:start position:0%
+system, click on NA10. They literally
+
+
+00:04:54.080 --> 00:04:55.909 align:start position:0%
+system, click on NA10. They literally
+have<00:04:54.240><c> a</c><00:04:54.400><c> one-click</c><00:04:54.960><c> install</c><00:04:55.440><c> template</c><00:04:55.759><c> for</c>
+
+00:04:55.909 --> 00:04:55.919 align:start position:0%
+have a one-click install template for
+
+
+00:04:55.919 --> 00:04:57.590 align:start position:0%
+have a one-click install template for
+NA10.<00:04:56.479><c> It</c><00:04:56.639><c> couldn't</c><00:04:56.880><c> be</c><00:04:56.960><c> any</c><00:04:57.120><c> easier.</c><00:04:57.440><c> So</c>
+
+00:04:57.590 --> 00:04:57.600 align:start position:0%
+NA10. It couldn't be any easier. So
+
+
+00:04:57.600 --> 00:04:59.189 align:start position:0%
+NA10. It couldn't be any easier. So
+click<00:04:57.759><c> on</c><00:04:57.919><c> confirm</c><00:04:58.400><c> and</c><00:04:58.639><c> then</c><00:04:58.800><c> click</c><00:04:58.960><c> on</c>
+
+00:04:59.189 --> 00:04:59.199 align:start position:0%
+click on confirm and then click on
+
+
+00:04:59.199 --> 00:05:00.870 align:start position:0%
+click on confirm and then click on
+continue<00:04:59.600><c> and</c><00:04:59.840><c> log</c><00:05:00.000><c> in</c><00:05:00.160><c> with</c><00:05:00.320><c> your</c><00:05:00.400><c> hosting</c>
+
+00:05:00.870 --> 00:05:00.880 align:start position:0%
+continue and log in with your hosting
+
+
+00:05:00.880 --> 00:05:02.629 align:start position:0%
+continue and log in with your hosting
+account<00:05:01.199><c> or</c><00:05:01.520><c> just</c><00:05:01.759><c> create</c><00:05:01.919><c> one.</c><00:05:02.160><c> And</c><00:05:02.400><c> the</c><00:05:02.560><c> last</c>
+
+00:05:02.629 --> 00:05:02.639 align:start position:0%
+account or just create one. And the last
+
+
+00:05:02.639 --> 00:05:03.990 align:start position:0%
+account or just create one. And the last
+thing<00:05:02.800><c> that</c><00:05:03.040><c> remains</c><00:05:03.280><c> is</c><00:05:03.440><c> filling</c><00:05:03.680><c> out</c><00:05:03.840><c> your</c>
+
+00:05:03.990 --> 00:05:04.000 align:start position:0%
+thing that remains is filling out your
+
+
+00:05:04.000 --> 00:05:05.909 align:start position:0%
+thing that remains is filling out your
+billing<00:05:04.320><c> details</c><00:05:04.720><c> and</c><00:05:05.040><c> your</c><00:05:05.280><c> credit</c><00:05:05.600><c> card.</c>
+
+00:05:05.909 --> 00:05:05.919 align:start position:0%
+billing details and your credit card.
+
+
+00:05:05.919 --> 00:05:07.749 align:start position:0%
+billing details and your credit card.
+I've<00:05:06.160><c> been</c><00:05:06.240><c> using</c><00:05:06.400><c> Hostinger</c><00:05:07.039><c> for</c><00:05:07.280><c> months</c><00:05:07.600><c> to</c>
+
+00:05:07.749 --> 00:05:07.759 align:start position:0%
+I've been using Hostinger for months to
+
+
+00:05:07.759 --> 00:05:09.510 align:start position:0%
+I've been using Hostinger for months to
+host<00:05:08.000><c> my</c><00:05:08.160><c> internet</c><00:05:08.560><c> agents.</c><00:05:08.960><c> And</c><00:05:09.120><c> it</c><00:05:09.280><c> really</c>
+
+00:05:09.510 --> 00:05:09.520 align:start position:0%
+host my internet agents. And it really
+
+
+00:05:09.520 --> 00:05:11.510 align:start position:0%
+host my internet agents. And it really
+is<00:05:09.680><c> the</c><00:05:09.919><c> simplest</c><00:05:10.320><c> and</c><00:05:10.560><c> most</c><00:05:10.800><c> affordable</c><00:05:11.280><c> way</c>
+
+00:05:11.510 --> 00:05:11.520 align:start position:0%
+is the simplest and most affordable way
+
+
+00:05:11.520 --> 00:05:13.270 align:start position:0%
+is the simplest and most affordable way
+to<00:05:11.680><c> do</c><00:05:11.840><c> so.</c><00:05:12.240><c> So</c><00:05:12.400><c> again,</c><00:05:12.720><c> make</c><00:05:12.880><c> sure</c><00:05:12.960><c> to</c><00:05:13.120><c> check</c>
+
+00:05:13.270 --> 00:05:13.280 align:start position:0%
+to do so. So again, make sure to check
+
+
+00:05:13.280 --> 00:05:14.950 align:start position:0%
+to do so. So again, make sure to check
+out<00:05:13.360><c> the</c><00:05:13.600><c> link</c><00:05:13.840><c> description</c><00:05:14.240><c> and</c><00:05:14.479><c> remember</c><00:05:14.800><c> to</c>
+
+00:05:14.950 --> 00:05:14.960 align:start position:0%
+out the link description and remember to
+
+
+00:05:14.960 --> 00:05:17.270 align:start position:0%
+out the link description and remember to
+use<00:05:15.199><c> code</c><00:05:15.600><c> David</c><00:05:16.000><c> to</c><00:05:16.240><c> get</c><00:05:16.400><c> 10%</c><00:05:16.880><c> off.</c><00:05:17.199><c> All</c>
+
+00:05:17.270 --> 00:05:17.280 align:start position:0%
+use code David to get 10% off. All
+
+
+00:05:17.280 --> 00:05:18.710 align:start position:0%
+use code David to get 10% off. All
+right.<00:05:17.520><c> So</c><00:05:17.600><c> once</c><00:05:17.840><c> you</c><00:05:17.919><c> have</c><00:05:18.080><c> your</c><00:05:18.240><c> Hostinger</c>
+
+00:05:18.710 --> 00:05:18.720 align:start position:0%
+right. So once you have your Hostinger
+
+
+00:05:18.720 --> 00:05:21.749 align:start position:0%
+right. So once you have your Hostinger
+VPS,<00:05:19.360><c> go</c><00:05:19.600><c> to</c><00:05:19.759><c> the</c><00:05:20.000><c> panel,</c><00:05:20.560><c> click</c><00:05:20.800><c> on</c><00:05:20.960><c> home,</c><00:05:21.520><c> and</c>
+
+00:05:21.749 --> 00:05:21.759 align:start position:0%
+VPS, go to the panel, click on home, and
+
+
+00:05:21.759 --> 00:05:23.909 align:start position:0%
+VPS, go to the panel, click on home, and
+select<00:05:22.160><c> manage.</c><00:05:22.800><c> Here</c><00:05:23.039><c> we</c><00:05:23.199><c> can</c><00:05:23.360><c> see</c><00:05:23.520><c> how</c><00:05:23.680><c> our</c>
+
+00:05:23.909 --> 00:05:23.919 align:start position:0%
+select manage. Here we can see how our
+
+
+00:05:23.919 --> 00:05:25.510 align:start position:0%
+select manage. Here we can see how our
+virtual<00:05:24.320><c> private</c><00:05:24.639><c> server</c><00:05:24.880><c> is</c><00:05:25.039><c> running</c><00:05:25.280><c> and</c>
+
+00:05:25.510 --> 00:05:25.520 align:start position:0%
+virtual private server is running and
+
+
+00:05:25.520 --> 00:05:27.670 align:start position:0%
+virtual private server is running and
+all<00:05:25.680><c> the</c><00:05:25.840><c> usage</c><00:05:26.240><c> you</c><00:05:26.479><c> see</c><00:05:26.639><c> about</c><00:05:26.880><c> it.</c><00:05:27.120><c> So</c><00:05:27.440><c> this</c>
+
+00:05:27.670 --> 00:05:27.680 align:start position:0%
+all the usage you see about it. So this
+
+
+00:05:27.680 --> 00:05:30.390 align:start position:0%
+all the usage you see about it. So this
+is<00:05:27.840><c> another</c><00:05:28.160><c> advantage</c><00:05:28.800><c> over</c><00:05:29.280><c> the</c><00:05:29.520><c> N10</c><00:05:30.000><c> cloud.</c>
+
+00:05:30.390 --> 00:05:30.400 align:start position:0%
+is another advantage over the N10 cloud.
+
+
+00:05:30.400 --> 00:05:32.550 align:start position:0%
+is another advantage over the N10 cloud.
+You<00:05:30.560><c> can</c><00:05:30.720><c> actually</c><00:05:30.880><c> see</c><00:05:31.039><c> this</c><00:05:31.280><c> data</c><00:05:31.680><c> that</c><00:05:32.000><c> NAN</c>
+
+00:05:32.550 --> 00:05:32.560 align:start position:0%
+You can actually see this data that NAN
+
+
+00:05:32.560 --> 00:05:34.550 align:start position:0%
+You can actually see this data that NAN
+otherwise<00:05:32.960><c> wouldn't</c><00:05:33.280><c> give</c><00:05:33.440><c> you.</c><00:05:33.919><c> So</c><00:05:34.240><c> all</c><00:05:34.400><c> we</c>
+
+00:05:34.550 --> 00:05:34.560 align:start position:0%
+otherwise wouldn't give you. So all we
+
+
+00:05:34.560 --> 00:05:36.469 align:start position:0%
+otherwise wouldn't give you. So all we
+need<00:05:34.639><c> to</c><00:05:34.800><c> click</c><00:05:35.039><c> is</c><00:05:35.280><c> manage</c><00:05:35.600><c> app</c><00:05:36.080><c> and</c><00:05:36.240><c> this</c>
+
+00:05:36.469 --> 00:05:36.479 align:start position:0%
+need to click is manage app and this
+
+
+00:05:36.479 --> 00:05:38.070 align:start position:0%
+need to click is manage app and this
+will<00:05:36.639><c> launch</c><00:05:36.720><c> the</c><00:05:36.880><c> NA10</c><00:05:37.360><c> server</c><00:05:37.600><c> where</c><00:05:37.840><c> we</c><00:05:38.000><c> can</c>
+
+00:05:38.070 --> 00:05:38.080 align:start position:0%
+will launch the NA10 server where we can
+
+
+00:05:38.080 --> 00:05:39.510 align:start position:0%
+will launch the NA10 server where we can
+see<00:05:38.240><c> all</c><00:05:38.320><c> of</c><00:05:38.479><c> our</c><00:05:38.560><c> AI</c><00:05:38.880><c> agents.</c><00:05:39.280><c> All</c><00:05:39.280><c> right,</c>
+
+00:05:39.510 --> 00:05:39.520 align:start position:0%
+see all of our AI agents. All right,
+
+
+00:05:39.520 --> 00:05:41.110 align:start position:0%
+see all of our AI agents. All right,
+let's<00:05:39.759><c> jump</c><00:05:39.919><c> back</c><00:05:40.080><c> into</c><00:05:40.320><c> cloud</c><00:05:40.639><c> code</c><00:05:40.800><c> and</c><00:05:40.960><c> let</c>
+
+00:05:41.110 --> 00:05:41.120 align:start position:0%
+let's jump back into cloud code and let
+
+
+00:05:41.120 --> 00:05:42.870 align:start position:0%
+let's jump back into cloud code and let
+me<00:05:41.280><c> show</c><00:05:41.440><c> you</c><00:05:41.600><c> what</c><00:05:41.919><c> prompt</c><00:05:42.240><c> number</c><00:05:42.400><c> two</c><00:05:42.560><c> is.</c>
+
+00:05:42.870 --> 00:05:42.880 align:start position:0%
+me show you what prompt number two is.
+
+
+00:05:42.880 --> 00:05:44.469 align:start position:0%
+me show you what prompt number two is.
+Again,<00:05:43.360><c> feel</c><00:05:43.520><c> free</c><00:05:43.680><c> to</c><00:05:43.840><c> pause</c><00:05:44.000><c> the</c><00:05:44.160><c> video</c><00:05:44.320><c> and</c>
+
+00:05:44.469 --> 00:05:44.479 align:start position:0%
+Again, feel free to pause the video and
+
+
+00:05:44.479 --> 00:05:46.230 align:start position:0%
+Again, feel free to pause the video and
+copy<00:05:44.639><c> it</c><00:05:44.800><c> for</c><00:05:44.960><c> yourself,</c><00:05:45.440><c> but</c><00:05:45.680><c> basically</c><00:05:46.000><c> it's</c>
+
+00:05:46.230 --> 00:05:46.240 align:start position:0%
+copy it for yourself, but basically it's
+
+
+00:05:46.240 --> 00:05:47.990 align:start position:0%
+copy it for yourself, but basically it's
+the<00:05:46.400><c> description</c><00:05:46.800><c> of</c><00:05:47.039><c> the</c><00:05:47.199><c> same</c><00:05:47.360><c> build</c><00:05:47.600><c> idea,</c>
+
+00:05:47.990 --> 00:05:48.000 align:start position:0%
+the description of the same build idea,
+
+
+00:05:48.000 --> 00:05:50.230 align:start position:0%
+the description of the same build idea,
+right?<00:05:48.320><c> The</c><00:05:48.639><c> ultimate</c><00:05:49.280><c> calendar</c><00:05:49.840><c> manager</c>
+
+00:05:50.230 --> 00:05:50.240 align:start position:0%
+right? The ultimate calendar manager
+
+
+00:05:50.240 --> 00:05:52.070 align:start position:0%
+right? The ultimate calendar manager
+agent<00:05:50.560><c> that</c><00:05:50.880><c> optimizes</c><00:05:51.360><c> your</c><00:05:51.600><c> time</c><00:05:51.759><c> to</c><00:05:51.919><c> work</c>
+
+00:05:52.070 --> 00:05:52.080 align:start position:0%
+agent that optimizes your time to work
+
+
+00:05:52.080 --> 00:05:53.990 align:start position:0%
+agent that optimizes your time to work
+on<00:05:52.240><c> the</c><00:05:52.400><c> highest</c><00:05:52.720><c> leverage</c><00:05:53.120><c> tasks</c><00:05:53.520><c> to</c><00:05:53.759><c> fill</c><00:05:53.840><c> in</c>
+
+00:05:53.990 --> 00:05:54.000 align:start position:0%
+on the highest leverage tasks to fill in
+
+
+00:05:54.000 --> 00:05:56.070 align:start position:0%
+on the highest leverage tasks to fill in
+the<00:05:54.160><c> gaps</c><00:05:54.400><c> in</c><00:05:54.560><c> your</c><00:05:54.720><c> calendar.</c><00:05:55.120><c> So</c><00:05:55.759><c> it</c>
+
+00:05:56.070 --> 00:05:56.080 align:start position:0%
+the gaps in your calendar. So it
+
+
+00:05:56.080 --> 00:05:57.510 align:start position:0%
+the gaps in your calendar. So it
+describes<00:05:56.400><c> the</c><00:05:56.560><c> trigger,</c><00:05:56.880><c> it</c><00:05:57.039><c> describes</c><00:05:57.360><c> the</c>
+
+00:05:57.510 --> 00:05:57.520 align:start position:0%
+describes the trigger, it describes the
+
+
+00:05:57.520 --> 00:05:59.270 align:start position:0%
+describes the trigger, it describes the
+necessary<00:05:57.840><c> nodes,</c><00:05:58.160><c> but</c><00:05:58.479><c> this</c><00:05:58.639><c> time</c><00:05:58.800><c> it</c><00:05:59.039><c> tells</c>
+
+00:05:59.270 --> 00:05:59.280 align:start position:0%
+necessary nodes, but this time it tells
+
+
+00:05:59.280 --> 00:06:01.990 align:start position:0%
+necessary nodes, but this time it tells
+it<00:05:59.520><c> to</c><00:05:59.680><c> use</c><00:05:59.840><c> the</c><00:06:00.080><c> MCP.</c><00:06:00.639><c> So</c><00:06:00.880><c> this</c><00:06:01.199><c> makes</c><00:06:01.360><c> it</c><00:06:01.680><c> way</c>
+
+00:06:01.990 --> 00:06:02.000 align:start position:0%
+it to use the MCP. So this makes it way
+
+
+00:06:02.000 --> 00:06:04.070 align:start position:0%
+it to use the MCP. So this makes it way
+more<00:06:02.160><c> reliable,</c><00:06:02.800><c> not</c><00:06:02.960><c> even</c><00:06:03.199><c> close.</c><00:06:03.600><c> So</c><00:06:03.759><c> as</c><00:06:03.919><c> you</c>
+
+00:06:04.070 --> 00:06:04.080 align:start position:0%
+more reliable, not even close. So as you
+
+
+00:06:04.080 --> 00:06:06.629 align:start position:0%
+more reliable, not even close. So as you
+can<00:06:04.160><c> see,</c><00:06:04.639><c> cloud</c><00:06:04.960><c> code</c><00:06:05.360><c> starts</c><00:06:05.759><c> by</c><00:06:06.160><c> using</c><00:06:06.400><c> the</c>
+
+00:06:06.629 --> 00:06:06.639 align:start position:0%
+can see, cloud code starts by using the
+
+
+00:06:06.639 --> 00:06:08.790 align:start position:0%
+can see, cloud code starts by using the
+search<00:06:06.960><c> nodes</c><00:06:07.440><c> for</c><00:06:07.680><c> these</c><00:06:07.919><c> nodes</c><00:06:08.319><c> to</c><00:06:08.479><c> get</c><00:06:08.639><c> the</c>
+
+00:06:08.790 --> 00:06:08.800 align:start position:0%
+search nodes for these nodes to get the
+
+
+00:06:08.800 --> 00:06:11.029 align:start position:0%
+search nodes for these nodes to get the
+official<00:06:09.199><c> documentation</c><00:06:10.000><c> for</c><00:06:10.240><c> all</c><00:06:10.400><c> of</c><00:06:10.560><c> them.</c>
+
+00:06:11.029 --> 00:06:11.039 align:start position:0%
+official documentation for all of them.
+
+
+00:06:11.039 --> 00:06:13.029 align:start position:0%
+official documentation for all of them.
+So<00:06:11.199><c> I</c><00:06:11.360><c> need</c><00:06:11.520><c> to</c><00:06:11.600><c> do</c><00:06:11.759><c> yes</c><00:06:12.080><c> and</c><00:06:12.240><c> don't</c><00:06:12.479><c> ask</c><00:06:12.720><c> again.</c>
+
+00:06:13.029 --> 00:06:13.039 align:start position:0%
+So I need to do yes and don't ask again.
+
+
+00:06:13.039 --> 00:06:15.270 align:start position:0%
+So I need to do yes and don't ask again.
+By<00:06:13.199><c> the</c><00:06:13.360><c> way,</c><00:06:13.520><c> this</c><00:06:13.759><c> will</c><00:06:13.919><c> cause</c><00:06:14.240><c> it</c><00:06:14.479><c> to</c><00:06:15.039><c> create</c>
+
+00:06:15.270 --> 00:06:15.280 align:start position:0%
+By the way, this will cause it to create
+
+
+00:06:15.280 --> 00:06:17.749 align:start position:0%
+By the way, this will cause it to create
+a<00:06:15.520><c> new</c><00:06:15.680><c> file</c><00:06:16.160><c> settings.json.local</c>
+
+00:06:17.749 --> 00:06:17.759 align:start position:0%
+a new file settings.json.local
+
+
+00:06:17.759 --> 00:06:20.230 align:start position:0%
+a new file settings.json.local
+inside<00:06:18.080><c> of</c><00:06:18.240><c> the</c><00:06:18.800><c> cloth</c><00:06:19.039><c> folder</c><00:06:19.600><c> with</c><00:06:19.840><c> a</c><00:06:20.080><c> list</c>
+
+00:06:20.230 --> 00:06:20.240 align:start position:0%
+inside of the cloth folder with a list
+
+
+00:06:20.240 --> 00:06:22.790 align:start position:0%
+inside of the cloth folder with a list
+of<00:06:20.400><c> the</c><00:06:21.039><c> permissions,</c><00:06:21.680><c> right?</c><00:06:22.160><c> So</c><00:06:22.319><c> then</c><00:06:22.560><c> these</c>
+
+00:06:22.790 --> 00:06:22.800 align:start position:0%
+of the permissions, right? So then these
+
+
+00:06:22.800 --> 00:06:24.469 align:start position:0%
+of the permissions, right? So then these
+commands<00:06:23.360><c> search</c><00:06:23.680><c> nodes</c><00:06:24.000><c> they</c><00:06:24.240><c> can</c><00:06:24.319><c> run</c>
+
+00:06:24.469 --> 00:06:24.479 align:start position:0%
+commands search nodes they can run
+
+
+00:06:24.479 --> 00:06:26.309 align:start position:0%
+commands search nodes they can run
+automatically.<00:06:25.199><c> They</c><00:06:25.520><c> no</c><00:06:25.680><c> longer</c><00:06:25.919><c> need</c><00:06:26.080><c> my</c>
+
+00:06:26.309 --> 00:06:26.319 align:start position:0%
+automatically. They no longer need my
+
+
+00:06:26.319 --> 00:06:28.309 align:start position:0%
+automatically. They no longer need my
+approval<00:06:26.720><c> every</c><00:06:26.960><c> single</c><00:06:27.280><c> time</c><00:06:27.600><c> that</c><00:06:27.919><c> cloud</c>
+
+00:06:28.309 --> 00:06:28.319 align:start position:0%
+approval every single time that cloud
+
+
+00:06:28.319 --> 00:06:30.950 align:start position:0%
+approval every single time that cloud
+code<00:06:28.560><c> wants</c><00:06:28.800><c> to</c><00:06:28.960><c> run</c><00:06:29.120><c> this</c><00:06:29.360><c> MCP</c><00:06:30.000><c> tool.</c><00:06:30.639><c> Why?</c>
+
+00:06:30.950 --> 00:06:30.960 align:start position:0%
+code wants to run this MCP tool. Why?
+
+
+00:06:30.960 --> 00:06:32.550 align:start position:0%
+code wants to run this MCP tool. Why?
+Because<00:06:31.120><c> it's</c><00:06:31.280><c> a</c><00:06:31.440><c> safe</c><00:06:31.680><c> tool,</c><00:06:32.000><c> right?</c><00:06:32.319><c> So</c>
+
+00:06:32.550 --> 00:06:32.560 align:start position:0%
+Because it's a safe tool, right? So
+
+
+00:06:32.560 --> 00:06:34.629 align:start position:0%
+Because it's a safe tool, right? So
+again<00:06:32.880><c> this</c><00:06:33.120><c> is</c><00:06:33.199><c> a</c><00:06:33.360><c> new</c><00:06:33.520><c> command</c><00:06:33.919><c> get</c><00:06:34.240><c> node</c>
+
+00:06:34.629 --> 00:06:34.639 align:start position:0%
+again this is a new command get node
+
+
+00:06:34.639 --> 00:06:36.550 align:start position:0%
+again this is a new command get node
+essentials<00:06:35.440><c> another</c><00:06:35.759><c> safe</c><00:06:36.000><c> command.</c><00:06:36.319><c> So</c><00:06:36.400><c> I'm</c>
+
+00:06:36.550 --> 00:06:36.560 align:start position:0%
+essentials another safe command. So I'm
+
+
+00:06:36.560 --> 00:06:37.990 align:start position:0%
+essentials another safe command. So I'm
+going to<00:06:36.720><c> say</c><00:06:36.800><c> yes</c><00:06:36.960><c> and</c><00:06:37.199><c> don't</c><00:06:37.360><c> ask</c><00:06:37.600><c> again.</c>
+
+00:06:37.990 --> 00:06:38.000 align:start position:0%
+going to say yes and don't ask again.
+
+
+00:06:38.000 --> 00:06:40.230 align:start position:0%
+going to say yes and don't ask again.
+And<00:06:38.160><c> if</c><00:06:38.319><c> we</c><00:06:38.400><c> check</c><00:06:38.560><c> the</c><00:06:38.720><c> settings</c><00:06:39.520><c> JSON</c><00:06:39.840><c> local</c>
+
+00:06:40.230 --> 00:06:40.240 align:start position:0%
+And if we check the settings JSON local
+
+
+00:06:40.240 --> 00:06:41.590 align:start position:0%
+And if we check the settings JSON local
+we<00:06:40.400><c> can</c><00:06:40.479><c> see</c><00:06:40.560><c> that</c><00:06:40.800><c> right</c><00:06:40.960><c> here</c><00:06:41.199><c> it</c><00:06:41.360><c> has</c><00:06:41.520><c> been</c>
+
+00:06:41.590 --> 00:06:41.600 align:start position:0%
+we can see that right here it has been
+
+
+00:06:41.600 --> 00:06:43.670 align:start position:0%
+we can see that right here it has been
+updated<00:06:42.000><c> to</c><00:06:42.160><c> include</c><00:06:42.479><c> this</c><00:06:42.639><c> tool</c><00:06:42.880><c> as</c><00:06:43.039><c> well.</c><00:06:43.440><c> So</c>
+
+00:06:43.670 --> 00:06:43.680 align:start position:0%
+updated to include this tool as well. So
+
+
+00:06:43.680 --> 00:06:45.350 align:start position:0%
+updated to include this tool as well. So
+now<00:06:43.840><c> if</c><00:06:44.080><c> we</c><00:06:44.240><c> look</c><00:06:44.319><c> at</c><00:06:44.479><c> how</c><00:06:44.639><c> cloud</c><00:06:44.960><c> core</c><00:06:45.199><c> is</c>
+
+00:06:45.350 --> 00:06:45.360 align:start position:0%
+now if we look at how cloud core is
+
+
+00:06:45.360 --> 00:06:47.189 align:start position:0%
+now if we look at how cloud core is
+working<00:06:45.680><c> instead</c><00:06:45.919><c> of</c><00:06:46.080><c> just</c><00:06:46.319><c> basically</c><00:06:46.800><c> zero</c>
+
+00:06:47.189 --> 00:06:47.199 align:start position:0%
+working instead of just basically zero
+
+
+00:06:47.199 --> 00:06:49.270 align:start position:0%
+working instead of just basically zero
+shorting<00:06:47.520><c> some</c><00:06:47.759><c> JSON</c><00:06:48.080><c> that</c><00:06:48.479><c> might</c><00:06:48.800><c> work</c><00:06:48.960><c> or</c>
+
+00:06:49.270 --> 00:06:49.280 align:start position:0%
+shorting some JSON that might work or
+
+
+00:06:49.280 --> 00:06:51.189 align:start position:0%
+shorting some JSON that might work or
+might<00:06:49.440><c> not</c><00:06:49.680><c> work</c><00:06:50.000><c> but</c><00:06:50.240><c> as</c><00:06:50.479><c> we</c><00:06:50.639><c> saw</c><00:06:50.800><c> earlier</c>
+
+00:06:51.189 --> 00:06:51.199 align:start position:0%
+might not work but as we saw earlier
+
+
+00:06:51.199 --> 00:06:52.710 align:start position:0%
+might not work but as we saw earlier
+it's<00:06:51.440><c> still</c><00:06:51.680><c> you</c><00:06:51.840><c> know</c><00:06:51.919><c> pretty</c><00:06:52.160><c> unfinished</c>
+
+00:06:52.710 --> 00:06:52.720 align:start position:0%
+it's still you know pretty unfinished
+
+
+00:06:52.720 --> 00:06:55.110 align:start position:0%
+it's still you know pretty unfinished
+disconnected<00:06:53.360><c> tools</c><00:06:53.919><c> not</c><00:06:54.160><c> good</c><00:06:54.560><c> not</c><00:06:54.800><c> good</c>
+
+00:06:55.110 --> 00:06:55.120 align:start position:0%
+disconnected tools not good not good
+
+
+00:06:55.120 --> 00:06:56.950 align:start position:0%
+disconnected tools not good not good
+this<00:06:55.280><c> is</c><00:06:55.360><c> better</c><00:06:55.600><c> than</c><00:06:55.759><c> nothing</c><00:06:56.160><c> but</c><00:06:56.560><c> we</c><00:06:56.800><c> can</c>
+
+00:06:56.950 --> 00:06:56.960 align:start position:0%
+this is better than nothing but we can
+
+
+00:06:56.960 --> 00:06:58.309 align:start position:0%
+this is better than nothing but we can
+do<00:06:57.039><c> a</c><00:06:57.199><c> lot</c><00:06:57.360><c> better</c><00:06:57.600><c> instead</c><00:06:57.840><c> of</c><00:06:58.000><c> doing</c><00:06:58.160><c> all</c>
+
+00:06:58.309 --> 00:06:58.319 align:start position:0%
+do a lot better instead of doing all
+
+
+00:06:58.319 --> 00:07:01.510 align:start position:0%
+do a lot better instead of doing all
+that<00:06:58.800><c> cloth</c><00:06:59.199><c> code</c><00:06:59.680><c> uses</c><00:07:00.160><c> this</c><00:07:00.400><c> MCP</c><00:07:00.880><c> server</c><00:07:01.280><c> to</c>
+
+00:07:01.510 --> 00:07:01.520 align:start position:0%
+that cloth code uses this MCP server to
+
+
+00:07:01.520 --> 00:07:02.950 align:start position:0%
+that cloth code uses this MCP server to
+get<00:07:01.599><c> the</c><00:07:01.840><c> latest</c><00:07:02.080><c> documentation</c><00:07:02.560><c> on</c><00:07:02.720><c> these</c>
+
+00:07:02.950 --> 00:07:02.960 align:start position:0%
+get the latest documentation on these
+
+
+00:07:02.960 --> 00:07:04.790 align:start position:0%
+get the latest documentation on these
+nodes<00:07:03.280><c> right</c><00:07:03.520><c> so</c><00:07:03.759><c> first</c><00:07:04.000><c> it</c><00:07:04.240><c> actually</c><00:07:04.479><c> finds</c>
+
+00:07:04.790 --> 00:07:04.800 align:start position:0%
+nodes right so first it actually finds
+
+
+00:07:04.800 --> 00:07:07.670 align:start position:0%
+nodes right so first it actually finds
+the<00:07:05.039><c> official</c><00:07:05.440><c> names</c><00:07:06.000><c> of</c><00:07:06.160><c> these</c><00:07:06.479><c> nodes</c><00:07:07.120><c> in</c><00:07:07.440><c> the</c>
+
+00:07:07.670 --> 00:07:07.680 align:start position:0%
+the official names of these nodes in the
+
+
+00:07:07.680 --> 00:07:10.390 align:start position:0%
+the official names of these nodes in the
+NA10<00:07:08.240><c> docs</c><00:07:08.720><c> then</c><00:07:08.960><c> it</c><00:07:09.199><c> uses</c><00:07:09.759><c> get</c><00:07:10.160><c> note</c>
+
+00:07:10.390 --> 00:07:10.400 align:start position:0%
+NA10 docs then it uses get note
+
+
+00:07:10.400 --> 00:07:13.110 align:start position:0%
+NA10 docs then it uses get note
+essential<00:07:11.039><c> MCB</c><00:07:11.520><c> tool</c><00:07:11.759><c> to</c><00:07:12.000><c> get</c><00:07:12.319><c> the</c><00:07:12.639><c> basic</c>
+
+00:07:13.110 --> 00:07:13.120 align:start position:0%
+essential MCB tool to get the basic
+
+
+00:07:13.120 --> 00:07:14.870 align:start position:0%
+essential MCB tool to get the basic
+input<00:07:13.440><c> and</c><00:07:13.680><c> structure</c><00:07:13.919><c> of</c><00:07:14.000><c> these</c><00:07:14.160><c> nodes</c><00:07:14.560><c> to</c>
+
+00:07:14.870 --> 00:07:14.880 align:start position:0%
+input and structure of these nodes to
+
+
+00:07:14.880 --> 00:07:16.790 align:start position:0%
+input and structure of these nodes to
+fully<00:07:15.199><c> understand</c><00:07:15.599><c> them</c><00:07:16.080><c> just</c><00:07:16.319><c> like</c><00:07:16.479><c> an</c>
+
+00:07:16.790 --> 00:07:16.800 align:start position:0%
+fully understand them just like an
+
+
+00:07:16.800 --> 00:07:18.870 align:start position:0%
+fully understand them just like an
+expert<00:07:17.199><c> N10</c><00:07:17.759><c> engineer</c><00:07:18.080><c> would.</c><00:07:18.400><c> So</c><00:07:18.560><c> then</c><00:07:18.720><c> it</c>
+
+00:07:18.870 --> 00:07:18.880 align:start position:0%
+expert N10 engineer would. So then it
+
+
+00:07:18.880 --> 00:07:20.710 align:start position:0%
+expert N10 engineer would. So then it
+repeats<00:07:19.199><c> these</c><00:07:19.440><c> steps</c><00:07:19.680><c> for</c><00:07:20.000><c> every</c><00:07:20.400><c> single</c>
+
+00:07:20.710 --> 00:07:20.720 align:start position:0%
+repeats these steps for every single
+
+
+00:07:20.720 --> 00:07:22.550 align:start position:0%
+repeats these steps for every single
+node<00:07:21.039><c> in</c><00:07:21.199><c> the</c><00:07:21.360><c> automation</c><00:07:22.000><c> to</c><00:07:22.240><c> fully</c>
+
+00:07:22.550 --> 00:07:22.560 align:start position:0%
+node in the automation to fully
+
+
+00:07:22.560 --> 00:07:24.469 align:start position:0%
+node in the automation to fully
+understand<00:07:23.039><c> the</c><00:07:23.280><c> scope</c><00:07:23.520><c> of</c><00:07:23.680><c> the</c><00:07:23.919><c> project</c><00:07:24.240><c> and</c>
+
+00:07:24.469 --> 00:07:24.479 align:start position:0%
+understand the scope of the project and
+
+
+00:07:24.479 --> 00:07:26.710 align:start position:0%
+understand the scope of the project and
+only<00:07:24.720><c> then</c><00:07:24.960><c> it</c><00:07:25.199><c> tries</c><00:07:25.599><c> to</c><00:07:25.840><c> write</c><00:07:26.160><c> and</c><00:07:26.479><c> update</c>
+
+00:07:26.710 --> 00:07:26.720 align:start position:0%
+only then it tries to write and update
+
+
+00:07:26.720 --> 00:07:28.469 align:start position:0%
+only then it tries to write and update
+the<00:07:26.960><c> workflow.</c><00:07:27.280><c> Right?</c><00:07:27.520><c> So</c><00:07:27.680><c> here</c><00:07:27.919><c> it</c><00:07:28.240><c> found</c>
+
+00:07:28.469 --> 00:07:28.479 align:start position:0%
+the workflow. Right? So here it found
+
+
+00:07:28.479 --> 00:07:30.469 align:start position:0%
+the workflow. Right? So here it found
+out<00:07:28.720><c> okay</c><00:07:29.039><c> we</c><00:07:29.199><c> already</c><00:07:29.440><c> have</c><00:07:29.520><c> the</c><00:07:29.680><c> JSON</c><00:07:30.000><c> file</c>
+
+00:07:30.469 --> 00:07:30.479 align:start position:0%
+out okay we already have the JSON file
+
+
+00:07:30.479 --> 00:07:32.870 align:start position:0%
+out okay we already have the JSON file
+but<00:07:30.720><c> it</c><00:07:30.960><c> needs</c><00:07:31.199><c> significant</c><00:07:31.919><c> improvements</c><00:07:32.720><c> to</c>
+
+00:07:32.870 --> 00:07:32.880 align:start position:0%
+but it needs significant improvements to
+
+
+00:07:32.880 --> 00:07:34.390 align:start position:0%
+but it needs significant improvements to
+match<00:07:33.039><c> the</c><00:07:33.280><c> requirements</c><00:07:33.759><c> and</c><00:07:33.919><c> it's</c><00:07:34.160><c> asking</c>
+
+00:07:34.390 --> 00:07:34.400 align:start position:0%
+match the requirements and it's asking
+
+
+00:07:34.400 --> 00:07:36.230 align:start position:0%
+match the requirements and it's asking
+if<00:07:34.639><c> we</c><00:07:34.800><c> can</c><00:07:34.960><c> run</c><00:07:35.199><c> the</c><00:07:35.360><c> validate</c><00:07:35.840><c> workflow</c>
+
+00:07:36.230 --> 00:07:36.240 align:start position:0%
+if we can run the validate workflow
+
+
+00:07:36.240 --> 00:07:37.990 align:start position:0%
+if we can run the validate workflow
+tool.<00:07:36.560><c> Right?</c><00:07:36.800><c> So</c><00:07:36.960><c> what</c><00:07:37.120><c> I</c><00:07:37.280><c> did</c><00:07:37.440><c> here</c><00:07:37.520><c> is</c><00:07:37.759><c> I</c>
+
+00:07:37.990 --> 00:07:38.000 align:start position:0%
+tool. Right? So what I did here is I
+
+
+00:07:38.000 --> 00:07:39.990 align:start position:0%
+tool. Right? So what I did here is I
+press<00:07:38.240><c> escape</c><00:07:38.639><c> to</c><00:07:38.880><c> interrupt</c><00:07:39.280><c> cloth</c><00:07:39.599><c> code</c><00:07:39.759><c> and</c>
+
+00:07:39.990 --> 00:07:40.000 align:start position:0%
+press escape to interrupt cloth code and
+
+
+00:07:40.000 --> 00:07:41.670 align:start position:0%
+press escape to interrupt cloth code and
+tell<00:07:40.080><c> it</c><00:07:40.400><c> ignore</c><00:07:40.720><c> that</c><00:07:40.880><c> JSON</c><00:07:41.120><c> file,</c><00:07:41.360><c> create</c><00:07:41.520><c> a</c>
+
+00:07:41.670 --> 00:07:41.680 align:start position:0%
+tell it ignore that JSON file, create a
+
+
+00:07:41.680 --> 00:07:43.510 align:start position:0%
+tell it ignore that JSON file, create a
+new<00:07:41.840><c> one</c><00:07:42.080><c> because</c><00:07:42.240><c> I</c><00:07:42.479><c> don't</c><00:07:42.560><c> want</c><00:07:42.639><c> it</c><00:07:42.800><c> to</c><00:07:43.280><c> use</c>
+
+00:07:43.510 --> 00:07:43.520 align:start position:0%
+new one because I don't want it to use
+
+
+00:07:43.520 --> 00:07:45.510 align:start position:0%
+new one because I don't want it to use
+any<00:07:43.680><c> of</c><00:07:43.840><c> the</c><00:07:44.000><c> bad</c><00:07:44.240><c> practices</c><00:07:44.800><c> from</c><00:07:45.280><c> the</c>
+
+00:07:45.510 --> 00:07:45.520 align:start position:0%
+any of the bad practices from the
+
+
+00:07:45.520 --> 00:07:47.110 align:start position:0%
+any of the bad practices from the
+previous<00:07:45.840><c> cloth</c><00:07:46.160><c> code</c><00:07:46.319><c> which</c><00:07:46.560><c> created</c><00:07:46.880><c> this</c>
+
+00:07:47.110 --> 00:07:47.120 align:start position:0%
+previous cloth code which created this
+
+
+00:07:47.120 --> 00:07:48.870 align:start position:0%
+previous cloth code which created this
+file<00:07:47.599><c> because</c><00:07:47.840><c> this</c><00:07:48.080><c> one</c><00:07:48.319><c> didn't</c><00:07:48.560><c> have</c><00:07:48.720><c> the</c>
+
+00:07:48.870 --> 00:07:48.880 align:start position:0%
+file because this one didn't have the
+
+
+00:07:48.880 --> 00:07:50.629 align:start position:0%
+file because this one didn't have the
+MCP,<00:07:49.360><c> right?</c><00:07:49.599><c> And</c><00:07:49.840><c> honestly,</c><00:07:50.160><c> it's</c><00:07:50.319><c> a</c><00:07:50.400><c> night</c>
+
+00:07:50.629 --> 00:07:50.639 align:start position:0%
+MCP, right? And honestly, it's a night
+
+
+00:07:50.639 --> 00:07:52.550 align:start position:0%
+MCP, right? And honestly, it's a night
+and<00:07:50.800><c> day</c><00:07:51.039><c> difference.</c><00:07:51.360><c> Giving</c><00:07:51.680><c> the</c><00:07:51.840><c> MCP</c><00:07:52.400><c> to</c>
+
+00:07:52.550 --> 00:07:52.560 align:start position:0%
+and day difference. Giving the MCP to
+
+
+00:07:52.560 --> 00:07:54.790 align:start position:0%
+and day difference. Giving the MCP to
+the<00:07:52.720><c> cloth</c><00:07:53.039><c> code</c><00:07:53.440><c> makes</c><00:07:53.759><c> it</c><00:07:54.080><c> 10</c><00:07:54.319><c> times</c><00:07:54.639><c> more</c>
+
+00:07:54.790 --> 00:07:54.800 align:start position:0%
+the cloth code makes it 10 times more
+
+
+00:07:54.800 --> 00:07:56.309 align:start position:0%
+the cloth code makes it 10 times more
+reliable.<00:07:55.280><c> All</c><00:07:55.360><c> right,</c><00:07:55.599><c> so</c><00:07:55.759><c> it</c><00:07:55.919><c> seems</c><00:07:56.160><c> like</c>
+
+00:07:56.309 --> 00:07:56.319 align:start position:0%
+reliable. All right, so it seems like
+
+
+00:07:56.319 --> 00:07:58.550 align:start position:0%
+reliable. All right, so it seems like
+the<00:07:56.479><c> cloth</c><00:07:56.879><c> code</c><00:07:57.280><c> has</c><00:07:57.520><c> finished</c><00:07:57.840><c> running</c><00:07:58.319><c> with</c>
+
+00:07:58.550 --> 00:07:58.560 align:start position:0%
+the cloth code has finished running with
+
+
+00:07:58.560 --> 00:08:00.629 align:start position:0%
+the cloth code has finished running with
+the<00:07:58.800><c> MCP.</c><00:07:59.599><c> Everything</c><00:07:59.919><c> seems</c><00:08:00.160><c> to</c><00:08:00.319><c> be</c><00:08:00.400><c> good.</c>
+
+00:08:00.629 --> 00:08:00.639 align:start position:0%
+the MCP. Everything seems to be good.
+
+
+00:08:00.639 --> 00:08:02.950 align:start position:0%
+the MCP. Everything seems to be good.
+Let's<00:08:00.800><c> look</c><00:08:00.879><c> at</c><00:08:01.039><c> the</c><00:08:01.199><c> JSON</c><00:08:01.599><c> file.</c><00:08:02.000><c> So</c><00:08:02.240><c> this</c><00:08:02.479><c> one</c>
+
+00:08:02.950 --> 00:08:02.960 align:start position:0%
+Let's look at the JSON file. So this one
+
+
+00:08:02.960 --> 00:08:05.990 align:start position:0%
+Let's look at the JSON file. So this one
+has<00:08:03.759><c> 500</c><00:08:04.319><c> lines</c><00:08:05.120><c> while</c><00:08:05.360><c> the</c><00:08:05.599><c> previous</c><00:08:05.759><c> one</c>
+
+00:08:05.990 --> 00:08:06.000 align:start position:0%
+has 500 lines while the previous one
+
+
+00:08:06.000 --> 00:08:08.550 align:start position:0%
+has 500 lines while the previous one
+only<00:08:06.240><c> has</c><00:08:06.479><c> 385</c><00:08:07.280><c> lines.</c><00:08:07.599><c> So</c><00:08:07.759><c> it's</c><00:08:08.000><c> already</c><00:08:08.319><c> more</c>
+
+00:08:08.550 --> 00:08:08.560 align:start position:0%
+only has 385 lines. So it's already more
+
+
+00:08:08.560 --> 00:08:11.029 align:start position:0%
+only has 385 lines. So it's already more
+lines.<00:08:09.199><c> But</c><00:08:09.440><c> the</c><00:08:09.680><c> real</c><00:08:09.919><c> test</c><00:08:10.240><c> is</c><00:08:10.639><c> how</c><00:08:10.879><c> it</c>
+
+00:08:11.029 --> 00:08:11.039 align:start position:0%
+lines. But the real test is how it
+
+
+00:08:11.039 --> 00:08:12.950 align:start position:0%
+lines. But the real test is how it
+actually<00:08:11.280><c> looks</c><00:08:11.440><c> in</c><00:08:11.599><c> NA10.</c><00:08:12.319><c> So</c><00:08:12.400><c> let</c><00:08:12.639><c> me</c><00:08:12.720><c> create</c>
+
+00:08:12.950 --> 00:08:12.960 align:start position:0%
+actually looks in NA10. So let me create
+
+
+00:08:12.960 --> 00:08:14.790 align:start position:0%
+actually looks in NA10. So let me create
+a<00:08:13.120><c> new</c><00:08:13.199><c> one.</c><00:08:13.520><c> New</c><00:08:13.759><c> workflow.</c><00:08:14.400><c> All</c><00:08:14.400><c> right.</c><00:08:14.720><c> So</c>
+
+00:08:14.790 --> 00:08:14.800 align:start position:0%
+a new one. New workflow. All right. So
+
+
+00:08:14.800 --> 00:08:17.670 align:start position:0%
+a new one. New workflow. All right. So
+there's<00:08:15.039><c> a</c><00:08:15.280><c> brand</c><00:08:15.759><c> new</c><00:08:16.319><c> empty</c><00:08:16.800><c> workflow.</c><00:08:17.520><c> And</c>
+
+00:08:17.670 --> 00:08:17.680 align:start position:0%
+there's a brand new empty workflow. And
+
+
+00:08:17.680 --> 00:08:19.270 align:start position:0%
+there's a brand new empty workflow. And
+again<00:08:18.000><c> go</c><00:08:18.080><c> to</c><00:08:18.240><c> the</c><00:08:18.400><c> top</c><00:08:18.560><c> right,</c><00:08:18.800><c> click</c><00:08:18.960><c> on</c><00:08:19.120><c> the</c>
+
+00:08:19.270 --> 00:08:19.280 align:start position:0%
+again go to the top right, click on the
+
+
+00:08:19.280 --> 00:08:21.589 align:start position:0%
+again go to the top right, click on the
+three<00:08:19.440><c> dots,</c><00:08:19.919><c> import</c><00:08:20.319><c> from</c><00:08:20.639><c> file,</c><00:08:21.120><c> and</c><00:08:21.360><c> then</c>
+
+00:08:21.589 --> 00:08:21.599 align:start position:0%
+three dots, import from file, and then
+
+
+00:08:21.599 --> 00:08:23.189 align:start position:0%
+three dots, import from file, and then
+let's<00:08:21.840><c> find</c><00:08:22.080><c> this</c><00:08:22.240><c> new</c><00:08:22.400><c> one.</c><00:08:22.639><c> Telegram</c>
+
+00:08:23.189 --> 00:08:23.199 align:start position:0%
+let's find this new one. Telegram
+
+
+00:08:23.199 --> 00:08:26.309 align:start position:0%
+let's find this new one. Telegram
+calendar<00:08:23.440><c> AI</c><00:08:23.759><c> agent.</c><00:08:24.080><c> There</c><00:08:24.160><c> we</c><00:08:24.319><c> go.</c><00:08:25.120><c> Boom.</c><00:08:26.000><c> So</c>
+
+00:08:26.309 --> 00:08:26.319 align:start position:0%
+calendar AI agent. There we go. Boom. So
+
+
+00:08:26.319 --> 00:08:27.830 align:start position:0%
+calendar AI agent. There we go. Boom. So
+you<00:08:26.560><c> can</c><00:08:26.720><c> immediately</c><00:08:27.199><c> see</c><00:08:27.440><c> a</c><00:08:27.680><c> few</c>
+
+00:08:27.830 --> 00:08:27.840 align:start position:0%
+you can immediately see a few
+
+
+00:08:27.840 --> 00:08:29.589 align:start position:0%
+you can immediately see a few
+differences,<00:08:28.319><c> right?</c><00:08:28.560><c> So</c><00:08:28.800><c> first</c><00:08:28.960><c> of</c><00:08:29.120><c> all,</c><00:08:29.360><c> we</c>
+
+00:08:29.589 --> 00:08:29.599 align:start position:0%
+differences, right? So first of all, we
+
+
+00:08:29.599 --> 00:08:31.189 align:start position:0%
+differences, right? So first of all, we
+actually<00:08:29.840><c> have</c><00:08:30.000><c> the</c><00:08:30.160><c> calendar</c><00:08:30.560><c> events</c><00:08:30.960><c> as</c>
+
+00:08:31.189 --> 00:08:31.199 align:start position:0%
+actually have the calendar events as
+
+
+00:08:31.199 --> 00:08:33.029 align:start position:0%
+actually have the calendar events as
+calendars.<00:08:31.759><c> It's</c><00:08:31.919><c> not</c><00:08:32.080><c> some</c><00:08:32.320><c> empty</c><00:08:32.640><c> ghost</c>
+
+00:08:33.029 --> 00:08:33.039 align:start position:0%
+calendars. It's not some empty ghost
+
+
+00:08:33.039 --> 00:08:34.630 align:start position:0%
+calendars. It's not some empty ghost
+blocks.<00:08:33.440><c> If</c><00:08:33.680><c> we</c><00:08:33.760><c> go</c><00:08:33.839><c> to</c><00:08:34.000><c> the</c><00:08:34.080><c> previous</c><00:08:34.320><c> one,</c><00:08:34.479><c> we</c>
+
+00:08:34.630 --> 00:08:34.640 align:start position:0%
+blocks. If we go to the previous one, we
+
+
+00:08:34.640 --> 00:08:35.750 align:start position:0%
+blocks. If we go to the previous one, we
+can<00:08:34.719><c> see</c><00:08:34.880><c> that</c><00:08:35.039><c> these</c><00:08:35.279><c> are</c><00:08:35.360><c> not</c><00:08:35.519><c> even</c>
+
+00:08:35.750 --> 00:08:35.760 align:start position:0%
+can see that these are not even
+
+
+00:08:35.760 --> 00:08:37.110 align:start position:0%
+can see that these are not even
+configured,<00:08:36.320><c> right?</c><00:08:36.640><c> It's</c><00:08:36.880><c> complete</c>
+
+00:08:37.110 --> 00:08:37.120 align:start position:0%
+configured, right? It's complete
+
+
+00:08:37.120 --> 00:08:39.589 align:start position:0%
+configured, right? It's complete
+disaster.<00:08:38.000><c> Then</c><00:08:38.640><c> the</c><00:08:38.880><c> issue</c><00:08:39.039><c> is</c><00:08:39.200><c> that</c><00:08:39.360><c> we</c><00:08:39.519><c> have</c>
+
+00:08:39.589 --> 00:08:39.599 align:start position:0%
+disaster. Then the issue is that we have
+
+
+00:08:39.599 --> 00:08:41.750 align:start position:0%
+disaster. Then the issue is that we have
+the<00:08:39.839><c> message</c><00:08:40.240><c> model</c><00:08:40.800><c> to</c><00:08:41.039><c> transcribe</c><00:08:41.519><c> the</c>
+
+00:08:41.750 --> 00:08:41.760 align:start position:0%
+the message model to transcribe the
+
+
+00:08:41.760 --> 00:08:43.430 align:start position:0%
+the message model to transcribe the
+voice.<00:08:42.080><c> Instead</c><00:08:42.399><c> of</c><00:08:42.479><c> using</c><00:08:42.719><c> this</c><00:08:42.959><c> dedicated</c>
+
+00:08:43.430 --> 00:08:43.440 align:start position:0%
+voice. Instead of using this dedicated
+
+
+00:08:43.440 --> 00:08:46.230 align:start position:0%
+voice. Instead of using this dedicated
+node<00:08:44.000><c> openi</c><00:08:44.560><c> transcribe</c><00:08:45.040><c> voice</c><00:08:45.519><c> also</c><00:08:45.920><c> in</c><00:08:46.080><c> the</c>
+
+00:08:46.230 --> 00:08:46.240 align:start position:0%
+node openi transcribe voice also in the
+
+
+00:08:46.240 --> 00:08:47.990 align:start position:0%
+node openi transcribe voice also in the
+original<00:08:46.560><c> one,</c><00:08:46.800><c> the</c><00:08:46.959><c> telegram</c><00:08:47.440><c> trigger</c><00:08:47.760><c> is</c>
+
+00:08:47.990 --> 00:08:48.000 align:start position:0%
+original one, the telegram trigger is
+
+
+00:08:48.000 --> 00:08:50.150 align:start position:0%
+original one, the telegram trigger is
+not<00:08:48.160><c> even</c><00:08:48.320><c> defined.</c><00:08:48.959><c> This</c><00:08:49.040><c> is</c><00:08:49.360><c> just</c><00:08:49.600><c> a</c><00:08:49.760><c> chat.</c>
+
+00:08:50.150 --> 00:08:50.160 align:start position:0%
+not even defined. This is just a chat.
+
+
+00:08:50.160 --> 00:08:51.910 align:start position:0%
+not even defined. This is just a chat.
+This<00:08:50.320><c> is</c><00:08:50.399><c> a</c><00:08:50.560><c> chat</c><00:08:50.800><c> node</c><00:08:51.040><c> inside</c><00:08:51.279><c> of</c><00:08:51.360><c> NA10.</c><00:08:51.839><c> This</c>
+
+00:08:51.910 --> 00:08:51.920 align:start position:0%
+This is a chat node inside of NA10. This
+
+
+00:08:51.920 --> 00:08:53.590 align:start position:0%
+This is a chat node inside of NA10. This
+is<00:08:52.000><c> not</c><00:08:52.160><c> the</c><00:08:52.320><c> telegram</c><00:08:52.720><c> trigger</c><00:08:53.040><c> node.</c><00:08:53.440><c> While</c>
+
+00:08:53.590 --> 00:08:53.600 align:start position:0%
+is not the telegram trigger node. While
+
+
+00:08:53.600 --> 00:08:55.190 align:start position:0%
+is not the telegram trigger node. While
+in<00:08:53.760><c> the</c><00:08:53.920><c> new</c><00:08:54.080><c> one,</c><00:08:54.320><c> we</c><00:08:54.560><c> can</c><00:08:54.640><c> see</c><00:08:54.720><c> that</c><00:08:54.959><c> this</c><00:08:55.040><c> is</c>
+
+00:08:55.190 --> 00:08:55.200 align:start position:0%
+in the new one, we can see that this is
+
+
+00:08:55.200 --> 00:08:57.110 align:start position:0%
+in the new one, we can see that this is
+correctly<00:08:55.519><c> the</c><00:08:55.680><c> telegram</c><00:08:56.080><c> trigger.</c><00:08:56.560><c> So</c><00:08:56.880><c> what</c>
+
+00:08:57.110 --> 00:08:57.120 align:start position:0%
+correctly the telegram trigger. So what
+
+
+00:08:57.120 --> 00:08:58.389 align:start position:0%
+correctly the telegram trigger. So what
+remains<00:08:57.440><c> is</c><00:08:57.680><c> just</c><00:08:57.839><c> connecting</c><00:08:58.160><c> the</c>
+
+00:08:58.389 --> 00:08:58.399 align:start position:0%
+remains is just connecting the
+
+
+00:08:58.399 --> 00:09:00.310 align:start position:0%
+remains is just connecting the
+credentials<00:08:59.040><c> so</c><00:08:59.200><c> that</c><00:08:59.360><c> it</c><00:08:59.600><c> can</c><00:08:59.680><c> work</c><00:08:59.920><c> with</c><00:09:00.080><c> my</c>
+
+00:09:00.310 --> 00:09:00.320 align:start position:0%
+credentials so that it can work with my
+
+
+00:09:00.320 --> 00:09:01.910 align:start position:0%
+credentials so that it can work with my
+own<00:09:00.480><c> accounts.</c><00:09:00.880><c> All</c><00:09:00.880><c> right.</c><00:09:01.120><c> So</c><00:09:01.200><c> I</c><00:09:01.360><c> wired</c><00:09:01.760><c> up</c>
+
+00:09:01.910 --> 00:09:01.920 align:start position:0%
+own accounts. All right. So I wired up
+
+
+00:09:01.920 --> 00:09:03.670 align:start position:0%
+own accounts. All right. So I wired up
+my<00:09:02.080><c> actual</c><00:09:02.399><c> credentials</c><00:09:02.880><c> so</c><00:09:03.040><c> that</c><00:09:03.200><c> we</c><00:09:03.440><c> can</c><00:09:03.519><c> use</c>
+
+00:09:03.670 --> 00:09:03.680 align:start position:0%
+my actual credentials so that we can use
+
+
+00:09:03.680 --> 00:09:05.430 align:start position:0%
+my actual credentials so that we can use
+it<00:09:03.839><c> with</c><00:09:04.000><c> my</c><00:09:04.160><c> own</c><00:09:04.320><c> accounts.</c><00:09:04.800><c> Basically</c><00:09:05.279><c> if</c>
+
+00:09:05.430 --> 00:09:05.440 align:start position:0%
+it with my own accounts. Basically if
+
+
+00:09:05.440 --> 00:09:07.190 align:start position:0%
+it with my own accounts. Basically if
+you<00:09:05.600><c> already</c><00:09:05.839><c> use</c><00:09:06.000><c> NA10</c><00:09:06.640><c> this</c><00:09:06.800><c> will</c><00:09:06.880><c> take</c><00:09:07.040><c> you</c>
+
+00:09:07.190 --> 00:09:07.200 align:start position:0%
+you already use NA10 this will take you
+
+
+00:09:07.200 --> 00:09:09.110 align:start position:0%
+you already use NA10 this will take you
+like<00:09:07.360><c> 30</c><00:09:07.680><c> seconds.</c><00:09:08.080><c> If</c><00:09:08.240><c> you</c><00:09:08.399><c> don't</c><00:09:08.800><c> you</c><00:09:08.959><c> need</c>
+
+00:09:09.110 --> 00:09:09.120 align:start position:0%
+like 30 seconds. If you don't you need
+
+
+00:09:09.120 --> 00:09:10.790 align:start position:0%
+like 30 seconds. If you don't you need
+to<00:09:09.200><c> connect</c><00:09:09.600><c> whatever</c><00:09:10.000><c> nodes</c><00:09:10.240><c> we</c><00:09:10.399><c> have</c><00:09:10.640><c> right.</c>
+
+00:09:10.790 --> 00:09:10.800 align:start position:0%
+to connect whatever nodes we have right.
+
+
+00:09:10.800 --> 00:09:12.550 align:start position:0%
+to connect whatever nodes we have right.
+So<00:09:10.959><c> in</c><00:09:11.120><c> this</c><00:09:11.200><c> case</c><00:09:11.440><c> telling</c><00:09:12.000><c> trigger</c><00:09:12.240><c> is</c><00:09:12.399><c> the</c>
+
+00:09:12.550 --> 00:09:12.560 align:start position:0%
+So in this case telling trigger is the
+
+
+00:09:12.560 --> 00:09:14.710 align:start position:0%
+So in this case telling trigger is the
+first.<00:09:12.880><c> Then</c><00:09:13.279><c> we</c><00:09:13.519><c> have</c><00:09:13.680><c> the</c><00:09:13.920><c> Google</c><00:09:14.240><c> calendar</c>
+
+00:09:14.710 --> 00:09:14.720 align:start position:0%
+first. Then we have the Google calendar
+
+
+00:09:14.720 --> 00:09:16.870 align:start position:0%
+first. Then we have the Google calendar
+right<00:09:15.120><c> that's</c><00:09:15.440><c> a</c><00:09:15.600><c> Google</c><00:09:15.920><c> cloud</c><00:09:16.160><c> console.</c><00:09:16.640><c> I</c>
+
+00:09:16.870 --> 00:09:16.880 align:start position:0%
+right that's a Google cloud console. I
+
+
+00:09:16.880 --> 00:09:18.230 align:start position:0%
+right that's a Google cloud console. I
+already<00:09:17.120><c> showed</c><00:09:17.279><c> that</c><00:09:17.519><c> in</c><00:09:17.680><c> multiple</c><00:09:18.000><c> videos</c>
+
+00:09:18.230 --> 00:09:18.240 align:start position:0%
+already showed that in multiple videos
+
+
+00:09:18.240 --> 00:09:19.829 align:start position:0%
+already showed that in multiple videos
+such<00:09:18.480><c> as</c><00:09:18.560><c> this</c><00:09:18.720><c> one</c><00:09:18.880><c> or</c><00:09:19.120><c> this</c><00:09:19.279><c> one.</c><00:09:19.680><c> And</c>
+
+00:09:19.829 --> 00:09:19.839 align:start position:0%
+such as this one or this one. And
+
+
+00:09:19.839 --> 00:09:22.630 align:start position:0%
+such as this one or this one. And
+basically<00:09:20.320><c> yeah</c><00:09:20.720><c> maybe</c><00:09:21.040><c> your</c><00:09:21.440><c> openi</c><00:09:21.920><c> API</c><00:09:22.399><c> key</c>
+
+00:09:22.630 --> 00:09:22.640 align:start position:0%
+basically yeah maybe your openi API key
+
+
+00:09:22.640 --> 00:09:24.070 align:start position:0%
+basically yeah maybe your openi API key
+if<00:09:22.880><c> you</c><00:09:22.959><c> haven't</c><00:09:23.200><c> connected</c><00:09:23.519><c> that</c><00:09:23.760><c> but</c><00:09:23.920><c> it's</c>
+
+00:09:24.070 --> 00:09:24.080 align:start position:0%
+if you haven't connected that but it's
+
+
+00:09:24.080 --> 00:09:25.430 align:start position:0%
+if you haven't connected that but it's
+really<00:09:24.320><c> straightforward.</c><00:09:24.800><c> So</c><00:09:25.040><c> let</c><00:09:25.200><c> me</c><00:09:25.279><c> just</c>
+
+00:09:25.430 --> 00:09:25.440 align:start position:0%
+really straightforward. So let me just
+
+
+00:09:25.440 --> 00:09:27.030 align:start position:0%
+really straightforward. So let me just
+walk<00:09:25.600><c> you</c><00:09:25.760><c> through</c><00:09:25.920><c> all</c><00:09:26.000><c> of</c><00:09:26.080><c> it</c><00:09:26.399><c> starting</c><00:09:26.800><c> with</c>
+
+00:09:27.030 --> 00:09:27.040 align:start position:0%
+walk you through all of it starting with
+
+
+00:09:27.040 --> 00:09:28.550 align:start position:0%
+walk you through all of it starting with
+the<00:09:27.279><c> trigger.</c><00:09:27.680><c> So</c><00:09:27.839><c> here</c><00:09:28.000><c> you</c><00:09:28.160><c> need</c><00:09:28.240><c> to</c><00:09:28.399><c> connect</c>
+
+00:09:28.550 --> 00:09:28.560 align:start position:0%
+the trigger. So here you need to connect
+
+
+00:09:28.560 --> 00:09:29.990 align:start position:0%
+the trigger. So here you need to connect
+your<00:09:28.720><c> telegram</c><00:09:29.200><c> account.</c><00:09:29.440><c> So</c><00:09:29.600><c> actually</c><00:09:29.839><c> this</c>
+
+00:09:29.990 --> 00:09:30.000 align:start position:0%
+your telegram account. So actually this
+
+
+00:09:30.000 --> 00:09:31.269 align:start position:0%
+your telegram account. So actually this
+is<00:09:30.080><c> very</c><00:09:30.240><c> easy.</c><00:09:30.480><c> All</c><00:09:30.640><c> you</c><00:09:30.720><c> need</c><00:09:30.800><c> to</c><00:09:30.880><c> do</c><00:09:31.040><c> is</c>
+
+00:09:31.269 --> 00:09:31.279 align:start position:0%
+is very easy. All you need to do is
+
+
+00:09:31.279 --> 00:09:33.269 align:start position:0%
+is very easy. All you need to do is
+install<00:09:31.600><c> the</c><00:09:31.760><c> telegram</c><00:09:32.240><c> desktop</c><00:09:32.640><c> app.</c><00:09:32.959><c> Open</c>
+
+00:09:33.269 --> 00:09:33.279 align:start position:0%
+install the telegram desktop app. Open
+
+
+00:09:33.279 --> 00:09:36.470 align:start position:0%
+install the telegram desktop app. Open
+the<00:09:33.519><c> botfather</c><00:09:34.320><c> and</c><00:09:34.480><c> type</c><00:09:34.720><c> in</c><00:09:34.959><c> /</c><00:09:35.360><c> newbot.</c><00:09:36.240><c> It</c>
+
+00:09:36.470 --> 00:09:36.480 align:start position:0%
+the botfather and type in / newbot. It
+
+
+00:09:36.480 --> 00:09:38.070 align:start position:0%
+the botfather and type in / newbot. It
+will<00:09:36.640><c> walk</c><00:09:36.880><c> you</c><00:09:37.120><c> through</c><00:09:37.360><c> the</c><00:09:37.600><c> steps</c><00:09:37.920><c> of</c>
+
+00:09:38.070 --> 00:09:38.080 align:start position:0%
+will walk you through the steps of
+
+
+00:09:38.080 --> 00:09:39.670 align:start position:0%
+will walk you through the steps of
+creating<00:09:38.320><c> a</c><00:09:38.480><c> new</c><00:09:38.640><c> telegram</c><00:09:39.040><c> bot</c><00:09:39.360><c> which</c><00:09:39.600><c> you</c>
+
+00:09:39.670 --> 00:09:39.680 align:start position:0%
+creating a new telegram bot which you
+
+
+00:09:39.680 --> 00:09:41.430 align:start position:0%
+creating a new telegram bot which you
+then<00:09:39.920><c> connect</c><00:09:40.080><c> to</c><00:09:40.240><c> n10.</c><00:09:40.800><c> Again</c><00:09:41.120><c> I've</c><00:09:41.279><c> showed</c>
+
+00:09:41.430 --> 00:09:41.440 align:start position:0%
+then connect to n10. Again I've showed
+
+
+00:09:41.440 --> 00:09:43.110 align:start position:0%
+then connect to n10. Again I've showed
+that<00:09:41.600><c> in</c><00:09:41.839><c> many</c><00:09:42.080><c> different</c><00:09:42.399><c> videos.</c><00:09:42.720><c> Or</c><00:09:42.880><c> if</c><00:09:43.040><c> you</c>
+
+00:09:43.110 --> 00:09:43.120 align:start position:0%
+that in many different videos. Or if you
+
+
+00:09:43.120 --> 00:09:44.710 align:start position:0%
+that in many different videos. Or if you
+get<00:09:43.279><c> stuck</c><00:09:43.440><c> at</c><00:09:43.600><c> any</c><00:09:43.839><c> point</c><00:09:44.080><c> just</c><00:09:44.240><c> jump</c><00:09:44.560><c> back</c>
+
+00:09:44.710 --> 00:09:44.720 align:start position:0%
+get stuck at any point just jump back
+
+
+00:09:44.720 --> 00:09:47.590 align:start position:0%
+get stuck at any point just jump back
+into<00:09:45.040><c> cloudcoin</c><00:09:45.600><c> and</c><00:09:45.760><c> say</c><00:09:46.320><c> help</c><00:09:46.640><c> me</c><00:09:46.880><c> connect</c>
+
+00:09:47.590 --> 00:09:47.600 align:start position:0%
+into cloudcoin and say help me connect
+
+
+00:09:47.600 --> 00:09:51.350 align:start position:0%
+into cloudcoin and say help me connect
+the<00:09:47.920><c> telegram</c><00:09:48.720><c> bot</c><00:09:49.279><c> into</c><00:09:50.000><c> n10.</c><00:09:50.880><c> Give</c><00:09:51.120><c> me</c>
+
+00:09:51.350 --> 00:09:51.360 align:start position:0%
+the telegram bot into n10. Give me
+
+
+00:09:51.360 --> 00:09:53.350 align:start position:0%
+the telegram bot into n10. Give me
+step-by-step<00:09:52.160><c> instructions.</c><00:09:52.800><c> Since</c><00:09:53.040><c> it</c><00:09:53.279><c> has</c>
+
+00:09:53.350 --> 00:09:53.360 align:start position:0%
+step-by-step instructions. Since it has
+
+
+00:09:53.360 --> 00:09:56.389 align:start position:0%
+step-by-step instructions. Since it has
+the<00:09:53.600><c> NA10</c><00:09:54.399><c> MCP</c><00:09:55.120><c> tool,</c><00:09:55.680><c> it</c><00:09:55.920><c> basically</c><00:09:56.240><c> knows</c>
+
+00:09:56.389 --> 00:09:56.399 align:start position:0%
+the NA10 MCP tool, it basically knows
+
+
+00:09:56.399 --> 00:09:57.990 align:start position:0%
+the NA10 MCP tool, it basically knows
+all<00:09:56.560><c> of</c><00:09:56.640><c> the</c><00:09:56.800><c> documentation</c><00:09:57.360><c> and</c><00:09:57.600><c> it</c><00:09:57.760><c> can</c><00:09:57.920><c> tell</c>
+
+00:09:57.990 --> 00:09:58.000 align:start position:0%
+all of the documentation and it can tell
+
+
+00:09:58.000 --> 00:09:59.990 align:start position:0%
+all of the documentation and it can tell
+you<00:09:58.240><c> exactly</c><00:09:58.880><c> what</c><00:09:59.040><c> to</c><00:09:59.279><c> do.</c><00:09:59.600><c> All</c><00:09:59.600><c> right,</c><00:09:59.839><c> so</c>
+
+00:09:59.990 --> 00:10:00.000 align:start position:0%
+you exactly what to do. All right, so
+
+
+00:10:00.000 --> 00:10:01.750 align:start position:0%
+you exactly what to do. All right, so
+cloud<00:10:00.320><c> code</c><00:10:00.480><c> is</c><00:10:00.720><c> generating.</c><00:10:01.360><c> This</c><00:10:01.519><c> is</c><00:10:01.680><c> going</c>
+
+00:10:01.750 --> 00:10:01.760 align:start position:0%
+cloud code is generating. This is going
+
+
+00:10:01.760 --> 00:10:03.350 align:start position:0%
+cloud code is generating. This is going
+to<00:10:01.839><c> be</c><00:10:01.920><c> very</c><00:10:02.240><c> thorough</c><00:10:02.640><c> instructions,</c><00:10:03.120><c> by</c><00:10:03.279><c> the</c>
+
+00:10:03.350 --> 00:10:03.360 align:start position:0%
+to be very thorough instructions, by the
+
+
+00:10:03.360 --> 00:10:05.269 align:start position:0%
+to be very thorough instructions, by the
+way.<00:10:03.680><c> Boom.</c><00:10:04.000><c> There</c><00:10:04.160><c> we</c><00:10:04.320><c> go.</c><00:10:04.560><c> Over</c><00:10:04.880><c> 1,000</c>
+
+00:10:05.269 --> 00:10:05.279 align:start position:0%
+way. Boom. There we go. Over 1,000
+
+
+00:10:05.279 --> 00:10:07.269 align:start position:0%
+way. Boom. There we go. Over 1,000
+tokens<00:10:05.680><c> of</c><00:10:06.000><c> instructions.</c><00:10:06.640><c> You</c><00:10:06.800><c> can</c><00:10:06.880><c> honestly</c>
+
+00:10:07.269 --> 00:10:07.279 align:start position:0%
+tokens of instructions. You can honestly
+
+
+00:10:07.279 --> 00:10:09.750 align:start position:0%
+tokens of instructions. You can honestly
+say,<00:10:07.600><c> "Give</c><00:10:07.920><c> me</c><00:10:08.080><c> a</c><00:10:08.240><c> TLDDR</c><00:10:09.040><c> cuz</c><00:10:09.200><c> I</c><00:10:09.440><c> didn't</c><00:10:09.600><c> put</c>
+
+00:10:09.750 --> 00:10:09.760 align:start position:0%
+say, "Give me a TLDDR cuz I didn't put
+
+
+00:10:09.760 --> 00:10:11.590 align:start position:0%
+say, "Give me a TLDDR cuz I didn't put
+my<00:10:09.920><c> signature</c><00:10:10.320><c> prompt</c><00:10:10.640><c> answering</c><00:10:11.120><c> short."</c>
+
+00:10:11.590 --> 00:10:11.600 align:start position:0%
+my signature prompt answering short."
+
+
+00:10:11.600 --> 00:10:13.509 align:start position:0%
+my signature prompt answering short."
+But<00:10:11.760><c> yeah,</c><00:10:12.080><c> Cloth</c><00:10:12.399><c> Code</c><00:10:12.640><c> knows</c><00:10:13.040><c> everything</c>
+
+00:10:13.509 --> 00:10:13.519 align:start position:0%
+But yeah, Cloth Code knows everything
+
+
+00:10:13.519 --> 00:10:15.030 align:start position:0%
+But yeah, Cloth Code knows everything
+basically.<00:10:14.079><c> And</c><00:10:14.240><c> it's</c><00:10:14.399><c> a</c><00:10:14.560><c> very</c><00:10:14.720><c> powerful</c>
+
+00:10:15.030 --> 00:10:15.040 align:start position:0%
+basically. And it's a very powerful
+
+
+00:10:15.040 --> 00:10:16.710 align:start position:0%
+basically. And it's a very powerful
+agent<00:10:15.360><c> that</c><00:10:15.680><c> you</c><00:10:15.920><c> should</c><00:10:16.079><c> use.</c><00:10:16.320><c> If</c><00:10:16.480><c> you</c><00:10:16.560><c> get</c>
+
+00:10:16.710 --> 00:10:16.720 align:start position:0%
+agent that you should use. If you get
+
+
+00:10:16.720 --> 00:10:18.630 align:start position:0%
+agent that you should use. If you get
+stuck<00:10:16.959><c> at</c><00:10:17.120><c> any</c><00:10:17.360><c> point</c><00:10:17.519><c> in</c><00:10:17.760><c> this</c><00:10:17.920><c> video,</c><00:10:18.320><c> don't</c>
+
+00:10:18.630 --> 00:10:18.640 align:start position:0%
+stuck at any point in this video, don't
+
+
+00:10:18.640 --> 00:10:20.790 align:start position:0%
+stuck at any point in this video, don't
+get<00:10:18.800><c> overwhelmed.</c><00:10:19.519><c> Don't</c><00:10:19.680><c> panic.</c><00:10:20.320><c> Just</c><00:10:20.480><c> ask</c>
+
+00:10:20.790 --> 00:10:20.800 align:start position:0%
+get overwhelmed. Don't panic. Just ask
+
+
+00:10:20.800 --> 00:10:23.110 align:start position:0%
+get overwhelmed. Don't panic. Just ask
+CL<00:10:21.120><c> code.</c><00:10:21.279><c> So</c><00:10:21.519><c> here's</c><00:10:21.680><c> the</c><00:10:21.760><c> TDR.</c><00:10:22.640><c> Step</c><00:10:22.800><c> one,</c>
+
+00:10:23.110 --> 00:10:23.120 align:start position:0%
+CL code. So here's the TDR. Step one,
+
+
+00:10:23.120 --> 00:10:24.630 align:start position:0%
+CL code. So here's the TDR. Step one,
+create<00:10:23.360><c> bot.</c><00:10:23.600><c> Yeah,</c><00:10:23.760><c> I</c><00:10:23.920><c> showed</c><00:10:24.079><c> you</c><00:10:24.160><c> that.</c><00:10:24.399><c> Add</c>
+
+00:10:24.630 --> 00:10:24.640 align:start position:0%
+create bot. Yeah, I showed you that. Add
+
+
+00:10:24.640 --> 00:10:26.550 align:start position:0%
+create bot. Yeah, I showed you that. Add
+the<00:10:24.800><c> credentials,</c><00:10:25.279><c> import</c><00:10:25.680><c> workflow,</c><00:10:26.240><c> set</c>
+
+00:10:26.550 --> 00:10:26.560 align:start position:0%
+the credentials, import workflow, set
+
+
+00:10:26.560 --> 00:10:29.030 align:start position:0%
+the credentials, import workflow, set
+web<00:10:26.720><c> hook,</c><00:10:27.279><c> test.</c><00:10:28.000><c> Literally,</c><00:10:28.480><c> it's</c><00:10:28.720><c> that</c>
+
+00:10:29.030 --> 00:10:29.040 align:start position:0%
+web hook, test. Literally, it's that
+
+
+00:10:29.040 --> 00:10:31.110 align:start position:0%
+web hook, test. Literally, it's that
+simple.<00:10:29.360><c> And</c><00:10:29.519><c> again,</c><00:10:30.079><c> these</c><00:10:30.320><c> AI</c><00:10:30.640><c> tools</c><00:10:30.959><c> can</c>
+
+00:10:31.110 --> 00:10:31.120 align:start position:0%
+simple. And again, these AI tools can
+
+
+00:10:31.120 --> 00:10:32.949 align:start position:0%
+simple. And again, these AI tools can
+help<00:10:31.279><c> you</c><00:10:31.519><c> get</c><00:10:31.680><c> unstuck.</c><00:10:32.240><c> So</c><00:10:32.480><c> maybe</c><00:10:32.720><c> you</c>
+
+00:10:32.949 --> 00:10:32.959 align:start position:0%
+help you get unstuck. So maybe you
+
+
+00:10:32.959 --> 00:10:34.710 align:start position:0%
+help you get unstuck. So maybe you
+struggle<00:10:33.279><c> with,</c><00:10:33.680><c> I</c><00:10:33.839><c> don't</c><00:10:33.920><c> know,</c><00:10:34.320><c> the</c>
+
+00:10:34.710 --> 00:10:34.720 align:start position:0%
+struggle with, I don't know, the
+
+
+00:10:34.720 --> 00:10:36.949 align:start position:0%
+struggle with, I don't know, the
+calendar<00:10:35.120><c> tool</c><00:10:35.440><c> or</c><00:10:35.760><c> maybe</c><00:10:36.000><c> the</c><00:10:36.160><c> veil</c><00:10:36.560><c> MCP,</c>
+
+00:10:36.949 --> 00:10:36.959 align:start position:0%
+calendar tool or maybe the veil MCP,
+
+
+00:10:36.959 --> 00:10:39.030 align:start position:0%
+calendar tool or maybe the veil MCP,
+which<00:10:37.120><c> again</c><00:10:37.279><c> I</c><00:10:37.440><c> showed</c><00:10:37.680><c> in</c><00:10:37.920><c> this</c><00:10:38.079><c> video.</c><00:10:38.800><c> All</c>
+
+00:10:39.030 --> 00:10:39.040 align:start position:0%
+which again I showed in this video. All
+
+
+00:10:39.040 --> 00:10:41.110 align:start position:0%
+which again I showed in this video. All
+of<00:10:39.200><c> this</c><00:10:39.600><c> cloth</c><00:10:39.920><c> code</c><00:10:40.160><c> can</c><00:10:40.399><c> help</c><00:10:40.560><c> you</c><00:10:40.800><c> and</c><00:10:40.959><c> do</c>
+
+00:10:41.110 --> 00:10:41.120 align:start position:0%
+of this cloth code can help you and do
+
+
+00:10:41.120 --> 00:10:42.550 align:start position:0%
+of this cloth code can help you and do
+for<00:10:41.279><c> you.</c><00:10:41.600><c> Obviously,</c><00:10:42.000><c> it</c><00:10:42.240><c> doesn't</c><00:10:42.399><c> have</c>
+
+00:10:42.550 --> 00:10:42.560 align:start position:0%
+for you. Obviously, it doesn't have
+
+
+00:10:42.560 --> 00:10:44.389 align:start position:0%
+for you. Obviously, it doesn't have
+login<00:10:43.040><c> to</c><00:10:43.120><c> your</c><00:10:43.279><c> accounts.</c><00:10:43.839><c> So</c><00:10:43.920><c> that's</c><00:10:44.160><c> why</c>
+
+00:10:44.389 --> 00:10:44.399 align:start position:0%
+login to your accounts. So that's why
+
+
+00:10:44.399 --> 00:10:46.310 align:start position:0%
+login to your accounts. So that's why
+connecting<00:10:44.720><c> the</c><00:10:44.959><c> credentials</c><00:10:45.600><c> is</c><00:10:45.839><c> the</c><00:10:46.079><c> only</c>
+
+00:10:46.310 --> 00:10:46.320 align:start position:0%
+connecting the credentials is the only
+
+
+00:10:46.320 --> 00:10:48.150 align:start position:0%
+connecting the credentials is the only
+step<00:10:46.560><c> you</c><00:10:46.720><c> have</c><00:10:46.800><c> to</c><00:10:46.880><c> do</c><00:10:47.040><c> manually.</c><00:10:47.600><c> But</c><00:10:47.839><c> as</c><00:10:48.000><c> you</c>
+
+00:10:48.150 --> 00:10:48.160 align:start position:0%
+step you have to do manually. But as you
+
+
+00:10:48.160 --> 00:10:50.069 align:start position:0%
+step you have to do manually. But as you
+can<00:10:48.240><c> see,</c><00:10:48.480><c> it</c><00:10:48.720><c> can</c><00:10:48.880><c> build</c><00:10:49.200><c> basically</c><00:10:49.680><c> any</c>
+
+00:10:50.069 --> 00:10:50.079 align:start position:0%
+can see, it can build basically any
+
+
+00:10:50.079 --> 00:10:52.470 align:start position:0%
+can see, it can build basically any
+automation<00:10:50.880><c> inside</c><00:10:51.200><c> of</c><00:10:51.360><c> NA10.</c><00:10:52.000><c> It</c><00:10:52.160><c> knows</c><00:10:52.320><c> all</c>
+
+00:10:52.470 --> 00:10:52.480 align:start position:0%
+automation inside of NA10. It knows all
+
+
+00:10:52.480 --> 00:10:54.069 align:start position:0%
+automation inside of NA10. It knows all
+of<00:10:52.560><c> the</c><00:10:52.720><c> nodes.</c><00:10:53.040><c> It</c><00:10:53.200><c> knows</c><00:10:53.360><c> all</c><00:10:53.519><c> the</c><00:10:53.680><c> tools.</c><00:10:54.000><c> It</c>
+
+00:10:54.069 --> 00:10:54.079 align:start position:0%
+of the nodes. It knows all the tools. It
+
+
+00:10:54.079 --> 00:10:55.590 align:start position:0%
+of the nodes. It knows all the tools. It
+knows<00:10:54.240><c> all</c><00:10:54.399><c> the</c><00:10:54.560><c> triggers.</c><00:10:54.959><c> It</c><00:10:55.120><c> knows</c><00:10:55.279><c> all</c><00:10:55.440><c> the</c>
+
+00:10:55.590 --> 00:10:55.600 align:start position:0%
+knows all the triggers. It knows all the
+
+
+00:10:55.600 --> 00:10:57.110 align:start position:0%
+knows all the triggers. It knows all the
+outputs.<00:10:56.000><c> Oh,</c><00:10:56.160><c> and</c><00:10:56.320><c> one</c><00:10:56.480><c> more</c><00:10:56.560><c> thing</c><00:10:56.720><c> I</c><00:10:56.959><c> want</c>
+
+00:10:57.110 --> 00:10:57.120 align:start position:0%
+outputs. Oh, and one more thing I want
+
+
+00:10:57.120 --> 00:10:59.269 align:start position:0%
+outputs. Oh, and one more thing I want
+to<00:10:57.200><c> show</c><00:10:57.279><c> you</c><00:10:57.440><c> is</c><00:10:57.600><c> the</c><00:10:57.839><c> prompt</c><00:10:58.480><c> system</c><00:10:58.800><c> prompt</c>
+
+00:10:59.269 --> 00:10:59.279 align:start position:0%
+to show you is the prompt system prompt
+
+
+00:10:59.279 --> 00:11:01.190 align:start position:0%
+to show you is the prompt system prompt
+for<00:10:59.519><c> the</c><00:10:59.760><c> AI</c><00:11:00.000><c> agent,</c><00:11:00.240><c> right?</c><00:11:00.399><c> So,</c><00:11:00.560><c> here</c><00:11:00.720><c> it</c><00:11:00.800><c> is.</c>
+
+00:11:01.190 --> 00:11:01.200 align:start position:0%
+for the AI agent, right? So, here it is.
+
+
+00:11:01.200 --> 00:11:02.790 align:start position:0%
+for the AI agent, right? So, here it is.
+And<00:11:01.360><c> this</c><00:11:01.519><c> was</c><00:11:01.680><c> actually</c><00:11:01.920><c> written</c><00:11:02.160><c> by</c><00:11:02.320><c> Cloore</c>
+
+00:11:02.790 --> 00:11:02.800 align:start position:0%
+And this was actually written by Cloore
+
+
+00:11:02.800 --> 00:11:04.389 align:start position:0%
+And this was actually written by Cloore
+as<00:11:02.959><c> well.</c><00:11:03.120><c> So,</c><00:11:03.279><c> feel</c><00:11:03.440><c> free</c><00:11:03.680><c> to</c><00:11:03.839><c> just</c><00:11:04.079><c> take</c><00:11:04.240><c> it</c>
+
+00:11:04.389 --> 00:11:04.399 align:start position:0%
+as well. So, feel free to just take it
+
+
+00:11:04.399 --> 00:11:06.470 align:start position:0%
+as well. So, feel free to just take it
+and<00:11:04.640><c> steal</c><00:11:04.880><c> it.</c><00:11:05.120><c> And</c><00:11:05.360><c> yeah,</c><00:11:05.760><c> so</c><00:11:05.920><c> let's</c><00:11:06.160><c> test</c><00:11:06.320><c> it</c>
+
+00:11:06.470 --> 00:11:06.480 align:start position:0%
+and steal it. And yeah, so let's test it
+
+
+00:11:06.480 --> 00:11:09.269 align:start position:0%
+and steal it. And yeah, so let's test it
+out.<00:11:06.720><c> I'm</c><00:11:06.959><c> going</c><00:11:07.040><c> to</c><00:11:08.079><c> execute</c><00:11:08.560><c> workflow.</c><00:11:09.120><c> And</c>
+
+00:11:09.269 --> 00:11:09.279 align:start position:0%
+out. I'm going to execute workflow. And
+
+
+00:11:09.279 --> 00:11:10.710 align:start position:0%
+out. I'm going to execute workflow. And
+it's<00:11:09.440><c> waiting</c><00:11:09.680><c> for</c><00:11:09.760><c> me</c><00:11:09.920><c> to</c><00:11:10.079><c> create</c><00:11:10.240><c> an</c><00:11:10.480><c> event</c>
+
+00:11:10.710 --> 00:11:10.720 align:start position:0%
+it's waiting for me to create an event
+
+
+00:11:10.720 --> 00:11:13.110 align:start position:0%
+it's waiting for me to create an event
+in<00:11:10.880><c> Telegram.</c><00:11:11.440><c> So,</c><00:11:11.600><c> let's</c><00:11:11.760><c> jump</c><00:11:11.920><c> back</c><00:11:12.160><c> in.</c><00:11:12.800><c> And</c>
+
+00:11:13.110 --> 00:11:13.120 align:start position:0%
+in Telegram. So, let's jump back in. And
+
+
+00:11:13.120 --> 00:11:14.949 align:start position:0%
+in Telegram. So, let's jump back in. And
+I<00:11:13.360><c> have</c><00:11:13.519><c> this</c><00:11:13.839><c> guy</c><00:11:14.079><c> right</c><00:11:14.240><c> here.</c><00:11:14.560><c> I'm</c><00:11:14.800><c> going</c><00:11:14.880><c> to</c>
+
+00:11:14.949 --> 00:11:14.959 align:start position:0%
+I have this guy right here. I'm going to
+
+
+00:11:14.959 --> 00:11:18.150 align:start position:0%
+I have this guy right here. I'm going to
+say<00:11:15.440><c> find</c><00:11:15.680><c> a</c><00:11:15.920><c> task</c><00:11:16.320><c> I</c><00:11:16.560><c> can</c><00:11:16.800><c> do</c><00:11:16.959><c> in</c><00:11:17.200><c> the</c><00:11:17.440><c> next</c><00:11:17.839><c> 30</c>
+
+00:11:18.150 --> 00:11:18.160 align:start position:0%
+say find a task I can do in the next 30
+
+
+00:11:18.160 --> 00:11:19.990 align:start position:0%
+say find a task I can do in the next 30
+minutes.<00:11:18.880><c> So</c><00:11:19.040><c> you</c><00:11:19.200><c> can</c><00:11:19.279><c> send</c><00:11:19.440><c> this</c><00:11:19.600><c> from</c><00:11:19.760><c> your</c>
+
+00:11:19.990 --> 00:11:20.000 align:start position:0%
+minutes. So you can send this from your
+
+
+00:11:20.000 --> 00:11:21.590 align:start position:0%
+minutes. So you can send this from your
+phone.<00:11:20.399><c> You</c><00:11:20.560><c> can</c><00:11:20.720><c> send</c><00:11:20.880><c> this</c><00:11:21.040><c> as</c><00:11:21.279><c> a</c><00:11:21.360><c> voice</c>
+
+00:11:21.590 --> 00:11:21.600 align:start position:0%
+phone. You can send this as a voice
+
+
+00:11:21.600 --> 00:11:23.670 align:start position:0%
+phone. You can send this as a voice
+note.<00:11:21.839><c> Boom.</c><00:11:22.079><c> There</c><00:11:22.240><c> it</c><00:11:22.320><c> is.</c><00:11:22.480><c> So</c><00:11:22.640><c> it</c><00:11:22.800><c> instantly</c>
+
+00:11:23.670 --> 00:11:23.680 align:start position:0%
+note. Boom. There it is. So it instantly
+
+
+00:11:23.680 --> 00:11:26.710 align:start position:0%
+note. Boom. There it is. So it instantly
+uh<00:11:23.839><c> found</c><00:11:24.079><c> the</c><00:11:24.320><c> message.</c><00:11:24.880><c> It</c><00:11:25.040><c> went</c><00:11:25.279><c> into</c><00:11:26.240><c> this</c>
+
+00:11:26.710 --> 00:11:26.720 align:start position:0%
+uh found the message. It went into this
+
+
+00:11:26.720 --> 00:11:28.790 align:start position:0%
+uh found the message. It went into this
+um<00:11:26.959><c> true</c><00:11:27.279><c> false</c><00:11:27.680><c> check</c><00:11:27.920><c> if</c><00:11:28.160><c> it's</c><00:11:28.320><c> a</c><00:11:28.560><c> voice</c>
+
+00:11:28.790 --> 00:11:28.800 align:start position:0%
+um true false check if it's a voice
+
+
+00:11:28.800 --> 00:11:30.790 align:start position:0%
+um true false check if it's a voice
+message,<00:11:29.120><c> right?</c><00:11:29.279><c> If</c><00:11:29.440><c> else</c><00:11:29.760><c> basically.</c><00:11:30.320><c> So</c><00:11:30.560><c> if</c>
+
+00:11:30.790 --> 00:11:30.800 align:start position:0%
+message, right? If else basically. So if
+
+
+00:11:30.800 --> 00:11:32.470 align:start position:0%
+message, right? If else basically. So if
+it's<00:11:31.040><c> not</c><00:11:31.200><c> a</c><00:11:31.360><c> voice</c><00:11:31.600><c> message,</c><00:11:31.839><c> so</c><00:11:32.000><c> it</c><00:11:32.160><c> went</c><00:11:32.320><c> the</c>
+
+00:11:32.470 --> 00:11:32.480 align:start position:0%
+it's not a voice message, so it went the
+
+
+00:11:32.480 --> 00:11:34.230 align:start position:0%
+it's not a voice message, so it went the
+down<00:11:32.720><c> route.</c><00:11:33.120><c> If</c><00:11:33.279><c> it</c><00:11:33.440><c> was</c><00:11:33.519><c> a</c><00:11:33.760><c> voice</c><00:11:34.000><c> message,</c>
+
+00:11:34.230 --> 00:11:34.240 align:start position:0%
+down route. If it was a voice message,
+
+
+00:11:34.240 --> 00:11:35.829 align:start position:0%
+down route. If it was a voice message,
+it<00:11:34.480><c> would</c><00:11:34.560><c> download</c><00:11:34.880><c> the</c><00:11:35.040><c> file,</c><00:11:35.360><c> transcribe</c>
+
+00:11:35.829 --> 00:11:35.839 align:start position:0%
+it would download the file, transcribe
+
+
+00:11:35.839 --> 00:11:38.069 align:start position:0%
+it would download the file, transcribe
+it<00:11:36.000><c> with</c><00:11:36.160><c> OpenAI,</c><00:11:36.800><c> and</c><00:11:36.959><c> then</c><00:11:37.200><c> set</c><00:11:37.360><c> it</c><00:11:37.600><c> manually</c>
+
+00:11:38.069 --> 00:11:38.079 align:start position:0%
+it with OpenAI, and then set it manually
+
+
+00:11:38.079 --> 00:11:39.910 align:start position:0%
+it with OpenAI, and then set it manually
+with<00:11:38.240><c> the</c><00:11:38.399><c> set</c><00:11:38.720><c> note.</c><00:11:39.040><c> Now</c><00:11:39.200><c> it's</c><00:11:39.360><c> going</c><00:11:39.600><c> to</c>
+
+00:11:39.910 --> 00:11:39.920 align:start position:0%
+with the set note. Now it's going to
+
+
+00:11:39.920 --> 00:11:41.350 align:start position:0%
+with the set note. Now it's going to
+agent.<00:11:40.160><c> The</c><00:11:40.320><c> agent</c><00:11:40.560><c> is</c><00:11:40.800><c> using</c><00:11:41.040><c> all</c><00:11:41.120><c> these</c>
+
+00:11:41.350 --> 00:11:41.360 align:start position:0%
+agent. The agent is using all these
+
+
+00:11:41.360 --> 00:11:43.509 align:start position:0%
+agent. The agent is using all these
+tools<00:11:41.680><c> and</c><00:11:41.920><c> boom,</c><00:11:42.160><c> there</c><00:11:42.240><c> it</c><00:11:42.399><c> is.</c><00:11:42.640><c> Super</c><00:11:42.959><c> fast.</c>
+
+00:11:43.509 --> 00:11:43.519 align:start position:0%
+tools and boom, there it is. Super fast.
+
+
+00:11:43.519 --> 00:11:44.870 align:start position:0%
+tools and boom, there it is. Super fast.
+So<00:11:43.839><c> let</c><00:11:44.000><c> me</c><00:11:44.160><c> walk</c><00:11:44.320><c> you</c><00:11:44.399><c> through</c><00:11:44.560><c> the</c><00:11:44.720><c> tools</c>
+
+00:11:44.870 --> 00:11:44.880 align:start position:0%
+So let me walk you through the tools
+
+
+00:11:44.880 --> 00:11:46.389 align:start position:0%
+So let me walk you through the tools
+real<00:11:45.120><c> quick.</c><00:11:45.360><c> The</c><00:11:45.519><c> calendar</c><00:11:45.839><c> ones</c><00:11:46.160><c> super</c>
+
+00:11:46.389 --> 00:11:46.399 align:start position:0%
+real quick. The calendar ones super
+
+
+00:11:46.399 --> 00:11:47.829 align:start position:0%
+real quick. The calendar ones super
+simple,<00:11:46.720><c> right?</c><00:11:46.959><c> Create</c><00:11:47.279><c> event</c><00:11:47.440><c> at</c><00:11:47.600><c> Google</c>
+
+00:11:47.829 --> 00:11:47.839 align:start position:0%
+simple, right? Create event at Google
+
+
+00:11:47.839 --> 00:11:49.750 align:start position:0%
+simple, right? Create event at Google
+calendar<00:11:48.079><c> or</c><00:11:48.320><c> get</c><00:11:48.480><c> many</c><00:11:48.720><c> events</c><00:11:49.040><c> to</c><00:11:49.279><c> see</c><00:11:49.600><c> where</c>
+
+00:11:49.750 --> 00:11:49.760 align:start position:0%
+calendar or get many events to see where
+
+
+00:11:49.760 --> 00:11:51.670 align:start position:0%
+calendar or get many events to see where
+the<00:11:49.920><c> gaps</c><00:11:50.240><c> are</c><00:11:50.399><c> in</c><00:11:50.560><c> your</c><00:11:50.720><c> calendar</c><00:11:51.279><c> and</c><00:11:51.440><c> then</c>
+
+00:11:51.670 --> 00:11:51.680 align:start position:0%
+the gaps are in your calendar and then
+
+
+00:11:51.680 --> 00:11:53.590 align:start position:0%
+the gaps are in your calendar and then
+create<00:11:52.000><c> the</c><00:11:52.240><c> event</c><00:11:52.480><c> where</c><00:11:52.720><c> the</c><00:11:52.880><c> gap</c><00:11:53.120><c> is.</c><00:11:53.440><c> The</c>
+
+00:11:53.590 --> 00:11:53.600 align:start position:0%
+create the event where the gap is. The
+
+
+00:11:53.600 --> 00:11:54.870 align:start position:0%
+create the event where the gap is. The
+vectoral<00:11:54.000><c> one,</c><00:11:54.240><c> this</c><00:11:54.320><c> is</c><00:11:54.399><c> the</c><00:11:54.560><c> interesting</c>
+
+00:11:54.870 --> 00:11:54.880 align:start position:0%
+vectoral one, this is the interesting
+
+
+00:11:54.880 --> 00:11:56.389 align:start position:0%
+vectoral one, this is the interesting
+part,<00:11:55.120><c> right?</c><00:11:55.440><c> So</c><00:11:55.600><c> hopefully</c><00:11:55.839><c> you</c><00:11:56.000><c> guys</c><00:11:56.160><c> are</c>
+
+00:11:56.389 --> 00:11:56.399 align:start position:0%
+part, right? So hopefully you guys are
+
+
+00:11:56.399 --> 00:11:58.230 align:start position:0%
+part, right? So hopefully you guys are
+using<00:11:56.560><c> vectal</c><00:11:57.120><c> which</c><00:11:57.279><c> is</c><00:11:57.440><c> my</c><00:11:57.680><c> tool</c><00:11:58.000><c> for</c>
+
+00:11:58.230 --> 00:11:58.240 align:start position:0%
+using vectal which is my tool for
+
+
+00:11:58.240 --> 00:12:00.150 align:start position:0%
+using vectal which is my tool for
+managing<00:11:58.560><c> your</c><00:11:58.800><c> tasks.</c><00:11:59.440><c> And</c><00:11:59.680><c> this</c><00:11:59.839><c> is</c><00:11:59.920><c> the</c>
+
+00:12:00.150 --> 00:12:00.160 align:start position:0%
+managing your tasks. And this is the
+
+
+00:12:00.160 --> 00:12:02.310 align:start position:0%
+managing your tasks. And this is the
+most<00:12:00.480><c> advanced</c><00:12:00.959><c> AI</c><00:12:01.279><c> tool.</c><00:12:01.519><c> It</c><00:12:01.680><c> tells</c><00:12:01.839><c> you</c><00:12:02.079><c> what</c>
+
+00:12:02.310 --> 00:12:02.320 align:start position:0%
+most advanced AI tool. It tells you what
+
+
+00:12:02.320 --> 00:12:03.990 align:start position:0%
+most advanced AI tool. It tells you what
+to<00:12:02.560><c> actually</c><00:12:02.800><c> work</c><00:12:02.959><c> on,</c><00:12:03.279><c> right?</c><00:12:03.519><c> A</c><00:12:03.680><c> lot</c><00:12:03.760><c> of</c><00:12:03.839><c> you</c>
+
+00:12:03.990 --> 00:12:04.000 align:start position:0%
+to actually work on, right? A lot of you
+
+
+00:12:04.000 --> 00:12:05.190 align:start position:0%
+to actually work on, right? A lot of you
+guys<00:12:04.160><c> are</c><00:12:04.320><c> actually</c><00:12:04.560><c> working</c><00:12:04.720><c> on</c><00:12:04.880><c> the</c><00:12:05.040><c> wrong</c>
+
+00:12:05.190 --> 00:12:05.200 align:start position:0%
+guys are actually working on the wrong
+
+
+00:12:05.200 --> 00:12:07.030 align:start position:0%
+guys are actually working on the wrong
+tasks.<00:12:05.680><c> You</c><00:12:05.920><c> might</c><00:12:06.000><c> have</c><00:12:06.079><c> a</c><00:12:06.320><c> goal</c><00:12:06.639><c> but</c><00:12:06.880><c> you're</c>
+
+00:12:07.030 --> 00:12:07.040 align:start position:0%
+tasks. You might have a goal but you're
+
+
+00:12:07.040 --> 00:12:09.190 align:start position:0%
+tasks. You might have a goal but you're
+working<00:12:07.279><c> on</c><00:12:07.440><c> lowle</c><00:12:07.760><c> leverage</c><00:12:08.160><c> things.</c><00:12:08.720><c> Vectal</c>
+
+00:12:09.190 --> 00:12:09.200 align:start position:0%
+working on lowle leverage things. Vectal
+
+
+00:12:09.200 --> 00:12:10.790 align:start position:0%
+working on lowle leverage things. Vectal
+since<00:12:09.360><c> we</c><00:12:09.519><c> use</c><00:12:09.680><c> the</c><00:12:09.839><c> cutting</c><00:12:10.079><c> edge</c><00:12:10.240><c> AI</c><00:12:10.560><c> models,</c>
+
+00:12:10.790 --> 00:12:10.800 align:start position:0%
+since we use the cutting edge AI models,
+
+
+00:12:10.800 --> 00:12:12.629 align:start position:0%
+since we use the cutting edge AI models,
+it<00:12:11.040><c> tells</c><00:12:11.200><c> you</c><00:12:11.440><c> the</c><00:12:11.680><c> highest</c><00:12:12.000><c> leverage</c><00:12:12.320><c> task</c>
+
+00:12:12.629 --> 00:12:12.639 align:start position:0%
+it tells you the highest leverage task
+
+
+00:12:12.639 --> 00:12:14.150 align:start position:0%
+it tells you the highest leverage task
+possible<00:12:13.120><c> that</c><00:12:13.360><c> you</c><00:12:13.519><c> should</c><00:12:13.680><c> be</c><00:12:13.760><c> doing</c><00:12:13.920><c> to</c>
+
+00:12:14.150 --> 00:12:14.160 align:start position:0%
+possible that you should be doing to
+
+
+00:12:14.160 --> 00:12:15.430 align:start position:0%
+possible that you should be doing to
+achieve<00:12:14.399><c> your</c><00:12:14.560><c> goals.</c><00:12:14.959><c> So</c><00:12:15.120><c> this</c><00:12:15.200><c> is</c><00:12:15.279><c> why</c>
+
+00:12:15.430 --> 00:12:15.440 align:start position:0%
+achieve your goals. So this is why
+
+
+00:12:15.440 --> 00:12:17.750 align:start position:0%
+achieve your goals. So this is why
+Vectal<00:12:15.839><c> is</c><00:12:16.000><c> the</c><00:12:16.160><c> best</c><00:12:16.399><c> task</c><00:12:16.720><c> manager</c><00:12:17.120><c> on</c><00:12:17.360><c> Earth</c>
+
+00:12:17.750 --> 00:12:17.760 align:start position:0%
+Vectal is the best task manager on Earth
+
+
+00:12:17.760 --> 00:12:19.590 align:start position:0%
+Vectal is the best task manager on Earth
+bar<00:12:18.079><c> none.</c><00:12:18.320><c> And</c><00:12:18.480><c> that's</c><00:12:18.720><c> why</c><00:12:18.800><c> it</c><00:12:19.040><c> pays</c><00:12:19.200><c> off</c><00:12:19.360><c> to</c>
+
+00:12:19.590 --> 00:12:19.600 align:start position:0%
+bar none. And that's why it pays off to
+
+
+00:12:19.600 --> 00:12:21.750 align:start position:0%
+bar none. And that's why it pays off to
+sit<00:12:19.760><c> down</c><00:12:19.920><c> for</c><00:12:20.079><c> 10</c><00:12:20.240><c> to</c><00:12:20.480><c> 15</c><00:12:20.720><c> minutes,</c><00:12:21.279><c> move</c><00:12:21.519><c> all</c>
+
+00:12:21.750 --> 00:12:21.760 align:start position:0%
+sit down for 10 to 15 minutes, move all
+
+
+00:12:21.760 --> 00:12:23.829 align:start position:0%
+sit down for 10 to 15 minutes, move all
+of<00:12:21.839><c> your</c><00:12:22.000><c> tasks</c><00:12:22.399><c> from</c><00:12:22.880><c> notion,</c><00:12:23.360><c> to-d</c><00:12:23.519><c> doist,</c>
+
+00:12:23.829 --> 00:12:23.839 align:start position:0%
+of your tasks from notion, to-d doist,
+
+
+00:12:23.839 --> 00:12:25.990 align:start position:0%
+of your tasks from notion, to-d doist,
+ClickUp<00:12:24.399><c> into</c><00:12:24.720><c> Vectal,</c><00:12:25.360><c> and</c><00:12:25.519><c> just</c><00:12:25.680><c> forget</c>
+
+00:12:25.990 --> 00:12:26.000 align:start position:0%
+ClickUp into Vectal, and just forget
+
+
+00:12:26.000 --> 00:12:27.509 align:start position:0%
+ClickUp into Vectal, and just forget
+about<00:12:26.160><c> these</c><00:12:26.399><c> outdated</c><00:12:26.880><c> task</c><00:12:27.200><c> management</c>
+
+00:12:27.509 --> 00:12:27.519 align:start position:0%
+about these outdated task management
+
+
+00:12:27.519 --> 00:12:29.350 align:start position:0%
+about these outdated task management
+tools<00:12:28.000><c> because</c><00:12:28.320><c> this</c><00:12:28.560><c> is</c><00:12:28.720><c> what</c><00:12:28.880><c> the</c><00:12:29.040><c> future</c><00:12:29.200><c> of</c>
+
+00:12:29.350 --> 00:12:29.360 align:start position:0%
+tools because this is what the future of
+
+
+00:12:29.360 --> 00:12:30.710 align:start position:0%
+tools because this is what the future of
+productivity<00:12:29.839><c> looks</c><00:12:30.000><c> like.</c><00:12:30.160><c> Anyways,</c><00:12:30.560><c> let's</c>
+
+00:12:30.710 --> 00:12:30.720 align:start position:0%
+productivity looks like. Anyways, let's
+
+
+00:12:30.720 --> 00:12:32.550 align:start position:0%
+productivity looks like. Anyways, let's
+jump<00:12:30.880><c> back</c><00:12:31.040><c> into</c><00:12:31.279><c> NA10.</c><00:12:31.920><c> So</c><00:12:32.079><c> it</c><00:12:32.240><c> used</c><00:12:32.399><c> the</c>
+
+00:12:32.550 --> 00:12:32.560 align:start position:0%
+jump back into NA10. So it used the
+
+
+00:12:32.560 --> 00:12:34.710 align:start position:0%
+jump back into NA10. So it used the
+vectal<00:12:33.040><c> tool</c><00:12:33.360><c> to</c><00:12:33.600><c> get</c><00:12:33.760><c> a</c><00:12:33.920><c> list</c><00:12:34.079><c> of</c><00:12:34.240><c> all</c><00:12:34.480><c> of</c><00:12:34.560><c> your</c>
+
+00:12:34.710 --> 00:12:34.720 align:start position:0%
+vectal tool to get a list of all of your
+
+
+00:12:34.720 --> 00:12:37.030 align:start position:0%
+vectal tool to get a list of all of your
+tasks<00:12:35.200><c> and</c><00:12:35.360><c> then</c><00:12:35.600><c> figure</c><00:12:35.839><c> out</c><00:12:36.240><c> what</c><00:12:36.480><c> can</c><00:12:36.639><c> I</c><00:12:36.880><c> do</c>
+
+00:12:37.030 --> 00:12:37.040 align:start position:0%
+tasks and then figure out what can I do
+
+
+00:12:37.040 --> 00:12:38.870 align:start position:0%
+tasks and then figure out what can I do
+in<00:12:37.279><c> the</c><00:12:37.440><c> next</c><00:12:37.600><c> 30</c><00:12:37.839><c> minutes.</c><00:12:38.000><c> as</c><00:12:38.240><c> I</c><00:12:38.399><c> said</c><00:12:38.560><c> in</c><00:12:38.720><c> the</c>
+
+00:12:38.870 --> 00:12:38.880 align:start position:0%
+in the next 30 minutes. as I said in the
+
+
+00:12:38.880 --> 00:12:40.710 align:start position:0%
+in the next 30 minutes. as I said in the
+message<00:12:39.279><c> inside</c><00:12:39.600><c> of</c><00:12:39.760><c> Telegram.</c><00:12:40.240><c> Okay,</c><00:12:40.399><c> so</c><00:12:40.560><c> I</c>
+
+00:12:40.710 --> 00:12:40.720 align:start position:0%
+message inside of Telegram. Okay, so I
+
+
+00:12:40.720 --> 00:12:42.710 align:start position:0%
+message inside of Telegram. Okay, so I
+have<00:12:40.800><c> my</c><00:12:40.959><c> calendar</c><00:12:41.279><c> on</c><00:12:41.440><c> the</c><00:12:41.680><c> second</c><00:12:41.920><c> screen.</c>
+
+00:12:42.710 --> 00:12:42.720 align:start position:0%
+have my calendar on the second screen.
+
+
+00:12:42.720 --> 00:12:44.230 align:start position:0%
+have my calendar on the second screen.
+There<00:12:42.880><c> is</c><00:12:43.040><c> some</c><00:12:43.279><c> stuff</c><00:12:43.519><c> I</c><00:12:43.760><c> cannot</c><00:12:44.000><c> show</c><00:12:44.079><c> you,</c>
+
+00:12:44.230 --> 00:12:44.240 align:start position:0%
+There is some stuff I cannot show you,
+
+
+00:12:44.240 --> 00:12:45.590 align:start position:0%
+There is some stuff I cannot show you,
+but<00:12:44.480><c> I'm</c><00:12:44.639><c> going</c><00:12:44.639><c> to</c><00:12:44.720><c> take</c><00:12:44.880><c> a</c><00:12:45.040><c> screenshot.</c>
+
+00:12:45.590 --> 00:12:45.600 align:start position:0%
+but I'm going to take a screenshot.
+
+
+00:12:45.600 --> 00:12:47.670 align:start position:0%
+but I'm going to take a screenshot.
+Boom.<00:12:46.160><c> So</c><00:12:46.320><c> the</c><00:12:46.560><c> red</c><00:12:46.800><c> line</c><00:12:47.040><c> represents</c><00:12:47.519><c> the</c>
+
+00:12:47.670 --> 00:12:47.680 align:start position:0%
+Boom. So the red line represents the
+
+
+00:12:47.680 --> 00:12:50.069 align:start position:0%
+Boom. So the red line represents the
+current<00:12:48.000><c> time,</c><00:12:48.320><c> right?</c><00:12:48.800><c> Basically</c><00:12:49.279><c> now</c><00:12:49.680><c> and</c>
+
+00:12:50.069 --> 00:12:50.079 align:start position:0%
+current time, right? Basically now and
+
+
+00:12:50.079 --> 00:12:52.230 align:start position:0%
+current time, right? Basically now and
+we<00:12:50.320><c> have</c><00:12:50.560><c> all</c><00:12:50.800><c> of</c><00:12:50.880><c> these</c><00:12:51.519><c> different</c><00:12:51.760><c> tasks</c>
+
+00:12:52.230 --> 00:12:52.240 align:start position:0%
+we have all of these different tasks
+
+
+00:12:52.240 --> 00:12:54.230 align:start position:0%
+we have all of these different tasks
+inside<00:12:52.560><c> of</c><00:12:52.639><c> vectal</c><00:12:53.360><c> and</c><00:12:53.600><c> I</c><00:12:53.839><c> did</c><00:12:53.920><c> a</c><00:12:54.000><c> bunch</c><00:12:54.160><c> of</c>
+
+00:12:54.230 --> 00:12:54.240 align:start position:0%
+inside of vectal and I did a bunch of
+
+
+00:12:54.240 --> 00:12:55.590 align:start position:0%
+inside of vectal and I did a bunch of
+testing<00:12:54.480><c> so</c><00:12:54.720><c> ignore</c><00:12:54.959><c> these</c><00:12:55.120><c> but</c><00:12:55.279><c> let's</c><00:12:55.440><c> focus</c>
+
+00:12:55.590 --> 00:12:55.600 align:start position:0%
+testing so ignore these but let's focus
+
+
+00:12:55.600 --> 00:12:57.110 align:start position:0%
+testing so ignore these but let's focus
+on<00:12:55.760><c> the</c><00:12:55.920><c> one</c><00:12:56.079><c> that</c><00:12:56.320><c> is</c><00:12:56.480><c> in</c><00:12:56.560><c> the</c><00:12:56.720><c> next</c><00:12:56.880><c> 30</c>
+
+00:12:57.110 --> 00:12:57.120 align:start position:0%
+on the one that is in the next 30
+
+
+00:12:57.120 --> 00:12:58.550 align:start position:0%
+on the one that is in the next 30
+minutes.<00:12:57.440><c> Right?</c><00:12:57.680><c> This</c><00:12:57.839><c> is</c><00:12:57.920><c> the</c><00:12:58.079><c> new</c><00:12:58.240><c> one</c><00:12:58.399><c> it</c>
+
+00:12:58.550 --> 00:12:58.560 align:start position:0%
+minutes. Right? This is the new one it
+
+
+00:12:58.560 --> 00:13:00.710 align:start position:0%
+minutes. Right? This is the new one it
+created<00:12:58.959><c> matching</c><00:12:59.360><c> the</c><00:12:59.519><c> prompt</c><00:12:59.920><c> I</c><00:13:00.160><c> sent</c><00:13:00.399><c> into</c>
+
+00:13:00.710 --> 00:13:00.720 align:start position:0%
+created matching the prompt I sent into
+
+
+00:13:00.720 --> 00:13:02.790 align:start position:0%
+created matching the prompt I sent into
+the<00:13:01.360><c> some</c><00:13:01.600><c> task</c><00:13:01.839><c> I</c><00:13:02.000><c> can</c><00:13:02.160><c> do</c><00:13:02.240><c> in</c><00:13:02.399><c> next</c><00:13:02.560><c> 30</c>
+
+00:13:02.790 --> 00:13:02.800 align:start position:0%
+the some task I can do in next 30
+
+
+00:13:02.800 --> 00:13:04.629 align:start position:0%
+the some task I can do in next 30
+minutes.<00:13:03.279><c> We</c><00:13:03.519><c> have</c><00:13:03.600><c> a</c><00:13:03.760><c> bunch</c><00:13:03.920><c> of</c><00:13:04.000><c> bigger</c><00:13:04.320><c> tasks</c>
+
+00:13:04.629 --> 00:13:04.639 align:start position:0%
+minutes. We have a bunch of bigger tasks
+
+
+00:13:04.639 --> 00:13:07.190 align:start position:0%
+minutes. We have a bunch of bigger tasks
+here,<00:13:05.040><c> but</c><00:13:05.360><c> the</c><00:13:05.519><c> NA10</c><00:13:06.079><c> agent</c><00:13:06.639><c> figured</c><00:13:07.040><c> out</c>
+
+00:13:07.190 --> 00:13:07.200 align:start position:0%
+here, but the NA10 agent figured out
+
+
+00:13:07.200 --> 00:13:09.110 align:start position:0%
+here, but the NA10 agent figured out
+that<00:13:07.839><c> out</c><00:13:08.079><c> of</c><00:13:08.240><c> everything</c><00:13:08.560><c> else</c><00:13:08.800><c> we</c><00:13:08.959><c> have</c>
+
+00:13:09.110 --> 00:13:09.120 align:start position:0%
+that out of everything else we have
+
+
+00:13:09.120 --> 00:13:11.190 align:start position:0%
+that out of everything else we have
+inside<00:13:09.360><c> of</c><00:13:09.519><c> Ectel,</c><00:13:10.000><c> this</c><00:13:10.240><c> task,</c><00:13:10.560><c> which</c><00:13:10.880><c> is</c><00:13:11.040><c> a</c>
+
+00:13:11.190 --> 00:13:11.200 align:start position:0%
+inside of Ectel, this task, which is a
+
+
+00:13:11.200 --> 00:13:14.069 align:start position:0%
+inside of Ectel, this task, which is a
+15-minute<00:13:11.680><c> task,</c><00:13:12.000><c> can</c><00:13:12.240><c> easily</c><00:13:12.639><c> fit</c><00:13:13.279><c> into</c><00:13:13.760><c> this</c>
+
+00:13:14.069 --> 00:13:14.079 align:start position:0%
+15-minute task, can easily fit into this
+
+
+00:13:14.079 --> 00:13:15.670 align:start position:0%
+15-minute task, can easily fit into this
+30-minute<00:13:14.560><c> window</c><00:13:14.800><c> that</c><00:13:15.040><c> I</c><00:13:15.120><c> described.</c><00:13:15.519><c> And</c>
+
+00:13:15.670 --> 00:13:15.680 align:start position:0%
+30-minute window that I described. And
+
+
+00:13:15.680 --> 00:13:16.870 align:start position:0%
+30-minute window that I described. And
+so,<00:13:15.839><c> that's</c><00:13:16.000><c> exactly</c><00:13:16.240><c> what</c><00:13:16.320><c> it</c><00:13:16.480><c> did.</c><00:13:16.639><c> It</c>
+
+00:13:16.870 --> 00:13:16.880 align:start position:0%
+so, that's exactly what it did. It
+
+
+00:13:16.880 --> 00:13:18.710 align:start position:0%
+so, that's exactly what it did. It
+selected<00:13:17.200><c> this</c><00:13:17.360><c> task</c><00:13:17.600><c> and</c><00:13:17.839><c> it</c><00:13:18.000><c> added</c><00:13:18.320><c> it</c><00:13:18.480><c> into</c>
+
+00:13:18.710 --> 00:13:18.720 align:start position:0%
+selected this task and it added it into
+
+
+00:13:18.720 --> 00:13:20.790 align:start position:0%
+selected this task and it added it into
+my<00:13:18.959><c> Google</c><00:13:19.200><c> calendar</c><00:13:19.760><c> by</c><00:13:20.000><c> itself.</c><00:13:20.399><c> And</c><00:13:20.560><c> I</c><00:13:20.639><c> feel</c>
+
+00:13:20.790 --> 00:13:20.800 align:start position:0%
+my Google calendar by itself. And I feel
+
+
+00:13:20.800 --> 00:13:22.230 align:start position:0%
+my Google calendar by itself. And I feel
+like<00:13:20.880><c> I</c><00:13:21.040><c> need</c><00:13:21.120><c> to</c><00:13:21.200><c> stress</c><00:13:21.360><c> this</c><00:13:21.600><c> again.</c><00:13:21.920><c> This</c>
+
+00:13:22.230 --> 00:13:22.240 align:start position:0%
+like I need to stress this again. This
+
+
+00:13:22.240 --> 00:13:24.870 align:start position:0%
+like I need to stress this again. This
+was<00:13:22.480><c> built</c><00:13:22.880><c> by</c><00:13:23.200><c> cloth</c><00:13:23.519><c> code.</c><00:13:23.839><c> Like,</c><00:13:24.079><c> I</c><00:13:24.320><c> wasn't</c>
+
+00:13:24.870 --> 00:13:24.880 align:start position:0%
+was built by cloth code. Like, I wasn't
+
+
+00:13:24.880 --> 00:13:26.949 align:start position:0%
+was built by cloth code. Like, I wasn't
+adding<00:13:25.279><c> any</c><00:13:25.519><c> of</c><00:13:25.680><c> these</c><00:13:25.839><c> mods.</c><00:13:26.240><c> It</c><00:13:26.399><c> wasn't</c><00:13:26.639><c> like</c>
+
+00:13:26.949 --> 00:13:26.959 align:start position:0%
+adding any of these mods. It wasn't like
+
+
+00:13:26.959 --> 00:13:28.949 align:start position:0%
+adding any of these mods. It wasn't like
+creating<00:13:27.279><c> from</c><00:13:27.600><c> scratch,</c><00:13:28.240><c> building</c>
+
+00:13:28.949 --> 00:13:28.959 align:start position:0%
+creating from scratch, building
+
+
+00:13:28.959 --> 00:13:31.509 align:start position:0%
+creating from scratch, building
+manually,<00:13:29.760><c> slowly,</c><00:13:30.320><c> and</c><00:13:30.480><c> any</c><00:13:30.959><c> automation,</c>
+
+00:13:31.509 --> 00:13:31.519 align:start position:0%
+manually, slowly, and any automation,
+
+
+00:13:31.519 --> 00:13:33.110 align:start position:0%
+manually, slowly, and any automation,
+right?<00:13:31.760><c> like</c><00:13:32.000><c> we</c><00:13:32.160><c> used</c><00:13:32.320><c> to</c><00:13:32.480><c> do</c><00:13:32.720><c> six</c><00:13:32.959><c> months</c>
+
+00:13:33.110 --> 00:13:33.120 align:start position:0%
+right? like we used to do six months
+
+
+00:13:33.120 --> 00:13:35.350 align:start position:0%
+right? like we used to do six months
+ago.<00:13:33.600><c> No,</c><00:13:33.839><c> Cloud</c><00:13:34.160><c> Code</c><00:13:34.399><c> now</c><00:13:34.560><c> exists,</c><00:13:34.880><c> guys.</c>
+
+00:13:35.350 --> 00:13:35.360 align:start position:0%
+ago. No, Cloud Code now exists, guys.
+
+
+00:13:35.360 --> 00:13:37.750 align:start position:0%
+ago. No, Cloud Code now exists, guys.
+And<00:13:35.519><c> this</c><00:13:35.760><c> is</c><00:13:36.000><c> by</c><00:13:36.320><c> far</c><00:13:36.639><c> the</c><00:13:36.880><c> easiest</c><00:13:37.279><c> way</c><00:13:37.600><c> to</c>
+
+00:13:37.750 --> 00:13:37.760 align:start position:0%
+And this is by far the easiest way to
+
+
+00:13:37.760 --> 00:13:39.910 align:start position:0%
+And this is by far the easiest way to
+build<00:13:38.000><c> NA10</c><00:13:38.480><c> agents</c><00:13:38.800><c> and</c><00:13:38.959><c> NA10</c><00:13:39.440><c> automations.</c>
+
+00:13:39.910 --> 00:13:39.920 align:start position:0%
+build NA10 agents and NA10 automations.
+
+
+00:13:39.920 --> 00:13:41.509 align:start position:0%
+build NA10 agents and NA10 automations.
+So,<00:13:40.160><c> forget</c><00:13:40.399><c> about</c><00:13:40.560><c> what</c><00:13:40.800><c> anyone</c><00:13:41.120><c> else</c><00:13:41.279><c> is</c>
+
+00:13:41.509 --> 00:13:41.519 align:start position:0%
+So, forget about what anyone else is
+
+
+00:13:41.519 --> 00:13:43.910 align:start position:0%
+So, forget about what anyone else is
+telling<00:13:41.680><c> you.</c><00:13:42.079><c> Just</c><00:13:42.320><c> use</c><00:13:42.480><c> the</c><00:13:42.720><c> NA10</c><00:13:43.200><c> MCP</c><00:13:43.680><c> with</c>
+
+00:13:43.910 --> 00:13:43.920 align:start position:0%
+telling you. Just use the NA10 MCP with
+
+
+00:13:43.920 --> 00:13:45.990 align:start position:0%
+telling you. Just use the NA10 MCP with
+Cloud<00:13:44.240><c> Code</c><00:13:44.560><c> and</c><00:13:44.800><c> start</c><00:13:45.120><c> automating</c><00:13:45.680><c> all</c><00:13:45.839><c> of</c>
+
+00:13:45.990 --> 00:13:46.000 align:start position:0%
+Cloud Code and start automating all of
+
+
+00:13:46.000 --> 00:13:47.910 align:start position:0%
+Cloud Code and start automating all of
+the<00:13:46.160><c> boring</c><00:13:46.480><c> and</c><00:13:46.720><c> repetitive</c><00:13:47.200><c> tasks</c><00:13:47.519><c> that</c><00:13:47.760><c> you</c>
+
+00:13:47.910 --> 00:13:47.920 align:start position:0%
+the boring and repetitive tasks that you
+
+
+00:13:47.920 --> 00:13:49.110 align:start position:0%
+the boring and repetitive tasks that you
+have<00:13:48.000><c> to</c><00:13:48.079><c> do.</c><00:13:48.399><c> And</c><00:13:48.480><c> if</c><00:13:48.639><c> you</c><00:13:48.720><c> want</c><00:13:48.800><c> to</c><00:13:48.880><c> make</c><00:13:49.040><c> sure</c>
+
+00:13:49.110 --> 00:13:49.120 align:start position:0%
+have to do. And if you want to make sure
+
+
+00:13:49.120 --> 00:13:51.509 align:start position:0%
+have to do. And if you want to make sure
+your<00:13:49.360><c> AI</c><00:13:49.600><c> agents</c><00:13:50.000><c> are</c><00:13:50.160><c> running</c><00:13:50.399><c> 24/7</c><00:13:51.200><c> without</c>
+
+00:13:51.509 --> 00:13:51.519 align:start position:0%
+your AI agents are running 24/7 without
+
+
+00:13:51.519 --> 00:13:53.509 align:start position:0%
+your AI agents are running 24/7 without
+interruptions,<00:13:52.240><c> make</c><00:13:52.399><c> sure</c><00:13:52.480><c> to</c><00:13:52.639><c> get</c><00:13:52.800><c> the</c><00:13:52.959><c> VPS</c>
+
+00:13:53.509 --> 00:13:53.519 align:start position:0%
+interruptions, make sure to get the VPS
+
+
+00:13:53.519 --> 00:13:55.190 align:start position:0%
+interruptions, make sure to get the VPS
+from<00:13:53.760><c> Hostinger.</c><00:13:54.399><c> This</c><00:13:54.480><c> is</c><00:13:54.560><c> one</c><00:13:54.720><c> of</c><00:13:54.800><c> the</c><00:13:54.959><c> most</c>
+
+00:13:55.190 --> 00:13:55.200 align:start position:0%
+from Hostinger. This is one of the most
+
+
+00:13:55.200 --> 00:13:57.110 align:start position:0%
+from Hostinger. This is one of the most
+affordable<00:13:55.760><c> ways</c><00:13:56.000><c> to</c><00:13:56.240><c> host</c><00:13:56.480><c> your</c><00:13:56.639><c> NA10</c>
+
+00:13:57.110 --> 00:13:57.120 align:start position:0%
+affordable ways to host your NA10
+
+
+00:13:57.120 --> 00:13:59.030 align:start position:0%
+affordable ways to host your NA10
+automations.<00:13:57.920><c> It's</c><00:13:58.160><c> super</c><00:13:58.560><c> simple</c><00:13:58.720><c> to</c><00:13:58.880><c> set</c>
+
+00:13:59.030 --> 00:13:59.040 align:start position:0%
+automations. It's super simple to set
+
+
+00:13:59.040 --> 00:14:00.790 align:start position:0%
+automations. It's super simple to set
+up.<00:13:59.360><c> You</c><00:13:59.519><c> literally</c><00:13:59.760><c> saw</c><00:13:59.920><c> it</c><00:14:00.079><c> earlier</c><00:14:00.560><c> and</c>
+
+00:14:00.790 --> 00:14:00.800 align:start position:0%
+up. You literally saw it earlier and
+
+
+00:14:00.800 --> 00:14:03.110 align:start position:0%
+up. You literally saw it earlier and
+it's<00:14:01.120><c> what</c><00:14:01.360><c> I</c><00:14:01.519><c> use</c><00:14:01.760><c> and</c><00:14:02.000><c> my</c><00:14:02.240><c> entire</c><00:14:02.560><c> team</c><00:14:02.800><c> uses</c>
+
+00:14:03.110 --> 00:14:03.120 align:start position:0%
+it's what I use and my entire team uses
+
+
+00:14:03.120 --> 00:14:05.110 align:start position:0%
+it's what I use and my entire team uses
+for<00:14:03.519><c> everything</c><00:14:03.839><c> we</c><00:14:04.079><c> built</c><00:14:04.240><c> on</c><00:14:04.399><c> NA10.</c><00:14:04.959><c> So</c>
+
+00:14:05.110 --> 00:14:05.120 align:start position:0%
+for everything we built on NA10. So
+
+
+00:14:05.120 --> 00:14:06.150 align:start position:0%
+for everything we built on NA10. So
+again,<00:14:05.279><c> it's</c><00:14:05.440><c> going</c><00:14:05.519><c> to</c><00:14:05.600><c> be</c><00:14:05.680><c> the</c><00:14:05.760><c> first</c><00:14:05.920><c> link</c>
+
+00:14:06.150 --> 00:14:06.160 align:start position:0%
+again, it's going to be the first link
+
+
+00:14:06.160 --> 00:14:07.910 align:start position:0%
+again, it's going to be the first link
+below<00:14:06.320><c> the</c><00:14:06.480><c> video.</c><00:14:06.880><c> Thank</c><00:14:07.040><c> you</c><00:14:07.199><c> Hostinger</c><00:14:07.760><c> for</c>
+
+00:14:07.910 --> 00:14:07.920 align:start position:0%
+below the video. Thank you Hostinger for
+
+
+00:14:07.920 --> 00:14:09.590 align:start position:0%
+below the video. Thank you Hostinger for
+sponsoring<00:14:08.240><c> this</c><00:14:08.399><c> video</c><00:14:08.800><c> and</c><00:14:08.959><c> I</c><00:14:09.199><c> hopefully</c>
+
+00:14:09.590 --> 00:14:09.600 align:start position:0%
+sponsoring this video and I hopefully
+
+
+00:14:09.600 --> 00:14:11.189 align:start position:0%
+sponsoring this video and I hopefully
+you<00:14:09.760><c> guys</c><00:14:10.000><c> enjoyed</c><00:14:10.320><c> this</c><00:14:10.480><c> tutorial.</c><00:14:10.959><c> If</c><00:14:11.040><c> you</c>
+
+00:14:11.189 --> 00:14:11.199 align:start position:0%
+you guys enjoyed this tutorial. If you
+
+
+00:14:11.199 --> 00:14:12.550 align:start position:0%
+you guys enjoyed this tutorial. If you
+did,<00:14:11.440><c> make</c><00:14:11.600><c> sure</c><00:14:11.680><c> to</c><00:14:11.920><c> subscribe</c><00:14:12.160><c> and</c><00:14:12.399><c> with</c>
+
+00:14:12.550 --> 00:14:12.560 align:start position:0%
+did, make sure to subscribe and with
+
+
+00:14:12.560 --> 00:14:13.990 align:start position:0%
+did, make sure to subscribe and with
+that<00:14:12.720><c> being</c><00:14:12.880><c> said,</c><00:14:13.040><c> I</c><00:14:13.199><c> wish</c><00:14:13.279><c> you</c><00:14:13.440><c> a</c><00:14:13.680><c> wonderful</c>
+
+00:14:13.990 --> 00:14:14.000 align:start position:0%
+that being said, I wish you a wonderful
+
+
+00:14:14.000 --> 00:14:17.279 align:start position:0%
+that being said, I wish you a wonderful
+productive<00:14:14.480><c> week.</c><00:14:14.959><c> See</c><00:14:15.120><c> you.</c>

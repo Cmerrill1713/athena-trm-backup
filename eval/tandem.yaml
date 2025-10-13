@@ -1,0 +1,214 @@
+# Tandem Evaluation Framework
+# Tests small models + TRM against frontier baseline
+
+version: "1.0.0"
+name: "neuroforge_tandem_eval"
+
+# Test configurations
+configs:
+  - name: "small_only"
+    route: "small_model"
+    model: "mistral:7b-instruct"
+    use_trm: false
+    use_tools: true
+    use_rag: true
+    
+  - name: "trm_assisted"
+    route: "trm_assisted"
+    model: "mistral:7b-instruct"
+    use_trm: true
+    use_tools: true
+    use_rag: true
+    
+  - name: "frontier_baseline"
+    route: "frontier"
+    model: "gpt-4o-mini"
+    use_trm: false
+    use_tools: false
+    use_rag: false
+
+# Task sets
+task_sets:
+  - name: "ops_commands"
+    path: "eval/golden_tasks_ops.jsonl"
+    weight: 1.0
+    
+  - name: "code_questions"
+    path: "eval/golden_tasks_code.jsonl"
+    weight: 1.5  # More important
+    
+  - name: "log_analysis"
+    path: "eval/golden_tasks_logs.jsonl"
+    weight: 1.0
+    
+  - name: "docs_qa"
+    path: "eval/golden_tasks_docs.jsonl"
+    weight: 0.8
+    
+  - name: "vision_grounding"
+    path: "eval/golden_tasks_vision.jsonl"
+    weight: 0.5
+
+# Metrics to track
+metrics:
+  # Task success
+  - name: "exact_match"
+    type: "binary"
+    weight: 1.0
+    
+  - name: "soft_match"
+    type: "similarity"
+    threshold: 0.85
+    weight: 0.5
+  
+  # Performance
+  - name: "latency_p50"
+    type: "percentile"
+    unit: "ms"
+    target: 800
+    
+  - name: "latency_p95"
+    type: "percentile"
+    unit: "ms"
+    target: 2500
+  
+  # Cost
+  - name: "cost_per_1k_queries"
+    type: "aggregate"
+    unit: "usd"
+    target: 0.10  # 10 cents per 1k queries
+  
+  # RAG quality
+  - name: "rag_recall_at_k"
+    type: "retrieval"
+    k: 5
+    target: 0.80
+    
+  - name: "citation_validity"
+    type: "binary"
+    weight: 1.0
+  
+  # Tool usage
+  - name: "tool_success_rate"
+    type: "aggregate"
+    target: 0.95
+    
+  # Routing
+  - name: "escalation_rate"
+    type: "aggregate"
+    target: 0.12  # < 12% escalations
+    
+  # Calibration
+  - name: "brier_score"
+    type: "calibration"
+    target: 0.14  # Lower is better
+    
+  - name: "confidence_mse"
+    type: "calibration"
+    description: "Mean squared error between predicted confidence and actual success"
+
+# Evaluation runs
+runs:
+  # Quick smoke (10 tasks, all configs)
+  - name: "smoke"
+    sample_size: 10
+    timeout_per_task: 30
+    parallel: 3
+    
+  # Nightly full (all tasks, all configs)
+  - name: "nightly"
+    sample_size: null  # All tasks
+    timeout_per_task: 60
+    parallel: 5
+    schedule: "0 2 * * *"  # 2 AM daily
+    
+  # Weekly deep (includes distillation analysis)
+  - name: "weekly_deep"
+    sample_size: null
+    timeout_per_task: 120
+    parallel: 3
+    schedule: "0 3 * * 0"  # 3 AM Sunday
+    include_distillation_candidates: true
+
+# Reporting
+reporting:
+  formats: ["json", "markdown", "prometheus"]
+  destinations:
+    json: "eval/results/tandem_{timestamp}.json"
+    markdown: "eval/results/tandem_{timestamp}.md"
+    prometheus: "http://localhost:9090/api/v1/write"
+  
+  slack_webhook: "${EVAL_SLACK_WEBHOOK}"
+  alert_on_regression: true
+  regression_threshold_pct: 5
+  
+  dashboard_url: "http://localhost:8787/eval/tandem"
+
+# Comparison targets
+targets:
+  # Win conditions vs frontier baseline
+  success_rate_delta: "+8%"   # 8% better than frontier
+  latency_improvement: "3x"    # 3x faster
+  cost_reduction: "90%"        # 10% of frontier cost
+  escalation_rate: "<12%"      # Rarely need frontier
+
+# Data capture for learning
+capture:
+  enabled: true
+  
+  # Red turns (low confidence or failures)
+  red_turns:
+    enabled: true
+    confidence_threshold: 0.45
+    include_failures: true
+    output: "training/red_turns/{date}.jsonl"
+    fields:
+      - "prompt"
+      - "plan"
+      - "tools_used"
+      - "rag_passages"
+      - "response"
+      - "label"
+      - "confidence"
+      - "metadata"
+  
+  # Frontier teacher outputs (for distillation)
+  teacher_outputs:
+    enabled: true
+    only_on_small_failure: true  # Only when small model fails
+    output: "training/teacher/{date}.jsonl"
+    fields:
+      - "prompt"
+      - "small_response"
+      - "frontier_response"
+      - "frontier_reasoning"
+      - "improvement_delta"
+  
+  # Tool usage patterns
+  tool_analytics:
+    enabled: true
+    output: "analytics/tool_usage.jsonl"
+    track:
+      - "command"
+      - "success"
+      - "latency_ms"
+      - "output_size"
+
+# Canary tasks (always-on health)
+canaries:
+  path: "eval/canaries.jsonl"
+  frequency: "hourly"
+  alert_channels: ["slack", "pagerduty"]
+  examples:
+    - task: "What's 2+2?"
+      expected: "4"
+      max_latency_ms: 500
+    
+    - task: "List services"
+      expected_contains: ["Bridge", "Athena"]
+      max_latency_ms: 1000
+    
+    - task: "Query RAG: test"
+      expected_status: 200
+      max_latency_ms: 2000
+

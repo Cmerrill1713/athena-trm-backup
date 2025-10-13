@@ -9,18 +9,42 @@ struct ChatViewEnhanced: View {
     @State private var debugHistory: [PromptDebugData] = []
     @State private var sending = false
     @State private var showDebugOverlay = false
+    @State private var toastMessage = ""
+    @State private var showToast = false
     
     @StateObject private var voice = VoiceManager()
     @AppStorage("metaVoiceSummary") private var metaVoiceSummary = true
     @AppStorage("showMetaPanels") private var showMetaPanels = true
+    @AppStorage("autoOpenOps") private var autoOpenOps = true  // Auto-open on interesting events
+    @AppStorage("opsConfidenceThreshold") private var opsConfidenceThreshold: Double = 0.35
+    
+    @EnvironmentObject var ops: OpsState  // ← Operations monitoring
+    @Environment(\.openWindow) private var openWindow
     
     let api = APIClient()
     
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                // Health banner
-                HealthBanner()
+                // Toolbar
+                HStack {
+                    // Health banner
+                    HealthBanner()
+                    
+                    Spacer()
+                    
+                    // Operations window button
+                    Button {
+                        openWindow(id: "ops")
+                    } label: {
+                        Label("Operations", systemImage: "rectangle.badge.plus")
+                            .font(.caption)
+                    }
+                    .buttonStyle(.bordered)
+                    .help("Open Operations window (⌘⌥O)")
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
                 
                 // Confidence sparkline (mini history above chat)
                 if !confidenceHistory.isEmpty && showMetaPanels {
@@ -63,6 +87,9 @@ struct ChatViewEnhanced: View {
                     if case .transcribing(let partial) = voice.state {
                         transcriptionBar(partial: partial)
                     }
+                    
+                    // Quick action buttons (feature-gated)
+                    quickActionBar
                     
                     // Text input
                     KeyCatchingTextView(text: $input) {
@@ -108,23 +135,84 @@ struct ChatViewEnhanced: View {
                 )
                 .zIndex(100)
             }
+            
+            // Toast notification
+            if showToast {
+                VStack {
+                    Spacer()
+                    Text(toastMessage)
+                        .font(.callout)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 10)
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .shadow(radius: 8)
+                        .padding(.bottom, 20)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+                .zIndex(99)
+            }
         }
         .onAppear {
-            // Enable meta features via environment
-            // (Backend should read these from .env or config)
+            // Reset session counters on launch
+            ops.resetSession()
         }
         .onChange(of: voice.state) { newState in
             if case .sending(let text) = newState {
                 Task { await sendVoice(text) }
             }
         }
-        .onAppear {
-            // ✅ Keyboard shortcut handled via menu command in main.swift
-            // Or use a Button with .keyboardShortcut modifier
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button {
+                    openWindow(id: "ops")
+                } label: {
+                    Label("Pop Out", systemImage: "rectangle.badge.plus")
+                }
+                .help("Open Operations in a separate window")
+            }
         }
     }
     
     // MARK: - UI Components
+    
+    @ViewBuilder
+    private var quickActionBar: some View {
+        if Features.healthProbe || Features.rag || Features.vision {
+            HStack(spacing: 8) {
+                if Features.healthProbe {
+                    Button {
+                        Task { await probeAll() }
+                    } label: {
+                        Label("Health", systemImage: "heart.circle")
+                            .font(.caption)
+                    }
+                }
+                
+                if Features.rag {
+                    Button {
+                        Task { await injectRAGContext() }
+                    } label: {
+                        Label("RAG", systemImage: "doc.text.magnifyingglass")
+                            .font(.caption)
+                    }
+                    .disabled(messages.isEmpty)
+                }
+                
+                if Features.vision {
+                    Button {
+                        Task { await pickAndDescribeImage() }
+                    } label: {
+                        Label("Vision", systemImage: "eye.circle")
+                            .font(.caption)
+                    }
+                }
+            }
+            .buttonStyle(.bordered)
+            .padding(.horizontal, 8)
+            .padding(.top, 4)
+        }
+    }
     
     private func messageBubble(for message: ChatMessage) -> some View {
         VStack(alignment: message.role.isUser ? .trailing : .leading, spacing: 6) {
@@ -268,6 +356,21 @@ struct ChatViewEnhanced: View {
                     if confidenceHistory.count > 10 {
                         confidenceHistory.removeFirst()
                     }
+                    
+                    // Update ops state
+                    ops.updateConfidence(confidence)
+                    
+                    // Auto-open ops window on low confidence
+                    if ops.autoOpenOnLowConfidence && confidence < ops.lowConfidenceThreshold && !ops.isWindowOpen {
+                        ops.recordEvent(OpsEvent(
+                            timestamp: Date(),
+                            type: .lowConfidence,
+                            message: "Low confidence: \(Int(confidence * 100))% - '\(text.prefix(40))...'",
+                            confidence: confidence
+                        ))
+                        openWindow(id: "ops")
+                        showToast(message: "Ops window opened (low confidence)")
+                    }
                 }
             }
             
@@ -280,7 +383,17 @@ struct ChatViewEnhanced: View {
             
             // Add assistant message
             await MainActor.run {
-                messages.append(ChatMessage(role: .assistant, content: reply, meta: meta))
+                let newMessage = ChatMessage(role: .assistant, content: reply, meta: meta)
+                messages.append(newMessage)
+                
+                // Update operations monitoring
+                // TODO: Re-enable when MetaInfo integration is complete
+                // if let meta = meta {
+                //     ops.update(from: meta)
+                // }
+                
+                // Auto-open Ops window on interesting events
+                handleInterestingEvent(newMessage)
             }
             
             // Speak reply
@@ -335,6 +448,164 @@ struct ChatViewEnhanced: View {
     private func simulateRewrite(_ text: String) -> String {
         // TODO: Get from backend
         return "Check backend logs for errors in the last 24h, compare error rates, and generate a summary."
+    }
+    
+    // MARK: - Service Integration Helpers
+    
+    @MainActor
+    private func probeAll() async {
+        var summary: [String] = []
+        for (name, urlString) in ServiceRegistry.shared.healthChecks {
+            guard let url = URL(string: urlString) else { continue }
+            let ok = await api.head(url)
+            showToast(message: "\(name): \(ok ? "✅" : "⚠️")")
+            summary.append("\(name) \(ok ? "✅" : "⚠️")")
+            try? await Task.sleep(nanoseconds: 300_000_000) // 300ms between toasts
+        }
+        
+        // Update ops monitoring
+        ops.updateHealth(summary: summary.joined(separator: "  "))
+    }
+    
+    @MainActor
+    private func injectRAGContext() async {
+        guard let lastPrompt = messages.last(where: { $0.role == .user })?.content else {
+            showToast(message: "⚠️ No user message to query")
+            return
+        }
+        
+        let urlString = ServiceRegistry.shared.ragURL
+        guard let url = URL(string: urlString) else { return }
+        // RAG service expects {"query": "...", "k": N}, not "top_k"
+        let payload = ["query": lastPrompt, "k": 5] as [String : Any]
+        guard let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+        
+        do {
+            let (data, _) = try await api.post(url, body: body)
+            // Try to parse as RAG response with hits array
+            if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+               let hits = json["hits"] as? [[String: Any]] {
+                let contexts = hits.compactMap { $0["text"] as? String }
+                let context = contexts.prefix(3).joined(separator: "\n\n")
+                input = input.isEmpty ? "Context:\n\(context)" : "\(input)\n\nContext:\n\(context)"
+                showToast(message: "✅ RAG: \(hits.count) results")
+            } else if let context = String(data: data, encoding: .utf8) {
+                input = input.isEmpty ? "Context:\n\(context)" : "\(input)\n\nContext:\n\(context)"
+                showToast(message: "✅ RAG context injected")
+            }
+        } catch {
+            showToast(message: "⚠️ RAG error: \(error.localizedDescription)")
+        }
+    }
+    
+    @MainActor
+    private func pickAndDescribeImage() async {
+        guard let image = await ImagePickerHelper.pick() else {
+            showToast(message: "⚠️ No image selected")
+            return
+        }
+        
+        guard let png = image.pngData() else {
+            showToast(message: "⚠️ Could not encode image")
+            return
+        }
+        
+        let urlString = ServiceRegistry.shared.visionURL
+        guard let url = URL(string: urlString) else { return }
+        // Vision service may expect {"image": "..."} key (check service docs)
+        let payload = ["image": png.base64EncodedString()]
+        guard let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+        
+        do {
+            let (data, _) = try await api.post(url, body: body)
+            if let desc = String(data: data, encoding: .utf8) {
+                input = input.isEmpty ? desc : "\(input)\n\nImage: \(desc)"
+                showToast(message: "✅ Image described")
+            }
+        } catch {
+            showToast(message: "⚠️ Vision error: \(error.localizedDescription)")
+        }
+    }
+    
+    @MainActor
+    private func showToast(message: String) {
+        toastMessage = message
+        withAnimation {
+            showToast = true
+        }
+        Task {
+            try? await Task.sleep(nanoseconds: 2_000_000_000) // 2s
+            withAnimation {
+                showToast = false
+            }
+        }
+    }
+    
+    // MARK: - Auto-Open Operations Window
+    
+    @MainActor
+    private func handleInterestingEvent(_ message: ChatMessage) {
+        guard autoOpenOps else { return }
+        
+        // Check kill switch (environment override)
+        if ProcessInfo.processInfo.environment["FEATURE_OPS_AUTOOPEN"] == "0" {
+            return
+        }
+        
+        // Collect all trigger reasons
+        var reasons: [String] = []
+        
+        // Check confidence trigger
+        if let meta = message.meta,
+           let confidence = meta.confidence,
+           confidence < opsConfidenceThreshold {
+            reasons.append("Low confidence (\(Int(confidence * 100))%)")
+        }
+        
+        // Check error triggers
+        let content = message.content.lowercased()
+        if content.contains("error:") || 
+           content.contains("timeout") ||
+           content.contains("failed") {
+            reasons.append("Error detected")
+        }
+        
+        // Nothing interesting? Exit early
+        guard !reasons.isEmpty else { return }
+        
+        // Check guardrails (debounce + session limit + snooze)
+        let (allowed, limitReason) = ops.shouldAutoOpen()
+        if !allowed {
+            if let reason = limitReason {
+                // Show toast for session limit only
+                showToast(message: reason)
+            }
+            // Silently block if debounced or snoozed
+            return
+        }
+        
+        // Coalesce reasons and open
+        let merged = reasons.joined(separator: " · ")
+        openOpsWindow(respectFocus: true)
+        ops.recordAutoOpen()
+        showToast(message: "⚠️ Opened Ops — \(merged)")
+    }
+    
+    @MainActor
+    private func openOpsWindow(respectFocus: Bool = true) {
+        // Don't steal focus if user is typing
+        if respectFocus, let event = NSApp.currentEvent, event.type == .keyDown {
+            // Open in background without activation
+            if let opsWindow = NSApp.windows.first(where: { $0.title == "Operations" }) {
+                opsWindow.orderFront(nil)
+            } else {
+                openWindow(id: "ops")
+            }
+            return
+        }
+        
+        // Normal open with activation
+        openWindow(id: "ops")
     }
 }
 

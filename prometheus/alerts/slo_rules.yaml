@@ -1,0 +1,158 @@
+groups:
+  - name: service_slo
+    interval: 30s
+    rules:
+      # Error rate SLO (5xx responses)
+      - alert: HighErrorRate5m
+        expr: |
+          sum(rate(http_requests_total{code=~"5.."}[5m])) / 
+          clamp_min(sum(rate(http_requests_total[5m])), 1) > 0.02
+        for: 10m
+        labels:
+          severity: page
+          team: platform
+        annotations:
+          summary: "Error rate > 2% (5m window)"
+          description: "Current 5xx ratio is {{ $value | printf \"%.2f\" }} over 5m. Check service logs."
+          runbook_url: "https://github.com/YOUR_ORG/runbooks/error-rate-spike"
+      
+      - alert: HighErrorRate1h
+        expr: |
+          sum(rate(http_requests_total{code=~"5.."}[1h])) / 
+          clamp_min(sum(rate(http_requests_total[1h])), 1) > 0.01
+        for: 30m
+        labels:
+          severity: ticket
+          team: platform
+        annotations:
+          summary: "Error rate > 1% (1h window)"
+          description: "Sustained error rate breaching SLO."
+      
+      # Latency SLO (p95 < 800ms for Bridge/API)
+      - record: job_route:p95_latency_seconds:5m
+        expr: |
+          histogram_quantile(0.95, 
+            sum by (le, job, route) (rate(bridge_request_latency_seconds_bucket[5m]))
+          )
+      
+      - alert: LatencyP95Degraded
+        expr: job_route:p95_latency_seconds:5m > 0.800
+        for: 15m
+        labels:
+          severity: page
+          team: platform
+        annotations:
+          summary: "p95 latency > 800ms SLO"
+          description: "Route {{ $labels.route }} breaching latency SLO for 15m. Current p95: {{ $value | printf \"%.0f\" }}ms"
+          runbook_url: "https://github.com/YOUR_ORG/runbooks/latency-degradation"
+      
+      # SRE-style burn rate alerts (fast/slow)
+      - alert: SLOBurnFast
+        expr: |
+          (sum(rate(http_requests_total{code=~"5.."}[5m])) / 
+           clamp_min(sum(rate(http_requests_total[5m])), 1)) / 0.01 > 14.4
+        for: 5m
+        labels:
+          severity: page
+          team: sre
+        annotations:
+          summary: "Fast SLO burn >14.4x (5m)"
+          description: "Error budget burning 14.4x faster than target. Immediate investigation required."
+      
+      - alert: SLOBurnSlow
+        expr: |
+          (sum(rate(http_requests_total{code=~"5.."}[1h])) / 
+           clamp_min(sum(rate(http_requests_total[1h])), 1)) / 0.01 > 6
+        for: 2h
+        labels:
+          severity: ticket
+          team: sre
+        annotations:
+          summary: "Slow SLO burn >6x (1h)"
+          description: "Sustained error rate consuming error budget faster than sustainable."
+
+  - name: security_redaction
+    interval: 30s
+    rules:
+      - alert: RedactionSpike
+        expr: sum(increase(app_redaction_events_total[5m])) > 5
+        for: 10m
+        labels:
+          severity: page
+          team: security
+        annotations:
+          summary: "Redaction events spiking"
+          description: "{{ $value }} redaction events in 5m. Possible secret exposure attempts or misconfiguration."
+          runbook_url: "https://github.com/YOUR_ORG/runbooks/redaction-spike"
+      
+      - alert: RedactionRateSustained
+        expr: sum(rate(app_redaction_events_total[1h])) > 0.1
+        for: 1h
+        labels:
+          severity: ticket
+          team: security
+        annotations:
+          summary: "Sustained redaction rate > 0.1/sec"
+          description: "Continuous redaction activity. Review logs for patterns."
+
+  - name: ops_window_health
+    interval: 30s
+    rules:
+      - alert: OpsWindowSessionLimitHit
+        expr: sum(increase(app_ops_window_auto_open_blocked_total{reason="limit"}[5m])) > 3
+        for: 15m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Ops window session limit hit frequently"
+          description: "Users hitting 5-opens-per-session limit. Consider raising limit or investigating low-confidence responses."
+      
+      - alert: LowConfidenceSpike
+        expr: |
+          sum(rate(app_response_confidence_bucket{le="0.45"}[5m])) / 
+          clamp_min(sum(rate(app_response_confidence_count[5m])), 1) > 0.25
+        for: 20m
+        labels:
+          severity: ticket
+          team: ml
+        annotations:
+          summary: "Low confidence responses > 25%"
+          description: "{{ $value | printf \"%.0f\" }}% of responses have confidence < 45%. Review model performance."
+
+  - name: rag_performance
+    interval: 30s
+    rules:
+      - alert: RAGRecallDegraded
+        expr: |
+          sum(increase(rag_hits_total[5m])) / 
+          clamp_min(sum(increase(rag_queries_total[5m])), 1) < 0.60
+        for: 20m
+        labels:
+          severity: warning
+          team: ml
+        annotations:
+          summary: "RAG recall < 60%"
+          description: "RAG hit rate degraded. Check index quality or query reformulation."
+      
+      - alert: RAGLatencyHigh
+        expr: |
+          histogram_quantile(0.95, sum by (le) (rate(rag_latency_seconds_bucket[5m]))) > 2.0
+        for: 15m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "RAG p95 latency > 2s"
+          description: "RAG queries slow. Check vector DB performance."
+      
+      - alert: EmbeddingQueueBackup
+        expr: avg(embedding_queue_depth) > 100
+        for: 10m
+        labels:
+          severity: warning
+          team: ml
+        annotations:
+          summary: "Embedding queue backing up"
+          description: "Queue depth {{ $value | printf \"%.0f\" }}. Embeddings can't keep pace with queries."
+

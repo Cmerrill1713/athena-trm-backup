@@ -1,138 +1,58 @@
-# Node / web
-node_modules/
-.next/
-dist/
-build/
-.npm/
-.yarn/
+# Environment files (NEVER COMMIT SECRETS!)
+.env
+.env.local
+.env.*.local
 
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
 .Python
-.venv/
 venv/
-ENV/
 env/
+ENV/
 kokoro-venv/
-.env
-.env.*
-!.env.example
 *.egg-info/
 .pytest_cache/
-.coverage
-htmlcov/
 
-# Swift / Xcode
-DerivedData/
-*.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
-*.xcuserdatad/
-*.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
-*.swiftmodule
-*.swiftdoc
-.build/
-*.dSYM/
-*.app/
-
-# Go / Rust cache
-target/
-*.prof
-coverage/
-Cargo.lock
-
-# Docker & local
-docker-data/
-*.log
-*.tmp
-.tmp/
-.cache/
-/tmp/
-
-# Artifacts & datasets
-artifacts/*.log
-artifacts/*.zip
-artifacts/*.json
-!artifacts/.gitkeep
-*.tar
-*.tar.gz
-*.sqlite
-*.db
-*.csv
-*.parquet
-
-# Models / weights (use LFS)
-models/*.pt
-models/*.bin
-models/*.safetensors
-checkpoints/
-*.ckpt
-
-# Backups
-backups/*.sql
-backups/*.dump
-backups/*.zst
-!backups/.gitkeep
-
-# OS noise
+# macOS
 .DS_Store
-Thumbs.db
-*.swp
-*.swo
-*~
-
-# IDE
-.vscode/
-.idea/
-*.sublime-*
+*.xcuserstate
+xcuserdata/
+DerivedData/
 
 # Logs
-logs/*.log
-/tmp/
+*.log
+logs/
 *.out
 *.err
+nohup.out
 
-# Secrets & credentials
-*.key
-*.pem
-*.crt
-credentials/
-secrets/
-.secrets/
+# PID files
+*.pid
+.stack/
 
-# Temp files
-*.bak
-*.backup
-.env.shadow
-models/routing_flags.json
+# Build artifacts
+build/
+dist/
+*.app
+*.dmg
 
-# Test outputs
-test_*.swift
-VoiceProof
-VoiceProof.swift
-test_kokoro.py
-*.wav
-*.mp3
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# Large data files
-*.h5
-*.hdf5
-*.pkl
-*.pickle
+# Secrets baseline
+.secrets.baseline
 
+# Test artifacts
+pytest_report.json
+pytest_report.xml
+artifacts/*.zip
 
-# Transcript files (too large, already embedded in Weaviate)
-*.vtt
-*_transcripts/
-ai_coding_transcripts/
-indydevdan_transcripts/
-.embed_state.jsonl
-
-# Service logs
-/tmp/*.log
-*.log
-
-# Python cache
-__pycache__/
-*.pyc
+# Temporary files
+*.tmp
+tmp/

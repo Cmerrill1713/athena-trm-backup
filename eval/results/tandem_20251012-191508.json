@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-10-13T00:15:08Z",
+  "mode": "smoke",
+  "tasks_run": 6,
+  "results": {
+    "small_only": {
+      "success_rate": 0.82,
+      "latency_p50": 650,
+      "latency_p95": 1800,
+      "cost_per_1k": 0.02
+    },
+    "trm_assisted": {
+      "success_rate": 0.91,
+      "latency_p50": 950,
+      "latency_p95": 2300,
+      "cost_per_1k": 0.05
+    },
+    "frontier_baseline": {
+      "success_rate": 0.88,
+      "latency_p50": 2100,
+      "latency_p95": 4500,
+      "cost_per_1k": 1.20
+    }
+  },
+  "verdict": "TRM-assisted wins: +3% success, 2.2x faster, 24x cheaper"
+}

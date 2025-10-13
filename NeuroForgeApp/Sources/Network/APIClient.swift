@@ -74,4 +74,32 @@ struct APIClient {
 
         return try JSONDecoder().decode(Res.self, from: data)
     }
+
+    // Simple POST that returns raw data (for RAG, Vision, etc.)
+    @MainActor
+    func post(_ url: URL, body: Data) async throws -> (Data, HTTPURLResponse) {
+        var req = URLRequest(url: url, timeoutInterval: 20)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpBody = body
+
+        let (data, resp) = try await session.data(for: req)
+        guard let httpResp = resp as? HTTPURLResponse else {
+            throw APIError.decode
+        }
+        return (data, httpResp)
+    }
+
+    // HEAD request for health checks
+    @MainActor
+    func head(_ url: URL) async -> Bool {
+        var req = URLRequest(url: url, timeoutInterval: 5)
+        req.httpMethod = "HEAD"
+        do {
+            let (_, resp) = try await session.data(for: req)
+            return (resp as? HTTPURLResponse)?.statusCode == 200
+        } catch {
+            return false
+        }
+    }
 }

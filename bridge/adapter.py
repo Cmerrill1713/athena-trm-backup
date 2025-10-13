@@ -18,6 +18,14 @@ from typing import Dict, Any, Optional, List
 from pydantic import BaseModel
 import logging
 
+# Import logs endpoint
+try:
+    from logs_endpoint import router as logs_router
+    LOGS_ENDPOINT_AVAILABLE = True
+except ImportError:
+    LOGS_ENDPOINT_AVAILABLE = False
+    logs_router = None
+
 # Add parent directory to path for common imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -73,6 +81,11 @@ attach_guardrails(
     request_timeout_s=int(os.getenv("REQ_TIMEOUT_S", "30"))
 )
 install_graceful_shutdown(app, drain_seconds=int(os.getenv("DRAIN_S", "5")))
+
+# Include logs endpoint if available
+if LOGS_ENDPOINT_AVAILABLE and logs_router:
+    app.include_router(logs_router)
+    logger.info("✅ Logs endpoint enabled at /ops/logs")
 
 # Enable CORS for SwiftUI
 app.add_middleware(
