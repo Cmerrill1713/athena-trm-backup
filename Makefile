@@ -19,36 +19,70 @@ help:
 	@printf '  %-20s %s\n' "validate" "Run platform validation"
 	@printf '  %-20s %s\n' "validate-services" "Check service health"
 
+# Configuration
+VENV ?= .venv
+PY ?= python3
+PORTS = 8014 8090 8181
+
 # Stack management
-stack-up:
+.PHONY: venv deps kill-ports stack-up stack-full stack-down stack-status logs
+
+venv:
+	@test -d $(VENV) || $(PY) -m venv $(VENV)
+	@printf '%s\n' "OK: Virtual environment ready"
+
+deps: venv
+	@. $(VENV)/bin/activate && python -m pip -q install -U pip wheel && \
+	(test -f requirements.txt && pip -q install -r requirements.txt || true)
+	@printf '%s\n' "OK: Dependencies installed"
+
+kill-ports:
+	@for p in $(PORTS); do \
+		lsof -i tcp:$$p -sTCP:LISTEN -t 2>/dev/null | xargs kill -9 2>/dev/null || true; \
+	done
+	@printf '%s\n' "OK: Ports cleared"
+
+stack-up: deps kill-ports
+	@mkdir -p logs pids
 	@printf '%s\n' "Starting core services..."
-	@cd bridge && python app.py &
-	@cd athena && python server.py &
-	@cd orchestrator && python main.py &
-	@sleep 2
-	@$(MAKE) truth
+	@. $(VENV)/bin/activate && PYTHONPATH=$$(pwd) nohup python bridge/app.py > logs/bridge.out 2>&1 & echo $$! > pids/bridge.pid
+	@. $(VENV)/bin/activate && PYTHONPATH=$$(pwd) nohup python athena/server.py > logs/athena.out 2>&1 & echo $$! > pids/athena.pid
+	@. $(VENV)/bin/activate && PYTHONPATH=$$(pwd) nohup python orchestrator/main.py > logs/uat.out 2>&1 & echo $$! > pids/uat.pid
+	@sleep 3
+	@$(MAKE) stack-status
 
 stack-full: stack-up
 	@printf '%s\n' "Starting enhanced services..."
-	@cd kokoro && python serve.py &
-	@cd AI-Projects/universal-ai-tools && python rag_service.py &
+	@. $(VENV)/bin/activate && cd kokoro && nohup python serve.py > ../logs/kokoro.out 2>&1 & echo $$! > ../pids/kokoro.pid
 	@sleep 2
-	@$(MAKE) truth
+	@$(MAKE) stack-status
 
 stack-down:
 	@printf '%s\n' "Stopping all services..."
-	@pkill -f "bridge.*app.py" || true
-	@pkill -f "athena.*server.py" || true
-	@pkill -f "orchestrator.*main.py" || true
-	@pkill -f "kokoro.*serve.py" || true
-	@pkill -f "rag_service.py" || true
-	@printf '%s\n' "All services stopped"
+	@test -f pids/bridge.pid && kill -9 $$(cat pids/bridge.pid) 2>/dev/null || true
+	@test -f pids/athena.pid && kill -9 $$(cat pids/athena.pid) 2>/dev/null || true
+	@test -f pids/uat.pid && kill -9 $$(cat pids/uat.pid) 2>/dev/null || true
+	@test -f pids/kokoro.pid && kill -9 $$(cat pids/kokoro.pid) 2>/dev/null || true
+	@rm -f pids/*.pid
+	@printf '%s\n' "OK: All services stopped"
 
-truth:
+stack-status:
 	@printf '\n%s\n' "Service Status:"
-	@lsof -i :8014,8090,8181,8020,8015 2>/dev/null | grep LISTEN | \
-	  awk '{print "  " $$1 " on port " $$9}' || printf '%s\n' "  No services running"
+	@for p in 8014:Bridge 8090:Athena 8181:UAT 8020:Kokoro; do \
+		port=$${p%%:*}; name=$${p##*:}; \
+		curl -fsS http://127.0.0.1:$$port/health >/dev/null 2>&1 && \
+			printf '  OK %s (:%s)\n' "$$name" "$$port" || \
+		curl -fsS http://127.0.0.1:$$port/ready >/dev/null 2>&1 && \
+			printf '  OK %s (:%s)\n' "$$name" "$$port" || \
+			printf '  DOWN %s (:%s)\n' "$$name" "$$port"; \
+	done
 	@printf '\n'
+
+logs:
+	@tail -n +1 -f logs/bridge.out logs/athena.out logs/uat.out 2>/dev/null || \
+		printf '%s\n' "No log files found. Run make stack-up first."
+
+truth: stack-status
 
 # Evaluation
 eval-smoke:
