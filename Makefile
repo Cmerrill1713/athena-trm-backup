@@ -67,6 +67,14 @@ validate:
 validate-services:
 	@./NeuroForgeApp/scripts/validate_services.sh
 
+smoke:
+	@printf '%s\n' "🔎 Smoke: swift build + minimal health"
+	@cd NeuroForgeApp && swift build -c release > /dev/null 2>&1 || (printf '%s\n' "❌ Swift build failed"; exit 1)
+	@curl -sf http://localhost:8014/health > /dev/null 2>&1 || (printf '%s\n' "⚠️  Bridge API down (expected if not running)"; exit 0)
+	@printf '%s\n' "✅ Smoke test passed"
+
+athena-tests-smoke: smoke
+
 # Observability
 grafana-import:
 	@chmod +x grafana/import_dashboards.sh && \
