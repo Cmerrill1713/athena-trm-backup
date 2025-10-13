@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/arm64-apple-macosx/debug/Numerics.build/master.swiftdeps"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-numerics/Sources/Numerics/Numerics.swift": {
+    "dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/arm64-apple-macosx/debug/Numerics.build/Numerics.d",
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/arm64-apple-macosx/debug/Numerics.build/Numerics.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/arm64-apple-macosx/debug/Numerics.build/Numerics~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/arm64-apple-macosx/debug/Numerics.build/Numerics.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/arm64-apple-macosx/debug/Numerics.build/Numerics.dia"
+  }
+}

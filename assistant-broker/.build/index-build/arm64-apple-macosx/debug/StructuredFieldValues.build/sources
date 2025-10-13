@@ -1,0 +1,15 @@
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Decoder/BareInnerListDecoder.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Decoder/BareItemDecoder.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Decoder/DictionaryKeyedContainer.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Decoder/KeyedInnerListDecoder.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Decoder/KeyedItemDecoder.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Decoder/KeyedTopLevelListDecoder.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Decoder/ParametersDecoder.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Decoder/StructuredFieldValueDecoder.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Decoder/StructuredHeaderCodingKey.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Decoder/TopLevelListDecoder.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/DisplayString.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Encoder/StructuredFieldKeyedEncodingContainer.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Encoder/StructuredFieldUnkeyedEncodingContainer.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/Encoder/StructuredFieldValueEncoder.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-http-structured-headers/Sources/StructuredFieldValues/StructuredFieldValue.swift

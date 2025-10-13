@@ -1,0 +1,3 @@
+module NIOFoundationCompat {
+    header "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/arm64-apple-macosx/debug/NIOFoundationCompat.build/include/NIOFoundationCompat-Swift.h"
+}

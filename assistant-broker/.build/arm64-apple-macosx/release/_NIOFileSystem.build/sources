@@ -1,0 +1,41 @@
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Array+FileSystem.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/ArraySlice+FileSystem.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/BufferedReader.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/BufferedWriter.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/ByteBuffer+FileSystem.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/ByteCount.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Convenience.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/DirectoryEntries.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/DirectoryEntry.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Exports.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/FileChunks.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/FileHandle.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/FileHandleProtocol.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/FileInfo.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/FileSystem.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/FileSystemError+Syscall.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/FileSystemError.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/FileSystemProtocol.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/FileType.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/IOStrategy.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/BufferedOrAnyStream.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/BufferedStream.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/Cancellation.swift
+'/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/Concurrency Primitives/TokenBucket.swift'
+'/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/Concurrency Primitives/UnsafeTransfer.swift'
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/ParallelDirCopy.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/ParallelRemoval.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/String+UnsafeUnititializedCapacity.swift
+'/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/System Calls/CInterop.swift'
+'/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/System Calls/Errno.swift'
+'/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/System Calls/FileDescriptor+Syscalls.swift'
+'/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/System Calls/Mocking.swift'
+'/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/System Calls/Syscall.swift'
+'/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/System Calls/Syscalls.swift'
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/SystemFileHandle.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/Internal/Utilities.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/NIOFilePath.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/NIOFileSystemSendableMetatype.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/OpenOptions.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/_NIOFileSystem/String+FileSystem.swift
+/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/_NIOFileSystem.build/DerivedSources/resource_bundle_accessor.swift
