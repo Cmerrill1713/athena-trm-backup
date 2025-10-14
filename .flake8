@@ -1,0 +1,30 @@
+[flake8]
+max-line-length = 100
+extend-ignore = E203,W503
+per-file-ignores =
+    tests/*: E712,E731,F401,F841,E402,E722
+    test_*.py: E712,E731,F401,F841,E402,E722
+    */spikes.py: E722
+    */test_*.py: E712,E731,F401,F841,E402,E722
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    venv,
+    env,
+    build,
+    dist,
+    .build,
+    .derived,
+    DerivedData,
+    node_modules,
+    external,
+    backups,
+    archive,
+    kokoro-venv,
+    .mypy_cache,
+    .pytest_cache,
+    .tox,
+    scripts/demo_governance_drift_detection.py,
+    scripts/demo_governance_drift_detection_fixed.py,
+    scripts/integrate_governance_drift_detection.py

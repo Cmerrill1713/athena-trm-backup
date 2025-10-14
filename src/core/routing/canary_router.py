@@ -16,7 +16,7 @@ Environment variables:
 
 import os
 import random
-from typing import Dict, Any, Tuple
+from typing import Any, Dict, Optional, Tuple
 from .circuit_breaker import get_circuit_breaker
 
 # Configuration from environment

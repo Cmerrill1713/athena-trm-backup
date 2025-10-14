@@ -226,18 +226,25 @@ class PromotionManager:
         print("\n🎯 Variant Performance (24h):")
         variants = status.get('variants', {})
         if variants:
-            print("<30"            print("-" * 80)
-            for name, data in sorted(variants.items(), key=lambda x: x[1].get('overall_score', 0), reverse=True):
+            print("-" * 80)
+            for name, data in sorted(
+                variants.items(),
+                key=lambda x: x[1].get('overall_score', 0),
+                reverse=True,
+            ):
                 active = "✅" if data.get('active') else "❌"
                 trials = data.get('trials', 0)
                 win_rate = data.get('win_rate', 0)
                 evals = data.get('eval_count', 0)
-                helpfulness = data.get('helpfulness', 0)
-                factuality = data.get('factuality', 0)
-                clarity = data.get('clarity', 0)
-                overall = (helpfulness + factuality + clarity) / 3 if (helpfulness + factuality + clarity) > 0 else 0
-
-                print("<30")
+                helpfulness = data.get('helpfulness', 0.0)
+                factuality = data.get('factuality', 0.0)
+                clarity = data.get('clarity', 0.0)
+                numerator = helpfulness + factuality + clarity
+                overall = (numerator / 3.0) if numerator > 0 else 0.0
+                print(
+                    f"{name:<30} {active}  trials={trials:<4} "
+                    f"win={win_rate:.2f}  evals={evals:<4}  overall={overall:.2f}"
+                )
         else:
             print("  No variant data available")
 
@@ -261,7 +268,8 @@ class PromotionManager:
             avg_score = health.get('avg_score_24h', 0)
             print(f"  Actions (24h): {actions_24h}")
             print(f"  Actions (7d): {actions_7d}")
-            print(".2f"        else:
+            print(f"  Avg Score (24h): {avg_score:.2f}")
+        else:
             print("  No health data available")
 
 def main():

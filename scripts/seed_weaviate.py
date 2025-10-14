@@ -5,8 +5,10 @@ Seed Weaviate - Initialize schema and learned patterns
 Creates schema and seeds with initial learned patterns for RAG/learning agents.
 """
 
-import requests
 
+import sys
+
+import requests
 WEAVIATE_URL = "http://localhost:8090"
 
 # Schema definitions

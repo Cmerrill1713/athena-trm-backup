@@ -15,7 +15,7 @@ from pathlib import Path
 # Add agents to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "agents"))
 
-from research_orchestrator import get_research_orchestrator
+from research_orchestrator import get_research_orchestrator, get_research_hunter
 
 logging.basicConfig(
     level=logging.INFO,
