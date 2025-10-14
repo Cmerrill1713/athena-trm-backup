@@ -8,6 +8,12 @@ struct NeuroForgeApp: App {
     @StateObject private var focusCoordinator = InputFocusCoordinator()
     @State private var voice = VoiceManager()
 
+    init() {
+        // Initialize avatar services
+        _ = AvatarNotificationService.shared
+        _ = MobileMetricsService.shared
+    }
+
     var body: some Scene {
         // Main chat window
         WindowGroup(id: "main-window", content: {
