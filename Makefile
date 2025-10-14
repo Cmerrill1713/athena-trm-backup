@@ -12,7 +12,7 @@
 #   make docker      # Build container
 #   make ci          # Run CI pipeline locally
 
-.PHONY: all frontend backend test watch clean setup status docker ci athena-play qa qa-strict
+.PHONY: all frontend backend test watch clean setup status docker ci athena-play qa qa-strict qa-zero
 
 # Configuration
 AR_HOME ?= $(HOME)/.local/share/ai-republic
@@ -295,3 +295,10 @@ qa-strict:
 	 swiftformat --lint NeuroForgeApp/Sources; \
 	 bandit -r scripts src 2>/dev/null || true; \
 	 sqlfluff lint sql 2>/dev/null || true
+
+qa-zero:
+	@echo "🔧 Auto-fixing all quality issues..."
+	cd NeuroForgeApp && swiftformat Sources/ --swiftversion 5.9
+	swiftlint autocorrect --quiet || true
+	$(MAKE) qa
+	@echo "✅ QA zero complete"
