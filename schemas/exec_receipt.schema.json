@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExecReceipt",
+  "type": "object",
+  "required": ["receipt_id", "task_id", "agent_class", "tool_signature", "metrics", "checks"],
+  "properties": {
+    "receipt_id": { "type": "string" },
+    "task_id": { "type": "string" },
+    "agent_class": { "type": "string" },
+    "tool_signature": { "type": "string" },
+    "params_hash": { "type": "string" },
+    "output_hash": { "type": "string" },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "tokens": { "type": "number" },
+        "latency_s": { "type": "number" },
+        "cost_usd": { "type": "number" }
+      }
+    },
+    "checks": {
+      "type": "object",
+      "properties": {
+        "schema_pass": { "type": "boolean" },
+        "unit_pass_rate": { "type": "number" }
+      }
+    },
+    "autoheal": {
+      "type": "object",
+      "properties": {
+        "errors": { "type": "number" },
+        "rules_matched": { "type": "number" },
+        "fixes_applied": { "type": "number" }
+      }
+    },
+    "fix_confidence": { "type": "number" }
+  }
+}

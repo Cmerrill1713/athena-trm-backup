@@ -1,0 +1,19 @@
+thresholds:
+  ece_max: 0.06
+  entropy_drift_warn: 0.10
+  entropy_drift_fail: 0.25
+  fix_confidence_soft_min: 0.60
+  fix_confidence_pass_min: 0.80
+actions:
+  HARD_FAIL:
+    when:
+      - any: [ {ece_gt: 0.06}, {entropy_drift_ge: 0.25}, {autoheal_errors_and_no_rules: true} ]
+    do: [ROLLBACK, OPEN_INCIDENT]
+  SOFT_FAIL:
+    when:
+      - all: [ {ece_le: 0.06}, {entropy_drift_lt: 0.25}, {fix_confidence_between: [0.60,0.80]} ]
+    do: [QUARANTINE, RETRY_OR_HUMAN]
+  PASS:
+    when:
+      - all: [ {ece_le: 0.06}, {entropy_drift_lt: 0.10}, {fix_confidence_ge: 0.80}, {tests_pass_ge_class_min: true} ]
+    do: [PROMOTE]

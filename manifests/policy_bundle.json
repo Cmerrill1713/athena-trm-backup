@@ -1,0 +1,130 @@
+{
+  "bundle": {
+    "policy": {
+      "version": "governance.policy.v2",
+      "router": {
+        "default_pattern": "PEC",
+        "enable_tot_if": {
+          "calibrated_uncertainty_ge": 0.35,
+          "branches_max": 3,
+          "depth_max": 2
+        },
+        "enable_got_if": {
+          "value_fn_signal_ge": 0.6,
+          "nodes_max": 16,
+          "backedges_max": 4
+        }
+      },
+      "budgets": {
+        "tokens_max": 12000,
+        "wall_time_s_max": 180
+      },
+      "rollout": {
+        "mode": "canary",
+        "sample": 0.1
+      },
+      "promote_requirements": {
+        "solve_rate_delta_ge": 0.02,
+        "violation_rate_le_over_baseline": 0.005,
+        "latency_p95_le_over_baseline": 0.25,
+        "ece_post_le": 0.06,
+        "edge_case_score_ge": 0.8,
+        "consistency_index_ge": 0.9
+      },
+      "rollback_triggers": [
+        {
+          "solve_rate_delta_le": -0.03
+        },
+        {
+          "violation_rate_delta_ge": 0.01
+        },
+        {
+          "ece_drift_ge": 0.03
+        },
+        {
+          "secret_leak": true
+        }
+      ]
+    },
+    "verdict_mapping": {
+      "thresholds": {
+        "ece_max": 0.06,
+        "entropy_drift_warn": 0.1,
+        "entropy_drift_fail": 0.25,
+        "fix_confidence_soft_min": 0.6,
+        "fix_confidence_pass_min": 0.8
+      },
+      "actions": {
+        "HARD_FAIL": {
+          "when": [
+            {
+              "any": [
+                {
+                  "ece_gt": 0.06
+                },
+                {
+                  "entropy_drift_ge": 0.25
+                },
+                {
+                  "autoheal_errors_and_no_rules": true
+                }
+              ]
+            }
+          ],
+          "do": [
+            "ROLLBACK",
+            "OPEN_INCIDENT"
+          ]
+        },
+        "SOFT_FAIL": {
+          "when": [
+            {
+              "all": [
+                {
+                  "ece_le": 0.06
+                },
+                {
+                  "entropy_drift_lt": 0.25
+                },
+                {
+                  "fix_confidence_between": [
+                    0.6,
+                    0.8
+                  ]
+                }
+              ]
+            }
+          ],
+          "do": [
+            "QUARANTINE",
+            "RETRY_OR_HUMAN"
+          ]
+        },
+        "PASS": {
+          "when": [
+            {
+              "all": [
+                {
+                  "ece_le": 0.06
+                },
+                {
+                  "entropy_drift_lt": 0.1
+                },
+                {
+                  "fix_confidence_ge": 0.8
+                },
+                {
+                  "tests_pass_ge_class_min": true
+                }
+              ]
+            }
+          ],
+          "do": [
+            "PROMOTE"
+          ]
+        }
+      }
+    }
+  },
+  "hash": "3c01a503989e81593a0c419a989eadae1159c61f2b57e949680a6406678189c7"
+}
