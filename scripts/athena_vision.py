@@ -184,7 +184,7 @@ def main():
                 f.write(markdown)
             
             # Open in reporter
-            print(f"📊 Opening in Athena Reporter...", file=sys.stderr)
+            print("📊 Opening in Athena Reporter...", file=sys.stderr)
             os.system(f"open '{markdown_file}'")
             
             # Speak summary (first 2-3 sentences)

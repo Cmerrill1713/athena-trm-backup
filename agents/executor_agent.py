@@ -185,7 +185,7 @@ class ExecutorAgent:
             if success:
                 print(f"  ✅ Completed in {exec_time}ms")
             else:
-                print(f"  ⚠️  Completed but criteria not met")
+                print("  ⚠️  Completed but criteria not met")
 
             return result
 
@@ -311,7 +311,7 @@ Provide clear, actionable analysis."""
 # Example Usage
 # ============================================
 if __name__ == "__main__":
-    from planner_agent import PlannerAgent, TaskStep
+    from planner_agent import PlannerAgent
 
     # Create executor
     executor = ExecutorAgent()

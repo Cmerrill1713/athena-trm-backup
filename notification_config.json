@@ -1,0 +1,88 @@
+{
+  "enabled_channels": [
+    "desktop"
+  ],
+  "alert_priority": "critical_warning",
+  "alert_settings": {
+    "critical_health": {
+      "enabled": true,
+      "channels": [
+        "desktop",
+        "email",
+        "telegram",
+        "slack"
+      ],
+      "cascade_priority": true
+    },
+    "optimization_failed": {
+      "enabled": true,
+      "channels": [
+        "desktop",
+        "email"
+      ]
+    },
+    "corruption_detected": {
+      "enabled": true,
+      "channels": [
+        "desktop",
+        "email",
+        "telegram",
+        "slack"
+      ],
+      "cascade_priority": true
+    },
+    "performance_degraded": {
+      "enabled": true,
+      "channels": [
+        "desktop"
+      ]
+    },
+    "optimization_complete": {
+      "enabled": false,
+      "channels": [
+        "desktop"
+      ]
+    }
+  },
+  "email": {
+    "enabled": false,
+    "smtp_server": "",
+    "username": "",
+    "password": "",
+    "from_email": "",
+    "to_emails": []
+  },
+  "telegram": {
+    "enabled": false,
+    "bot_token": "",
+    "chat_ids": []
+  },
+  "slack": {
+    "enabled": false,
+    "webhook_url": "",
+    "channel": "#ai-republic"
+  },
+  "desktop": {
+    "enabled": true,
+    "urgency_levels": {
+      "daily": "normal",
+      "warning": "normal",
+      "urgent": "critical"
+    }
+  },
+  "retry_attempts": 3,
+  "retry_delay": 5,
+  "cascade_priority": {
+    "enabled": true,
+    "urgent_channels_first": [
+      "telegram",
+      "desktop"
+    ],
+    "delayed_channels": [
+      "email",
+      "slack"
+    ],
+    "cascade_delay_seconds": 2,
+    "description": "Critical alerts go to Telegram first, then email"
+  }
+}

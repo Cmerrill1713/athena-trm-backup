@@ -14,7 +14,7 @@ printf '%s\n\n' "Validating Service Integrations..."
 # Service endpoints
 BRIDGE="http://127.0.0.1:8014/ready"
 ATHENA="http://127.0.0.1:8090/ready"
-UAT="http://127.0.0.1:8181/ready"
+UAT="http://127.0.0.1:8181/health"
 KOKORO="http://127.0.0.1:8020/health"
 
 # Test function

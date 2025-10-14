@@ -9,7 +9,7 @@ Output: Scored feedback with improvement suggestions
 """
 
 import json
-from typing import Dict, List, Any, Optional
+from typing import List
 from dataclasses import dataclass, asdict
 from datetime import datetime
 from enum import Enum
@@ -291,10 +291,10 @@ if __name__ == "__main__":
     print("=" * 50)
     print(f"Score: {review.overall_score:.2f}")
     print(f"Quality: {review.overall_quality.value}")
-    print(f"\nKey Learnings:")
+    print("\nKey Learnings:")
     for learning in review.key_learnings:
         print(f"  • {learning}")
-    print(f"\nSuggestions:")
+    print("\nSuggestions:")
     for suggestion in review.improvement_suggestions:
         print(f"  • {suggestion}")
     print(f"\nRetry needed: {review.should_retry}")

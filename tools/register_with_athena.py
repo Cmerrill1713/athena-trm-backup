@@ -4,7 +4,6 @@ Athena Tool Registration Script
 Automatically registers NeuroForge platform tools with Athena
 """
 import sys
-import json
 import yaml
 import requests
 from pathlib import Path
@@ -28,7 +27,7 @@ def register_via_api(tools, athena_url="http://127.0.0.1:8090"):
                 timeout=5
             )
             if resp.status_code in (200, 201):
-                print(f"    ✅ Registered")
+                print("    ✅ Registered")
             else:
                 print(f"    ⚠️  {resp.status_code}: {resp.text[:100]}")
         except requests.exceptions.ConnectionError:
@@ -60,8 +59,8 @@ def register_via_file(tools, config_dir=None):
         f.write(content)
     
     print(f"✅ Wrote {len(tools)} tools to {output_file}")
-    print(f"\n⚠️  Restart Athena to load new tools:")
-    print(f"   cd athena && python restart.py")
+    print("\n⚠️  Restart Athena to load new tools:")
+    print("   cd athena && python restart.py")
     
     return True
 

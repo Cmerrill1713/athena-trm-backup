@@ -79,7 +79,6 @@ class KnowledgeHelper:
     
     def save_search_results(self, query: str, results: List[Dict], filename: str = "search_results.json"):
         """Save search results to Desktop via broker"""
-        import json
         
         output = {
             "query": query,

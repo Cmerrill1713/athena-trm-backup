@@ -126,7 +126,6 @@ class FastVLMProvider:
         Raises:
             Exception: If inference fails
         """
-        import time
         
         # Import client
         try:

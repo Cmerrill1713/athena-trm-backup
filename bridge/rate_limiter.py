@@ -2,7 +2,6 @@
 Simple token bucket rate limiter for bridge endpoints
 """
 import time
-from collections import defaultdict
 from typing import Dict, Tuple
 import threading
 

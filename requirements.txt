@@ -13,6 +13,9 @@ anyio>=3.7.0
 # Secrets management
 keyring>=24.0.0
 
+# Cross-encoder reranking
+sentence-transformers>=2.2.0
+
 # Core FastAPI stack
 fastapi>=0.104.0
 uvicorn[standard]>=0.24.0

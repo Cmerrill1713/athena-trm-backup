@@ -7,7 +7,7 @@ Additional edge cases: PII variants, multilingual, noisy threads
 
 import sys
 import requests
-from typing import List, Dict, Any
+from typing import Dict, Any
 
 # Import base fixtures
 from robustness_test import ROBUSTNESS_FIXTURES
@@ -184,7 +184,7 @@ def run_extended_robustness(url: str, capability: str = "summarize") -> Dict[str
                 if expected_pii and not detected_pii:
                     # False negative: PII should have been detected
                     pii_false_negatives.append(name)
-                    print(f"  ⚠️  PII false negative (should detect but didn't)")
+                    print("  ⚠️  PII false negative (should detect but didn't)")
                     # Still passes if score is low (content affected)
                     score = None
                     for event in trace.get("events", []):
@@ -201,7 +201,7 @@ def run_extended_robustness(url: str, capability: str = "summarize") -> Dict[str
 
                 elif not expected_pii and detected_pii:
                     # False positive: PII detected incorrectly
-                    print(f"  ⚠️  PII false positive")
+                    print("  ⚠️  PII false positive")
                     passed += 1  # Warning but not failure
 
                 else:
@@ -232,7 +232,7 @@ def print_results(results: Dict[str, Any]):
     print("📊 EXTENDED ROBUSTNESS TEST RESULTS")
     print("="*60)
 
-    print(f"\nTests:")
+    print("\nTests:")
     print(f"  Total:  {results['total']}")
     print(f"  Passed: {results['passed']} ({results['passed']/results['total']*100:.1f}%)")
     print(f"  Failed: {results['failed']} ({results['failed']/results['total']*100:.1f}%)")

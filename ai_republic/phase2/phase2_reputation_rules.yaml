@@ -1,0 +1,11 @@
+defaults:
+  baseline: 0.0
+deltas:
+  ALLOW: +0.01
+  WARN:  -0.02
+  BLOCK: -0.10
+  QUARANTINE: -0.25
+  TRIBUNAL:   -0.40
+thresholds:
+  probation: -0.50
+  expulsion: -1.00

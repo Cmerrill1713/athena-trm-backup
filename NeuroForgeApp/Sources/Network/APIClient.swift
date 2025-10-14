@@ -1,105 +1,108 @@
 import Foundation
 
-struct APIClient {
-    private let base = APIBase.url
-    private let session: URLSession = {
-        let cfg = URLSessionConfiguration.default
-        cfg.timeoutIntervalForRequest = 20
-        cfg.timeoutIntervalForResource = 30
-        return URLSession(configuration: cfg)
-    }()
+// APIBase provides apiBaseURL() function
 
-    // /health → 200
-    func health() async -> Bool {
+/// Production-grade API client with proper error handling and diagnostics
+public struct APIClient {
+    private let baseURL: URL
+    private let session: URLSession
+
+    public init(baseURL: URL? = nil, session: URLSession? = nil) {
+        self.baseURL = baseURL ?? apiBaseURL()
+        self.session = session ?? URLSession.shared
+    }
+
+    /// Map HTTP status code to APIError
+    private func mapError(statusCode: Int, data: Data?) -> APIError? {
+        switch statusCode {
+        case 200 ..< 400:
+            return nil
+        case 422:
+            // Try to extract validation message from response
+            var message: String? = nil
+            if let data,
+               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+               let detail = json["detail"] as? String
+            {
+                message = detail
+            }
+            return .validation422(message: message)
+        case 503:
+            return .service503
+        case 500 ..< 600:
+            return .server5xx(code: statusCode)
+        default:
+            return .server5xx(code: statusCode)
+        }
+    }
+
+    /// GET request with type-safe decoding
+    public func get<T: Decodable>(_ path: String) async throws -> T {
+        let url = self.baseURL.appendingPathComponent(path.trimmingCharacters(in: CharacterSet(charactersIn: "/")))
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 15
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+
         do {
-            let (data, resp) = try await session.data(from: base.appendingPathComponent("health"))
-            guard (resp as? HTTPURLResponse)?.statusCode == 200 else { return false }
-            return data.count >= 0
-        } catch { return false }
-    }
+            let (data, response) = try await session.data(for: request)
 
-    // Model-agnostic chat endpoint
-    @MainActor
-    func chat(_ task: ChatTask) async throws -> String {
-        var req = URLRequest(url: base.appendingPathComponent("api/chat"))
-        req.httpMethod = "POST"
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        req.httpBody = try JSONEncoder().encode(task)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw APIError.invalidResponse
+            }
 
-        // Inject provider override header if set
-        NetworkInterceptor.injectProviderHeader(into: &req)
+            if let error = mapError(statusCode: httpResponse.statusCode, data: data) {
+                throw error
+            }
 
-        let start = Date()
-        let (data, resp) = try await session.data(for: req)
-        let rtt = Int(-start.timeIntervalSinceNow * 1000)
-        let code = (resp as? HTTPURLResponse)?.statusCode ?? -1
-
-        // Log request with override header if present
-        let overrideHeader = req.value(forHTTPHeaderField: "X-Provider-Override") ?? "none"
-        print("[APIClient] POST /api/chat hdr:X-Provider-Override=\(overrideHeader) rtt=\(rtt)ms code=\(code)")
-
-        guard (200..<300).contains(code) || code == 422 else {
-            throw APIError.badStatus(code, data)
-        }
-        // Expect { "text": "..." } or 422 body with message
-        if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-           let text = json["text"] as? String { return text }
-        if let txt = String(data: data, encoding: .utf8) { return txt }
-        throw APIError.decode
-    }
-
-    // Generic POST helper for typed requests/responses
-    @MainActor
-    func post<Req: Encodable, Res: Decodable>(_ path: String, body: Req) async throws -> Res {
-        let url = base.appendingPathComponent(path.hasPrefix("/") ? String(path.dropFirst()) : path)
-        var req = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 60)
-        req.httpMethod = "POST"
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        // Inject provider override header if set
-        NetworkInterceptor.injectProviderHeader(into: &req)
-
-        req.httpBody = try JSONEncoder().encode(body)
-
-        let start = Date()
-        let (data, resp) = try await session.data(for: req)
-        let rtt = Int(-start.timeIntervalSinceNow * 1000)
-        let code = (resp as? HTTPURLResponse)?.statusCode ?? -1
-
-        print("[APIClient] POST \(path) rtt=\(rtt)ms code=\(code)")
-
-        guard (200..<300).contains(code) else {
-            throw APIError.badStatus(code, data)
-        }
-
-        return try JSONDecoder().decode(Res.self, from: data)
-    }
-
-    // Simple POST that returns raw data (for RAG, Vision, etc.)
-    @MainActor
-    func post(_ url: URL, body: Data) async throws -> (Data, HTTPURLResponse) {
-        var req = URLRequest(url: url, timeoutInterval: 20)
-        req.httpMethod = "POST"
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        req.httpBody = body
-
-        let (data, resp) = try await session.data(for: req)
-        guard let httpResp = resp as? HTTPURLResponse else {
-            throw APIError.decode
-        }
-        return (data, httpResp)
-    }
-
-    // HEAD request for health checks
-    @MainActor
-    func head(_ url: URL) async -> Bool {
-        var req = URLRequest(url: url, timeoutInterval: 5)
-        req.httpMethod = "HEAD"
-        do {
-            let (_, resp) = try await session.data(for: req)
-            return (resp as? HTTPURLResponse)?.statusCode == 200
+            do {
+                let decoded = try JSONDecoder().decode(T.self, from: data)
+                return decoded
+            } catch {
+                throw APIError.decoding(error)
+            }
+        } catch let error as APIError {
+            throw error
         } catch {
-            return false
+            throw APIError.transport(error)
+        }
+    }
+
+    /// POST request with type-safe encoding/decoding
+    public func post<U: Decodable>(_ path: String, body: some Encodable) async throws -> U {
+        let url = self.baseURL.appendingPathComponent(path.trimmingCharacters(in: CharacterSet(charactersIn: "/")))
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.timeoutInterval = 30
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+
+        do {
+            request.httpBody = try JSONEncoder().encode(body)
+        } catch {
+            throw APIError.transport(error)
+        }
+
+        do {
+            let (data, response) = try await session.data(for: request)
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw APIError.invalidResponse
+            }
+
+            if let error = mapError(statusCode: httpResponse.statusCode, data: data) {
+                throw error
+            }
+
+            do {
+                let decoded = try JSONDecoder().decode(U.self, from: data)
+                return decoded
+            } catch {
+                throw APIError.decoding(error)
+            }
+        } catch let error as APIError {
+            throw error
+        } catch {
+            throw APIError.transport(error)
         }
     }
 }

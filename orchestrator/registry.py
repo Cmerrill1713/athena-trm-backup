@@ -22,9 +22,23 @@ REGISTRY: Dict[str, List[ProviderSpec]] = {
     ],
     "plan": [
         {"name": "plan_capability_stub", "entry": "providers.capability_stub:run", "caps": ["plan"]},
+        {"name": "statistical_planner", "entry": "providers.statistical_rollout:run", "caps": ["plan", "simulation"]},
     ],
     "generate": [
         {"name": "gen_capability_stub", "entry": "providers.capability_stub:run", "caps": ["generate"]},
+    ],
+    # Research-based capabilities (autonomous implementations)
+    "decision_making": [
+        {"name": "contextual_thompson", "entry": "providers.contextual_thompson_sampling:select_provider", "caps": ["bandit", "context_aware"]},
+    ],
+    "prompt_optimization": [
+        {"name": "adaptive_prompts", "entry": "providers.adaptive_prompts:optimize_prompt", "caps": ["rl", "prompt_tuning"]},
+    ],
+    "uncertainty": [
+        {"name": "mc_dropout_estimator", "entry": "providers.uncertainty_estimation:estimate_uncertainty", "caps": ["confidence", "risk"]},
+    ],
+    "meta_learning": [
+        {"name": "maml_adapter", "entry": "providers.meta_learning:adapt_to_task", "caps": ["few_shot", "transfer"]},
     ],
 }
 

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "athena-mcp": {
+      "command": "docker",
+      "args": ["exec", "-i", "athena_mcp_stdio", "python", "-c", "from mcp_server import AthenaMCPServer; server = AthenaMCPServer(); server.run_stdio()"],
+      "transport": "stdio",
+      "capabilities": ["tools", "resources", "prompts"]
+    }
+  }
+}

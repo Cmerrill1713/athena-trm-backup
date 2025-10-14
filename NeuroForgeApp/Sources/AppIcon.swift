@@ -1,8 +1,8 @@
-import SwiftUI
 import AppKit
+import SwiftUI
 
 /// Helper to set the app icon programmatically
-struct AppIcon {
+enum AppIcon {
     static func setIcon() {
         // Get the main bundle
         let bundle = Bundle.main

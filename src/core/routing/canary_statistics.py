@@ -10,7 +10,7 @@ Need both magnitude (>3-5%) AND statistical significance (p<0.05).
 """
 
 import math
-from typing import Tuple, Optional
+from typing import Tuple
 
 
 def wilson_score_interval(

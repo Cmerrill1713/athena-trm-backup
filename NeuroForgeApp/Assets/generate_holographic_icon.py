@@ -6,7 +6,7 @@ Creates a red/orange/dark-blue/white holographic face design.
 
 import os
 import json
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageDraw
 import math
 
 def create_holographic_icon(size):

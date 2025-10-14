@@ -3,9 +3,6 @@ Bridge integration tests
 Tests the NeuroForge adapter contract compliance
 """
 import os
-import asyncio
-import time
-import json
 import uuid
 import pytest
 import httpx

@@ -13,7 +13,7 @@ import json
 import subprocess
 import pathlib
 from dataclasses import dataclass, field
-from typing import Dict, List
+from typing import Dict
 
 try:
     import yaml

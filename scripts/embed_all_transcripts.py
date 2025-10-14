@@ -8,7 +8,6 @@ import json
 import requests
 from pathlib import Path
 from datetime import datetime
-import sys
 
 WEAVIATE_URL = "http://localhost:8090"
 TRANSCRIPT_DIRS = [
@@ -171,7 +170,7 @@ def main():
     except:
         pass
 
-    print(f"\n📁 Files location:")
+    print("\n📁 Files location:")
     for d in TRANSCRIPT_DIRS:
         if d.exists():
             print(f"   - {d.absolute()}")

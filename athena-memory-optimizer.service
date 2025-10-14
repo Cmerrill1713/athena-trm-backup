@@ -1,0 +1,26 @@
+[Unit]
+Description=Athena Memory Optimizer Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=oneshot
+User=ai-republic
+Group=ai-republic
+WorkingDirectory=/opt/ai-republic
+ExecStart=/usr/bin/python3 /opt/ai-republic/athena_memory_optimizer.py --optimize
+TimeoutStartSec=300
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=athena-memory-optimizer
+
+# Security
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ReadWritePaths=/opt/ai-republic /var/log/ai-republic /var/backups/athena-memory
+
+[Install]
+WantedBy=multi-user.target

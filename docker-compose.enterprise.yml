@@ -1,0 +1,356 @@
+version: '3.8'
+
+services:
+  # ========================================
+  # ENTERPRISE MONITORING STACK
+  # ========================================
+  
+  athena-prometheus:
+    image: prom/prometheus:latest
+    container_name: athena-prometheus
+    ports:
+      - "9090:9090"  # Main Prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/alerts/trm.rules.yml:/etc/prometheus/trm.rules.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - athena-net
+
+  athena-grafana:
+    image: grafana/grafana:latest
+    container_name: athena-grafana
+    ports:
+      - "3000:3000"  # Main Grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./dashboards:/var/lib/grafana/dashboards:ro
+    restart: unless-stopped
+    networks:
+      - athena-net
+    depends_on:
+      - athena-prometheus
+
+  athena-alertmanager:
+    image: prom/alertmanager:latest
+    container_name: athena-alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./monitoring/alerts/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager_data:/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+    restart: unless-stopped
+    networks:
+      - athena-net
+
+  athena-netdata:
+    image: netdata/netdata:latest
+    container_name: athena-netdata
+    ports:
+      - "19999:19999"
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - netdataconfig:/etc/netdata
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+    restart: unless-stopped
+    networks:
+      - athena-net
+
+  athena-node-exporter:
+    image: prom/node-exporter:latest
+    container_name: athena-node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    restart: unless-stopped
+    networks:
+      - athena-net
+
+  # ========================================
+  # DATABASE & STORAGE LAYER
+  # ========================================
+
+  athena-postgres:
+    image: postgres:15-alpine
+    container_name: athena-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=athena
+      - POSTGRES_USER=athena
+      - POSTGRES_PASSWORD=athena_secure_2025
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/migrations:/docker-entrypoint-initdb.d:ro
+    restart: unless-stopped
+    networks:
+      - athena-net
+
+  athena-postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:latest
+    container_name: athena-postgres-exporter
+    ports:
+      - "9187:9187"
+    environment:
+      - DATA_SOURCE_NAME=postgresql://athena:athena_secure_2025@athena-postgres:5432/athena?sslmode=disable
+    restart: unless-stopped
+    networks:
+      - athena-net
+    depends_on:
+      - athena-postgres
+
+  athena-redis:
+    image: redis:7-alpine
+    container_name: athena-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass athena_redis_2025
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - athena-net
+
+  athena-redis-exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: athena-redis-exporter
+    ports:
+      - "9121:9121"
+    environment:
+      - REDIS_ADDR=redis://:athena_redis_2025@athena-redis:6379
+    restart: unless-stopped
+    networks:
+      - athena-net
+    depends_on:
+      - athena-redis
+
+  athena-weaviate:
+    image: semitechnologies/weaviate:latest
+    container_name: athena-weaviate
+    ports:
+      - "8080:8080"
+    environment:
+      - QUERY_DEFAULTS_LIMIT=25
+      - AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED=true
+      - PERSISTENCE_DATA_PATH=/var/lib/weaviate
+      - DEFAULT_VECTORIZER_MODULE=none
+      - ENABLE_MODULES=text2vec-transformers
+      - CLUSTER_HOSTNAME=node1
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+    restart: unless-stopped
+    networks:
+      - athena-net
+
+  # ========================================
+  # AI & KNOWLEDGE SERVICES
+  # ========================================
+
+  athena-knowledge-context:
+    build:
+      context: ./AI-Projects/universal-ai-tools
+      dockerfile: Dockerfile.knowledge-context
+    container_name: athena-knowledge-context
+    ports:
+      - "8031:8031"
+    environment:
+      - REDIS_URL=redis://:athena_redis_2025@athena-redis:6379
+      - POSTGRES_URL=postgresql://athena:athena_secure_2025@athena-postgres:5432/athena
+      - WEAVIATE_URL=http://athena-weaviate:8080
+      - PYTHONPATH=/app
+    volumes:
+      - ./AI-Projects/universal-ai-tools:/app
+      - ./state:/app/state
+    restart: unless-stopped
+    networks:
+      - athena-net
+    depends_on:
+      - athena-redis
+      - athena-postgres
+      - athena-weaviate
+
+  athena-knowledge-gateway:
+    build:
+      context: ./AI-Projects/universal-ai-tools
+      dockerfile: Dockerfile.knowledge-gateway
+    container_name: athena-knowledge-gateway
+    ports:
+      - "8032:8032"
+    environment:
+      - WEAVIATE_URL=http://athena-weaviate:8080
+      - REDIS_URL=redis://:athena_redis_2025@athena-redis:6379
+      - PYTHONPATH=/app
+    volumes:
+      - ./AI-Projects/universal-ai-tools:/app
+    restart: unless-stopped
+    networks:
+      - athena-net
+    depends_on:
+      - athena-weaviate
+      - athena-redis
+
+  athena-knowledge-sync:
+    build:
+      context: ./AI-Projects/universal-ai-tools
+      dockerfile: Dockerfile.knowledge-sync
+    container_name: athena-knowledge-sync
+    ports:
+      - "8033:8033"
+    environment:
+      - WEAVIATE_URL=http://athena-weaviate:8080
+      - POSTGRES_URL=postgresql://athena:athena_secure_2025@athena-postgres:5432/athena
+      - REDIS_URL=redis://:athena_redis_2025@athena-redis:6379
+      - PYTHONPATH=/app
+    volumes:
+      - ./AI-Projects/universal-ai-tools:/app
+    restart: unless-stopped
+    networks:
+      - athena-net
+    depends_on:
+      - athena-weaviate
+      - athena-postgres
+      - athena-redis
+
+  athena-evolutionary:
+    build:
+      context: ./AI-Projects/universal-ai-tools
+      dockerfile: Dockerfile.evolutionary
+    container_name: athena-evolutionary
+    ports:
+      - "8034:8034"
+    environment:
+      - REDIS_URL=redis://:athena_redis_2025@athena-redis:6379
+      - POSTGRES_URL=postgresql://athena:athena_secure_2025@athena-postgres:5432/athena
+      - PYTHONPATH=/app
+    volumes:
+      - ./AI-Projects/universal-ai-tools:/app
+      - ./state:/app/state
+    restart: unless-stopped
+    networks:
+      - athena-net
+    depends_on:
+      - athena-redis
+      - athena-postgres
+
+  athena-api:
+    build:
+      context: ./AI-Projects/universal-ai-tools
+      dockerfile: Dockerfile.api
+    container_name: athena-api
+    ports:
+      - "8035:8035"
+    environment:
+      - REDIS_URL=redis://:athena_redis_2025@athena-redis:6379
+      - POSTGRES_URL=postgresql://athena:athena_secure_2025@athena-postgres:5432/athena
+      - WEAVIATE_URL=http://athena-weaviate:8080
+      - PYTHONPATH=/app
+      - EVAL_ENABLED=true
+      - EVAL_MODEL=qwen2.5:7b
+      - OLLAMA_BASE=http://host.docker.internal:11434
+      - RAG_RERANK_ENABLED=true
+      - RAG_RERANKER=cosine
+      - RAG_RERANK_TOPK=8
+      - RAG_BASE_K=24
+      - RAG_THRESHOLD=0.45
+      - RAG_RERANKER_CE_ENABLED=true
+      - RAG_RERANKER_CE_INTENTS=policy,incident,legal,diagnosis
+      - RAG_RERANKER_CE_LATENCY_BUDGET_MS=500
+    volumes:
+      - ./AI-Projects/universal-ai-tools:/app
+    restart: unless-stopped
+    networks:
+      - athena-net
+    depends_on:
+      - athena-redis
+      - athena-postgres
+      - athena-weaviate
+
+  # ========================================
+  # EXTERNAL INTEGRATIONS
+  # ========================================
+
+  athena-searxng:
+    image: searxng/searxng:latest
+    container_name: athena-searxng
+    ports:
+      - "8081:8080"
+    environment:
+      - SEARXNG_HOSTNAME=localhost
+    volumes:
+      - ./config/searxng:/etc/searxng:ro
+    restart: unless-stopped
+    networks:
+      - athena-net
+
+  mcp-ecosystem:
+    image: mcp/youtube-transcript:latest
+    container_name: mcp-ecosystem
+    ports:
+      - "8036:8036"
+    environment:
+      - WEAVIATE_URL=http://athena-weaviate:8080
+      - REDIS_URL=redis://:athena_redis_2025@athena-redis:6379
+    volumes:
+      - ./ai_coding_transcripts:/app/transcripts:ro
+    restart: unless-stopped
+    networks:
+      - athena-net
+    depends_on:
+      - athena-weaviate
+      - athena-redis
+
+volumes:
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  alertmanager_data:
+    driver: local
+  netdataconfig:
+    driver: local
+  netdatalib:
+    driver: local
+  netdatacache:
+    driver: local
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  weaviate_data:
+    driver: local
+
+networks:
+  athena-net:
+    driver: bridge

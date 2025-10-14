@@ -22,7 +22,6 @@ Environment:
 import os
 import re
 import sys
-import json
 import urllib.parse
 import subprocess
 import time
@@ -442,8 +441,8 @@ def open_report(title, summary, md):
         result = subprocess.run(["open", url], capture_output=True)
         
         if result.returncode != 0:
-            print(f"❌ Failed to open reporter", file=sys.stderr)
-            print(f"   Make sure AthenaReporter is built: make reporter-build", file=sys.stderr)
+            print("❌ Failed to open reporter", file=sys.stderr)
+            print("   Make sure AthenaReporter is built: make reporter-build", file=sys.stderr)
             return False
         
         return True

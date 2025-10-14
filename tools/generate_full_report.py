@@ -68,7 +68,7 @@ def main():
     lines.append("## 📊 Code Inventory\n")
 
     if grand:
-        lines.append(f"**Grand Total:**  ")
+        lines.append("**Grand Total:**  ")
         lines.append(f"- Files: **{fmtn(grand.get('files', 0))}**  ")
         lines.append(f"- Lines: **{fmtn(grand.get('lines', 0))}**  \n")
 
@@ -120,7 +120,7 @@ def main():
 
     if tel and tel.get("count", 0) > 0:
         lines.append(f"**Traces analyzed:** {fmtn(tel['count'])}  ")
-        lines.append(f"**Latency:**  ")
+        lines.append("**Latency:**  ")
         lines.append(f"- p50: {fmtn(tel.get('p50', 0))}ms  ")
         lines.append(f"- p95: {fmtn(tel.get('p95', 0))}ms {'✅' if tel.get('p95', 9999) <= 1500 else '❌'}  ")
         lines.append(f"- p99: {fmtn(tel.get('p99', 0))}ms  \n")

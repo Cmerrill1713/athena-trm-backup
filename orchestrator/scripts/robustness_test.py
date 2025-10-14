@@ -7,7 +7,7 @@ Tests PII handling, multilingual, malformed data
 
 import sys
 import requests
-from typing import List, Dict, Any
+from typing import Dict, Any
 
 
 # Robustness test fixtures
@@ -225,14 +225,14 @@ def run_robustness_test(url: str, capability: str = "summarize") -> Dict[str, An
                     else:
                         # Non-PII test: should NOT flag PII
                         if not detected_pii:
-                            print(f"  ✅ No false PII detection")
+                            print("  ✅ No false PII detection")
                             passed += 1
                         else:
-                            print(f"  ❌ False positive: PII detected")
+                            print("  ❌ False positive: PII detected")
                             failed += 1
                 else:
                     # General robustness: just needs to complete
-                    print(f"  ✅ Completed without crash")
+                    print("  ✅ Completed without crash")
                     passed += 1
             else:
                 # Non-200 response
@@ -257,7 +257,7 @@ def print_results(results: Dict[str, Any]):
     print("📊 ROBUSTNESS TEST RESULTS")
     print("="*60)
 
-    print(f"\nTests:")
+    print("\nTests:")
     print(f"  Total:  {results['total']}")
     print(f"  Passed: {results['passed']} ({results['passed']/results['total']*100:.1f}%)")
     print(f"  Failed: {results['failed']} ({results['failed']/results['total']*100:.1f}%)")

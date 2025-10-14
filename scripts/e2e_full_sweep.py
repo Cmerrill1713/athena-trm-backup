@@ -17,10 +17,9 @@ import os
 import sys
 import json
 import subprocess
-import time
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 
 import requests
 
@@ -230,21 +229,21 @@ total = len(results)
 
 # Markdown report
 report_lines = [
-    f"# E2E Full Sweep Report",
-    f"",
+    "# E2E Full Sweep Report",
+    "",
     f"**Generated**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
-    f"",
-    f"## Summary",
-    f"",
+    "",
+    "## Summary",
+    "",
     f"- ✅ Passed: {passed}/{total}",
     f"- ❌ Failed: {failed}/{total}",
     f"- ⚠️  Warned: {warned}/{total}",
     f"- ⊘ Skipped: {skipped}/{total}",
-    f"",
-    f"## Results",
-    f"",
-    f"| Test | Status | Details |",
-    f"|------|--------|---------|"
+    "",
+    "## Results",
+    "",
+    "| Test | Status | Details |",
+    "|------|--------|---------|"
 ]
 
 for r in results:
@@ -255,10 +254,10 @@ report_lines.extend([
     "",
     "## Artifacts",
     "",
-    f"- Docker: `artifacts/captures/docker-ps.txt`",
-    f"- Health: `artifacts/captures/health-matrix.json`",
-    f"- Build:  `artifacts/captures/xcodebuild-build.log`",
-    f"- Tests:  `artifacts/captures/UITestArtifacts.zip`",
+    "- Docker: `artifacts/captures/docker-ps.txt`",
+    "- Health: `artifacts/captures/health-matrix.json`",
+    "- Build:  `artifacts/captures/xcodebuild-build.log`",
+    "- Tests:  `artifacts/captures/UITestArtifacts.zip`",
     ""
 ])
 
@@ -285,7 +284,7 @@ print("\n" + "="*68)
 print("✅ E2E Sweep Complete")
 print("="*68)
 print(f"\n📊 Results: {passed} passed, {failed} failed, {warned} warned, {skipped} skipped")
-print(f"\n📁 Artifacts:")
+print("\n📁 Artifacts:")
 print(f"   - Report: {report_path}")
 print(f"   - JSON:   {json_path}")
 print()

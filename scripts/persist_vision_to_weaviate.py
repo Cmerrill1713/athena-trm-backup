@@ -7,7 +7,6 @@ Stores captions for RAG context
 import requests
 import time
 import hashlib
-import json
 from pathlib import Path
 from typing import Optional
 

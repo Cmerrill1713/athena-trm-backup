@@ -2,146 +2,108 @@ import SwiftUI
 
 @main
 struct NeuroForgeApp: App {
-
-    @StateObject private var prompts = PromptStore()
-    @StateObject private var ops = OpsState()  // ← Operations state for monitoring
-    @State private var showInspector = false
-    @State private var showSidebar = false
-    @State private var showTracePanel = false
-    @AppStorage("hasCompletedFirstRun") private var hasCompletedFirstRun = false
-    @Environment(\.scenePhase) private var scenePhase
-
-    init() {
-        // Set the app icon
-        AppIcon.setIcon()
-    }
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject private var athenaState = AthenaState()
+    @StateObject private var profileManager = ProfileManager()
+    @StateObject private var focusCoordinator = InputFocusCoordinator()
+    @State private var voice = VoiceManager()
 
     var body: some Scene {
-        WindowGroup {
-            if hasCompletedFirstRun {
-                ChatViewEnhanced() // ✅ Meta-aware + voice + confidence sparkline
-                .environmentObject(prompts)
-                .environmentObject(ops)  // ← Provide OpsState to main window
-                .overlay(alignment: .leading) {
-                    if ProcessInfo.processInfo.environment["QA_MODE"] == "1",
-                       showSidebar {
-                        PromptSidebar(store: prompts) { text in
-                            NotificationCenter.default.post(name: .nfInsertPrompt, object: text)
+        // Main chat window
+        WindowGroup(id: "main-window", content: {
+            if let profile = profileManager.currentProfile {
+                ContentView(profile: profile)
+                    .environmentObject(self.athenaState)
+                    .environmentObject(self.profileManager)
+                    .onReceive(NotificationCenter.default.publisher(for: .ShowCriticalAlert)) { note in
+                        if let a = note.object as? CriticalAlert {
+                            self.voice.speak("Critical alert: \(a.title)")
+                            self.openWindow(id: "critical-alert")
                         }
-                        .transition(.move(edge: .leading).combined(with: .opacity))
-                        .zIndex(2)
                     }
-                }
-                .overlay(alignment: .bottomTrailing) {
-                    if showInspector {
-                        ProviderInspectorOverlay()
-                            .padding(16)
-                            .allowsHitTesting(true)
+                    .onReceive(NotificationCenter.default.publisher(for: .ShowTribunalDecision)) { note in
+                        if let c = note.object as? TribunalCase {
+                            self.voice.speak("Tribunal decision required for case \(c.caseID)")
+                            self.openWindow(id: "tribunal-decision")
+                        }
                     }
-                }
-                .onReceive(NotificationCenter.default.publisher(for: .togglePromptSidebar)) { _ in
-                    withAnimation {
-                        showSidebar.toggle()
+                    .onReceive(NotificationCenter.default.publisher(for: .ShowSystemEmergency)) { note in
+                        if let e = note.object as? SystemEmergency {
+                            self.voice.speak("System emergency: \(e.title)")
+                            self.openWindow(id: "system-emergency")
+                        }
                     }
-                }
-                .onAppear {
-                    prompts.load()
-
-                    #if DEBUG
-                    showInspector = true
-                    #endif
-                    // Also check QA_MODE environment variable
-                    if ProcessInfo.processInfo.environment["QA_MODE"] == "1" {
-                        showInspector = true
-                    }
-
-                    // Silence evolution recommendations in QA mode
-                    if ProcessInfo.processInfo.environment["EVO_SUGGESTIONS"] == "0" {
-                        UserDefaults.standard.set(true, forKey: "SuppressEvolutionRecommendations")
-                    }
-                }
             } else {
-                FirstRunWizardView(onComplete: {
-                    hasCompletedFirstRun = true
-                })
+                // Profile creation view (simplified - profile manager creates default)
+                VStack {
+                    Text("Loading profile...")
+                        .font(.title)
+                }
+                .frame(minWidth: 600, minHeight: 400)
+                .onAppear {
+                    // ProfileManager creates default profile in init
+                }
             }
-        }
-        .windowStyle(.hiddenTitleBar)
-        .onChange(of: scenePhase) {
-            // Reset session counters when app becomes active
-            if scenePhase == .active {
-                ops.resetSession()
-            }
-        }
-
-        // Dedicated Trace Panel window
-        Window("Trace Panel", id: "trace-panel") {
-            TracePanelView()
-        }
-        .defaultSize(width: 1100, height: 700)
-        
-        // Operations window (pop-out from chat)
-        WindowGroup("Operations", id: "ops") {
-            OpsWindow()  // Shows health, meta-prompt confidence, tools, traces
-                .environmentObject(ops)
-        }
-        .defaultSize(width: 720, height: 520)
-        .windowStyle(.titleBar)
-        
-        // Operations settings window
-        Window("Operations Settings", id: "ops-settings") {
-            OpsSettingsView()
-                .environmentObject(ops)
-        }
-        .defaultSize(width: 450, height: 350)
-        .windowResizability(.contentSize)
-        
+        })
+        .handlesExternalEvents(matching: Set(["*"]))
         .commands {
-            CommandMenu("Prompts") {
-                Button("Toggle Prompt Sidebar") {
-                    NotificationCenter.default.post(name: .togglePromptSidebar, object: nil)
-                }
-                .keyboardShortcut("T", modifiers: [.command, .shift])
-            }
+            CommandGroup(replacing: .newItem) {}
 
-            CommandMenu("Tools") {
-                Button("Show Operations Window") {
-                    // Window opening handled via @Environment(\.openWindow) in views
-                    // This menu item provides discoverability
+            // Athena focus commands
+            CommandMenu("Athena") {
+                Button("Refocus Input") {
+                    self.focusCoordinator.requestFocus()
+                    NSApp.windows
+                        .first { $0.identifier?.rawValue == "main-window" }?
+                        .makeKeyAndOrderFront(nil)
                 }
-                .keyboardShortcut("o", modifiers: [.command, .option])
-                
-                Button("Open Trace Panel") {
-                    if let window = NSApp.windows.first(where: { $0.identifier?.rawValue == "trace-panel" }) {
-                        window.makeKeyAndOrderFront(nil)
-                    } else {
-                        NSApp.activate(ignoringOtherApps: true)
-                    }
-                }
-                .keyboardShortcut("t", modifiers: [.command, .shift])
-            }
-
-            CommandMenu("QA") {
-                Button("\(showInspector ? "Hide" : "Show") Provider Inspector") {
-                    showInspector.toggle()
-                }
-                .keyboardShortcut("i", modifiers: [.command, .option])
-            }
-            
-            CommandMenu("Settings") {
-                Button("Operations Settings...") {
-                    // Settings window opening handled via toolbar/views
-                    // This menu item provides discoverability
-                }
-                .keyboardShortcut(",", modifiers: [.command, .option])
+                .keyboardShortcut("l", modifiers: [.command, .shift])
             }
         }
+
+        // Athena Dashboard window (Cmd+Shift+A)
+        Window("Athena Dashboard", id: "athena-dashboard") {
+            AthenaDashboardView()
+                .environmentObject(self.athenaState)
+                .frame(minWidth: 800, minHeight: 500)
+        }
+        .keyboardShortcut("a", modifiers: [.command, .shift])
+
+        // Pop-out windows (triggered programmatically)
+        Window("🚨 Critical Alert", id: "critical-alert") {
+            if let a = athenaState.lastAlert {
+                CriticalAlertWindow(alert: a)
+            } else {
+                Text("No alert").padding()
+            }
+        }
+        .defaultPosition(.center)
+
+        Window("⚖️ Tribunal Decision Required", id: "tribunal-decision") {
+            if let c = athenaState.lastCase {
+                TribunalDecisionWindow(case: c)
+            } else {
+                Text("No case").padding()
+            }
+        }
+        .defaultPosition(.center)
+
+        Window("🚨 SYSTEM EMERGENCY", id: "system-emergency") {
+            if let e = athenaState.lastEmergency {
+                SystemEmergencyWindow(emergency: e)
+            } else {
+                Text("No emergency").padding()
+            }
+        }
+        .defaultPosition(.center)
     }
-}
 
-// MARK: - Notifications
-
-extension Notification.Name {
-    static let togglePromptSidebar = Notification.Name("nf.togglePromptSidebar")
-    static let nfInsertPrompt = Notification.Name("nf.insertPrompt")
+    private func openWindow(id: String) {
+        #if canImport(AppKit)
+        if let w = NSApp.windows.first(where: { $0.identifier?.rawValue == id }) {
+            // Configure pop-out to not steal focus from main window
+            configureNonStealingWindow(w)
+        }
+        #endif
+    }
 }

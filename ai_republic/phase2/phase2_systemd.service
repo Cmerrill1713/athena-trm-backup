@@ -1,0 +1,15 @@
+[Unit]
+Description=AI Republic Judicial Enforcement API
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=/opt/ai-republic/phase2
+ExecStart=/usr/bin/env python3 /opt/ai-republic/phase2/phase2_api.py
+Restart=on-failure
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

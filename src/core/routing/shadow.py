@@ -6,7 +6,6 @@ Measures disagreement and performance differences.
 """
 
 import threading
-import json
 import os
 import sys
 from pathlib import Path

@@ -183,13 +183,13 @@ def print_results(analysis: Dict[str, Any], sla_latency: int = 1500, sla_score: 
     print("📊 LOAD TEST RESULTS")
     print("="*60)
 
-    print(f"\nRequests:")
+    print("\nRequests:")
     print(f"  Total:      {analysis['total']}")
     print(f"  Successful: {analysis['successful']} ({analysis['successful']/analysis['total']*100:.1f}%)")
     print(f"  Failed:     {analysis['failed']} ({analysis['error_rate']*100:.1f}%)")
 
     if "latency_p50" in analysis:
-        print(f"\nLatency (ms):")
+        print("\nLatency (ms):")
         print(f"  p50:  {analysis['latency_p50']}ms")
         print(f"  p95:  {analysis['latency_p95']}ms {'✅' if analysis['latency_p95'] <= sla_latency else '❌ SLA VIOLATION'}")
         print(f"  p99:  {analysis['latency_p99']}ms")
@@ -197,7 +197,7 @@ def print_results(analysis: Dict[str, Any], sla_latency: int = 1500, sla_score: 
         print(f"  avg:  {analysis['latency_avg']:.1f}ms")
 
     if "score_avg" in analysis:
-        print(f"\nScores:")
+        print("\nScores:")
         print(f"  avg:  {analysis['score_avg']:.3f} {'✅' if analysis['score_avg'] >= sla_score else '❌ SLA VIOLATION'}")
         print(f"  min:  {analysis['score_min']:.3f}")
         print(f"  max:  {analysis['score_max']:.3f}")

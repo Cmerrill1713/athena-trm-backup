@@ -14,12 +14,10 @@ Usage:
 """
 
 import json
-import os
-import sys
 import subprocess
 import shutil
 from pathlib import Path
-from collections import defaultdict, deque
+from collections import defaultdict
 from datetime import datetime
 
 # Inputs/Outputs
@@ -296,19 +294,19 @@ def main():
     if svg_ok:
         print(f"   ✓ {SVG_PATH}")
     else:
-        print(f"   ⊘ Graphviz not installed (install with: brew install graphviz)")
+        print("   ⊘ Graphviz not installed (install with: brew install graphviz)")
     
     # Summary
     print("\n" + "="*68)
     print("✅ Lineage Artifacts Generated")
     print("="*68)
-    print(f"\n📄 Reports:")
+    print("\n📄 Reports:")
     print(f"   - ASCII:  {TREE_PATH}")
     print(f"   - Report: {MD_PATH}")
     if svg_ok:
         print(f"   - Graph:  {SVG_PATH}")
     
-    print(f"\n🔧 Commands:")
+    print("\n🔧 Commands:")
     print(f"   cat {TREE_PATH}           # View tree")
     print(f"   open {MD_PATH}            # View report")
     if svg_ok:

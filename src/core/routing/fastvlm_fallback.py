@@ -13,7 +13,7 @@ Emits metrics for observability of fallback decisions.
 import os
 import time
 import logging
-from typing import Optional, Dict, Any
+from typing import Optional, Any
 
 try:
     from prometheus_client import Counter

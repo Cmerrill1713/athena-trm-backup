@@ -29,7 +29,7 @@ def test_summarize_path():
     assert isinstance(out.get("facts"), list), "Should have facts list"
     assert out.get("next_action"), "Should have next_action"
 
-    print(f"✅ Summarize test passed")
+    print("✅ Summarize test passed")
     print(f"   TLDR: {out['tldr']}")
 
 
@@ -48,7 +48,7 @@ def test_plan_path():
     assert out.get("next_action"), "Should have next_action"
     assert isinstance(out.get("actions"), list), "Should have actions list"
 
-    print(f"✅ Plan test passed")
+    print("✅ Plan test passed")
     print(f"   Next action: {out['next_action']}")
 
 
@@ -65,7 +65,7 @@ def test_trace_structure():
     assert "events" in trace, "Should have events"
     assert len(trace["events"]) > 0, "Should have logged events"
 
-    print(f"✅ Trace test passed")
+    print("✅ Trace test passed")
     print(f"   Trace ID: {trace['trace_id']}")
     print(f"   Duration: {trace['duration_ms']}ms")
     print(f"   Events: {len(trace['events'])}")

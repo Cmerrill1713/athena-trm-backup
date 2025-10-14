@@ -7,7 +7,6 @@ when thresholds are exceeded, forcing fallback to safe alternatives.
 
 import time
 import collections
-import os
 
 # Import metrics
 try:

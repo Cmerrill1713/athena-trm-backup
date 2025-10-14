@@ -4,7 +4,6 @@ Enforces performance budgets (p95 < 250ms)
 """
 import os
 import time
-import statistics
 import pytest
 import httpx
 
@@ -39,7 +38,7 @@ def test_traces_p95_under_budget():
     p95 = sorted_lat[int(len(sorted_lat) * 0.95) - 1]
     p99 = sorted_lat[int(len(sorted_lat) * 0.99) - 1]
 
-    print(f"\nLatency percentiles:")
+    print("\nLatency percentiles:")
     print(f"  p50: {p50:.1f}ms")
     print(f"  p95: {p95:.1f}ms")
     print(f"  p99: {p99:.1f}ms")

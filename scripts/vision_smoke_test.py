@@ -18,7 +18,7 @@ import os
 import time
 import tempfile
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Dict, Any
 
 # Add workspace to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -299,7 +299,7 @@ def main():
         import shutil
         try:
             shutil.rmtree(test_dir)
-            print(f"\n  🧹 Cleaned up test images")
+            print("\n  🧹 Cleaned up test images")
         except:
             pass
     
@@ -308,10 +308,10 @@ def main():
         print(f"\n⚠️  {failed} test(s) failed")
         return 1
     elif partial > 0:
-        print(f"\n✅ All tests passed (some partial matches)")
+        print("\n✅ All tests passed (some partial matches)")
         return 0
     else:
-        print(f"\n🎉 All tests passed!")
+        print("\n🎉 All tests passed!")
         return 0
 
 

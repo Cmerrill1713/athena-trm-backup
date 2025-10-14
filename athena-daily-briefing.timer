@@ -1,0 +1,16 @@
+[Unit]
+Description=Daily Athena Briefing Timer
+Requires=athena-daily-briefing.service
+
+[Timer]
+# Run daily at 9:00 AM
+OnCalendar=*-*-* 09:00:00
+
+# If system was down, run briefing when it comes back up
+Persistent=true
+
+# Accuracy (don't run if more than 1 hour late)
+AccuracySec=1h
+
+[Install]
+WantedBy=timers.target

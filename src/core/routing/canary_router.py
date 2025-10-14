@@ -16,7 +16,6 @@ Environment variables:
 
 import os
 import random
-import time
 from typing import Dict, Any, Tuple
 from .circuit_breaker import get_circuit_breaker
 

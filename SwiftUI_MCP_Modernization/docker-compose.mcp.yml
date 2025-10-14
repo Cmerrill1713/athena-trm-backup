@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  athena-mcp:
+    image: python:3.11-slim
+    container_name: athena_mcp_server
+    ports:
+      - "3333:3333"
+    environment:
+      - MCP_PORT=3333
+      - PYTHONPATH=/app
+    volumes:
+      - ./:/app
+      - /tmp/athena_logs:/tmp/athena
+    working_dir: /app
+    command: >
+      sh -c "
+        pip install fastapi uvicorn mcp-server
+        python -c '
+        from mcp_server import AthenaMCPServer
+        import uvicorn
+        import os
+
+        server = AthenaMCPServer()
+        uvicorn.run(server.app, host=\"0.0.0.0\", port=int(os.getenv(\"MCP_PORT\", 3333)))
+        '
+      "
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3333/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Optional: stdio-only MCP server (alternative to HTTP)
+  athena-mcp-stdio:
+    image: python:3.11-slim
+    container_name: athena_mcp_stdio
+    profiles: ["stdio"]  # Only start with --profile stdio
+    environment:
+      - PYTHONPATH=/app
+    volumes:
+      - ./:/app
+      - /tmp/athena_logs:/tmp/athena
+    working_dir: /app
+    command: >
+      sh -c "
+        pip install mcp-server
+        python -c '
+        from mcp_server import AthenaMCPServer
+        server = AthenaMCPServer()
+        server.run_stdio()
+        '
+      "
+    stdin_open: true
+    tty: true
+    restart: unless-stopped

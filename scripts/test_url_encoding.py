@@ -4,8 +4,6 @@ Test script to verify URL encoding is correct and no '+' signs appear
 """
 
 import urllib.parse
-import subprocess
-import os
 
 def test_url_encoding():
     """Test that spaces are encoded as %20, not +"""
@@ -29,19 +27,19 @@ def test_url_encoding():
         has_plus_default = "+" in encoded_default
         
         if has_plus_correct:
-            print(f"   ❌ FAIL: quote_via=quote still has '+' signs")
+            print("   ❌ FAIL: quote_via=quote still has '+' signs")
             print(f"      {encoded_correct[:80]}...")
         else:
-            print(f"   ✅ PASS: quote_via=quote uses %20 for spaces")
+            print("   ✅ PASS: quote_via=quote uses %20 for spaces")
         
         if has_plus_default:
-            print(f"   ℹ️  INFO: Default urlencode would have used '+' (old behavior)")
+            print("   ℹ️  INFO: Default urlencode would have used '+' (old behavior)")
         
         # Verify %20 is present
         if "%20" in encoded_correct:
-            print(f"   ✅ PASS: Spaces encoded as %20")
+            print("   ✅ PASS: Spaces encoded as %20")
         else:
-            print(f"   ⚠️  WARN: No %20 found (maybe no spaces in summary?)")
+            print("   ⚠️  WARN: No %20 found (maybe no spaces in summary?)")
 
 def test_swift_decoding():
     """Test that Swift properly decodes both + and %20"""
@@ -83,21 +81,21 @@ def test_end_to_end():
     
     url = "athena://report?" + urllib.parse.urlencode(params, quote_via=urllib.parse.quote)
     
-    print(f"   Generated URL (first 150 chars):")
+    print("   Generated URL (first 150 chars):")
     print(f"   {url[:150]}...")
     
     if "+" in url:
-        print(f"   ❌ FAIL: URL contains '+' signs")
+        print("   ❌ FAIL: URL contains '+' signs")
         # Find where the + appears
         idx = url.index("+")
         print(f"      Found at position {idx}: ...{url[max(0,idx-10):idx+20]}...")
     else:
-        print(f"   ✅ PASS: URL contains no '+' signs")
+        print("   ✅ PASS: URL contains no '+' signs")
     
     if "%20" in url:
-        print(f"   ✅ PASS: Spaces encoded as %20")
+        print("   ✅ PASS: Spaces encoded as %20")
     else:
-        print(f"   ⚠️  WARN: No %20 found (maybe no spaces?)")
+        print("   ⚠️  WARN: No %20 found (maybe no spaces?)")
 
 def main():
     print("🚀 Athena URL Encoding Test Suite")

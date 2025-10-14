@@ -72,7 +72,7 @@ async def test_trace_ordering_monotonic():
                 violations.append(f"trace[{i}]={timestamps[i]} < trace[{i+1}]={timestamps[i+1]}")
 
         assert len(violations) == 0, \
-            f"Timestamps not monotonic descending:\n" + "\n".join(violations[:5])
+            "Timestamps not monotonic descending:\n" + "\n".join(violations[:5])
 
 @pytest.mark.e2e
 @pytest.mark.asyncio

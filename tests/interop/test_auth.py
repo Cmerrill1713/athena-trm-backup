@@ -5,7 +5,6 @@ Missing/invalid/expired tokens, token forwarding
 import os
 import pytest
 import httpx
-import time
 
 BASE = os.getenv("BRIDGE_BASE", "http://127.0.0.1:8014")
 TOKEN = os.getenv("BRIDGE_TOKEN")

@@ -23,7 +23,6 @@ import os
 import sys
 import json
 import psycopg2
-from datetime import datetime
 from typing import Optional, Dict, Any
 
 # Database connection

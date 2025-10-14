@@ -118,7 +118,7 @@ def main():
         print(f"📊 Baseline accuracy: {base_acc}")
     except Exception:
         base_acc = 0.0
-        print(f"⚠️  No baseline found, treating as 0.0")
+        print("⚠️  No baseline found, treating as 0.0")
     
     cand_acc = cm.get("route_accuracy", 0.0)
     print(f"📊 Candidate accuracy: {cand_acc}")

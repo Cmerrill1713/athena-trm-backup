@@ -22,7 +22,7 @@ def demo_encoding():
     print(f"   {old_url}")
     print()
     print("   🗣️  Athena would say:")
-    print(f"   'All+systems+nominal.+7-day+success+100.0%25.+30+decisions+last+24+hours.'")
+    print("   'All+systems+nominal.+7-day+success+100.0%25.+30+decisions+last+24+hours.'")
     print()
     
     print("✅ NEW (percent encoding - spaces become '%20'):")
@@ -30,7 +30,7 @@ def demo_encoding():
     print(f"   {new_url}")
     print()
     print("   🗣️  Athena says:")
-    print(f"   'All systems nominal. 7-day success 100.0 percent. 30 decisions last 24 hours.'")
+    print("   'All systems nominal. 7-day success 100.0 percent. 30 decisions last 24 hours.'")
     print()
     
     print("=" * 70)

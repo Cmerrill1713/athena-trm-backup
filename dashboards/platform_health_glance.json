@@ -1,0 +1,213 @@
+{
+  "dashboard": {
+    "title": "Platform Health Glance - All Green Dashboard",
+    "tags": ["platform", "health", "sla"],
+    "timezone": "browser",
+    "schemaVersion": 39,
+    "version": 1,
+    "refresh": "30s",
+    "panels": [
+      {
+        "id": 1,
+        "type": "stat",
+        "title": "Bridge p95 Latency",
+        "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(bridge_request_latency_seconds_bucket[5m])) by (le))",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "ms",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": 0, "color": "green" },
+                { "value": 800, "color": "yellow" },
+                { "value": 1200, "color": "red" }
+              ]
+            }
+          }
+        },
+        "options": {
+          "textMode": "value_and_name",
+          "graphMode": "area",
+          "colorMode": "background"
+        }
+      },
+      {
+        "id": 2,
+        "type": "stat",
+        "title": "Error Rate",
+        "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total{code=~\"5..\"}[5m])) / clamp_min(sum(rate(http_requests_total[5m])),1) * 100",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": 0, "color": "green" },
+                { "value": 1, "color": "yellow" },
+                { "value": 5, "color": "red" }
+              ]
+            }
+          }
+        },
+        "options": {
+          "textMode": "value_and_name",
+          "graphMode": "area",
+          "colorMode": "background"
+        }
+      },
+      {
+        "id": 3,
+        "type": "stat",
+        "title": "Redaction Spikes (5m)",
+        "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
+        "targets": [
+          {
+            "expr": "sum(increase(neuroforge_redaction_hits_total[5m]))",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": 0, "color": "green" },
+                { "value": 10, "color": "yellow" },
+                { "value": 50, "color": "red" }
+              ]
+            }
+          }
+        },
+        "options": {
+          "textMode": "value_and_name",
+          "graphMode": "area",
+          "colorMode": "background"
+        }
+      },
+      {
+        "id": 4,
+        "type": "stat",
+        "title": "MCP Write Rate",
+        "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
+        "targets": [
+          {
+            "expr": "sum(rate(mcp_store_writes_total[5m]))",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "reqps",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": 0, "color": "red" },
+                { "value": 0.1, "color": "yellow" },
+                { "value": 1, "color": "green" }
+              ]
+            }
+          }
+        },
+        "options": {
+          "textMode": "value_and_name",
+          "graphMode": "area",
+          "colorMode": "background"
+        }
+      },
+      {
+        "id": 5,
+        "type": "graph",
+        "title": "Service Health Status",
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+        "targets": [
+          {
+            "expr": "up{job=~\"bridge|athena|uat|rag|vision|kokoro\"}",
+            "refId": "A",
+            "legendFormat": "{{job}}"
+          }
+        ],
+        "yaxes": [
+          { "format": "short", "min": 0, "max": 1 }
+        ]
+      },
+      {
+        "id": 6,
+        "type": "graph",
+        "title": "API Latency (p95)",
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 },
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(bridge_request_latency_seconds_bucket[5m])) by (le))",
+            "refId": "A",
+            "legendFormat": "Bridge p95"
+          },
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(rag_request_duration_seconds_bucket[5m])) by (le))",
+            "refId": "B",
+            "legendFormat": "RAG p95"
+          },
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(vision_latency_ms_bucket[5m])) by (le)) / 1000",
+            "refId": "C",
+            "legendFormat": "Vision p95"
+          },
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(tts_request_duration_seconds_bucket[5m])) by (le))",
+            "refId": "D",
+            "legendFormat": "Kokoro p95"
+          }
+        ],
+        "yaxes": [
+          { "format": "s", "label": "Latency" }
+        ]
+      },
+      {
+        "id": 7,
+        "type": "table",
+        "title": "Service Status Summary",
+        "gridPos": { "h": 6, "w": 24, "x": 0, "y": 12 },
+        "targets": [
+          {
+            "expr": "up",
+            "refId": "A",
+            "format": "table",
+            "instant": true
+          }
+        ],
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": { "Time": true, "__name__": true },
+              "renameByName": { "job": "Service", "Value": "Status" }
+            }
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": ["10s", "30s", "1m", "5m"]
+    }
+  },
+  "overwrite": true,
+  "folderId": 0,
+  "message": "Platform Health Glance - All Green Dashboard"
+}
+

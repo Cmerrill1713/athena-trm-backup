@@ -7,16 +7,24 @@ Single FastAPI adapter on :8014 that forwards to UAT/Athena backends
 
 from fastapi import FastAPI, HTTPException, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.exception_handlers import request_validation_exception_handler
+from fastapi.exceptions import RequestValidationError
 import httpx
 import os
 import sys
-import json
 import time
 import uuid
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional
 from pydantic import BaseModel
+from .schemas import ApiChatInput
 import logging
+
+# Prometheus metrics
+from prometheus_client import Counter, Histogram
+
+# Feedback metrics
+feedback_received = Counter("feedback_events_total", "User feedback events", ["signal_type"])
+feedback_processing_time = Histogram("feedback_processing_seconds", "Time to process feedback", buckets=[0.001, 0.005, 0.01, 0.05, 0.1])
 
 # Import logs endpoint
 try:
@@ -24,7 +32,48 @@ try:
     LOGS_ENDPOINT_AVAILABLE = True
 except ImportError:
     LOGS_ENDPOINT_AVAILABLE = False
+
+# Bandit feedback support
+try:
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../AI-Projects/universal-ai-tools"))
+    from bandit.policy import record_feedback
+    BANDIT_AVAILABLE = True
+except ImportError:
+    BANDIT_AVAILABLE = False
+    def record_feedback(variant: str, reward: float):
+        pass  # No-op if bandit not available
     logs_router = None
+
+# Database connection for evaluation data
+import psycopg2
+import psycopg2.extras
+
+DATABASE_URL = os.getenv("DATABASE_URL", "dbname=universal_ai_tools user=postgres password=postgres host=athena-postgres port=5432")
+
+def get_evaluation_scores(interaction_id: str) -> dict:
+    """Fetch evaluation scores for an interaction."""
+    try:
+        conn = psycopg2.connect(DATABASE_URL)
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            # Get average scores for this interaction
+            cur.execute("""
+                SELECT
+                    AVG(CASE WHEN metric = 'helpfulness' THEN score END) as helpfulness,
+                    AVG(CASE WHEN metric = 'factuality' THEN score END) as factuality,
+                    AVG(CASE WHEN metric = 'clarity' THEN score END) as clarity
+                FROM eval_results
+                WHERE interaction_id = %s
+            """, (interaction_id,))
+            row = cur.fetchone()
+            if row and row['helpfulness']:
+                return {
+                    'helpfulness': float(row['helpfulness']),
+                    'factuality': float(row['factuality']),
+                    'clarity': float(row['clarity'])
+                }
+    except Exception as e:
+        print(f"Evaluation fetch error: {e}")
+    return None
 
 # Add parent directory to path for common imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -71,6 +120,14 @@ app = FastAPI(
     version=ADAPTER_VERSION
 )
 
+# 2a) Log raw body for any 422 to find old routes/models instantly
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    body = await request.body()
+    # log the bad request shape (redact if needed)
+    print(f"[422] {request.url.path} body={body.decode('utf-8', 'ignore')}")
+    return await request_validation_exception_handler(request, exc)
+
 # Tier 4: Production hardening
 add_health_endpoints(app)  # /live, /ready for K8s-style probes
 wire_tracing(app, service_name="neuroforge-bridge")  # OTLP tracing
@@ -90,10 +147,9 @@ if LOGS_ENDPOINT_AVAILABLE and logs_router:
 # Enable CORS for SwiftUI
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["https://your.app"],
+    allow_methods=["GET","POST","OPTIONS"],
+    allow_headers=["Authorization","Content-Type"],
 )
 
 # Self-identification (make it impossible to lie about who answered)
@@ -158,11 +214,26 @@ def require_bridge_auth(req_token: Optional[str]):
         if not req_token or req_token != BRIDGE_TOKEN:
             raise HTTPException(status_code=401, detail="Invalid bridge token")
 
-# Request/Response Models
-class ChatRequest(BaseModel):
-    text: str
-    context: Optional[Dict[str, Any]] = None
-    route: Optional[str] = None
+def require_auth(request: Request):
+    auth = request.headers.get("Authorization")
+    if not auth or not auth.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    token = auth.split(" ")[1]
+    if token != BRIDGE_TOKEN:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+# Request/Response Models - imported from schemas.py
+
+# Removed old ChatRequest model
+
+class ChatOut(BaseModel):
+    """Output model with ok flag"""
+    ok: bool = True
+    reply: str
+    model_used: Optional[str] = None
+    processing_time: Optional[float] = None
+    request_id: Optional[str] = None
+    status: Optional[str] = "success"
 
 class ChatResponse(BaseModel):
     reply: str
@@ -175,6 +246,18 @@ class HealthResponse(BaseModel):
     uat: Dict[str, Any]
     athena: Dict[str, Any]
     timestamp: str
+
+class FeedbackRequest(BaseModel):
+    interaction_id: str
+    thumbs_up: Optional[bool] = None
+    thumbs_down: Optional[bool] = None
+    regenerate: Optional[bool] = None
+    edit_resend: Optional[bool] = None
+
+class FeedbackResponse(BaseModel):
+    ok: bool
+    message: str
+    reward: Optional[float] = None
 
 @app.get("/health", response_model=HealthResponse)
 async def health():
@@ -336,14 +419,47 @@ async def get_trace(trace_id: str):
         return resp.json()
 
 # === Chat / Task to Athena ===
-@app.post("/chat", response_model=ChatResponse)
-async def chat(
-    request: ChatRequest,
-    x_route: Optional[str] = Header(default=None),
-    x_bridge_token: Optional[str] = Header(default=None)
-):
-    """Forward chat requests to Athena agent system"""
-    require_bridge_auth(x_bridge_token)
+
+# SwiftUI compatibility model
+class ChatTask(BaseModel):
+    kind: Optional[str] = None
+    text: str
+    imageBase64: Optional[str] = None
+
+@app.middleware("http")
+async def auth_guard(request: Request, call_next):
+    """Authentication middleware - dev off, prod on"""
+    REQUIRE_AUTH = os.getenv("BRIDGE_AUTH", "false").lower() == "true"
+    TOKEN = os.getenv("BRIDGE_TOKEN", "")
+    
+    if REQUIRE_AUTH and request.url.path.startswith("/api/"):
+        hdr = request.headers.get("Authorization", "")
+        tok = hdr.replace("Bearer ", "", 1)
+        if not TOKEN or tok != TOKEN:
+            raise HTTPException(status_code=401, detail="Unauthorized")
+    
+    return await call_next(request)
+
+@app.post("/api/chat")
+async def api_chat(req: Request, body: ApiChatInput):
+    print(f"DEBUG: api_chat called with body={body}")
+    require_auth(req)
+    content = body.content()
+    print(f"DEBUG: content='{content}'")
+    if not content:
+        raise HTTPException(422, detail="Either 'text' or 'message' is required")
+    payload = {"message": content}  # canonical field to Athena
+    headers = {"Authorization": f"Bearer {ATH_TOKEN}"}
+    async with httpx.AsyncClient(timeout=30) as cx:
+        r = await cx.post(ATH_URL, json=payload, headers=headers)
+        # Log helpful context when debugging 422s upstream
+        if r.status_code >= 400:
+            log.warning("Upstream error %s: %s", r.status_code, r.text[:512])
+        r.raise_for_status()
+        data = r.json()
+    return {"ok": True, "reply": data.get("reply",""), "variant": data.get("variant")}
+
+# Removed old /chat endpoint to avoid conflicts
 
     # Rate limiting
     if rate_limiter:
@@ -351,12 +467,104 @@ async def chat(
         if not rate_limiter.is_allowed(token):
             raise HTTPException(status_code=429, detail="Rate limit exceeded (60 req/min)")
 
-    # Use header override if provided, otherwise use request route
+    # Try to use the sophisticated unified orchestrator
+    try:
+        # Import the advanced orchestration system
+        import sys
+        import os
+        sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'AI-Projects', 'universal-ai-tools'))
+        
+        from src.core.unified_orchestration.unified_chat_orchestrator import get_unified_orchestrator
+        
+        logger.info("🧠 Using unified orchestrator for intelligent routing")
+        
+        orchestrator = get_unified_orchestrator()
+        
+        result = await orchestrator.chat(
+            message=request.text,
+            context=request.context or {}
+        )
+        
+        response_text = result.get("response", "I couldn't process that request.")
+        task_type = result.get("task_type", "general")
+        backend_used = result.get("backend_used", "unknown")
+        
+        logger.info(f"✅ Orchestrator: {task_type} → {backend_used}")
+        
+        return ChatResponse(
+            reply=response_text,
+            route=f"orchestrated-{task_type}",
+            metadata={
+                "orchestrator_used": True,
+                "task_type": task_type,
+                "backend_used": backend_used,
+                "rag_used": task_type == "rag",
+                "sources": result.get("metadata", {}).get("sources", [])
+            }
+        )
+        
+    except ImportError as e:
+        logger.warning(f"⚠️  Unified orchestrator not available: {e}")
+        # Fallback to TRM router
+        try:
+            from src.api.trm_router import trm_route
+            
+            route_policy = trm_route(request.text, request.context or {})
+            
+            # Determine route based on policy
+            if route_policy.rag.enabled:
+                route = "rag-agent"
+                # Get RAG context
+                try:
+                    async with httpx.AsyncClient(timeout=5) as client:
+                        rag_response = await client.post(
+                            "http://127.0.0.1:8015/api/rag/query",
+                            json={"query": request.text, "k": route_policy.rag.k}
+                        )
+                        if rag_response.status_code == 200:
+                            rag_data = rag_response.json()
+                            if rag_data.get("hits"):
+                                contexts = [hit.get("text", "") for hit in rag_data["hits"][:3]]
+                                rag_context = "\n\n".join(contexts)
+                                response_text = f"Found context: {rag_context[:200]}...\n\nBased on the available context, here's what I can tell you about your query."
+                            else:
+                                response_text = f"Searching for relevant information about: {request.text}"
+                        else:
+                            response_text = f"Processing your query about: {request.text}"
+                except Exception as rag_err:
+                    logger.warning(f"RAG query failed: {rag_err}")
+                    response_text = f"Processing your query about: {request.text}"
+            elif route_policy.mode == "code":
+                route = "code-agent"
+                response_text = f"Analyzing code-related query: {request.text}"
+            else:
+                route = "chat-agent"
+                response_text = f"Processing your message: {request.text}"
+            
+            logger.info(f"🧠 TRM routed to: {route} (RAG: {route_policy.rag.enabled})")
+            
+            return ChatResponse(
+                reply=response_text,
+                route=route,
+                metadata={
+                    "trm_used": True,
+                    "rag_enabled": route_policy.rag.enabled,
+                    "route_policy": route_policy.mode
+                }
+            )
+            
+        except ImportError as e2:
+            logger.warning(f"⚠️  TRM router not available: {e2}")
+            
+    except Exception as e:
+        logger.error(f"Orchestration failed: {e}")
+    
+    # Final fallback to Athena
+    logger.info("🔄 Falling back to Athena")
     route = x_route or request.route or "auto"
-
-    # Prepare payload for Athena
+    
     athena_payload = {
-        "text": request.text,
+        "message": request.text,
         "context": request.context or {},
         "route": route
     }
@@ -373,9 +581,9 @@ async def chat(
         athena_response = resp.json()
 
         return ChatResponse(
-            reply=athena_response.get("reply", ""),
+            reply=athena_response.get("response", ""),
             route=athena_response.get("route", route),
-            metadata=athena_response.get("metadata", {})
+            metadata=athena_response.get("metadata", {"fallback": True})
         )
 
 # === Agents (list/register) ===
@@ -477,6 +685,109 @@ async def root():
             "athena": ATHENA_BASE
         }
     }
+
+@app.post("/api/feedback", response_model=FeedbackResponse)
+async def feedback_endpoint(request: FeedbackRequest):
+    """Collect user feedback for bandit learning"""
+    processing_start = time.perf_counter()
+
+    try:
+        # Calculate reward from feedback signals
+        reward = 0.0
+
+        if request.thumbs_up:
+            reward += 0.9
+            feedback_received.labels(signal_type="thumbs_up").inc()
+        if request.thumbs_down:
+            reward -= 0.9
+            feedback_received.labels(signal_type="thumbs_down").inc()
+        if request.regenerate:
+            reward -= 0.2
+            feedback_received.labels(signal_type="regenerate").inc()
+        if request.edit_resend:
+            reward -= 0.2
+            feedback_received.labels(signal_type="edit_resend").inc()
+
+        # Blend in evaluation scores if available (provides objective quality signal)
+        eval_scores = get_evaluation_scores(request.interaction_id)
+        if eval_scores:
+            # Normalize eval scores (1-10) to reward component (-0.5 to +0.5)
+            eval_score = (eval_scores["helpfulness"] + eval_scores["factuality"] + eval_scores["clarity"]) / 3.0
+            eval_reward = (eval_score - 5.5) / 9.0  # Center at 5.5, scale to -0.5..+0.5
+            reward += 0.25 * eval_reward  # Small weight for evaluation (human feedback dominates)
+
+            # Log blended reward
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.info("feedback_with_eval", {
+                "interaction_id": request.interaction_id,
+                "human_reward": reward - (0.25 * eval_reward),
+                "eval_reward": 0.25 * eval_reward,
+                "total_reward": reward,
+                "eval_scores": eval_scores
+            })
+
+        # For now, we'll log the feedback. In production, you'd:
+        # 1. Fetch the interaction from database using interaction_id
+        # 2. Get the prompt_variant from the stored interaction
+        # 3. Update bandit stats: record_feedback(variant, reward)
+
+        # Placeholder logging (replace with actual DB operations)
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info("feedback_received", {
+            "interaction_id": request.interaction_id,
+            "thumbs_up": request.thumbs_up,
+            "thumbs_down": request.thumbs_down,
+            "regenerate": request.regenerate,
+            "edit_resend": request.edit_resend,
+            "calculated_reward": reward
+        })
+
+        # TODO: In production, implement:
+        # - Fetch interaction from DB by interaction_id
+        # - Extract prompt_variant
+        # - Call record_feedback(variant, reward)
+        # - Update interaction.reward in DB
+
+        processing_time = time.perf_counter() - processing_start
+        feedback_processing_time.observe(processing_time)
+
+        return FeedbackResponse(
+            ok=True,
+            message="Feedback recorded successfully",
+            reward=reward
+        )
+
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error("feedback_processing_failed", {
+            "interaction_id": request.interaction_id,
+            "error": str(e)
+        })
+
+        return FeedbackResponse(
+            ok=False,
+            message=f"Feedback processing failed: {str(e)}"
+        )
+
+@app.get("/version")
+async def version():
+    """Version endpoint for deployment tracking"""
+    import datetime
+    return {
+        "service": "bridge",
+        "version": ADAPTER_VERSION,
+        "git_sha": os.environ.get("GIT_SHA", "unknown"),
+        "build_time": os.environ.get("BUILD_TIME", datetime.datetime.utcnow().isoformat()),
+        "environment": ENV
+    }
+
+@app.get("/ready")
+async def ready():
+    """Readiness check endpoint - same as health for now"""
+    return await health()
 
 if __name__ == "__main__":
     import uvicorn

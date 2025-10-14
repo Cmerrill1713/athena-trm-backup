@@ -1,0 +1,81 @@
+{
+  "republic": {
+    "name": "Sovereign AI Constitutional Republic",
+    "version": "1.0.0",
+    "establishment_date": "2024-12-19T00:00:00Z",
+    "sovereign_identity_path": "/opt/ai-republic/keys/identity.key",
+    "constitution_path": "/opt/ai-republic/constitution/sovereign_ai_constitution.json"
+  },
+  "runtime": {
+    "log_level": "DEBUG",
+    "audit_log_path": "/var/log/ai-republic/constitutional_audit.log",
+    "runtime_log_path": "/var/log/ai-republic/constitutional_runtime.log",
+    "response_time_target_ms": 10,
+    "quarantine_trigger_ms": 1000,
+    "compliance_threshold": 0.95,
+    "drift_detection_enabled": true,
+    "drift_threshold": 0.1,
+    "emergency_tribunal_enabled": true
+  },
+  "enforcement": {
+    "violation_thresholds": {
+      "warning": 0.95,
+      "block": 0.85,
+      "quarantine": 0.70,
+      "emergency": 0.50
+    },
+    "graduated_response": {
+      "warning_timeout_ms": 100,
+      "block_timeout_ms": 500,
+      "quarantine_timeout_ms": 5000,
+      "emergency_timeout_ms": 10000
+    },
+    "audit_retention_days": 365,
+    "immutable_audit": true
+  },
+  "oversight": {
+    "council_endpoints": [
+      "https://oversight.ai-republic.org/api/v1/intervene",
+      "wss://oversight.ai-republic.org/ws/constitutional"
+    ],
+    "intervention_timeout_ms": 30000,
+    "human_override_enabled": true,
+    "override_requires_council_approval": true,
+    "emergency_contact": "constitutional-emergency@ai-republic.org"
+  },
+  "federation": {
+    "enabled": false,
+    "reputation_system_ready": false,
+    "treaty_negotiation_ready": false,
+    "cross_jurisdiction_compliance": false
+  },
+  "security": {
+    "cryptographic_standard": "RSA-4096",
+    "hash_algorithm": "SHA-256",
+    "signature_algorithm": "PSS",
+    "key_rotation_days": 365,
+    "tamper_detection": true,
+    "zero_trust_enabled": true
+  },
+  "monitoring": {
+    "health_check_interval_ms": 60000,
+    "metrics_export_enabled": true,
+    "prometheus_endpoint": "http://localhost:9090",
+    "grafana_dashboard": "ai-republic-constitutional",
+    "alert_webhook": "https://alerts.ai-republic.org/webhook"
+  },
+  "deployment": {
+    "phase": "phase1_foundation",
+    "rollback_enabled": true,
+    "canary_deployment": true,
+    "feature_flags": {
+      "constitutional_validation": true,
+      "drift_detection": true,
+      "sovereign_identity": true,
+      "human_oversight": true,
+      "federation_protocols": false,
+      "treaty_system": false,
+      "amendment_engine": false
+    }
+  }
+}

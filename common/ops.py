@@ -10,7 +10,6 @@ import logging
 import os
 import signal
 import asyncio
-from contextlib import asynccontextmanager
 from typing import Optional, Callable
 
 from fastapi import FastAPI, Request

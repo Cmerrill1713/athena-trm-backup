@@ -17,7 +17,6 @@ from contracts import CapabilityInput, CapabilityOutput
 from registry import REGISTRY
 from loader import load_callable
 from scorer import choose_arm, reward
-from features import build_features
 from telemetry import start_trace, log_event, finish_trace
 from memory.vector_store import upsert, search
 from memory.hygiene import dedupe

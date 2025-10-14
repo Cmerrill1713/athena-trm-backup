@@ -9,7 +9,6 @@ import sys
 import time
 import tempfile
 import subprocess
-import json
 import logging
 from typing import Optional
 from pathlib import Path
@@ -386,7 +385,7 @@ def main():
     is_ok, error_msg = check_fastvlm_setup()
     if not is_ok:
         logger.error(f"FastVLM setup validation failed: {error_msg}")
-        logger.error(f"Please set FASTVLM_ROOT environment variable to ml-fastvlm directory")
+        logger.error("Please set FASTVLM_ROOT environment variable to ml-fastvlm directory")
         sys.exit(1)
     
     logger.info(f"Starting FastVLM Server on {HOST}:{PORT}")

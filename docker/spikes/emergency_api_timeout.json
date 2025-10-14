@@ -1,0 +1,9 @@
+{
+  "name": "emergency_api_timeout",
+  "trigger": "api_timeout_spike",
+  "expected": {
+    "alert": "critical",
+    "circuit_breaker": "trip",
+    "failover": "initiate"
+  }
+}

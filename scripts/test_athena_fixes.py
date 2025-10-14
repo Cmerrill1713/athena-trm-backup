@@ -7,8 +7,6 @@ Tests both the voice fix and the empty report fix.
 
 import subprocess
 import time
-import tempfile
-import pathlib
 
 def test_voice_fix():
     """Test that voice is properly pinned"""

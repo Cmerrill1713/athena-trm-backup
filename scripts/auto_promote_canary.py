@@ -21,10 +21,9 @@ Usage:
 
 import os
 import sys
-import time
 import requests
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import datetime
 
 # Add workspace to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -170,9 +169,9 @@ def main():
     
     # Check sample sizes
     if canary_trials < MIN_SAMPLES or control_trials < MIN_SAMPLES:
-        print(f"⏳ Insufficient sample size")
+        print("⏳ Insufficient sample size")
         print(f"   Need {MIN_SAMPLES}+ trials each, have: canary={canary_trials}, control={control_trials}")
-        print(f"   Continue monitoring\n")
+        print("   Continue monitoring\n")
         sys.exit(0)
     
     # Statistical evaluation (reversed: check if canary is better)
@@ -210,7 +209,7 @@ def main():
             state["control_model"] = CONTROL_MODEL
             save_state(state)
             
-            print(f"📅 Started tracking improvement")
+            print("📅 Started tracking improvement")
             print(f"   Will promote after {MIN_DURATION_HOURS} hours of sustained improvement\n")
             sys.exit(0)
         
@@ -237,8 +236,8 @@ def main():
             
             print("   Run:")
             print(f"   1. Update routing config: CONTROL_MODEL={CANARY_MODEL}")
-            print(f"   2. make canary-off && source /tmp/canary.env")
-            print(f"   3. Verify: make learn-verify\n")
+            print("   2. make canary-off && source /tmp/canary.env")
+            print("   3. Verify: make learn-verify\n")
             
             # Log structured promotion event
             try:
@@ -279,20 +278,20 @@ def main():
         else:
             remaining = MIN_DURATION_HOURS - duration_hours
             print(f"⏳ {remaining:.1f} hours remaining before auto-promotion")
-            print(f"   Continue monitoring\n")
+            print("   Continue monitoring\n")
             sys.exit(0)
     
     else:
         # Canary is not better (or not significantly)
         if "canary_better_since" in state:
             # Was better before, reset
-            print(f"⚠️  Canary no longer significantly better")
-            print(f"   Resetting promotion timer\n")
+            print("⚠️  Canary no longer significantly better")
+            print("   Resetting promotion timer\n")
             del state["canary_better_since"]
             save_state(state)
         else:
-            print(f"ℹ️  Canary not significantly better than control")
-            print(f"   Continue monitoring\n")
+            print("ℹ️  Canary not significantly better than control")
+            print("   Continue monitoring\n")
         
         sys.exit(0)
 

@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+httpx
+pydantic>=2
+prometheus_client
+opentelemetry-sdk
+opentelemetry-exporter-otlp
+psycopg2-binary
+ollama

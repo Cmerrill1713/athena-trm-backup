@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  # Research Queue - Autonomous paper implementation
+  research-queue:
+    build:
+      context: .
+      dockerfile: Dockerfile.research
+    container_name: neuroforge-research-queue
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - PYTHONPATH=/app
+      - RESEARCH_QUEUE_ENABLED=1
+    volumes:
+      - ./agents:/app/agents
+      - ./orchestrator:/app/orchestrator
+      - ./state/research:/app/state/research
+      - ./logs:/app/logs
+    networks:
+      - neuroforge-net
+    restart: unless-stopped
+    depends_on:
+      - ollama
+    # Run daily at 3 AM
+    command: >
+      sh -c "while true; do
+        python3 agents/autonomous_research_queue.py;
+        sleep 86400;
+      done"
+
+  # Ollama - Local LLM server for code generation
+  ollama:
+    image: ollama/ollama:latest
+    container_name: neuroforge-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - neuroforge-net
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # Research API - Expose research pipeline as API
+  research-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.research
+    container_name: neuroforge-research-api
+    ports:
+      - "8095:8095"
+    environment:
+      - PYTHONPATH=/app
+      - OLLAMA_HOST=http://ollama:11434
+    volumes:
+      - ./agents:/app/agents
+      - ./orchestrator:/app/orchestrator
+      - ./state/research:/app/state/research
+    networks:
+      - neuroforge-net
+    restart: unless-stopped
+    depends_on:
+      - ollama
+    command: uvicorn agents.research_api:app --host 0.0.0.0 --port 8095
+
+  # Orchestrator with new research providers
+  orchestrator:
+    build:
+      context: .
+      dockerfile: Dockerfile.orchestrator
+    container_name: neuroforge-orchestrator
+    ports:
+      - "8181:8181"
+    environment:
+      - PYTHONPATH=/app
+      - UAT_TOKEN=${UAT_TOKEN:-supersecret}
+    volumes:
+      - ./orchestrator:/app/orchestrator
+      - ./state:/app/state
+    networks:
+      - neuroforge-net
+    restart: unless-stopped
+    command: uvicorn api:app --host 0.0.0.0 --port 8181
+
+volumes:
+  ollama-data:
+    driver: local
+
+networks:
+  neuroforge-net:
+    external: true
+

@@ -1,0 +1,18 @@
+[Unit]
+Description=AI Republic Operations Dashboard
+After=ai-republic-constitutional.service ai-republic-judicial.service
+
+[Service]
+Type=simple
+User=ai-republic
+Group=ai-republic
+WorkingDirectory=/opt/ai-republic
+ExecStart=/usr/bin/env python3 ai_republic_cli.py --mode auto --interval 300
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-republic-cli
+
+[Install]
+WantedBy=multi-user.target

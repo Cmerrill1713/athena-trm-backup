@@ -1,0 +1,56 @@
+{
+  "services": [
+    {
+      "name": "mcp-store",
+      "kind": "mcp",
+      "endpoint": "http://athena-mcp-store:8411",
+      "health": "http://athena-mcp-store:8411/health",
+      "routes": {
+        "write": "/v1/store/results",
+        "get": "/v1/store/results/{id}"
+      },
+      "auth": "none",
+      "owner": "platform",
+      "sla": {
+        "p95_ms": 100,
+        "error_budget_percent": 1.0
+      }
+    },
+    {
+      "name": "mcp-chat",
+      "kind": "mcp",
+      "endpoint": "http://127.0.0.1:8081",
+      "health": "http://127.0.0.1:8081/health",
+      "routes": {
+        "chat": "/chat",
+        "stream": "/stream"
+      },
+      "auth": "none",
+      "owner": "platform",
+      "sla": {
+        "p95_ms": 200,
+        "error_budget_percent": 1.0
+      }
+    },
+    {
+      "name": "mcp-orchestration",
+      "kind": "mcp",
+      "endpoint": "http://127.0.0.1:8084",
+      "health": "http://127.0.0.1:8084/health",
+      "routes": {
+        "orchestrate": "/orchestrate",
+        "route": "/route"
+      },
+      "auth": "token",
+      "owner": "platform",
+      "sla": {
+        "p95_ms": 50,
+        "error_budget_percent": 0.5
+      }
+    }
+  ],
+  "version": "1.0.0",
+  "updated": "2025-10-13",
+  "platform": "athena-neuroforge"
+}
+

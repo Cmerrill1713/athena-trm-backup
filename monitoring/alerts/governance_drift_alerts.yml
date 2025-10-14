@@ -1,0 +1,281 @@
+# =============================================================================
+# GOVERNANCE DRIFT DETECTION ALERTS
+# =============================================================================
+#
+# PromQL alerts for detecting governance policy drift, violation spikes,
+# and constitutional consistency issues in the Constitutional AI Framework.
+#
+# These alerts trigger automatic responses including quarantine, re-weighting,
+# and human intervention when governance drift is detected.
+#
+# Integration: Add to your Prometheus Alertmanager configuration
+# Validation: Run scripts/governance_drift_monitoring.sql for detailed analysis
+#
+# =============================================================================
+
+groups:
+  - name: governance_drift_detection
+    rules:
+
+    # 1. Critical Governance Score Degradation
+    # Triggers immediate review when governance quality drops significantly
+    - alert: GovernanceScoreCriticalDegradation
+      expr: |
+        avg_over_time(governance_score_avg[2h])
+        <
+        avg_over_time(governance_score_avg[24h] offset 2h) * 0.85
+      for: 30m
+      labels:
+        severity: critical
+        category: governance
+        drift_type: score_degradation
+        auto_response: constitutional_review_required
+      annotations:
+        summary: "Critical governance score degradation detected"
+        description: |
+          Governance score dropped >15% in 2 hours (current: {{ $value }}).
+          This indicates significant policy drift or assessment quality issues.
+          Automatic action: Trigger constitutional policy review and human intervention.
+        impact: High risk of approving unsafe strategies
+        resolution: Review recent governance assessments and policy changes
+
+    # 2. Governance Violation Rate Spike
+    # Detects sudden increases in strategy violations
+    - alert: GovernanceViolationRateSpike
+      expr: |
+        rate(governance_violations_total[15m]) / rate(governance_assessments_total[15m]) > 0.25
+      for: 10m
+      labels:
+        severity: critical
+        category: governance
+        drift_type: violation_spike
+        auto_response: auto_quarantine_enabled
+      annotations:
+        summary: "Governance violation rate spike >25%"
+        description: |
+          Governance violations occurring at {{ $value }} rate in last 15 minutes.
+          This indicates strategies are bypassing constitutional checks at high frequency.
+          Automatic action: Enable auto-quarantine for violating strategies.
+        impact: High risk of unsafe strategy deployment
+        resolution: Review recent strategy deployments and quarantine triggers
+
+    # 3. Constitutional Weighting Drift
+    # Detects when constitutional priorities are drifting from baseline
+    - alert: ConstitutionalWeightingDrift
+      expr: |
+        sqrt(
+          pow(constitutional_ethical_weight - avg_over_time(constitutional_ethical_weight[7d]), 2) +
+          pow(constitutional_business_weight - avg_over_time(constitutional_business_weight[7d]), 2) +
+          pow(constitutional_safety_weight - avg_over_time(constitutional_safety_weight[7d]), 2) +
+          pow(constitutional_compliance_weight - avg_over_time(constitutional_compliance_weight[7d]), 2)
+        ) > 0.3
+      for: 30m
+      labels:
+        severity: high
+        category: governance
+        drift_type: constitutional_imbalance
+        auto_response: constitutional_reweighting
+      annotations:
+        summary: "Constitutional weighting drift detected"
+        description: |
+          Constitutional weights have drifted >0.3 units from 7-day baseline.
+          This indicates changing governance priorities or policy inconsistency.
+          Automatic action: Trigger constitutional re-weighting based on system state.
+        impact: Governance priorities may not align with current system needs
+        resolution: Review constitutional weighting logic and recent system state changes
+
+    # 4. Behavioral Consistency Breakdown
+    # Detects when governance decisions become inconsistent
+    - alert: GovernanceBehavioralInconsistency
+      expr: |
+        stddev_over_time(governance_clearance_rate[1h]) > 0.25
+      for: 20m
+      labels:
+        severity: high
+        category: governance
+        drift_type: behavioral_shift
+        auto_response: consistency_review
+      annotations:
+        summary: "High governance decision inconsistency detected"
+        description: |
+          Governance clearance decisions vary by {{ $value }} standard deviation in last hour.
+          This indicates behavioral drift or inconsistent policy application.
+          Automatic action: Flag for consistency review and potential quarantine.
+        impact: Unpredictable governance decisions affecting strategy approval
+        resolution: Review governance decision logic and recent policy changes
+
+    # 5. Governance Incident Spike
+    # Detects clusters of governance incidents
+    - alert: GovernanceIncidentSpike
+      expr: |
+        increase(governance_incidents_total[30m]) >= 5
+      for: 5m
+      labels:
+        severity: high
+        category: governance
+        drift_type: incident_cluster
+        auto_response: human_intervention
+      annotations:
+        summary: "Governance incident spike detected"
+        description: |
+          {{ $value }} governance incidents occurred in last 30 minutes.
+          This indicates clustered governance failures or systemic issues.
+          Automatic action: Trigger human intervention and incident review.
+        impact: Multiple governance failures may indicate systemic drift
+        resolution: Conduct incident post-mortem and review governance pipeline
+
+    # 6. Strategy Quarantine Rate Alert
+    # Monitors if too many strategies are being quarantined
+    - alert: StrategyQuarantineRateHigh
+      expr: |
+        rate(strategy_quarantines_total[1h]) > 0.5
+      for: 15m
+      labels:
+        severity: warning
+        category: governance
+        drift_type: quarantine_overuse
+        auto_response: quarantine_policy_review
+      annotations:
+        summary: "High strategy quarantine rate detected"
+        description: |
+          Strategies being quarantined at {{ $value }}/hour rate.
+          This may indicate overly aggressive quarantine policies or systemic governance issues.
+          Automatic action: Review quarantine thresholds and policies.
+        impact: Too many strategies quarantined may slow innovation
+        resolution: Adjust quarantine sensitivity and review false positives
+
+  - name: governance_drift_trends
+    rules:
+
+    # 7. Governance Score Trending Down
+    # Early warning for gradual governance quality degradation
+    - alert: GovernanceScoreDownwardTrend
+      expr: |
+        avg_over_time(governance_score_avg[6h])
+        <
+        avg_over_time(governance_score_avg[24h] offset 6h) * 0.95
+      for: 2h
+      labels:
+        severity: warning
+        category: governance
+        drift_type: gradual_degradation
+        auto_response: monitoring_increased
+      annotations:
+        summary: "Gradual governance score degradation trend"
+        description: |
+          Governance score trending down >5% over 6 hours vs previous 24 hours.
+          This indicates gradual policy drift or quality degradation.
+          Automatic action: Increase monitoring frequency and prepare for intervention.
+        impact: Slow degradation may go unnoticed until critical
+        resolution: Monitor closely and identify root cause of gradual decline
+
+    # 8. Constitutional Balance Warning
+    # Warns when constitutional factors become imbalanced
+    - alert: ConstitutionalBalanceWarning
+      expr: |
+        max_over_time(constitutional_weight_stddev[1h]) > 0.2
+      for: 30m
+      labels:
+        severity: warning
+        category: governance
+        drift_type: balance_shift
+        auto_response: balance_check
+      annotations:
+        summary: "Constitutional weight imbalance detected"
+        description: |
+          Constitutional weights showing high variance ({{ $value }} stddev).
+          This indicates imbalanced governance priorities across ethical/business/safety/compliance dimensions.
+          Automatic action: Check constitutional balance and trigger re-weighting if needed.
+        impact: Governance may be over-emphasizing some factors while neglecting others
+        resolution: Review constitutional weighting algorithm and system state inputs
+
+    # 9. Governance Assessment Backlog
+    # Warns when governance assessments are falling behind
+    - alert: GovernanceAssessmentBacklog
+      expr: |
+        (time() - timestamp(governance_last_assessment)) > 1800
+      for: 10m
+      labels:
+        severity: warning
+        category: governance
+        drift_type: assessment_delay
+        auto_response: assessment_priority_increase
+      annotations:
+        summary: "Governance assessment backlog detected"
+        description: |
+          No governance assessment in {{ $value }} seconds.
+          This may allow ungoverned strategies to accumulate.
+          Automatic action: Increase assessment priority and check for processing delays.
+        impact: Strategies may deploy without proper governance review
+        resolution: Check governance pipeline throughput and resource allocation
+
+  - name: governance_drift_recovery
+    rules:
+
+    # 10. Quarantine Release Readiness
+    # Monitors when quarantined strategies may be ready for release
+    - alert: QuarantineReleaseCandidate
+      expr: |
+        (strategy_quarantine_age_hours > 24) and (strategy_violation_rate_during_quarantine == 0)
+      for: 5m
+      labels:
+        severity: info
+        category: governance
+        drift_type: quarantine_review
+        auto_response: release_evaluation
+      annotations:
+        summary: "Strategy quarantine may be ready for release"
+        description: |
+          Quarantined strategy has been clean for 24+ hours.
+          This strategy may be ready for quarantine release evaluation.
+          Automatic action: Flag for manual review and potential release.
+        impact: Innovation may be unnecessarily delayed
+        resolution: Evaluate strategy behavior during quarantine and consider release
+
+    # 11. Governance Recovery Success
+    # Confirms when governance drift has been successfully corrected
+    - alert: GovernanceDriftRecovery
+      expr: |
+        (governance_score_avg > avg_over_time(governance_score_avg[7d]))
+        and
+        (governance_violation_rate < avg_over_time(governance_violation_rate[7d]) * 0.8)
+      for: 1h
+      labels:
+        severity: info
+        category: governance
+        drift_type: recovery_confirmed
+        auto_response: monitoring_normalization
+      annotations:
+        summary: "Governance drift recovery confirmed"
+        description: |
+          Governance metrics have returned to above-baseline levels.
+          This confirms successful recovery from previous drift incident.
+          Automatic action: Return monitoring to normal levels.
+        impact: Governance system has self-corrected
+        resolution: Document recovery actions for future reference
+
+# =============================================================================
+# ALERT SEVERITY MAPPING
+# =============================================================================
+#
+# critical: Immediate human intervention required, system may be unsafe
+# high:    Automated responses triggered, human review recommended
+# warning: Monitor closely, potential issues developing
+# info:    Informational, successful recovery or maintenance actions
+#
+# Auto-Response Actions:
+# - constitutional_review_required: Human expert review of constitutional policies
+# - auto_quarantine_enabled: Enable automatic strategy quarantine
+# - constitutional_reweighting: Trigger adaptive constitutional weighting
+# - consistency_review: Review governance decision consistency
+# - human_intervention: Escalate to human operators
+# - quarantine_policy_review: Review quarantine trigger sensitivity
+# - monitoring_increased: Increase monitoring frequency
+# - balance_check: Verify constitutional weight balance
+# - assessment_priority_increase: Increase governance assessment throughput
+# - release_evaluation: Evaluate quarantined strategies for release
+# - monitoring_normalization: Return to normal monitoring levels
+#
+# =============================================================================
+# END OF GOVERNANCE DRIFT DETECTION ALERTS
+# =============================================================================

@@ -5,8 +5,7 @@ Creates a glowing red neural network head icon programmatically.
 """
 
 import os
-from PIL import Image, ImageDraw, ImageFilter
-import math
+from PIL import Image, ImageDraw
 
 def create_neural_icon(size):
     """Create the NeuroForge neural network head icon at specified size"""

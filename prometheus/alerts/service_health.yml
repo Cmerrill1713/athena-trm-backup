@@ -1,0 +1,308 @@
+groups:
+  - name: service_readiness
+    interval: 30s
+    rules:
+      - alert: ServiceNotReady
+        expr: up{job=~"bridge|athena|uat|rag|vision|kokoro"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "{{ $labels.job }} service not ready"
+          description: "Service {{ $labels.job }} failed /ready check for 2 minutes"
+          runbook_url: "https://github.com/your-org/platform/wiki/ServiceNotReady"
+      
+      - alert: ServiceDegraded
+        expr: up{job=~"bridge|athena|uat|rag|vision|kokoro"} == 1 and rate(http_requests_total{code=~"5.."}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "{{ $labels.job }} service degraded"
+          description: "Service {{ $labels.job }} error rate > 5% for 5 minutes"
+      
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, job)) > 2.0
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "{{ $labels.job }} high latency"
+          description: "Service {{ $labels.job }} p95 latency > 2s for 10 minutes"
+      
+      - alert: ContractViolation422Spike
+        expr: rate(http_requests_total{code="422"}[5m]) > 10
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "422 validation errors spiking"
+          description: "API contract violations detected - check payload formats"
+          
+  - name: mcp_health
+    interval: 30s
+    rules:
+      - alert: MCPServiceDown
+        expr: up{job=~"mcp-.*"} == 0
+        for: 5m
+        labels:
+          severity: warning
+          team: mcp
+        annotations:
+          summary: "MCP service {{ $labels.job }} is down"
+          description: "MCP service has been unreachable for 5 minutes"
+      
+      - alert: MCPWriteRateZero
+        expr: rate(mcp_store_writes_total[10m]) == 0
+        for: 15m
+        labels:
+          severity: warning
+          team: mcp
+        annotations:
+          summary: "MCP Store write rate is zero"
+          description: "No writes to MCP Store for 15 minutes - check integration"
+  
+  - name: llm_quality
+    interval: 30s  
+    rules:
+      - alert: StubResponseDetected
+        expr: rate(athena_stub_responses_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Stub LLM responses detected"
+          description: "Athena is returning stub responses - LLM path may be broken"
+      
+      - alert: OllamaUnreachable
+        expr: up{job="ollama"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Ollama LLM service is down"
+          description: "Cannot reach Ollama - real AI responses will fail"
+
+  # ============================================================================
+  # SLO BURN ALERTS - Production-grade reliability
+  # ============================================================================
+
+  - alert: Bridge422Spike
+    expr: rate(http_requests_total{job="bridge",code="422"}[10m]) > 0
+    for: 10m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "422 validation errors spiking on Bridge"
+      description: "API contract violations detected - check payload formats and routing"
+
+  - alert: BridgeLatencyBurn
+    expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job="bridge"}[5m])) by (le)) > 0.8
+    for: 10m
+    labels:
+      severity: page
+      team: platform
+    annotations:
+      summary: "Bridge p95 latency > 800ms"
+      description: "Bridge service latency burning SLO budget"
+
+  - alert: AthenaLatencyBurn
+    expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job="athena"}[5m])) by (le)) > 1.0
+    for: 10m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "Athena p95 latency > 1s"
+      description: "AI processing latency burning SLO budget"
+
+  - alert: RagLatencyBurn
+    expr: histogram_quantile(0.95, sum(rate(rag_request_duration_seconds_bucket[5m])) by (le)) > 0.5
+    for: 10m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "RAG p95 latency > 500ms"
+      description: "Semantic search latency burning SLO budget"
+
+  # ============================================================================
+  # TRACING & LOGGING ALERTS
+  # ============================================================================
+
+  - alert: TempoIngestionStall
+    expr: rate(tempo_distributor_ingested_traces_total[10m]) == 0
+    for: 15m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "Trace ingestion stalled"
+      description: "No traces ingested in 15 minutes - check OTEL pipeline"
+
+  - alert: LokiIngestionStall
+    expr: rate(loki_request_duration_seconds_count{method="POST",route="/loki/api/v1/push"}[10m]) == 0
+    for: 15m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "Log ingestion stalled"
+      description: "No logs ingested in 15 minutes - check Promtail/Loki"
+
+  # ============================================================================
+  # CONTAINER RESOURCE ALERTS
+  # ============================================================================
+
+  - alert: ContainerHighCPU
+    expr: rate(container_cpu_usage_seconds_total[5m]) / container_spec_cpu_quota * 100 > 80
+    for: 10m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "Container CPU usage > 80%"
+      description: "Container {{ $labels.container_name }} CPU burning"
+
+  - alert: ContainerHighMemory
+    expr: container_memory_usage_bytes / container_spec_memory_limit_bytes * 100 > 85
+    for: 5m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "Container memory usage > 85%"
+      description: "Container {{ $labels.container_name }} memory burning"
+
+  - alert: ContainerOOM
+    expr: increase(container_last_seen{container_name=~".+"}[5m]) < 0
+    for: 1m
+    labels:
+      severity: critical
+      team: platform
+    annotations:
+      summary: "Container OOM kill detected"
+      description: "Container {{ $labels.container_name }} was killed due to OOM"
+
+  # ============================================================================
+  # FEATURE FLAG ALERTS
+  # ============================================================================
+
+  - alert: UnleashUnreachable
+    expr: up{job="unleash"} == 0
+    for: 5m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "Unleash feature flags service down"
+      description: "Feature flag service unreachable - rollouts may fail"
+
+  # ============================================================================
+  # EVALUATION SYSTEM ALERTS
+  # ============================================================================
+
+  - alert: JudgeQualityDegradation
+    expr: avg_over_time(judge_score_last{metric="helpfulness"}[1h]) < 5
+    for: 2h
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "LLM judge helpfulness score trending low"
+      description: "Average helpfulness score < 5 for 2 hours - quality may be degrading"
+
+  - alert: JudgeEvaluationStall
+    expr: rate(judge_runs_total[10m]) == 0
+    for: 30m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "LLM judge evaluations stalled"
+      description: "No evaluations performed in 30 minutes - evaluation system may be down"
+
+  - alert: JudgeHighErrorRate
+    expr: rate(judge_runs_total{evaluator="llm-judge:v1"}[5m]) < rate(feedback_events_total[5m]) * 0.8
+    for: 10m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "LLM judge coverage dropping"
+      description: "Evaluation rate < 80% of feedback rate - many interactions unevaluated"
+
+  # ============================================================================
+  # AUTO-PROMOTION SYSTEM ALERTS
+  # ============================================================================
+
+  - alert: PromotionSystemStall
+    expr: rate(promotion_actions_total[1h]) == 0
+    for: 25h
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "Auto-promotion system stalled"
+      description: "No promotion actions taken in 25 hours - system may be failing"
+
+  - alert: RapidTrafficShifts
+    expr: increase(promotion_actions_total[1h]) > 5
+    for: 5m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "Rapid traffic shifts detected"
+      description: "More than 5 promotion actions in 1 hour - potential instability"
+
+  - alert: LowQualityPromotions
+    expr: avg_over_time(judge_score_last{metric="helpfulness"}[1h]) < 6
+    for: 2h
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "Promoted variants have low quality scores"
+      description: "Average promoted variant helpfulness < 6 - review promotion criteria"
+
+  # ============================================================================
+  # RAG RERANKER ALERTS
+  # ============================================================================
+
+  - alert: RAGRerankQualityDegradation
+    expr: rag_rerank_enabled == 1 and avg_over_time(judge_score_last{metric="helpfulness"}[2h]) < 5
+    for: 30m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "RAG reranker quality degradation"
+      description: "Helpfulness scores dropped below 5 with reranker enabled - may indicate threshold too aggressive"
+
+  - alert: RAGRerankOverFiltering
+    expr: rag_docs_used_count{quantile="0.5"} < 3 and rag_rerank_enabled == 1
+    for: 1h
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "RAG reranker over-filtering documents"
+      description: "Median documents used per query < 3 - threshold may be too high, reducing context quality"
+
+  - alert: RAGRerankThresholdUnstable
+    expr: changes(rag_threshold_current[1h]) > 5
+    for: 30m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "RAG threshold changing too frequently"
+      description: "Threshold changed > 5 times in 1 hour - auto-tuning may be unstable"

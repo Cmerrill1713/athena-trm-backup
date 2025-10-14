@@ -45,7 +45,7 @@ def main():
     p95 = sorted_lat[int(len(sorted_lat) * 0.95) - 1]
     p99 = sorted_lat[int(len(sorted_lat) * 0.99) - 1]
 
-    print(f"\nResults:")
+    print("\nResults:")
     print(f"  Success rate: {len(latencies)}/{SAMPLE_SIZE} ({len(latencies)*100//SAMPLE_SIZE}%)")
     print(f"  p50: {p50:.0f}ms")
     print(f"  p95: {p95:.0f}ms")

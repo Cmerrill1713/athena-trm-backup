@@ -1,0 +1,6 @@
+# Apple-native iPhone alerting (FREE - no external services required)
+# Your iPhone number for iMessage alerts (leave blank to disable iMessage)
+IPHONE_NUMBER="+1YOURIPHONE"     # e.g., +15551234567
+
+# Alternative env var for backward compatibility
+ATHENA_ALERT_PHONE="+1YOURIPHONE"

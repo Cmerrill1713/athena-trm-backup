@@ -122,7 +122,7 @@ def main():
         metrics["dataset_size"] = len(dataset)
 
     # Write metrics + manifest
-    print(f"📊 Writing metrics...")
+    print("📊 Writing metrics...")
     (out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2))
     (out_dir / "manifest.json").write_text(json.dumps({
         "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ"),

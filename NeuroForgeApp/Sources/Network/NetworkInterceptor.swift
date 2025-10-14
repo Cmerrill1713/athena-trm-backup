@@ -1,22 +1,139 @@
-// Sources/NeuroForgeApp/Network/NetworkInterceptor.swift
 import Foundation
 
-/// Helper to inject provider override header into requests
-struct NetworkInterceptor {
+/// Network event for diagnostics
+public struct NetworkEvent {
+    let method: String
+    let url: String
+    let statusCode: Int
+    let duration: TimeInterval // milliseconds
+    let bytes: Int
+    let timestamp: Date
 
-    /// Returns provider override header if set (not auto)
-    @MainActor
-    static func providerHeader() -> (name: String, value: String)? {
-        let route = ProviderOverrideManager.shared.active
-        guard route != .auto else { return nil }
-        return ("X-Provider-Override", route.rawValue)
+    var isError: Bool {
+        self.statusCode >= 400
     }
 
-    /// Inject provider override header into URLRequest if needed
-    @MainActor
-    static func injectProviderHeader(into request: inout URLRequest) {
-        if let (name, value) = providerHeader() {
-            request.setValue(value, forHTTPHeaderField: name)
+    var severityColor: String {
+        if self.statusCode >= 500 { return "red" }
+        if self.statusCode == 503 { return "yellow" }
+        if self.statusCode == 422 { return "blue" }
+        if self.statusCode >= 400 { return "orange" }
+        return "green"
+    }
+}
+
+/// URLProtocol subclass to intercept all network requests
+final class InterceptingURLProtocol: URLProtocol {
+    private var dataTask: URLSessionDataTask?
+    private var startTime: CFAbsoluteTime = 0
+
+    // Ring buffer for recent events (last 100)
+    private static var recentEvents: [NetworkEvent] = []
+    private static let maxEvents = 100
+    private static let lock = NSLock()
+
+    // Count recent error codes
+    static func recentErrorCounts() -> (e500: Int, e503: Int, e422: Int) {
+        self.lock.lock()
+        defer { lock.unlock() }
+
+        let cutoff = Date().addingTimeInterval(-60) // Last 60 seconds
+        let recent = self.recentEvents.filter { $0.timestamp > cutoff }
+
+        let e500 = recent.filter { $0.statusCode >= 500 && $0.statusCode != 503 }.count
+        let e503 = recent.filter { $0.statusCode == 503 }.count
+        let e422 = recent.filter { $0.statusCode == 422 }.count
+
+        return (e500, e503, e422)
+    }
+
+    static func getRecentEvents(limit: Int = 20) -> [NetworkEvent] {
+        self.lock.lock()
+        defer { lock.unlock() }
+        return Array(self.recentEvents.prefix(limit))
+    }
+
+    override class func canInit(with request: URLRequest) -> Bool {
+        // Intercept all HTTP(S) requests
+        request.url?.scheme == "http" || request.url?.scheme == "https"
+    }
+
+    override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+        request
+    }
+
+    override func startLoading() {
+        self.startTime = CFAbsoluteTimeGetCurrent()
+
+        let session = URLSession(configuration: .default)
+        self.dataTask = session.dataTask(with: request) { [weak self] data, response, error in
+            guard let self else { return }
+
+            let duration = (CFAbsoluteTimeGetCurrent() - self.startTime) * 1000 // Convert to ms
+            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
+            let bytes = data?.count ?? 0
+
+            // Record event
+            let event = NetworkEvent(
+                method: self.request.httpMethod ?? "GET",
+                url: self.request.url?.absoluteString ?? "",
+                statusCode: statusCode,
+                duration: duration,
+                bytes: bytes,
+                timestamp: Date()
+            )
+
+            Self.lock.lock()
+            Self.recentEvents.insert(event, at: 0)
+            if Self.recentEvents.count > Self.maxEvents {
+                Self.recentEvents.removeLast()
+            }
+            Self.lock.unlock()
+
+            // Post notification for real-time monitoring
+            NotificationCenter.default.post(
+                name: .networkEventRecorded,
+                object: nil,
+                userInfo: [
+                    "method": event.method,
+                    "url": event.url,
+                    "status": event.statusCode,
+                    "duration": event.duration,
+                    "bytes": event.bytes
+                ]
+            )
+
+            // Forward to client
+            if let error {
+                self.client?.urlProtocol(self, didFailWithError: error)
+            } else {
+                if let response {
+                    self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+                }
+                if let data {
+                    self.client?.urlProtocol(self, didLoad: data)
+                }
+                self.client?.urlProtocolDidFinishLoading(self)
+            }
         }
+
+        self.dataTask?.resume()
     }
+
+    override func stopLoading() {
+        self.dataTask?.cancel()
+    }
+}
+
+/// Register network interceptor globally
+public func registerNetworkInterceptor() {
+    URLProtocol.registerClass(InterceptingURLProtocol.self)
+
+    // Also configure default session to use it
+    let config = URLSessionConfiguration.default
+    config.protocolClasses = [InterceptingURLProtocol.self] + (config.protocolClasses ?? [])
+}
+
+extension Notification.Name {
+    static let networkEventRecorded = Notification.Name("net:result")
 }

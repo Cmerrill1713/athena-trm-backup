@@ -8,7 +8,6 @@ Run this once to pin your favorite voice.
 
 import subprocess
 import sys
-import json
 
 def list_available_voices():
     """List all available macOS voices"""

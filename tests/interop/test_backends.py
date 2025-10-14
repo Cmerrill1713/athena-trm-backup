@@ -5,7 +5,6 @@ Direct tests of UAT and Athena backends
 import os
 import pytest
 import httpx
-import asyncio
 
 UAT = os.getenv("UAT_BASE", "http://127.0.0.1:8181")
 ATH = os.getenv("ATHENA_BASE", "http://127.0.0.1:8090")

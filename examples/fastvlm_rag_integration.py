@@ -53,13 +53,13 @@ def vision_to_rag_pipeline(
     print(f"✅ Vision: {vision_output[:100]}...")
     
     # Step 2: Search RAG with vision output
-    print(f"🔎 Searching knowledge base...")
+    print("🔎 Searching knowledge base...")
     rag_query = f"{vision_output}\n\nOriginal question: {user_question}"
     docs = rag_search_fn(rag_query, top_k=top_k)
     print(f"✅ Found {len(docs)} relevant documents")
     
     # Step 3: Generate grounded response
-    print(f"💭 Generating response...")
+    print("💭 Generating response...")
     
     # Build context from RAG docs
     context = "\n\n".join([
@@ -81,7 +81,7 @@ QUESTION:
 Provide a comprehensive answer with citations [Source N]. Be specific and reference the image data."""
     
     final_answer = llm_generate_fn(prompt)
-    print(f"✅ Generated grounded response")
+    print("✅ Generated grounded response")
     
     # Extract sources
     sources = [
@@ -131,7 +131,7 @@ def mock_rag_search(query: str, top_k: int = 5) -> List[Dict[str, Any]]:
         }
     ]
     
-    print(f"⚠️  Using mock RAG - replace with actual search")
+    print("⚠️  Using mock RAG - replace with actual search")
     return mock_docs[:top_k]
 
 
@@ -197,7 +197,7 @@ def main():
     print(f"\n📸 Image: {result['image_path']}")
     print(f"❓ Question: {result['question']}")
     
-    print(f"\n🔍 Vision Output:")
+    print("\n🔍 Vision Output:")
     print(f"   {result['vision_output']}")
     
     print(f"\n📚 Sources Used ({len(result['sources'])}):")
@@ -206,7 +206,7 @@ def main():
         if source['url']:
             print(f"      {source['url']}")
     
-    print(f"\n💡 Final Answer:")
+    print("\n💡 Final Answer:")
     print(f"   {result['final_answer']}")
     
     print("\n" + "="*70)

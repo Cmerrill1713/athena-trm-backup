@@ -71,7 +71,7 @@ def test_critic():
     assert 0.0 <= review.overall_score <= 1.0, "Score should be 0-1"
     assert len(review.step_feedback) == len(plan.steps), "Should review each step"
 
-    print(f"✅ Review generated")
+    print("✅ Review generated")
     print(f"   Score: {review.overall_score:.2f}")
     print(f"   Quality: {review.overall_quality.value}")
     print(f"   Learnings: {len(review.key_learnings)}")
@@ -105,7 +105,7 @@ def test_memory():
         stats = memory.get_stats()
         assert stats["total_plans"] >= 1, "Should have at least 1 plan"
 
-        print(f"✅ Memory working")
+        print("✅ Memory working")
         print(f"   Plans: {stats['total_plans']}")
         print(f"   Learnings: {stats['total_learnings']}")
 
@@ -135,7 +135,7 @@ def test_orchestrator():
         assert result.iterations > 0, "Should have iterations"
         assert result.total_time_ms > 0, "Should take time"
 
-        print(f"✅ Orchestration complete")
+        print("✅ Orchestration complete")
         print(f"   Success: {result.success}")
         print(f"   Score: {result.overall_score:.2f}")
         print(f"   Iterations: {result.iterations}")
@@ -170,7 +170,7 @@ def test_learning_loop():
         result2 = orch.execute_goal(goal)
         score2 = result2.overall_score
 
-        print(f"✅ Learning loop tested")
+        print("✅ Learning loop tested")
         print(f"   Attempt 1 score: {score1:.2f}")
         print(f"   Attempt 2 score: {score2:.2f}")
         print(f"   Improvement: {((score2 - score1) / score1 * 100) if score1 > 0 else 0:.1f}%")

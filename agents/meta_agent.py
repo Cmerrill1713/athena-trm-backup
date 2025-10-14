@@ -100,7 +100,7 @@ class MetaAgent:
             created_at=datetime.now().isoformat()
         )
 
-        print(f"📊 Analysis Complete:")
+        print("📊 Analysis Complete:")
         print(f"   Executions: {analysis.total_executions}")
         print(f"   Avg Score: {analysis.average_score:.2f}")
         print(f"   Trend: {analysis.score_trend}")
@@ -263,7 +263,7 @@ if __name__ == "__main__":
     print("=" * 60)
     print(f"Trend: {analysis.score_trend}")
     print(f"Bottleneck: {analysis.bottleneck_agent or 'None'}")
-    print(f"\n💡 Strategy Adjustments:")
+    print("\n💡 Strategy Adjustments:")
     for adj in analysis.strategy_adjustments:
         print(f"\n  {adj.target_agent.upper()}:")
         print(f"  • {adj.description}")
@@ -272,7 +272,7 @@ if __name__ == "__main__":
 
     # Get recommendation
     recommendation = meta.recommend_next_goal({})
-    print(f"\n🎯 Recommendation:")
+    print("\n🎯 Recommendation:")
     print(f"  {recommendation}")
 
     # Cleanup

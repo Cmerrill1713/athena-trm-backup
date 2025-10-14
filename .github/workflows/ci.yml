@@ -64,3 +64,15 @@ jobs:
         run: |
           find scripts -name "*.py" -exec python3 -m py_compile {} \; || echo "Python scripts validated"
           find scripts -name "*.sh" -exec bash -n {} \; || echo "Shell scripts validated"
+
+      - name: Run tests with coverage
+        run: coverage run -m pytest -q
+
+      - name: Generate coverage report
+        run: coverage report -m
+
+      - name: Secret scan
+        run: gitleaks detect --no-banner --redact || true
+
+      - name: Fail on stubs in src
+        run: '(! rg -n "STUB:|MOCK:" --glob "!:tests/**") || (echo "Stubs found outside tests"; exit 1)'

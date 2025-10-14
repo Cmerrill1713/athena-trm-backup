@@ -109,7 +109,7 @@ def main():
         return 2
     else:
         # Overlapping intervals - not stat-sig different
-        print(f"\n📊 MONITORING: No stat-sig difference (confidence intervals overlap)")
+        print("\n📊 MONITORING: No stat-sig difference (confidence intervals overlap)")
         return 0
 
 if __name__ == "__main__":

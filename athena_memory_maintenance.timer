@@ -1,0 +1,11 @@
+[Unit]
+Description=Weekly Athena Memory Maintenance
+Requires=athena_memory_maintenance.service
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+RandomizedDelaySec=3600
+
+[Install]
+WantedBy=timers.target

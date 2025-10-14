@@ -85,7 +85,7 @@ class Orchestrator:
         start_time = datetime.now()
 
         print("\n" + "=" * 60)
-        print(f"🧠 NEUROFORGE AGENT SYSTEM")
+        print("🧠 NEUROFORGE AGENT SYSTEM")
         print("=" * 60)
         print(f"Goal: {goal}")
         print()
@@ -150,7 +150,7 @@ class Orchestrator:
                 break
 
             if iteration < self.max_iterations:
-                print(f"\n🔄 Score below threshold, iterating with improvements...")
+                print("\n🔄 Score below threshold, iterating with improvements...")
                 # Learnings automatically stored in memory for next iteration
 
         # PHASE 5: FINAL RESULT
@@ -199,7 +199,7 @@ class Orchestrator:
         print(f"Score: {result.overall_score:.2f}")
         print(f"Iterations: {result.iterations}")
         print(f"Total time: {result.total_time_ms}ms")
-        print(f"\n📚 Learnings:")
+        print("\n📚 Learnings:")
         for learning in result.learnings[:5]:  # Top 5
             print(f"  • {learning}")
         print()

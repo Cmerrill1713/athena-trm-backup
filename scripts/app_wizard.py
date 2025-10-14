@@ -10,7 +10,6 @@ Usage:
 
 import os
 import sys
-import json
 import subprocess
 import argparse
 from pathlib import Path
@@ -124,12 +123,12 @@ class AppWizard:
             print("📋 Swift scaffolding:")
             print(f"   Run: cd {Path(project_path).parent}")
             print(f"        swift package init --type executable --name {app_name}")
-            print(f"   Or create Xcode project manually")
+            print("   Or create Xcode project manually")
         elif app_type == "tauri":
             print("📋 Tauri scaffolding:")
-            print(f"   Run: npm create tauri-app@latest")
+            print("   Run: npm create tauri-app@latest")
         
-        response = input(f"\n   Scaffold complete? [y/N]: ")
+        response = input("\n   Scaffold complete? [y/N]: ")
         return response.lower() == 'y'
     
     def build_and_deliver(self, app_name: str, app_type: str, project_path: str) -> Optional[str]:
@@ -157,7 +156,7 @@ class AppWizard:
             return None
             
         except subprocess.CalledProcessError as e:
-            print(f"❌ Build failed:")
+            print("❌ Build failed:")
             print(e.stderr)
             return None
         except subprocess.TimeoutExpired:

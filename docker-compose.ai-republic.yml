@@ -1,0 +1,72 @@
+# AI Republic Development Stack
+# =============================
+#
+# Complete development environment in containers
+#
+# Usage:
+#   docker-compose -f docker-compose.ai-republic.yml up --build
+#   docker-compose -f docker-compose.ai-republic.yml run --rm ai-republic make test
+
+version: '3.8'
+
+services:
+  # Main AI Republic development container
+  ai-republic:
+    build:
+      context: .
+      dockerfile: Dockerfile.ai-republic
+    container_name: ai-republic-dev
+    volumes:
+      # Mount source code for live development
+      - .:/app
+      - ~/.local/share/ai-republic:/home/developer/.local/share/ai-republic
+    working_dir: /app
+    environment:
+      - PYTHONPATH=/home/developer/.local/share/ai-republic:/app
+      - AR_HOME=/home/developer/.local/share/ai-republic
+      - DISPLAY=${DISPLAY}  # For macOS GUI testing
+    ports:
+      - "8080:8080"  # Backend API
+      - "3000:3000"  # Frontend dev server (if added)
+    command: ["tail", "-f", "/dev/null"]  # Keep container running
+
+  # MCP Ecosystem (if available)
+  mcp-ecosystem:
+    build:
+      context: .
+      dockerfile: ai_republic/mcp_ecosystem/Dockerfile
+    container_name: ai-republic-mcp
+    ports:
+      - "8081:8081"
+    depends_on:
+      - ai-republic
+    environment:
+      - PYTHONPATH=/app
+    command: ["python3", "mcp_server.py"]
+
+  # PostgreSQL for data persistence (optional)
+  postgres:
+    image: postgres:15-alpine
+    container_name: ai-republic-db
+    environment:
+      POSTGRES_DB: ai_republic
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: ai-republic-cache
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
+
+networks:
+  default:
+    name: ai-republic-network

@@ -1,0 +1,24 @@
+disabled_rules:
+  - line_length
+  - trailing_whitespace
+  - orphaned_doc_comment
+  - identifier_name   # TEMP: re-enable after the 23 renames
+opt_in_rules:
+  - empty_count
+  - force_unwrapping
+  - closure_end_indentation
+  - explicit_self
+  - unowned_variable_capture
+included:
+  - NeuroForgeApp/Sources
+excluded:
+  - build
+  - DerivedData
+  - .build
+  - NeuroForgeApp/.build
+reporter: "xcode"
+
+# Elevate crashy things to errors
+force_cast: error
+force_unwrapping: error
+implicitly_unwrapped_optional: error

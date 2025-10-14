@@ -7,7 +7,7 @@ Routes to best available provider based on health and latency metrics
 import time
 import json
 import requests
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Optional, Tuple
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -93,7 +93,7 @@ class HealthCache:
 
             return False, float('inf')
 
-        except Exception as e:
+        except Exception:
             return False, float('inf')
 
 def pick_provider(task_type: str, policy: dict, health_cache: HealthCache) -> Optional[dict]:

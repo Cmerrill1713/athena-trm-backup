@@ -43,7 +43,7 @@ async def test_rate_limit_chat_endpoint():
             if i % 10 == 0:
                 await asyncio.sleep(0.1)
 
-        print(f"\nRate limit results:")
+        print("\nRate limit results:")
         print(f"  Success: {success_count}")
         print(f"  Rate limited (429): {rate_limited_count}")
         print(f"  Retry-After header: {retry_after_present}")

@@ -50,14 +50,14 @@ def check_error_rate(db_path: str = "state/telemetry.sqlite", threshold: float =
     # Calculate rate
     error_rate = errors / total if total > 0 else 0
 
-    print(f"📊 Error Rate Check")
+    print("📊 Error Rate Check")
     print(f"   Total traces: {total}")
     print(f"   Errors: {errors}")
     print(f"   Rate: {error_rate*100:.2f}%")
     print(f"   Threshold: {threshold*100:.2f}%")
 
     if error_rate <= threshold:
-        print(f"   ✅ PASS: Error rate under budget")
+        print("   ✅ PASS: Error rate under budget")
         return True
     else:
         print(f"   ❌ FAIL: Error rate exceeds {threshold*100:.1f}%")

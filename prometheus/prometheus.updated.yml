@@ -1,0 +1,91 @@
+# Prometheus configuration for NeuroForge services
+# Monitoring: Bridge, Athena, UAT, RAG, Vision, Kokoro
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'neuroforge'
+    environment: 'local'
+
+# Load alert rules
+rule_files:
+  - /etc/prometheus/alerts/*.yml
+
+# Scrape configurations for actual running services
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Bridge - API Gateway with TRM routing
+  - job_name: 'bridge'
+    static_configs:
+      - targets: ['host.docker.internal:8014']
+    metrics_path: /metrics
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # Athena - Orchestration
+  - job_name: 'athena'
+    static_configs:
+      - targets: ['host.docker.internal:8090']
+    metrics_path: /metrics
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # UAT - Universal AI Tools
+  - job_name: 'uat'
+    static_configs:
+      - targets: ['host.docker.internal:8181']
+    metrics_path: /metrics
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # RAG Service
+  - job_name: 'rag'
+    static_configs:
+      - targets: ['host.docker.internal:8015']
+    metrics_path: /metrics
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # Vision Service
+  - job_name: 'vision'
+    static_configs:
+      - targets: ['host.docker.internal:8016']
+    metrics_path: /metrics
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # Kokoro TTS
+  - job_name: 'kokoro'
+    static_configs:
+      - targets: ['host.docker.internal:8020']
+    metrics_path: /metrics
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # FastVLM (if running)
+  - job_name: 'fastvlm'
+    static_configs:
+      - targets: ['host.docker.internal:8811']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 5s
+
+  # Weaviate - Vector database
+  - job_name: 'weaviate'
+    static_configs:
+      - targets: ['host.docker.internal:8090']
+    metrics_path: /v1/.well-known/ready
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+# Alerting configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['alertmanager:9093']
+

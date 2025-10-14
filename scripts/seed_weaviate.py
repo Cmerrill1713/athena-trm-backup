@@ -6,7 +6,6 @@ Creates schema and seeds with initial learned patterns for RAG/learning agents.
 """
 
 import requests
-import json
 
 WEAVIATE_URL = "http://localhost:8090"
 

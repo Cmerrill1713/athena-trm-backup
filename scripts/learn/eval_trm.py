@@ -82,7 +82,7 @@ def main():
     ds = load_eval_set(pg_url, args.days)
     print(f"✅ Loaded {len(ds)} samples")
     
-    print(f"📊 Scoring candidate vs baseline...")
+    print("📊 Scoring candidate vs baseline...")
     metrics = score_stub(ds)
     
     cpath = pathlib.Path(args.candidate)

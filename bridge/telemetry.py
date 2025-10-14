@@ -8,15 +8,13 @@ import json
 import sys
 import os
 from datetime import datetime
-from typing import Optional, Dict, Any
 from contextlib import contextmanager
 import time
 
 # Prometheus metrics
-from prometheus_client import Counter, Histogram, Gauge, Info, generate_latest, CONTENT_TYPE_LATEST
+from prometheus_client import Counter, Histogram, Gauge, Info, generate_latest
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import PlainTextResponse
-import asyncio
 
 # ============================================================================
 # Structured JSON Logging
@@ -164,7 +162,7 @@ class MetricsMiddleware:
         try:
             response = await call_next(request)
             status = response.status_code
-        except Exception as e:
+        except Exception:
             status = 500
             raise
         finally:

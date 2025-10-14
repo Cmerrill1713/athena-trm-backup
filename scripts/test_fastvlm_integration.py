@@ -73,7 +73,7 @@ def test_metrics_endpoint():
             if metric in metrics_text:
                 found.append(metric)
         
-        print(f"✅ Metrics endpoint responding")
+        print("✅ Metrics endpoint responding")
         print(f"   Found {len(found)}/{len(expected)} expected metrics")
         
         for m in found:
@@ -110,7 +110,7 @@ def test_client_call():
         result = client.vision(test_image, "What color is this image?")
         elapsed = (time.time() - start) * 1000
         
-        print(f"✅ Vision call succeeded")
+        print("✅ Vision call succeeded")
         print(f"   Response: {result['text'][:100]}...")
         print(f"   Latency: {result['latency_ms']:.0f}ms (server), {elapsed:.0f}ms (total)")
         print(f"   Model: {result['model']}")
@@ -140,10 +140,10 @@ def test_provider_integration():
         
         # Check capabilities
         caps = provider.get_capabilities()
-        print(f"✅ Provider initialized")
+        print("✅ Provider initialized")
         print(f"   Model: {provider.model_name}")
         print(f"   Endpoint: {provider.endpoint}")
-        print(f"   Capabilities:")
+        print("   Capabilities:")
         for cap, score in caps.items():
             print(f"     • {cap}: {score:.2f}")
         
@@ -168,7 +168,7 @@ def test_routing_registration():
         
         entry = FASTVLM_REGISTRY_ENTRY
         
-        print(f"✅ Registry entry exists")
+        print("✅ Registry entry exists")
         print(f"   Name: {entry['name']}")
         print(f"   Provider: {entry['provider']}")
         print(f"   Capabilities: {', '.join(entry['caps'])}")
