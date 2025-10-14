@@ -139,14 +139,14 @@ Target: orchestrator/providers/uncertainty_estimator.py
 
 async def implement_research_queue():
     """Implement all papers in queue sequentially"""
-    
+
     agent = OllamaCodeAgent()
     results_dir = Path("state/research/implementations")
     results_dir.mkdir(parents=True, exist_ok=True)
-    
+
     log_file = results_dir / f"queue_run_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     results = []
-    
+
     print("=" * 80)
     print("🔬 AUTONOMOUS RESEARCH IMPLEMENTATION QUEUE")
     print("=" * 80)
@@ -154,33 +154,33 @@ async def implement_research_queue():
     print(f"💾 Results will be saved to: {log_file}")
     print(f"⏰ Started: {datetime.now().strftime('%H:%M:%S')}")
     print("\n" + "=" * 80)
-    
+
     for i, paper in enumerate(RESEARCH_QUEUE, 1):
         print(f"\n\n{'='*80}")
         print(f"📄 Paper {i}/{len(RESEARCH_QUEUE)}: {paper['title']}")
         print(f"{'='*80}")
         print(f"⏰ Started: {datetime.now().strftime('%H:%M:%S')}")
-        
+
         start_time = datetime.now()
-        
+
         # Generate implementation
         result = await agent.generate_code(paper['prompt'])
-        
+
         end_time = datetime.now()
         duration = (end_time - start_time).total_seconds()
-        
+
         if result["success"]:
             print(f"✅ SUCCESS! Generated in {duration:.1f}s")
             print(f"📊 Code length: {len(result['code'])} chars")
             print(f"📊 Tokens: {result['tokens']}")
-            
+
             # Save implementation
             output_file = f"orchestrator/providers/{paper['id']}.py"
             with open(output_file, "w") as f:
                 f.write(result["code"])
-            
+
             print(f"💾 Saved to: {output_file}")
-            
+
             results.append({
                 "paper_id": paper["id"],
                 "title": paper["title"],
@@ -201,7 +201,7 @@ async def implement_research_queue():
                 "duration_seconds": duration,
                 "timestamp": end_time.isoformat()
             })
-    
+
     # Save results summary
     with open(log_file, "w") as f:
         json.dump({
@@ -211,7 +211,7 @@ async def implement_research_queue():
             "failed": sum(1 for r in results if r["status"] == "failed"),
             "results": results
         }, f, indent=2)
-    
+
     print("\n\n" + "=" * 80)
     print("🎉 QUEUE COMPLETE!")
     print("=" * 80)
@@ -224,4 +224,3 @@ async def implement_research_queue():
 
 if __name__ == "__main__":
     asyncio.run(implement_research_queue())
-

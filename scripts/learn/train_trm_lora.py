@@ -32,7 +32,7 @@ def load_outcomes(pg_url: str, days: int):
             (since,)
         )
         rows = cur.fetchall()
-    
+
     data = []
     for p, pol, sel, ok, lat, meta in rows:
         try:
@@ -74,10 +74,10 @@ def train_impl(dataset, out_dir: pathlib.Path, epochs: int, lr: float):
     # Derive a pretend score from data size:
     size = max(1, len(dataset))
     pseudo_acc = min(0.90, 0.70 + (size / 5000.0))  # improves with more data
-    
+
     (out_dir / "adapter.safetensors").write_bytes(b"stub-adapter")
     (out_dir / "config.json").write_text(json.dumps({"epochs": epochs, "lr": lr}))
-    
+
     return {
         "route_accuracy": round(pseudo_acc, 4),
         "safety_regressions": 0
@@ -151,4 +151,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

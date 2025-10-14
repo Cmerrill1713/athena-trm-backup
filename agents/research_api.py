@@ -63,15 +63,15 @@ async def health():
 async def hunt_papers(request: ResearchHuntRequest):
     """
     Hunt for new research papers
-    
+
     Returns:
         List of discovered papers with relevance scores
     """
     hunter = get_research_hunter()
-    
+
     try:
         papers = await hunter.hunt_daily(lookback_days=request.lookback_days)
-        
+
         return {
             "success": True,
             "papers_discovered": len(papers),
@@ -100,22 +100,22 @@ async def hunt_papers(request: ResearchHuntRequest):
 async def analyze_paper(request: PaperAnalysisRequest):
     """
     Analyze a specific paper and generate implementation plan
-    
+
     Returns:
         Implementation plan with algorithms and structure
     """
     hunter = get_research_hunter()
     analyzer = get_paper_analyzer()
-    
+
     # Find paper
     paper = next((p for p in hunter.discovered_papers if p.paper_id == request.paper_id), None)
-    
+
     if not paper:
         raise HTTPException(status_code=404, detail=f"Paper {request.paper_id} not found")
-    
+
     try:
         plan = await analyzer.analyze_paper(asdict(paper))
-        
+
         return {
             "success": True,
             "paper_id": plan.paper_id,
@@ -145,15 +145,15 @@ async def analyze_paper(request: PaperAnalysisRequest):
 async def implement_paper(request: ImplementationRequest):
     """
     Trigger implementation of a specific paper
-    
+
     Returns:
         Implementation task status and results
     """
     orchestrator = get_research_orchestrator()
-    
+
     try:
         result = await orchestrator.trigger_manual_implementation(request.paper_id)
-        
+
         return {
             "success": result.get("status") == "completed",
             "result": result
@@ -167,15 +167,15 @@ async def implement_paper(request: ImplementationRequest):
 async def run_research_cycle(request: ResearchCycleRequest):
     """
     Run complete research cycle: Hunt → Analyze → Implement → Test
-    
+
     Returns:
         Complete cycle results
     """
     orchestrator = get_research_orchestrator()
-    
+
     try:
         results = await orchestrator.run_daily_cycle()
-        
+
         return {
             "success": True,
             "cycle_results": results
@@ -189,7 +189,7 @@ async def run_research_cycle(request: ResearchCycleRequest):
 async def get_status():
     """Get research orchestrator status"""
     orchestrator = get_research_orchestrator()
-    
+
     try:
         status = await orchestrator.get_status()
         return status
@@ -202,9 +202,9 @@ async def get_status():
 async def get_implementation_queue():
     """Get current implementation queue"""
     hunter = get_research_hunter()
-    
+
     queue = await hunter.get_implementation_queue()
-    
+
     return {
         "queue_size": len(queue),
         "tasks": [
@@ -224,9 +224,9 @@ async def get_implementation_queue():
 async def get_top_papers(limit: int = 10):
     """Get top papers by relevance score"""
     hunter = get_research_hunter()
-    
+
     papers = await hunter.get_top_papers(limit=limit)
-    
+
     return {
         "count": len(papers),
         "papers": [
@@ -264,4 +264,3 @@ def asdict(obj):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8095)
-

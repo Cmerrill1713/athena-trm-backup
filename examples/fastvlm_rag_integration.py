@@ -27,14 +27,14 @@ def vision_to_rag_pipeline(
 ) -> Dict[str, Any]:
     """
     Complete vision → RAG → generation pipeline
-    
+
     Args:
         image_path: Path to image
         user_question: User's original question
         rag_search_fn: Function(query) -> List[doc] for RAG search
         llm_generate_fn: Function(prompt) -> str for generation
         top_k: Number of RAG documents to retrieve
-    
+
     Returns:
         Dict with:
             - vision_output: Raw FastVLM output
@@ -43,7 +43,7 @@ def vision_to_rag_pipeline(
             - sources: List of sources used
     """
     from fastvlm.fastvlm_client import call_fastvlm
-    
+
     # Step 1: Extract from image
     print(f"🔍 Analyzing image: {Path(image_path).name}")
     vision_output = call_fastvlm(
@@ -51,22 +51,22 @@ def vision_to_rag_pipeline(
         f"Extract key information relevant to: {user_question}"
     )
     print(f"✅ Vision: {vision_output[:100]}...")
-    
+
     # Step 2: Search RAG with vision output
     print("🔎 Searching knowledge base...")
     rag_query = f"{vision_output}\n\nOriginal question: {user_question}"
     docs = rag_search_fn(rag_query, top_k=top_k)
     print(f"✅ Found {len(docs)} relevant documents")
-    
+
     # Step 3: Generate grounded response
     print("💭 Generating response...")
-    
+
     # Build context from RAG docs
     context = "\n\n".join([
         f"[Source {i+1}: {doc.get('title', 'Unknown')}]\n{doc.get('content', '')}"
         for i, doc in enumerate(docs)
     ])
-    
+
     prompt = f"""Based on this image analysis and supporting documentation, answer the question.
 
 IMAGE ANALYSIS:
@@ -79,16 +79,16 @@ QUESTION:
 {user_question}
 
 Provide a comprehensive answer with citations [Source N]. Be specific and reference the image data."""
-    
+
     final_answer = llm_generate_fn(prompt)
     print("✅ Generated grounded response")
-    
+
     # Extract sources
     sources = [
         {"title": doc.get('title', 'Unknown'), "url": doc.get('url', '')}
         for doc in docs
     ]
-    
+
     return {
         "vision_output": vision_output,
         "rag_docs": docs,
@@ -103,7 +103,7 @@ Provide a comprehensive answer with citations [Source N]. Be specific and refere
 def mock_rag_search(query: str, top_k: int = 5) -> List[Dict[str, Any]]:
     """
     Mock RAG search - replace with your actual implementation
-    
+
     Real implementation might use:
     - Pinecone/Weaviate/Qdrant vector search
     - Elasticsearch BM25
@@ -130,7 +130,7 @@ def mock_rag_search(query: str, top_k: int = 5) -> List[Dict[str, Any]]:
             "score": 0.82
         }
     ]
-    
+
     print("⚠️  Using mock RAG - replace with actual search")
     return mock_docs[:top_k]
 
@@ -139,7 +139,7 @@ def mock_rag_search(query: str, top_k: int = 5) -> List[Dict[str, Any]]:
 def mock_llm_generate(prompt: str) -> str:
     """
     Mock LLM generation - replace with your actual LLM
-    
+
     Real implementation might use:
     - OpenAI GPT-4
     - Anthropic Claude
@@ -160,7 +160,7 @@ The market conditions described in the Market Analysis show 12% overall market g
 def main():
     """Run example"""
     import argparse
-    
+
     parser = argparse.ArgumentParser(
         description="FastVLM + RAG Integration Example"
     )
@@ -173,13 +173,13 @@ def main():
         default="What does this chart show and what are the business implications?",
         help="Question about the image"
     )
-    
+
     args = parser.parse_args()
-    
+
     print("╔═══════════════════════════════════════════════════════════╗")
     print("║         FastVLM + RAG Integration Example                 ║")
     print("╚═══════════════════════════════════════════════════════════╝\n")
-    
+
     # Run pipeline
     result = vision_to_rag_pipeline(
         image_path=args.image,
@@ -188,27 +188,27 @@ def main():
         llm_generate_fn=mock_llm_generate,
         top_k=3
     )
-    
+
     # Display results
     print("\n" + "="*70)
     print("RESULTS")
     print("="*70)
-    
+
     print(f"\n📸 Image: {result['image_path']}")
     print(f"❓ Question: {result['question']}")
-    
+
     print("\n🔍 Vision Output:")
     print(f"   {result['vision_output']}")
-    
+
     print(f"\n📚 Sources Used ({len(result['sources'])}):")
     for i, source in enumerate(result['sources'], 1):
         print(f"   {i}. {source['title']}")
         if source['url']:
             print(f"      {source['url']}")
-    
+
     print("\n💡 Final Answer:")
     print(f"   {result['final_answer']}")
-    
+
     print("\n" + "="*70)
     print("✅ Pipeline complete!")
     print("\n💡 Next steps:")
@@ -220,4 +220,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

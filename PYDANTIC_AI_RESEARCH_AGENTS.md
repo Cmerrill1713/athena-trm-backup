@@ -1,6 +1,6 @@
 # ✅ Pydantic AI Research Agents - IMPLEMENTATION GUIDE
 
-**Date**: October 13, 2025  
+**Date**: October 13, 2025
 **Status**: Ready to implement with your local LLMs
 
 ---
@@ -67,13 +67,13 @@ paper_agent = Agent(
     output_type=PaperImplementation,
     instructions="""
     You are a research implementation specialist.
-    
+
     Given a research paper abstract, generate:
     1. Clean Python implementation
-    2. Comprehensive pytest tests  
+    2. Comprehensive pytest tests
     3. README with usage
     4. List of dependencies
-    
+
     Follow best practices and PEP 8.
     """
 )
@@ -151,22 +151,22 @@ papers = await hunter.hunt_daily()
 for paper in papers[:3]:
     # Analyze
     analysis = await analyzer.run(paper.abstract)
-    
-    # Implement  
+
+    # Implement
     implementation = await paper_agent.run(f"""
     Paper: {paper.title}
     Abstract: {paper.abstract}
     Algorithms: {analysis.output.algorithms}
     Steps: {analysis.output.implementation_steps}
     """)
-    
+
     # Test
     test_result = await tester.run(implementation.output.code)
-    
+
     # Save if tests pass
     if test_result.output.test_count > 0:
         save_implementation(paper.paper_id, implementation.output)
-        
+
         # Add to Thompson Sampling registry
         register_provider("summarize", {
             "name": f"paper_{paper.paper_id}",
@@ -218,7 +218,7 @@ agent = Agent(
 - ❌ Build complex API infrastructure
 - ❌ Manage state manually
 - ❌ Write routing logic
-- ❌ Handle errors explicitly  
+- ❌ Handle errors explicitly
 - ❌ Parse unstructured responses
 
 ### **Pydantic AI Approach:**
@@ -296,12 +296,12 @@ python3 scripts/implement_research_paper.py
 
 **You have everything you need to build a REAL autonomous research system:**
 
-✅ Research Hunter - Finds papers  
-✅ Paper Analyzer - Extracts algorithms  
-✅ **Pydantic AI** - Generates REAL code from prompts  
-✅ Test Infrastructure - Validates implementations  
-✅ Thompson Bandit - Selects best approaches  
-✅ Nightly Evolution - Improves overnight  
+✅ Research Hunter - Finds papers
+✅ Paper Analyzer - Extracts algorithms
+✅ **Pydantic AI** - Generates REAL code from prompts
+✅ Test Infrastructure - Validates implementations
+✅ Thompson Bandit - Selects best approaches
+✅ Nightly Evolution - Improves overnight
 
 **The missing piece was using Pydantic AI to replace the stub agents!**
 
@@ -313,4 +313,3 @@ With Ollama + Pydantic AI + your existing infrastructure = **Fully autonomous re
 1. Install Ollama and set up the agents?
 2. Replace Athena stub agents with real Pydantic AI agents?
 3. Test the full pipeline end-to-end?
-

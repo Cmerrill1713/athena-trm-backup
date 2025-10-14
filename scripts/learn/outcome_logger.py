@@ -7,7 +7,7 @@ Powers the self-improvement loop.
 
 Usage:
     from scripts.learn.outcome_logger import log_routing_decision
-    
+
     log_routing_decision(
         prompt="User request...",
         policy={"engine": "fastvlm", "mode": "fast"},
@@ -42,7 +42,7 @@ def log_routing_decision(
 ):
     """
     Log a routing decision for TRM training
-    
+
     Args:
         prompt: User request text
         policy: Routing policy dict (engine, mode, etc.)
@@ -55,11 +55,11 @@ def log_routing_decision(
     try:
         conn = psycopg2.connect(DATABASE_URL)
         cur = conn.cursor()
-        
+
         # Prepare data
         policy_json = json.dumps(policy)
         meta_json = json.dumps(meta or {})
-        
+
         # Insert outcome
         cur.execute("""
             INSERT INTO routing_outcomes (
@@ -80,11 +80,11 @@ def log_routing_decision(
             user_feedback,
             meta_json
         ))
-        
+
         conn.commit()
         cur.close()
         conn.close()
-        
+
     except Exception as e:
         # Don't let logging failures break routing
         print(f"⚠️  Outcome logging failed: {e}", file=sys.stderr)
@@ -94,9 +94,9 @@ def get_stats(days: int = 30):
     try:
         conn = psycopg2.connect(DATABASE_URL)
         cur = conn.cursor()
-        
+
         cur.execute("""
-            SELECT 
+            SELECT
                 COUNT(*) as total_decisions,
                 SUM(CASE WHEN success THEN 1 ELSE 0 END) as successes,
                 AVG(latency_ms) as avg_latency_ms,
@@ -106,15 +106,15 @@ def get_stats(days: int = 30):
             FROM routing_outcomes
             WHERE created_at > NOW() - INTERVAL '%s days'
         """, (days,))
-        
+
         row = cur.fetchone()
         cur.close()
         conn.close()
-        
+
         if row:
             total, successes, avg_lat, models, earliest, latest = row
             success_rate = (successes / total * 100) if total > 0 else 0
-            
+
             print(f"📊 Routing Stats (Last {days} days)")
             print("=" * 50)
             print(f"Total Decisions:  {total or 0}")
@@ -123,7 +123,7 @@ def get_stats(days: int = 30):
             print(f"Unique Models:    {models or 0}")
             print(f"Earliest:         {earliest}")
             print(f"Latest:           {latest}")
-            
+
             return {
                 "total": total or 0,
                 "success_rate": success_rate,
@@ -133,7 +133,7 @@ def get_stats(days: int = 30):
         else:
             print("No data available")
             return None
-            
+
     except Exception as e:
         print(f"❌ Stats query failed: {e}", file=sys.stderr)
         return None

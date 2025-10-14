@@ -9,7 +9,7 @@ struct LogViewer: View {
     @State private var lastRefresh: Date?
     @State private var autoRefresh = false
     @State private var refreshTimer: Timer?
-    
+
     var body: some View {
         VStack(spacing: 0) {
             // Header
@@ -23,21 +23,21 @@ struct LogViewer: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                
+
                 Spacer()
-                
+
                 Toggle("Auto", isOn: $autoRefresh)
                     .toggleStyle(.switch)
                     .controlSize(.small)
                     .help("Auto-refresh every 3 seconds")
-                
+
                 Button("Refresh") {
                     Task { await fetchLogs() }
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.small)
                 .disabled(isLoading)
-                
+
                 Button("Clear") {
                     logs = ""
                 }
@@ -46,9 +46,9 @@ struct LogViewer: View {
             }
             .padding(12)
             .background(.ultraThinMaterial)
-            
+
             Divider()
-            
+
             // Logs content
             ScrollViewReader { proxy in
                 ScrollView {
@@ -101,20 +101,20 @@ struct LogViewer: View {
             stopAutoRefresh()
         }
     }
-    
+
     // MARK: - Log Fetching
-    
+
     private func fetchLogs() async {
         isLoading = true
         defer { isLoading = false }
-        
+
         // Try to get logs from Bridge (which can tail service logs)
         let logURL = service.baseURL + "/api/logs?service=\(service.name.lowercased())&lines=100"
-        
+
         do {
             let url = URL(string: logURL)!
             let (data, response) = try await URLSession.shared.data(from: url)
-            
+
             if let httpResp = response as? HTTPURLResponse, httpResp.statusCode == 200 {
                 if let logText = String(data: data, encoding: .utf8) {
                     await MainActor.run {
@@ -131,15 +131,15 @@ struct LogViewer: View {
             await tryLocalLogFile()
         }
     }
-    
+
     private func tryLocalLogFile() async {
         // Try to read from local logs directory
         let logPath = "/Users/christianmerrill/Documents/GitHub/logs/\(service.name.lowercased())_\(service.port).log"
-        
+
         if let content = try? String(contentsOfFile: logPath) {
             let lines = content.split(separator: "\n")
             let last100 = lines.suffix(100).joined(separator: "\n")
-            
+
             await MainActor.run {
                 logs = last100
                 lastRefresh = Date()
@@ -151,16 +151,16 @@ struct LogViewer: View {
             }
         }
     }
-    
+
     // MARK: - Auto-Refresh
-    
+
     private func startAutoRefresh() {
         stopAutoRefresh()
         refreshTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
             Task { await fetchLogs() }
         }
     }
-    
+
     private func stopAutoRefresh() {
         refreshTimer?.invalidate()
         refreshTimer = nil
@@ -172,4 +172,3 @@ struct LogViewer: View {
 #Preview {
     LogViewer(service: ServiceRegistry.athena)
 }
-

@@ -93,7 +93,7 @@ final class VoiceManager: NSObject, ObservableObject {  // ✅ NSObject for dele
         configureAudioSession()
         try? startEngine()
         beginMetering()
-        
+
         // Haptic feedback (optional - disabled for now)
         // #if os(macOS)
         // NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .default)
@@ -135,7 +135,7 @@ final class VoiceManager: NSObject, ObservableObject {  // ✅ NSObject for dele
     func speak(_ text: String) {
         guard ttsEnabled, !text.isEmpty else { return }
         state = .speaking
-        
+
         // Try Kokoro first
         if let kokoroURL = URL(string: "http://127.0.0.1:8020/tts") {
             speakViaKokoro(text, url: kokoroURL) { [weak self] success in
@@ -154,45 +154,45 @@ final class VoiceManager: NSObject, ObservableObject {  // ✅ NSObject for dele
         httpPlayer?.stop()
         state = .idle
     }
-    
+
     // MARK: - HTTP TTS (Kokoro)
-    
+
     private var httpPlayer: AVAudioPlayer?
-    
+
     private func speakViaKokoro(_ text: String, url: URL, completion: @escaping (Bool) -> Void) {
         var req = URLRequest(url: url, timeoutInterval: 10)
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         let body: [String: Any] = [
             "text": text,
             "voice": "af_heart",  // Kokoro "serna" voice
             "format": "wav",
             "speed": 1.0
         ]
-        
+
         guard let jsonData = try? JSONSerialization.data(withJSONObject: body) else {
             completion(false)
             return
         }
-        
+
         req.httpBody = jsonData
-        
+
         URLSession.shared.dataTask(with: req) { [weak self] data, response, error in
             guard let self else { return }
-            
+
             if let error = error {
                 print("🌐 Kokoro TTS failed: \(error.localizedDescription)")
                 DispatchQueue.main.async { completion(false) }
                 return
             }
-            
+
             guard let data = data, data.count > 0 else {
                 print("🌐 Kokoro TTS: No audio data")
                 DispatchQueue.main.async { completion(false) }
                 return
             }
-            
+
             do {
                 let player = try AVAudioPlayer(data: data)
                 player.delegate = self
@@ -206,7 +206,7 @@ final class VoiceManager: NSObject, ObservableObject {  // ✅ NSObject for dele
             }
         }.resume()
     }
-    
+
     private func speakViaSystem(_ text: String) {
         print("⚠️  Using system voice (Kokoro unavailable)")
         let utterance = AVSpeechUtterance(string: text)
@@ -264,13 +264,13 @@ extension VoiceManager: AVSpeechSynthesizerDelegate {
             self.state = .speaking
         }
     }
-    
+
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         Task { @MainActor in
             self.state = .idle
         }
     }
-    
+
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
         Task { @MainActor in
             self.state = .idle
@@ -285,7 +285,7 @@ extension VoiceManager: AVAudioPlayerDelegate {
         }
         print("✅ Kokoro playback finished")
     }
-    
+
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         Task { @MainActor in
             self.state = .idle
@@ -295,4 +295,3 @@ extension VoiceManager: AVAudioPlayerDelegate {
         }
     }
 }
-

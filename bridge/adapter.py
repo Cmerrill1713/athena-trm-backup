@@ -309,10 +309,10 @@ async def probe_e2e():
     """
     import datetime
     import time as time_mod
-    
+
     start = time_mod.time()
     results = []
-    
+
     async with httpx.AsyncClient(timeout=3) as client:
         # Check Bridge itself
         results.append({
@@ -324,7 +324,7 @@ async def probe_e2e():
             "note": "Bridge adapter healthy",
             "critical": True
         })
-        
+
         # Check UAT
         try:
             uat_resp = await client.get(f"{UAT_BASE}/health", headers=auth_headers(UAT_TOKEN))
@@ -347,7 +347,7 @@ async def probe_e2e():
                 "note": str(e)[:50],
                 "critical": True
             })
-        
+
         # Check Athena
         try:
             ath_resp = await client.get(f"{ATHENA_BASE}/health", headers=auth_headers(ATH_TOKEN))
@@ -370,9 +370,9 @@ async def probe_e2e():
                 "note": str(e)[:50],
                 "critical": True
             })
-    
+
     duration_ms = (time_mod.time() - start) * 1000
-    
+
     # Count statuses
     counts = {
         "pass": sum(1 for r in results if r["status"] == "pass"),
@@ -380,7 +380,7 @@ async def probe_e2e():
         "fail": sum(1 for r in results if r["status"] == "fail"),
         "unused": sum(1 for r in results if r["status"] == "unused"),
     }
-    
+
     return {
         "started_at": datetime.datetime.utcnow().isoformat(),
         "duration_ms": duration_ms,
@@ -431,13 +431,13 @@ async def auth_guard(request: Request, call_next):
     """Authentication middleware - dev off, prod on"""
     REQUIRE_AUTH = os.getenv("BRIDGE_AUTH", "false").lower() == "true"
     TOKEN = os.getenv("BRIDGE_TOKEN", "")
-    
+
     if REQUIRE_AUTH and request.url.path.startswith("/api/"):
         hdr = request.headers.get("Authorization", "")
         tok = hdr.replace("Bearer ", "", 1)
         if not TOKEN or tok != TOKEN:
             raise HTTPException(status_code=401, detail="Unauthorized")
-    
+
     return await call_next(request)
 
 @app.post("/api/chat")
@@ -473,24 +473,24 @@ async def api_chat(req: Request, body: ApiChatInput):
         import sys
         import os
         sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'AI-Projects', 'universal-ai-tools'))
-        
+
         from src.core.unified_orchestration.unified_chat_orchestrator import get_unified_orchestrator
-        
+
         logger.info("🧠 Using unified orchestrator for intelligent routing")
-        
+
         orchestrator = get_unified_orchestrator()
-        
+
         result = await orchestrator.chat(
             message=request.text,
             context=request.context or {}
         )
-        
+
         response_text = result.get("response", "I couldn't process that request.")
         task_type = result.get("task_type", "general")
         backend_used = result.get("backend_used", "unknown")
-        
+
         logger.info(f"✅ Orchestrator: {task_type} → {backend_used}")
-        
+
         return ChatResponse(
             reply=response_text,
             route=f"orchestrated-{task_type}",
@@ -502,15 +502,15 @@ async def api_chat(req: Request, body: ApiChatInput):
                 "sources": result.get("metadata", {}).get("sources", [])
             }
         )
-        
+
     except ImportError as e:
         logger.warning(f"⚠️  Unified orchestrator not available: {e}")
         # Fallback to TRM router
         try:
             from src.api.trm_router import trm_route
-            
+
             route_policy = trm_route(request.text, request.context or {})
-            
+
             # Determine route based on policy
             if route_policy.rag.enabled:
                 route = "rag-agent"
@@ -540,9 +540,9 @@ async def api_chat(req: Request, body: ApiChatInput):
             else:
                 route = "chat-agent"
                 response_text = f"Processing your message: {request.text}"
-            
+
             logger.info(f"🧠 TRM routed to: {route} (RAG: {route_policy.rag.enabled})")
-            
+
             return ChatResponse(
                 reply=response_text,
                 route=route,
@@ -552,17 +552,17 @@ async def api_chat(req: Request, body: ApiChatInput):
                     "route_policy": route_policy.mode
                 }
             )
-            
+
         except ImportError as e2:
             logger.warning(f"⚠️  TRM router not available: {e2}")
-            
+
     except Exception as e:
         logger.error(f"Orchestration failed: {e}")
-    
+
     # Final fallback to Athena
     logger.info("🔄 Falling back to Athena")
     route = x_route or request.route or "auto"
-    
+
     athena_payload = {
         "message": request.text,
         "context": request.context or {},

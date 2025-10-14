@@ -11,7 +11,7 @@ Services kept dying/exiting with various errors:
 ### 1. Missing Authentication Tokens
 **Symptom**: Services would start but couldn't communicate
 **Cause**: UAT and Athena require auth tokens
-**Fix**: 
+**Fix**:
 ```bash
 ATH_TOKEN=supersecret
 UAT_TOKEN=supersecret
@@ -120,7 +120,6 @@ OK All services up: 4/4
 
 ---
 
-**Date**: October 13, 2025  
-**Status**: ✅ RESOLVED  
+**Date**: October 13, 2025
+**Status**: ✅ RESOLVED
 **Services**: All 4/4 operational
-

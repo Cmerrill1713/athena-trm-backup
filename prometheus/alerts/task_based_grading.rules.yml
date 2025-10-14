@@ -11,7 +11,7 @@ groups:
           sum by (task_type, env) (rate(routing_success_total{task_type!=""}[5m]))
           /
           sum by (task_type, env) (rate(routing_decisions_total{task_type!=""}[5m]))
-      
+
       # Latency by task type
       - record: trm:latency_p95_by_task:5m
         expr: |
@@ -19,15 +19,14 @@ groups:
             0.95,
             sum by (task_type, le, env) (rate(routing_latency_ms_bucket{task_type!=""}[5m]))
           )
-      
+
       # Request rate by task type
       - record: trm:requests_per_minute_by_task:5m
         expr: sum by (task_type, env) (rate(routing_decisions_total{task_type!=""}[5m])) * 60
-      
+
       # Success rate by task AND model (fine-grained)
       - record: trm:success_rate_by_task_model:5m
         expr: |
           sum by (task_type, model, env) (rate(routing_success_total{task_type!=""}[5m]))
           /
           sum by (task_type, model, env) (rate(routing_decisions_total{task_type!=""}[5m]))
-

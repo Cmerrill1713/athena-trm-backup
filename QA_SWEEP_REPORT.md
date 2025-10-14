@@ -61,10 +61,10 @@ The comprehensive QA sweep system is now installed and running. It covers Swift,
    ```swift
    // Bad
    let url = URL(string: urlString)!
-   
+
    // Good
-   guard let url = URL(string: urlString) else { 
-     throw APIError.invalidURL 
+   guard let url = URL(string: urlString) else {
+     throw APIError.invalidURL
    }
    ```
 
@@ -126,15 +126,15 @@ qa-sweep:
   timeout-minutes: 15
   steps:
     - uses: actions/checkout@v4
-    
+
     - name: Install QA Tools
       run: |
         brew install swiftlint swiftformat jq yq shellcheck yamllint sqlfluff hadolint
         pipx install ruff mypy bandit
-    
+
     - name: Run QA Sweep
       run: make qa
-    
+
     - name: Upload QA Logs
       if: always()
       uses: actions/upload-artifact@v4

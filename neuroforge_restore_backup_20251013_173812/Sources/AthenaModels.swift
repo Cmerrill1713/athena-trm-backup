@@ -37,4 +37,3 @@ public struct SystemEmergency: Identifiable, Codable {
     public var risk: RiskLevel
     public var actions: [String]
 }
-

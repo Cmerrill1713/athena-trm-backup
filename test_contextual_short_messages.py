@@ -21,7 +21,7 @@ conversations = [
         ]
     },
     {
-        "title": "Meeting Context", 
+        "title": "Meeting Context",
         "messages": [
             ("The meeting is at 3pm", "Should retrieve: meeting schedules, participants"),
             ("Who's attending?", "Should have meeting context from previous message"),
@@ -47,14 +47,14 @@ conversations = [
 for conv in conversations:
     print(f"\n📝 {conv['title']}")
     print("-" * 80)
-    
+
     for message, reasoning in conv["messages"]:
         policy = trm_route(message, {})
         words = len(message.strip().split())
-        
+
         rag_icon = "✅" if policy.rag.enabled else "❌"
         rag_text = f"RAG (k={policy.rag.k})" if policy.rag.enabled else "No RAG"
-        
+
         print(f"\nUser: \"{message}\" ({words} words)")
         print(f"  {rag_icon} {rag_text} | Mode: {policy.mode}")
         print(f"  💭 {reasoning}")
@@ -69,7 +69,7 @@ The system now intelligently enables RAG based on information content, not just 
   - Can retrieve: "Christian's birthday is November 3rd"
   - Response: "Happy birthday, Christian! 🎉"
 
-• "I'm feeling stressed" (3 words) → ✅ RAG enabled  
+• "I'm feeling stressed" (3 words) → ✅ RAG enabled
   - Can retrieve: Past coping strategies, wellness resources
   - Response: Personalized suggestions based on your history
 
@@ -79,4 +79,3 @@ The system now intelligently enables RAG based on information content, not just 
 
 This makes the agent conversationally aware and contextual, just like talking to a real assistant!
 """)
-

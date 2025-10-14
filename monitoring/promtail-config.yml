@@ -25,7 +25,7 @@ scrape_configs:
       - timestamp:
           source: timestamp
           format: RFC3339
-  
+
   # Service logs
   - job_name: platform_services
     static_configs:
@@ -40,7 +40,7 @@ scrape_configs:
       - labels:
           service:
           level:
-  
+
   # MCP logs
   - job_name: mcp_services
     static_configs:
@@ -58,7 +58,7 @@ scrape_configs:
       - labels:
           service:
           level:
-  
+
   # System logs
   - job_name: system
     static_configs:
@@ -67,4 +67,3 @@ scrape_configs:
         labels:
           job: system
           __path__: /var/log/system.log
-

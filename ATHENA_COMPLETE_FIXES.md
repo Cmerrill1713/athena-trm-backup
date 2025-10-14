@@ -178,4 +178,3 @@ From Cursor → Terminal → Run Task:
 ---
 
 **All scripts are ready - just need to apply the Swift code fixes!**
-

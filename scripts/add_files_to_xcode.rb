@@ -23,11 +23,11 @@ files_to_add = [
 
 files_to_add.each do |file_path|
   file_ref = project.main_group.find_file_by_path(file_path)
-  
+
   unless file_ref
     file_ref = project.main_group.new_reference(file_path)
   end
-  
+
   unless sources_phase.files.find { |f| f.file_ref == file_ref }
     sources_phase.add_file_reference(file_ref)
     puts "✅ Added #{File.basename(file_path)}"
@@ -38,4 +38,3 @@ end
 
 project.save
 puts "\n✅ Project updated!"
-

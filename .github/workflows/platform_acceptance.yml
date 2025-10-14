@@ -10,63 +10,63 @@ jobs:
   acceptance-test:
     name: Full Stack Verification
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           submodules: recursive
-      
+
       - name: Set up Python 3.9
         uses: actions/setup-python@v5
         with:
           python-version: '3.9'
-      
+
       - name: Install UV
         run: |
           pip install uv
           uv --version
-      
+
       - name: Install dependencies
         run: |
           uv venv .uv-services --python 3.9
           uv pip install fastapi uvicorn pydantic prometheus-client requests numpy Pillow
-      
+
       - name: Start core services
         run: |
           # Start Bridge, Athena, UAT in background
           .uv-services/bin/python3 bridge/adapter.py &
           .uv-services/bin/python3 AI-Projects/universal-ai-tools/athena/api.py &
           .uv-services/bin/python3 orchestrator/api.py &
-          
+
           # Wait for services to start
           sleep 10
-      
+
       - name: Run platform verification
         # BRIDGE_TOKEN is optional - verification continues without auth if not set
         env:
           BRIDGE_TOKEN: ${{ secrets.BRIDGE_TOKEN }}
         run: |
           bash scripts/verify_stack.sh
-      
+
       - name: Check MCP integration
         run: |
           # Test MCP services if available
           curl -f http://127.0.0.1:8081/health || echo "MCP Chat optional"
           curl -f http://127.0.0.1:8411/health || echo "MCP Store optional"
-      
+
       - name: Verify API endpoints
         run: |
           # Test critical APIs
           curl -f http://127.0.0.1:8014/health
           curl -f http://127.0.0.1:8090/health
           curl -f http://127.0.0.1:8181/health
-          
+
           # Test chat endpoint
           curl -X POST http://127.0.0.1:8014/api/chat \
             -H "Content-Type: application/json" \
             -d '{"message":"test"}' | jq -e '.reply'
-      
+
       - name: Upload logs on failure
         if: failure()
         uses: actions/upload-artifact@v4
@@ -76,7 +76,7 @@ jobs:
             logs/
             /tmp/*.log
           retention-days: 7
-      
+
       - name: Post status to MCP Store
         if: always()
         run: |
@@ -90,4 +90,3 @@ jobs:
               \"summary\": \"Platform acceptance test on ${{ github.ref }}\",
               \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"
             }" || echo "MCP Store not available (optional)"
-

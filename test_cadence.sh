@@ -6,7 +6,7 @@ echo "====================================="
 
 # Unload production agents
 launchctl unload ~/Library/LaunchAgents/com.athena.memory.plist 2>/dev/null || true
-launchctl unload ~/Library/LaunchAgents/com.athena.voice.plist 2>/dev/null || true  
+launchctl unload ~/Library/LaunchAgents/com.athena.voice.plist 2>/dev/null || true
 launchctl unload ~/Library/LaunchAgents/com.athena.briefing.plist 2>/dev/null || true
 launchctl unload ~/Library/LaunchAgents/com.athena.tribunal.plist 2>/dev/null || true
 
@@ -101,7 +101,7 @@ echo "🧪 TEST MODE ACTIVE"
 echo ""
 echo "📊 Test Cadences:"
 echo "  • Memory checks: Every 10 minutes"
-echo "  • Tribunal sweeps: Every 30 minutes"  
+echo "  • Tribunal sweeps: Every 30 minutes"
 echo "  • Voice listener: Always on"
 echo ""
 echo "📈 You'll see regular CPU activity"

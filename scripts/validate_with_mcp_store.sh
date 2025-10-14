@@ -35,7 +35,7 @@ store_result() {
     local status=$3
     local summary=$4
     local details=$5
-    
+
     if [ "$STORE_AVAILABLE" = true ]; then
         curl -sS -X POST "$MCPSTORE_URL/v1/store/results" \
             -H "Content-Type: application/json" \
@@ -57,13 +57,13 @@ test_service() {
     local port=$2
     local endpoint=${3:-"/health"}
     local expected_status=${4:-200}
-    
+
     echo -n "Testing $service_name:$port... "
-    
+
     start=$(date +%s%3N)
     status_code=$(curl -sf -o /dev/null -w "%{http_code}" "http://localhost:$port$endpoint" 2>/dev/null || echo "000")
     latency=$(($(date +%s%3N) - start))
-    
+
     if [ "$status_code" = "$expected_status" ]; then
         echo "✅ PASS (${latency}ms)"
         store_result "validation-script" "$service_name" "PASS" \
@@ -158,11 +158,11 @@ if [ "$STORE_AVAILABLE" = true ]; then
     if [ $FAILED -gt 0 ]; then
         summary_status="FAIL"
     fi
-    
+
     store_result "validation-script" "platform-overall" "$summary_status" \
         "Validation completed: $PASSED/$TOTAL passed" \
         "{\"total\": $TOTAL, \"passed\": $PASSED, \"failed\": $FAILED}"
-    
+
     echo "📝 Results stored in MCP Store"
     echo "   View at: curl \"$MCPSTORE_URL/v1/store/results?correlation_id=$CORRELATION_ID\" | jq"
     echo ""
@@ -176,4 +176,3 @@ else
     echo "✅ Validation PASSED"
     exit 0
 fi
-

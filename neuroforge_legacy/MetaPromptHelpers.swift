@@ -7,14 +7,14 @@ extension MetaPromptInfo {
     /// Use this in your network layer after receiving a response
     static func from(headers: [AnyHashable: Any], fallbackBody data: Data?) -> MetaPromptInfo {
         var meta = MetaPromptInfo.from(headers: headers)
-        
+
         // If body contains meta field, merge it
         if let data = data,
            let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
            let metaDict = json["meta"] as? [String: Any] {
             meta.merge(from: metaDict)
         }
-        
+
         return meta
     }
 }
@@ -28,10 +28,10 @@ struct ChatMessage: Identifiable, Codable {
     var role: Role
     var content: String
     var timestamp: Date
-    
+
     // ✅ ADD THIS
     var metaPrompt: MetaPromptInfo? = nil
-    
+
     enum Role: String, Codable {
         case user
         case assistant
@@ -46,37 +46,37 @@ struct ChatMessage: Identifiable, Codable {
 
 /// Example showing how to integrate in your API client
 struct ExampleNetworkIntegration {
-    
+
     /// Example: Sending a chat message and capturing meta
     func sendMessage(_ text: String) async throws -> ChatMessage {
         let url = URL(string: "http://127.0.0.1:8014/chat")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         let body = ["text": text]
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
-        
+
         // ✅ KEY PART: Capture both data and response
         let (data, response) = try await URLSession.shared.data(for: request)
-        
+
         // ✅ Parse meta from headers (and body if present)
         var meta = MetaPromptInfo(enabled: false)
         if let http = response as? HTTPURLResponse {
             meta = MetaPromptInfo.from(headers: http.allHeaderFields, fallbackBody: data)
         }
-        
+
         // Parse your message content
         let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
         let content = json?["message"] as? String ?? ""
-        
+
         // ✅ Create message with meta attached
         let message = ChatMessage(
             role: .assistant,
             content: content,
             meta: meta  // Pass meta directly in init
         )
-        
+
         return message
     }
 }
@@ -108,7 +108,7 @@ extension MetaPromptInfo {
             completionTokens: 298
         )
     }
-    
+
     static var lowConfidenceSample: MetaPromptInfo {
         MetaPromptInfo(
             enabled: true,
@@ -125,7 +125,7 @@ extension MetaPromptInfo {
             completionTokens: 45
         )
     }
-    
+
     static var mediumConfidenceSample: MetaPromptInfo {
         MetaPromptInfo(
             enabled: true,
@@ -159,11 +159,11 @@ extension MetaPromptInfo {
             style != nil
         )
     }
-    
+
     /// Debug description
     var debugDescription: String {
         var parts: [String] = []
-        
+
         if let conf = confidence {
             parts.append("confidence: \(String(format: "%.2f", conf))")
         }
@@ -178,8 +178,7 @@ extension MetaPromptInfo {
         if let plan = plan, !plan.isEmpty {
             parts.append("plan: \(plan.count) steps")
         }
-        
+
         return "MetaPromptInfo(\(parts.joined(separator: ", ")))"
     }
 }
-

@@ -127,7 +127,7 @@ The `qa-sweep.yml` workflow runs on:
 ## 📝 Configuration Files
 
 - `.swiftlint.yml` - Swift linting rules
-- `.swiftformat` - Swift formatting config  
+- `.swiftformat` - Swift formatting config
 - `.sqlfluff` - SQL linting config
 - `scripts/athena_qa.sh` - Master QA script
 
@@ -157,7 +157,7 @@ swiftlint lint --path NeuroForgeApp/Sources/main.swift
 ## 🔍 Interpreting Results
 
 - **Errors** 🔴 - Must fix
-- **Warnings** 🟡 - Should fix  
+- **Warnings** 🟡 - Should fix
 - **Info** 🔵 - Nice to fix
 - **`|| true`** - Advisory (won't block)
 

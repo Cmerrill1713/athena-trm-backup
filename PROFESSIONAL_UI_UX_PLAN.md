@@ -84,13 +84,13 @@ struct DesignTokens {
 ```swift
 struct ModernMessageBubble: View {
     let message: ChatMessage
-    
+
     var body: some View {
         HStack {
             if message.isUser {
                 Spacer()
             }
-            
+
             VStack(alignment: message.isUser ? .trailing : .leading, spacing: 6) {
                 Text(message.text)
                     .font(.system(size: 15, weight: .regular))
@@ -99,18 +99,18 @@ struct ModernMessageBubble: View {
                     .padding(.vertical, 12)
                     .background(
                         RoundedRectangle(cornerRadius: 18)
-                            .fill(message.isUser ? 
+                            .fill(message.isUser ?
                                 LinearGradient(colors: [.purple, .blue], startPoint: .leading, endPoint: .trailing) :
                                 Color(.systemGray6)
                             )
                             .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
                     )
-                
+
                 HStack(spacing: 4) {
                     Text(formatTime(message.timestamp))
                         .font(.caption2)
                         .foregroundColor(.secondary)
-                    
+
                     if message.isUser {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.caption2)
@@ -119,7 +119,7 @@ struct ModernMessageBubble: View {
                 }
             }
             .frame(maxWidth: 280, alignment: message.isUser ? .trailing : .leading)
-            
+
             if !message.isUser {
                 Spacer()
             }
@@ -138,7 +138,7 @@ struct ModernSidebar: View {
                 Text("NeuroForge")
                     .font(.title2.bold())
                     .foregroundColor(.primary)
-                
+
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.secondary)
@@ -151,9 +151,9 @@ struct ModernSidebar: View {
                 .cornerRadius(10)
             }
             .padding()
-            
+
             Divider()
-            
+
             // Contact list
             ScrollView {
                 LazyVStack(spacing: 8) {
@@ -176,7 +176,7 @@ struct ModernSidebar: View {
 struct ModernChatInput: View {
     @Binding var text: String
     @State private var isExpanded = false
-    
+
     var body: some View {
         HStack(alignment: .bottom, spacing: 12) {
             // Attachment button
@@ -186,7 +186,7 @@ struct ModernChatInput: View {
                     .foregroundColor(.purple)
             }
             .buttonStyle(.plain)
-            
+
             // Text input
             HStack(alignment: .bottom, spacing: 8) {
                 TextEditor(text: $text)
@@ -194,7 +194,7 @@ struct ModernChatInput: View {
                     .frame(minHeight: 20, maxHeight: 120)
                     .scrollContentBackground(.hidden)
                     .background(Color.clear)
-                
+
                 // Send button
                 Button(action: sendMessage) {
                     Image(systemName: "arrow.up.circle.fill")

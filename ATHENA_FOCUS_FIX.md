@@ -23,15 +23,15 @@ struct ChatInputBar: View {
             TextField("Type a message…", text: $text, axis: .vertical)
                 .focused($isFocused)
                 .textFieldStyle(.roundedBorder)
-                .onAppear { 
-                    DispatchQueue.main.async { isFocused = true } 
+                .onAppear {
+                    DispatchQueue.main.async { isFocused = true }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
                     // Regain focus when app re-activates or pop-out closes
                     DispatchQueue.main.async { isFocused = true }
                 }
 
-            Button("Send") { 
+            Button("Send") {
                 // Send logic here
             }
             .keyboardShortcut(.return, modifiers: [.command])
@@ -55,7 +55,7 @@ func configureNonStealingWindow(_ window: NSWindow) {
     window.isMovableByWindowBackground = true
     window.isReleasedWhenClosed = true
     window.becomesKeyOnlyIfNeeded = true
-    
+
     window.makeKeyAndOrderFront(nil)
     NSApp.activate(ignoringOtherApps: true)
 
@@ -79,7 +79,7 @@ struct AthenaApp: App {
         Window("Athena", id: "main-window") {
             AthenaDashboardView()
         }
-        
+
         // ... other windows
     }
 }
@@ -112,7 +112,7 @@ struct AthenaApp: App {
     var body: some Scene {
         // ... windows
     }
-    
+
     var body: some Commands {
         AppCommands()
     }
@@ -149,4 +149,3 @@ configureNonStealingWindow(window)
 - **Pop-out creation**: Apply `configureNonStealingWindow()`
 - **Main App**: Tag main window, add AppCommands
 - **All three pop-outs**: Critical, Tribunal, Emergency
-

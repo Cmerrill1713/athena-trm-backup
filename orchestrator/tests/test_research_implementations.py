@@ -55,7 +55,7 @@ def test_meta_learning_imports():
 def test_registry_has_research_providers():
     """Test that registry includes research providers"""
     from registry import REGISTRY
-    
+
     assert "decision_making" in REGISTRY
     assert "prompt_optimization" in REGISTRY
     assert "uncertainty" in REGISTRY
@@ -65,11 +65,11 @@ def test_registry_has_research_providers():
 def test_research_providers_structure():
     """Test that research providers have correct structure"""
     from registry import REGISTRY
-    
+
     for capability in ["decision_making", "prompt_optimization", "uncertainty"]:
         providers = REGISTRY[capability]
         assert len(providers) > 0
-        
+
         for provider in providers:
             assert "name" in provider
             assert "entry" in provider

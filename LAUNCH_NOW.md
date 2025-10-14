@@ -4,7 +4,7 @@
 
 I've started all backend services in the background:
 - Athena (port 8090) ✅
-- UAT (port 8181) ✅  
+- UAT (port 8181) ✅
 - Bridge (port 8014) ✅
 
 They're running now and writing logs to `logs/` directory.
@@ -100,4 +100,3 @@ tail -20 /Users/christianmerrill/Documents/GitHub/logs/uat.out
 ---
 
 **Everything is ready! Just set the environment variable in Xcode and press ⌘R!** 🎉
-

@@ -12,7 +12,7 @@ def test_voice_fix():
     """Test that voice is properly pinned"""
     print("🎤 Testing Voice Fix")
     print("=" * 30)
-    
+
     # Test voice with direct URL
     url = (
         "athena://report?"
@@ -22,10 +22,10 @@ def test_voice_fix():
         "nonce=voice_test&"
         "ts=123456"
     )
-    
+
     print("🗣️  Opening voice test...")
     result = subprocess.run(["open", url], capture_output=True)
-    
+
     if result.returncode == 0:
         print("✅ Voice test URL opened successfully")
         print("🔍 Check Console.app for voice logs:")
@@ -33,18 +33,18 @@ def test_voice_fix():
         print("   Should show: Samantha or your preferred voice")
     else:
         print("❌ Failed to open voice test")
-    
+
     time.sleep(2)
 
 def test_report_fix():
     """Test that reports load properly from file"""
     print("\n📄 Testing Report Fix")
     print("=" * 30)
-    
+
     # Generate a test report with file path
     title = "Test Report Fix"
     summary = "This report tests the markdown file loading fix. It should show full content instead of (empty report)."
-    
+
     # Create a substantial markdown report
     md_content = """# Test Report Fix
 
@@ -55,7 +55,7 @@ This report tests the markdown file loading fix.
 ### Key Features Tested
 
 1. **File Path Loading** - Markdown loaded from temp file
-2. **URL Length Handling** - No more truncation issues  
+2. **URL Length Handling** - No more truncation issues
 3. **Content Preservation** - Full markdown rendered
 4. **Voice Integration** - Proper voice pinning
 
@@ -89,18 +89,18 @@ Both fixes should now be working:
 - ✅ Voice stays pinned (no more generic default)
 - ✅ Reports load full content (no more empty reports)
 """
-    
+
     # Use the actual report generator
     print("📊 Generating test report...")
     result = subprocess.run([
         "python3", "scripts/athena_report.py", "health"
     ], capture_output=True, text=True)
-    
+
     print("📋 Report generation output:")
     for line in result.stderr.strip().split('\n'):
         if line.strip():
             print(f"   {line}")
-    
+
     if result.returncode == 0:
         print("✅ Report generated successfully")
         print("🔍 Check the Athena Reporter window:")
@@ -115,7 +115,7 @@ def check_voice_settings():
     """Check current voice settings"""
     print("\n🎛️  Current Voice Settings")
     print("=" * 30)
-    
+
     try:
         # Check voice name
         result = subprocess.run([
@@ -125,7 +125,7 @@ def check_voice_settings():
             print(f"✅ Voice name: {result.stdout.strip()}")
         else:
             print("❌ No voice name set")
-        
+
         # Check voice ID
         result = subprocess.run([
             "defaults", "read", "com.athena.reporter", "athena.voice.id"
@@ -134,7 +134,7 @@ def check_voice_settings():
             print(f"✅ Voice ID: {result.stdout.strip()}")
         else:
             print("❌ No voice ID set")
-            
+
         # Check if Kokoro is disabled
         result = subprocess.run([
             "defaults", "read", "com.athena.reporter", "athena.voice.engine"
@@ -143,18 +143,18 @@ def check_voice_settings():
             print("✅ Kokoro disabled (good)")
         else:
             print(f"⚠️  Kokoro enabled: {result.stdout.strip()}")
-            
+
     except Exception as e:
         print(f"❌ Error checking settings: {e}")
 
 def main():
     print("🧪 Athena Reporter Fixes Test")
     print("=" * 40)
-    
+
     check_voice_settings()
     test_voice_fix()
     test_report_fix()
-    
+
     print("\n🎯 Test Summary")
     print("=" * 30)
     print("1. Voice Fix:")

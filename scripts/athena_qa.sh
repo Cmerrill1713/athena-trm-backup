@@ -79,7 +79,7 @@ fi
 # ---- Dockerfile ----
 if compgen -G "$DOCKERFILE" > /dev/null; then
   echo "• hadolint"
-  for f in $DOCKERFILE; do 
+  for f in $DOCKERFILE; do
     echo "  Checking $f..."
     hadolint "$f" || true
   done

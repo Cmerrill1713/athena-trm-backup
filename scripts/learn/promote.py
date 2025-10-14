@@ -38,7 +38,7 @@ def update_registry(candidate_path: str, metrics: dict):
             reg = json.loads(REGISTRY.read_text())
         except:
             reg = []
-    
+
     reg.append({
         "name": "trm",
         "path": candidate_path,
@@ -65,7 +65,7 @@ def broker_notify(msg: str):
     try:
         sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
         from broker_client import BrokerClient
-        
+
         client = BrokerClient()
         client.write_file(
             os.path.expanduser("~/Desktop/trm_promotion.txt"),
@@ -91,26 +91,26 @@ def main():
         if not artifact_dir.exists():
             print(f"❌ No artifacts directory: {artifact_dir}")
             sys.exit(1)
-        
+
         candidates = sorted(artifact_dir.glob("*"), key=lambda p: p.name, reverse=True)
         if not candidates:
             print(f"❌ No candidates in {artifact_dir}")
             sys.exit(1)
         cand = candidates[0]
-    
+
     if not cand.exists():
         print(f"❌ Candidate missing: {cand}")
         sys.exit(1)
 
     print(f"📦 Candidate: {cand}")
     cm = load_metrics(cand)
-    
+
     # Safety check: must have zero safety regressions
     if cm.get("safety_regressions", 0) != 0:
         print(f"❌ Safety regressions detected: {cm.get('safety_regressions')}")
         print("   Aborting promotion")
         sys.exit(1)
-    
+
     # Get baseline accuracy
     try:
         base_m = load_metrics(CURRENT.resolve())
@@ -119,21 +119,21 @@ def main():
     except Exception:
         base_acc = 0.0
         print("⚠️  No baseline found, treating as 0.0")
-    
+
     cand_acc = cm.get("route_accuracy", 0.0)
     print(f"📊 Candidate accuracy: {cand_acc}")
-    
+
     # Improvement check
     if not args.force and cand_acc <= base_acc:
         print(f"❌ No improvement (candidate {cand_acc} <= baseline {base_acc})")
         print("   Use --force to promote anyway")
         sys.exit(1)
-    
+
     # Promote!
     print(f"✅ Promoting {cand.name}...")
     switch_symlink(cand)
     update_registry(str(cand), cm)
-    
+
     improvement = cand_acc - base_acc
     msg = f"""TRM Model Promoted!
 
@@ -146,15 +146,14 @@ Artifacts: {cand}
 Registry: models/registry.json
 Current: models/trm/current -> {cand.name}
 """
-    
+
     print("\n" + "="*60)
     print(msg)
     print("="*60)
-    
+
     broker_notify(msg)
     print("\n✅ Promotion complete!")
 
 
 if __name__ == "__main__":
     main()
-

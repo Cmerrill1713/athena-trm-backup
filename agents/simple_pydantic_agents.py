@@ -35,13 +35,13 @@ code_agent = Agent(
     - Clean implementation with type hints
     - Comprehensive tests
     - README with usage examples
-    
+
     Always follow best practices and PEP 8.
     """
 )
 
 # ============================================================================
-# 2. PAPER ANALYZER AGENT  
+# 2. PAPER ANALYZER AGENT
 # ============================================================================
 
 class PaperAnalysis(BaseModel):
@@ -58,11 +58,11 @@ analyzer_agent = Agent(
     instructions="""
     You are a research paper analyst. Extract:
     - Core algorithms described
-    - Implementation complexity  
+    - Implementation complexity
     - Key insights
     - Step-by-step implementation plan
     - Required dependencies
-    
+
     Be concise but thorough.
     """
 )
@@ -86,7 +86,7 @@ test_agent = Agent(
     - Unit tests for all functions
     - Edge case tests
     - Integration tests if applicable
-    
+
     Aim for 90%+ code coverage.
     """
 )
@@ -109,7 +109,7 @@ hunter_agent = Agent(
     You are a research paper evaluator. Given paper titles and abstracts,
     score their relevance to autonomous AI systems, multi-armed bandits,
     and self-improving agents.
-    
+
     Focus on:
     - Novel algorithms that can be implemented
     - Papers with practical applications
@@ -123,31 +123,31 @@ hunter_agent = Agent(
 
 async def implement_paper_with_pydantic_ai(paper_abstract: str):
     """Complete pipeline using Pydantic AI agents"""
-    
+
     print("📊 Step 1: Analyzing paper...")
     analysis = await analyzer_agent.run(paper_abstract)
     print(f"✅ Found {len(analysis.output.algorithms)} algorithms")
     print(f"   Complexity: {analysis.output.complexity}")
     print(f"   Key Insight: {analysis.output.key_insight}")
-    
+
     print("\n💻 Step 2: Generating implementation...")
     impl_prompt = f"""
     Implement this research paper:
-    
+
     Algorithms: {', '.join(analysis.output.algorithms)}
     Steps: {chr(10).join(f'{i}. {s}' for i, s in enumerate(analysis.output.implementation_steps, 1))}
     Dependencies: {', '.join(analysis.output.dependencies)}
-    
+
     Generate clean, production-ready code.
     """
-    
+
     code_result = await code_agent.run(impl_prompt)
     print(f"✅ Generated {len(code_result.output.code)} chars of code")
-    
+
     print("\n🧪 Step 3: Generating tests...")
     test_result = await test_agent.run(f"Generate tests for:\n\n{code_result.output.code}")
     print(f"✅ Generated {test_result.output.test_count} tests")
-    
+
     return {
         "analysis": analysis.output,
         "code": code_result.output,
@@ -156,61 +156,60 @@ async def implement_paper_with_pydantic_ai(paper_abstract: str):
 
 
 if __name__ == "__main__":
-    
+
     print("=" * 80)
     print("🤖 PYDANTIC AI AGENTS - SIMPLE & POWERFUL")
     print("=" * 80)
-    
+
     print("\n✅ Created 4 Functional Agents:")
     print("   1. Code Generation Agent")
     print("   2. Paper Analyzer Agent")
     print("   3. Test Generator Agent")
     print("   4. Research Hunter Agent")
-    
+
     print("\n💡 Each agent is just:")
     print("   - A prompt (instructions)")
     print("   - An output type (Pydantic model)")
     print("   - A model (ollama:qwen2.5-coder)")
-    
+
     print("\n🚀 To use:")
     print("   result = await code_agent.run('Implement Thompson Sampling')")
     print("   print(result.output.code)")
-    
+
     print("\n" + "=" * 80)
     print("📄 EXAMPLE: Implementing a Paper")
     print("=" * 80)
-    
+
     example_paper = """
     Title: Improved Thompson Sampling for Contextual Bandits
-    
+
     Abstract: We enhance Thompson Sampling by incorporating context features.
     Instead of maintaining fixed Beta distributions, we use a small neural network
     to adjust the distributions based on context (task type, time, user).
-    
+
     Algorithm:
     1. Initialize Beta(1, 1) for each arm
     2. Train NN on (context, arm, reward) history
     3. On decision: context → NN → adjusted Beta params
     4. Sample from adjusted Betas, pick max
     5. Update NN and Beta distributions with observed reward
-    
+
     Result: 15% better regret bounds vs standard Thompson Sampling.
     """
-    
+
     print("\n🔄 Running complete implementation pipeline...")
     print("(This would call your local LLM to generate real code)\n")
-    
+
     # Note: Actual execution requires ollama running with qwen2.5-coder
     print("💡 To run for real:")
     print("   1. Start ollama: ollama serve")
     print("   2. Pull model: ollama pull qwen2.5-coder")
     print("   3. Run: python3 agents/simple_pydantic_agents.py")
-    
+
     print("\n✨ The beauty of Pydantic AI:")
     print("   - No complex infrastructure needed")
     print("   - Just prompts + output types")
     print("   - Automatic validation")
     print("   - Structured outputs guaranteed")
-    
-    print("\n" + "=" * 80)
 
+    print("\n" + "=" * 80)

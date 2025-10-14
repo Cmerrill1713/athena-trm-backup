@@ -18,7 +18,7 @@ struct AthenaDashboardView: View {
                         recommendations: ["Scale read replicas","Enable query cache","Switch traffic to us-west-2"]
                     ))
                 }
-                
+
                 Button("Demo Tribunal Decision") {
                     state.trigger(TribunalCase(
                         caseID: "CASE-RAG-CE-001",
@@ -27,7 +27,7 @@ struct AthenaDashboardView: View {
                         confidence: 0.78
                     ))
                 }
-                
+
                 Button("Demo System Emergency") {
                     state.trigger(SystemEmergency(
                         title: "Cluster Instability Detected",
@@ -44,4 +44,3 @@ struct AthenaDashboardView: View {
         .frame(minWidth: 800, minHeight: 500)
     }
 }
-

@@ -8,15 +8,15 @@ import urllib.parse
 def demo_encoding():
     """Show the difference between old and new encoding"""
     summary = "All systems nominal. 7-day success 100.0%. 30 decisions last 24 hours."
-    
+
     print("🎯 Athena URL Encoding Fix Demo")
     print("=" * 70)
     print()
-    
+
     print("📝 Original text:")
     print(f"   {summary}")
     print()
-    
+
     print("❌ OLD (form encoding - spaces become '+'):")
     old_url = "athena://report?" + urllib.parse.urlencode({"summary": summary})
     print(f"   {old_url}")
@@ -24,7 +24,7 @@ def demo_encoding():
     print("   🗣️  Athena would say:")
     print("   'All+systems+nominal.+7-day+success+100.0%25.+30+decisions+last+24+hours.'")
     print()
-    
+
     print("✅ NEW (percent encoding - spaces become '%20'):")
     new_url = "athena://report?" + urllib.parse.urlencode({"summary": summary}, quote_via=urllib.parse.quote)
     print(f"   {new_url}")
@@ -32,7 +32,7 @@ def demo_encoding():
     print("   🗣️  Athena says:")
     print("   'All systems nominal. 7-day success 100.0 percent. 30 decisions last 24 hours.'")
     print()
-    
+
     print("=" * 70)
     print()
     print("💡 Key differences:")
@@ -46,4 +46,3 @@ def demo_encoding():
 
 if __name__ == "__main__":
     demo_encoding()
-

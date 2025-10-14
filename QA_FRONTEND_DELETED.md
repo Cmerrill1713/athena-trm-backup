@@ -11,7 +11,7 @@
 2. ✅ Removed QA_MODE environment check
 3. ✅ Removed "Toggle QA Mode" keyboard shortcut
 4. ✅ Removed `qaTestInterface` view builder
-5. ✅ Changed `.windowStyle(.hiddenTitleBar)` → `.windowStyle(.automatic)` 
+5. ✅ Changed `.windowStyle(.hiddenTitleBar)` → `.windowStyle(.automatic)`
 6. ✅ Added `.defaultSize(width: 1000, height: 800)` for better initial window
 
 ## What Was Fixed in `ContentView.swift`:

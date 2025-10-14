@@ -29,7 +29,7 @@ AVAILABLE_PAPERS = {
             Instead of just tracking wins/losses per arm, we maintain a neural network that
             predicts the reward distribution based on context features (task type, user history,
             time of day, etc.). This allows the bandit to generalize across similar contexts.
-            
+
             Key Algorithm:
             1. Maintain beta distributions per arm (wins, losses)
             2. Train small neural network on (context, arm, reward) tuples
@@ -46,7 +46,7 @@ AVAILABLE_PAPERS = {
         "target": "orchestrator/providers/contextual_bandit.py",
         "description": "Enhance your existing Thompson Sampling with context-awareness!"
     },
-    
+
     "2": {
         "id": "adaptive-prompt",
         "paper": ResearchPaper(
@@ -57,7 +57,7 @@ AVAILABLE_PAPERS = {
             We present a method for automatically optimizing prompts without gradients.
             Using a particle swarm optimization approach, we explore the space of prompt
             variations and converge on high-performing prompts for specific tasks.
-            
+
             Key Algorithm:
             1. Initialize population of prompt variants (N=20)
             2. Evaluate each prompt on sample tasks
@@ -65,7 +65,7 @@ AVAILABLE_PAPERS = {
             4. Update prompts toward high-performing neighbors
             5. Add random mutations for exploration
             6. Iterate until convergence or max iterations
-            
+
             Achieves 40% improvement over manual prompts on code generation tasks.
             """,
             published="2024-09-28T00:00:00Z",
@@ -77,7 +77,7 @@ AVAILABLE_PAPERS = {
         "target": "AI-Projects/universal-ai-tools/src/core/chat/adaptive_prompt_optimizer.py",
         "description": "Make your Prompt Engineer even smarter with PSO optimization!"
     },
-    
+
     "3": {
         "id": "shadow-execution",
         "paper": ResearchPaper(
@@ -89,7 +89,7 @@ AVAILABLE_PAPERS = {
             execution and statistical significance testing. New model versions run in
             shadow mode (predictions recorded but not served) until confidence thresholds
             are met, then traffic gradually shifts using Thompson Sampling.
-            
+
             Key Algorithm:
             1. Deploy new model in shadow mode (10-20% of traffic)
             2. Collect metrics: latency, quality, user satisfaction
@@ -115,35 +115,35 @@ async def main():
     print("=" * 80)
     print("🔬 RESEARCH PAPER IMPLEMENTATION - INTERACTIVE MODE")
     print("=" * 80)
-    
+
     print("\n📚 Available Research Papers to Implement:\n")
-    
+
     for key, info in AVAILABLE_PAPERS.items():
         paper = info["paper"]
         print(f"{key}. {paper.title}")
         print(f"   Target: {info['target']}")
         print(f"   {info['description']}\n")
-    
+
     # Auto-select first paper for demo
     selection = "1"
     print(f"🎯 Auto-selecting paper #{selection} for demonstration...\n")
-    
+
     selected = AVAILABLE_PAPERS[selection]
     paper = selected["paper"]
-    
+
     print("=" * 80)
     print(f"📄 SELECTED PAPER: {paper.title}")
     print("=" * 80)
-    
+
     # Analyze the paper
     analyzer = get_paper_analyzer()
     plan = await analyzer.analyze_paper(asdict(paper))
-    
+
     print("\n✅ ANALYSIS COMPLETE\n")
     print(f"Programming Language: {plan.programming_language}")
     print(f"Complexity: {plan.estimated_complexity}")
     print(f"Test Strategy: {plan.test_strategy}")
-    
+
     print(f"\n🧠 Algorithms Identified: {len(plan.algorithms)}")
     for algo in plan.algorithms:
         print(f"\n  📌 {algo.name}")
@@ -152,12 +152,12 @@ async def main():
         print("     Key Steps:")
         for i, step in enumerate(algo.key_steps, 1):
             print(f"       {i}. {step}")
-    
+
     # Generate implementation prompt
     print("\n" + "=" * 80)
     print("💻 IMPLEMENTATION PROMPT (for Athena Code Agent)")
     print("=" * 80)
-    
+
     prompt = f"""
 Implement the following research paper algorithm:
 
@@ -176,11 +176,11 @@ Implement the following research paper algorithm:
 
 **Key Components**:
 """
-    
+
     for algo in plan.algorithms[:1]:  # Focus on first algorithm
         prompt += f"\n- {algo.name}: {algo.description}"
         prompt += f"\n  Steps: {', '.join(algo.key_steps[:3])}"
-    
+
     prompt += f"""
 
 **Dependencies**: {', '.join(plan.dependencies or [])}
@@ -190,14 +190,14 @@ Thompson Sampling implementation.
 
 Generate clean, production-ready code with tests.
 """
-    
+
     print(prompt)
-    
+
     # Show what would happen next
     print("\n" + "=" * 80)
     print("🎯 NEXT STEPS (READY TO EXECUTE)")
     print("=" * 80)
-    
+
     print(f"""
 ✅ 1. Send this prompt to Athena Code Agent
    curl -X POST http://127.0.0.1:8090/chat \\
@@ -220,19 +220,19 @@ Generate clean, production-ready code with tests.
 
 ✅ 7. Nightly evolution tracks performance
 """)
-    
+
     print("\n" + "=" * 80)
     print("🚀 WANT TO RUN THIS NOW? (Y/n)")
     print("=" * 80)
-    
+
     # For automation, we'll say yes
     response = "y"
-    
+
     if response.lower() == 'y':
         print("\n🔨 Generating implementation via Athena Code Agent...\n")
-        
+
         import httpx
-        
+
         try:
             async with httpx.AsyncClient(timeout=60) as client:
                 resp = await client.post(
@@ -248,38 +248,37 @@ Generate clean, production-ready code with tests.
                     },
                     headers={"Authorization": "Bearer supersecret"}
                 )
-                
+
                 if resp.status_code == 200:
                     data = resp.json()
                     code_response = data.get("response", "")
-                    
+
                     print("✅ CODE GENERATED!\n")
                     print("=" * 80)
                     print(code_response[:1000])
                     print("..." if len(code_response) > 1000 else "")
                     print("=" * 80)
-                    
+
                     # Save the response
                     output_file = Path(__file__).parent.parent / "state" / "research" / f"{paper.paper_id}_implementation.txt"
                     output_file.parent.mkdir(parents=True, exist_ok=True)
                     with open(output_file, "w") as f:
                         f.write(code_response)
-                    
+
                     print(f"\n💾 Full response saved to: {output_file}")
                     print("\n🎉 SUCCESS! The research paper concept was successfully analyzed and")
                     print("   code generation was triggered via your autonomous agent system!")
-                    
+
                 else:
                     print(f"❌ Code Agent returned status {resp.status_code}")
                     print(f"   Response: {resp.text}")
-                    
+
         except Exception as e:
             print(f"❌ Error calling Code Agent: {e}")
             print("\n💡 Make sure Athena is running on port 8090")
-    
+
     print("\n" + "=" * 80)
 
 
 if __name__ == "__main__":
     asyncio.run(main())
-

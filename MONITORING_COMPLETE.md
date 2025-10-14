@@ -1,7 +1,7 @@
 # ✅ Monitoring Stack - Complete & Running
 
-**Date**: October 13, 2025  
-**Status**: 🚀 **OPERATIONAL**  
+**Date**: October 13, 2025
+**Status**: 🚀 **OPERATIONAL**
 **Stack**: Prometheus, Grafana (No Supabase)
 
 ---
@@ -55,7 +55,7 @@ sum by (job) (rate(http_requests_total[1m]))
 # RAG queries
 sum(increase(rag_requests_total[5m]))
 
-# TRM routing decisions  
+# TRM routing decisions
 sum by (route) (increase(trm_routing_decisions_total[1h]))
 
 # Response latency p95
@@ -185,13 +185,12 @@ You should see:
 
 ## 🎯 Summary
 
-**Before**: No visibility into what your services are doing  
+**Before**: No visibility into what your services are doing
 **After**: Real-time dashboards showing health, performance, RAG usage, and routing decisions
 
-**Effort**: 30 minutes  
+**Effort**: 30 minutes
 **Value**: Instant "is anything burning?" clarity
 
 **Infrastructure**: Uses only Weaviate (no Supabase) as you specified ✅
 
 🎉 **Monitoring stack is ready to use!**
-

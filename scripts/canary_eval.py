@@ -7,7 +7,7 @@ better than control before promotion.
 
 Usage:
     python3 scripts/canary_eval.py
-    
+
 Returns:
     0 - Canary is stable/monitoring (no action)
     1 - Canary should be promoted (stat-sig better)
@@ -41,61 +41,61 @@ def prom_query(query):
 def wilson_score_interval(successes, trials, confidence=0.95):
     """
     Calculate Wilson score confidence interval
-    
+
     Returns: (lower_bound, upper_bound, center)
     """
     if trials == 0:
         return (0, 0, 0)
-    
+
     p = successes / trials
-    
+
     # Z-score for confidence level
     z_scores = {0.90: 1.645, 0.95: 1.96, 0.99: 2.576}
     z = z_scores.get(confidence, 1.96)
-    
+
     denominator = 1 + z**2 / trials
     center = (p + z**2 / (2 * trials)) / denominator
     margin = z * math.sqrt((p * (1 - p) + z**2 / (4 * trials)) / trials) / denominator
-    
+
     return (center - margin, center + margin, center)
 
 def main():
     """Evaluate canary vs control"""
     print("📊 Canary Evaluation (Statistical)")
     print("=" * 50)
-    
+
     # Get success counts for last 24h
     control_successes_q = f'sum(increase(routing_success_total{{model="{CONTROL}",env="{ENV}"}}[24h]))'
     control_total_q = f'sum(increase(routing_decisions_total{{model="{CONTROL}",env="{ENV}"}}[24h]))'
     canary_successes_q = f'sum(increase(routing_success_total{{model="{CANARY}",env="{ENV}"}}[24h]))'
     canary_total_q = f'sum(increase(routing_decisions_total{{model="{CANARY}",env="{ENV}"}}[24h]))'
-    
+
     control_succ = prom_query(control_successes_q)
     control_tot = prom_query(control_total_q)
     canary_succ = prom_query(canary_successes_q)
     canary_tot = prom_query(canary_total_q)
-    
+
     # Extract values
     ctrl_s = int(float(control_succ[0]["value"][1])) if control_succ else 0
     ctrl_n = int(float(control_tot[0]["value"][1])) if control_tot else 0
     cana_s = int(float(canary_succ[0]["value"][1])) if canary_succ else 0
     cana_n = int(float(canary_tot[0]["value"][1])) if canary_tot else 0
-    
+
     print(f"Control ({CONTROL}): {ctrl_s}/{ctrl_n} successes")
     print(f"Canary ({CANARY}): {cana_s}/{cana_n} successes")
-    
+
     if ctrl_n == 0 or cana_n == 0:
         print("ℹ️  Insufficient data for evaluation")
         print("Status: MONITORING")
         return 0
-    
+
     # Calculate Wilson intervals
     ctrl_lower, ctrl_upper, ctrl_center = wilson_score_interval(ctrl_s, ctrl_n, CONFIDENCE)
     cana_lower, cana_upper, cana_center = wilson_score_interval(cana_s, cana_n, CONFIDENCE)
-    
+
     print(f"\nControl: {ctrl_center*100:.2f}% ({ctrl_lower*100:.2f}% - {ctrl_upper*100:.2f}%)")
     print(f"Canary:  {cana_center*100:.2f}% ({cana_lower*100:.2f}% - {cana_upper*100:.2f}%)")
-    
+
     # Decision logic
     if cana_lower > ctrl_upper:
         # Canary is stat-sig better
@@ -114,4 +114,3 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-

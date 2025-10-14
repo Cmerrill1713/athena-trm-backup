@@ -93,12 +93,12 @@ protocol VoiceService {
 
 final class VoiceManager: VoiceService {
     private let synthesizer = AVSpeechSynthesizer()
-    
+
     func speak(_ text: String) {
         let utterance = AVSpeechUtterance(string: text)
         synthesizer.speak(utterance)
     }
-    
+
     func stop() {
         synthesizer.stopSpeaking(at: .immediate)
     }
@@ -122,7 +122,7 @@ extension EnvironmentValues {
 // Use in views
 struct MyView: View {
     @Environment(\.voice) var voice
-    
+
     var body: some View {
         Button("Speak") {
             voice.speak("Hello")
@@ -245,4 +245,3 @@ bash scripts/xcode_build_debug.sh
 - [ ] Fix type name conflicts (Alert, etc.)
 - [ ] Verify clean build succeeds
 - [ ] Commit changes
-

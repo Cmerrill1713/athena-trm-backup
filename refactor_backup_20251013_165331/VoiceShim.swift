@@ -43,5 +43,3 @@ final class VoiceManager: ObservableObject {
         Task { @MainActor in self.state = .idle }
     }
 }
-
-

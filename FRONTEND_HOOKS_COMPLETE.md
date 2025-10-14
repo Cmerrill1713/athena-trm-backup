@@ -36,7 +36,7 @@ make frontside-e2e      # Headless E2E test (CI-safe)
 ### Interactive Pop-outs
 ```bash
 make show-critical      # Trigger critical alert pop-out
-make show-tribunal      # Trigger tribunal decision pop-out  
+make show-tribunal      # Trigger tribunal decision pop-out
 make show-emergency     # Trigger system emergency pop-out
 ```
 
@@ -50,7 +50,7 @@ bin/athenactl e2e       # Run headless E2E test
 
 The E2E test successfully:
 1. ✅ Builds the app
-2. ✅ Launches headlessly 
+2. ✅ Launches headlessly
 3. ✅ Shows all three pop-out windows (critical, tribunal, emergency)
 4. ✅ Writes JSON report to `~/athena_e2e.json`
 5. ✅ Exits cleanly
@@ -61,7 +61,7 @@ The E2E test successfully:
   "status" : "ok",
   "shown" : [
     "critical",
-    "tribunal", 
+    "tribunal",
     "emergency"
   ]
 }
@@ -121,7 +121,7 @@ cursor.json                     # Cursor task buttons
 ## 🏆 Success Metrics
 
 - ✅ **Text Input**: Typing works reliably with ⌘K hotkey
-- ✅ **Build**: Swift Package Manager builds successfully  
+- ✅ **Build**: Swift Package Manager builds successfully
 - ✅ **E2E**: Headless test passes with JSON report
 - ✅ **Pop-outs**: All three window types trigger correctly
 - ✅ **CI-Ready**: No GUI dependencies, fully scriptable

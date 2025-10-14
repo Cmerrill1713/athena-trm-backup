@@ -21,7 +21,7 @@ KOKORO="http://127.0.0.1:8020/health"
 check_service() {
     local name=$1
     local url=$2
-    
+
     if curl -sf -o /dev/null -w "%{http_code}" --connect-timeout 5 "$url" | grep -q "200"; then
         printf "${GREEN}OK${NC} %s ready\n" "$name"
         return 0
@@ -56,4 +56,3 @@ else
     printf '  %s\n' "make stack-full"
     exit 1
 fi
-

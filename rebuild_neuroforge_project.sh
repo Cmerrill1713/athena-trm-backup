@@ -52,7 +52,7 @@ cd NeuroForgeApp_Clean
 sed -i.bak 's/AthenaPopoutDemo/NeuroForgeApp/g' Package.swift
 rm -f Package.swift.bak
 
-# Generate Xcode project  
+# Generate Xcode project
 swift package generate-xcodeproj 2>/dev/null || \
   (echo "⚠️  generate-xcodeproj deprecated, using 'open Package.swift' instead" && \
    echo "✅ Use: open Package.swift in Xcode")

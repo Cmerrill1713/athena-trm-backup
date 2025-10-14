@@ -60,7 +60,7 @@ async def health():
 async def get_team():
     """Get information about all team members"""
     team = AITeam()
-    
+
     return {
         "team_size": len(team.agents),
         "agents": [
@@ -80,18 +80,18 @@ async def get_team():
 async def delegate_task(request: TaskRequest):
     """
     Delegate a task to the appropriate specialist
-    
+
     Examples:
     - POST /delegate {"task": "Design a rate limiter", "task_type": "design"}
     - POST /delegate {"task": "Implement Thompson Sampling", "task_type": "implement"}
     - POST /delegate {"task": "Generate tests for X", "task_type": "test"}
     """
-    
+
     result = await route_to_specialist(
         task=request.task,
         task_type=request.task_type
     )
-    
+
     if result.get("success"):
         return TaskResponse(
             success=True,
@@ -113,7 +113,7 @@ async def collaborative_project(request: CollaborativeProjectRequest):
     """
     Run full collaborative workflow:
     Architect → Code Gen → Tester → Reviewer → Documenter
-    
+
     Example:
     POST /collaborate {
         "project_description": "Build a rate limiter using token bucket",
@@ -121,10 +121,10 @@ async def collaborative_project(request: CollaborativeProjectRequest):
         "include_review": true
     }
     """
-    
+
     team = AITeam()
     results = await team.collaborative_workflow(request.project_description)
-    
+
     return {
         "project": request.project_description,
         "workflow_complete": True,
@@ -168,11 +168,11 @@ async def get_task_history():
 async def get_agent_info(role: str):
     """Get information about a specific agent"""
     team = AITeam()
-    
+
     try:
         agent_role = AgentRole(role)
         agent = team.agents[agent_role]
-        
+
         return {
             "role": agent.role.value,
             "model": agent.model,
@@ -189,4 +189,3 @@ async def get_agent_info(role: str):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8200)
-

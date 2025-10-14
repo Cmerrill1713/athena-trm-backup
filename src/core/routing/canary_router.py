@@ -32,10 +32,10 @@ CB = get_circuit_breaker()
 def model_healthy(model: str) -> bool:
     """
     Check if model is healthy (circuit not open)
-    
+
     Args:
         model: Model name
-    
+
     Returns:
         True if model is healthy
     """
@@ -48,11 +48,11 @@ def pick_model(
 ) -> Tuple[str, Dict[str, Any], str]:
     """
     Select model with canary sampling and circuit breaker protection
-    
+
     Args:
         base_policy: Baseline routing policy
         intent: Optional request intent/type
-    
+
     Returns:
         (model_name, policy, bucket)
         bucket is one of: "control", "canary", "fallback"
@@ -60,12 +60,12 @@ def pick_model(
     control_model = base_policy.get("selected_model", "mlx:qwen")
     chosen_model = control_model
     bucket = "control"
-    
+
     # Circuit breaker: If control is open, use fallback
     if CB.is_open(control_model):
         # Choose a safe fallback
         fallback_model = "mlx:qwen" if control_model != "mlx:qwen" else "ollama:llama3.1"
-        
+
         if model_healthy(fallback_model):
             chosen_model = fallback_model
             bucket = "fallback"
@@ -73,13 +73,13 @@ def pick_model(
         else:
             # No healthy fallback, use control anyway (last resort)
             print(f"⚠️  No healthy fallback for {control_model}, using anyway")
-    
+
     # Canary sampling (only if enabled, configured, and healthy)
-    if (CANARY_ENABLED and 
-        CANARY_MODEL and 
+    if (CANARY_ENABLED and
+        CANARY_MODEL and
         CANARY_PERCENT > 0 and
         not CB.is_open(CANARY_MODEL)):
-        
+
         # Skip canary if it requires health check and fails
         if CANARY_REQUIRE_HEALTH and not model_healthy(CANARY_MODEL):
             pass  # Use control
@@ -89,14 +89,14 @@ def pick_model(
             if roll <= CANARY_PERCENT:
                 chosen_model = CANARY_MODEL
                 bucket = "canary"
-    
+
     # Build final policy with bucket tag
     policy = {
         **base_policy,
         "selected_model": chosen_model,
         "bucket": bucket
     }
-    
+
     return chosen_model, policy, bucket
 
 
@@ -107,7 +107,7 @@ def record_outcome(
 ):
     """
     Record request outcome to circuit breaker
-    
+
     Args:
         model: Model name
         success: Whether request succeeded
@@ -119,10 +119,10 @@ def record_outcome(
 def get_breaker_stats(model: str) -> Optional[Dict]:
     """
     Get circuit breaker stats for a model
-    
+
     Args:
         model: Model name
-    
+
     Returns:
         Stats dict or None
     """
@@ -132,7 +132,7 @@ def get_breaker_stats(model: str) -> Optional[Dict]:
 def reset_breaker(model: str):
     """
     Manually reset circuit for a model
-    
+
     Args:
         model: Model name
     """
@@ -142,7 +142,7 @@ def reset_breaker(model: str):
 def get_canary_config() -> Dict[str, Any]:
     """
     Get current canary configuration
-    
+
     Returns:
         Config dict
     """
@@ -158,4 +158,3 @@ def get_canary_config() -> Dict[str, Any]:
             "open_seconds": CB.open_seconds
         }
     }
-

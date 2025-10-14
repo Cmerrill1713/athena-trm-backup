@@ -10,6 +10,7 @@
     { "label": "Athena: UI Focus Tests", "command": "make", "args": ["ui-test-focus"] },
     { "label": "Athena: Run App", "command": "bash", "args": ["scripts/xcode_run_app.sh"] },
     { "label": "Athena: Demo Pop-outs", "command": "bash", "args": ["scripts/athena_demo_events.sh"] },
+    { "label": "Athena: Build • Run • Demo", "command": "bash", "args": ["-lc", "bash scripts/xcode_build_debug.sh && bash scripts/xcode_run_app.sh & sleep 4 && bash scripts/athena_demo_events.sh"], "problemMatcher": [] },
     { "label": "Athena: Full Stack Test", "command": "make backend-dev & sleep 3 && bash scripts/xcode_run_app.sh && bash scripts/athena_demo_events.sh" }
   ]
 }

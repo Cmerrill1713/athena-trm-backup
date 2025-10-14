@@ -139,11 +139,10 @@ Once app is running, test these:
 
 ## 📝 Summary
 
-**Backend**: Start in 3 separate terminal tabs (Athena, UAT, Bridge)  
-**Frontend**: Open in Xcode, set `FEATURE_MODERN_UI=1`, press ⌘R  
+**Backend**: Start in 3 separate terminal tabs (Athena, UAT, Bridge)
+**Frontend**: Open in Xcode, set `FEATURE_MODERN_UI=1`, press ⌘R
 **Test**: Press ⌘K to verify it works
 
 ---
 
 **Follow the steps above and let me know what happens!** 🚀
-

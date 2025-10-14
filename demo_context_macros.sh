@@ -92,14 +92,14 @@ scenarios = [
 
 for scenario in scenarios:
     print(f'\\n🧪 Testing: {scenario[\"name\"]}')
-    
+
     # Mock the context
     if 'time_override' in scenario:
         # Test maintenance time (2:00-4:00)
         current_time = time.mktime(time.strptime('02:30', '%H:%M'))
     else:
         current_time = time.time()
-    
+
     # Check each trigger
     for trigger_name, trigger_config in MACRO_TRIGGERS.items():
         try:

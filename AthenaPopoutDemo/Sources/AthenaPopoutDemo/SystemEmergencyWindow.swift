@@ -3,7 +3,7 @@ import SwiftUI
 struct SystemEmergencyWindow: View {
     @State var emergency: SystemEmergency
     @State private var remaining: Int
-    
+
     init(emergency: SystemEmergency) {
         self.emergency = emergency
         self._remaining = State(initialValue: emergency.countdownSeconds)
@@ -12,13 +12,13 @@ struct SystemEmergencyWindow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("🚨 SYSTEM EMERGENCY").font(.title.bold()).foregroundColor(.red)
-            
+
             HStack {
                 Text(emergency.title).font(.headline)
                 Spacer()
                 Text("Risk: \(emergency.risk.rawValue.uppercased())").bold()
             }
-            
+
             Text(emergency.analysis).font(.body)
 
             if !emergency.actions.isEmpty {

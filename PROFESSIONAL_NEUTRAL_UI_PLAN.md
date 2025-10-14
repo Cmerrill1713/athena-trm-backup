@@ -12,17 +12,17 @@ struct ProfessionalColors {
     static let secondaryGray = Color(red: 0.25, green: 0.25, blue: 0.25)    // #404040
     static let lightGray = Color(red: 0.45, green: 0.45, blue: 0.45)        // #737373
     static let veryLightGray = Color(red: 0.85, green: 0.85, blue: 0.85)    // #D9D9D9
-    
+
     // Blues (Accent - Professional)
     static let navyBlue = Color(red: 0.05, green: 0.15, blue: 0.35)         // #0D2659
     static let steelBlue = Color(red: 0.25, green: 0.35, blue: 0.55)        // #40598B
     static let lightBlue = Color(red: 0.65, green: 0.75, blue: 0.95)        // #A6BFF2
-    
+
     // Status Colors (Minimal)
     static let successGreen = Color(red: 0.2, green: 0.6, blue: 0.3)        // #33994D
     static let warningOrange = Color(red: 0.8, green: 0.5, blue: 0.1)       // #CC801A
     static let errorRed = Color(red: 0.7, green: 0.2, blue: 0.2)            // #B33333
-    
+
     // Backgrounds
     static let background = Color(.windowBackgroundColor)
     static let cardBackground = Color(.controlBackgroundColor)
@@ -52,13 +52,13 @@ struct ProfessionalColors {
 ```swift
 struct ProfessionalMessageBubble: View {
     let message: ChatMessage
-    
+
     var body: some View {
         HStack {
             if message.isUser {
                 Spacer()
             }
-            
+
             VStack(alignment: message.isUser ? .trailing : .leading, spacing: 6) {
                 Text(message.text)
                     .font(.system(size: 15, weight: .regular))
@@ -67,14 +67,14 @@ struct ProfessionalMessageBubble: View {
                     .padding(.vertical, 12)
                     .background(
                         RoundedRectangle(cornerRadius: 16)
-                            .fill(message.isUser ? 
+                            .fill(message.isUser ?
                                 ProfessionalColors.navyBlue :
                                 ProfessionalColors.cardBackground
                             )
                             .overlay(
                                 RoundedRectangle(cornerRadius: 16)
                                     .stroke(
-                                        message.isUser ? 
+                                        message.isUser ?
                                             Color.clear :
                                             ProfessionalColors.veryLightGray.opacity(0.3),
                                         lineWidth: 1
@@ -87,12 +87,12 @@ struct ProfessionalMessageBubble: View {
                                 y: 1
                             )
                     )
-                
+
                 HStack(spacing: 4) {
                     Text(formatTime(message.timestamp))
                         .font(.caption2)
                         .foregroundColor(.secondary)
-                    
+
                     if message.isUser {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.caption2)
@@ -101,7 +101,7 @@ struct ProfessionalMessageBubble: View {
                 }
             }
             .frame(maxWidth: 300, alignment: message.isUser ? .trailing : .leading)
-            
+
             if !message.isUser {
                 Spacer()
             }
@@ -120,13 +120,13 @@ struct ProfessionalSidebar: View {
                 Text("NeuroForge")
                     .font(.title2.weight(.medium))
                     .foregroundColor(.primary)
-                
+
                 // Minimalist search
                 HStack(spacing: 8) {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.secondary)
                         .font(.system(size: 14))
-                    
+
                     TextField("Search...", text: .constant(""))
                         .textFieldStyle(.plain)
                         .font(.system(size: 14))
@@ -143,10 +143,10 @@ struct ProfessionalSidebar: View {
                 )
             }
             .padding(16)
-            
+
             Divider()
                 .background(ProfessionalColors.veryLightGray)
-            
+
             // Clean contact list
             ScrollView {
                 LazyVStack(spacing: 2) {
@@ -168,7 +168,7 @@ struct ProfessionalSidebar: View {
 ```swift
 struct ProfessionalContactCard: View {
     let contact: Contact
-    
+
     var body: some View {
         HStack(spacing: 12) {
             // Avatar with subtle border
@@ -176,7 +176,7 @@ struct ProfessionalContactCard: View {
                 Circle()
                     .fill(ProfessionalColors.lightGray.opacity(0.2))
                     .frame(width: 40, height: 40)
-                
+
                 Image(systemName: contact.avatar)
                     .font(.system(size: 18))
                     .foregroundColor(ProfessionalColors.steelBlue)
@@ -185,25 +185,25 @@ struct ProfessionalContactCard: View {
                 Circle()
                     .stroke(ProfessionalColors.veryLightGray, lineWidth: 1)
             )
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 Text(contact.name)
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(.primary)
-                
+
                 HStack(spacing: 4) {
                     Circle()
                         .fill(contact.isOnline ? ProfessionalColors.successGreen : .secondary)
                         .frame(width: 6, height: 6)
-                    
+
                     Text(contact.isOnline ? "Online" : "Offline")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
             }
-            
+
             Spacer()
-            
+
             Text("\(contact.messageCount)")
                 .font(.caption)
                 .foregroundColor(.secondary)
@@ -232,7 +232,7 @@ struct ProfessionalContactCard: View {
 ```swift
 struct ProfessionalChatInput: View {
     @Binding var text: String
-    
+
     var body: some View {
         HStack(alignment: .bottom, spacing: 12) {
             // Minimal attachment button
@@ -242,7 +242,7 @@ struct ProfessionalChatInput: View {
                     .foregroundColor(ProfessionalColors.lightGray)
             }
             .buttonStyle(.plain)
-            
+
             // Clean text input
             HStack(alignment: .bottom, spacing: 8) {
                 TextEditor(text: $text)
@@ -250,13 +250,13 @@ struct ProfessionalChatInput: View {
                     .frame(minHeight: 20, maxHeight: 100)
                     .scrollContentBackground(.hidden)
                     .background(Color.clear)
-                
+
                 // Professional send button
                 Button(action: sendMessage) {
                     Image(systemName: "arrow.up.circle.fill")
                         .font(.title2)
-                        .foregroundColor(text.isEmpty ? 
-                            ProfessionalColors.lightGray : 
+                        .foregroundColor(text.isEmpty ?
+                            ProfessionalColors.lightGray :
                             ProfessionalColors.steelBlue
                         )
                 }
@@ -273,7 +273,7 @@ struct ProfessionalChatInput: View {
                             .stroke(ProfessionalColors.veryLightGray.opacity(0.5), lineWidth: 1)
                     )
             )
-            
+
             // Minimal mic button
             Button(action: {}) {
                 Image(systemName: "mic")
@@ -305,7 +305,7 @@ struct ProfessionalTypography {
 
 ### **2. Professional Status Indicators**
 - **Online:** Subtle green dot
-- **Away:** Neutral yellow dot  
+- **Away:** Neutral yellow dot
 - **Busy:** Professional orange dot
 - **Offline:** Light gray dot
 
@@ -323,7 +323,7 @@ enum MessageStatus {
     case sent
     case delivered
     case read
-    
+
     var icon: String {
         switch self {
         case .sent: return "checkmark"
@@ -331,7 +331,7 @@ enum MessageStatus {
         case .read: return "checkmark.circle.fill"
         }
     }
-    
+
     var color: Color {
         switch self {
         case .sent: return ProfessionalColors.lightGray

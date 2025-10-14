@@ -33,7 +33,7 @@ class Agent:
     port: int
     capabilities: List[str]
     prompt: str                      # System prompt for this agent
-    
+
     @property
     def endpoint(self) -> str:
         return f"http://{self.host}:{self.port}"
@@ -44,14 +44,14 @@ class AITeam:
     Orchestrates a team of specialized AI agents
     Routes tasks to the right specialist based on task type
     """
-    
+
     def __init__(self):
         self.agents = self._initialize_team()
         self.task_history = []
-        
+
     def _initialize_team(self) -> Dict[AgentRole, Agent]:
         """Initialize the AI team with specialized agents"""
-        
+
         return {
             AgentRole.ARCHITECT: Agent(
                 role=AgentRole.ARCHITECT,
@@ -60,7 +60,7 @@ class AITeam:
                 port=11434,
                 capabilities=["design", "planning", "architecture"],
                 prompt="""You are a Senior Software Architect.
-                
+
 Your role:
 - Design system architectures
 - Create implementation plans
@@ -70,12 +70,12 @@ Your role:
 
 Provide clear, structured designs with:
 - Component diagrams
-- Data flow diagrams  
+- Data flow diagrams
 - API specifications
 - Technology choices with rationale
 """
             ),
-            
+
             AgentRole.CODE_GEN: Agent(
                 role=AgentRole.CODE_GEN,
                 model="qwen3-coder:30b",  # Your powerful code model
@@ -98,7 +98,7 @@ Always include:
 - Clear variable names
 """
             ),
-            
+
             AgentRole.TESTER: Agent(
                 role=AgentRole.TESTER,
                 model="qwen3-coder:30b",
@@ -120,7 +120,7 @@ Include:
 - Parameterized tests
 """
             ),
-            
+
             AgentRole.REVIEWER: Agent(
                 role=AgentRole.REVIEWER,
                 model="qwen2.5:14b",
@@ -143,7 +143,7 @@ Focus on:
 - Test coverage
 """
             ),
-            
+
             AgentRole.RESEARCHER: Agent(
                 role=AgentRole.RESEARCHER,
                 model="qwen2.5:14b",
@@ -165,7 +165,7 @@ Provide:
 - Integration recommendations
 """
             ),
-            
+
             AgentRole.OPTIMIZER: Agent(
                 role=AgentRole.OPTIMIZER,
                 model="qwen3-coder:30b",
@@ -187,7 +187,7 @@ Focus on:
 - Parallel processing
 """
             ),
-            
+
             AgentRole.DOCUMENTER: Agent(
                 role=AgentRole.DOCUMENTER,
                 model="qwen2.5:14b",
@@ -209,7 +209,7 @@ Include:
 - Usage examples
 """
             ),
-            
+
             AgentRole.DEBUGGER: Agent(
                 role=AgentRole.DEBUGGER,
                 model="qwen3-coder:30b",
@@ -232,20 +232,20 @@ Provide:
 """
             ),
         }
-    
+
     async def delegate_task(self, task: str, task_type: str, context: Dict[str, Any] = None) -> Dict[str, Any]:
         """
         Delegate a task to the appropriate specialist agent
-        
+
         Args:
             task: The task description
             task_type: Type of task (maps to AgentRole)
             context: Additional context for the task
-            
+
         Returns:
             Result from the specialist agent
         """
-        
+
         # Map task type to agent role
         role_mapping = {
             "design": AgentRole.ARCHITECT,
@@ -257,25 +257,25 @@ Provide:
             "document": AgentRole.DOCUMENTER,
             "debug": AgentRole.DEBUGGER,
         }
-        
+
         role = role_mapping.get(task_type, AgentRole.CODE_GEN)
         agent = self.agents[role]
-        
+
         print(f"🤖 Delegating to {agent.role.value} ({agent.model} on {agent.host})")
-        
+
         # Prepare prompt with agent's system prompt
         full_prompt = f"{agent.prompt}\n\n---\n\nTask: {task}"
-        
+
         if context:
             full_prompt += f"\n\nContext: {json.dumps(context, indent=2)}"
-        
+
         # Call the agent (Ollama API)
         result = await self._call_ollama(
             host=agent.endpoint,
             model=agent.model,
             prompt=full_prompt
         )
-        
+
         # Record in history
         self.task_history.append({
             "task": task,
@@ -285,12 +285,12 @@ Provide:
             "result_length": len(result.get("response", "")),
             "tokens": result.get("tokens", 0)
         })
-        
+
         return result
-    
+
     async def _call_ollama(self, host: str, model: str, prompt: str) -> Dict[str, Any]:
         """Call Ollama API on specified host"""
-        
+
         try:
             async with httpx.AsyncClient(timeout=120) as client:
                 response = await client.post(
@@ -301,7 +301,7 @@ Provide:
                         "stream": False
                     }
                 )
-                
+
                 if response.status_code == 200:
                     data = response.json()
                     return {
@@ -316,27 +316,27 @@ Provide:
                         "success": False,
                         "error": f"HTTP {response.status_code}: {response.text}"
                     }
-                    
+
         except Exception as e:
             return {
                 "success": False,
                 "error": str(e)
             }
-    
+
     async def collaborative_workflow(self, project_spec: str) -> Dict[str, Any]:
         """
         Run a full collaborative workflow:
         Architect → Code Gen → Tester → Reviewer → Documenter
-        
+
         This mimics a real software team!
         """
-        
+
         print("=" * 80)
         print("🏢 STARTING COLLABORATIVE AI TEAM WORKFLOW")
         print("=" * 80)
-        
+
         results = {}
-        
+
         # Step 1: Architect designs the system
         print("\n📐 Phase 1: Architecture & Design")
         arch_result = await self.delegate_task(
@@ -344,10 +344,10 @@ Provide:
             task_type="design"
         )
         results["architecture"] = arch_result
-        
+
         if not arch_result.get("success"):
             return {"error": "Architecture phase failed", "results": results}
-        
+
         # Step 2: Code Generator implements (ON CODE MACHINE!)
         print("\n💻 Phase 2: Code Generation (CODE MACHINE)")
         code_result = await self.delegate_task(
@@ -356,10 +356,10 @@ Provide:
             context={"architecture": arch_result["response"]}
         )
         results["implementation"] = code_result
-        
+
         if not code_result.get("success"):
             return {"error": "Implementation phase failed", "results": results}
-        
+
         # Step 3: Tester creates tests (ON ANOTHER CODE MACHINE!)
         print("\n🧪 Phase 3: Test Generation (CODE MACHINE)")
         test_result = await self.delegate_task(
@@ -368,7 +368,7 @@ Provide:
             context={"code": code_result["response"]}
         )
         results["tests"] = test_result
-        
+
         # Step 4: Reviewer checks everything
         print("\n👀 Phase 4: Code Review")
         review_result = await self.delegate_task(
@@ -380,7 +380,7 @@ Provide:
             }
         )
         results["review"] = review_result
-        
+
         # Step 5: Documenter creates docs
         print("\n📚 Phase 5: Documentation")
         doc_result = await self.delegate_task(
@@ -389,11 +389,11 @@ Provide:
             context={"code": code_result["response"]}
         )
         results["documentation"] = doc_result
-        
+
         print("\n" + "=" * 80)
         print("✅ COLLABORATIVE WORKFLOW COMPLETE!")
         print("=" * 80)
-        
+
         return results
 
 
@@ -421,29 +421,28 @@ async def route_to_specialist(task: str, task_type: str) -> Dict[str, Any]:
 if __name__ == "__main__":
     async def demo():
         team = AITeam()
-        
+
         print("=" * 80)
         print("🏢 AI TEAM - SPECIALIZED AGENTS")
         print("=" * 80)
         print("\n👥 Team Members:")
         for role, agent in team.agents.items():
             print(f"  • {role.value:15s} → {agent.model:20s} @ {agent.host}")
-        
+
         print("\n" + "=" * 80)
         print("💡 Example: Full Project Workflow")
         print("=" * 80)
-        
+
         project = "Build a rate limiter using token bucket algorithm"
-        
+
         print(f"\n📋 Project: {project}")
         print("\n🚀 Starting collaborative workflow...")
         print("   (This would orchestrate Architect → Coder → Tester → Reviewer → Documenter)")
-        
+
         # Note: Actual execution requires code machines to be set up
         print("\n✅ Team ready! To run for real:")
         print("   1. Set up CODE machines with Ollama + qwen3-coder:30b")
         print("   2. Run: python3 orchestrator/ai_team.py")
         print("   3. Watch the team collaborate!")
-    
-    asyncio.run(demo())
 
+    asyncio.run(demo())

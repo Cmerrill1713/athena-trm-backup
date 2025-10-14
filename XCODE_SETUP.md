@@ -56,10 +56,10 @@ Product Menu
 
 When app launches, you should see:
 
-✅ **Service status badges** in header (4 colored dots)  
-✅ **Glassmorphic background** (frosted glass effect)  
-✅ **Modern input area** at bottom  
-✅ **Gradient colors** throughout  
+✅ **Service status badges** in header (4 colored dots)
+✅ **Glassmorphic background** (frosted glass effect)
+✅ **Modern input area** at bottom
+✅ **Gradient colors** throughout
 
 If you see the **old plain UI**, the environment variable didn't load. Try:
 - Clean build: **⌘⇧K**
@@ -152,4 +152,3 @@ App is working if you see:
 4. **Press ⌘R** → Launch!
 
 **Let me know what happens!** 🎯
-

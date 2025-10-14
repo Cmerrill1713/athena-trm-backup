@@ -129,21 +129,21 @@ voice_inputs = [
 
 for voice_input in voice_inputs:
     print(f'🎤 Heard: \"{voice_input}\"')
-    
+
     if voice_input.startswith(WAKE_WORD):
         command = voice_input[len(WAKE_WORD):].strip()
         print(f'🎯 Extracted command: \"{command}\"')
-        
+
         # Process through command routing
         response = process_voice_command(command)
         print(f'🤖 Athena responds: \"{response}\"')
-        
+
         # Simulate voice feedback
         voice_feedback = f'Command executed: {response}'
         print(f'🔊 Voice feedback: \"{voice_feedback}\"')
     else:
         print('❌ Not our wake word')
-    
+
     print('─' * 50)
 "
 

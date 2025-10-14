@@ -10,7 +10,7 @@ struct ServiceInfo: Identifiable, Hashable {
     let port: Int
     let tier: ServiceTier
     let required: Bool
-    
+
     init(id: String? = nil, name: String, baseURL: String, healthEndpoint: String = "/health", tier: ServiceTier = .core, required: Bool = true) {
         self.id = id ?? name.lowercased()
         self.name = name
@@ -20,11 +20,11 @@ struct ServiceInfo: Identifiable, Hashable {
         self.tier = tier
         self.required = required
     }
-    
+
     var healthURL: String {
         baseURL + healthEndpoint
     }
-    
+
     var readyURL: String {
         baseURL + "/ready"
     }
@@ -36,7 +36,7 @@ enum ServiceTier: String, CaseIterable {
     case rag = "RAG"
     case vision = "Vision"
     case monitoring = "Monitoring"
-    
+
     var color: Color {
         switch self {
         case .core: return .blue
@@ -59,7 +59,7 @@ enum ServiceRegistry {
         tier: .core,
         required: true
     )
-    
+
     static let athena = ServiceInfo(
         name: "Athena",
         baseURL: "http://127.0.0.1:8090",
@@ -67,7 +67,7 @@ enum ServiceRegistry {
         tier: .core,
         required: true
     )
-    
+
     static let uat = ServiceInfo(
         name: "UAT",
         baseURL: "http://127.0.0.1:8181",
@@ -75,7 +75,7 @@ enum ServiceRegistry {
         tier: .core,
         required: true
     )
-    
+
     // Voice Services (Optional)
     static let kokoro = ServiceInfo(
         name: "Kokoro TTS",
@@ -84,7 +84,7 @@ enum ServiceRegistry {
         tier: .voice,
         required: false
     )
-    
+
     // RAG Services (Optional)
     static let rag = ServiceInfo(
         name: "RAG Service",
@@ -93,7 +93,7 @@ enum ServiceRegistry {
         tier: .rag,
         required: false
     )
-    
+
     static let weaviate = ServiceInfo(
         name: "Weaviate",
         baseURL: "http://127.0.0.1:8080",
@@ -101,7 +101,7 @@ enum ServiceRegistry {
         tier: .rag,
         required: false
     )
-    
+
     // Vision Services (Optional)
     static let fastvlm = ServiceInfo(
         name: "FastVLM",
@@ -110,7 +110,7 @@ enum ServiceRegistry {
         tier: .vision,
         required: false
     )
-    
+
     static let visionRAG = ServiceInfo(
         name: "Vision RAG",
         baseURL: "http://127.0.0.1:8016",
@@ -118,7 +118,7 @@ enum ServiceRegistry {
         tier: .vision,
         required: false
     )
-    
+
     // AI/ML Services (Optional)
     static let ollama = ServiceInfo(
         name: "Ollama",
@@ -127,7 +127,7 @@ enum ServiceRegistry {
         tier: .core,
         required: false
     )
-    
+
     // MCP Services (Optional)
     static let mcpChat = ServiceInfo(
         name: "MCP Chat",
@@ -136,7 +136,7 @@ enum ServiceRegistry {
         tier: .core,
         required: false
     )
-    
+
     static let mcpOrchestration = ServiceInfo(
         name: "MCP Orchestration",
         baseURL: "http://127.0.0.1:8084",
@@ -144,7 +144,7 @@ enum ServiceRegistry {
         tier: .core,
         required: false
     )
-    
+
     // Monitoring Services (Optional)
     static let prometheus = ServiceInfo(
         name: "Prometheus",
@@ -153,7 +153,7 @@ enum ServiceRegistry {
         tier: .monitoring,
         required: false
     )
-    
+
     static let netdata = ServiceInfo(
         name: "Netdata",
         baseURL: "http://127.0.0.1:19999",
@@ -161,7 +161,7 @@ enum ServiceRegistry {
         tier: .monitoring,
         required: false
     )
-    
+
     static let grafana = ServiceInfo(
         name: "Grafana",
         baseURL: "http://127.0.0.1:3000",
@@ -169,7 +169,7 @@ enum ServiceRegistry {
         tier: .monitoring,
         required: false
     )
-    
+
     // All services grouped
     static let all: [ServiceInfo] = [
         bridge, athena, uat, ollama,    // Core
@@ -179,18 +179,18 @@ enum ServiceRegistry {
         fastvlm, visionRAG,              // Vision
         prometheus, netdata, grafana     // Monitoring
     ]
-    
+
     static let core: [ServiceInfo] = [bridge, athena, uat, ollama]
     static let mcp: [ServiceInfo] = [mcpChat, mcpOrchestration]
     static let voice: [ServiceInfo] = [kokoro]
     static let ragServices: [ServiceInfo] = [rag, weaviate]
     static let visionServices: [ServiceInfo] = [fastvlm, visionRAG]
     static let monitoringServices: [ServiceInfo] = [prometheus, netdata, grafana]
-    
+
     static func byTier(_ tier: ServiceTier) -> [ServiceInfo] {
         all.filter { $0.tier == tier }
     }
-    
+
     // Shared instance for easier access
     static let shared = ServiceRegistryHelper()
 }
@@ -202,7 +202,7 @@ struct ServiceRegistryHelper {
     var healthChecks: [(String, String)] {
         ServiceRegistry.all.map { ($0.name, $0.healthURL) }
     }
-    
+
     // Quick access URLs
     var ragURL: String { ServiceRegistry.rag.baseURL }
     var visionURL: String { ServiceRegistry.fastvlm.baseURL }
@@ -217,7 +217,7 @@ import SwiftUI
 @MainActor
 class ServiceHealthChecker: ObservableObject {
     @Published var statuses: [String: ServiceHealth] = [:]
-    
+
     struct ServiceHealth {
         let service: ServiceInfo
         var isHealthy: Bool = false
@@ -225,7 +225,7 @@ class ServiceHealthChecker: ObservableObject {
         var latencyMs: Int?
         var error: String?
     }
-    
+
     func checkAll(services: [ServiceInfo]) async {
         await withTaskGroup(of: (String, ServiceHealth).self) { group in
             for service in services {
@@ -233,21 +233,21 @@ class ServiceHealthChecker: ObservableObject {
                     await self.check(service)
                 }
             }
-            
+
             for await (id, health) in group {
                 statuses[id] = health
             }
         }
     }
-    
+
     private func check(_ service: ServiceInfo) async -> (String, ServiceHealth) {
         let start = Date()
         var health = ServiceHealth(service: service)
-        
+
         do {
             let url = URL(string: service.healthURL)!
             let (_, response) = try await URLSession.shared.data(from: url)
-            
+
             if let httpResp = response as? HTTPURLResponse, (200...299).contains(httpResp.statusCode) {
                 health.isHealthy = true
                 health.latencyMs = Int(-start.timeIntervalSinceNow * 1000)
@@ -259,9 +259,8 @@ class ServiceHealthChecker: ObservableObject {
             health.isHealthy = false
             health.error = error.localizedDescription
         }
-        
+
         health.lastCheck = Date()
         return (service.id, health)
     }
 }
-

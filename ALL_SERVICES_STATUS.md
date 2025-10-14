@@ -1,6 +1,6 @@
 # 🎯 Complete Service Inventory & Metrics Status
 
-**Date**: October 13, 2025  
+**Date**: October 13, 2025
 **Total Services Found**: 12 running, 19 documented but not running
 
 ---
@@ -71,7 +71,7 @@ docker compose -f docker-compose.monitoring.yml restart prometheus
 
 # Verify
 curl http://localhost:8015/metrics | head  # RAG
-curl http://localhost:8016/metrics | head  # Vision  
+curl http://localhost:8016/metrics | head  # Vision
 curl http://localhost:8020/metrics | head  # Kokoro
 ```
 
@@ -170,7 +170,7 @@ The other 2 services (ML Inference, Orchestration) can be added later if needed.
 
 ### Will Be Scraped (After Restart)
 1. Bridge (`:8014`) ✅
-2. RAG (`:8015`) 🔄 
+2. RAG (`:8015`) 🔄
 3. Vision (`:8016`) 🔄
 4. Kokoro (`:8020`) 🔄
 5. UAT (`:8181`) ✅
@@ -185,5 +185,3 @@ The other 2 services (ML Inference, Orchestration) can be added later if needed.
 12. Orchestration (`:8080`) - Needs investigation
 
 **Coverage**: 10/12 (83%) monitored - Excellent! ✅
-
-

@@ -59,7 +59,7 @@ struct NeuroForgeApp: App {
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
     }
-    
+
     // Helper to bring a window forward
     private func openWindow(id: String) {
         #if canImport(AppKit)

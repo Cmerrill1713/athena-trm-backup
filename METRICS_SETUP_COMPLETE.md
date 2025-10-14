@@ -1,6 +1,6 @@
 # ✅ Prometheus Metrics Setup - Complete
 
-**Date**: October 13, 2025  
+**Date**: October 13, 2025
 **Status**: Code ready, needs manual restart
 
 ---
@@ -30,7 +30,7 @@ rag_request_duration_seconds                # Request latency histogram
 rag_hits_count                              # Number of hits returned
 ```
 
-### Vision Service  
+### Vision Service
 ```python
 vision_requests_total{status="success|error",operation="describe"}
 vision_request_duration_seconds{operation="describe"}
@@ -85,7 +85,7 @@ python rag_service.py > ../../logs/rag.out 2>&1 &
 cd ../..
 
 # Vision
-cd AI-Projects/universal-ai-tools  
+cd AI-Projects/universal-ai-tools
 python vision_rag_service.py > ../../logs/vision.out 2>&1 &
 cd ../..
 
@@ -169,7 +169,7 @@ curl -X POST http://localhost:9091/-/reload
 ### After Services Restart
 You'll be able to see:
 - RAG query volume and latency
-- Vision API usage  
+- Vision API usage
 - TTS generation metrics
 - Service health for all 6 core services
 - Request rates and error rates
@@ -211,4 +211,3 @@ Once services are restarted, you'll have:
 - **Full observability** into your NeuroForge platform
 
 **No Supabase** - Everything uses Weaviate as you specified! 🚀
-

@@ -229,4 +229,3 @@ mcp_web = FastMCP("web-search")
 ---
 
 Which approach would you like me to implement for your **MCP Ecosystem**? 🎯
-

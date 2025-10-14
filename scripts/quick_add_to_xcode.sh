@@ -69,4 +69,3 @@ echo "   - Click 'Demo Tribunal Decision' button"
 echo "   - Click 'Demo System Emergency' button"
 echo ""
 echo "Expected: All 3 windows should appear with proper content!"
-

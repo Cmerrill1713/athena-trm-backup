@@ -11,15 +11,14 @@ final class AthenaState: ObservableObject {
         lastAlert = alert
         NotificationCenter.default.post(name: .ShowCriticalAlert, object: alert)
     }
-    
+
     func trigger(_ tribunal: TribunalCase) {
         lastCase = tribunal
         NotificationCenter.default.post(name: .ShowTribunalDecision, object: tribunal)
     }
-    
+
     func trigger(_ emergency: SystemEmergency) {
         lastEmergency = emergency
         NotificationCenter.default.post(name: .ShowSystemEmergency, object: emergency)
     }
 }
-

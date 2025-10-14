@@ -7,4 +7,3 @@ final class VoiceManager {
         NSLog("[VoiceManager] \(text)")
     }
 }
-

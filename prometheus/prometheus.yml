@@ -20,7 +20,7 @@ scrape_configs:
       - targets: ['localhost:9090']
 
   # === Python Services (NeuroForge Core) ===
-  
+
   # Bridge - API Gateway with TRM routing
   - job_name: 'bridge'
     static_configs:
@@ -49,7 +49,7 @@ scrape_configs:
     metrics_path: /metrics
     scrape_interval: 10s
 
-  # Vision Service  
+  # Vision Service
   - job_name: 'vision'
     static_configs:
       - targets: ['host.docker.internal:8016']
@@ -64,7 +64,7 @@ scrape_configs:
     scrape_interval: 10s
 
   # === Rust Services ===
-  
+
   # Assistantd - Parameter analytics
   - job_name: 'assistantd'
     static_configs:
@@ -80,7 +80,7 @@ scrape_configs:
     scrape_interval: 15s
 
   # === Go Services ===
-  
+
   # Orchestration Service
   - job_name: 'orchestration'
     static_configs:
@@ -96,7 +96,7 @@ scrape_configs:
     scrape_interval: 15s
 
   # === External/Optional Services ===
-  
+
   # Weaviate - Vector database (48K+ documents)
   - job_name: 'weaviate'
     static_configs:
@@ -123,4 +123,3 @@ alerting:
   alertmanagers:
     - static_configs:
         - targets: ['alertmanager:9093']
-

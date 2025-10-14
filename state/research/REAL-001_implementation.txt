@@ -3,12 +3,12 @@ Implement the following research paper algorithm:
 
 **Paper**: Contextual Thompson Sampling with Neural Networks
 
-**Abstract**: 
+**Abstract**:
             We improve Thompson Sampling for multi-armed bandits by adding context awareness.
             Instead of just tracking wins/losses per arm, we maintain a neural network that
             predicts the reward distribution based on context features (task type, user history,
             time of day, etc.). This allows the bandit to generalize across similar contexts.
-            
+
             Key Algorithm:
             1. Maintain beta distributions per arm (wins, losses)
             2. T...

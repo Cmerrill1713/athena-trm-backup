@@ -6,7 +6,7 @@ echo "==========================================="
 
 # Unload test agents
 launchctl unload ~/Library/LaunchAgents/com.athena.memory.plist 2>/dev/null || true
-launchctl unload ~/Library/LaunchAgents/com.athena.voice.plist 2>/dev/null || true  
+launchctl unload ~/Library/LaunchAgents/com.athena.voice.plist 2>/dev/null || true
 launchctl unload ~/Library/LaunchAgents/com.athena.briefing.plist 2>/dev/null || true
 
 # Create production launch agents

@@ -51,4 +51,3 @@ curl -sS -X POST "$API/system/emergency" \
 
 echo "✅ Demo events sent successfully"
 echo "   Watch for pop-outs in Athena app!"
-

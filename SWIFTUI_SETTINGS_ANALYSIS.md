@@ -7,12 +7,12 @@
 ```swift
 .windowStyle(.hiddenTitleBar)
 ```
-**Issue:** Hidden title bar can make the window look incomplete/ugly  
+**Issue:** Hidden title bar can make the window look incomplete/ugly
 **Impact:** No drag handle, window controls might be hidden
 
 ### 2. Missing Default Window Size ⚠️
 **Location:** `main.swift` WindowGroup
-**Issue:** No `.defaultSize()` or `.frame()` modifiers  
+**Issue:** No `.defaultSize()` or `.frame()` modifiers
 **Impact:** Window opens at unpredictable size
 
 ### 3. ContentView Frame Settings ✅
@@ -139,9 +139,9 @@ API_BASE=http://127.0.0.1:8014 swift run
 
 ## Current Status:
 
-✅ **Text input code is PERFECT** - typing should be visible  
-⚠️ **Window configuration** - needs explicit sizing and title bar decision  
-⚠️ **Visual polish** - could use better shadows, corner radius  
+✅ **Text input code is PERFECT** - typing should be visible
+⚠️ **Window configuration** - needs explicit sizing and title bar decision
+⚠️ **Visual polish** - could use better shadows, corner radius
 🔴 **Check QA_MODE** - user might be seeing wrong interface!
 
 ## Most Likely Issue:
@@ -165,4 +165,3 @@ If typing still doesn't show, the issue is likely:
 - Window focus (app not in foreground)
 - Input field not getting focus automatically
 - Backend connection issue (text being sent but no response)
-

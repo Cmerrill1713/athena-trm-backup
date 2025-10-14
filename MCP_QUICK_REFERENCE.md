@@ -27,7 +27,7 @@ requests.post("http://localhost:8411/v1/store/results", json={
 
 ### MCP Tool
 ```python
-mcp.call_tool("store_write", agent="test", service="bridge", 
+mcp.call_tool("store_write", agent="test", service="bridge",
               status="PASS", summary="OK", details_json='{}')
 ```
 
@@ -85,5 +85,5 @@ docker ps | grep mcp-store             # Check running
 - `WARN` - Warning
 
 ---
-**Location:** /Users/christianmerrill/Documents/GitHub/  
+**Location:** /Users/christianmerrill/Documents/GitHub/
 **Status:** ✅ Ready to ship

@@ -35,13 +35,13 @@ except ImportError:
 def create_test_images() -> Dict[str, tuple[str, str, str]]:
     """
     Create synthetic test images
-    
+
     Returns:
         Dict mapping test_name to (image_path, prompt, expected_content)
     """
     test_dir = tempfile.mkdtemp(prefix="fastvlm_smoke_")
     tests = {}
-    
+
     # 1. Document scan (OCR)
     img = Image.new('RGB', (400, 200), color='white')
     draw = ImageDraw.Draw(img)
@@ -53,7 +53,7 @@ def create_test_images() -> Dict[str, tuple[str, str, str]]:
         "Extract all text from this document",
         "invoice"
     )
-    
+
     # 2. Chart (data extraction)
     img = Image.new('RGB', (400, 300), color='white')
     draw = ImageDraw.Draw(img)
@@ -72,7 +72,7 @@ def create_test_images() -> Dict[str, tuple[str, str, str]]:
         "What type of chart is this? Describe the data shown.",
         "chart"
     )
-    
+
     # 3. UI screenshot (interface)
     img = Image.new('RGB', (400, 300), color='lightgray')
     draw = ImageDraw.Draw(img)
@@ -90,7 +90,7 @@ def create_test_images() -> Dict[str, tuple[str, str, str]]:
         "Describe the UI elements you see",
         "button"
     )
-    
+
     # 4. Whiteboard (handwriting simulation)
     img = Image.new('RGB', (400, 200), color='white')
     draw = ImageDraw.Draw(img)
@@ -104,7 +104,7 @@ def create_test_images() -> Dict[str, tuple[str, str, str]]:
         "What text or drawings do you see?",
         "todo"
     )
-    
+
     # 5. Photo (colored shapes)
     img = Image.new('RGB', (400, 300), color='skyblue')
     draw = ImageDraw.Draw(img)
@@ -117,7 +117,7 @@ def create_test_images() -> Dict[str, tuple[str, str, str]]:
         "Describe the colors and shapes in this image",
         "red"
     )
-    
+
     # 6. Technical diagram (boxes and arrows)
     img = Image.new('RGB', (400, 300), color='white')
     draw = ImageDraw.Draw(img)
@@ -135,7 +135,7 @@ def create_test_images() -> Dict[str, tuple[str, str, str]]:
         "Describe this system architecture diagram",
         "client"
     )
-    
+
     return tests
 
 
@@ -147,24 +147,24 @@ def run_vision_test(
 ) -> Dict[str, Any]:
     """
     Run a single vision test
-    
+
     Returns:
         Test result dict
     """
     try:
         from fastvlm.fastvlm_client import FastVLMClient
-        
+
         client = FastVLMClient()
-        
+
         start = time.time()
         result = client.vision(image_path, prompt)
         elapsed = (time.time() - start) * 1000
-        
+
         # Check if expected content is in response
         response_lower = result["text"].lower()
         expected_lower = expected_content.lower()
         contains_expected = expected_lower in response_lower
-        
+
         return {
             "test": test_name,
             "status": "✅ PASS" if contains_expected else "⚠️  PARTIAL",
@@ -175,7 +175,7 @@ def run_vision_test(
             "response_length": len(result["text"]),
             "response_preview": result["text"][:100] + "..." if len(result["text"]) > 100 else result["text"]
         }
-    
+
     except Exception as e:
         return {
             "test": test_name,
@@ -205,47 +205,47 @@ def main():
 ║                                                                    ║
 ╚════════════════════════════════════════════════════════════════════╝
 """)
-    
+
     # Check server health first
     print_section("Pre-flight: Server Health")
-    
+
     try:
         from fastvlm.fastvlm_client import FastVLMClient
-        
+
         client = FastVLMClient()
         health = client.health()
-        
+
         print(f"Status:       {health['status']}")
         print(f"Model:        {health['model']}")
         print(f"Model exists: {health['model_exists']}")
-        
+
         if health['status'] != 'healthy':
             print("\n❌ Server not healthy. Start with: make fastvlm-server")
             sys.exit(1)
-        
+
         print("✅ Server is healthy")
-    
+
     except Exception as e:
         print(f"❌ Cannot connect to FastVLM server: {e}")
         print("   Start server with: make fastvlm-server")
         sys.exit(1)
-    
+
     # Create test images
     print_section("Generating Test Images")
     tests = create_test_images()
     print(f"✅ Created {len(tests)} test images")
-    
+
     # Run tests
     print_section("Running Vision Tests")
-    
+
     results = []
     for test_name, (image_path, prompt, expected) in tests.items():
         print(f"\n🔍 Test: {test_name}")
         print(f"   Prompt: {prompt}")
-        
+
         result = run_vision_test(test_name, image_path, prompt, expected)
         results.append(result)
-        
+
         print(f"   {result['status']}")
         if result.get('error'):
             print(f"   Error: {result['error']}")
@@ -253,17 +253,17 @@ def main():
             print(f"   Latency: {result['latency_ms']:.0f}ms (server), {result['total_ms']:.0f}ms (total)")
             print(f"   Expected '{expected}': {'Found' if result['found'] else 'Not found'}")
             print(f"   Response: {result['response_preview']}")
-    
+
     # Summary
     print_section("Test Summary")
-    
+
     passed = sum(1 for r in results if r['status'] == "✅ PASS")
     partial = sum(1 for r in results if r['status'] == "⚠️  PARTIAL")
     failed = sum(1 for r in results if r['status'] == "❌ FAIL")
     total = len(results)
-    
+
     print(f"\n  Results: {passed} passed, {partial} partial, {failed} failed (total: {total})")
-    
+
     # Latency stats
     latencies = [r['latency_ms'] for r in results if r['latency_ms'] > 0]
     if latencies:
@@ -271,28 +271,28 @@ def main():
         p50 = latencies_sorted[len(latencies_sorted) // 2]
         p95 = latencies_sorted[int(len(latencies_sorted) * 0.95)]
         avg = sum(latencies) / len(latencies)
-        
+
         print(f"\n  Latency: avg={avg:.0f}ms, p50={p50:.0f}ms, p95={p95:.0f}ms")
-        
+
         if p95 > 3000:
             print(f"  ⚠️  p95 latency is high ({p95:.0f}ms > 3000ms)")
         elif p95 > 1500:
             print(f"  ⚠️  p95 latency is moderate ({p95:.0f}ms)")
         else:
             print(f"  ✅ p95 latency is good ({p95:.0f}ms)")
-    
+
     # Detailed results table
     print(f"\n  {'Test':<20} {'Status':<12} {'Latency':<10} {'Expected Found'}")
     print(f"  {'-'*20} {'-'*12} {'-'*10} {'-'*14}")
-    
+
     for r in results:
         test_name = r['test'][:18]
         status = r['status']
         latency = f"{r['latency_ms']:.0f}ms" if r['latency_ms'] > 0 else "N/A"
         found = "✓" if r['found'] else "✗"
-        
+
         print(f"  {test_name:<20} {status:<12} {latency:<10} {found}")
-    
+
     # Cleanup
     if results and results[0].get('error') is None:
         test_dir = Path(tests[list(tests.keys())[0]][0]).parent
@@ -302,7 +302,7 @@ def main():
             print("\n  🧹 Cleaned up test images")
         except:
             pass
-    
+
     # Exit code
     if failed > 0:
         print(f"\n⚠️  {failed} test(s) failed")
@@ -317,4 +317,3 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-

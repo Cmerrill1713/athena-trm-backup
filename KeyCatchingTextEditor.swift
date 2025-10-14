@@ -16,7 +16,7 @@ public struct KeyCatchingTextEditor: NSViewRepresentable {
     public func makeNSView(context: Context) -> NSScrollView {
         let scrollView = NSScrollView()
         let textView = KeyCatchingTextView()
-        
+
         textView.delegate = context.coordinator
         textView.isRichText = false
         textView.isAutomaticQuoteSubstitutionEnabled = false
@@ -28,27 +28,27 @@ public struct KeyCatchingTextEditor: NSViewRepresentable {
         textView.font = .systemFont(ofSize: NSFont.systemFontSize)
         textView.string = text
         textView.onSubmit = onSubmit
-        
+
         // ✅ CRITICAL: Apply safe colors immediately
         textView.applySafeColorsAndTypingAttributes()
-        
+
         textView.minSize = NSSize(width: 0, height: 0)
         textView.isVerticallyResizable = true
         textView.isHorizontallyResizable = false
         textView.textContainer?.widthTracksTextView = true
-        
+
         scrollView.hasVerticalScroller = true
         scrollView.documentView = textView
         scrollView.drawsBackground = true
         scrollView.backgroundColor = .textBackgroundColor
-        
+
         if focusOnAppear {
             DispatchQueue.main.async {
                 scrollView.window?.makeFirstResponder(textView)
                 NSApp.activate(ignoringOtherApps: true)
             }
         }
-        
+
         context.coordinator.textView = textView
         return scrollView
     }
@@ -64,15 +64,15 @@ public struct KeyCatchingTextEditor: NSViewRepresentable {
     public func makeCoordinator() -> Coordinator {
         Coordinator(parent: self)
     }
-    
+
     public final class Coordinator: NSObject, NSTextViewDelegate {
         let parent: KeyCatchingTextEditor
         weak var textView: KeyCatchingTextView?
-        
+
         init(parent: KeyCatchingTextEditor) {
             self.parent = parent
         }
-        
+
         public func textDidChange(_ notification: Notification) {
             guard let tv = notification.object as? NSTextView else { return }
             parent.text = tv.string
@@ -84,7 +84,7 @@ public struct KeyCatchingTextEditor: NSViewRepresentable {
 
 final class KeyCatchingTextView: NSTextView {
     var onSubmit: (() -> Void)?
-    
+
     /// Ensures text is visible in light/dark, and typing + existing text share sane attributes
     func applySafeColorsAndTypingAttributes() {
         // ✅ Ensure the view maps colors for dark mode automatically
@@ -151,11 +151,11 @@ final class KeyCatchingTextView: NSTextView {
             // ENTER / Keypad Enter → submit (no newline)
             onSubmit?()
             // Don't call super (prevents newline insertion)
-            
+
         case #selector(insertLineBreak(_:)):
             // SHIFT+ENTER → actual newline
             super.doCommand(by: selector)
-            
+
         default:
             super.doCommand(by: selector)
         }

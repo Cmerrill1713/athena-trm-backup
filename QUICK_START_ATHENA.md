@@ -113,9 +113,9 @@ The refactor is **99% complete**. The only remaining step is adding the new file
 
 **After adding the files in Xcode, you'll have a fully functional Athena pop-out window system with zero build errors and a clean architecture ready for feature additions!**
 
-**Total time: ~2 minutes** ⚡  
-**Complexity: Minimal** ��  
-**Result: Production-ready pop-out architecture** 🚀  
+**Total time: ~2 minutes** ⚡
+**Complexity: Minimal** ��
+**Result: Production-ready pop-out architecture** 🚀
 
 ---
 

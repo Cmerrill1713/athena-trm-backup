@@ -94,4 +94,3 @@ PYEOF
 echo ""
 echo "✅ Restart complete!"
 echo "🌐 Check Prometheus targets: http://localhost:9091/targets"
-

@@ -30,25 +30,25 @@ except ImportError as e:
 
 class AppWizard:
     """AI-driven app creation wizard"""
-    
+
     def __init__(self):
         self.knowledge = KnowledgeHelper()
         self.broker = BrokerClient()
         self.desktop = Path.home() / "Desktop"
-    
+
     def query_knowledge(self, topic: str, limit: int = 12) -> list:
         """Query knowledge base for implementation patterns"""
         print(f"🧠 Querying knowledge base: '{topic}'")
         results = self.knowledge.search(topic, limit=limit)
-        
+
         if "error" in results:
             print(f"⚠️  Knowledge query failed: {results['error']}")
             return []
-        
+
         docs = results.get("results", [])
         print(f"✅ Found {len(docs)} knowledge documents")
         return docs
-    
+
     def create_plan(self, app_name: str, app_type: str, description: str, knowledge_docs: list) -> str:
         """Create implementation plan based on knowledge"""
         plan = f"""# {app_name} - Implementation Plan
@@ -68,7 +68,7 @@ class AppWizard:
             title = doc.get('title', 'Untitled')
             summary = doc.get('content', '')[:200]
             plan += f"\n{i}. {title}\n   {summary}...\n"
-        
+
         plan += """
 ## Constraints
 - Tests must pass before packaging (validation gate)
@@ -97,18 +97,18 @@ class AppWizard:
 
 """
         return plan
-    
+
     def save_plan(self, app_name: str, plan: str) -> Path:
         """Save plan to Desktop via broker"""
         plan_path = self.desktop / f"{app_name}_plan.md"
         self.broker.write_file(str(plan_path), plan)
         print(f"📄 Plan saved: {plan_path}")
         return plan_path
-    
+
     def scaffold_project(self, app_name: str, app_type: str, project_path: str) -> bool:
         """Scaffold project (calls external scaffolder or manual)"""
         print(f"🏗️  Scaffolding {app_type} project...")
-        
+
         # Check if project already exists
         if os.path.exists(project_path):
             print(f"⚠️  Project already exists at: {project_path}")
@@ -117,7 +117,7 @@ class AppWizard:
                 print("❌ Aborted")
                 return False
             return True
-        
+
         # Try to scaffold (you can wire your own scaffolder here)
         if app_type == "swift":
             print("📋 Swift scaffolding:")
@@ -127,16 +127,16 @@ class AppWizard:
         elif app_type == "tauri":
             print("📋 Tauri scaffolding:")
             print("   Run: npm create tauri-app@latest")
-        
+
         response = input("\n   Scaffold complete? [y/N]: ")
         return response.lower() == 'y'
-    
+
     def build_and_deliver(self, app_name: str, app_type: str, project_path: str) -> Optional[str]:
         """Run full build pipeline"""
         print(f"🔨 Building and delivering {app_name}...")
-        
+
         deliver_script = SCRIPTS_DIR / "deliver_app.sh"
-        
+
         try:
             result = subprocess.run(
                 [str(deliver_script), app_name, app_type, project_path],
@@ -145,16 +145,16 @@ class AppWizard:
                 check=True,
                 timeout=600  # 10 min max
             )
-            
+
             # Extract DMG path from output
             for line in reversed(result.stdout.split('\n')):
                 if line.strip().endswith('.dmg'):
                     return line.strip()
-            
+
             print("✅ Build complete")
             print(result.stdout)
             return None
-            
+
         except subprocess.CalledProcessError as e:
             print("❌ Build failed:")
             print(e.stderr)
@@ -162,7 +162,7 @@ class AppWizard:
         except subprocess.TimeoutExpired:
             print("❌ Build timed out (>10 min)")
             return None
-    
+
     def create_summary(self, app_name: str, dmg_path: Optional[str], knowledge_count: int) -> None:
         """Create build summary and deliver to Desktop"""
         summary = f"""# {app_name} - Build Summary
@@ -180,7 +180,7 @@ class AppWizard:
 {dmg_path}.sha256
 
 """
-        
+
         summary += """## Build Pipeline
 1. ✅ Knowledge query
 2. ✅ Plan generation
@@ -198,12 +198,12 @@ Queried local knowledge gateway (48K+ documents) to inform architecture decision
 - Review plan document
 - Add to your app portfolio
 """
-        
+
         summary_path = self.desktop / f"{app_name}_build_summary.md"
         self.broker.write_file(str(summary_path), summary)
         self.broker.reveal_in_finder(str(summary_path))
         print(f"📊 Summary: {summary_path}")
-    
+
     def run(self, app_name: str, app_type: str, description: str, project_path: Optional[str] = None):
         """Run complete wizard"""
         print(f"""
@@ -213,45 +213,45 @@ Queried local knowledge gateway (48K+ documents) to inform architecture decision
 ║  Description: {description}
 ╚════════════════════════════════════════════════════════════╝
 """)
-        
+
         # Step 1: Query knowledge
         knowledge_docs = self.query_knowledge(f"{description} {app_type} architecture patterns")
-        
+
         # Step 2: Create plan
         print("\n📝 Creating implementation plan...")
         plan = self.create_plan(app_name, app_type, description, knowledge_docs)
         plan_path = self.save_plan(app_name, plan)
         self.broker.reveal_in_finder(str(plan_path))
         print("✅ Plan revealed in Finder")
-        
+
         # Ask user to review
         print("\n" + "="*60)
         response = input("📋 Review the plan, then continue? [y/N]: ")
         if response.lower() != 'y':
             print("⏸️  Paused - Plan saved to Desktop for review")
             return
-        
+
         # Step 3: Scaffold
         if not project_path:
             default_path = f"/Users/{os.environ.get('USER', 'christianmerrill')}/Documents/GitHub/{app_name}"
             project_path = input(f"\n📁 Project path [{default_path}]: ").strip() or default_path
-        
+
         if not self.scaffold_project(app_name, app_type, project_path):
             print("❌ Scaffolding incomplete - exiting")
             return
-        
+
         # Step 4: Build & deliver
         print("\n" + "="*60)
         response = input("🔨 Ready to build and deliver? [y/N]: ")
         if response.lower() != 'y':
             print("⏸️  Stopped before build")
             return
-        
+
         dmg_path = self.build_and_deliver(app_name, app_type, project_path)
-        
+
         # Step 5: Summary
         self.create_summary(app_name, dmg_path, len(knowledge_docs))
-        
+
         if dmg_path:
             print("\n🎉 SUCCESS! App delivered to Desktop")
         else:
@@ -264,13 +264,12 @@ def main():
     parser.add_argument("type", choices=["swift", "tauri", "python"], help="App type")
     parser.add_argument("description", help="App description for knowledge query")
     parser.add_argument("--project", help="Project path (optional, will prompt)")
-    
+
     args = parser.parse_args()
-    
+
     wizard = AppWizard()
     wizard.run(args.name, args.type, args.description, args.project)
 
 
 if __name__ == "__main__":
     main()
-

@@ -95,4 +95,3 @@ echo "4. View metrics in Prometheus: http://localhost:9090"
 echo ""
 echo -e "${GREEN}✅ Monitoring stack is running!${NC}"
 echo ""
-

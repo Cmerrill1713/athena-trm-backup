@@ -15,14 +15,14 @@ struct PromptDebugData {
 struct PromptDebugOverlay: View {
     @Binding var isShowing: Bool
     let history: [PromptDebugData]
-    
+
     var body: some View {
         ZStack(alignment: .topTrailing) {
             // Backdrop
             Color.black.opacity(0.3)
                 .ignoresSafeArea()
                 .onTapGesture { isShowing = false }
-            
+
             // Panel
             VStack(alignment: .leading, spacing: 0) {
                 // Header
@@ -43,9 +43,9 @@ struct PromptDebugOverlay: View {
                 }
                 .padding()
                 .background(.ultraThinMaterial)
-                
+
                 Divider()
-                
+
                 // Content
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 16) {
@@ -67,14 +67,14 @@ struct PromptDebugOverlay: View {
         }
         .transition(.opacity.combined(with: .scale(scale: 0.95)))
     }
-    
+
     private func debugEntry(_ debug: PromptDebugData, index: Int) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             // Timestamp
             Text(debug.timestamp, style: .time)
                 .font(.caption.monospacedDigit())
                 .foregroundStyle(.secondary)
-            
+
             // Original
             VStack(alignment: .leading, spacing: 4) {
                 Text("Original")
@@ -86,7 +86,7 @@ struct PromptDebugOverlay: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(RoundedRectangle(cornerRadius: 6).fill(.red.opacity(0.1)))
             }
-            
+
             // Arrow
             HStack {
                 Spacer()
@@ -95,7 +95,7 @@ struct PromptDebugOverlay: View {
                     .foregroundStyle(.secondary)
                 Spacer()
             }
-            
+
             // Rewritten
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
@@ -113,7 +113,7 @@ struct PromptDebugOverlay: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(RoundedRectangle(cornerRadius: 6).fill(.green.opacity(0.1)))
             }
-            
+
             // Reflection steps
             if !debug.reflectionSteps.isEmpty {
                 VStack(alignment: .leading, spacing: 4) {
@@ -170,4 +170,3 @@ struct PromptDebugOverlay: View {
         ]
     )
 }
-

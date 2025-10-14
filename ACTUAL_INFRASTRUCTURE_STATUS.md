@@ -1,6 +1,6 @@
 # 🎯 Actual Infrastructure Status
 
-**Date**: October 13, 2025  
+**Date**: October 13, 2025
 **Focus**: What's ACTUALLY running vs what's documented but not used
 
 ---
@@ -9,7 +9,7 @@
 
 ### Core Services (All Active)
 - **Bridge** - `:8014` - API Gateway with TRM routing ✅
-- **Athena** - `:8090` - Agent orchestration ✅  
+- **Athena** - `:8090` - Agent orchestration ✅
 - **UAT** - `:8181` - Universal AI Tools ✅
 - **RAG Service** - `:8015` - Context retrieval ✅
 - **Vision Service** - `:8016` - Image description ✅
@@ -19,7 +19,7 @@
 - **Weaviate** - `:8090` - Vector database with 48K+ documents ✅
 - **NOT USING**: Supabase ❌
 
-### Routing & Intelligence  
+### Routing & Intelligence
 - **TRM Router** - Intelligent routing with RAG as default ✅
 - **Meta-prompting** - Confidence, tools, plan tracking ✅
 - **Routing Policy** - Confidence-based decisions ✅
@@ -37,7 +37,7 @@
 - ❌ **Supabase** - Extensively documented but not running
   - References in: COMPLETE_SUPABASE_SETUP.md, SUPABASE_KNOWLEDGE_SYSTEM.md
   - Status: Documentation exists, service not deployed
-  
+
 - ❌ **Prometheus/Grafana** - Monitoring stack built but not started
   - Dashboards: Created (redaction, ops, RAG)
   - Alert rules: Written
@@ -103,7 +103,7 @@ make obs-quick-setup
 ### Option B: "Secure the Stack" (1-2 hours)
 Fix secrets management without Supabase:
 - Use Weaviate for secrets storage OR
-- Use simple encrypted file-based vault OR  
+- Use simple encrypted file-based vault OR
 - Use macOS Keychain integration (already in common/secrets.py)
 
 ### Option C: "RAG Lifecycle" (1-2 hours)
@@ -164,7 +164,6 @@ This is the highest value for least work, and doesn't involve any Supabase refer
 
 Or would you prefer:
 - Option B: Secure secrets without Supabase
-- Option C: RAG data lifecycle  
+- Option C: RAG data lifecycle
 - Option D: App distribution pipeline
 - Something else?
-

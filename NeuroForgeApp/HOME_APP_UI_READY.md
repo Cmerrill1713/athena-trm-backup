@@ -52,25 +52,25 @@ Stripped out all the enterprise bloat. This is a **home app** now.
 
 ## 📋 What Got Removed
 
-❌ Cost tracking  
-❌ Business metrics (ROI, savings)  
-❌ 4-tab enterprise dashboard  
-❌ Detailed performance analytics  
-❌ Trace timelines  
-❌ SLO monitoring  
+❌ Cost tracking
+❌ Business metrics (ROI, savings)
+❌ 4-tab enterprise dashboard
+❌ Detailed performance analytics
+❌ Trace timelines
+❌ SLO monitoring
 
 ---
 
 ## ✨ What's Kept
 
-✅ Modern glassmorphic design  
-✅ Real service health checks  
-✅ Working RAG integration  
-✅ Working Vision integration  
-✅ Command palette (⌘K)  
-✅ Simple status window  
-✅ Toast notifications  
-✅ Voice support  
+✅ Modern glassmorphic design
+✅ Real service health checks
+✅ Working RAG integration
+✅ Working Vision integration
+✅ Command palette (⌘K)
+✅ Simple status window
+✅ Toast notifications
+✅ Voice support
 
 ---
 
@@ -244,9 +244,8 @@ This is a **clean, focused home app** with:
 
 ## 📞 Quick Reference
 
-**Files**: 5 modern UI files  
-**Lines**: ~1,200 (down from 2,100)  
-**Complexity**: Simple ✅  
-**Target**: Home use ✅  
+**Files**: 5 modern UI files
+**Lines**: ~1,200 (down from 2,100)
+**Complexity**: Simple ✅
+**Target**: Home use ✅
 **Status**: Ready to use! 🚀
-

@@ -63,7 +63,7 @@ struct HealthBanner: View {
         if servicesUp >= 1 { return .yellow }
         return .red
     }
-    
+
     private var statusText: String {
         if checking { return "Checking..." }
         if totalServices > 0 {
@@ -75,18 +75,18 @@ struct HealthBanner: View {
     private func runCheck() async {
         checking = true
         defer { checking = false }
-        
+
         // Check all services (use local fallback list to avoid dependency ordering issues)
         let checks = defaultHealthChecks()
         totalServices = checks.count
         var upCount = 0
-        
+
         for (_, urlString) in checks {
             guard let url = URL(string: urlString) else { continue }
             let ok = await api.head(url)
             if ok { upCount += 1 }
         }
-        
+
         servicesUp = upCount
         healthy = upCount >= 3 // Consider healthy if at least 3 services are up
     }
@@ -109,13 +109,13 @@ struct HealthBanner: View {
         let checks = defaultHealthChecks()
         totalServices = checks.count
         var upCount = 0
-        
+
         for (_, urlString) in checks {
             guard let url = URL(string: urlString) else { continue }
             let ok = await api.head(url)
             if ok { upCount += 1 }
         }
-        
+
         servicesUp = upCount
         let success = upCount >= 3
 

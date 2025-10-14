@@ -172,7 +172,7 @@ def add_health_endpoints(app: FastAPI):
         """Readiness probe - is the service ready to accept traffic?"""
         # Simple readiness; extend with dependency checks as needed
         return {"status": "ready"}
-    
+
     @app.get("/metrics")
     async def metrics():
         """Prometheus metrics endpoint"""

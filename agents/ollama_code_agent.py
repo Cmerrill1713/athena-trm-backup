@@ -12,25 +12,25 @@ from typing import Dict, Any
 
 class OllamaCodeAgent:
     """Code generation agent using local Ollama"""
-    
+
     def __init__(self, model: str = "qwen3-coder:30b"):
         self.model = model
         self.ollama_base = "http://localhost:11434"
-    
+
     async def generate_code(self, prompt: str) -> Dict[str, Any]:
         """
         Generate code from a prompt using Ollama
-        
+
         Returns:
             Dict with 'code', 'explanation', and 'success' keys
         """
-        
+
         system_prompt = """You are an expert Python developer who implements algorithms from research papers.
 
 Generate clean, production-ready Python code with:
 - Type hints and docstrings
 - Error handling
-- Clear variable names  
+- Clear variable names
 - Modular design
 
 Format your response as:
@@ -39,9 +39,9 @@ Format your response as:
 ```
 
 Then explain what you built."""
-        
+
         full_prompt = f"{system_prompt}\n\nTask: {prompt}"
-        
+
         try:
             async with httpx.AsyncClient(timeout=120) as client:
                 response = await client.post(
@@ -52,20 +52,20 @@ Then explain what you built."""
                         "stream": False
                     }
                 )
-                
+
                 if response.status_code != 200:
                     return {
                         "success": False,
                         "error": f"Ollama returned {response.status_code}"
                     }
-                
+
                 data = response.json()
                 generated_text = data.get("response", "")
-                
+
                 # Extract code from markdown blocks
                 code = self._extract_code(generated_text)
                 explanation = generated_text.replace(f"```python\n{code}\n```", "").strip()
-                
+
                 return {
                     "success": True,
                     "code": code,
@@ -73,24 +73,24 @@ Then explain what you built."""
                     "model": self.model,
                     "tokens": data.get("eval_count", 0)
                 }
-                
+
         except Exception as e:
             return {
                 "success": False,
                 "error": str(e)
             }
-    
+
     def _extract_code(self, text: str) -> str:
         """Extract Python code from markdown blocks"""
         import re
-        
+
         # Find code blocks
         pattern = r'```python\n(.*?)```'
         matches = re.findall(pattern, text, re.DOTALL)
-        
+
         if matches:
             return matches[0].strip()
-        
+
         # Fallback: return text if no code blocks found
         return text.strip()
 
@@ -105,9 +105,9 @@ async def main():
     print("=" * 80)
     print("\nUsing: qwen3-coder:30b (local Ollama)")
     print("Generating implementation from research paper concept...\n")
-    
+
     agent = OllamaCodeAgent()
-    
+
     paper_prompt = """
 Implement Contextual Thompson Sampling for multi-armed bandits.
 
@@ -132,11 +132,11 @@ Requirements:
 
 Generate the implementation now.
 """
-    
+
     print("⏳ Calling Ollama (this may take 30-60 seconds)...\n")
-    
+
     result = await agent.generate_code(paper_prompt)
-    
+
     if result["success"]:
         print("✅ CODE GENERATED SUCCESSFULLY!\n")
         print("=" * 80)
@@ -150,15 +150,15 @@ Generate the implementation now.
         print("\n" + "=" * 80)
         print(f"📊 Tokens generated: {result['tokens']}")
         print(f"🤖 Model: {result['model']}")
-        
+
         # Save to file
         output_file = "orchestrator/providers/contextual_thompson_sampling.py"
         with open(output_file, "w") as f:
             f.write(result["code"])
-        
+
         print(f"\n💾 Saved to: {output_file}")
         print("\n🎉 Research paper successfully implemented using local LLM!")
-        
+
     else:
         print(f"❌ Generation failed: {result['error']}")
         print("\n💡 Make sure Ollama is running:")
@@ -167,4 +167,3 @@ Generate the implementation now.
 
 if __name__ == "__main__":
     asyncio.run(main())
-

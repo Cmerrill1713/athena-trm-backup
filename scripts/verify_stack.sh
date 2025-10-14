@@ -49,4 +49,3 @@ fi
 
 echo "== DONE =="
 echo "✅ All critical services verified"
-

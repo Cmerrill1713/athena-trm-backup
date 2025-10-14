@@ -7,13 +7,13 @@ struct ModernMessageBubble: View {
     let showMeta: Bool
     @State private var isHovered = false
     @State private var showingFullMeta = false
-    
+
     var body: some View {
         VStack(alignment: message.role.isUser ? .trailing : .leading, spacing: DesignSystem.Spacing.sm) {
             // Main bubble
             HStack {
                 if message.role.isUser { Spacer(minLength: 60) }
-                
+
                 VStack(alignment: .leading, spacing: DesignSystem.Spacing.xs) {
                     // Voice indicator
                     if message.role == .userVoice {
@@ -25,7 +25,7 @@ struct ModernMessageBubble: View {
                         }
                         .foregroundStyle(DesignSystem.Colors.bridge)
                     }
-                    
+
                     // Message content
                     Text(message.content)
                         .font(DesignSystem.Typography.body)
@@ -47,10 +47,10 @@ struct ModernMessageBubble: View {
                 .onHover { hovering in
                     isHovered = hovering
                 }
-                
+
                 if !message.role.isUser { Spacer(minLength: 60) }
             }
-            
+
             // Meta panel (assistant only)
             if !message.role.isUser, let meta = message.meta, showMeta {
                 ModernMetaPanel(meta: meta, showingFull: $showingFullMeta)
@@ -62,7 +62,7 @@ struct ModernMessageBubble: View {
         }
         .animation(DesignSystem.Animation.springy, value: message.meta != nil)
     }
-    
+
     private var bubbleBackground: some View {
         Group {
             if message.role.isUser {
@@ -156,7 +156,7 @@ struct ModernMetaPanel: View {
                             .foregroundStyle(confidenceColor(confidence))
                     }
                 }
-                
+
                 // Flags
                 if meta.rag ?? false {
                     MetaBadge(icon: "doc.text", label: "RAG", color: DesignSystem.Colors.athena)
@@ -164,7 +164,7 @@ struct ModernMetaPanel: View {
                 if meta.reflection ?? false {
                     MetaBadge(icon: "brain", label: "Reflection", color: DesignSystem.Colors.kokoro)
                 }
-                
+
                 // Tools - FIXED: Properly unwrap optional array
                 if let tools = meta.tools, !tools.isEmpty {
                     MetaBadge(icon: "wrench.and.screwdriver", label: "\(tools.count) tools", color: DesignSystem.Colors.bridge)
@@ -213,12 +213,12 @@ struct ModernMetaPanel: View {
                 }
                 .buttonStyle(.plain)
             }
-            
+
             // Expanded details
             if showingFull {
                 Divider()
                     .padding(.vertical, DesignSystem.Spacing.xs)
-                
+
                 // Plan steps
                 if let plan = meta.plan, !plan.isEmpty {
                     VStack(alignment: .leading, spacing: 4) {
@@ -237,7 +237,7 @@ struct ModernMetaPanel: View {
                         }
                     }
                 }
-                
+
                 // Tools used - FIXED: Properly unwrap optional array
                 if let tools = meta.tools, !tools.isEmpty {
                     VStack(alignment: .leading, spacing: 4) {
@@ -256,7 +256,7 @@ struct ModernMetaPanel: View {
                         }
                     }
                 }
-                
+
                 // Performance
                 if let latency = meta.latencyMs {
                     HStack {
@@ -272,7 +272,7 @@ struct ModernMetaPanel: View {
         .padding(DesignSystem.Spacing.sm)
         .glassCard(intensity: 0.15)
     }
-    
+
     private func confidenceColor(_ confidence: Double) -> Color {
         if confidence >= 0.75 { return DesignSystem.Colors.successGreen }
         if confidence >= 0.45 { return DesignSystem.Colors.warningYellow }
@@ -286,7 +286,7 @@ struct MetaBadge: View {
     let icon: String
     let label: String
     let color: Color
-    
+
     var body: some View {
         HStack(spacing: 3) {
             Image(systemName: icon)
@@ -306,13 +306,13 @@ struct MetaBadge: View {
 
 struct BubbleShape: Shape {
     let isUser: Bool
-    
+
     func path(in rect: CGRect) -> Path {
         let radius = DesignSystem.Radius.lg
         let tailSize: CGFloat = 8
-        
+
         var path = Path()
-        
+
         if isUser {
             // Right-aligned bubble with tail on right
             path.move(to: CGPoint(x: rect.minX + radius, y: rect.minY))
@@ -366,7 +366,7 @@ struct BubbleShape: Shape {
                 control: CGPoint(x: rect.maxX, y: rect.minY)
             )
         }
-        
+
         path.closeSubpath()
         return path
     }
@@ -383,7 +383,7 @@ struct BubbleShape: Shape {
             ),
             showMeta: true
         )
-        
+
         ModernMessageBubble(
             message: ChatMessage(
                 role: .assistant,

@@ -16,11 +16,11 @@ groups:
             sum(increase(routing_success_total{bucket="control"}[48h]))
             / sum(increase(routing_decisions_total{bucket="control"}[48h]))
           )
-      
+
       # Canary sample count (48h)
       - record: canary:sample_count_48h
         expr: sum(increase(routing_decisions_total{bucket="canary"}[48h]))
-      
+
       # Control sample count (48h)
       - record: control:sample_count_48h
         expr: sum(increase(routing_decisions_total{bucket="control"}[48h]))
@@ -43,7 +43,7 @@ groups:
             Canary has shown {{ $value | humanizePercentage }} improvement over control for 48h.
             Sample sizes: canary={{ $labels.canary_samples }}, control={{ $labels.control_samples }}.
             Run: make canary-auto-promote
-      
+
       # Alert: Promotion timer tracking
       - alert: CanaryPromotionInProgress
         expr: |
@@ -56,4 +56,3 @@ groups:
         annotations:
           summary: "Canary trending better (24h into 48h window)"
           description: "Canary ahead by {{ $value | humanizePercentage }}. Monitor for another 24h before promotion."
-

@@ -74,4 +74,3 @@ Look for: `Uvicorn running on http://...`
 ---
 
 **Services are starting! Open Xcode and press ⌘R!** 🚀
-

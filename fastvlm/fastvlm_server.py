@@ -47,41 +47,41 @@ if METRICS_ENABLED:
         'Total FastVLM vision requests',
         ['env', 'build', 'status']
     )
-    
+
     VISION_LATENCY = Histogram(
         'fastvlm_latency_ms',
         'FastVLM inference latency in milliseconds',
         ['env', 'build'],
         buckets=[50, 100, 200, 500, 1000, 2000, 5000, 10000]
     )
-    
+
     VISION_IMAGE_SIZE = Histogram(
         'fastvlm_image_size_bytes',
         'Size of uploaded images in bytes',
         ['env', 'build'],
         buckets=[10_000, 50_000, 100_000, 500_000, 1_000_000, 5_000_000]
     )
-    
+
     VISION_ACTIVE = Gauge(
         'fastvlm_active_requests',
         'Number of active FastVLM requests',
         ['env', 'build']
     )
-    
+
     # Watchdog restart counter (read from file updated by watchdog)
     WATCHDOG_RESTARTS = Gauge(
         'fastvlm_watchdog_restarts_total',
         'Total number of watchdog restarts',
         ['env', 'build']
     )
-    
+
     # Circuit breaker state
     WATCHDOG_CIRCUIT_BREAKER = Gauge(
         'fastvlm_watchdog_circuit_open',
         'Circuit breaker state (1=open, 0=closed)',
         ['env', 'build']
     )
-    
+
     # Last restart timestamp
     WATCHDOG_LAST_RESTART = Gauge(
         'fastvlm_watchdog_last_restart_timestamp',
@@ -136,29 +136,29 @@ class HealthResponse(BaseModel):
 def check_fastvlm_setup() -> tuple[bool, str]:
     """Check if FastVLM is properly set up"""
     fastvlm_path = Path(FASTVLM_ROOT)
-    
+
     if not fastvlm_path.exists():
         return False, f"FastVLM root not found: {FASTVLM_ROOT}"
-    
+
     predict_script = fastvlm_path / "predict.py"
     if not predict_script.exists():
         return False, f"predict.py not found in {FASTVLM_ROOT}"
-    
+
     model_path = fastvlm_path / MODEL_PATH
     if not model_path.exists():
         return False, f"Model not found: {model_path}"
-    
+
     return True, "OK"
 
 def run_inference(image_path: str, prompt: str) -> tuple[str, float]:
     """
     Run FastVLM inference on an image
-    
+
     Returns:
         (output_text, latency_ms)
     """
     start_time = time.time()
-    
+
     # Build command
     cmd = [
         sys.executable,
@@ -167,9 +167,9 @@ def run_inference(image_path: str, prompt: str) -> tuple[str, float]:
         "--image-file", image_path,
         "--prompt", prompt
     ]
-    
+
     logger.info(f"Running inference: {' '.join(cmd)}")
-    
+
     try:
         result = subprocess.run(
             cmd,
@@ -178,18 +178,18 @@ def run_inference(image_path: str, prompt: str) -> tuple[str, float]:
             text=True,
             timeout=120  # 2 minute timeout
         )
-        
+
         latency_ms = (time.time() - start_time) * 1000
-        
+
         if result.returncode != 0:
             error_msg = result.stderr.strip() or result.stdout.strip()
             raise RuntimeError(f"FastVLM inference failed: {error_msg}")
-        
+
         output = result.stdout.strip()
         logger.info(f"Inference complete in {latency_ms:.0f}ms")
-        
+
         return output, latency_ms
-        
+
     except subprocess.TimeoutExpired:
         latency_ms = (time.time() - start_time) * 1000
         raise RuntimeError(f"FastVLM inference timed out after {latency_ms:.0f}ms")
@@ -207,7 +207,7 @@ async def health_check():
     """Health check endpoint"""
     is_ok, message = check_fastvlm_setup()
     model_path = Path(FASTVLM_ROOT) / MODEL_PATH
-    
+
     return HealthResponse(
         status="healthy" if is_ok else f"unhealthy: {message}",
         model=MODEL_PATH,
@@ -222,15 +222,15 @@ async def vision_inference(
 ):
     """
     Vision inference endpoint
-    
+
     Accepts an image file and prompt, returns model output
     """
     if METRICS_ENABLED:
         VISION_ACTIVE.labels(env=ENV, build=BUILD_SHA).inc()
-    
+
     temp_path = None
     start_time = time.time()
-    
+
     try:
         # Validate FastVLM setup
         is_ok, error_msg = check_fastvlm_setup()
@@ -238,7 +238,7 @@ async def vision_inference(
             if METRICS_ENABLED:
                 VISION_REQUESTS.labels(env=ENV, build=BUILD_SHA, status="setup_error").inc()
             raise HTTPException(status_code=503, detail=error_msg)
-        
+
         # Save uploaded image to temp file
         suffix = Path(image.filename or "image.png").suffix or ".png"
         with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as f:
@@ -246,39 +246,39 @@ async def vision_inference(
             f.write(content)
             temp_path = f.name
             image_size = len(content)
-        
+
         if METRICS_ENABLED:
             VISION_IMAGE_SIZE.labels(env=ENV, build=BUILD_SHA).observe(image_size)
-        
+
         logger.info(f"Processing image: {image.filename} ({image_size} bytes)")
-        
+
         # Run inference
         output_text, latency_ms = run_inference(temp_path, prompt)
-        
+
         # Record metrics
         if METRICS_ENABLED:
             VISION_REQUESTS.labels(env=ENV, build=BUILD_SHA, status="success").inc()
             VISION_LATENCY.labels(env=ENV, build=BUILD_SHA).observe(latency_ms)
-        
+
         return VisionResponse(
             text=output_text,
             latency_ms=latency_ms,
             model=MODEL_PATH,
             image_size=image_size
         )
-        
+
     except Exception as e:
         latency_ms = (time.time() - start_time) * 1000
         logger.error(f"Vision inference failed: {e}")
-        
+
         if METRICS_ENABLED:
             VISION_REQUESTS.labels(env=ENV, build=BUILD_SHA, status="error").inc()
-        
+
         raise HTTPException(
             status_code=500,
             detail=f"Inference failed: {str(e)}"
         )
-    
+
     finally:
         # Cleanup
         if temp_path and os.path.exists(temp_path):
@@ -286,7 +286,7 @@ async def vision_inference(
                 os.unlink(temp_path)
             except Exception as e:
                 logger.warning(f"Failed to cleanup temp file: {e}")
-        
+
         if METRICS_ENABLED:
             VISION_ACTIVE.labels(env=ENV, build=BUILD_SHA).dec()
 
@@ -298,7 +298,7 @@ async def metrics():
             status_code=503,
             content={"error": "Metrics not available - prometheus_client not installed"}
         )
-    
+
     # Update watchdog metrics from files
     try:
         # Restart counter (persists across reboots)
@@ -307,7 +307,7 @@ async def metrics():
             with open(restart_count_file, 'r') as f:
                 count = int(f.read().strip())
                 WATCHDOG_RESTARTS.labels(env=ENV, build=BUILD_SHA).set(count)
-        
+
         # Circuit breaker state
         circuit_file = "/tmp/fastvlm_circuit_breaker"
         if os.path.exists(circuit_file):
@@ -316,7 +316,7 @@ async def metrics():
                 WATCHDOG_CIRCUIT_BREAKER.labels(env=ENV, build=BUILD_SHA).set(state)
         else:
             WATCHDOG_CIRCUIT_BREAKER.labels(env=ENV, build=BUILD_SHA).set(0)
-        
+
         # Last restart timestamp
         last_restart_file = "/tmp/fastvlm_last_restart_ts"
         if os.path.exists(last_restart_file):
@@ -325,7 +325,7 @@ async def metrics():
                 WATCHDOG_LAST_RESTART.labels(env=ENV, build=BUILD_SHA).set(ts)
     except Exception as e:
         logger.warning(f"Failed to read watchdog metrics: {e}")
-    
+
     return generate_latest(REGISTRY)
 
 @app.get("/")
@@ -353,7 +353,7 @@ def warmup_model():
     """
     try:
         logger.info("Warming up model with test inference...")
-        
+
         # Create a tiny test image (1x1 red pixel)
         with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:
             # Simple 1x1 pixel image data (PNG format)
@@ -364,16 +364,16 @@ def warmup_model():
             )
             f.write(tiny_png)
             warmup_image = f.name
-        
+
         start = time.time()
         _, latency = run_inference(warmup_image, "warmup")
         total_time = time.time() - start
-        
+
         os.unlink(warmup_image)
-        
+
         logger.info(f"✅ Model warmed up: {latency:.0f}ms inference, {total_time:.1f}s total")
         return True
-    
+
     except Exception as e:
         logger.warning(f"⚠️  Warmup failed (non-fatal): {e}")
         return False
@@ -387,19 +387,19 @@ def main():
         logger.error(f"FastVLM setup validation failed: {error_msg}")
         logger.error("Please set FASTVLM_ROOT environment variable to ml-fastvlm directory")
         sys.exit(1)
-    
+
     logger.info(f"Starting FastVLM Server on {HOST}:{PORT}")
     logger.info(f"Model: {MODEL_PATH}")
     logger.info(f"FastVLM root: {FASTVLM_ROOT}")
     logger.info(f"Environment: {ENV}")
     logger.info(f"Build: {BUILD_SHA}")
     logger.info(f"Metrics: {'enabled' if METRICS_ENABLED else 'disabled'}")
-    
+
     # Warmup model before starting server (avoids cold-start on first request)
     warmup_model()
-    
+
     logger.info(f"🚀 FastVLM Server ready on http://{HOST}:{PORT}")
-    
+
     uvicorn.run(
         app,
         host=HOST,
@@ -409,4 +409,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

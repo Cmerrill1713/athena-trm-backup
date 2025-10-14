@@ -16,7 +16,7 @@ groups:
         annotations:
           summary: "Canary success rate below 90%"
           description: "Canary success rate is {{ $value | humanizePercentage }}. Consider rollback."
-      
+
       # Alert: Canary worse than control (regression)
       - alert: CanaryVsControlRegress
         expr: |
@@ -36,7 +36,7 @@ groups:
         annotations:
           summary: "Canary ≥5% worse than control"
           description: "Canary is underperforming control by {{ $value | humanizePercentage }}. Rollback recommended."
-      
+
       # Alert: Circuit breaker open too long
       - alert: CircuitBreakerOpenTooLong
         expr: circuit_breaker_open{env=~".+"} == 1
@@ -47,7 +47,7 @@ groups:
         annotations:
           summary: "Circuit breaker open >15m ({{ $labels.model }})"
           description: "Circuit has been open for {{ $labels.model }} for >15 minutes. Investigate root cause."
-      
+
       # Alert: Circuit breaker flapping (opening/closing repeatedly)
       - alert: CircuitBreakerFlapping
         expr: changes(circuit_breaker_open[30m]) > 3
@@ -58,7 +58,7 @@ groups:
         annotations:
           summary: "Circuit breaker flapping for {{ $labels.model }}"
           description: "Circuit has opened/closed {{ $value }} times in 30min. System unstable."
-      
+
       # Alert: High failure rate across all models
       - alert: HighGlobalFailureRate
         expr: |
@@ -71,4 +71,3 @@ groups:
         annotations:
           summary: "Global success rate below 85%"
           description: "Overall routing success rate is {{ $value | humanizePercentage }}. System-wide issue."
-

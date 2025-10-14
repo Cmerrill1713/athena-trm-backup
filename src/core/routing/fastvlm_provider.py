@@ -19,26 +19,26 @@ except ImportError:
 # Import Prometheus for metrics
 try:
     from prometheus_client import Counter, Histogram
-    
+
     VISION_ROUTING_DECISIONS = Counter(
         'routing_decisions_total',
         'Total routing decisions',
         ['model', 'env', 'build']
     )
-    
+
     VISION_ROUTING_LATENCY = Histogram(
         'routing_latency_ms',
         'Vision routing latency',
         ['model', 'env', 'build'],
         buckets=[50, 100, 200, 500, 1000, 2000, 5000]
     )
-    
+
     VISION_ROUTING_SUCCESS = Counter(
         'routing_success_total',
         'Successful vision routing',
         ['model', 'env', 'build']
     )
-    
+
     METRICS_AVAILABLE = True
 except ImportError:
     METRICS_AVAILABLE = False
@@ -53,10 +53,10 @@ BUILD_SHA = os.environ.get("BUILD_SHA", "local")
 class FastVLMProvider:
     """
     FastVLM model provider for vision tasks
-    
+
     Capabilities: vision, ocr, chart_reading, screenshot_analysis
     """
-    
+
     def __init__(
         self,
         endpoint: str = "http://127.0.0.1:8811",
@@ -64,7 +64,7 @@ class FastVLMProvider:
     ):
         """
         Initialize FastVLM provider
-        
+
         Args:
             endpoint: FastVLM server endpoint
             model_name: Model identifier for metrics
@@ -72,11 +72,11 @@ class FastVLMProvider:
         self.endpoint = endpoint
         self.model_name = model_name
         self.logger = logger.getChild("FastVLMProvider")
-    
+
     def get_capabilities(self) -> Dict[str, float]:
         """
         Return model capabilities with quality scores
-        
+
         Returns:
             Dict mapping capability to quality score (0-1)
         """
@@ -88,24 +88,24 @@ class FastVLMProvider:
             "ui_understanding": 0.80,
             "diagram_analysis": 0.75
         }
-    
+
     def is_available(self) -> bool:
         """
         Check if FastVLM server is available
-        
+
         Returns:
             True if server is healthy
         """
         try:
             # Import here to avoid circular dependency
             from fastvlm.fastvlm_client import get_client
-            
+
             client = get_client(self.endpoint)
             return client.is_healthy()
         except Exception as e:
             self.logger.warning(f"FastVLM availability check failed: {e}")
             return False
-    
+
     def call(
         self,
         image_path: str,
@@ -114,19 +114,19 @@ class FastVLMProvider:
     ) -> str:
         """
         Call FastVLM vision model with Sentry tracing and metrics
-        
+
         Args:
             image_path: Path to image file
             prompt: Vision prompt/question
             context: Optional context dict for tracing attributes
-        
+
         Returns:
             Model output text
-        
+
         Raises:
             Exception: If inference fails
         """
-        
+
         # Import client
         try:
             from fastvlm.fastvlm_client import get_client
@@ -134,7 +134,7 @@ class FastVLMProvider:
             raise ImportError(
                 "FastVLM client not found. Ensure fastvlm package is in PYTHONPATH"
             )
-        
+
         # Create span for vision operation (follows user's Sentry rules)
         if SENTRY_AVAILABLE:
             return Sentry.start_span(
@@ -148,7 +148,7 @@ class FastVLMProvider:
             )
         else:
             return self._call_impl(image_path, prompt, context)
-    
+
     def _call_with_span(
         self,
         span,
@@ -162,13 +162,13 @@ class FastVLMProvider:
         span.set_attribute("endpoint", self.endpoint)
         span.set_attribute("image", Path(image_path).name)
         span.set_attribute("prompt_length", len(prompt))
-        
+
         if context:
             for key, value in context.items():
                 span.set_attribute(f"context.{key}", str(value))
-        
+
         return self._call_impl(image_path, prompt, context)
-    
+
     def _call_impl(
         self,
         image_path: str,
@@ -178,11 +178,11 @@ class FastVLMProvider:
         """Actual call implementation with metrics + outcome logging"""
         import time
         from fastvlm.fastvlm_client import get_client
-        
+
         start_time = time.time()
         success = False
         error_msg = None
-        
+
         try:
             # Record routing decision
             if METRICS_AVAILABLE:
@@ -191,36 +191,36 @@ class FastVLMProvider:
                     env=ENV,
                     build=BUILD_SHA
                 ).inc()
-            
+
             # Make the call
             client = get_client(self.endpoint)
             result = client.vision(image_path, prompt)
-            
+
             # Record success and latency
             latency_ms = (time.time() - start_time) * 1000
             success = bool(result and result.get("text"))
-            
+
             if METRICS_AVAILABLE:
                 VISION_ROUTING_SUCCESS.labels(
                     model=self.model_name,
                     env=ENV,
                     build=BUILD_SHA
                 ).inc()
-                
+
                 VISION_ROUTING_LATENCY.labels(
                     model=self.model_name,
                     env=ENV,
                     build=BUILD_SHA
                 ).observe(latency_ms)
-            
+
             self.logger.info(
                 f"FastVLM inference complete: {latency_ms:.0f}ms "
                 f"(server: {result.get('latency_ms', 0):.0f}ms)"
             )
-            
+
             # Determine task type from prompt or context
             task_type = self._infer_task_type(prompt, context)
-            
+
             # Log routing decision for autonomous learning
             self._log_outcome(
                 prompt=f"[VISION] {prompt}",
@@ -234,22 +234,22 @@ class FastVLMProvider:
                     "channel": "prod"
                 }
             )
-            
+
             return result["text"]
-        
+
         except Exception as e:
             latency_ms = (time.time() - start_time) * 1000
             error_msg = str(e)
-            
+
             # Log error with Sentry (follows user's exception catching rules)
             self.logger.error(f"FastVLM inference failed after {latency_ms:.0f}ms: {e}")
-            
+
             if SENTRY_AVAILABLE:
                 Sentry.capture_exception(e)
-            
+
             # Determine task type
             task_type = self._infer_task_type(prompt, context)
-            
+
             # Log failed outcome for learning
             self._log_outcome(
                 prompt=f"[VISION] {prompt}",
@@ -264,9 +264,9 @@ class FastVLMProvider:
                     "channel": "prod"
                 }
             )
-            
+
             raise
-    
+
     def _infer_task_type(
         self,
         prompt: str,
@@ -276,10 +276,10 @@ class FastVLMProvider:
         # Check context first
         if context and "task_type" in context:
             return context["task_type"]
-        
+
         # Infer from prompt keywords
         prompt_lower = prompt.lower()
-        
+
         if any(kw in prompt_lower for kw in ["extract text", "ocr", "read text"]):
             return "ocr"
         elif any(kw in prompt_lower for kw in ["chart", "graph", "data", "plot"]):
@@ -292,7 +292,7 @@ class FastVLMProvider:
             return "whiteboard"
         else:
             return "vision"  # General vision
-    
+
     def _log_outcome(
         self,
         prompt: str,
@@ -304,7 +304,7 @@ class FastVLMProvider:
         """Log routing outcome for autonomous learning (fail-safe)"""
         try:
             from scripts.learn.outcome_logger import log_routing_decision
-            
+
             log_routing_decision(
                 prompt=prompt,
                 policy=policy,
@@ -336,7 +336,7 @@ FASTVLM_REGISTRY_ENTRY = {
 def register_fastvlm_models(registry: List[Dict[str, Any]]) -> None:
     """
     Register FastVLM models in the routing registry
-    
+
     Args:
         registry: Model registry to update
     """
@@ -344,7 +344,7 @@ def register_fastvlm_models(registry: List[Dict[str, Any]]) -> None:
     try:
         from fastvlm.fastvlm_client import get_client
         client = get_client()
-        
+
         if client.is_healthy():
             logger.info("FastVLM is available, registering models")
             registry.append(FASTVLM_REGISTRY_ENTRY)
@@ -361,20 +361,19 @@ _provider_instance: Optional[FastVLMProvider] = None
 def get_provider(endpoint: Optional[str] = None) -> FastVLMProvider:
     """
     Get or create singleton FastVLM provider
-    
+
     Args:
         endpoint: Optional endpoint override
-    
+
     Returns:
         FastVLM provider instance
     """
     global _provider_instance
-    
+
     if endpoint is None:
         endpoint = os.environ.get("FASTVLM_ENDPOINT", "http://127.0.0.1:8811")
-    
+
     if _provider_instance is None or _provider_instance.endpoint != endpoint:
         _provider_instance = FastVLMProvider(endpoint)
-    
-    return _provider_instance
 
+    return _provider_instance

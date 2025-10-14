@@ -18,9 +18,9 @@ struct ChatView: View {
     @State private var messages: [ChatMessage] = []
     @State private var input: String = ""
     @State private var confidenceHistory: [Double] = []
-    
+
     @AppStorage("showMetaPanels") private var showMetaPanels = true
-    
+
     var body: some View {
         VStack(spacing: 0) {
             // Optional: Confidence sparkline at top
@@ -30,14 +30,14 @@ struct ChatView: View {
                     .padding()
                     .background(.ultraThinMaterial)
             }
-            
+
             // Messages
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 12) {
                     ForEach(messages) { msg in
                         // Your existing chat bubble
                         ChatBubble(message: msg)
-                        
+
                         // ✅ Meta-prompt panel (only for assistant messages)
                         if showMetaPanels,
                            msg.role == .assistant,
@@ -52,36 +52,36 @@ struct ChatView: View {
                 }
                 .padding(.top, 12)
             }
-            
+
             // Input bar
             InputBar(text: $input, onSend: sendMessage)
         }
     }
-    
+
     private func sendMessage() {
         guard !input.isEmpty else { return }
-        
+
         // Add user message
         let userMsg = ChatMessage(role: .user, content: input)
         messages.append(userMsg)
-        
+
         let text = input
         input = ""
-        
+
         // Send to backend and get response with meta
         Task {
             do {
                 let (response, meta) = try await apiClient.sendChat(text: text)
-                
+
                 let assistantMsg = ChatMessage(
                     role: .assistant,
                     content: response,
                     meta: meta  // ✅ Meta attached here
                 )
-                
+
                 await MainActor.run {
                     messages.append(assistantMsg)
-                    
+
                     // Update confidence history for sparkline
                     if let conf = meta?.confidence {
                         confidenceHistory.append(conf)
@@ -104,13 +104,13 @@ struct ChatView: View {
 
 struct ChatBubble: View {
     let message: ChatMessage
-    
+
     var body: some View {
         HStack {
             if message.role == .user {
                 Spacer(minLength: 60)
             }
-            
+
             VStack(alignment: message.role == .user ? .trailing : .leading, spacing: 4) {
                 Text(message.content)
                     .padding(12)
@@ -119,12 +119,12 @@ struct ChatBubble: View {
                         in: RoundedRectangle(cornerRadius: 16, style: .continuous)
                     )
                     .foregroundColor(message.role == .user ? .white : .primary)
-                
+
                 Text(message.timestamp, style: .time)
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             }
-            
+
             if message.role == .assistant {
                 Spacer(minLength: 60)
             }
@@ -138,13 +138,13 @@ struct ChatBubble: View {
 struct InputBar: View {
     @Binding var text: String
     let onSend: () -> Void
-    
+
     var body: some View {
         HStack(spacing: 12) {
             TextField("Message", text: $text)
                 .textFieldStyle(.roundedBorder)
                 .onSubmit(onSend)
-            
+
             Button(action: onSend) {
                 Image(systemName: "arrow.up.circle.fill")
                     .font(.title2)
@@ -161,17 +161,17 @@ struct InputBar: View {
 /// Shows confidence trend over last N messages
 struct ConfidenceSparkline: View {
     let history: [Double]
-    
+
     var body: some View {
         HStack(spacing: 4) {
             Image(systemName: "chart.line.uptrend.xyaxis")
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            
+
             GeometryReader { geo in
                 let step = geo.size.width / CGFloat(max(history.count - 1, 1))
                 let height = geo.size.height
-                
+
                 // Line
                 Path { path in
                     guard !history.isEmpty else { return }
@@ -187,7 +187,7 @@ struct ConfidenceSparkline: View {
                     }
                 }
                 .stroke(lineColor, lineWidth: 2)
-                
+
                 // Dots
                 ForEach(Array(history.enumerated()), id: \.offset) { i, conf in
                     Circle()
@@ -199,18 +199,18 @@ struct ConfidenceSparkline: View {
                         )
                 }
             }
-            
+
             Text("\(history.count)")
                 .font(.caption2.monospacedDigit())
                 .foregroundStyle(.tertiary)
         }
     }
-    
+
     private var lineColor: Color {
         guard let last = history.last else { return .gray }
         return color(for: last)
     }
-    
+
     private func color(for confidence: Double) -> Color {
         switch confidence {
         case ..<0.34: return .red
@@ -229,12 +229,12 @@ Add to your settings view:
 ```swift
 struct SettingsView: View {
     @AppStorage("showMetaPanels") private var showMetaPanels = true
-    
+
     var body: some View {
         Form {
             Section("Meta-Prompt Dashboard") {
                 Toggle("Show confidence panels", isOn: $showMetaPanels)
-                
+
                 Text("Displays AI reasoning, confidence, and tool selection for each response")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -273,7 +273,7 @@ struct ChatViewIntegration_Previews: PreviewProvider {
                     completionTokens: 298
                 )
             ))
-            
+
             MetaPromptPanel(meta: MetaPromptInfo(
                 enabled: true,
                 confidence: 0.92,
@@ -291,9 +291,9 @@ struct ChatViewIntegration_Previews: PreviewProvider {
                 completionTokens: 298
             ))
             .padding()
-            
+
             Divider()
-            
+
             // Sample with low confidence
             ChatBubble(message: ChatMessage(
                 role: .assistant,
@@ -311,7 +311,7 @@ struct ChatViewIntegration_Previews: PreviewProvider {
                     completionTokens: 45
                 )
             ))
-            
+
             MetaPromptPanel(meta: MetaPromptInfo(
                 enabled: true,
                 confidence: 0.23,

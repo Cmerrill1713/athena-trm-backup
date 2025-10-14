@@ -17,7 +17,7 @@
    • Tools: 4
    • Start: make mcp-store-up
 
-✅ MCP Ecosystem  
+✅ MCP Ecosystem
    • Multi-language tool platform
    • Python + TypeScript + Go + Rust
    • Port: 8412

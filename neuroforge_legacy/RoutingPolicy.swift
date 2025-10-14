@@ -17,7 +17,7 @@ struct RoutingPolicy: Codable {
     let learning: LearningConfig
     let safety: SafetyConfig
     let cost: CostConfig
-    
+
     enum CodingKeys: String, CodingKey {
         case version, strategy, thresholds
         case escalateIf = "escalate_if"
@@ -32,7 +32,7 @@ struct Thresholds: Codable {
     let highConfidence: Double
     let mediumConfidence: Double
     let lowConfidence: Double
-    
+
     enum CodingKeys: String, CodingKey {
         case highConfidence = "high_confidence"
         case mediumConfidence = "medium_confidence"
@@ -45,7 +45,7 @@ struct EscalationRule: Codable {
     let afterAttempts: Int
     let target: String
     let reason: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case condition
         case afterAttempts = "after_attempts"
@@ -64,7 +64,7 @@ struct FallbackConfig: Codable {
     let budgetPerHourUSD: Double
     let maxTokensPerRequest: Int
     let alertOnOverage: Bool
-    
+
     enum CodingKeys: String, CodingKey {
         case target
         case budgetPerHourUSD = "budget_per_hour_usd"
@@ -79,7 +79,7 @@ struct TRMConfig: Codable {
     let critiqueEnabled: Bool
     let planFormat: String
     let artifactStorage: String
-    
+
     enum CodingKeys: String, CodingKey {
         case maxDepth = "max_depth"
         case toolsEnabled = "tools_enabled"
@@ -97,7 +97,7 @@ struct RAGConfig: Codable {
     let maxPassages: Int
     let requireCitations: Bool
     let freshnessBoostDays: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case mode
         case topK = "top_k"
@@ -114,7 +114,7 @@ struct ToolsConfig: Codable {
     let maxRetries: Int
     let aclMode: String
     let safeCommands: [String]
-    
+
     enum CodingKeys: String, CodingKey {
         case timeoutSeconds = "timeout_seconds"
         case maxRetries = "max_retries"
@@ -127,7 +127,7 @@ struct SchemaEnforcement: Codable {
     let enabled: Bool
     let rejectInvalid: Bool
     let repairAttempts: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case enabled
         case rejectInvalid = "reject_invalid"
@@ -140,7 +140,7 @@ struct SessionConfig: Codable {
     let cacheTTLSeconds: Int
     let cacheKeyFields: [String]
     let kvReuse: Bool
-    
+
     enum CodingKeys: String, CodingKey {
         case cacheEnabled = "cache_enabled"
         case cacheTTLSeconds = "cache_ttl_seconds"
@@ -155,7 +155,7 @@ struct EvaluationConfig: Codable {
     let metrics: [String]
     let nightlyRun: Bool
     let alertOnRegression: Bool
-    
+
     enum CodingKeys: String, CodingKey {
         case enabled
         case goldenSetPath = "golden_set_path"
@@ -170,7 +170,7 @@ struct LearningConfig: Codable {
     let captureRedTurns: Bool
     let trainingSink: String
     let distillationSchedule: String
-    
+
     enum CodingKeys: String, CodingKey {
         case enabled
         case captureRedTurns = "capture_red_turns"
@@ -183,7 +183,7 @@ struct SafetyConfig: Codable {
     let canaryTasksPath: String
     let runFrequency: String
     let alertOnFailure: Bool
-    
+
     enum CodingKeys: String, CodingKey {
         case canaryTasksPath = "canary_tasks_path"
         case runFrequency = "run_frequency"
@@ -195,7 +195,7 @@ struct CostConfig: Codable {
     let trackPerRoute: Bool
     let alertThresholdUSD: Double
     let exportTo: String
-    
+
     enum CodingKeys: String, CodingKey {
         case trackPerRoute = "track_per_route"
         case alertThresholdUSD = "alert_threshold_usd"
@@ -212,12 +212,12 @@ enum RoutingPolicyLoader {
             print("[RoutingPolicy] Failed to load from \(path)")
             return nil
         }
-        
+
         // Use a YAML parser if available, or JSON fallback
         // For now, returning nil - backend will parse YAML
         return nil
     }
-    
+
     static func loadDefaults() -> RoutingPolicy {
         // Hardcoded defaults matching YAML
         return RoutingPolicy(
@@ -305,7 +305,7 @@ struct RouteDecision {
     let useTRM: Bool
     let escalated: Bool
     let reason: String
-    
+
     static func decide(
         confidence: Double?,
         domain: String,
@@ -315,7 +315,7 @@ struct RouteDecision {
         safetyFlag: Bool = false,
         policy: RoutingPolicy
     ) -> RouteDecision {
-        
+
         // Safety-sensitive always goes to frontier
         if safetyFlag {
             return RouteDecision(
@@ -327,7 +327,7 @@ struct RouteDecision {
                 reason: "Safety-sensitive task"
             )
         }
-        
+
         // Check tool failures
         if toolFailures >= 2 {
             return RouteDecision(
@@ -339,7 +339,7 @@ struct RouteDecision {
                 reason: "Tool chain broken, replanning"
             )
         }
-        
+
         // Check RAG recall
         if let recall = ragRecall, recall < 0.6 {
             return RouteDecision(
@@ -351,7 +351,7 @@ struct RouteDecision {
                 reason: "Poor retrieval, reformulating query"
             )
         }
-        
+
         // Confidence-based routing
         guard let conf = confidence else {
             // No confidence data, use domain default
@@ -365,7 +365,7 @@ struct RouteDecision {
                 reason: "No confidence data, using domain model"
             )
         }
-        
+
         // High confidence: keep on small model
         if conf >= policy.thresholds.highConfidence {
             let domainModel = policy.domainModels[domain]
@@ -378,7 +378,7 @@ struct RouteDecision {
                 reason: "High confidence (\(Int(conf*100))%)"
             )
         }
-        
+
         // Medium confidence: TRM + tools
         if conf >= policy.thresholds.mediumConfidence {
             return RouteDecision(
@@ -390,7 +390,7 @@ struct RouteDecision {
                 reason: "Medium confidence (\(Int(conf*100))%), using TRM"
             )
         }
-        
+
         // Low confidence: escalate after attempts
         if attemptNumber >= 2 {
             return RouteDecision(
@@ -402,7 +402,7 @@ struct RouteDecision {
                 reason: "Low confidence after \(attemptNumber) attempts"
             )
         }
-        
+
         // First low-confidence attempt: TRM recursive
         return RouteDecision(
             model: "trm:recursive",
@@ -414,4 +414,3 @@ struct RouteDecision {
         )
     }
 }
-

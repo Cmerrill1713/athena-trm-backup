@@ -9,7 +9,7 @@ import subprocess
 
 def main():
     print("🔧 Adding Athena files to Xcode project...")
-    
+
     # Files to add (relative to NeuroForgeApp directory)
     files_to_add = [
         "Sources/AthenaModels.swift",
@@ -21,9 +21,9 @@ def main():
         "Sources/Athena/TribunalDecisionWindow.swift",
         "Sources/Athena/SystemEmergencyWindow.swift",
     ]
-    
+
     os.chdir("NeuroForgeApp")
-    
+
     # Verify files exist
     print("\n📂 Verifying files...")
     missing = []
@@ -33,13 +33,13 @@ def main():
         else:
             print(f"  ❌ {f} (MISSING)")
             missing.append(f)
-    
+
     if missing:
         print(f"\n❌ {len(missing)} files missing. Aborting.")
         sys.exit(1)
-    
+
     print("\n🛠️  Using xed (Xcode command line) to add files...")
-    
+
     # Use xed to add files to the currently open project
     # This is simpler than manipulating pbxproj directly
     for f in files_to_add:
@@ -48,7 +48,7 @@ def main():
             subprocess.run(['xed', '-a', f], check=False)
         except Exception as e:
             print(f"⚠️  Could not auto-add {f}: {e}")
-    
+
     print("\n✅ Files opened in Xcode!")
     print("\n📝 Next steps:")
     print("1. In Xcode, you'll see prompts to add files to target")
@@ -61,4 +61,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

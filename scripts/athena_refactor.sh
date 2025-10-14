@@ -134,4 +134,3 @@ echo "  cd $ROOT"
 echo "  make frontend  # Build via Makefile"
 echo "  make run       # Launch app"
 echo "  make demo      # Trigger pop-outs via Python script"
-

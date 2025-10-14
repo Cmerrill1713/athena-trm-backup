@@ -6,7 +6,7 @@ struct OpsWindow: View {
     @EnvironmentObject var ops: OpsState
     @SceneStorage("opsWindowFrame") private var frameData: Data?
     @State private var selectedService: ServiceInfo?
-    
+
     var body: some View {
         VStack(spacing: 0) {
             // Tab picker
@@ -19,9 +19,9 @@ struct OpsWindow: View {
             .pickerStyle(.segmented)
             .padding(12)
             .background(.ultraThinMaterial)
-            
+
             Divider()
-            
+
             // Content
             Group {
                 switch ops.currentTab {
@@ -49,11 +49,11 @@ struct OpsWindow: View {
             LogViewer(service: service)
         }
     }
-    
+
     // MARK: - Health Tab
-    
+
     @StateObject private var healthChecker = ServiceHealthChecker()
-    
+
     private var healthTab: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -69,7 +69,7 @@ struct OpsWindow: View {
                         .buttonStyle(.bordered)
                         .controlSize(.small)
                     }
-                    
+
                     // Group by tier
                     ForEach(ServiceTier.allCases, id: \.self) { tier in
                         let services = ServiceRegistry.byTier(tier)
@@ -78,7 +78,7 @@ struct OpsWindow: View {
                                 Text(tier.rawValue)
                                     .font(.caption.weight(.semibold))
                                     .foregroundStyle(tier.color)
-                                
+
                                 ForEach(services) { service in
                                     serviceRow(for: service)
                                 }
@@ -88,17 +88,17 @@ struct OpsWindow: View {
                 }
                 .padding()
                 .background(RoundedRectangle(cornerRadius: 10).fill(.ultraThinMaterial))
-                
+
                 // Health banner (overall)
                 HealthBanner()
                     .padding()
-                
+
                 // Recent events
                 if !ops.recentEvents.isEmpty {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Recent Events")
                             .font(.headline)
-                        
+
                         ForEach(ops.recentEvents.prefix(10)) { event in
                             HStack(spacing: 8) {
                                 Circle()
@@ -126,7 +126,7 @@ struct OpsWindow: View {
             Task { await healthChecker.checkAll(services: ServiceRegistry.all) }
         }
     }
-    
+
     @ViewBuilder
     private func serviceRow(for service: ServiceInfo) -> some View {
         if let health = healthChecker.statuses[service.id] {
@@ -134,29 +134,29 @@ struct OpsWindow: View {
                 Circle()
                     .fill(health.isHealthy ? Color.green : Color.red)
                     .frame(width: 8, height: 8)
-                
+
                 Text(service.name)
                     .font(.caption)
-                
+
                 Text(":\(service.port)")
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(.tertiary)
-                
+
                 Spacer()
-                
+
                 if let latency = health.latencyMs {
                     Text("\(latency)ms")
                         .font(.caption2.monospacedDigit())
                         .foregroundStyle(.secondary)
                 }
-                
+
                 if let error = health.error, !health.isHealthy {
                     Text(error)
                         .font(.caption2)
                         .foregroundStyle(.red)
                         .lineLimit(1)
                 }
-                
+
                 // Logs button (opens sheet)
                 Button {
                     selectedService = service
@@ -177,9 +177,9 @@ struct OpsWindow: View {
             }
         }
     }
-    
+
     // MARK: - Meta Tab
-    
+
     private var metaTab: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -188,7 +188,7 @@ struct OpsWindow: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Last Confidence")
                             .font(.headline)
-                        
+
                         HStack {
                             Circle()
                                 .fill(confidenceColor(conf))
@@ -202,14 +202,14 @@ struct OpsWindow: View {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).fill(.ultraThinMaterial))
                 }
-                
+
                 // Meta settings
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Auto-Open Settings")
                         .font(.headline)
-                    
+
                     Toggle("Auto-open on low confidence", isOn: $ops.autoOpenOnLowConfidence)
-                    
+
                     HStack {
                         Text("Threshold:")
                         Slider(value: $ops.lowConfidenceThreshold, in: 0.1...0.5, step: 0.05)
@@ -222,7 +222,7 @@ struct OpsWindow: View {
             .padding()
         }
     }
-    
+
     // MARK: - Metrics Tab
 
     private var metricsTab: some View {
@@ -627,9 +627,9 @@ struct OpsWindow: View {
         }
         .frame(maxWidth: .infinity)
     }
-    
+
     // MARK: - Helpers
-    
+
     private func confidenceColor(_ conf: Double) -> Color {
         switch conf {
         case 0.8...1.0: return .green
@@ -645,4 +645,3 @@ struct OpsWindow: View {
     OpsWindow()
         .environmentObject(OpsState())
 }
-

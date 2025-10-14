@@ -7,13 +7,13 @@ struct OpsSettingsView: View {
     @AppStorage("showMetaPanels") private var showMetaPanels = true
     @EnvironmentObject var ops: OpsState
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         Form {
             Section {
                 Toggle("Auto-open Operations window", isOn: $autoOpenOps)
                     .help("Automatically open Ops window on low confidence or errors")
-                
+
                 if autoOpenOps {
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
@@ -37,14 +37,14 @@ struct OpsSettingsView: View {
                     Text("Manually open Ops with ⌘⌥O or the toolbar button.")
                 }
             }
-            
+
             Section {
                 Toggle("Show meta-prompt panels", isOn: $showMetaPanels)
                     .help("Display confidence and meta info below each message")
             } header: {
                 Label("Meta-Prompt Display", systemImage: "brain")
             }
-            
+
             Section {
                 HStack(spacing: 8) {
                     Button("Snooze 30 min") {
@@ -52,7 +52,7 @@ struct OpsSettingsView: View {
                         dismiss()
                     }
                     .buttonStyle(.bordered)
-                    
+
                     Button("Snooze 2 hours") {
                         ops.snooze(minutes: 120)
                         dismiss()
@@ -64,7 +64,7 @@ struct OpsSettingsView: View {
             } footer: {
                 Text("Temporarily disable auto-open without changing settings")
             }
-            
+
             Section {
                 Button("Restore Defaults") {
                     autoOpenOps = true
@@ -90,4 +90,3 @@ struct OpsSettingsView: View {
 #Preview {
     OpsSettingsView()
 }
-

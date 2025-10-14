@@ -37,7 +37,7 @@ class ImplementationPlan:
     estimated_complexity: str = "medium"
     test_strategy: str = "unit_and_integration"
     deployment_target: str = "local_service"
-    
+
     # Generated code structure
     project_structure: Optional[Dict[str, Any]] = None
     dependencies: Optional[List[str]] = None
@@ -46,39 +46,39 @@ class ImplementationPlan:
 
 class PaperAnalyzer:
     """Analyzes research papers and generates implementation plans"""
-    
+
     def __init__(self):
         self.llm_available = True  # Will use Athena for analysis
-        
+
         # Algorithm complexity indicators
         self.complexity_indicators = {
             "simple": ["baseline", "simple", "naive", "basic"],
             "medium": ["improved", "enhanced", "optimized", "efficient"],
             "complex": ["novel", "state-of-the-art", "advanced", "hybrid", "multi-stage"]
         }
-    
+
     async def analyze_paper(self, paper_data: Dict[str, Any]) -> ImplementationPlan:
         """
         Analyze a research paper and generate implementation plan
-        
+
         Args:
             paper_data: Research paper metadata (from ResearchHunter)
-            
+
         Returns:
             Complete implementation plan
         """
         paper_id = paper_data.get("paper_id", "unknown")
         title = paper_data.get("title", "")
         abstract = paper_data.get("abstract", "")
-        
+
         logger.info(f"📊 Analyzing paper: {title}")
-        
+
         # Extract algorithms
         algorithms = await self._extract_algorithms(title, abstract)
-        
+
         # Determine complexity
         complexity = self._estimate_complexity(title, abstract)
-        
+
         # Generate implementation plan
         plan = ImplementationPlan(
             paper_id=paper_id,
@@ -88,22 +88,22 @@ class PaperAnalyzer:
             programming_language=self._select_language(algorithms),
             test_strategy=self._plan_test_strategy(algorithms, complexity)
         )
-        
+
         # Generate project structure
         plan.project_structure = self._generate_project_structure(plan)
         plan.dependencies = self._identify_dependencies(algorithms)
         plan.entry_point = self._determine_entry_point(plan)
-        
+
         logger.info(f"✅ Generated implementation plan with {len(algorithms)} algorithms")
-        
+
         return plan
-    
+
     async def _extract_algorithms(self, title: str, abstract: str) -> List[AlgorithmSpec]:
         """Extract algorithm specifications from paper text"""
-        
+
         algorithms = []
         text = f"{title} {abstract}".lower()
-        
+
         # Pattern matching for common algorithm descriptions
         patterns = {
             "bandit": r"(thompson sampling|ucb|epsilon-greedy|multi-armed bandit)",
@@ -112,12 +112,12 @@ class PaperAnalyzer:
             "reinforcement": r"(q-learning|policy gradient|actor-critic|dqn|ppo)",
             "search": r"(vector search|semantic search|knn|faiss|approximate nearest)",
         }
-        
+
         for algo_type, pattern in patterns.items():
             matches = re.findall(pattern, text)
             for match in set(matches):
                 algo_name = match.capitalize()
-                
+
                 # Create spec
                 spec = AlgorithmSpec(
                     name=algo_name,
@@ -129,9 +129,9 @@ class PaperAnalyzer:
                     dependencies=self._suggest_dependencies(algo_name),
                     test_criteria=self._generate_test_criteria(algo_name)
                 )
-                
+
                 algorithms.append(spec)
-        
+
         # If no algorithms detected, create generic one
         if not algorithms:
             algorithms.append(AlgorithmSpec(
@@ -144,12 +144,12 @@ class PaperAnalyzer:
                 dependencies=["numpy", "scipy"],
                 test_criteria=["Validate input/output", "Check performance"]
             ))
-        
+
         return algorithms
-    
+
     def _generate_key_steps(self, algo_name: str, context: str) -> List[str]:
         """Generate implementation steps for an algorithm"""
-        
+
         # Generic steps based on algorithm type
         steps_map = {
             "thompson": [
@@ -181,12 +181,12 @@ class PaperAnalyzer:
                 "Return top-k matches"
             ]
         }
-        
+
         # Match algorithm name to steps
         for key, steps in steps_map.items():
             if key in algo_name.lower():
                 return steps
-        
+
         # Generic fallback
         return [
             "Parse and validate input",
@@ -194,18 +194,18 @@ class PaperAnalyzer:
             "Format and return output",
             "Log metrics and telemetry"
         ]
-    
+
     def _estimate_complexity(self, title: str, abstract: str) -> str:
         """Estimate implementation complexity"""
         text = f"{title} {abstract}".lower()
-        
+
         scores = {"simple": 0, "medium": 0, "complex": 0}
-        
+
         for complexity, indicators in self.complexity_indicators.items():
             for indicator in indicators:
                 if indicator in text:
                     scores[complexity] += 1
-        
+
         # Return highest scoring complexity
         if scores["complex"] > 0:
             return "complex"
@@ -213,7 +213,7 @@ class PaperAnalyzer:
             return "medium"
         else:
             return "simple"
-    
+
     def _estimate_algo_complexity(self, text: str) -> str:
         """Estimate specific algorithm complexity"""
         if "novel" in text or "state-of-the-art" in text:
@@ -221,35 +221,35 @@ class PaperAnalyzer:
         elif "improved" in text or "optimized" in text:
             return "medium"
         return "simple"
-    
+
     def _select_language(self, algorithms: List[AlgorithmSpec]) -> str:
         """Select best programming language for implementation"""
-        
+
         # Check algorithm types
         algo_names = " ".join([a.name.lower() for a in algorithms])
-        
+
         if "neural" in algo_names or "deep learning" in algo_names:
             return "python"  # PyTorch/MLX
         elif "web" in algo_names or "service" in algo_names:
             return "go"  # Fast web services
         elif "system" in algo_names or "performance" in algo_names:
             return "rust"  # High performance
-        
+
         return "python"  # Default
-    
+
     def _plan_test_strategy(self, algorithms: List[AlgorithmSpec], complexity: str) -> str:
         """Plan testing strategy based on algorithms"""
-        
+
         if complexity == "complex":
             return "unit_integration_performance"
         elif complexity == "medium":
             return "unit_and_integration"
         else:
             return "unit_tests"
-    
+
     def _generate_project_structure(self, plan: ImplementationPlan) -> Dict[str, Any]:
         """Generate project directory structure"""
-        
+
         structure = {
             "src": {
                 "main": f"main.{self._get_extension(plan.programming_language)}",
@@ -268,9 +268,9 @@ class PaperAnalyzer:
             "README.md": None,
             "requirements.txt": None if plan.programming_language == "python" else None,
         }
-        
+
         return structure
-    
+
     def _get_extension(self, language: str) -> str:
         """Get file extension for language"""
         extensions = {
@@ -281,23 +281,23 @@ class PaperAnalyzer:
             "javascript": "js",
         }
         return extensions.get(language, "py")
-    
+
     def _identify_dependencies(self, algorithms: List[AlgorithmSpec]) -> List[str]:
         """Identify required dependencies"""
-        
+
         deps = set()
-        
+
         for algo in algorithms:
             deps.update(algo.dependencies)
-        
+
         # Add common dependencies
         deps.update(["pydantic", "httpx", "pytest"])
-        
+
         return sorted(list(deps))
-    
+
     def _suggest_dependencies(self, algo_name: str) -> List[str]:
         """Suggest dependencies for an algorithm"""
-        
+
         deps_map = {
             "thompson": ["numpy", "scipy"],
             "neural": ["torch", "mlx"],
@@ -305,16 +305,16 @@ class PaperAnalyzer:
             "search": ["numpy", "faiss-cpu"],
             "vector": ["numpy", "sentence-transformers"],
         }
-        
+
         for key, deps in deps_map.items():
             if key in algo_name.lower():
                 return deps
-        
+
         return ["numpy"]
-    
+
     def _generate_test_criteria(self, algo_name: str) -> List[str]:
         """Generate test criteria for an algorithm"""
-        
+
         return [
             f"Verify {algo_name} produces valid output format",
             f"Test {algo_name} with edge cases",
@@ -322,10 +322,10 @@ class PaperAnalyzer:
             f"Validate {algo_name} against known examples",
             "Check error handling and recovery"
         ]
-    
+
     def _determine_entry_point(self, plan: ImplementationPlan) -> str:
         """Determine main entry point for the implementation"""
-        
+
         ext = self._get_extension(plan.programming_language)
         return f"src/main.{ext}"
 
@@ -339,4 +339,3 @@ def get_paper_analyzer() -> PaperAnalyzer:
     if _analyzer is None:
         _analyzer = PaperAnalyzer()
     return _analyzer
-

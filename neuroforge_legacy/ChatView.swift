@@ -60,7 +60,7 @@ struct ChatView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Spacer()
-                
+
                 // Voice button (push-to-talk)
                 Button {
                     Task {
@@ -77,7 +77,7 @@ struct ChatView: View {
                 }
                 .help("Hold to talk (Space also works)")
                 .accessibilityIdentifier("voice_button")
-                
+
                 Button(sending ? "Sending…" : "Send") {
                     Task { await send() }
                 }
@@ -122,7 +122,7 @@ struct ChatView: View {
             let reply = try await api.chat(task)
             await MainActor.run { append("AI: \(reply)") }
             await MainActor.run { input = "" }
-            
+
             // TTS response if enabled
             if voice.ttsEnabled {
                 voice.speak(reply)
@@ -131,7 +131,7 @@ struct ChatView: View {
             await MainActor.run { append("⚠️ \(error.localizedDescription)") }
         }
     }
-    
+
     private func sendVoiceMessage(_ text: String) async {
         sending = true
         defer { sending = false }
@@ -144,7 +144,7 @@ struct ChatView: View {
             let task = ChatTask(kind: kind, text: text, imageBase64: nil)
             let reply = try await api.chat(task)
             await MainActor.run { append("AI: \(reply)") }
-            
+
             // TTS response (voice triggered voice response)
             voice.speak(reply)
         } catch {

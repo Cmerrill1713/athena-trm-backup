@@ -27,19 +27,19 @@ extension MetaPromptInfo {
             if ["0", "false", "no", "off"].contains(s) { return false }
             return nil
         }
-        
+
         func double(_ v: Any?) -> Double? {
             if let d = v as? Double { return d }
             if let s = v as? String { return Double(s) }
             return nil
         }
-        
+
         func int(_ v: Any?) -> Int? {
             if let i = v as? Int { return i }
             if let s = v as? String { return Int(s) }
             return nil
         }
-        
+
         func jsonArray(_ v: Any?) -> [String]? {
             guard let s = v as? String,
                   let d = s.data(using: .utf8),
@@ -62,7 +62,7 @@ extension MetaPromptInfo {
             completionTokens: int(key("x-completion-tokens"))
         )
     }
-    
+
     /// Merge body JSON meta if present (supplements header data)
     mutating func merge(from jsonDict: [String: Any]) {
         if enabled == false, let e = jsonDict["enabled"] as? Bool { enabled = e }
@@ -79,13 +79,13 @@ extension MetaPromptInfo {
         if promptVariant == nil, let pv = jsonDict["prompt_variant"] as? String { promptVariant = pv }
         if !banditEnabled, let be = jsonDict["bandit_enabled"] as? Bool { banditEnabled = be }
     }
-    
+
     /// Total tokens (prompt + completion)
     var totalTokens: Int? {
         guard let p = promptTokens, let c = completionTokens else { return nil }
         return p + c
     }
-    
+
     /// Confidence level label
     var confidenceLevel: String? {
         guard let conf = confidence else { return nil }
@@ -95,7 +95,7 @@ extension MetaPromptInfo {
         default: return "High"
         }
     }
-    
+
     /// Confidence color
     var confidenceColor: (red: Double, green: Double, blue: Double) {
         guard let conf = confidence else { return (0.5, 0.5, 0.5) }
@@ -106,4 +106,3 @@ extension MetaPromptInfo {
         }
     }
 }
-

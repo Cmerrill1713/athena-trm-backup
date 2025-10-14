@@ -59,10 +59,10 @@ struct MetaPromptExampleChatView: View {
             )
         )
     ]
-    
+
     @State private var inputText: String = ""
     @AppStorage("showMetaPrompt") private var showMetaPrompt = true
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -72,11 +72,11 @@ struct MetaPromptExampleChatView: View {
                         MetaPromptPanel(meta: latestMeta)
                             .padding()
                             .transition(.move(edge: .top).combined(with: .opacity))
-                        
+
                         Divider()
                     }
                 }
-                
+
                 // Message list
                 ScrollView {
                     LazyVStack(spacing: 16) {
@@ -86,14 +86,14 @@ struct MetaPromptExampleChatView: View {
                     }
                     .padding()
                 }
-                
+
                 Divider()
-                
+
                 // Input bar
                 HStack {
                     TextField("Message", text: $inputText)
                         .textFieldStyle(.roundedBorder)
-                    
+
                     Button("Send") {
                         sendMessage()
                     }
@@ -111,12 +111,12 @@ struct MetaPromptExampleChatView: View {
             }
         }
     }
-    
+
     private func sendMessage() {
         let userMessage = ExampleMessage(role: .user, content: inputText, meta: nil)
         messages.append(userMessage)
         inputText = ""
-        
+
         // Simulate assistant response
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             let assistantMessage = ExampleMessage(
@@ -145,13 +145,13 @@ struct MetaPromptExampleChatView: View {
 struct MessageRowExample: View {
     let message: ExampleMessage
     var showMeta: Bool
-    
+
     var body: some View {
         HStack {
             if message.role == .assistant {
                 Spacer(minLength: 40)
             }
-            
+
             VStack(alignment: message.role == .user ? .trailing : .leading, spacing: 8) {
                 // Message bubble
                 Text(message.content)
@@ -161,7 +161,7 @@ struct MessageRowExample: View {
                         in: RoundedRectangle(cornerRadius: 16, style: .continuous)
                     )
                     .foregroundColor(message.role == .user ? .white : .primary)
-                
+
                 // Meta panel (only for assistant messages)
                 if showMeta,
                    message.role == .assistant,
@@ -170,7 +170,7 @@ struct MessageRowExample: View {
                     MetaPromptPanel(meta: meta)
                 }
             }
-            
+
             if message.role == .user {
                 Spacer(minLength: 40)
             }
@@ -185,7 +185,7 @@ struct ExampleMessage: Identifiable, Equatable {
     let role: Role
     let content: String
     let meta: MetaPromptInfo?
-    
+
     enum Role {
         case user
         case assistant
@@ -201,4 +201,3 @@ struct MetaPromptExampleChatView_Previews: PreviewProvider {
 }
 
 #endif
-

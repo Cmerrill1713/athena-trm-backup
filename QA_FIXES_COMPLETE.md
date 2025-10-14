@@ -55,7 +55,7 @@ self.audioRecorder = try AVAudioRecorder(url: self.audioFileURL!, settings: sett
 
 // After
 guard let fileURL = self.audioFileURL else {
-    throw NSError(domain: "VoiceRecorder", code: -1, 
+    throw NSError(domain: "VoiceRecorder", code: -1,
                   userInfo: [NSLocalizedDescriptionKey: "Audio file URL not set"])
 }
 self.audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
@@ -87,7 +87,7 @@ implicitly_unwrapped_optional: error
 opt_in_rules:
   - explicit_self
   - unowned_variable_capture
-  
+
 # Temporarily disabled identifier_name for mass rename
 disabled_rules:
   - identifier_name   # TEMP: re-enable after the 23 renames
@@ -135,7 +135,7 @@ Now runs automatically on every `git commit`!
 1. **Identifier Names** (23 instances) - Currently disabled
    - Short vars like `m`, `ev`, `u`, `s`, `tv`, `fg`, `bg`
    - Can rename or whitelist common idioms
-   
+
 2. **TODO in HealthBanner** - Reconnect logic
    - Line 35: Implement proper reconnect handling
 

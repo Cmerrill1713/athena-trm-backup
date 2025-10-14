@@ -115,7 +115,7 @@ struct NeuroForgeApp: App {
     @StateObject private var athenaState = AthenaState()
     @StateObject private var profileManager = ProfileManager()
     @State private var voice = VoiceManager()
-    
+
     var body: some Scene {
         // Main chat window
         WindowGroup {
@@ -149,7 +149,7 @@ struct NeuroForgeApp: App {
         .commands {
             CommandGroup(replacing: .newItem) {}
         }
-        
+
         // Athena Dashboard window (Cmd+Shift+A)
         Window("Athena Dashboard", id: "athena-dashboard") {
             AthenaDashboardView()
@@ -157,7 +157,7 @@ struct NeuroForgeApp: App {
                 .frame(minWidth: 800, minHeight: 500)
         }
         .keyboardShortcut("a", modifiers: [.command, .shift])
-        
+
         // Pop-out windows (triggered programmatically)
         Window("🚨 Critical Alert", id: "critical-alert") {
             if let a = athenaState.lastAlert {
@@ -167,7 +167,7 @@ struct NeuroForgeApp: App {
             }
         }
         .defaultPosition(.center)
-        
+
         Window("⚖️ Tribunal Decision Required", id: "tribunal-decision") {
             if let c = athenaState.lastCase {
                 TribunalDecisionWindow(case: c)
@@ -176,7 +176,7 @@ struct NeuroForgeApp: App {
             }
         }
         .defaultPosition(.center)
-        
+
         Window("🚨 SYSTEM EMERGENCY", id: "system-emergency") {
             if let e = athenaState.lastEmergency {
                 SystemEmergencyWindow(emergency: e)
@@ -186,7 +186,7 @@ struct NeuroForgeApp: App {
         }
         .defaultPosition(.center)
     }
-    
+
     private func openWindow(id: String) {
         #if canImport(AppKit)
         if let w = NSApp.windows.first(where: { $0.identifier?.rawValue == id }) {
@@ -224,4 +224,3 @@ echo ""
 echo "🚀 Next: Update Package.swift dependencies"
 echo "   cd NeuroForgeApp"
 echo "   swift build"
-

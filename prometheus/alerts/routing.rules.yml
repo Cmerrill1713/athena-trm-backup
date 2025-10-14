@@ -9,7 +9,7 @@ groups:
         expr: |
           sum(rate(routing_success_total[10m])) by (model,env) /
           sum(rate(routing_decisions_total[10m])) by (model,env)
-      
+
       # Control success rate (10m window)
       - record: control:success_rate:10m
         expr: |
@@ -22,11 +22,11 @@ groups:
       # Promotions in last 24h
       - record: trm:promotions_24h
         expr: increase(promotions_total{env="$env"}[24h])
-      
+
       # Promotions in last 1h
       - record: trm:promotions_last_1h
         expr: increase(promotions_total{env="$env"}[1h])
-      
+
       # Promotion rate (per minute)
       - record: trm:promotion_rate_5m
         expr: rate(promotions_total{env="$env"}[5m])
@@ -64,7 +64,7 @@ groups:
       # Canary alerts
       - alert: CanaryTrailing
         expr: |
-          canary:success_rate:10m{model=~".*@canary"} < 
+          canary:success_rate:10m{model=~".*@canary"} <
           on(env) group_left control:success_rate:10m - 0.05
         for: 10m
         labels:
@@ -94,4 +94,3 @@ groups:
         annotations:
           summary: "High number of promotions"
           description: "More than 3 promotions in the last hour. Check lineage and canary evaluator."
-

@@ -2,7 +2,6 @@ disabled_rules:
   - line_length
   - trailing_whitespace
   - orphaned_doc_comment
-  - identifier_name   # TEMP: re-enable after the 23 renames
 opt_in_rules:
   - empty_count
   - force_unwrapping
@@ -22,3 +21,31 @@ reporter: "xcode"
 force_cast: error
 force_unwrapping: error
 implicitly_unwrapped_optional: error
+
+# Whitelist legitimate short names
+identifier_name:
+  min_length: 2
+  excluded:  # allow common, intentional short names
+    - id
+    - url
+    - vm
+    - rhs
+    - lhs
+    - x
+    - y
+    - dx
+    - dy
+    - ev
+    - m
+    - u
+    - s
+    - tv
+    - fg
+    - bg
+    - a
+    - b
+    - c
+    - e
+    - w
+    - v
+    - r

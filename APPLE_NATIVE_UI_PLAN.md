@@ -15,25 +15,25 @@ struct AppleNativeColors {
     static let systemGray4 = Color(.systemGray4)         // Lightest gray
     static let systemGray5 = Color(.systemGray5)         // Almost white
     static let systemGray6 = Color(.systemGray6)         // White gray
-    
+
     // Apple Semantic Colors
     static let label = Color(.labelColor)                // Primary text
     static let secondaryLabel = Color(.secondaryLabelColor)
     static let tertiaryLabel = Color(.tertiaryLabelColor)
     static let quaternaryLabel = Color(.quaternaryLabelColor)
-    
+
     // Apple Background Colors
     static let controlBackground = Color(.controlBackgroundColor)
     static let textBackground = Color(.textBackgroundColor)
     static let windowBackground = Color(.windowBackgroundColor)
     static let underPageBackground = Color(.underPageBackgroundColor)
-    
+
     // Apple Status Colors
     static let systemGreen = Color(.systemGreen)         // Success
-    static let systemOrange = Color(.systemOrange)       // Warning  
+    static let systemOrange = Color(.systemOrange)       // Warning
     static let systemRed = Color(.systemRed)             // Error
     static let systemYellow = Color(.systemYellow)       // Caution
-    
+
     // Apple Accent (User's chosen accent color)
     static let accent = Color.accentColor               // Respects user preference
 }
@@ -56,7 +56,7 @@ struct AppleMessagesStyle {
     static let otherBubble = Color(.controlBackgroundColor)
     static let bubbleCornerRadius: CGFloat = 18
     static let bubbleShadow = Color.black.opacity(0.1)
-    
+
     // Typography like Messages
     static let messageFont = Font.system(size: 15, weight: .regular)
     static let timestampFont = Font.system(size: 12, weight: .regular)
@@ -76,13 +76,13 @@ struct AppleMessagesStyle {
 ```swift
 struct AppleMessageBubble: View {
     let message: ChatMessage
-    
+
     var body: some View {
         HStack {
             if message.isUser {
                 Spacer()
             }
-            
+
             VStack(alignment: message.isUser ? .trailing : .leading, spacing: 4) {
                 Text(message.text)
                     .font(.system(size: 15, weight: .regular))
@@ -91,7 +91,7 @@ struct AppleMessageBubble: View {
                     .padding(.vertical, 8)
                     .background(
                         RoundedRectangle(cornerRadius: 18)
-                            .fill(message.isUser ? 
+                            .fill(message.isUser ?
                                 AppleNativeColors.systemBlue :
                                 AppleNativeColors.controlBackground
                             )
@@ -102,13 +102,13 @@ struct AppleMessageBubble: View {
                                 y: 1
                             )
                     )
-                
+
                 Text(formatTime(message.timestamp))
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(.secondaryLabel)
             }
             .frame(maxWidth: 280, alignment: message.isUser ? .trailing : .leading)
-            
+
             if !message.isUser {
                 Spacer()
             }
@@ -127,9 +127,9 @@ struct AppleSidebar: View {
                 Text("NeuroForge")
                     .font(.title2.weight(.semibold))
                     .foregroundColor(.label)
-                
+
                 Spacer()
-                
+
                 Button(action: {}) {
                     Image(systemName: "plus")
                         .font(.system(size: 16, weight: .medium))
@@ -138,15 +138,15 @@ struct AppleSidebar: View {
                 .controlSize(.small)
             }
             .padding()
-            
+
             Divider()
-            
+
             // Native search field
             HStack {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondaryLabel)
                     .font(.system(size: 14))
-                
+
                 TextField("Search", text: .constant(""))
                     .textFieldStyle(.plain)
                     .font(.system(size: 14))
@@ -159,7 +159,7 @@ struct AppleSidebar: View {
             )
             .padding(.horizontal)
             .padding(.bottom, 8)
-            
+
             // Contact list with native styling
             List(contacts) { contact in
                 AppleContactRow(contact: contact)
@@ -178,7 +178,7 @@ struct AppleSidebar: View {
 ```swift
 struct AppleContactRow: View {
     let contact: Contact
-    
+
     var body: some View {
         HStack(spacing: 12) {
             // Native avatar styling
@@ -186,33 +186,33 @@ struct AppleContactRow: View {
                 Circle()
                     .fill(AppleNativeColors.systemGray5)
                     .frame(width: 44, height: 44)
-                
+
                 Image(systemName: contact.avatar)
                     .font(.system(size: 20, weight: .medium))
                     .foregroundColor(AppleNativeColors.systemBlue)
             }
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 Text(contact.name)
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(.label)
-                
+
                 HStack(spacing: 4) {
                     Circle()
-                        .fill(contact.isOnline ? 
-                            AppleNativeColors.systemGreen : 
+                        .fill(contact.isOnline ?
+                            AppleNativeColors.systemGreen :
                             AppleNativeColors.systemGray4
                         )
                         .frame(width: 6, height: 6)
-                    
+
                     Text(contact.isOnline ? "Online" : "Away")
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(.secondaryLabel)
                 }
             }
-            
+
             Spacer()
-            
+
             if contact.messageCount > 0 {
                 Text("\(contact.messageCount)")
                     .font(.system(size: 12, weight: .medium))
@@ -240,7 +240,7 @@ struct AppleContactRow: View {
 ```swift
 struct AppleChatInput: View {
     @Binding var text: String
-    
+
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
             // Native attachment button
@@ -250,7 +250,7 @@ struct AppleChatInput: View {
             }
             .buttonStyle(.bordered)
             .controlSize(.small)
-            
+
             // Native text input
             HStack(alignment: .bottom, spacing: 8) {
                 TextEditor(text: $text)
@@ -258,7 +258,7 @@ struct AppleChatInput: View {
                     .frame(minHeight: 20, maxHeight: 100)
                     .scrollContentBackground(.hidden)
                     .background(Color.clear)
-                
+
                 // Native send button
                 Button(action: sendMessage) {
                     Image(systemName: "arrow.up.circle.fill")
@@ -266,8 +266,8 @@ struct AppleChatInput: View {
                 }
                 .buttonStyle(.plain)
                 .disabled(text.isEmpty)
-                .foregroundColor(text.isEmpty ? 
-                    AppleNativeColors.systemGray4 : 
+                .foregroundColor(text.isEmpty ?
+                    AppleNativeColors.systemGray4 :
                     AppleNativeColors.systemBlue
                 )
             }
@@ -281,7 +281,7 @@ struct AppleChatInput: View {
                             .stroke(AppleNativeColors.systemGray4, lineWidth: 1)
                     )
             )
-            
+
             // Native mic button
             Button(action: {}) {
                 Image(systemName: "mic")
@@ -375,7 +375,7 @@ var body: some Scene {
                 // Native about dialog
             }
         }
-        
+
         CommandGroup(after: .appInfo) {
             Button("Preferences...") {
                 // Native preferences window

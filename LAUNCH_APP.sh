@@ -33,4 +33,3 @@ echo "      FEATURE_MODERN_UI = 1"
 echo "   4. Press ⌘R"
 echo ""
 echo "Or just press ⌘R if you already set the environment variable!"
-

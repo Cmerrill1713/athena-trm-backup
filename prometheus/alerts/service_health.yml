@@ -12,7 +12,7 @@ groups:
           summary: "{{ $labels.job }} service not ready"
           description: "Service {{ $labels.job }} failed /ready check for 2 minutes"
           runbook_url: "https://github.com/your-org/platform/wiki/ServiceNotReady"
-      
+
       - alert: ServiceDegraded
         expr: up{job=~"bridge|athena|uat|rag|vision|kokoro"} == 1 and rate(http_requests_total{code=~"5.."}[5m]) > 0.05
         for: 5m
@@ -22,7 +22,7 @@ groups:
         annotations:
           summary: "{{ $labels.job }} service degraded"
           description: "Service {{ $labels.job }} error rate > 5% for 5 minutes"
-      
+
       - alert: HighLatency
         expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, job)) > 2.0
         for: 10m
@@ -32,7 +32,7 @@ groups:
         annotations:
           summary: "{{ $labels.job }} high latency"
           description: "Service {{ $labels.job }} p95 latency > 2s for 10 minutes"
-      
+
       - alert: ContractViolation422Spike
         expr: rate(http_requests_total{code="422"}[5m]) > 10
         for: 5m
@@ -42,7 +42,7 @@ groups:
         annotations:
           summary: "422 validation errors spiking"
           description: "API contract violations detected - check payload formats"
-          
+
   - name: mcp_health
     interval: 30s
     rules:
@@ -55,7 +55,7 @@ groups:
         annotations:
           summary: "MCP service {{ $labels.job }} is down"
           description: "MCP service has been unreachable for 5 minutes"
-      
+
       - alert: MCPWriteRateZero
         expr: rate(mcp_store_writes_total[10m]) == 0
         for: 15m
@@ -65,9 +65,9 @@ groups:
         annotations:
           summary: "MCP Store write rate is zero"
           description: "No writes to MCP Store for 15 minutes - check integration"
-  
+
   - name: llm_quality
-    interval: 30s  
+    interval: 30s
     rules:
       - alert: StubResponseDetected
         expr: rate(athena_stub_responses_total[5m]) > 0
@@ -78,7 +78,7 @@ groups:
         annotations:
           summary: "Stub LLM responses detected"
           description: "Athena is returning stub responses - LLM path may be broken"
-      
+
       - alert: OllamaUnreachable
         expr: up{job="ollama"} == 0
         for: 2m

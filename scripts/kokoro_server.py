@@ -11,7 +11,7 @@ Usage:
 Endpoints:
     POST http://127.0.0.1:8020/tts
     Body: {"text": "...", "voice": "af_heart", "format": "wav"}
-    
+
     GET http://127.0.0.1:8020/health
     GET http://127.0.0.1:8020/voices
 """
@@ -45,7 +45,7 @@ def health():
     try:
         get_pipeline()  # Ensure pipeline loads
         return jsonify({
-            "status": "ok", 
+            "status": "ok",
             "model": "Kokoro-82M",
             "voices": ["af_heart", "af_sky", "af", "am"]
         }), 200
@@ -57,7 +57,7 @@ def health():
 def tts():
     """
     Text-to-speech endpoint
-    
+
     Body:
         {
             "text": "Text to speak",
@@ -65,7 +65,7 @@ def tts():
             "format": "wav" (optional),
             "speed": 1.0 (optional, default: 1.0)
         }
-    
+
     Returns: Audio file (WAV format, 24kHz)
     """
     try:
@@ -73,38 +73,38 @@ def tts():
         text = data.get('text', '')
         voice = data.get('voice', 'af_heart')
         speed = float(data.get('speed', 1.0))
-        
+
         if not text:
             return jsonify({"error": "No text provided"}), 400
-        
+
         logger.info(f"🎙️  TTS: {len(text)} chars, voice={voice}, speed={speed}")
-        
+
         # Generate audio
         pipe = get_pipeline()
         generator = pipe(text, voice=voice, speed=speed)
-        
+
         # Collect all audio chunks
         audio_chunks = []
         for i, (gs, ps, audio) in enumerate(generator):
             audio_chunks.append(audio)
             logger.debug(f"   Chunk {i}: {len(audio)} samples, text: {gs[:50]}...")
-        
+
         if not audio_chunks:
             return jsonify({"error": "No audio generated"}), 500
-        
+
         # Combine chunks
         combined = np.concatenate(audio_chunks)
-        
+
         # Convert to WAV bytes
         wav_buffer = io.BytesIO()
         sf.write(wav_buffer, combined, 24000, format='WAV')
         wav_bytes = wav_buffer.getvalue()
-        
+
         duration = len(combined) / 24000
         logger.info(f"✅ Generated {len(wav_bytes)} bytes ({duration:.1f}s, {len(audio_chunks)} chunks)")
-        
+
         return Response(wav_bytes, mimetype='audio/wav')
-        
+
     except Exception as e:
         logger.error(f"❌ TTS error: {e}")
         import traceback
@@ -124,9 +124,9 @@ def list_voices():
 
 if __name__ == '__main__':
     import sys
-    
+
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8020
-    
+
     print("🚀 Kokoro TTS Server for Athena")
     print("=" * 60)
     print(f"📡 Server: http://127.0.0.1:{port}")
@@ -139,5 +139,5 @@ if __name__ == '__main__':
     print("💡 Recommended voice: af_heart (warm female)")
     print("=" * 60)
     print("")
-    
+
     app.run(host='127.0.0.1', port=port, debug=False, threaded=True)

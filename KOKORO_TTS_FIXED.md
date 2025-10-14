@@ -1,6 +1,6 @@
 # ✅ Kokoro TTS Service - FIXED!
 
-**Date**: October 13, 2025  
+**Date**: October 13, 2025
 **Status**: ✅ **FULLY OPERATIONAL**
 
 ---
@@ -200,7 +200,7 @@ When you're ready to use real voice models:
 ### **Synthesize Speech**
 - **URL**: `http://localhost:8020/synthesize`
 - **Method**: POST
-- **Body**: 
+- **Body**:
   ```json
   {
     "text": "Your text here",

@@ -23,7 +23,7 @@
 
 ### **Services: 10/10 Running**
 - Bridge API (8014) - Chat gateway
-- Athena (8090) - AI processing  
+- Athena (8090) - AI processing
 - UAT (8181) - Universal AI Tools
 - RAG (8015) - Semantic search
 - Vision (8016) - Image analysis

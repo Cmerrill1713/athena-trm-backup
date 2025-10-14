@@ -20,22 +20,22 @@ def wilson_score_interval(
 ) -> Tuple[float, float]:
     """
     Calculate Wilson score confidence interval for success rate
-    
+
     More accurate than normal approximation for small samples.
-    
+
     Args:
         successes: Number of successes
         trials: Total number of trials
         confidence: Confidence level (default: 0.95 for 95%)
-    
+
     Returns:
         (lower_bound, upper_bound) for success rate
-    
+
     Reference: https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval
     """
     if trials == 0:
         return (0.0, 0.0)
-    
+
     # Z-score for confidence level
     # 0.95 → 1.96, 0.99 → 2.58
     z = {
@@ -43,15 +43,15 @@ def wilson_score_interval(
         0.95: 1.96,
         0.99: 2.576
     }.get(confidence, 1.96)
-    
+
     p = successes / trials
     denominator = 1 + z**2 / trials
     centre = (p + z**2 / (2 * trials)) / denominator
     margin = z * math.sqrt(p * (1 - p) / trials + z**2 / (4 * trials**2)) / denominator
-    
+
     lower = max(0.0, centre - margin)
     upper = min(1.0, centre + margin)
-    
+
     return (lower, upper)
 
 
@@ -65,11 +65,11 @@ def is_significantly_different(
 ) -> Tuple[bool, float, str]:
     """
     Check if canary is significantly different from control
-    
+
     Uses Wilson score intervals. Canary is significantly worse if:
     - Canary upper bound < Control lower bound (non-overlapping)
     - AND absolute delta > min_delta
-    
+
     Args:
         canary_successes: Canary successes
         canary_trials: Canary trials
@@ -77,24 +77,24 @@ def is_significantly_different(
         control_trials: Control trials
         min_delta: Minimum meaningful difference (default: 3%)
         confidence: Confidence level (default: 95%)
-    
+
     Returns:
         (is_significantly_worse, delta, explanation)
     """
     if canary_trials < 10 or control_trials < 10:
         return (False, 0.0, "Insufficient sample size (need 10+ trials each)")
-    
+
     canary_rate = canary_successes / canary_trials
     control_rate = control_successes / control_trials
     delta = canary_rate - control_rate
-    
+
     # Get confidence intervals
     canary_lower, canary_upper = wilson_score_interval(canary_successes, canary_trials, confidence)
     control_lower, control_upper = wilson_score_interval(control_successes, control_trials, confidence)
-    
+
     # Check if intervals overlap
     intervals_overlap = not (canary_upper < control_lower or control_upper < canary_lower)
-    
+
     # Significantly worse if:
     # 1. Canary upper bound < control lower bound (non-overlapping, canary clearly worse)
     # 2. AND absolute delta > min_delta
@@ -102,7 +102,7 @@ def is_significantly_different(
         canary_upper < control_lower and
         abs(delta) > min_delta
     )
-    
+
     # Build explanation
     if is_sig_worse:
         explanation = (
@@ -118,7 +118,7 @@ def is_significantly_different(
         explanation = f"Delta is {delta:+.1%} but intervals overlap (not significant)"
     else:
         explanation = f"Canary and control are equivalent (delta: {delta:+.1%} < {min_delta:.1%})"
-    
+
     return (is_sig_worse, delta, explanation)
 
 
@@ -133,12 +133,12 @@ def should_rollback_canary(
 ) -> Tuple[bool, str]:
     """
     Determine if canary should be rolled back
-    
+
     Safety criteria (ALL must be true):
     - Statistical significance (p<0.05)
     - Delta magnitude > min_delta (5%)
     - Sufficient sample sizes (10+ each)
-    
+
     Args:
         canary_successes: Canary successes
         canary_trials: Canary trials
@@ -147,14 +147,14 @@ def should_rollback_canary(
         min_delta: Minimum delta to care about (default: 5%)
         min_duration_minutes: How long condition must persist
         confidence: Confidence level
-    
+
     Returns:
         (should_rollback, reason)
     """
     # Check sample sizes
     if canary_trials < 20 or control_trials < 20:
         return (False, f"Insufficient data: canary={canary_trials}, control={control_trials} (need 20+ each)")
-    
+
     # Check statistical significance
     is_worse, delta, explanation = is_significantly_different(
         canary_successes, canary_trials,
@@ -162,11 +162,11 @@ def should_rollback_canary(
         min_delta=min_delta,
         confidence=confidence
     )
-    
+
     if is_worse:
         canary_rate = canary_successes / canary_trials
         control_rate = control_successes / control_trials
-        
+
         reason = (
             f"ROLLBACK RECOMMENDED: {explanation}\n"
             f"  Canary: {canary_successes}/{canary_trials} = {canary_rate:.1%}\n"
@@ -189,7 +189,7 @@ if __name__ == "__main__":
     )
     print(f"Rollback: {should_rollback}")
     print(f"Reason: {reason}\n")
-    
+
     # Test case: Not enough data
     print("Test 2: Insufficient sample size")
     should_rollback, reason = should_rollback_canary(
@@ -198,7 +198,7 @@ if __name__ == "__main__":
     )
     print(f"Rollback: {should_rollback}")
     print(f"Reason: {reason}\n")
-    
+
     # Test case: Difference not significant
     print("Test 3: Difference within noise")
     should_rollback, reason = should_rollback_canary(
@@ -207,4 +207,3 @@ if __name__ == "__main__":
     )
     print(f"Rollback: {should_rollback}")
     print(f"Reason: {reason}\n")
-

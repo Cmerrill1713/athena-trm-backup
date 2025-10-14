@@ -4,7 +4,7 @@ struct CommandPalette: View {
     @Binding var isPresented: Bool
     @State private var searchText = ""
     @State private var selectedAction: Action? = nil
-    
+
     let actions: [Action] = [
         Action(title: "Check Service Health", icon: "heart.fill", action: .checkHealth),
         Action(title: "Query RAG", icon: "brain.head.profile", action: .queryRAG),
@@ -12,7 +12,7 @@ struct CommandPalette: View {
         Action(title: "Validate Platform", icon: "checkmark.shield.fill", action: .validatePlatform),
         Action(title: "View Operations", icon: "gearshape.fill", action: .viewOperations)
     ]
-    
+
     var filteredActions: [Action] {
         if searchText.isEmpty {
             return actions
@@ -20,14 +20,14 @@ struct CommandPalette: View {
             return actions.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
         }
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             // Search bar
             HStack {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
-                
+
                 TextField("Search commands...", text: $searchText)
                     .textFieldStyle(PlainTextFieldStyle())
                     .onSubmit {
@@ -35,7 +35,7 @@ struct CommandPalette: View {
                             selectedAction = first
                         }
                     }
-                
+
                 Button("Cancel") {
                     isPresented = false
                 }
@@ -43,9 +43,9 @@ struct CommandPalette: View {
             }
             .padding()
             .background(Color(NSColor.controlBackgroundColor))
-            
+
             Divider()
-            
+
             // Actions list
             List(filteredActions, id: \.title) { action in
                 ActionRow(action: action)
@@ -64,7 +64,7 @@ struct CommandPalette: View {
             searchText = ""
         }
     }
-    
+
     private func performAction(_ action: ActionType) {
         switch action {
         case .checkHealth:
@@ -78,35 +78,35 @@ struct CommandPalette: View {
         case .viewOperations:
             NotificationCenter.default.post(name: .viewOperations, object: nil)
         }
-        
+
         isPresented = false
     }
 }
 
 struct ActionRow: View {
     let action: Action
-    
+
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: action.icon)
                 .foregroundColor(.blue)
                 .frame(width: 20)
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 Text(action.title)
                     .font(.system(size: 14, weight: .medium))
-                
+
                 Text(actionDescription)
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
             }
-            
+
             Spacer()
         }
         .padding(.vertical, 8)
         .contentShape(Rectangle())
     }
-    
+
     private var actionDescription: String {
         switch action.action {
         case .checkHealth:

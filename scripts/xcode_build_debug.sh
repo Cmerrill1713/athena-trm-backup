@@ -18,4 +18,3 @@ xcodebuild \
   build
 
 echo "✅ Build complete: build/Build/Products/Debug/$SCHEME.app"
-

@@ -6,13 +6,13 @@ import AppKit
 /// Confidence trend sparkline showing last N confidence scores
 struct ConfidenceSparkline: View {
     let history: [Double]  // Last 5-10 confidence scores
-    
+
     var body: some View {
         GeometryReader { geo in
             let w = geo.size.width
             let h = geo.size.height
             let step = w / CGFloat(max(history.count - 1, 1))
-            
+
             // Line path
             Path { path in
                 guard !history.isEmpty else { return }
@@ -22,7 +22,7 @@ struct ConfidenceSparkline: View {
                 }
             }
             .stroke(confidenceColor(history.last ?? 0), lineWidth: 2)
-            
+
             // Dots at each point
             ForEach(Array(history.enumerated()), id: \.offset) { i, conf in
                 Circle()
@@ -33,7 +33,7 @@ struct ConfidenceSparkline: View {
         }
         .frame(height: 24)
     }
-    
+
     private func confidenceColor(_ conf: Double) -> Color {
         switch conf {
         case 0.8...1.0: return .green
@@ -53,12 +53,12 @@ struct ConfidenceSparkline_Previews: PreviewProvider {
             ConfidenceSparkline(history: [0.3, 0.45, 0.62, 0.78, 0.91])
                 .frame(height: 40)
                 .padding()
-            
+
             // Falling confidence
             ConfidenceSparkline(history: [0.85, 0.72, 0.58, 0.42, 0.28])
                 .frame(height: 40)
                 .padding()
-            
+
             // Stable high
             ConfidenceSparkline(history: [0.88, 0.91, 0.89, 0.92, 0.87])
                 .frame(height: 40)
@@ -72,4 +72,3 @@ struct ConfidenceSparkline_Previews: PreviewProvider {
     }
 }
 #endif
-
