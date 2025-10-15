@@ -1,0 +1,266 @@
+# =============================================================================
+# PRODUCTION SAFETY ALERTS - Constitutional AI Framework
+# =============================================================================
+#
+# Critical safety trip-wires for production deployment.
+# These alerts provide automatic rollback triggers and monitoring.
+#
+# Installation: Add to your Prometheus Alertmanager configuration
+# Validation: Run scripts/production_validation_suite.sql to verify metrics collection
+#
+# =============================================================================
+
+groups:
+  - name: constitutional_ai_safety
+    rules:
+
+    # 1. Router P95 Latency Trip-wire
+    # Triggers rollback if routing becomes too slow (CE mode or neural encoder issues)
+    - alert: RouterP95Latency
+      expr: histogram_quantile(0.95, sum(rate(router_latency_seconds_bucket[10m])) by (le)) > 0.8
+      for: 10m
+      labels:
+        severity: critical
+        category: performance
+        rollback_action: disable_ce_mode
+      annotations:
+        summary: "Router P95 latency exceeded 800ms threshold"
+        description: |
+          Router P95 latency is {{ $value }}s, above 800ms safety threshold.
+          This may indicate CE precision mode or neural encoder performance issues.
+          Automatic action: Disable CE mode and fallback to cosine-only routing.
+        runbook_url: docs/runbooks/router_latency_incident.md
+        impact: High latency degrading user experience
+        resolution: Check CE model inference time and neural encoder performance
+
+    # 2. Judge Helpfulness Collapse
+    # Triggers rollback if AI quality drops significantly
+    - alert: JudgeHelpfulnessDrop
+      expr: avg_over_time(judge_helpfulness_avg[30m]) - avg_over_time(judge_helpfulness_avg[30m] offset 30m) <= -0.5
+      for: 15m
+      labels:
+        severity: critical
+        category: quality
+        rollback_action: rollback_to_baseline
+      annotations:
+        summary: "Judge helpfulness dropped by 0.5+ points in 30 minutes"
+        description: |
+          Judge helpfulness decreased by {{ $value }} points compared to previous 30m window.
+          This indicates significant quality degradation in AI responses.
+          Automatic action: Rollback bandit to last known good champion variant.
+        runbook_url: docs/runbooks/judge_quality_incident.md
+        impact: Users receiving lower quality responses
+        resolution: Check for bandit convergence issues or reward signal drift
+
+    # 3. Strategy Traffic Imbalance (Monoculture Risk)
+    # Prevents single strategy from dominating (reduces exploration)
+    - alert: StrategyImbalance
+      expr: max_over_time(strategy_traffic_pct[2h]) > 0.7
+      for: 10m
+      labels:
+        severity: warning
+        category: exploration
+        rollback_action: none
+      annotations:
+        summary: "Strategy traffic imbalance detected - single strategy >70%"
+        description: |
+          Single strategy receiving {{ $value }}% of traffic over last 2 hours.
+          This reduces exploration and may cause the system to miss better strategies.
+          No automatic rollback, but monitor bandit learning progress.
+        runbook_url: docs/runbooks/strategy_imbalance.md
+        impact: Reduced exploration and potential suboptimal performance
+        resolution: Check bandit exploration parameters and reward variance
+
+    # 4. RAG Over-filtering Protection
+    # Prevents retrieval from becoming too aggressive
+    - alert: RAGRerankOverFiltering
+      expr: histogram_quantile(0.5, sum(rate(rag_docs_used_bucket[30m])) by (le)) < 3
+      for: 10m
+      labels:
+        severity: warning
+        category: retrieval
+        rollback_action: disable_reranker
+      annotations:
+        summary: "RAG reranker over-filtering detected - median docs < 3"
+        description: |
+          RAG reranker median documents used dropped below 3 in 30m window.
+          This may result in incomplete or insufficient context for responses.
+          Automatic action: Disable reranker and use full retrieval fallback.
+        runbook_url: docs/runbooks/rag_overfiltering.md
+        impact: Potentially incomplete or low-quality responses
+        resolution: Check reranker threshold tuning and guardrail parameters
+
+    # 5. Constitutional Violation Rate
+    # Monitors for governance policy violations
+    - alert: ConstitutionalViolationRate
+      expr: rate(governance_violations_total[15m]) > 0.1
+      for: 5m
+      labels:
+        severity: critical
+        category: governance
+        rollback_action: quarantine_strategy
+      annotations:
+        summary: "High rate of constitutional violations detected"
+        description: |
+          Constitutional violations occurring at {{ $value }} per minute.
+          This indicates strategies bypassing governance checks or policy drift.
+          Automatic action: Quarantine violating strategies and revert to known-good.
+        runbook_url: docs/runbooks/constitutional_violations.md
+        impact: Potential ethical, legal, or safety violations in production
+        resolution: Review governance policy versions and strategy validation
+
+    # 6. Federated Privacy Budget Exhaustion
+    # Prevents privacy budget overrun in federated learning
+    - alert: FederatedPrivacyBudgetExhaustion
+      expr: max_over_time(federated_epsilon_spent[24h]) > 1.8
+      for: 30m
+      labels:
+        severity: warning
+        category: privacy
+        rollback_action: pause_federation
+      annotations:
+        summary: "Federated privacy budget approaching exhaustion"
+        description: |
+          Federated deployment epsilon spent: {{ $value }} (approaching 2.0 limit).
+          Continued participation may violate differential privacy guarantees.
+          Automatic action: Pause federated learning participation.
+        runbook_url: docs/runbooks/federated_privacy_budget.md
+        impact: Potential privacy violation if budget exceeded
+        resolution: Reduce participation frequency or increase noise parameters
+
+    # 7. Neural Context Encoder Drift
+    # Monitors for neural encoder performance degradation
+    - alert: NeuralEncoderDrift
+      expr: abs(neural_encoder_confidence - neural_encoder_confidence offset 1h) > 0.2
+      for: 15m
+      labels:
+        severity: warning
+        category: ml_model
+        rollback_action: fallback_to_rules
+      annotations:
+        summary: "Neural context encoder confidence drifting significantly"
+        description: |
+          Neural encoder confidence changed by {{ $value }} in 1 hour.
+          This may indicate model drift or training data distribution shift.
+          Automatic action: Fallback to rule-based context heuristics.
+        runbook_url: docs/runbooks/neural_encoder_drift.md
+        impact: Reduced routing accuracy and suboptimal strategy selection
+        resolution: Retrain neural encoder or investigate training data changes
+
+    # 8. Bandit Reward Signal Variance Collapse
+    # Detects when bandit learning becomes unstable
+    - alert: BanditRewardVarianceCollapse
+      expr: stddev_over_time(bandit_reward[1h]) / avg_over_time(bandit_reward[1h]) < 0.1
+      for: 30m
+      labels:
+        severity: warning
+        category: learning
+        rollback_action: reset_bandit_priors
+      annotations:
+        summary: "Bandit reward variance collapsed - learning may have stalled"
+        description: |
+          Bandit reward coefficient of variation < 0.1 over last hour.
+          This indicates insufficient exploration or reward signal problems.
+          Automatic action: Reset bandit priors to encourage exploration.
+        runbook_url: docs/runbooks/bandit_variance_collapse.md
+        impact: Bandit may converge to suboptimal strategies
+        resolution: Check reward shaping parameters and exploration settings
+
+    # 9. Strategy Generation Failure Rate
+    # Monitors automated strategy generation health
+    - alert: StrategyGenerationFailureRate
+      expr: rate(strategy_generation_failures_total[30m]) / rate(strategy_generation_attempts_total[30m]) > 0.2
+      for: 10m
+      labels:
+        severity: warning
+        category: evolution
+        rollback_action: none
+      annotations:
+        summary: "Strategy generation failure rate >20%"
+        description: |
+          {{ $value }} of strategy generation attempts failing.
+          This may indicate issues with evolutionary algorithms or fitness evaluation.
+          No automatic rollback, but monitor for governance bypass attempts.
+        runbook_url: docs/runbooks/strategy_generation_failures.md
+        impact: Reduced rate of strategy innovation and improvement
+        resolution: Check evolutionary algorithm parameters and fitness functions
+
+    # 10. System State Transition Frequency
+    # Detects excessive system state changes (instability)
+    - alert: SystemStateTransitionFrequency
+      expr: increase(system_state_changes_total[15m]) > 5
+      for: 5m
+      labels:
+        severity: warning
+        category: stability
+        rollback_action: freeze_evolution
+      annotations:
+        summary: "Excessive system state transitions detected"
+        description: |
+          System state changed {{ $value }} times in 15 minutes.
+          This indicates system instability or overly sensitive state detection.
+          Automatic action: Freeze strategy evolution and constitutional weighting.
+        runbook_url: docs/runbooks/system_state_instability.md
+        impact: System may be oscillating between states, reducing effectiveness
+        resolution: Review system state detection thresholds and transition logic
+
+  - name: production_readiness_gates
+    rules:
+
+    # Gate 1: Minimum Sample Size for Statistical Significance
+    - alert: InsufficientBanditSamples
+      expr: sum(bandit_decision_count) < 1000
+      for: 5m
+      labels:
+        severity: warning
+        category: statistical_power
+      annotations:
+        summary: "Insufficient bandit samples for statistical significance"
+        description: "Only {{ $value }} bandit decisions logged. Need ≥1000 for reliable IPS/DR validation."
+        runbook_url: docs/runbooks/insufficient_samples.md
+
+    # Gate 2: Federated Network Health
+    - alert: FederatedNetworkDegraded
+      expr: up{job="federated_coordinator"} == 0
+      for: 5m
+      labels:
+        severity: critical
+        category: federation
+      annotations:
+        summary: "Federated learning coordinator is down"
+        description: "Federated coordinator not responding. Cross-deployment learning suspended."
+        runbook_url: docs/runbooks/federated_coordinator_down.md
+
+    # Gate 3: Constitution Policy Synchronization
+    - alert: ConstitutionPolicyMismatch
+      expr: count(scalar(sum(constitution_policy_hash))) > 1
+      for: 10m
+      labels:
+        severity: critical
+        category: governance
+      annotations:
+        summary: "Constitution policy hash mismatch across deployments"
+        description: "Multiple constitution policy hashes detected. Governance may be inconsistent."
+        runbook_url: docs/runbooks/constitution_mismatch.md
+
+# =============================================================================
+# ALERT SEVERITY LEGEND
+# =============================================================================
+#
+# critical: Immediate rollback action required, page on-call
+# warning: Monitor closely, no immediate action but investigate
+# info: Log for awareness, no action required
+#
+# Rollback Actions:
+# - disable_ce_mode: Fallback to cosine-only RAG routing
+# - rollback_to_baseline: Revert bandit to champion variant
+# - disable_reranker: Use full retrieval without reranking
+# - quarantine_strategy: Block violating strategies
+# - pause_federation: Stop federated learning participation
+# - fallback_to_rules: Use rule-based instead of neural context
+# - reset_bandit_priors: Reset exploration to encourage learning
+# - freeze_evolution: Stop automated strategy generation
+#
+# =============================================================================
+# END OF PRODUCTION SAFETY ALERTS
+# =============================================================================

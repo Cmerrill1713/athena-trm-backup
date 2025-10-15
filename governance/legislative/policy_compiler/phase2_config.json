@@ -1,0 +1,104 @@
+{
+  "judicial": {
+    "court_id": "constitutional_court_v2.0",
+    "api_host": "127.0.0.1",
+    "api_port": 8092,
+    "log_level": "DEBUG",
+    "audit_log_path": "/var/log/ai-republic/judicial_audit.log",
+    "reputation_db_path": "/var/lib/ai-republic/reputation.db"
+  },
+  "adjudication": {
+    "response_time_target_ms": 50,
+    "confidence_threshold": 0.8,
+    "auto_escalation_enabled": true,
+    "tribunal_auto_convene": true,
+    "reputation_update_enabled": true
+  },
+  "decision_matrix": {
+    "sovereignty_compromise": {
+      "high_severity": "TRIBUNAL",
+      "medium_severity": "QUARANTINE",
+      "low_severity": "BLOCK"
+    },
+    "ethical_violation": {
+      "high_severity": "QUARANTINE",
+      "medium_severity": "BLOCK",
+      "low_severity": "WARN"
+    },
+    "authority_breach": {
+      "high_severity": "TRIBUNAL",
+      "medium_severity": "BLOCK",
+      "low_severity": "WARN"
+    },
+    "security_violation": {
+      "high_severity": "QUARANTINE",
+      "medium_severity": "BLOCK",
+      "low_severity": "WARN"
+    },
+    "policy_violation": {
+      "high_severity": "BLOCK",
+      "medium_severity": "WARN",
+      "low_severity": "ALLOW"
+    }
+  },
+  "enforcement_actions": {
+    "allow": [
+      {"type": "monitor", "duration_hours": 24}
+    ],
+    "warn": [
+      {"type": "log_warning", "escalate_on_repeat": true},
+      {"type": "increase_monitoring", "duration_hours": 72}
+    ],
+    "block": [
+      {"type": "block_operation", "immediate": true},
+      {"type": "notify_oversight", "priority": "high"}
+    ],
+    "quarantine": [
+      {"type": "quarantine_agent", "duration_hours": 24},
+      {"type": "forensic_analysis", "priority": "high"},
+      {"type": "federation_alert", "scope": "regional"}
+    ],
+    "tribunal": [
+      {"type": "convene_tribunal", "immediate": true},
+      {"type": "system_wide_alert", "severity": "critical"},
+      {"type": "emergency_audit", "scope": "full"}
+    ]
+  },
+  "reputation": {
+    "default_score": 0.5,
+    "max_score": 1.0,
+    "min_score": 0.0,
+    "update_enabled": true,
+    "tier_thresholds": {
+      "sovereign": 0.95,
+      "trusted": 0.80,
+      "provisional": 0.60,
+      "quarantined": 0.0
+    },
+    "adjustment_rates": {
+      "allow": 0.01,
+      "warn": -0.02,
+      "block": -0.05,
+      "quarantine": -0.15,
+      "tribunal": -0.30
+    }
+  },
+  "monitoring": {
+    "health_check_interval_ms": 30000,
+    "metrics_export_enabled": true,
+    "alert_webhook": "https://alerts.ai-republic.org/judicial",
+    "performance_monitoring": true,
+    "decision_audit_retention_days": 365
+  },
+  "federation": {
+    "cross_jurisdiction_enabled": false,
+    "reputation_sharing": false,
+    "treaty_integration_ready": false
+  },
+  "deployment": {
+    "phase": "phase2_judicial",
+    "rollback_enabled": true,
+    "integration_tested": true,
+    "emergency_protocols": true
+  }
+}

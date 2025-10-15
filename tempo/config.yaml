@@ -1,0 +1,46 @@
+# Tempo Configuration
+# Distributed tracing backend
+
+server:
+  http_listen_port: 3200
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: "0.0.0.0:4317"
+        http:
+          endpoint: "0.0.0.0:4318"
+
+ingester:
+  trace_idle_period: 10s
+  max_block_bytes: 1_000_000
+  max_block_duration: 5m
+
+compactor:
+  compaction:
+    compacted_block_retention: 1h
+
+storage:
+  trace:
+    backend: local
+    local:
+      path: /var/tempo/traces
+    wal:
+      path: /var/tempo/wal
+    pool:
+      max_workers: 50
+      queue_depth: 100
+
+overrides:
+  per_tenant_override_config: /etc/tempo/overrides.yaml
+
+# Basic overrides for single tenant
+overrides:
+  defaults:
+    ingestion:
+      rate_limit_bytes: 5000000  # 5MB/s
+      burst_size_bytes: 10000000 # 10MB burst
+    read:
+      max_bytes_per_tag_values_query: 5000000

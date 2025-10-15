@@ -1,0 +1,2359 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.080 --> 00:00:01.829 align:start position:0%
+
+In<00:00:00.320><c> this</c><00:00:00.480><c> video,</c><00:00:00.719><c> we're</c><00:00:00.880><c> going</c><00:00:01.040><c> to</c><00:00:01.199><c> talk</c><00:00:01.360><c> about</c>
+
+00:00:01.829 --> 00:00:01.839 align:start position:0%
+In this video, we're going to talk about
+
+
+00:00:01.839 --> 00:00:04.230 align:start position:0%
+In this video, we're going to talk about
+a<00:00:02.240><c> deep</c><00:00:02.639><c> research</c><00:00:02.960><c> agent</c><00:00:03.360><c> that</c><00:00:03.679><c> can</c><00:00:03.840><c> not</c><00:00:04.000><c> only</c>
+
+00:00:04.230 --> 00:00:04.240 align:start position:0%
+a deep research agent that can not only
+
+
+00:00:04.240 --> 00:00:07.349 align:start position:0%
+a deep research agent that can not only
+do<00:00:04.560><c> web</c><00:00:04.799><c> search</c><00:00:05.040><c> for</c><00:00:05.279><c> you,</c><00:00:05.920><c> but</c><00:00:06.400><c> can</c><00:00:06.720><c> also</c>
+
+00:00:07.349 --> 00:00:07.359 align:start position:0%
+do web search for you, but can also
+
+
+00:00:07.359 --> 00:00:09.910 align:start position:0%
+do web search for you, but can also
+control<00:00:07.680><c> your</c><00:00:08.000><c> browser</c><00:00:08.720><c> and</c><00:00:09.040><c> it</c><00:00:09.280><c> has</c><00:00:09.519><c> a</c><00:00:09.760><c> number</c>
+
+00:00:09.910 --> 00:00:09.920 align:start position:0%
+control your browser and it has a number
+
+
+00:00:09.920 --> 00:00:13.030 align:start position:0%
+control your browser and it has a number
+of<00:00:10.160><c> MCB</c><00:00:10.719><c> tools</c><00:00:11.360><c> that</c><00:00:11.679><c> can</c><00:00:12.000><c> create</c><00:00:12.639><c> word</c>
+
+00:00:13.030 --> 00:00:13.040 align:start position:0%
+of MCB tools that can create word
+
+
+00:00:13.040 --> 00:00:16.070 align:start position:0%
+of MCB tools that can create word
+documents,<00:00:13.599><c> PDF</c><00:00:14.080><c> files</c><00:00:14.480><c> and</c><00:00:14.799><c> a</c><00:00:14.960><c> lot</c><00:00:15.120><c> more.</c>
+
+00:00:16.070 --> 00:00:16.080 align:start position:0%
+documents, PDF files and a lot more.
+
+
+00:00:16.080 --> 00:00:18.070 align:start position:0%
+documents, PDF files and a lot more.
+This<00:00:16.320><c> is</c><00:00:16.480><c> an</c><00:00:16.800><c> open-source</c><00:00:17.359><c> project</c><00:00:17.680><c> called</c>
+
+00:00:18.070 --> 00:00:18.080 align:start position:0%
+This is an open-source project called
+
+
+00:00:18.080 --> 00:00:20.470 align:start position:0%
+This is an open-source project called
+deep<00:00:18.480><c> research</c><00:00:18.880><c> agent</c><00:00:19.760><c> which</c><00:00:20.000><c> is</c><00:00:20.080><c> based</c><00:00:20.320><c> on</c>
+
+00:00:20.470 --> 00:00:20.480 align:start position:0%
+deep research agent which is based on
+
+
+00:00:20.480 --> 00:00:22.790 align:start position:0%
+deep research agent which is based on
+this<00:00:20.640><c> paper</c><00:00:21.520><c> agent</c><00:00:21.840><c> orchestra</c><00:00:22.560><c> a</c>
+
+00:00:22.790 --> 00:00:22.800 align:start position:0%
+this paper agent orchestra a
+
+
+00:00:22.800 --> 00:00:25.429 align:start position:0%
+this paper agent orchestra a
+hierarchical<00:00:24.160><c> multi-</c><00:00:24.480><c> aent</c><00:00:24.800><c> framework</c><00:00:25.199><c> for</c>
+
+00:00:25.429 --> 00:00:25.439 align:start position:0%
+hierarchical multi- aent framework for
+
+
+00:00:25.439 --> 00:00:27.910 align:start position:0%
+hierarchical multi- aent framework for
+generalpurpose<00:00:26.240><c> task</c><00:00:26.720><c> solving.</c><00:00:27.439><c> The</c><00:00:27.680><c> focus</c>
+
+00:00:27.910 --> 00:00:27.920 align:start position:0%
+generalpurpose task solving. The focus
+
+
+00:00:27.920 --> 00:00:30.710 align:start position:0%
+generalpurpose task solving. The focus
+is<00:00:28.160><c> on</c><00:00:28.480><c> journal</c><00:00:28.960><c> purpose</c><00:00:29.359><c> tasks.</c><00:00:30.080><c> Now</c><00:00:30.400><c> this</c><00:00:30.560><c> is</c>
+
+00:00:30.710 --> 00:00:30.720 align:start position:0%
+is on journal purpose tasks. Now this is
+
+
+00:00:30.720 --> 00:00:32.870 align:start position:0%
+is on journal purpose tasks. Now this is
+from<00:00:30.880><c> a</c><00:00:31.039><c> company</c><00:00:31.199><c> called</c><00:00:31.519><c> Skywork</c><00:00:32.160><c> AI</c><00:00:32.480><c> who</c><00:00:32.719><c> are</c>
+
+00:00:32.870 --> 00:00:32.880 align:start position:0%
+from a company called Skywork AI who are
+
+
+00:00:32.880 --> 00:00:36.389 align:start position:0%
+from a company called Skywork AI who are
+also<00:00:33.600><c> the</c><00:00:33.840><c> kind</c><00:00:34.320><c> sponsors</c><00:00:34.800><c> of</c><00:00:34.960><c> today's</c><00:00:35.360><c> video</c>
+
+00:00:36.389 --> 00:00:36.399 align:start position:0%
+also the kind sponsors of today's video
+
+
+00:00:36.399 --> 00:00:38.229 align:start position:0%
+also the kind sponsors of today's video
+and<00:00:36.640><c> it's</c><00:00:36.880><c> a</c><00:00:37.040><c> very</c><00:00:37.280><c> interesting</c><00:00:37.840><c> company.</c>
+
+00:00:38.229 --> 00:00:38.239 align:start position:0%
+and it's a very interesting company.
+
+
+00:00:38.239 --> 00:00:40.389 align:start position:0%
+and it's a very interesting company.
+They<00:00:38.399><c> have</c><00:00:38.640><c> been</c><00:00:39.040><c> open</c><00:00:39.360><c> sourcing</c><00:00:39.760><c> some</c><00:00:40.000><c> very</c>
+
+00:00:40.389 --> 00:00:40.399 align:start position:0%
+They have been open sourcing some very
+
+
+00:00:40.399 --> 00:00:42.389 align:start position:0%
+They have been open sourcing some very
+interesting<00:00:40.800><c> projects.</c><00:00:41.440><c> So</c><00:00:41.680><c> for</c><00:00:41.760><c> example</c>
+
+00:00:42.389 --> 00:00:42.399 align:start position:0%
+interesting projects. So for example
+
+
+00:00:42.399 --> 00:00:45.190 align:start position:0%
+interesting projects. So for example
+here<00:00:42.640><c> is</c><00:00:42.879><c> a</c><00:00:43.120><c> 3D</c><00:00:43.520><c> world</c><00:00:44.000><c> that</c><00:00:44.239><c> is</c><00:00:44.480><c> created</c><00:00:44.960><c> from</c>
+
+00:00:45.190 --> 00:00:45.200 align:start position:0%
+here is a 3D world that is created from
+
+
+00:00:45.200 --> 00:00:48.069 align:start position:0%
+here is a 3D world that is created from
+a<00:00:45.440><c> single</c><00:00:45.680><c> input</c><00:00:46.160><c> image.</c><00:00:46.960><c> The</c><00:00:47.360><c> project</c><00:00:47.760><c> itself</c>
+
+00:00:48.069 --> 00:00:48.079 align:start position:0%
+a single input image. The project itself
+
+
+00:00:48.079 --> 00:00:49.910 align:start position:0%
+a single input image. The project itself
+is<00:00:48.320><c> completely</c><00:00:48.719><c> open</c><00:00:49.039><c> source.</c><00:00:49.440><c> You</c><00:00:49.600><c> can</c>
+
+00:00:49.910 --> 00:00:49.920 align:start position:0%
+is completely open source. You can
+
+
+00:00:49.920 --> 00:00:52.869 align:start position:0%
+is completely open source. You can
+download<00:00:50.320><c> and</c><00:00:50.559><c> play</c><00:00:50.719><c> around</c><00:00:50.960><c> with</c><00:00:51.200><c> this.</c><00:00:52.559><c> Or</c>
+
+00:00:52.869 --> 00:00:52.879 align:start position:0%
+download and play around with this. Or
+
+
+00:00:52.879 --> 00:00:55.990 align:start position:0%
+download and play around with this. Or
+they<00:00:53.199><c> have</c><00:00:53.360><c> this</c><00:00:53.680><c> other</c><00:00:54.320><c> matrix</c><00:00:55.039><c> game</c><00:00:55.600><c> uh</c><00:00:55.760><c> 2.0</c>
+
+00:00:55.990 --> 00:00:56.000 align:start position:0%
+they have this other matrix game uh 2.0
+
+
+00:00:56.000 --> 00:00:58.150 align:start position:0%
+they have this other matrix game uh 2.0
+Nintendo<00:00:56.640><c> again</c><00:00:56.800><c> an</c><00:00:57.039><c> open-source</c><00:00:57.840><c> world</c>
+
+00:00:58.150 --> 00:00:58.160 align:start position:0%
+Nintendo again an open-source world
+
+
+00:00:58.160 --> 00:01:00.150 align:start position:0%
+Nintendo again an open-source world
+model<00:00:58.640><c> where</c><00:00:58.879><c> you</c><00:00:59.120><c> can</c><00:00:59.280><c> actually</c><00:00:59.680><c> play</c><00:00:59.840><c> the</c>
+
+00:01:00.150 --> 00:01:00.160 align:start position:0%
+model where you can actually play the
+
+
+00:01:00.160 --> 00:01:02.790 align:start position:0%
+model where you can actually play the
+game<00:01:00.399><c> and</c><00:01:00.640><c> it</c><00:01:01.280><c> creates</c><00:01:01.680><c> all</c><00:01:01.920><c> the</c><00:01:02.079><c> scenes</c><00:01:02.399><c> in</c>
+
+00:01:02.790 --> 00:01:02.800 align:start position:0%
+game and it creates all the scenes in
+
+
+00:01:02.800 --> 00:01:05.270 align:start position:0%
+game and it creates all the scenes in
+real<00:01:03.120><c> time.</c><00:01:04.159><c> They're</c><00:01:04.479><c> also</c><00:01:04.799><c> creating</c><00:01:05.040><c> a</c>
+
+00:01:05.270 --> 00:01:05.280 align:start position:0%
+real time. They're also creating a
+
+
+00:01:05.280 --> 00:01:07.910 align:start position:0%
+real time. They're also creating a
+platform<00:01:05.680><c> called</c><00:01:06.479><c> Skywork</c><00:01:07.119><c> super</c><00:01:07.439><c> agent</c>
+
+00:01:07.910 --> 00:01:07.920 align:start position:0%
+platform called Skywork super agent
+
+
+00:01:07.920 --> 00:01:10.469 align:start position:0%
+platform called Skywork super agent
+where<00:01:08.159><c> you</c><00:01:08.400><c> can</c><00:01:08.479><c> create</c><00:01:08.880><c> word</c><00:01:09.200><c> document</c><00:01:10.159><c> u</c>
+
+00:01:10.469 --> 00:01:10.479 align:start position:0%
+where you can create word document u
+
+
+00:01:10.479 --> 00:01:14.070 align:start position:0%
+where you can create word document u
+slides<00:01:11.360><c> do</c><00:01:11.600><c> analysis</c><00:01:12.000><c> on</c><00:01:12.400><c> your</c><00:01:12.799><c> excel</c><00:01:13.200><c> sheets</c>
+
+00:01:14.070 --> 00:01:14.080 align:start position:0%
+slides do analysis on your excel sheets
+
+
+00:01:14.080 --> 00:01:17.670 align:start position:0%
+slides do analysis on your excel sheets
+also<00:01:14.560><c> has</c><00:01:14.880><c> a</c><00:01:16.000><c> web</c><00:01:16.320><c> page</c><00:01:16.560><c> developer</c><00:01:17.360><c> you</c><00:01:17.520><c> can</c>
+
+00:01:17.670 --> 00:01:17.680 align:start position:0%
+also has a web page developer you can
+
+
+00:01:17.680 --> 00:01:20.469 align:start position:0%
+also has a web page developer you can
+create<00:01:18.000><c> par</c><00:01:18.400><c> podcast</c><00:01:18.880><c> and</c><00:01:19.200><c> a</c><00:01:19.360><c> lot</c><00:01:19.520><c> more</c><00:01:20.320><c> on</c>
+
+00:01:20.469 --> 00:01:20.479 align:start position:0%
+create par podcast and a lot more on
+
+
+00:01:20.479 --> 00:01:23.109 align:start position:0%
+create par podcast and a lot more on
+that<00:01:20.720><c> later</c><00:01:21.040><c> in</c><00:01:21.200><c> the</c><00:01:21.360><c> video.</c><00:01:22.320><c> Okay,</c><00:01:22.640><c> so</c><00:01:22.880><c> coming</c>
+
+00:01:23.109 --> 00:01:23.119 align:start position:0%
+that later in the video. Okay, so coming
+
+
+00:01:23.119 --> 00:01:26.070 align:start position:0%
+that later in the video. Okay, so coming
+back<00:01:23.360><c> to</c><00:01:23.600><c> the</c><00:01:24.000><c> deep</c><00:01:24.799><c> uh</c><00:01:25.200><c> research</c><00:01:25.600><c> agent</c>
+
+00:01:26.070 --> 00:01:26.080 align:start position:0%
+back to the deep uh research agent
+
+
+00:01:26.080 --> 00:01:28.469 align:start position:0%
+back to the deep uh research agent
+framework,<00:01:26.880><c> they're</c><00:01:27.119><c> doing</c><00:01:27.360><c> some</c><00:01:27.680><c> very</c><00:01:28.080><c> neat</c>
+
+00:01:28.469 --> 00:01:28.479 align:start position:0%
+framework, they're doing some very neat
+
+
+00:01:28.479 --> 00:01:31.190 align:start position:0%
+framework, they're doing some very neat
+and<00:01:28.799><c> interesting</c><00:01:29.200><c> things</c><00:01:30.479><c> especially</c><00:01:30.880><c> when</c>
+
+00:01:31.190 --> 00:01:31.200 align:start position:0%
+and interesting things especially when
+
+
+00:01:31.200 --> 00:01:35.910 align:start position:0%
+and interesting things especially when
+it<00:01:31.360><c> comes</c><00:01:31.520><c> to</c><00:01:31.680><c> the</c><00:01:32.000><c> MCP</c><00:01:33.040><c> manager</c><00:01:33.680><c> agent</c><00:01:34.479><c> part.</c>
+
+00:01:35.910 --> 00:01:35.920 align:start position:0%
+it comes to the MCP manager agent part.
+
+
+00:01:35.920 --> 00:01:37.670 align:start position:0%
+it comes to the MCP manager agent part.
+So<00:01:36.159><c> they're</c><00:01:36.479><c> trying</c><00:01:36.640><c> to</c><00:01:36.720><c> build</c><00:01:36.960><c> for</c><00:01:37.280><c> general</c>
+
+00:01:37.670 --> 00:01:37.680 align:start position:0%
+So they're trying to build for general
+
+
+00:01:37.680 --> 00:01:39.749 align:start position:0%
+So they're trying to build for general
+purpose<00:01:38.079><c> task</c><00:01:38.479><c> solving</c><00:01:39.040><c> which</c><00:01:39.280><c> means</c><00:01:39.520><c> you</c>
+
+00:01:39.749 --> 00:01:39.759 align:start position:0%
+purpose task solving which means you
+
+
+00:01:39.759 --> 00:01:42.230 align:start position:0%
+purpose task solving which means you
+cannot<00:01:40.000><c> just</c><00:01:40.240><c> rely</c><00:01:40.560><c> on</c><00:01:40.799><c> pre-existing</c><00:01:41.520><c> tools.</c>
+
+00:01:42.230 --> 00:01:42.240 align:start position:0%
+cannot just rely on pre-existing tools.
+
+
+00:01:42.240 --> 00:01:43.749 align:start position:0%
+cannot just rely on pre-existing tools.
+You<00:01:42.400><c> need</c><00:01:42.560><c> to</c><00:01:42.640><c> have</c><00:01:42.799><c> a</c><00:01:42.960><c> mechanism</c><00:01:43.360><c> in</c><00:01:43.600><c> which</c>
+
+00:01:43.749 --> 00:01:43.759 align:start position:0%
+You need to have a mechanism in which
+
+
+00:01:43.759 --> 00:01:46.310 align:start position:0%
+You need to have a mechanism in which
+you<00:01:44.000><c> create</c><00:01:44.320><c> new</c><00:01:44.560><c> tools</c><00:01:45.040><c> based</c><00:01:45.360><c> on</c><00:01:45.600><c> your</c><00:01:45.840><c> need</c>
+
+00:01:46.310 --> 00:01:46.320 align:start position:0%
+you create new tools based on your need
+
+
+00:01:46.320 --> 00:01:49.190 align:start position:0%
+you create new tools based on your need
+and<00:01:46.560><c> that's</c><00:01:46.880><c> exactly</c><00:01:47.360><c> what</c><00:01:47.600><c> they</c><00:01:47.759><c> are</c><00:01:47.920><c> doing.</c>
+
+00:01:49.190 --> 00:01:49.200 align:start position:0%
+and that's exactly what they are doing.
+
+
+00:01:49.200 --> 00:01:51.510 align:start position:0%
+and that's exactly what they are doing.
+So,<00:01:49.600><c> your</c><00:01:49.920><c> agent</c><00:01:50.479><c> needs</c><00:01:50.799><c> to</c><00:01:50.960><c> have</c><00:01:51.040><c> the</c><00:01:51.280><c> ability</c>
+
+00:01:51.510 --> 00:01:51.520 align:start position:0%
+So, your agent needs to have the ability
+
+
+00:01:51.520 --> 00:01:55.590 align:start position:0%
+So, your agent needs to have the ability
+to<00:01:51.759><c> look</c><00:01:51.920><c> at</c><00:01:52.159><c> the</c><00:01:52.720><c> user</c><00:01:53.119><c> intent,</c><00:01:54.079><c> then</c><00:01:54.479><c> look</c><00:01:54.960><c> at</c>
+
+00:01:55.590 --> 00:01:55.600 align:start position:0%
+to look at the user intent, then look at
+
+
+00:01:55.600 --> 00:01:58.230 align:start position:0%
+to look at the user intent, then look at
+the<00:01:56.000><c> list</c><00:01:56.240><c> of</c><00:01:56.399><c> available</c><00:01:56.799><c> tools.</c><00:01:57.439><c> If</c><00:01:57.680><c> the</c><00:01:57.840><c> task</c>
+
+00:01:58.230 --> 00:01:58.240 align:start position:0%
+the list of available tools. If the task
+
+
+00:01:58.240 --> 00:02:01.109 align:start position:0%
+the list of available tools. If the task
+can't<00:01:58.640><c> be</c><00:01:58.960><c> solved</c><00:01:59.280><c> by</c><00:01:59.600><c> pre-existing</c><00:02:00.320><c> tools,</c>
+
+00:02:01.109 --> 00:02:01.119 align:start position:0%
+can't be solved by pre-existing tools,
+
+
+00:02:01.119 --> 00:02:03.270 align:start position:0%
+can't be solved by pre-existing tools,
+then<00:02:01.520><c> it</c><00:02:01.759><c> should</c><00:02:02.000><c> be</c><00:02:02.079><c> able</c><00:02:02.240><c> to</c><00:02:02.560><c> synthesize</c>
+
+00:02:03.270 --> 00:02:03.280 align:start position:0%
+then it should be able to synthesize
+
+
+00:02:03.280 --> 00:02:06.469 align:start position:0%
+then it should be able to synthesize
+tools<00:02:04.079><c> for</c><00:02:04.399><c> that</c><00:02:04.719><c> specific</c><00:02:05.200><c> task.</c><00:02:06.159><c> Then</c>
+
+00:02:06.469 --> 00:02:06.479 align:start position:0%
+tools for that specific task. Then
+
+
+00:02:06.479 --> 00:02:08.229 align:start position:0%
+tools for that specific task. Then
+there's<00:02:06.719><c> a</c><00:02:06.880><c> multi-stage</c><00:02:07.600><c> evaluation</c>
+
+00:02:08.229 --> 00:02:08.239 align:start position:0%
+there's a multi-stage evaluation
+
+
+00:02:08.239 --> 00:02:10.949 align:start position:0%
+there's a multi-stage evaluation
+protocol<00:02:09.039><c> that</c><00:02:09.520><c> validates</c><00:02:10.080><c> that</c><00:02:10.319><c> the</c><00:02:10.560><c> tool</c>
+
+00:02:10.949 --> 00:02:10.959 align:start position:0%
+protocol that validates that the tool
+
+
+00:02:10.959 --> 00:02:13.350 align:start position:0%
+protocol that validates that the tool
+actually<00:02:11.520><c> does</c><00:02:11.920><c> what</c><00:02:12.160><c> it's</c><00:02:12.400><c> supposed</c><00:02:12.640><c> to</c><00:02:12.800><c> do</c>
+
+00:02:13.350 --> 00:02:13.360 align:start position:0%
+actually does what it's supposed to do
+
+
+00:02:13.360 --> 00:02:16.470 align:start position:0%
+actually does what it's supposed to do
+and<00:02:13.599><c> then</c><00:02:14.000><c> registers</c><00:02:14.560><c> that</c><00:02:15.040><c> new</c><00:02:15.280><c> tool</c><00:02:16.080><c> in</c><00:02:16.239><c> the</c>
+
+00:02:16.470 --> 00:02:16.480 align:start position:0%
+and then registers that new tool in the
+
+
+00:02:16.480 --> 00:02:20.550 align:start position:0%
+and then registers that new tool in the
+MCP<00:02:17.040><c> server</c><00:02:17.599><c> for</c><00:02:18.000><c> any</c><00:02:18.400><c> subsequent</c><00:02:19.120><c> tasks</c>
+
+00:02:20.550 --> 00:02:20.560 align:start position:0%
+MCP server for any subsequent tasks
+
+
+00:02:20.560 --> 00:02:22.630 align:start position:0%
+MCP server for any subsequent tasks
+which<00:02:20.800><c> is</c><00:02:20.959><c> an</c><00:02:21.200><c> extremely</c><00:02:21.599><c> neat</c><00:02:21.840><c> idea</c><00:02:22.239><c> and</c><00:02:22.400><c> I</c>
+
+00:02:22.630 --> 00:02:22.640 align:start position:0%
+which is an extremely neat idea and I
+
+
+00:02:22.640 --> 00:02:24.630 align:start position:0%
+which is an extremely neat idea and I
+think<00:02:22.720><c> it's</c><00:02:22.959><c> going</c><00:02:23.120><c> to</c><00:02:23.440><c> become</c><00:02:24.160><c> uh</c><00:02:24.319><c> more</c>
+
+00:02:24.630 --> 00:02:24.640 align:start position:0%
+think it's going to become uh more
+
+
+00:02:24.640 --> 00:02:27.990 align:start position:0%
+think it's going to become uh more
+prevalent<00:02:25.599><c> as</c><00:02:26.319><c> uh</c><00:02:26.560><c> these</c><00:02:26.879><c> models</c><00:02:27.360><c> and</c><00:02:27.599><c> agents</c>
+
+00:02:27.990 --> 00:02:28.000 align:start position:0%
+prevalent as uh these models and agents
+
+
+00:02:28.000 --> 00:02:30.150 align:start position:0%
+prevalent as uh these models and agents
+have<00:02:28.239><c> more</c><00:02:28.480><c> agency.</c><00:02:29.360><c> So</c><00:02:29.599><c> you're</c><00:02:29.840><c> going</c><00:02:29.920><c> to</c><00:02:30.080><c> be</c>
+
+00:02:30.150 --> 00:02:30.160 align:start position:0%
+have more agency. So you're going to be
+
+
+00:02:30.160 --> 00:02:33.110 align:start position:0%
+have more agency. So you're going to be
+able<00:02:30.400><c> to</c><00:02:30.640><c> build</c><00:02:31.360><c> uh</c><00:02:31.520><c> tools</c><00:02:31.760><c> on</c><00:02:32.000><c> demand</c><00:02:32.640><c> and</c>
+
+00:02:33.110 --> 00:02:33.120 align:start position:0%
+able to build uh tools on demand and
+
+
+00:02:33.120 --> 00:02:34.790 align:start position:0%
+able to build uh tools on demand and
+after<00:02:33.440><c> some</c><00:02:33.680><c> time</c><00:02:33.840><c> you</c><00:02:34.080><c> can</c><00:02:34.160><c> just</c><00:02:34.400><c> discard</c>
+
+00:02:34.790 --> 00:02:34.800 align:start position:0%
+after some time you can just discard
+
+
+00:02:34.800 --> 00:02:37.589 align:start position:0%
+after some time you can just discard
+that<00:02:35.040><c> tool</c><00:02:35.360><c> if</c><00:02:35.680><c> the</c><00:02:35.840><c> agent</c><00:02:36.239><c> is</c><00:02:36.959><c> uh</c><00:02:37.120><c> not</c><00:02:37.360><c> using</c>
+
+00:02:37.589 --> 00:02:37.599 align:start position:0%
+that tool if the agent is uh not using
+
+
+00:02:37.599 --> 00:02:40.710 align:start position:0%
+that tool if the agent is uh not using
+it<00:02:37.840><c> anymore.</c><00:02:39.040><c> Okay.</c><00:02:39.360><c> So</c><00:02:39.599><c> here's</c><00:02:39.920><c> the</c><00:02:40.239><c> main</c>
+
+00:02:40.710 --> 00:02:40.720 align:start position:0%
+it anymore. Okay. So here's the main
+
+
+00:02:40.720 --> 00:02:43.910 align:start position:0%
+it anymore. Okay. So here's the main
+architecture<00:02:41.840><c> of</c><00:02:42.160><c> this</c><00:02:42.400><c> system.</c><00:02:43.280><c> At</c><00:02:43.519><c> the</c><00:02:43.680><c> core</c>
+
+00:02:43.910 --> 00:02:43.920 align:start position:0%
+architecture of this system. At the core
+
+
+00:02:43.920 --> 00:02:46.150 align:start position:0%
+architecture of this system. At the core
+is<00:02:44.000><c> the</c><00:02:44.160><c> planning</c><00:02:44.480><c> agent</c><00:02:45.200><c> and</c><00:02:45.440><c> then</c><00:02:45.680><c> there</c><00:02:45.920><c> are</c>
+
+00:02:46.150 --> 00:02:46.160 align:start position:0%
+is the planning agent and then there are
+
+
+00:02:46.160 --> 00:02:48.390 align:start position:0%
+is the planning agent and then there are
+a<00:02:46.400><c> number</c><00:02:46.560><c> of</c><00:02:46.800><c> different</c><00:02:47.040><c> agents.</c><00:02:48.000><c> The</c><00:02:48.160><c> first</c>
+
+00:02:48.390 --> 00:02:48.400 align:start position:0%
+a number of different agents. The first
+
+
+00:02:48.400 --> 00:02:51.509 align:start position:0%
+a number of different agents. The first
+one<00:02:48.560><c> is</c><00:02:48.959><c> deep</c><00:02:49.360><c> analyzer</c><00:02:50.000><c> agent.</c><00:02:50.959><c> So</c><00:02:51.200><c> this</c>
+
+00:02:51.509 --> 00:02:51.519 align:start position:0%
+one is deep analyzer agent. So this
+
+
+00:02:51.519 --> 00:02:53.670 align:start position:0%
+one is deep analyzer agent. So this
+performs<00:02:52.000><c> in-depth</c><00:02:52.560><c> analysis</c><00:02:52.959><c> of</c><00:02:53.200><c> input</c>
+
+00:02:53.670 --> 00:02:53.680 align:start position:0%
+performs in-depth analysis of input
+
+
+00:02:53.680 --> 00:02:57.270 align:start position:0%
+performs in-depth analysis of input
+information.<00:02:54.959><c> uh</c><00:02:55.120><c> it</c><00:02:55.440><c> extracts</c><00:02:56.239><c> key</c><00:02:56.480><c> insights</c>
+
+00:02:57.270 --> 00:02:57.280 align:start position:0%
+information. uh it extracts key insights
+
+
+00:02:57.280 --> 00:03:00.309 align:start position:0%
+information. uh it extracts key insights
+and<00:02:57.760><c> potential</c><00:02:58.239><c> requirements</c><00:02:59.440><c> and</c><00:02:59.760><c> also</c>
+
+00:03:00.309 --> 00:03:00.319 align:start position:0%
+and potential requirements and also
+
+
+00:03:00.319 --> 00:03:02.790 align:start position:0%
+and potential requirements and also
+supports<00:03:00.800><c> analysis</c><00:03:01.280><c> of</c><00:03:01.680><c> various</c><00:03:02.400><c> different</c>
+
+00:03:02.790 --> 00:03:02.800 align:start position:0%
+supports analysis of various different
+
+
+00:03:02.800 --> 00:03:04.949 align:start position:0%
+supports analysis of various different
+data<00:03:03.120><c> types</c><00:03:03.440><c> including</c><00:03:03.920><c> text</c><00:03:04.239><c> and</c><00:03:04.560><c> structured</c>
+
+00:03:04.949 --> 00:03:04.959 align:start position:0%
+data types including text and structured
+
+
+00:03:04.959 --> 00:03:08.630 align:start position:0%
+data types including text and structured
+data.<00:03:06.000><c> Each</c><00:03:06.319><c> of</c><00:03:06.560><c> these</c><00:03:07.200><c> dedicated</c><00:03:08.159><c> agents</c>
+
+00:03:08.630 --> 00:03:08.640 align:start position:0%
+data. Each of these dedicated agents
+
+
+00:03:08.640 --> 00:03:11.750 align:start position:0%
+data. Each of these dedicated agents
+also<00:03:09.040><c> have</c><00:03:09.280><c> a</c><00:03:09.519><c> Python</c><00:03:10.239><c> uh</c><00:03:10.400><c> code</c><00:03:10.800><c> interpreter.</c>
+
+00:03:11.750 --> 00:03:11.760 align:start position:0%
+also have a Python uh code interpreter.
+
+
+00:03:11.760 --> 00:03:14.149 align:start position:0%
+also have a Python uh code interpreter.
+So<00:03:11.840><c> it</c><00:03:12.080><c> can</c><00:03:12.239><c> run</c><00:03:12.480><c> and</c><00:03:12.800><c> execute</c><00:03:13.280><c> codes</c><00:03:13.760><c> and</c><00:03:13.920><c> then</c>
+
+00:03:14.149 --> 00:03:14.159 align:start position:0%
+So it can run and execute codes and then
+
+
+00:03:14.159 --> 00:03:17.750 align:start position:0%
+So it can run and execute codes and then
+analyze<00:03:14.640><c> the</c><00:03:15.360><c> results.</c><00:03:16.400><c> Then</c><00:03:16.640><c> we</c><00:03:16.879><c> have</c><00:03:17.040><c> a</c><00:03:17.360><c> deep</c>
+
+00:03:17.750 --> 00:03:17.760 align:start position:0%
+analyze the results. Then we have a deep
+
+
+00:03:17.760 --> 00:03:20.630 align:start position:0%
+analyze the results. Then we have a deep
+researcher.<00:03:19.120><c> So</c><00:03:19.360><c> this</c><00:03:19.680><c> conducts</c><00:03:20.080><c> thorough</c>
+
+00:03:20.630 --> 00:03:20.640 align:start position:0%
+researcher. So this conducts thorough
+
+
+00:03:20.640 --> 00:03:22.710 align:start position:0%
+researcher. So this conducts thorough
+research<00:03:21.040><c> on</c><00:03:21.440><c> uh</c><00:03:21.599><c> specified</c><00:03:22.159><c> topics</c><00:03:22.480><c> or</c>
+
+00:03:22.710 --> 00:03:22.720 align:start position:0%
+research on uh specified topics or
+
+
+00:03:22.720 --> 00:03:25.270 align:start position:0%
+research on uh specified topics or
+questions.<00:03:23.440><c> It</c><00:03:23.760><c> retrieves</c><00:03:24.239><c> and</c><00:03:24.480><c> synthesize</c>
+
+00:03:25.270 --> 00:03:25.280 align:start position:0%
+questions. It retrieves and synthesize
+
+
+00:03:25.280 --> 00:03:28.309 align:start position:0%
+questions. It retrieves and synthesize
+high<00:03:25.599><c> quality</c><00:03:26.159><c> information</c><00:03:27.440><c> and</c><00:03:27.760><c> is</c><00:03:28.000><c> capable</c>
+
+00:03:28.309 --> 00:03:28.319 align:start position:0%
+high quality information and is capable
+
+
+00:03:28.319 --> 00:03:29.990 align:start position:0%
+high quality information and is capable
+of<00:03:28.560><c> generating</c><00:03:29.040><c> research</c><00:03:29.440><c> reports</c><00:03:29.760><c> and</c>
+
+00:03:29.990 --> 00:03:30.000 align:start position:0%
+of generating research reports and
+
+
+00:03:30.000 --> 00:03:32.470 align:start position:0%
+of generating research reports and
+knowledge<00:03:30.400><c> summaries</c><00:03:30.879><c> automatically.</c><00:03:32.000><c> So</c>
+
+00:03:32.470 --> 00:03:32.480 align:start position:0%
+knowledge summaries automatically. So
+
+
+00:03:32.480 --> 00:03:34.869 align:start position:0%
+knowledge summaries automatically. So
+think<00:03:32.720><c> of</c><00:03:32.959><c> this</c><00:03:33.200><c> as</c><00:03:33.360><c> a</c><00:03:33.599><c> deep</c><00:03:33.920><c> research</c><00:03:34.319><c> agent</c>
+
+00:03:34.869 --> 00:03:34.879 align:start position:0%
+think of this as a deep research agent
+
+
+00:03:34.879 --> 00:03:39.110 align:start position:0%
+think of this as a deep research agent
+that<00:03:35.440><c> uh</c><00:03:35.599><c> chat</c><00:03:35.920><c> GPT</c><00:03:37.120><c> uh</c><00:03:37.360><c> Gemini</c><00:03:38.080><c> or</c><00:03:38.720><c> clot</c>
+
+00:03:39.110 --> 00:03:39.120 align:start position:0%
+that uh chat GPT uh Gemini or clot
+
+
+00:03:39.120 --> 00:03:41.830 align:start position:0%
+that uh chat GPT uh Gemini or clot
+provides.<00:03:40.400><c> Then</c><00:03:40.799><c> they</c><00:03:41.120><c> also</c><00:03:41.360><c> have</c><00:03:41.519><c> this</c>
+
+00:03:41.830 --> 00:03:41.840 align:start position:0%
+provides. Then they also have this
+
+
+00:03:41.840 --> 00:03:46.390 align:start position:0%
+provides. Then they also have this
+dedicated<00:03:43.040><c> browser</c><00:03:43.680><c> use</c><00:03:43.920><c> agent.</c><00:03:45.120><c> So</c><00:03:45.599><c> this</c><00:03:46.080><c> can</c>
+
+00:03:46.390 --> 00:03:46.400 align:start position:0%
+dedicated browser use agent. So this can
+
+
+00:03:46.400 --> 00:03:50.309 align:start position:0%
+dedicated browser use agent. So this can
+automatically<00:03:47.280><c> browse</c><00:03:48.239><c> u</c><00:03:48.640><c> the</c><00:03:48.959><c> internet.</c><00:03:49.920><c> Uh</c>
+
+00:03:50.309 --> 00:03:50.319 align:start position:0%
+automatically browse u the internet. Uh
+
+
+00:03:50.319 --> 00:03:52.149 align:start position:0%
+automatically browse u the internet. Uh
+it<00:03:50.560><c> supports</c><00:03:51.040><c> web</c><00:03:51.280><c> search</c><00:03:51.680><c> information</c>
+
+00:03:52.149 --> 00:03:52.159 align:start position:0%
+it supports web search information
+
+
+00:03:52.159 --> 00:03:55.350 align:start position:0%
+it supports web search information
+extraction<00:03:52.640><c> and</c><00:03:52.879><c> data</c><00:03:53.200><c> collection</c><00:03:53.599><c> tasks</c><00:03:54.640><c> and</c>
+
+00:03:55.350 --> 00:03:55.360 align:start position:0%
+extraction and data collection tasks and
+
+
+00:03:55.360 --> 00:03:57.509 align:start position:0%
+extraction and data collection tasks and
+this<00:03:55.599><c> can</c><00:03:55.760><c> be</c><00:03:55.920><c> used</c><00:03:56.159><c> in</c><00:03:56.400><c> conjunction</c><00:03:57.040><c> with</c><00:03:57.280><c> the</c>
+
+00:03:57.509 --> 00:03:57.519 align:start position:0%
+this can be used in conjunction with the
+
+
+00:03:57.519 --> 00:04:00.630 align:start position:0%
+this can be used in conjunction with the
+deep<00:03:57.840><c> researcher</c><00:03:59.120><c> uh</c><00:03:59.360><c> if</c><00:03:59.760><c> it</c><00:04:00.000><c> needs</c><00:04:00.400><c> any</c>
+
+00:04:00.630 --> 00:04:00.640 align:start position:0%
+deep researcher uh if it needs any
+
+
+00:04:00.640 --> 00:04:02.149 align:start position:0%
+deep researcher uh if it needs any
+up-to-date<00:04:01.280><c> information</c><00:04:01.680><c> from</c><00:04:01.920><c> the</c>
+
+00:04:02.149 --> 00:04:02.159 align:start position:0%
+up-to-date information from the
+
+
+00:04:02.159 --> 00:04:04.869 align:start position:0%
+up-to-date information from the
+internet.<00:04:03.360><c> And</c><00:04:03.599><c> last</c><00:04:03.840><c> but</c><00:04:04.080><c> not</c><00:04:04.159><c> the</c><00:04:04.319><c> least,</c><00:04:04.640><c> we</c>
+
+00:04:04.869 --> 00:04:04.879 align:start position:0%
+internet. And last but not the least, we
+
+
+00:04:04.879 --> 00:04:09.350 align:start position:0%
+internet. And last but not the least, we
+have<00:04:04.959><c> the</c><00:04:05.200><c> MCP</c><00:04:06.319><c> uh</c><00:04:06.480><c> manager</c><00:04:07.200><c> agent</c><00:04:08.400><c> uh</c><00:04:08.640><c> that</c>
+
+00:04:09.350 --> 00:04:09.360 align:start position:0%
+have the MCP uh manager agent uh that
+
+
+00:04:09.360 --> 00:04:12.070 align:start position:0%
+have the MCP uh manager agent uh that
+basically<00:04:10.080><c> manages</c><00:04:10.560><c> the</c><00:04:10.799><c> MCP</c><00:04:11.360><c> tools</c><00:04:11.760><c> and</c>
+
+00:04:12.070 --> 00:04:12.080 align:start position:0%
+basically manages the MCP tools and
+
+
+00:04:12.080 --> 00:04:14.550 align:start position:0%
+basically manages the MCP tools and
+services.<00:04:13.280><c> And</c><00:04:13.439><c> the</c><00:04:13.599><c> good</c><00:04:13.760><c> thing</c><00:04:13.840><c> is</c><00:04:14.000><c> that</c><00:04:14.239><c> it</c>
+
+00:04:14.550 --> 00:04:14.560 align:start position:0%
+services. And the good thing is that it
+
+
+00:04:14.560 --> 00:04:18.229 align:start position:0%
+services. And the good thing is that it
+dynamically<00:04:15.760><c> um</c><00:04:16.079><c> performs</c><00:04:17.359><c> uh</c><00:04:17.440><c> or</c><00:04:17.680><c> enables</c>
+
+00:04:18.229 --> 00:04:18.239 align:start position:0%
+dynamically um performs uh or enables
+
+
+00:04:18.239 --> 00:04:20.469 align:start position:0%
+dynamically um performs uh or enables
+tool<00:04:18.720><c> discovery,</c><00:04:19.519><c> registration</c><00:04:20.160><c> and</c>
+
+00:04:20.469 --> 00:04:20.479 align:start position:0%
+tool discovery, registration and
+
+
+00:04:20.479 --> 00:04:22.870 align:start position:0%
+tool discovery, registration and
+execution<00:04:21.040><c> through</c><00:04:21.519><c> the</c><00:04:21.919><c> standard</c><00:04:22.320><c> MCP</c>
+
+00:04:22.870 --> 00:04:22.880 align:start position:0%
+execution through the standard MCP
+
+
+00:04:22.880 --> 00:04:24.390 align:start position:0%
+execution through the standard MCP
+protocol.
+
+00:04:24.390 --> 00:04:24.400 align:start position:0%
+protocol.
+
+
+00:04:24.400 --> 00:04:27.030 align:start position:0%
+protocol.
+U<00:04:24.960><c> through</c><00:04:25.199><c> this</c><00:04:25.680><c> you</c><00:04:25.919><c> can</c><00:04:26.080><c> also</c><00:04:26.320><c> have</c><00:04:26.560><c> both</c>
+
+00:04:27.030 --> 00:04:27.040 align:start position:0%
+U through this you can also have both
+
+
+00:04:27.040 --> 00:04:30.950 align:start position:0%
+U through this you can also have both
+local<00:04:27.919><c> and</c><00:04:28.240><c> remote</c><00:04:28.880><c> MCP</c><00:04:29.440><c> tool</c><00:04:29.680><c> integration</c><00:04:30.800><c> uh</c>
+
+00:04:30.950 --> 00:04:30.960 align:start position:0%
+local and remote MCP tool integration uh
+
+
+00:04:30.960 --> 00:04:33.030 align:start position:0%
+local and remote MCP tool integration uh
+which<00:04:31.199><c> is</c><00:04:31.360><c> pretty</c><00:04:31.600><c> neat.</c><00:04:32.320><c> Now</c><00:04:32.560><c> in</c><00:04:32.800><c> terms</c><00:04:32.960><c> of</c>
+
+00:04:33.030 --> 00:04:33.040 align:start position:0%
+which is pretty neat. Now in terms of
+
+
+00:04:33.040 --> 00:04:35.830 align:start position:0%
+which is pretty neat. Now in terms of
+the<00:04:33.360><c> overall</c><00:04:34.160><c> uh</c><00:04:34.320><c> functionality</c>
+
+00:04:35.830 --> 00:04:35.840 align:start position:0%
+the overall uh functionality
+
+
+00:04:35.840 --> 00:04:37.909 align:start position:0%
+the overall uh functionality
+uh<00:04:36.000><c> you</c><00:04:36.240><c> have</c><00:04:36.400><c> different</c><00:04:36.639><c> tools</c><00:04:37.440><c> which</c><00:04:37.680><c> are</c>
+
+00:04:37.909 --> 00:04:37.919 align:start position:0%
+uh you have different tools which are
+
+
+00:04:37.919 --> 00:04:40.870 align:start position:0%
+uh you have different tools which are
+going<00:04:38.080><c> to</c><00:04:38.960><c> um</c><00:04:39.360><c> perform</c><00:04:39.759><c> different</c><00:04:40.080><c> actions</c>
+
+00:04:40.870 --> 00:04:40.880 align:start position:0%
+going to um perform different actions
+
+
+00:04:40.880 --> 00:04:44.230 align:start position:0%
+going to um perform different actions
+and<00:04:41.440><c> based</c><00:04:41.759><c> on</c><00:04:42.080><c> the</c><00:04:42.479><c> output</c><00:04:42.880><c> of</c><00:04:43.040><c> those</c><00:04:43.360><c> tools</c>
+
+00:04:44.230 --> 00:04:44.240 align:start position:0%
+and based on the output of those tools
+
+
+00:04:44.240 --> 00:04:46.550 align:start position:0%
+and based on the output of those tools
+the<00:04:44.639><c> system</c><00:04:44.960><c> is</c><00:04:45.199><c> able</c><00:04:45.360><c> to</c><00:04:45.520><c> update</c><00:04:45.919><c> its</c><00:04:46.160><c> plan.</c>
+
+00:04:46.550 --> 00:04:46.560 align:start position:0%
+the system is able to update its plan.
+
+
+00:04:46.560 --> 00:04:49.430 align:start position:0%
+the system is able to update its plan.
+So<00:04:46.800><c> here's</c><00:04:47.120><c> how</c><00:04:47.280><c> it</c><00:04:47.600><c> usually</c><00:04:47.919><c> works.</c><00:04:48.720><c> You</c><00:04:48.960><c> have</c>
+
+00:04:49.430 --> 00:04:49.440 align:start position:0%
+So here's how it usually works. You have
+
+
+00:04:49.440 --> 00:04:52.070 align:start position:0%
+So here's how it usually works. You have
+uh<00:04:49.520><c> the</c><00:04:49.680><c> user</c><00:04:50.000><c> objective</c><00:04:50.400><c> that</c><00:04:50.720><c> comes</c><00:04:50.960><c> in</c><00:04:51.919><c> um</c>
+
+00:04:52.070 --> 00:04:52.080 align:start position:0%
+uh the user objective that comes in um
+
+
+00:04:52.080 --> 00:04:54.950 align:start position:0%
+uh the user objective that comes in um
+it<00:04:52.320><c> performs</c><00:04:53.360><c> or</c><00:04:53.919><c> tries</c><00:04:54.160><c> to</c><00:04:54.400><c> interpret</c><00:04:54.720><c> the</c>
+
+00:04:54.950 --> 00:04:54.960 align:start position:0%
+it performs or tries to interpret the
+
+
+00:04:54.960 --> 00:04:57.749 align:start position:0%
+it performs or tries to interpret the
+task<00:04:55.680><c> using</c><00:04:56.639><c> um</c><00:04:56.960><c> let's</c><00:04:57.199><c> say</c><00:04:57.360><c> the</c><00:04:57.520><c> deep</c>
+
+00:04:57.749 --> 00:04:57.759 align:start position:0%
+task using um let's say the deep
+
+
+00:04:57.759 --> 00:05:00.390 align:start position:0%
+task using um let's say the deep
+analyzer<00:04:58.240><c> agent.</c><00:04:59.040><c> it</c><00:04:59.360><c> decomposed</c><00:05:00.080><c> into</c>
+
+00:05:00.390 --> 00:05:00.400 align:start position:0%
+analyzer agent. it decomposed into
+
+
+00:05:00.400 --> 00:05:03.430 align:start position:0%
+analyzer agent. it decomposed into
+subtasks<00:05:01.199><c> then</c><00:05:01.600><c> picks</c><00:05:02.160><c> specialized</c><00:05:03.040><c> uh</c><00:05:03.199><c> sub</c>
+
+00:05:03.430 --> 00:05:03.440 align:start position:0%
+subtasks then picks specialized uh sub
+
+
+00:05:03.440 --> 00:05:06.550 align:start position:0%
+subtasks then picks specialized uh sub
+aents<00:05:03.840><c> for</c><00:05:04.080><c> those</c><00:05:04.320><c> tasks.</c><00:05:05.360><c> Uh</c><00:05:05.919><c> those</c><00:05:06.320><c> sub</c>
+
+00:05:06.550 --> 00:05:06.560 align:start position:0%
+aents for those tasks. Uh those sub
+
+
+00:05:06.560 --> 00:05:08.150 align:start position:0%
+aents for those tasks. Uh those sub
+aents<00:05:06.880><c> are</c><00:05:07.039><c> going</c><00:05:07.120><c> to</c><00:05:07.280><c> have</c><00:05:07.440><c> different</c><00:05:07.600><c> tools</c>
+
+00:05:08.150 --> 00:05:08.160 align:start position:0%
+aents are going to have different tools
+
+
+00:05:08.160 --> 00:05:11.749 align:start position:0%
+aents are going to have different tools
+and<00:05:08.960><c> um</c><00:05:09.600><c> if</c><00:05:10.080><c> a</c><00:05:10.320><c> new</c><00:05:10.479><c> tool</c><00:05:10.720><c> is</c><00:05:10.960><c> needed</c><00:05:11.280><c> that</c><00:05:11.600><c> can</c>
+
+00:05:11.749 --> 00:05:11.759 align:start position:0%
+and um if a new tool is needed that can
+
+
+00:05:11.759 --> 00:05:15.350 align:start position:0%
+and um if a new tool is needed that can
+be<00:05:12.080><c> created</c><00:05:12.400><c> on</c><00:05:12.639><c> the</c><00:05:12.800><c> fly.</c><00:05:13.759><c> Also</c><00:05:14.639><c> when</c><00:05:14.960><c> when</c><00:05:15.199><c> an</c>
+
+00:05:15.350 --> 00:05:15.360 align:start position:0%
+be created on the fly. Also when when an
+
+
+00:05:15.360 --> 00:05:17.749 align:start position:0%
+be created on the fly. Also when when an
+operation<00:05:15.759><c> is</c><00:05:15.919><c> performed</c><00:05:16.880><c> uh</c><00:05:17.039><c> it</c><00:05:17.280><c> can</c><00:05:17.440><c> collect</c>
+
+00:05:17.749 --> 00:05:17.759 align:start position:0%
+operation is performed uh it can collect
+
+
+00:05:17.759 --> 00:05:20.950 align:start position:0%
+operation is performed uh it can collect
+those<00:05:18.080><c> errors</c><00:05:18.800><c> and</c><00:05:19.120><c> updates</c><00:05:19.919><c> its</c><00:05:20.400><c> uh</c><00:05:20.560><c> both</c>
+
+00:05:20.950 --> 00:05:20.960 align:start position:0%
+those errors and updates its uh both
+
+
+00:05:20.960 --> 00:05:24.390 align:start position:0%
+those errors and updates its uh both
+plan<00:05:21.280><c> and</c><00:05:21.680><c> objectives.</c>
+
+00:05:24.390 --> 00:05:24.400 align:start position:0%
+plan and objectives.
+
+
+00:05:24.400 --> 00:05:26.950 align:start position:0%
+plan and objectives.
+So<00:05:24.639><c> this</c><00:05:24.880><c> would</c><00:05:25.120><c> be</c><00:05:25.280><c> an</c><00:05:25.520><c> example</c><00:05:26.080><c> of</c><00:05:26.320><c> a</c><00:05:26.560><c> multi-</c>
+
+00:05:26.950 --> 00:05:26.960 align:start position:0%
+So this would be an example of a multi-
+
+
+00:05:26.960 --> 00:05:30.230 align:start position:0%
+So this would be an example of a multi-
+aent<00:05:27.440><c> system</c><00:05:28.080><c> that</c><00:05:28.400><c> can</c><00:05:28.560><c> not</c><00:05:28.800><c> only</c><00:05:29.520><c> do</c><00:05:29.919><c> simple</c>
+
+00:05:30.230 --> 00:05:30.240 align:start position:0%
+aent system that can not only do simple
+
+
+00:05:30.240 --> 00:05:32.870 align:start position:0%
+aent system that can not only do simple
+web<00:05:30.560><c> search</c><00:05:30.960><c> and</c><00:05:31.280><c> synthesize</c><00:05:31.919><c> reports</c><00:05:32.639><c> but</c>
+
+00:05:32.870 --> 00:05:32.880 align:start position:0%
+web search and synthesize reports but
+
+
+00:05:32.880 --> 00:05:36.070 align:start position:0%
+web search and synthesize reports but
+also<00:05:33.520><c> can</c><00:05:33.919><c> take</c><00:05:34.240><c> actions</c><00:05:34.960><c> using</c><00:05:35.280><c> these</c><00:05:35.680><c> tools</c>
+
+00:05:36.070 --> 00:05:36.080 align:start position:0%
+also can take actions using these tools
+
+
+00:05:36.080 --> 00:05:38.629 align:start position:0%
+also can take actions using these tools
+and<00:05:36.320><c> agents</c><00:05:36.720><c> that</c><00:05:36.880><c> are</c><00:05:37.120><c> available.</c>
+
+00:05:38.629 --> 00:05:38.639 align:start position:0%
+and agents that are available.
+
+
+00:05:38.639 --> 00:05:41.430 align:start position:0%
+and agents that are available.
+Now<00:05:38.880><c> the</c><00:05:39.120><c> code</c><00:05:39.280><c> is</c><00:05:39.440><c> available</c><00:05:39.840><c> on</c><00:05:40.160><c> GitHub.</c><00:05:41.039><c> Uh</c>
+
+00:05:41.430 --> 00:05:41.440 align:start position:0%
+Now the code is available on GitHub. Uh
+
+
+00:05:41.440 --> 00:05:43.029 align:start position:0%
+Now the code is available on GitHub. Uh
+so<00:05:41.680><c> you</c><00:05:41.919><c> can</c><00:05:42.000><c> run</c><00:05:42.160><c> this</c><00:05:42.400><c> in</c><00:05:42.560><c> your</c><00:05:42.800><c> local</c>
+
+00:05:43.029 --> 00:05:43.039 align:start position:0%
+so you can run this in your local
+
+
+00:05:43.039 --> 00:05:45.029 align:start position:0%
+so you can run this in your local
+environment.<00:05:44.000><c> But</c><00:05:44.240><c> there</c><00:05:44.400><c> is</c><00:05:44.639><c> one</c><00:05:44.800><c> more</c>
+
+00:05:45.029 --> 00:05:45.039 align:start position:0%
+environment. But there is one more
+
+
+00:05:45.039 --> 00:05:46.230 align:start position:0%
+environment. But there is one more
+interesting<00:05:45.440><c> thing</c><00:05:45.520><c> that</c><00:05:45.759><c> I</c><00:05:45.919><c> want</c><00:05:46.080><c> to</c>
+
+00:05:46.230 --> 00:05:46.240 align:start position:0%
+interesting thing that I want to
+
+
+00:05:46.240 --> 00:05:50.070 align:start position:0%
+interesting thing that I want to
+highlight<00:05:47.280><c> and</c><00:05:47.520><c> that</c><00:05:47.759><c> is</c><00:05:47.919><c> if</c><00:05:48.160><c> you</c><00:05:48.400><c> look</c><00:05:48.639><c> at</c><00:05:49.680><c> um</c>
+
+00:05:50.070 --> 00:05:50.080 align:start position:0%
+highlight and that is if you look at um
+
+
+00:05:50.080 --> 00:05:51.909 align:start position:0%
+highlight and that is if you look at um
+the<00:05:50.320><c> different</c><00:05:50.639><c> models</c><00:05:51.039><c> that</c><00:05:51.520><c> different</c>
+
+00:05:51.909 --> 00:05:51.919 align:start position:0%
+the different models that different
+
+
+00:05:51.919 --> 00:05:54.950 align:start position:0%
+the different models that different
+agents<00:05:52.400><c> use.</c><00:05:53.280><c> It's</c><00:05:53.360><c> not</c><00:05:53.600><c> just</c><00:05:53.840><c> one</c><00:05:54.320><c> model</c><00:05:54.639><c> or</c>
+
+00:05:54.950 --> 00:05:54.960 align:start position:0%
+agents use. It's not just one model or
+
+
+00:05:54.960 --> 00:05:57.590 align:start position:0%
+agents use. It's not just one model or
+one<00:05:55.199><c> provider.</c><00:05:56.000><c> So</c><00:05:56.160><c> here</c><00:05:56.479><c> it</c><00:05:56.960><c> relies</c><00:05:57.280><c> on</c>
+
+00:05:57.590 --> 00:05:57.600 align:start position:0%
+one provider. So here it relies on
+
+
+00:05:57.600 --> 00:06:01.110 align:start position:0%
+one provider. So here it relies on
+Google<00:05:58.400><c> uh</c><00:05:58.560><c> I</c><00:05:58.880><c> think</c><00:05:59.120><c> BU</c><00:05:59.680><c> as</c><00:05:59.840><c> well.</c><00:06:00.400><c> Uh</c><00:06:00.639><c> it</c><00:06:00.880><c> also</c>
+
+00:06:01.110 --> 00:06:01.120 align:start position:0%
+Google uh I think BU as well. Uh it also
+
+
+00:06:01.120 --> 00:06:03.350 align:start position:0%
+Google uh I think BU as well. Uh it also
+uses<00:06:01.520><c> openw</c><00:06:01.840><c> weight</c><00:06:02.080><c> models</c><00:06:02.400><c> like</c><00:06:02.639><c> Quinn</c>
+
+00:06:03.350 --> 00:06:03.360 align:start position:0%
+uses openw weight models like Quinn
+
+
+00:06:03.360 --> 00:06:06.629 align:start position:0%
+uses openw weight models like Quinn
+along<00:06:03.680><c> with</c><00:06:04.479><c> uh</c><00:06:04.639><c> open</c><00:06:04.960><c> AI</c><00:06:05.280><c> models</c><00:06:05.919><c> right.</c><00:06:06.319><c> So</c>
+
+00:06:06.629 --> 00:06:06.639 align:start position:0%
+along with uh open AI models right. So
+
+
+00:06:06.639 --> 00:06:08.950 align:start position:0%
+along with uh open AI models right. So
+this<00:06:06.880><c> is</c><00:06:07.120><c> extremely</c><00:06:07.680><c> flexible</c><00:06:08.240><c> and</c><00:06:08.479><c> it</c><00:06:08.720><c> also</c>
+
+00:06:08.950 --> 00:06:08.960 align:start position:0%
+this is extremely flexible and it also
+
+
+00:06:08.960 --> 00:06:10.870 align:start position:0%
+this is extremely flexible and it also
+shows<00:06:09.199><c> you</c><00:06:09.440><c> that</c><00:06:09.919><c> different</c><00:06:10.240><c> models</c><00:06:10.639><c> have</c>
+
+00:06:10.870 --> 00:06:10.880 align:start position:0%
+shows you that different models have
+
+
+00:06:10.880 --> 00:06:13.110 align:start position:0%
+shows you that different models have
+different<00:06:11.199><c> capabilities</c><00:06:11.759><c> and</c><00:06:12.080><c> strengths.</c><00:06:12.800><c> So</c>
+
+00:06:13.110 --> 00:06:13.120 align:start position:0%
+different capabilities and strengths. So
+
+
+00:06:13.120 --> 00:06:14.870 align:start position:0%
+different capabilities and strengths. So
+if<00:06:13.280><c> you're</c><00:06:13.520><c> building</c><00:06:13.680><c> a</c><00:06:13.840><c> multi-</c><00:06:14.080><c> aent</c><00:06:14.400><c> system,</c>
+
+00:06:14.870 --> 00:06:14.880 align:start position:0%
+if you're building a multi- aent system,
+
+
+00:06:14.880 --> 00:06:16.790 align:start position:0%
+if you're building a multi- aent system,
+don't<00:06:15.199><c> limit</c><00:06:15.600><c> yourself</c><00:06:16.000><c> to</c><00:06:16.240><c> a</c><00:06:16.479><c> single</c>
+
+00:06:16.790 --> 00:06:16.800 align:start position:0%
+don't limit yourself to a single
+
+
+00:06:16.800 --> 00:06:18.309 align:start position:0%
+don't limit yourself to a single
+provider.
+
+00:06:18.309 --> 00:06:18.319 align:start position:0%
+provider.
+
+
+00:06:18.319 --> 00:06:20.230 align:start position:0%
+provider.
+Uh<00:06:18.639><c> and</c><00:06:18.800><c> they</c><00:06:19.039><c> also</c><00:06:19.199><c> have</c><00:06:19.360><c> a</c><00:06:19.600><c> pretty</c><00:06:19.840><c> neat</c>
+
+00:06:20.230 --> 00:06:20.240 align:start position:0%
+Uh and they also have a pretty neat
+
+
+00:06:20.240 --> 00:06:23.270 align:start position:0%
+Uh and they also have a pretty neat
+looking<00:06:21.199><c> uh</c><00:06:21.360><c> and</c><00:06:21.680><c> pretty</c><00:06:22.000><c> functional</c><00:06:22.560><c> website</c>
+
+00:06:23.270 --> 00:06:23.280 align:start position:0%
+looking uh and pretty functional website
+
+
+00:06:23.280 --> 00:06:25.830 align:start position:0%
+looking uh and pretty functional website
+which<00:06:23.600><c> basically</c><00:06:24.080><c> explains</c><00:06:24.560><c> these</c><00:06:25.199><c> um</c><00:06:25.600><c> uh</c>
+
+00:06:25.830 --> 00:06:25.840 align:start position:0%
+which basically explains these um uh
+
+
+00:06:25.840 --> 00:06:27.990 align:start position:0%
+which basically explains these um uh
+different<00:06:26.160><c> agents</c><00:06:27.120><c> how</c><00:06:27.360><c> they</c><00:06:27.600><c> work</c>
+
+00:06:27.990 --> 00:06:28.000 align:start position:0%
+different agents how they work
+
+
+00:06:28.000 --> 00:06:30.950 align:start position:0%
+different agents how they work
+especially<00:06:28.479><c> with</c><00:06:28.639><c> a</c><00:06:28.800><c> focus</c><00:06:29.120><c> on</c><00:06:29.280><c> the</c><00:06:29.440><c> MCP</c><00:06:30.720><c> uh</c>
+
+00:06:30.950 --> 00:06:30.960 align:start position:0%
+especially with a focus on the MCP uh
+
+
+00:06:30.960 --> 00:06:34.230 align:start position:0%
+especially with a focus on the MCP uh
+manager<00:06:31.440><c> agent</c><00:06:31.919><c> tool.</c><00:06:33.039><c> Uh</c><00:06:33.360><c> this</c><00:06:33.600><c> seems</c><00:06:33.840><c> to</c><00:06:33.919><c> be</c>
+
+00:06:34.230 --> 00:06:34.240 align:start position:0%
+manager agent tool. Uh this seems to be
+
+
+00:06:34.240 --> 00:06:37.350 align:start position:0%
+manager agent tool. Uh this seems to be
+developed<00:06:35.360><c> using</c><00:06:35.759><c> the</c><00:06:36.400><c> super</c><00:06:36.720><c> agent</c><00:06:37.120><c> which</c>
+
+00:06:37.350 --> 00:06:37.360 align:start position:0%
+developed using the super agent which
+
+
+00:06:37.360 --> 00:06:38.790 align:start position:0%
+developed using the super agent which
+we're<00:06:37.520><c> going</c><00:06:37.680><c> to</c><00:06:37.840><c> look</c><00:06:38.000><c> at</c><00:06:38.240><c> later</c><00:06:38.479><c> in</c><00:06:38.639><c> the</c>
+
+00:06:38.790 --> 00:06:38.800 align:start position:0%
+we're going to look at later in the
+
+
+00:06:38.800 --> 00:06:42.309 align:start position:0%
+we're going to look at later in the
+video.<00:06:39.600><c> But</c><00:06:40.000><c> overall</c><00:06:41.120><c> um</c><00:06:41.520><c> this</c><00:06:41.840><c> agent</c>
+
+00:06:42.309 --> 00:06:42.319 align:start position:0%
+video. But overall um this agent
+
+
+00:06:42.319 --> 00:06:45.670 align:start position:0%
+video. But overall um this agent
+orchestrator<00:06:43.199><c> or</c><00:06:44.000><c> orchestra</c><00:06:45.039><c> is</c><00:06:45.280><c> the</c><00:06:45.520><c> best</c>
+
+00:06:45.670 --> 00:06:45.680 align:start position:0%
+orchestrator or orchestra is the best
+
+
+00:06:45.680 --> 00:06:51.510 align:start position:0%
+orchestrator or orchestra is the best
+performing<00:06:46.240><c> agent</c><00:06:46.800><c> on</c><00:06:47.199><c> the</c><00:06:48.000><c> GA</c><00:06:48.960><c> IA</c><00:06:49.680><c> benchmark</c>
+
+00:06:51.510 --> 00:06:51.520 align:start position:0%
+performing agent on the GA IA benchmark
+
+
+00:06:51.520 --> 00:06:53.350 align:start position:0%
+performing agent on the GA IA benchmark
+and<00:06:51.680><c> also</c><00:06:52.000><c> gets</c><00:06:52.560><c> u</c><00:06:52.960><c> close</c><00:06:53.199><c> to</c>
+
+00:06:53.350 --> 00:06:53.360 align:start position:0%
+and also gets u close to
+
+
+00:06:53.360 --> 00:06:56.469 align:start position:0%
+and also gets u close to
+state-of-the-art<00:06:54.080><c> results</c><00:06:54.479><c> on</c><00:06:54.720><c> the</c><00:06:55.360><c> human</c><00:06:56.160><c> um</c>
+
+00:06:56.469 --> 00:06:56.479 align:start position:0%
+state-of-the-art results on the human um
+
+
+00:06:56.479 --> 00:06:59.189 align:start position:0%
+state-of-the-art results on the human um
+humanity<00:06:56.960><c> last</c><00:06:57.280><c> exam</c><00:06:57.600><c> benchmark.</c>
+
+00:06:59.189 --> 00:06:59.199 align:start position:0%
+humanity last exam benchmark.
+
+
+00:06:59.199 --> 00:07:01.270 align:start position:0%
+humanity last exam benchmark.
+And<00:06:59.440><c> again</c><00:06:59.759><c> the</c><00:06:59.919><c> best</c><00:07:00.080><c> part</c><00:07:00.319><c> is</c><00:07:00.560><c> that</c><00:07:00.880><c> all</c><00:07:01.120><c> of</c>
+
+00:07:01.270 --> 00:07:01.280 align:start position:0%
+And again the best part is that all of
+
+
+00:07:01.280 --> 00:07:03.670 align:start position:0%
+And again the best part is that all of
+this<00:07:01.680><c> is</c><00:07:02.400><c> uh</c><00:07:02.639><c> built</c><00:07:02.880><c> on</c><00:07:03.039><c> top</c><00:07:03.199><c> of</c><00:07:03.360><c> their</c>
+
+00:07:03.670 --> 00:07:03.680 align:start position:0%
+this is uh built on top of their
+
+
+00:07:03.680 --> 00:07:06.550 align:start position:0%
+this is uh built on top of their
+open-source<00:07:04.319><c> projects</c><00:07:05.440><c> uh</c><00:07:05.599><c> and</c><00:07:05.840><c> tools</c><00:07:06.319><c> which</c>
+
+00:07:06.550 --> 00:07:06.560 align:start position:0%
+open-source projects uh and tools which
+
+
+00:07:06.560 --> 00:07:08.550 align:start position:0%
+open-source projects uh and tools which
+is<00:07:06.720><c> pretty</c><00:07:06.960><c> awesome.</c>
+
+00:07:08.550 --> 00:07:08.560 align:start position:0%
+is pretty awesome.
+
+
+00:07:08.560 --> 00:07:10.710 align:start position:0%
+is pretty awesome.
+Also,<00:07:08.880><c> I</c><00:07:09.039><c> just</c><00:07:09.280><c> noticed</c><00:07:09.680><c> that</c><00:07:10.080><c> uh</c><00:07:10.240><c> one</c><00:07:10.400><c> of</c><00:07:10.479><c> the</c>
+
+00:07:10.710 --> 00:07:10.720 align:start position:0%
+Also, I just noticed that uh one of the
+
+
+00:07:10.720 --> 00:07:13.589 align:start position:0%
+Also, I just noticed that uh one of the
+contributors<00:07:11.280><c> to</c><00:07:11.599><c> this</c><00:07:11.840><c> project</c><00:07:12.160><c> is</c><00:07:12.560><c> Google's</c>
+
+00:07:13.589 --> 00:07:13.599 align:start position:0%
+contributors to this project is Google's
+
+
+00:07:13.599 --> 00:07:18.629 align:start position:0%
+contributors to this project is Google's
+uh<00:07:14.319><c> uh</c><00:07:14.479><c> Jews,</c><00:07:15.199><c> which</c><00:07:15.440><c> is</c><00:07:15.599><c> pretty</c><00:07:15.840><c> neat</c><00:07:16.080><c> to</c><00:07:16.400><c> see.</c>
+
+00:07:18.629 --> 00:07:18.639 align:start position:0%
+uh uh Jews, which is pretty neat to see.
+
+
+00:07:18.639 --> 00:07:20.230 align:start position:0%
+uh uh Jews, which is pretty neat to see.
+So,<00:07:18.880><c> we're</c><00:07:19.199><c> seeing</c><00:07:19.440><c> actually</c><00:07:19.680><c> more</c><00:07:19.840><c> and</c><00:07:20.080><c> more</c>
+
+00:07:20.230 --> 00:07:20.240 align:start position:0%
+So, we're seeing actually more and more
+
+
+00:07:20.240 --> 00:07:23.670 align:start position:0%
+So, we're seeing actually more and more
+code<00:07:20.560><c> being</c><00:07:21.440><c> um</c><00:07:22.319><c> contributed</c><00:07:22.960><c> the</c><00:07:23.199><c> by</c><00:07:23.440><c> these</c>
+
+00:07:23.670 --> 00:07:23.680 align:start position:0%
+code being um contributed the by these
+
+
+00:07:23.680 --> 00:07:25.430 align:start position:0%
+code being um contributed the by these
+coding<00:07:24.000><c> agents</c><00:07:24.400><c> or</c><00:07:24.639><c> using</c><00:07:24.880><c> these</c><00:07:25.120><c> coding</c>
+
+00:07:25.430 --> 00:07:25.440 align:start position:0%
+coding agents or using these coding
+
+
+00:07:25.440 --> 00:07:29.110 align:start position:0%
+coding agents or using these coding
+agents.
+
+00:07:29.110 --> 00:07:29.120 align:start position:0%
+
+
+
+00:07:29.120 --> 00:07:31.189 align:start position:0%
+
+Okay.<00:07:29.440><c> So,</c><00:07:29.599><c> here</c><00:07:29.759><c> are</c><00:07:30.000><c> again</c><00:07:30.240><c> the</c><00:07:30.720><c> results</c>
+
+00:07:31.189 --> 00:07:31.199 align:start position:0%
+Okay. So, here are again the results
+
+
+00:07:31.199 --> 00:07:34.950 align:start position:0%
+Okay. So, here are again the results
+based<00:07:31.520><c> on</c><00:07:31.759><c> the</c><00:07:32.319><c> uh</c><00:07:32.560><c> GA</c><00:07:33.680><c> benchmark.</c><00:07:34.560><c> Now,</c>
+
+00:07:34.950 --> 00:07:34.960 align:start position:0%
+based on the uh GA benchmark. Now,
+
+
+00:07:34.960 --> 00:07:37.510 align:start position:0%
+based on the uh GA benchmark. Now,
+interestingly<00:07:35.680><c> enough,</c><00:07:36.639><c> um</c><00:07:36.960><c> if</c><00:07:37.199><c> you</c><00:07:37.280><c> look</c><00:07:37.440><c> at</c>
+
+00:07:37.510 --> 00:07:37.520 align:start position:0%
+interestingly enough, um if you look at
+
+
+00:07:37.520 --> 00:07:42.790 align:start position:0%
+interestingly enough, um if you look at
+these<00:07:37.840><c> results,</c><00:07:39.280><c> uh</c><00:07:39.840><c> adding</c><00:07:40.720><c> MCP</c><00:07:41.919><c> u</c><00:07:42.319><c> dynamic</c>
+
+00:07:42.790 --> 00:07:42.800 align:start position:0%
+these results, uh adding MCP u dynamic
+
+
+00:07:42.800 --> 00:07:46.309 align:start position:0%
+these results, uh adding MCP u dynamic
+tool<00:07:43.039><c> creation</c><00:07:43.520><c> does</c><00:07:43.840><c> help</c><00:07:44.960><c> uh</c><00:07:45.360><c> this</c><00:07:45.919><c> specific</c>
+
+00:07:46.309 --> 00:07:46.319 align:start position:0%
+tool creation does help uh this specific
+
+
+00:07:46.319 --> 00:07:49.830 align:start position:0%
+tool creation does help uh this specific
+agent<00:07:46.720><c> framework.</c>
+
+00:07:49.830 --> 00:07:49.840 align:start position:0%
+
+
+
+00:07:49.840 --> 00:07:51.350 align:start position:0%
+
+Apart<00:07:50.160><c> from</c><00:07:50.400><c> this,</c><00:07:50.639><c> they</c><00:07:50.800><c> have</c><00:07:50.960><c> also</c><00:07:51.199><c> some</c>
+
+00:07:51.350 --> 00:07:51.360 align:start position:0%
+Apart from this, they have also some
+
+
+00:07:51.360 --> 00:07:52.790 align:start position:0%
+Apart from this, they have also some
+very<00:07:51.599><c> interesting</c><00:07:51.919><c> other</c><00:07:52.240><c> open</c><00:07:52.479><c> source</c>
+
+00:07:52.790 --> 00:07:52.800 align:start position:0%
+very interesting other open source
+
+
+00:07:52.800 --> 00:07:55.510 align:start position:0%
+very interesting other open source
+project.<00:07:53.280><c> For</c><00:07:53.360><c> example,</c><00:07:53.840><c> this</c><00:07:54.080><c> R1</c><00:07:54.560><c> V3</c><00:07:55.280><c> which</c>
+
+00:07:55.510 --> 00:07:55.520 align:start position:0%
+project. For example, this R1 V3 which
+
+
+00:07:55.520 --> 00:07:57.749 align:start position:0%
+project. For example, this R1 V3 which
+is<00:07:55.680><c> an</c><00:07:55.840><c> open-source</c><00:07:56.560><c> multimodel</c><00:07:57.280><c> reasoning</c>
+
+00:07:57.749 --> 00:07:57.759 align:start position:0%
+is an open-source multimodel reasoning
+
+
+00:07:57.759 --> 00:08:00.869 align:start position:0%
+is an open-source multimodel reasoning
+model<00:07:58.879><c> that</c><00:07:59.120><c> is</c><00:07:59.280><c> trained</c><00:07:59.599><c> with</c><00:08:00.400><c> um</c>
+
+00:08:00.869 --> 00:08:00.879 align:start position:0%
+model that is trained with um
+
+
+00:08:00.879 --> 00:08:03.749 align:start position:0%
+model that is trained with um
+reinforcement<00:08:01.759><c> fine-tuning</c>
+
+00:08:03.749 --> 00:08:03.759 align:start position:0%
+reinforcement fine-tuning
+
+
+00:08:03.759 --> 00:08:08.070 align:start position:0%
+reinforcement fine-tuning
+or<00:08:04.319><c> there's</c><00:08:04.639><c> Skye's</c><00:08:05.440><c> V2</c><00:08:06.000><c> infinite</c><00:08:06.560><c> length</c><00:08:07.919><c> uh</c>
+
+00:08:08.070 --> 00:08:08.080 align:start position:0%
+or there's Skye's V2 infinite length uh
+
+
+00:08:08.080 --> 00:08:13.270 align:start position:0%
+or there's Skye's V2 infinite length uh
+film<00:08:08.960><c> generative</c><00:08:09.520><c> model.</c>
+
+00:08:13.270 --> 00:08:13.280 align:start position:0%
+
+
+
+00:08:13.280 --> 00:08:14.790 align:start position:0%
+
+They<00:08:13.520><c> also</c><00:08:13.680><c> have</c><00:08:13.840><c> their</c><00:08:14.080><c> own</c><00:08:14.319><c> image</c>
+
+00:08:14.790 --> 00:08:14.800 align:start position:0%
+They also have their own image
+
+
+00:08:14.800 --> 00:08:16.710 align:start position:0%
+They also have their own image
+generation<00:08:15.599><c> understanding</c><00:08:16.080><c> and</c><00:08:16.319><c> editing</c>
+
+00:08:16.710 --> 00:08:16.720 align:start position:0%
+generation understanding and editing
+
+
+00:08:16.720 --> 00:08:19.189 align:start position:0%
+generation understanding and editing
+model.
+
+00:08:19.189 --> 00:08:19.199 align:start position:0%
+model.
+
+
+00:08:19.199 --> 00:08:21.029 align:start position:0%
+model.
+Now<00:08:19.520><c> all</c><00:08:19.680><c> of</c><00:08:19.840><c> this</c><00:08:20.080><c> and</c><00:08:20.240><c> more</c><00:08:20.479><c> is</c><00:08:20.720><c> packaged</c>
+
+00:08:21.029 --> 00:08:21.039 align:start position:0%
+Now all of this and more is packaged
+
+
+00:08:21.039 --> 00:08:24.550 align:start position:0%
+Now all of this and more is packaged
+together<00:08:21.360><c> in</c><00:08:21.680><c> their</c><00:08:21.919><c> new</c><00:08:22.960><c> Skywork</c>
+
+00:08:24.550 --> 00:08:24.560 align:start position:0%
+together in their new Skywork
+
+
+00:08:24.560 --> 00:08:27.350 align:start position:0%
+together in their new Skywork
+uh<00:08:24.800><c> super</c><00:08:25.120><c> agents.</c><00:08:26.080><c> So</c><00:08:26.400><c> think</c><00:08:26.560><c> of</c><00:08:26.800><c> this</c><00:08:26.960><c> as</c><00:08:27.199><c> a</c>
+
+00:08:27.350 --> 00:08:27.360 align:start position:0%
+uh super agents. So think of this as a
+
+
+00:08:27.360 --> 00:08:29.110 align:start position:0%
+uh super agents. So think of this as a
+competitor<00:08:27.759><c> to</c><00:08:28.000><c> something</c><00:08:28.240><c> like</c><00:08:28.479><c> Manace</c><00:08:28.960><c> or</c>
+
+00:08:29.110 --> 00:08:29.120 align:start position:0%
+competitor to something like Manace or
+
+
+00:08:29.120 --> 00:08:31.990 align:start position:0%
+competitor to something like Manace or
+Genpark.<00:08:30.160><c> It</c><00:08:30.400><c> can</c><00:08:30.639><c> do</c><00:08:31.039><c> document</c><00:08:31.599><c> creation</c>
+
+00:08:31.990 --> 00:08:32.000 align:start position:0%
+Genpark. It can do document creation
+
+
+00:08:32.000 --> 00:08:36.550 align:start position:0%
+Genpark. It can do document creation
+based<00:08:32.719><c> on</c><00:08:33.360><c> um</c><00:08:33.760><c> search.</c>
+
+00:08:36.550 --> 00:08:36.560 align:start position:0%
+based on um search.
+
+
+00:08:36.560 --> 00:08:39.190 align:start position:0%
+based on um search.
+So<00:08:36.800><c> it's</c><00:08:37.039><c> able</c><00:08:37.200><c> to</c><00:08:37.440><c> collect</c><00:08:38.320><c> uh</c><00:08:38.479><c> user</c><00:08:38.800><c> input</c>
+
+00:08:39.190 --> 00:08:39.200 align:start position:0%
+So it's able to collect uh user input
+
+
+00:08:39.200 --> 00:08:42.389 align:start position:0%
+So it's able to collect uh user input
+and<00:08:39.440><c> then</c><00:08:40.000><c> uh</c><00:08:40.240><c> perform</c><00:08:41.200><c> web</c><00:08:41.440><c> search</c><00:08:42.000><c> and</c>
+
+00:08:42.389 --> 00:08:42.399 align:start position:0%
+and then uh perform web search and
+
+
+00:08:42.399 --> 00:08:46.949 align:start position:0%
+and then uh perform web search and
+create<00:08:43.039><c> high</c><00:08:43.360><c> quality</c><00:08:44.159><c> documents</c><00:08:44.959><c> for</c><00:08:45.279><c> you.</c>
+
+00:08:46.949 --> 00:08:46.959 align:start position:0%
+create high quality documents for you.
+
+
+00:08:46.959 --> 00:08:49.110 align:start position:0%
+create high quality documents for you.
+During<00:08:47.279><c> the</c><00:08:47.440><c> process,</c><00:08:48.000><c> it</c><00:08:48.240><c> uses</c><00:08:48.640><c> different</c>
+
+00:08:49.110 --> 00:08:49.120 align:start position:0%
+During the process, it uses different
+
+
+00:08:49.120 --> 00:08:51.829 align:start position:0%
+During the process, it uses different
+MCP<00:08:49.680><c> tools.</c><00:08:50.560><c> Uh</c><00:08:50.959><c> for</c><00:08:51.040><c> example,</c><00:08:51.360><c> it's</c><00:08:51.600><c> doing</c>
+
+00:08:51.829 --> 00:08:51.839 align:start position:0%
+MCP tools. Uh for example, it's doing
+
+
+00:08:51.839 --> 00:08:53.590 align:start position:0%
+MCP tools. Uh for example, it's doing
+web<00:08:52.000><c> search</c><00:08:52.320><c> right</c><00:08:52.560><c> now.</c><00:08:52.959><c> It's</c><00:08:53.200><c> browsing</c>
+
+00:08:53.590 --> 00:08:53.600 align:start position:0%
+web search right now. It's browsing
+
+
+00:08:53.600 --> 00:08:56.710 align:start position:0%
+web search right now. It's browsing
+those<00:08:53.839><c> pages,</c><00:08:54.800><c> right?</c><00:08:55.200><c> So,</c><00:08:55.600><c> it's</c><00:08:55.920><c> able</c><00:08:56.160><c> to</c><00:08:56.320><c> use</c>
+
+00:08:56.710 --> 00:08:56.720 align:start position:0%
+those pages, right? So, it's able to use
+
+
+00:08:56.720 --> 00:08:59.269 align:start position:0%
+those pages, right? So, it's able to use
+these<00:08:57.120><c> different</c><00:08:57.440><c> tools</c><00:08:57.760><c> to</c><00:08:58.000><c> create</c><00:08:59.040><c> very</c>
+
+00:08:59.269 --> 00:08:59.279 align:start position:0%
+these different tools to create very
+
+
+00:08:59.279 --> 00:09:01.990 align:start position:0%
+these different tools to create very
+appealing<00:08:59.839><c> documents.</c>
+
+00:09:01.990 --> 00:09:02.000 align:start position:0%
+appealing documents.
+
+
+00:09:02.000 --> 00:09:03.829 align:start position:0%
+appealing documents.
+It's<00:09:02.240><c> able</c><00:09:02.480><c> to</c><00:09:02.560><c> use</c><00:09:02.800><c> different</c><00:09:03.120><c> tools.</c><00:09:03.519><c> So</c><00:09:03.760><c> for</c>
+
+00:09:03.829 --> 00:09:03.839 align:start position:0%
+It's able to use different tools. So for
+
+
+00:09:03.839 --> 00:09:07.269 align:start position:0%
+It's able to use different tools. So for
+example<00:09:04.560><c> uh</c><00:09:04.720><c> here</c><00:09:04.959><c> they</c><00:09:05.200><c> were</c><00:09:05.839><c> um</c><00:09:06.160><c> doing</c><00:09:06.959><c> or</c>
+
+00:09:07.269 --> 00:09:07.279 align:start position:0%
+example uh here they were um doing or
+
+
+00:09:07.279 --> 00:09:11.190 align:start position:0%
+example uh here they were um doing or
+calling<00:09:08.080><c> uh</c><00:09:08.240><c> web</c><00:09:08.480><c> search</c><00:09:09.360><c> and</c><00:09:09.680><c> then</c><00:09:10.399><c> uh</c><00:09:10.959><c> using</c>
+
+00:09:11.190 --> 00:09:11.200 align:start position:0%
+calling uh web search and then uh using
+
+
+00:09:11.200 --> 00:09:14.310 align:start position:0%
+calling uh web search and then uh using
+the<00:09:11.360><c> browse</c><00:09:11.680><c> tool</c><00:09:12.000><c> to</c><00:09:12.800><c> read</c><00:09:13.040><c> the</c><00:09:13.279><c> contents</c><00:09:14.000><c> and</c>
+
+00:09:14.310 --> 00:09:14.320 align:start position:0%
+the browse tool to read the contents and
+
+
+00:09:14.320 --> 00:09:17.509 align:start position:0%
+the browse tool to read the contents and
+on<00:09:14.480><c> top</c><00:09:14.640><c> of</c><00:09:14.880><c> that</c><00:09:15.680><c> uh</c><00:09:15.839><c> it</c><00:09:16.000><c> was</c><00:09:16.240><c> doing</c><00:09:17.200><c> uh</c>
+
+00:09:17.509 --> 00:09:17.519 align:start position:0%
+on top of that uh it was doing uh
+
+
+00:09:17.519 --> 00:09:19.670 align:start position:0%
+on top of that uh it was doing uh
+information<00:09:18.000><c> aggregation</c><00:09:18.560><c> from</c><00:09:18.880><c> those</c><00:09:19.440><c> uh</c>
+
+00:09:19.670 --> 00:09:19.680 align:start position:0%
+information aggregation from those uh
+
+
+00:09:19.680 --> 00:09:22.630 align:start position:0%
+information aggregation from those uh
+web<00:09:19.920><c> pages.</c>
+
+00:09:22.630 --> 00:09:22.640 align:start position:0%
+web pages.
+
+
+00:09:22.640 --> 00:09:26.470 align:start position:0%
+web pages.
+So<00:09:23.040><c> here</c><00:09:23.279><c> is</c><00:09:23.440><c> the</c><00:09:24.000><c> uh</c><00:09:24.399><c> final</c><00:09:25.040><c> results</c><00:09:26.080><c> based</c><00:09:26.320><c> on</c>
+
+00:09:26.470 --> 00:09:26.480 align:start position:0%
+So here is the uh final results based on
+
+
+00:09:26.480 --> 00:09:30.550 align:start position:0%
+So here is the uh final results based on
+that<00:09:27.279><c> uh</c><00:09:27.760><c> it</c><00:09:28.080><c> not</c><00:09:28.240><c> only</c><00:09:28.560><c> performed</c><00:09:29.279><c> market</c><00:09:30.160><c> uh</c>
+
+00:09:30.550 --> 00:09:30.560 align:start position:0%
+that uh it not only performed market uh
+
+
+00:09:30.560 --> 00:09:33.910 align:start position:0%
+that uh it not only performed market uh
+search<00:09:30.880><c> analysis</c><00:09:31.839><c> but</c><00:09:32.160><c> also</c><00:09:32.640><c> created</c><00:09:33.440><c> these</c>
+
+00:09:33.910 --> 00:09:33.920 align:start position:0%
+search analysis but also created these
+
+
+00:09:33.920 --> 00:09:36.150 align:start position:0%
+search analysis but also created these
+different<00:09:34.320><c> plots</c><00:09:35.120><c> which</c><00:09:35.360><c> are</c><00:09:35.600><c> representative</c>
+
+00:09:36.150 --> 00:09:36.160 align:start position:0%
+different plots which are representative
+
+
+00:09:36.160 --> 00:09:39.350 align:start position:0%
+different plots which are representative
+of<00:09:36.320><c> the</c><00:09:36.560><c> data</c><00:09:36.880><c> that</c><00:09:37.120><c> it</c><00:09:37.360><c> has</c><00:09:37.600><c> seen.</c>
+
+00:09:39.350 --> 00:09:39.360 align:start position:0%
+of the data that it has seen.
+
+
+00:09:39.360 --> 00:09:41.590 align:start position:0%
+of the data that it has seen.
+So<00:09:39.680><c> this</c><00:09:40.000><c> is</c><00:09:40.240><c> definitely</c><00:09:40.720><c> a</c><00:09:40.959><c> new</c><00:09:41.120><c> trend</c><00:09:41.360><c> that</c>
+
+00:09:41.590 --> 00:09:41.600 align:start position:0%
+So this is definitely a new trend that
+
+
+00:09:41.600 --> 00:09:43.990 align:start position:0%
+So this is definitely a new trend that
+we<00:09:41.760><c> are</c><00:09:41.920><c> seeing</c><00:09:42.560><c> uh</c><00:09:42.640><c> with</c><00:09:42.880><c> these</c><00:09:43.120><c> agents</c>
+
+00:09:43.990 --> 00:09:44.000 align:start position:0%
+we are seeing uh with these agents
+
+
+00:09:44.000 --> 00:09:47.430 align:start position:0%
+we are seeing uh with these agents
+because<00:09:44.640><c> they</c><00:09:45.200><c> are</c><00:09:45.519><c> being</c><00:09:45.920><c> used</c><00:09:46.160><c> for</c><00:09:46.720><c> document</c>
+
+00:09:47.430 --> 00:09:47.440 align:start position:0%
+because they are being used for document
+
+
+00:09:47.440 --> 00:09:52.550 align:start position:0%
+because they are being used for document
+and<00:09:47.920><c> report</c><00:09:48.320><c> generation.</c>
+
+00:09:52.550 --> 00:09:52.560 align:start position:0%
+
+
+
+00:09:52.560 --> 00:09:55.190 align:start position:0%
+
+It<00:09:52.880><c> can</c><00:09:52.959><c> also</c><00:09:53.200><c> do</c><00:09:53.440><c> data</c><00:09:53.839><c> analysis.</c><00:09:54.480><c> So,</c><00:09:54.880><c> uh</c><00:09:54.959><c> it</c>
+
+00:09:55.190 --> 00:09:55.200 align:start position:0%
+It can also do data analysis. So, uh it
+
+
+00:09:55.200 --> 00:09:58.870 align:start position:0%
+It can also do data analysis. So, uh it
+can<00:09:55.360><c> look</c><00:09:55.519><c> for</c><00:09:55.760><c> information</c><00:09:56.240><c> then</c><00:09:57.279><c> uh</c><00:09:57.519><c> create</c>
+
+00:09:58.870 --> 00:09:58.880 align:start position:0%
+can look for information then uh create
+
+
+00:09:58.880 --> 00:10:02.630 align:start position:0%
+can look for information then uh create
+um<00:09:59.519><c> sheets</c><00:09:59.920><c> for</c><00:10:00.080><c> you.</c><00:10:01.040><c> Uh</c><00:10:01.760><c> or</c><00:10:02.080><c> you</c><00:10:02.240><c> can</c><00:10:02.399><c> provide</c>
+
+00:10:02.630 --> 00:10:02.640 align:start position:0%
+um sheets for you. Uh or you can provide
+
+
+00:10:02.640 --> 00:10:05.190 align:start position:0%
+um sheets for you. Uh or you can provide
+your<00:10:02.880><c> own</c><00:10:03.040><c> Excel</c><00:10:03.360><c> sheets</c><00:10:03.680><c> and</c><00:10:03.839><c> then</c><00:10:04.080><c> updated</c>
+
+00:10:05.190 --> 00:10:05.200 align:start position:0%
+your own Excel sheets and then updated
+
+
+00:10:05.200 --> 00:10:08.310 align:start position:0%
+your own Excel sheets and then updated
+using<00:10:05.920><c> uh</c><00:10:06.080><c> the</c><00:10:06.320><c> agent.</c><00:10:07.040><c> So</c><00:10:07.279><c> it's</c><00:10:07.600><c> able</c><00:10:07.760><c> to</c><00:10:08.000><c> do</c>
+
+00:10:08.310 --> 00:10:08.320 align:start position:0%
+using uh the agent. So it's able to do
+
+
+00:10:08.320 --> 00:10:10.550 align:start position:0%
+using uh the agent. So it's able to do
+most<00:10:08.640><c> of</c><00:10:08.800><c> the</c><00:10:08.959><c> things</c><00:10:09.200><c> that</c><00:10:10.000><c> uh</c><00:10:10.240><c> something</c>
+
+00:10:10.550 --> 00:10:10.560 align:start position:0%
+most of the things that uh something
+
+
+00:10:10.560 --> 00:10:14.230 align:start position:0%
+most of the things that uh something
+like<00:10:11.920><c> uh</c><00:10:12.160><c> file</c><00:10:12.480><c> creation</c><00:10:12.800><c> in</c><00:10:13.120><c> cloud</c><00:10:13.760><c> or</c>
+
+00:10:14.230 --> 00:10:14.240 align:start position:0%
+like uh file creation in cloud or
+
+
+00:10:14.240 --> 00:10:16.949 align:start position:0%
+like uh file creation in cloud or
+analysis<00:10:15.440><c> uh</c><00:10:15.920><c> that</c><00:10:16.320><c> is</c><00:10:16.560><c> going</c><00:10:16.720><c> to</c><00:10:16.800><c> be</c>
+
+00:10:16.949 --> 00:10:16.959 align:start position:0%
+analysis uh that is going to be
+
+
+00:10:16.959 --> 00:10:19.910 align:start position:0%
+analysis uh that is going to be
+performed<00:10:17.360><c> by</c>
+
+00:10:19.910 --> 00:10:19.920 align:start position:0%
+performed by
+
+
+00:10:19.920 --> 00:10:22.870 align:start position:0%
+performed by
+another<00:10:20.560><c> use</c><00:10:20.880><c> case</c><00:10:21.360><c> is</c><00:10:22.000><c> uh</c><00:10:22.079><c> its</c><00:10:22.399><c> ability</c><00:10:22.720><c> to</c>
+
+00:10:22.870 --> 00:10:22.880 align:start position:0%
+another use case is uh its ability to
+
+
+00:10:22.880 --> 00:10:25.190 align:start position:0%
+another use case is uh its ability to
+work<00:10:23.040><c> with</c><00:10:23.279><c> CSV</c><00:10:23.839><c> files</c><00:10:24.160><c> or</c><00:10:24.399><c> create</c><00:10:24.640><c> sheets</c><00:10:25.040><c> for</c>
+
+00:10:25.190 --> 00:10:25.200 align:start position:0%
+work with CSV files or create sheets for
+
+
+00:10:25.200 --> 00:10:28.069 align:start position:0%
+work with CSV files or create sheets for
+you.<00:10:25.600><c> So</c><00:10:25.839><c> for</c><00:10:25.920><c> example</c><00:10:26.720><c> uh</c><00:10:26.800><c> you</c><00:10:26.959><c> can</c><00:10:27.040><c> ask</c><00:10:27.279><c> it</c><00:10:27.519><c> to</c>
+
+00:10:28.069 --> 00:10:28.079 align:start position:0%
+you. So for example uh you can ask it to
+
+
+00:10:28.079 --> 00:10:31.030 align:start position:0%
+you. So for example uh you can ask it to
+uh<00:10:28.320><c> do</c><00:10:28.880><c> web</c><00:10:29.120><c> search</c><00:10:29.680><c> and</c><00:10:30.000><c> collect</c><00:10:30.320><c> data</c><00:10:30.720><c> in</c><00:10:30.880><c> the</c>
+
+00:10:31.030 --> 00:10:31.040 align:start position:0%
+uh do web search and collect data in the
+
+
+00:10:31.040 --> 00:10:33.110 align:start position:0%
+uh do web search and collect data in the
+form<00:10:31.200><c> of</c><00:10:31.360><c> Excel</c><00:10:31.760><c> sheets</c><00:10:32.160><c> or</c><00:10:32.480><c> you</c><00:10:32.640><c> can</c><00:10:32.800><c> provide</c>
+
+00:10:33.110 --> 00:10:33.120 align:start position:0%
+form of Excel sheets or you can provide
+
+
+00:10:33.120 --> 00:10:35.990 align:start position:0%
+form of Excel sheets or you can provide
+your<00:10:33.360><c> own</c><00:10:33.519><c> data.</c><00:10:34.240><c> So</c><00:10:34.480><c> in</c><00:10:34.800><c> this</c><00:10:34.959><c> example</c><00:10:35.680><c> uh</c><00:10:35.760><c> it</c>
+
+00:10:35.990 --> 00:10:36.000 align:start position:0%
+your own data. So in this example uh it
+
+
+00:10:36.000 --> 00:10:37.829 align:start position:0%
+your own data. So in this example uh it
+collected<00:10:36.399><c> some</c><00:10:36.560><c> data</c><00:10:36.800><c> from</c><00:10:37.040><c> the</c><00:10:37.200><c> internet</c>
+
+00:10:37.829 --> 00:10:37.839 align:start position:0%
+collected some data from the internet
+
+
+00:10:37.839 --> 00:10:39.590 align:start position:0%
+collected some data from the internet
+and<00:10:38.000><c> then</c><00:10:38.160><c> you</c><00:10:38.320><c> can</c><00:10:38.480><c> see</c><00:10:38.560><c> that</c><00:10:39.040><c> uh</c><00:10:39.120><c> the</c><00:10:39.279><c> agent</c>
+
+00:10:39.590 --> 00:10:39.600 align:start position:0%
+and then you can see that uh the agent
+
+
+00:10:39.600 --> 00:10:44.517 align:start position:0%
+and then you can see that uh the agent
+is<00:10:39.839><c> able</c><00:10:40.000><c> to</c><00:10:40.399><c> create</c><00:10:41.120><c> uh</c><00:10:41.360><c> plots</c><00:10:42.800><c> uh</c><00:10:43.360><c> also</c><00:10:44.399><c> does</c>
+
+00:10:44.517 --> 00:10:44.527 align:start position:0%
+is able to create uh plots uh also does
+
+
+00:10:44.527 --> 00:10:46.790 align:start position:0%
+is able to create uh plots uh also does
+[clears throat]<00:10:44.640><c> some</c><00:10:45.200><c> uh</c><00:10:45.440><c> sales</c><00:10:45.760><c> analysis</c>
+
+00:10:46.790 --> 00:10:46.800 align:start position:0%
+[clears throat] some uh sales analysis
+
+
+00:10:46.800 --> 00:10:49.750 align:start position:0%
+[clears throat] some uh sales analysis
+year-over-year<00:10:47.680><c> comparison</c><00:10:48.959><c> uh</c><00:10:49.120><c> and</c><00:10:49.360><c> I</c><00:10:49.600><c> can</c>
+
+00:10:49.750 --> 00:10:49.760 align:start position:0%
+year-over-year comparison uh and I can
+
+
+00:10:49.760 --> 00:10:52.150 align:start position:0%
+year-over-year comparison uh and I can
+also<00:10:50.000><c> look</c><00:10:50.160><c> at</c><00:10:50.480><c> quarterly</c><00:10:51.040><c> trends</c><00:10:51.680><c> right</c><00:10:51.920><c> so</c>
+
+00:10:52.150 --> 00:10:52.160 align:start position:0%
+also look at quarterly trends right so
+
+
+00:10:52.160 --> 00:10:54.949 align:start position:0%
+also look at quarterly trends right so
+it's<00:10:52.320><c> a</c><00:10:52.560><c> very</c><00:10:52.800><c> powerful</c><00:10:53.839><c> agentic</c><00:10:54.560><c> system</c>
+
+00:10:54.949 --> 00:10:54.959 align:start position:0%
+it's a very powerful agentic system
+
+
+00:10:54.959 --> 00:10:57.750 align:start position:0%
+it's a very powerful agentic system
+because<00:10:55.279><c> it</c><00:10:55.519><c> not</c><00:10:55.760><c> only</c><00:10:55.920><c> has</c><00:10:56.240><c> access</c><00:10:56.560><c> to</c><00:10:57.360><c> just</c><00:10:57.600><c> a</c>
+
+00:10:57.750 --> 00:10:57.760 align:start position:0%
+because it not only has access to just a
+
+
+00:10:57.760 --> 00:10:59.750 align:start position:0%
+because it not only has access to just a
+deep<00:10:58.000><c> researcher</c><00:10:58.560><c> tool</c><00:10:58.800><c> but</c><00:10:59.040><c> also</c><00:10:59.279><c> has</c><00:10:59.519><c> these</c>
+
+00:10:59.750 --> 00:10:59.760 align:start position:0%
+deep researcher tool but also has these
+
+
+00:10:59.760 --> 00:11:02.550 align:start position:0%
+deep researcher tool but also has these
+other<00:11:00.000><c> tools</c><00:11:00.399><c> like</c><00:11:00.959><c> Python</c><00:11:01.440><c> code</c><00:11:02.000><c> interpreter</c>
+
+00:11:02.550 --> 00:11:02.560 align:start position:0%
+other tools like Python code interpreter
+
+
+00:11:02.560 --> 00:11:04.790 align:start position:0%
+other tools like Python code interpreter
+where<00:11:02.880><c> it</c><00:11:03.040><c> can</c><00:11:03.279><c> actually</c><00:11:03.680><c> perform</c><00:11:04.240><c> analysis</c>
+
+00:11:04.790 --> 00:11:04.800 align:start position:0%
+where it can actually perform analysis
+
+
+00:11:04.800 --> 00:11:08.069 align:start position:0%
+where it can actually perform analysis
+for<00:11:04.959><c> you.</c><00:11:06.240><c> It</c><00:11:06.480><c> also</c><00:11:06.720><c> has</c><00:11:06.800><c> a</c><00:11:06.959><c> tool</c><00:11:07.519><c> uh</c><00:11:07.760><c> for</c>
+
+00:11:08.069 --> 00:11:08.079 align:start position:0%
+for you. It also has a tool uh for
+
+
+00:11:08.079 --> 00:11:10.150 align:start position:0%
+for you. It also has a tool uh for
+building<00:11:08.399><c> websites.</c><00:11:08.959><c> So</c><00:11:09.120><c> think</c><00:11:09.279><c> about</c><00:11:09.839><c> this</c>
+
+00:11:10.150 --> 00:11:10.160 align:start position:0%
+building websites. So think about this
+
+
+00:11:10.160 --> 00:11:13.750 align:start position:0%
+building websites. So think about this
+as<00:11:11.040><c> uh</c><00:11:11.279><c> computator</c><00:11:11.839><c> to</c><00:11:12.079><c> loable</c><00:11:13.279><c> right.</c><00:11:13.600><c> So</c>
+
+00:11:13.750 --> 00:11:13.760 align:start position:0%
+as uh computator to loable right. So
+
+
+00:11:13.760 --> 00:11:16.069 align:start position:0%
+as uh computator to loable right. So
+based<00:11:13.920><c> on</c><00:11:14.079><c> your</c><00:11:14.240><c> requirement,</c><00:11:14.959><c> it</c><00:11:15.200><c> does</c><00:11:15.839><c> uh</c>
+
+00:11:16.069 --> 00:11:16.079 align:start position:0%
+based on your requirement, it does uh
+
+
+00:11:16.079 --> 00:11:18.230 align:start position:0%
+based on your requirement, it does uh
+web<00:11:16.320><c> search</c><00:11:16.640><c> collects</c><00:11:17.040><c> data</c><00:11:17.600><c> from</c><00:11:17.920><c> different</c>
+
+00:11:18.230 --> 00:11:18.240 align:start position:0%
+web search collects data from different
+
+
+00:11:18.240 --> 00:11:21.030 align:start position:0%
+web search collects data from different
+websites<00:11:18.720><c> and</c><00:11:18.959><c> then</c><00:11:19.600><c> it</c><00:11:19.839><c> can</c><00:11:20.160><c> render</c><00:11:20.640><c> those</c><00:11:20.880><c> in</c>
+
+00:11:21.030 --> 00:11:21.040 align:start position:0%
+websites and then it can render those in
+
+
+00:11:21.040 --> 00:11:23.590 align:start position:0%
+websites and then it can render those in
+the<00:11:21.200><c> form</c><00:11:21.519><c> of</c><00:11:21.760><c> a</c><00:11:22.000><c> pretty</c><00:11:22.480><c> decent</c><00:11:22.959><c> looking</c><00:11:23.360><c> web</c>
+
+00:11:23.590 --> 00:11:23.600 align:start position:0%
+the form of a pretty decent looking web
+
+
+00:11:23.600 --> 00:11:25.430 align:start position:0%
+the form of a pretty decent looking web
+pages.
+
+00:11:25.430 --> 00:11:25.440 align:start position:0%
+pages.
+
+
+00:11:25.440 --> 00:11:28.230 align:start position:0%
+pages.
+So<00:11:25.680><c> in</c><00:11:25.920><c> this</c><00:11:26.079><c> case,</c><00:11:26.320><c> here's</c><00:11:26.640><c> the</c><00:11:26.880><c> final</c><00:11:27.279><c> output</c>
+
+00:11:28.230 --> 00:11:28.240 align:start position:0%
+So in this case, here's the final output
+
+
+00:11:28.240 --> 00:11:31.509 align:start position:0%
+So in this case, here's the final output
+uh<00:11:28.320><c> that</c><00:11:28.560><c> it</c><00:11:29.200><c> um</c><00:11:29.680><c> created.</c><00:11:30.640><c> Uh</c><00:11:31.120><c> really</c>
+
+00:11:31.509 --> 00:11:31.519 align:start position:0%
+uh that it um created. Uh really
+
+
+00:11:31.519 --> 00:11:34.230 align:start position:0%
+uh that it um created. Uh really
+functional.<00:11:32.320><c> It</c><00:11:32.640><c> has</c><00:11:32.800><c> all</c><00:11:32.959><c> the</c><00:11:33.200><c> features</c><00:11:33.519><c> that</c>
+
+00:11:34.230 --> 00:11:34.240 align:start position:0%
+functional. It has all the features that
+
+
+00:11:34.240 --> 00:11:37.910 align:start position:0%
+functional. It has all the features that
+um<00:11:34.720><c> we</c><00:11:35.040><c> wanted</c><00:11:35.839><c> and</c><00:11:36.079><c> also</c><00:11:36.800><c> um</c><00:11:37.200><c> it</c><00:11:37.519><c> collected</c>
+
+00:11:37.910 --> 00:11:37.920 align:start position:0%
+um we wanted and also um it collected
+
+
+00:11:37.920 --> 00:11:40.710 align:start position:0%
+um we wanted and also um it collected
+all<00:11:38.079><c> of</c><00:11:38.240><c> this</c><00:11:38.480><c> data</c><00:11:39.040><c> using</c><00:11:39.519><c> this</c><00:11:40.399><c> deep</c>
+
+00:11:40.710 --> 00:11:40.720 align:start position:0%
+all of this data using this deep
+
+
+00:11:40.720 --> 00:11:43.190 align:start position:0%
+all of this data using this deep
+research<00:11:41.200><c> tool.</c>
+
+00:11:43.190 --> 00:11:43.200 align:start position:0%
+research tool.
+
+
+00:11:43.200 --> 00:11:45.350 align:start position:0%
+research tool.
+One<00:11:43.519><c> interesting</c><00:11:43.920><c> demo</c><00:11:44.240><c> that</c><00:11:44.480><c> they</c><00:11:44.640><c> have</c><00:11:44.800><c> is</c>
+
+00:11:45.350 --> 00:11:45.360 align:start position:0%
+One interesting demo that they have is
+
+
+00:11:45.360 --> 00:11:48.790 align:start position:0%
+One interesting demo that they have is
+uh<00:11:45.680><c> the</c><00:11:46.079><c> models</c><00:11:46.480><c> or</c><00:11:46.640><c> agents</c><00:11:47.120><c> ability</c><00:11:47.519><c> to</c><00:11:48.079><c> um</c>
+
+00:11:48.790 --> 00:11:48.800 align:start position:0%
+uh the models or agents ability to um
+
+
+00:11:48.800 --> 00:11:51.269 align:start position:0%
+uh the models or agents ability to um
+look<00:11:49.040><c> at</c><00:11:49.200><c> YouTube</c><00:11:49.600><c> videos</c><00:11:49.920><c> and</c><00:11:50.160><c> then</c><00:11:50.480><c> create</c>
+
+00:11:51.269 --> 00:11:51.279 align:start position:0%
+look at YouTube videos and then create
+
+
+00:11:51.279 --> 00:11:54.310 align:start position:0%
+look at YouTube videos and then create
+uh<00:11:51.360><c> tutorials</c><00:11:51.839><c> based</c><00:11:52.079><c> on</c><00:11:52.240><c> that.</c>
+
+00:11:54.310 --> 00:11:54.320 align:start position:0%
+uh tutorials based on that.
+
+
+00:11:54.320 --> 00:11:56.790 align:start position:0%
+uh tutorials based on that.
+So<00:11:54.720><c> for</c><00:11:54.880><c> example,</c><00:11:55.360><c> here's</c><00:11:55.680><c> a</c><00:11:56.079><c> a</c><00:11:56.320><c> lecture</c>
+
+00:11:56.790 --> 00:11:56.800 align:start position:0%
+So for example, here's a a lecture
+
+
+00:11:56.800 --> 00:12:00.790 align:start position:0%
+So for example, here's a a lecture
+lecture<00:11:57.200><c> from</c><00:11:57.440><c> one</c><00:11:57.600><c> of</c><00:11:57.680><c> the</c><00:11:57.839><c> MIT</c><00:11:58.320><c> courses</c>
+
+00:12:00.790 --> 00:12:00.800 align:start position:0%
+lecture from one of the MIT courses
+
+
+00:12:00.800 --> 00:12:04.870 align:start position:0%
+lecture from one of the MIT courses
+and<00:12:01.440><c> here</c><00:12:02.240><c> uh</c><00:12:02.320><c> the</c><00:12:02.560><c> agent</c><00:12:03.040><c> is</c><00:12:03.279><c> creating</c>
+
+00:12:04.870 --> 00:12:04.880 align:start position:0%
+and here uh the agent is creating
+
+
+00:12:04.880 --> 00:12:07.829 align:start position:0%
+and here uh the agent is creating
+um<00:12:05.200><c> a</c><00:12:05.440><c> really</c><00:12:06.000><c> interesting</c><00:12:06.880><c> mind</c><00:12:07.200><c> map</c><00:12:07.440><c> of</c><00:12:07.680><c> all</c>
+
+00:12:07.829 --> 00:12:07.839 align:start position:0%
+um a really interesting mind map of all
+
+
+00:12:07.839 --> 00:12:10.150 align:start position:0%
+um a really interesting mind map of all
+the<00:12:08.000><c> topics</c><00:12:08.320><c> that</c><00:12:08.480><c> are</c><00:12:08.720><c> being</c><00:12:08.959><c> discussed.</c><00:12:09.680><c> Now</c>
+
+00:12:10.150 --> 00:12:10.160 align:start position:0%
+the topics that are being discussed. Now
+
+
+00:12:10.160 --> 00:12:12.629 align:start position:0%
+the topics that are being discussed. Now
+this<00:12:11.120><c> uh</c><00:12:11.279><c> type</c><00:12:11.440><c> of</c><00:12:11.680><c> functionality</c><00:12:12.399><c> is</c>
+
+00:12:12.629 --> 00:12:12.639 align:start position:0%
+this uh type of functionality is
+
+
+00:12:12.639 --> 00:12:16.470 align:start position:0%
+this uh type of functionality is
+available<00:12:13.600><c> natively</c><00:12:14.160><c> within</c><00:12:14.560><c> Gemini</c><00:12:15.839><c> uh</c><00:12:16.000><c> 2.5</c>
+
+00:12:16.470 --> 00:12:16.480 align:start position:0%
+available natively within Gemini uh 2.5
+
+
+00:12:16.480 --> 00:12:19.350 align:start position:0%
+available natively within Gemini uh 2.5
+Pro<00:12:16.720><c> or</c><00:12:17.040><c> Gemini</c><00:12:17.440><c> Flush.</c><00:12:18.160><c> But</c><00:12:18.320><c> here</c><00:12:18.720><c> you</c><00:12:18.959><c> have</c><00:12:19.120><c> a</c>
+
+00:12:19.350 --> 00:12:19.360 align:start position:0%
+Pro or Gemini Flush. But here you have a
+
+
+00:12:19.360 --> 00:12:21.110 align:start position:0%
+Pro or Gemini Flush. But here you have a
+single<00:12:19.600><c> agent</c><00:12:19.920><c> that</c><00:12:20.240><c> can</c><00:12:20.399><c> do</c><00:12:20.639><c> a</c><00:12:20.880><c> lot</c><00:12:20.959><c> of</c>
+
+00:12:21.110 --> 00:12:21.120 align:start position:0%
+single agent that can do a lot of
+
+
+00:12:21.120 --> 00:12:23.670 align:start position:0%
+single agent that can do a lot of
+different<00:12:21.440><c> things.</c><00:12:22.079><c> And</c><00:12:22.399><c> again,</c><00:12:22.880><c> this</c><00:12:23.120><c> is</c>
+
+00:12:23.670 --> 00:12:23.680 align:start position:0%
+different things. And again, this is
+
+
+00:12:23.680 --> 00:12:26.470 align:start position:0%
+different things. And again, this is
+built<00:12:24.079><c> on</c><00:12:24.399><c> top</c><00:12:24.639><c> of</c><00:12:24.880><c> the</c><00:12:25.760><c> deep</c><00:12:26.000><c> agent</c>
+
+00:12:26.470 --> 00:12:26.480 align:start position:0%
+built on top of the deep agent
+
+
+00:12:26.480 --> 00:12:28.069 align:start position:0%
+built on top of the deep agent
+architecture<00:12:26.959><c> that</c><00:12:27.200><c> we</c><00:12:27.519><c> looked</c><00:12:27.760><c> at</c><00:12:27.920><c> it</c>
+
+00:12:28.069 --> 00:12:28.079 align:start position:0%
+architecture that we looked at it
+
+
+00:12:28.079 --> 00:12:30.230 align:start position:0%
+architecture that we looked at it
+before.
+
+00:12:30.230 --> 00:12:30.240 align:start position:0%
+before.
+
+
+00:12:30.240 --> 00:12:32.710 align:start position:0%
+before.
+They<00:12:30.480><c> also</c><00:12:30.720><c> just</c><00:12:30.959><c> opened</c><00:12:31.279><c> up</c><00:12:31.440><c> their</c><00:12:31.920><c> uh</c><00:12:32.079><c> API.</c>
+
+00:12:32.710 --> 00:12:32.720 align:start position:0%
+They also just opened up their uh API.
+
+
+00:12:32.720 --> 00:12:34.310 align:start position:0%
+They also just opened up their uh API.
+So,<00:12:32.880><c> you</c><00:12:33.040><c> can</c><00:12:33.200><c> do</c><00:12:33.440><c> all</c><00:12:33.600><c> of</c><00:12:33.760><c> these</c><00:12:34.000><c> things</c>
+
+00:12:34.310 --> 00:12:34.320 align:start position:0%
+So, you can do all of these things
+
+
+00:12:34.320 --> 00:12:36.790 align:start position:0%
+So, you can do all of these things
+through<00:12:34.560><c> their</c><00:12:34.800><c> API,</c><00:12:35.680><c> which</c><00:12:36.079><c> is</c><00:12:36.240><c> going</c><00:12:36.399><c> to</c><00:12:36.560><c> be</c>
+
+00:12:36.790 --> 00:12:36.800 align:start position:0%
+through their API, which is going to be
+
+
+00:12:36.800 --> 00:12:39.430 align:start position:0%
+through their API, which is going to be
+pretty<00:12:37.120><c> neat.</c>
+
+00:12:39.430 --> 00:12:39.440 align:start position:0%
+pretty neat.
+
+
+00:12:39.440 --> 00:12:41.430 align:start position:0%
+pretty neat.
+They're<00:12:39.839><c> also</c><00:12:40.160><c> opening</c><00:12:40.399><c> up</c><00:12:40.560><c> their</c><00:12:40.800><c> API.</c><00:12:41.279><c> So,</c>
+
+00:12:41.430 --> 00:12:41.440 align:start position:0%
+They're also opening up their API. So,
+
+
+00:12:41.440 --> 00:12:43.190 align:start position:0%
+They're also opening up their API. So,
+you'll<00:12:41.760><c> be</c><00:12:41.839><c> able</c><00:12:42.000><c> to</c><00:12:42.320><c> do</c><00:12:42.560><c> some</c><00:12:42.720><c> of</c><00:12:42.880><c> these</c>
+
+00:12:43.190 --> 00:12:43.200 align:start position:0%
+you'll be able to do some of these
+
+
+00:12:43.200 --> 00:12:45.509 align:start position:0%
+you'll be able to do some of these
+things<00:12:43.440><c> through</c><00:12:43.760><c> the</c><00:12:43.920><c> API.</c><00:12:44.639><c> So,</c><00:12:44.880><c> for</c><00:12:45.040><c> example,</c>
+
+00:12:45.509 --> 00:12:45.519 align:start position:0%
+things through the API. So, for example,
+
+
+00:12:45.519 --> 00:12:48.069 align:start position:0%
+things through the API. So, for example,
+you<00:12:45.760><c> can</c><00:12:45.920><c> ask</c><00:12:46.160><c> the</c><00:12:46.480><c> agent</c><00:12:46.880><c> to</c><00:12:47.279><c> create</c>
+
+00:12:48.069 --> 00:12:48.079 align:start position:0%
+you can ask the agent to create
+
+
+00:12:48.079 --> 00:12:50.710 align:start position:0%
+you can ask the agent to create
+documents<00:12:48.560><c> for</c><00:12:48.800><c> you</c><00:12:49.519><c> uh</c><00:12:49.680><c> through</c><00:12:49.839><c> the</c><00:12:50.079><c> API.</c><00:12:50.480><c> So</c>
+
+00:12:50.710 --> 00:12:50.720 align:start position:0%
+documents for you uh through the API. So
+
+
+00:12:50.720 --> 00:12:53.190 align:start position:0%
+documents for you uh through the API. So
+if<00:12:50.880><c> you</c><00:12:50.959><c> want</c><00:12:51.040><c> to</c><00:12:51.279><c> build</c><00:12:52.079><c> uh</c><00:12:52.480><c> something</c><00:12:52.720><c> on</c><00:12:53.040><c> top</c>
+
+00:12:53.190 --> 00:12:53.200 align:start position:0%
+if you want to build uh something on top
+
+
+00:12:53.200 --> 00:12:55.670 align:start position:0%
+if you want to build uh something on top
+of<00:12:53.360><c> this,</c><00:12:54.240><c> this</c><00:12:54.480><c> is</c><00:12:54.720><c> I</c><00:12:54.959><c> think</c><00:12:55.040><c> a</c><00:12:55.279><c> really</c><00:12:55.519><c> good</c>
+
+00:12:55.670 --> 00:12:55.680 align:start position:0%
+of this, this is I think a really good
+
+
+00:12:55.680 --> 00:12:59.269 align:start position:0%
+of this, this is I think a really good
+option.
+
+00:12:59.269 --> 00:12:59.279 align:start position:0%
+
+
+
+00:12:59.279 --> 00:13:02.150 align:start position:0%
+
+You<00:12:59.680><c> do</c><00:12:59.920><c> get</c><00:13:00.079><c> some</c><00:13:00.320><c> free</c><00:13:00.560><c> credits</c><00:13:01.519><c> um</c><00:13:01.760><c> to</c><00:13:02.000><c> test</c>
+
+00:13:02.150 --> 00:13:02.160 align:start position:0%
+You do get some free credits um to test
+
+
+00:13:02.160 --> 00:13:04.389 align:start position:0%
+You do get some free credits um to test
+this<00:13:02.399><c> out.</c><00:13:02.959><c> Uh</c><00:13:03.200><c> but</c><00:13:03.440><c> then</c><00:13:03.680><c> they</c><00:13:03.920><c> have</c>
+
+00:13:04.389 --> 00:13:04.399 align:start position:0%
+this out. Uh but then they have
+
+
+00:13:04.399 --> 00:13:10.629 align:start position:0%
+this out. Uh but then they have
+different<00:13:05.360><c> packages</c><00:13:06.240><c> based</c><00:13:06.480><c> on</c><00:13:06.639><c> your</c><00:13:06.880><c> needs.</c>
+
+00:13:10.629 --> 00:13:10.639 align:start position:0%
+
+
+
+00:13:10.639 --> 00:13:12.550 align:start position:0%
+
+So<00:13:11.040><c> do</c><00:13:11.279><c> check</c><00:13:11.440><c> them</c><00:13:11.600><c> out</c><00:13:11.839><c> and</c><00:13:12.079><c> I</c><00:13:12.240><c> personally</c>
+
+00:13:12.550 --> 00:13:12.560 align:start position:0%
+So do check them out and I personally
+
+
+00:13:12.560 --> 00:13:13.990 align:start position:0%
+So do check them out and I personally
+really<00:13:12.800><c> like</c><00:13:12.959><c> their</c><00:13:13.200><c> approach</c><00:13:13.440><c> of</c><00:13:13.680><c> building</c>
+
+00:13:13.990 --> 00:13:14.000 align:start position:0%
+really like their approach of building
+
+
+00:13:14.000 --> 00:13:16.790 align:start position:0%
+really like their approach of building
+on<00:13:14.240><c> top</c><00:13:14.399><c> of</c><00:13:14.560><c> their</c><00:13:14.880><c> open-source</c><00:13:15.600><c> work</c><00:13:16.160><c> and</c>
+
+00:13:16.790 --> 00:13:16.800 align:start position:0%
+on top of their open-source work and
+
+
+00:13:16.800 --> 00:13:19.590 align:start position:0%
+on top of their open-source work and
+sharing<00:13:17.360><c> their</c><00:13:18.160><c> research</c><00:13:18.720><c> as</c><00:13:18.959><c> well</c><00:13:19.040><c> as</c><00:13:19.279><c> models</c>
+
+00:13:19.590 --> 00:13:19.600 align:start position:0%
+sharing their research as well as models
+
+
+00:13:19.600 --> 00:13:21.829 align:start position:0%
+sharing their research as well as models
+with<00:13:19.839><c> the</c><00:13:20.000><c> community.</c><00:13:20.800><c> So</c><00:13:21.040><c> do</c><00:13:21.360><c> let</c><00:13:21.519><c> me</c><00:13:21.680><c> know</c>
+
+00:13:21.829 --> 00:13:21.839 align:start position:0%
+with the community. So do let me know
+
+
+00:13:21.839 --> 00:13:23.590 align:start position:0%
+with the community. So do let me know
+what<00:13:22.079><c> you</c><00:13:22.240><c> think.</c><00:13:22.720><c> Anyways,</c><00:13:23.200><c> I</c><00:13:23.360><c> hope</c><00:13:23.440><c> you</c>
+
+00:13:23.590 --> 00:13:23.600 align:start position:0%
+what you think. Anyways, I hope you
+
+
+00:13:23.600 --> 00:13:25.110 align:start position:0%
+what you think. Anyways, I hope you
+found<00:13:23.839><c> this</c><00:13:24.000><c> video</c><00:13:24.240><c> useful.</c><00:13:24.720><c> Thanks</c><00:13:24.959><c> for</c>
+
+00:13:25.110 --> 00:13:25.120 align:start position:0%
+found this video useful. Thanks for
+
+
+00:13:25.120 --> 00:13:27.030 align:start position:0%
+found this video useful. Thanks for
+watching<00:13:25.279><c> and</c><00:13:25.519><c> as</c><00:13:25.760><c> always,</c><00:13:26.399><c> see</c><00:13:26.639><c> you</c><00:13:26.720><c> in</c><00:13:26.880><c> the</c>
+
+00:13:27.030 --> 00:13:27.040 align:start position:0%
+watching and as always, see you in the
+
+
+00:13:27.040 --> 00:13:30.000 align:start position:0%
+watching and as always, see you in the
+next<00:13:27.120><c> one.</c>

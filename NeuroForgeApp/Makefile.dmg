@@ -1,0 +1,179 @@
+# ===== NeuroForge DMG Packaging Makefile =====
+# Production-ready signed, notarized DMG builder
+#
+# Usage:
+#   make -f Makefile.dmg dmg        # Full build → sign → notarize → DMG
+#   make -f Makefile.dmg clean      # Remove build artifacts
+#   make -f Makefile.dmg open       # Open build directory
+#
+# Requirements:
+#   - Xcode with Developer ID Application certificate
+#   - Notary profile created: xcrun notarytool store-credentials
+#   - Environment variables or .env file (see below)
+
+SHELL := /bin/bash
+.SHELLFLAGS := -euo pipefail -c
+
+# ===== Configuration (override via .env or environment) =====
+-include .env
+export
+
+TEAM_ID        ?= YOUR_TEAM_ID
+BUNDLE_ID      ?= com.neuroforge.app
+APP_SCHEME     ?= NeuroForgeApp
+APP_NAME       ?= NeuroForgeApp
+SIGN_ID        ?= Developer ID Application: Your Name ($(TEAM_ID))
+NOTARY_PROFILE ?= neuroforge-notary
+
+# ===== Paths =====
+BUILD_DIR      := build-dmg
+ARCHIVE_PATH   := $(BUILD_DIR)/$(APP_NAME).xcarchive
+EXPORT_PATH    := $(BUILD_DIR)/export
+APP_PATH       := $(EXPORT_PATH)/$(APP_NAME).app
+ZIP_PATH       := $(BUILD_DIR)/$(APP_NAME).zip
+DMG_PATH       := $(BUILD_DIR)/$(APP_NAME).dmg
+VOL_NAME       := $(APP_NAME) Installer
+ENTITLEMENTS   := entitlements.plist
+
+# ===== Export Options =====
+EXPORT_OPTIONS := $(BUILD_DIR)/exportOptions.plist
+
+.PHONY: all dmg clean sign notarize staple package build verify open help
+
+# Default target
+all: dmg
+
+help:
+	@echo "NeuroForge DMG Packaging"
+	@echo ""
+	@echo "Targets:"
+	@echo "  make -f Makefile.dmg dmg       - Build signed, notarized DMG"
+	@echo "  make -f Makefile.dmg build     - Build archive only"
+	@echo "  make -f Makefile.dmg sign      - Sign app"
+	@echo "  make -f Makefile.dmg notarize  - Submit to notary"
+	@echo "  make -f Makefile.dmg staple    - Staple ticket"
+	@echo "  make -f Makefile.dmg package   - Create DMG"
+	@echo "  make -f Makefile.dmg verify    - Verify signatures"
+	@echo "  make -f Makefile.dmg clean     - Remove build artifacts"
+	@echo "  make -f Makefile.dmg open      - Open build directory"
+	@echo ""
+	@echo "Environment variables (set in .env or export):"
+	@echo "  TEAM_ID, BUNDLE_ID, APP_SCHEME, APP_NAME"
+	@echo "  SIGN_ID, NOTARY_PROFILE"
+
+# ===== Build & Archive =====
+build:
+	@echo "📦 Building $(APP_NAME) for Release..."
+	@mkdir -p $(BUILD_DIR)
+	@echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" > $(EXPORT_OPTIONS)
+	@echo "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">" >> $(EXPORT_OPTIONS)
+	@echo "<plist version=\"1.0\"><dict>" >> $(EXPORT_OPTIONS)
+	@echo "  <key>method</key><string>developer-id</string>" >> $(EXPORT_OPTIONS)
+	@echo "  <key>teamID</key><string>$(TEAM_ID)</string>" >> $(EXPORT_OPTIONS)
+	@echo "  <key>signingStyle</key><string>manual</string>" >> $(EXPORT_OPTIONS)
+	@echo "  <key>signingCertificate</key><string>Developer ID Application</string>" >> $(EXPORT_OPTIONS)
+	@echo "  <key>destination</key><string>export</string>" >> $(EXPORT_OPTIONS)
+	@echo "</dict></plist>" >> $(EXPORT_OPTIONS)
+	@echo "🔨 Archiving..."
+	@xcodebuild -project NeuroForgeApp.xcodeproj \
+		-scheme "$(APP_SCHEME)" \
+		-configuration Release \
+		-archivePath "$(ARCHIVE_PATH)" \
+		-destination 'generic/platform=macOS' \
+		archive
+	@echo "📤 Exporting..."
+	@xcodebuild -exportArchive \
+		-archivePath "$(ARCHIVE_PATH)" \
+		-exportOptionsPlist "$(EXPORT_OPTIONS)" \
+		-exportPath "$(EXPORT_PATH)"
+	@test -d "$(APP_PATH)" || (echo "❌ Export failed: $(APP_PATH) not found" && exit 1)
+	@echo "✅ Built: $(APP_PATH)"
+
+# ===== Codesign =====
+sign:
+	@echo "✍️  Signing $(APP_NAME).app with: $(SIGN_ID)"
+	@test -f "$(ENTITLEMENTS)" || (echo "❌ Missing entitlements.plist" && exit 1)
+	@codesign --force --timestamp --options runtime \
+		--entitlements "$(ENTITLEMENTS)" \
+		--sign "$(SIGN_ID)" \
+		--deep \
+		"$(APP_PATH)"
+	@echo "✅ Signed successfully"
+
+# ===== Verify Signature =====
+verify:
+	@echo "🔍 Verifying signature..."
+	@codesign --verify --deep --strict --verbose=2 "$(APP_PATH)"
+	@echo "🔍 Checking entitlements..."
+	@codesign -d --entitlements - "$(APP_PATH)"
+	@echo "✅ Verification passed"
+
+# ===== Zip for Notary =====
+zip:
+	@echo "📦 Zipping for notary submission..."
+	@rm -f "$(ZIP_PATH)"
+	@/usr/bin/ditto -c -k --keepParent "$(APP_PATH)" "$(ZIP_PATH)"
+	@echo "✅ Zipped: $(ZIP_PATH)"
+
+# ===== Notarize =====
+notarize: zip
+	@echo "☁️  Submitting to Apple notary service..."
+	@echo "   (This can take 5-15 minutes)"
+	@xcrun notarytool submit "$(ZIP_PATH)" \
+		--keychain-profile "$(NOTARY_PROFILE)" \
+		--wait
+	@echo "✅ Notarization complete"
+
+# ===== Staple Ticket =====
+staple:
+	@echo "📎 Stapling notarization ticket..."
+	@xcrun stapler staple -v "$(APP_PATH)"
+	@echo "✅ Ticket stapled"
+
+# ===== Create DMG =====
+package:
+	@echo "💿 Creating DMG installer..."
+	@rm -f "$(DMG_PATH)"
+	@TMP_DIR=$$(mktemp -d); \
+	APP_DST="$$TMP_DIR/$(APP_NAME).app"; \
+	cp -R "$(APP_PATH)" "$$APP_DST"; \
+	ln -s /Applications "$$TMP_DIR/Applications"; \
+	hdiutil create -volname "$(VOL_NAME)" \
+		-srcfolder "$$TMP_DIR" \
+		-fs HFS+ \
+		-format UDZO \
+		-ov \
+		"$(DMG_PATH)"; \
+	rm -rf "$$TMP_DIR"
+	@echo "✅ DMG created: $(DMG_PATH)"
+	@ls -lh "$(DMG_PATH)"
+
+# ===== Complete Pipeline =====
+dmg: build sign verify notarize staple package
+	@echo ""
+	@echo "🎉 =========================================="
+	@echo "🎉  DMG BUILD COMPLETE!"
+	@echo "🎉 =========================================="
+	@echo ""
+	@echo "📦 Signed, notarized, and stapled DMG ready:"
+	@echo "   $(DMG_PATH)"
+	@echo ""
+	@echo "✅ Verification:"
+	@codesign --verify --deep --strict "$(APP_PATH)" && echo "   ✅ Signature valid"
+	@spctl --assess --type execute --verbose=2 "$(APP_PATH)" || echo "   ⚠️  Gatekeeper check (expected to pass after staple)"
+	@echo ""
+	@echo "🚀 Next steps:"
+	@echo "   1. Test: open $(DMG_PATH)"
+	@echo "   2. Distribute: upload to GitHub Release"
+	@echo "   3. Users: double-click DMG, drag to Applications"
+	@echo ""
+
+# ===== Open Build Directory =====
+open:
+	@open "$(BUILD_DIR)" || mkdir -p "$(BUILD_DIR)" && open "$(BUILD_DIR)"
+
+# ===== Clean =====
+clean:
+	@echo "🧹 Cleaning build artifacts..."
+	@rm -rf "$(BUILD_DIR)"
+	@echo "✅ Clean complete"

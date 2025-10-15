@@ -1,0 +1,147 @@
+{
+  "dashboard": {
+    "title": "Governance Predictive Analytics",
+    "tags": ["governance", "predictive", "ai"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "title": "Rollback Probability Forecast",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "governance_predicted_rollback_probability",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 0.15
+                },
+                {
+                  "color": "red",
+                  "value": 0.30
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "Prediction Confidence",
+        "type": "gauge",
+        "targets": [
+          {
+            "expr": "governance_prediction_confidence",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "min": 0,
+            "max": 1,
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 0.4
+                },
+                {
+                  "color": "green",
+                  "value": 0.7
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "Historical vs Predicted Rollback Rates",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "governance_historical_rollback_rate",
+            "legendFormat": "Historical Rate",
+            "refId": "A"
+          },
+          {
+            "expr": "governance_predicted_rollback_probability",
+            "legendFormat": "Predicted Rate",
+            "refId": "B"
+          }
+        ]
+      },
+      {
+        "title": "Risk Factors Over Time",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "governance_temporal_risk_factor",
+            "legendFormat": "Temporal Risk",
+            "refId": "A"
+          },
+          {
+            "expr": "governance_traffic_risk_factor",
+            "legendFormat": "Traffic Risk",
+            "refId": "B"
+          },
+          {
+            "expr": "governance_deployment_risk_factor",
+            "legendFormat": "Deployment Risk",
+            "refId": "C"
+          }
+        ]
+      },
+      {
+        "title": "Prediction Accuracy",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "rate(governance_prediction_accuracy_total[7d])",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percentunit"
+          }
+        }
+      },
+      {
+        "title": "Risky Deployment Windows",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "governance_hourly_rollback_rate > 0.2",
+            "legendFormat": "{{hour}}:00",
+            "refId": "A"
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-30d",
+      "to": "now"
+    },
+    "refresh": "5m"
+  }
+}

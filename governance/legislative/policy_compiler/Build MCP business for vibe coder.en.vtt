@@ -1,0 +1,3311 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.080 --> 00:00:02.230 align:start position:0%
+
+This<00:00:00.400><c> video</c><00:00:00.640><c> is</c><00:00:00.960><c> sponsored</c><00:00:01.280><c> by</c><00:00:01.439><c> Hatacon,</c><00:00:02.080><c> one</c>
+
+00:00:02.230 --> 00:00:02.240 align:start position:0%
+This video is sponsored by Hatacon, one
+
+
+00:00:02.240 --> 00:00:04.230 align:start position:0%
+This video is sponsored by Hatacon, one
+of<00:00:02.320><c> the</c><00:00:02.480><c> best</c><00:00:02.720><c> open-source</c><00:00:03.439><c> platform</c><00:00:03.919><c> to</c>
+
+00:00:04.230 --> 00:00:04.240 align:start position:0%
+of the best open-source platform to
+
+
+00:00:04.240 --> 00:00:06.070 align:start position:0%
+of the best open-source platform to
+monitor,<00:00:04.720><c> debug</c><00:00:05.200><c> and</c><00:00:05.440><c> improve</c><00:00:05.759><c> your</c>
+
+00:00:06.070 --> 00:00:06.080 align:start position:0%
+monitor, debug and improve your
+
+
+00:00:06.080 --> 00:00:07.829 align:start position:0%
+monitor, debug and improve your
+production<00:00:06.560><c> ready</c><00:00:06.960><c> large</c><00:00:07.520><c> model</c>
+
+00:00:07.829 --> 00:00:07.839 align:start position:0%
+production ready large model
+
+
+00:00:07.839 --> 00:00:09.509 align:start position:0%
+production ready large model
+application.<00:00:08.400><c> I</c><00:00:08.639><c> was</c><00:00:08.720><c> able</c><00:00:08.960><c> to</c><00:00:09.120><c> build</c><00:00:09.280><c> this</c>
+
+00:00:09.509 --> 00:00:09.519 align:start position:0%
+application. I was able to build this
+
+
+00:00:09.519 --> 00:00:11.749 align:start position:0%
+application. I was able to build this
+MCP<00:00:10.080><c> server</c><00:00:10.480><c> where</c><00:00:10.719><c> it</c><00:00:10.960><c> will</c><00:00:11.040><c> prompt</c><00:00:11.280><c> user</c><00:00:11.599><c> to</c>
+
+00:00:11.749 --> 00:00:11.759 align:start position:0%
+MCP server where it will prompt user to
+
+
+00:00:11.759 --> 00:00:14.070 align:start position:0%
+MCP server where it will prompt user to
+sign<00:00:12.000><c> up,</c><00:00:12.400><c> login</c><00:00:12.960><c> and</c><00:00:13.200><c> connect</c><00:00:13.440><c> to</c><00:00:13.599><c> cursor</c>
+
+00:00:14.070 --> 00:00:14.080 align:start position:0%
+sign up, login and connect to cursor
+
+
+00:00:14.080 --> 00:00:15.749 align:start position:0%
+sign up, login and connect to cursor
+automatically.<00:00:14.799><c> And</c><00:00:14.880><c> when</c><00:00:15.120><c> user</c><00:00:15.440><c> prompt</c>
+
+00:00:15.749 --> 00:00:15.759 align:start position:0%
+automatically. And when user prompt
+
+
+00:00:15.759 --> 00:00:17.750 align:start position:0%
+automatically. And when user prompt
+cursor<00:00:16.320><c> to</c><00:00:16.560><c> use</c><00:00:16.720><c> this</c><00:00:16.880><c> MCP,</c><00:00:17.440><c> it</c><00:00:17.600><c> will</c>
+
+00:00:17.750 --> 00:00:17.760 align:start position:0%
+cursor to use this MCP, it will
+
+
+00:00:17.760 --> 00:00:19.670 align:start position:0%
+cursor to use this MCP, it will
+dynamically<00:00:18.400><c> generate</c><00:00:18.800><c> a</c><00:00:18.960><c> payment</c><00:00:19.279><c> link</c>
+
+00:00:19.670 --> 00:00:19.680 align:start position:0%
+dynamically generate a payment link
+
+
+00:00:19.680 --> 00:00:21.990 align:start position:0%
+dynamically generate a payment link
+where<00:00:19.920><c> it</c><00:00:20.160><c> will</c><00:00:20.320><c> ask</c><00:00:20.560><c> for</c><00:00:20.720><c> user</c><00:00:21.119><c> credit</c><00:00:21.439><c> card</c>
+
+00:00:21.990 --> 00:00:22.000 align:start position:0%
+where it will ask for user credit card
+
+
+00:00:22.000 --> 00:00:24.390 align:start position:0%
+where it will ask for user credit card
+and<00:00:22.240><c> charge</c><00:00:22.560><c> them</c><00:00:22.720><c> by</c><00:00:22.960><c> MCP</c><00:00:23.519><c> usage</c><00:00:24.000><c> and</c><00:00:24.160><c> only</c>
+
+00:00:24.390 --> 00:00:24.400 align:start position:0%
+and charge them by MCP usage and only
+
+
+00:00:24.400 --> 00:00:26.710 align:start position:0%
+and charge them by MCP usage and only
+after<00:00:24.720><c> user</c><00:00:25.039><c> paid</c><00:00:25.519><c> MCP</c><00:00:26.000><c> will</c><00:00:26.160><c> start</c><00:00:26.400><c> working.</c>
+
+00:00:26.710 --> 00:00:26.720 align:start position:0%
+after user paid MCP will start working.
+
+
+00:00:26.720 --> 00:00:28.870 align:start position:0%
+after user paid MCP will start working.
+And<00:00:26.960><c> the</c><00:00:27.039><c> more</c><00:00:27.199><c> user</c><00:00:27.599><c> use</c><00:00:27.760><c> your</c><00:00:27.920><c> MCP</c><00:00:28.400><c> and</c><00:00:28.640><c> find</c>
+
+00:00:28.870 --> 00:00:28.880 align:start position:0%
+And the more user use your MCP and find
+
+
+00:00:28.880 --> 00:00:30.630 align:start position:0%
+And the more user use your MCP and find
+value,<00:00:29.359><c> the</c><00:00:29.519><c> more</c><00:00:29.679><c> they</c><00:00:29.920><c> will</c><00:00:30.080><c> be</c><00:00:30.240><c> charged.</c>
+
+00:00:30.630 --> 00:00:30.640 align:start position:0%
+value, the more they will be charged.
+
+
+00:00:30.640 --> 00:00:32.870 align:start position:0%
+value, the more they will be charged.
+And<00:00:30.880><c> you</c><00:00:31.039><c> can</c><00:00:31.119><c> set</c><00:00:31.359><c> up</c><00:00:31.599><c> sophisticated</c><00:00:32.480><c> usage</c>
+
+00:00:32.870 --> 00:00:32.880 align:start position:0%
+And you can set up sophisticated usage
+
+
+00:00:32.880 --> 00:00:35.110 align:start position:0%
+And you can set up sophisticated usage
+based<00:00:33.200><c> tier</c><00:00:33.440><c> to</c><00:00:33.680><c> monetize</c><00:00:34.079><c> your</c><00:00:34.239><c> MCP</c><00:00:34.880><c> server</c>
+
+00:00:35.110 --> 00:00:35.120 align:start position:0%
+based tier to monetize your MCP server
+
+
+00:00:35.120 --> 00:00:36.709 align:start position:0%
+based tier to monetize your MCP server
+properly.<00:00:35.680><c> This</c><00:00:35.840><c> is</c><00:00:36.000><c> what</c><00:00:36.160><c> I</c><00:00:36.320><c> want</c><00:00:36.480><c> to</c><00:00:36.559><c> take</c>
+
+00:00:36.709 --> 00:00:36.719 align:start position:0%
+properly. This is what I want to take
+
+
+00:00:36.719 --> 00:00:38.630 align:start position:0%
+properly. This is what I want to take
+you<00:00:36.960><c> through</c><00:00:37.200><c> today.</c><00:00:37.680><c> How</c><00:00:37.840><c> to</c><00:00:38.079><c> set</c><00:00:38.239><c> up</c><00:00:38.480><c> and</c>
+
+00:00:38.630 --> 00:00:38.640 align:start position:0%
+you through today. How to set up and
+
+
+00:00:38.640 --> 00:00:40.790 align:start position:0%
+you through today. How to set up and
+monetize<00:00:39.200><c> your</c><00:00:39.360><c> own</c><00:00:39.600><c> MCP</c><00:00:40.160><c> server</c><00:00:40.480><c> and</c>
+
+00:00:40.790 --> 00:00:40.800 align:start position:0%
+monetize your own MCP server and
+
+
+00:00:40.800 --> 00:00:42.790 align:start position:0%
+monetize your own MCP server and
+distribute<00:00:41.280><c> to</c><00:00:41.520><c> thousands</c><00:00:42.000><c> of</c><00:00:42.160><c> people.</c><00:00:42.559><c> So</c>
+
+00:00:42.790 --> 00:00:42.800 align:start position:0%
+distribute to thousands of people. So
+
+
+00:00:42.800 --> 00:00:45.190 align:start position:0%
+distribute to thousands of people. So
+MCP<00:00:43.360><c> obviously</c><00:00:43.840><c> is</c><00:00:44.079><c> the</c><00:00:44.239><c> hottest</c><00:00:44.640><c> topic</c><00:00:44.960><c> for</c>
+
+00:00:45.190 --> 00:00:45.200 align:start position:0%
+MCP obviously is the hottest topic for
+
+
+00:00:45.200 --> 00:00:47.430 align:start position:0%
+MCP obviously is the hottest topic for
+the<00:00:45.360><c> past</c><00:00:45.600><c> few</c><00:00:45.840><c> months.</c><00:00:46.239><c> It</c><00:00:46.480><c> extends</c><00:00:47.039><c> AI</c>
+
+00:00:47.430 --> 00:00:47.440 align:start position:0%
+the past few months. It extends AI
+
+
+00:00:47.440 --> 00:00:49.270 align:start position:0%
+the past few months. It extends AI
+agents<00:00:47.840><c> capability</c><00:00:48.320><c> to</c><00:00:48.640><c> integrate</c><00:00:49.039><c> different</c>
+
+00:00:49.270 --> 00:00:49.280 align:start position:0%
+agents capability to integrate different
+
+
+00:00:49.280 --> 00:00:51.750 align:start position:0%
+agents capability to integrate different
+type<00:00:49.520><c> of</c><00:00:49.680><c> systems</c><00:00:50.239><c> or</c><00:00:50.559><c> access</c><00:00:50.960><c> external</c><00:00:51.360><c> docs</c>
+
+00:00:51.750 --> 00:00:51.760 align:start position:0%
+type of systems or access external docs
+
+
+00:00:51.760 --> 00:00:54.069 align:start position:0%
+type of systems or access external docs
+easily.<00:00:52.079><c> And</c><00:00:52.239><c> the</c><00:00:52.399><c> beauty</c><00:00:52.640><c> of</c><00:00:52.800><c> MCP</c><00:00:53.600><c> from</c><00:00:53.920><c> my</c>
+
+00:00:54.069 --> 00:00:54.079 align:start position:0%
+easily. And the beauty of MCP from my
+
+
+00:00:54.079 --> 00:00:56.069 align:start position:0%
+easily. And the beauty of MCP from my
+perspective<00:00:54.559><c> is</c><00:00:54.879><c> that</c><00:00:55.199><c> anyone</c><00:00:55.600><c> who</c><00:00:55.920><c> has</c>
+
+00:00:56.069 --> 00:00:56.079 align:start position:0%
+perspective is that anyone who has
+
+
+00:00:56.079 --> 00:00:58.470 align:start position:0%
+perspective is that anyone who has
+domain<00:00:56.559><c> knowledge</c><00:00:57.039><c> can</c><00:00:57.280><c> actually</c><00:00:57.520><c> build</c><00:00:57.760><c> MCP</c>
+
+00:00:58.470 --> 00:00:58.480 align:start position:0%
+domain knowledge can actually build MCP
+
+
+00:00:58.480 --> 00:01:00.549 align:start position:0%
+domain knowledge can actually build MCP
+to<00:00:58.719><c> help</c><00:00:58.960><c> agent</c><00:00:59.359><c> complete</c><00:00:59.760><c> specific</c><00:01:00.079><c> tasks</c>
+
+00:01:00.549 --> 00:01:00.559 align:start position:0%
+to help agent complete specific tasks
+
+
+00:01:00.559 --> 00:01:02.229 align:start position:0%
+to help agent complete specific tasks
+and<00:01:00.879><c> distribute</c><00:01:01.280><c> to</c><00:01:01.440><c> hundreds</c><00:01:01.760><c> of</c><00:01:02.000><c> thousands</c>
+
+00:01:02.229 --> 00:01:02.239 align:start position:0%
+and distribute to hundreds of thousands
+
+
+00:01:02.239 --> 00:01:04.070 align:start position:0%
+and distribute to hundreds of thousands
+of<00:01:02.399><c> people.</c><00:01:02.879><c> But</c><00:01:03.039><c> one</c><00:01:03.199><c> problem</c><00:01:03.359><c> I</c><00:01:03.600><c> see</c><00:01:03.760><c> is</c><00:01:03.920><c> that</c>
+
+00:01:04.070 --> 00:01:04.080 align:start position:0%
+of people. But one problem I see is that
+
+
+00:01:04.080 --> 00:01:06.390 align:start position:0%
+of people. But one problem I see is that
+most<00:01:04.320><c> of</c><00:01:04.479><c> those</c><00:01:04.799><c> MCPS</c><00:01:05.519><c> today</c><00:01:05.920><c> are</c><00:01:06.159><c> just</c>
+
+00:01:06.390 --> 00:01:06.400 align:start position:0%
+most of those MCPS today are just
+
+
+00:01:06.400 --> 00:01:08.710 align:start position:0%
+most of those MCPS today are just
+running<00:01:06.799><c> locally</c><00:01:07.280><c> on</c><00:01:07.600><c> users</c><00:01:08.080><c> machine.</c><00:01:08.560><c> And</c>
+
+00:01:08.710 --> 00:01:08.720 align:start position:0%
+running locally on users machine. And
+
+
+00:01:08.720 --> 00:01:11.270 align:start position:0%
+running locally on users machine. And
+obviously<00:01:09.200><c> the</c><00:01:09.439><c> setup</c><00:01:09.920><c> is</c><00:01:10.320><c> quite</c><00:01:10.640><c> technical</c>
+
+00:01:11.270 --> 00:01:11.280 align:start position:0%
+obviously the setup is quite technical
+
+
+00:01:11.280 --> 00:01:12.789 align:start position:0%
+obviously the setup is quite technical
+that<00:01:11.520><c> made</c><00:01:11.680><c> the</c><00:01:11.920><c> distribution</c><00:01:12.479><c> and</c>
+
+00:01:12.789 --> 00:01:12.799 align:start position:0%
+that made the distribution and
+
+
+00:01:12.799 --> 00:01:15.510 align:start position:0%
+that made the distribution and
+monetization<00:01:13.439><c> of</c><00:01:13.680><c> MCP</c><00:01:14.479><c> awkward.</c><00:01:14.960><c> It</c><00:01:15.200><c> mostly</c>
+
+00:01:15.510 --> 00:01:15.520 align:start position:0%
+monetization of MCP awkward. It mostly
+
+
+00:01:15.520 --> 00:01:17.270 align:start position:0%
+monetization of MCP awkward. It mostly
+works<00:01:15.760><c> for</c><00:01:16.000><c> people</c><00:01:16.240><c> who</c><00:01:16.479><c> already</c><00:01:16.880><c> use</c><00:01:17.119><c> your</c>
+
+00:01:17.270 --> 00:01:17.280 align:start position:0%
+works for people who already use your
+
+
+00:01:17.280 --> 00:01:18.870 align:start position:0%
+works for people who already use your
+product.<00:01:17.759><c> Otherwise,</c><00:01:18.159><c> they</c><00:01:18.320><c> will</c><00:01:18.479><c> need</c><00:01:18.640><c> to</c><00:01:18.720><c> go</c>
+
+00:01:18.870 --> 00:01:18.880 align:start position:0%
+product. Otherwise, they will need to go
+
+
+00:01:18.880 --> 00:01:20.390 align:start position:0%
+product. Otherwise, they will need to go
+through<00:01:19.040><c> it</c><00:01:19.200><c> whole</c><00:01:19.439><c> flow</c><00:01:19.680><c> of</c><00:01:19.920><c> go</c><00:01:20.080><c> to</c><00:01:20.240><c> your</c>
+
+00:01:20.390 --> 00:01:20.400 align:start position:0%
+through it whole flow of go to your
+
+
+00:01:20.400 --> 00:01:23.190 align:start position:0%
+through it whole flow of go to your
+website,<00:01:20.960><c> sign</c><00:01:21.200><c> up,</c><00:01:21.520><c> pay,</c><00:01:21.920><c> get</c><00:01:22.159><c> API</c><00:01:22.640><c> key,</c><00:01:22.960><c> add</c>
+
+00:01:23.190 --> 00:01:23.200 align:start position:0%
+website, sign up, pay, get API key, add
+
+
+00:01:23.200 --> 00:01:25.670 align:start position:0%
+website, sign up, pay, get API key, add
+MCP<00:01:23.840><c> server,</c><00:01:24.320><c> and</c><00:01:24.479><c> then</c><00:01:24.720><c> start</c><00:01:25.040><c> using.</c><00:01:25.520><c> But</c>
+
+00:01:25.670 --> 00:01:25.680 align:start position:0%
+MCP server, and then start using. But
+
+
+00:01:25.680 --> 00:01:27.510 align:start position:0%
+MCP server, and then start using. But
+what<00:01:25.920><c> really</c><00:01:26.080><c> caught</c><00:01:26.320><c> my</c><00:01:26.640><c> attention</c><00:01:26.960><c> is</c><00:01:27.200><c> that</c>
+
+00:01:27.510 --> 00:01:27.520 align:start position:0%
+what really caught my attention is that
+
+
+00:01:27.520 --> 00:01:29.990 align:start position:0%
+what really caught my attention is that
+Stripe<00:01:28.000><c> recently</c><00:01:28.560><c> just</c><00:01:28.799><c> released</c><00:01:29.119><c> this</c><00:01:29.439><c> agent</c>
+
+00:01:29.990 --> 00:01:30.000 align:start position:0%
+Stripe recently just released this agent
+
+
+00:01:30.000 --> 00:01:32.469 align:start position:0%
+Stripe recently just released this agent
+SDK<00:01:30.640><c> where</c><00:01:30.880><c> you</c><00:01:31.040><c> can</c><00:01:31.200><c> easily</c><00:01:31.600><c> create</c><00:01:31.840><c> a</c><00:01:32.079><c> paid</c>
+
+00:01:32.469 --> 00:01:32.479 align:start position:0%
+SDK where you can easily create a paid
+
+
+00:01:32.479 --> 00:01:35.510 align:start position:0%
+SDK where you can easily create a paid
+MCP<00:01:33.119><c> server</c><00:01:33.520><c> by</c><00:01:33.759><c> attaching</c><00:01:34.159><c> a</c><00:01:34.479><c> price</c><00:01:34.799><c> ID</c><00:01:35.200><c> and</c><00:01:35.360><c> a</c>
+
+00:01:35.510 --> 00:01:35.520 align:start position:0%
+MCP server by attaching a price ID and a
+
+
+00:01:35.520 --> 00:01:37.590 align:start position:0%
+MCP server by attaching a price ID and a
+tools<00:01:36.000><c> to</c><00:01:36.240><c> achieve</c><00:01:36.560><c> some</c><00:01:36.799><c> similar</c><00:01:37.200><c> experience</c>
+
+00:01:37.590 --> 00:01:37.600 align:start position:0%
+tools to achieve some similar experience
+
+
+00:01:37.600 --> 00:01:39.429 align:start position:0%
+tools to achieve some similar experience
+that<00:01:37.840><c> I</c><00:01:38.000><c> just</c><00:01:38.159><c> showed</c><00:01:38.400><c> you</c><00:01:38.560><c> earlier.</c><00:01:39.040><c> And</c><00:01:39.200><c> that</c>
+
+00:01:39.429 --> 00:01:39.439 align:start position:0%
+that I just showed you earlier. And that
+
+
+00:01:39.439 --> 00:01:40.950 align:start position:0%
+that I just showed you earlier. And that
+really<00:01:39.759><c> change</c><00:01:40.000><c> how</c><00:01:40.159><c> you</c><00:01:40.400><c> distribute</c><00:01:40.720><c> and</c>
+
+00:01:40.950 --> 00:01:40.960 align:start position:0%
+really change how you distribute and
+
+
+00:01:40.960 --> 00:01:43.190 align:start position:0%
+really change how you distribute and
+monetize<00:01:41.360><c> MCP</c><00:01:42.000><c> server.</c><00:01:42.479><c> Now</c><00:01:42.640><c> you</c><00:01:42.880><c> can</c><00:01:43.040><c> just</c>
+
+00:01:43.190 --> 00:01:43.200 align:start position:0%
+monetize MCP server. Now you can just
+
+
+00:01:43.200 --> 00:01:45.350 align:start position:0%
+monetize MCP server. Now you can just
+get<00:01:43.600><c> start</c><00:01:43.840><c> using</c><00:01:44.159><c> right</c><00:01:44.400><c> away</c><00:01:44.880><c> and</c><00:01:45.119><c> while</c>
+
+00:01:45.350 --> 00:01:45.360 align:start position:0%
+get start using right away and while
+
+
+00:01:45.360 --> 00:01:47.190 align:start position:0%
+get start using right away and while
+they<00:01:45.600><c> are</c><00:01:45.680><c> using</c><00:01:46.000><c> it</c><00:01:46.240><c> you</c><00:01:46.479><c> can</c><00:01:46.560><c> prompt</c><00:01:46.880><c> them</c><00:01:47.040><c> to</c>
+
+00:01:47.190 --> 00:01:47.200 align:start position:0%
+they are using it you can prompt them to
+
+
+00:01:47.200 --> 00:01:49.910 align:start position:0%
+they are using it you can prompt them to
+upgrade.<00:01:47.680><c> So</c><00:01:47.920><c> this</c><00:01:48.159><c> will</c><00:01:48.399><c> make</c><00:01:48.720><c> building</c><00:01:49.200><c> MCP</c>
+
+00:01:49.910 --> 00:01:49.920 align:start position:0%
+upgrade. So this will make building MCP
+
+
+00:01:49.920 --> 00:01:51.830 align:start position:0%
+upgrade. So this will make building MCP
+business<00:01:50.399><c> much</c><00:01:50.720><c> more</c><00:01:50.960><c> interesting</c><00:01:51.439><c> and</c><00:01:51.680><c> this</c>
+
+00:01:51.830 --> 00:01:51.840 align:start position:0%
+business much more interesting and this
+
+
+00:01:51.840 --> 00:01:53.429 align:start position:0%
+business much more interesting and this
+is<00:01:51.920><c> what</c><00:01:52.159><c> I</c><00:01:52.320><c> want</c><00:01:52.399><c> to</c><00:01:52.560><c> take</c><00:01:52.720><c> you</c><00:01:52.880><c> through</c><00:01:53.119><c> today</c>
+
+00:01:53.429 --> 00:01:53.439 align:start position:0%
+is what I want to take you through today
+
+
+00:01:53.439 --> 00:01:54.950 align:start position:0%
+is what I want to take you through today
+and<00:01:53.600><c> I</c><00:01:53.759><c> will</c><00:01:53.920><c> break</c><00:01:54.079><c> that</c><00:01:54.320><c> down</c><00:01:54.479><c> into</c><00:01:54.799><c> two</c>
+
+00:01:54.950 --> 00:01:54.960 align:start position:0%
+and I will break that down into two
+
+
+00:01:54.960 --> 00:01:57.030 align:start position:0%
+and I will break that down into two
+parts.<00:01:55.439><c> One</c><00:01:55.680><c> is</c><00:01:55.840><c> how</c><00:01:56.000><c> do</c><00:01:56.159><c> we</c><00:01:56.240><c> set</c><00:01:56.399><c> up</c><00:01:56.479><c> a</c><00:01:56.720><c> payment</c>
+
+00:01:57.030 --> 00:01:57.040 align:start position:0%
+parts. One is how do we set up a payment
+
+
+00:01:57.040 --> 00:01:59.350 align:start position:0%
+parts. One is how do we set up a payment
+system<00:01:57.280><c> for</c><00:01:57.439><c> your</c><00:01:57.600><c> MCP</c><00:01:58.240><c> server</c><00:01:58.479><c> by</c><00:01:58.719><c> usage</c><00:01:59.119><c> and</c>
+
+00:01:59.350 --> 00:01:59.360 align:start position:0%
+system for your MCP server by usage and
+
+
+00:01:59.360 --> 00:02:01.270 align:start position:0%
+system for your MCP server by usage and
+second<00:01:59.680><c> is</c><00:02:00.000><c> how</c><00:02:00.159><c> do</c><00:02:00.240><c> you</c><00:02:00.399><c> set</c><00:02:00.560><c> up</c><00:02:00.719><c> a</c><00:02:00.960><c> nice</c>
+
+00:02:01.270 --> 00:02:01.280 align:start position:0%
+second is how do you set up a nice
+
+
+00:02:01.280 --> 00:02:03.429 align:start position:0%
+second is how do you set up a nice
+authentication<00:02:02.079><c> layer</c><00:02:02.240><c> for</c><00:02:02.399><c> your</c><00:02:02.560><c> MCP</c><00:02:03.040><c> server</c>
+
+00:02:03.429 --> 00:02:03.439 align:start position:0%
+authentication layer for your MCP server
+
+
+00:02:03.439 --> 00:02:05.270 align:start position:0%
+authentication layer for your MCP server
+and<00:02:03.600><c> we're</c><00:02:03.680><c> going</c><00:02:03.840><c> to</c><00:02:03.920><c> use</c><00:02:04.159><c> three</c><00:02:04.479><c> very</c><00:02:04.880><c> useful</c>
+
+00:02:05.270 --> 00:02:05.280 align:start position:0%
+and we're going to use three very useful
+
+
+00:02:05.280 --> 00:02:06.950 align:start position:0%
+and we're going to use three very useful
+package.<00:02:05.680><c> which</c><00:02:05.840><c> one</c><00:02:06.079><c> the</c><00:02:06.320><c> stripe</c><00:02:06.560><c> agent</c>
+
+00:02:06.950 --> 00:02:06.960 align:start position:0%
+package. which one the stripe agent
+
+
+00:02:06.960 --> 00:02:08.469 align:start position:0%
+package. which one the stripe agent
+toolkit<00:02:07.439><c> that</c><00:02:07.680><c> allow</c><00:02:07.840><c> you</c><00:02:08.000><c> to</c><00:02:08.160><c> connect</c>
+
+00:02:08.469 --> 00:02:08.479 align:start position:0%
+toolkit that allow you to connect
+
+
+00:02:08.479 --> 00:02:10.469 align:start position:0%
+toolkit that allow you to connect
+payment<00:02:08.800><c> very</c><00:02:09.119><c> easily</c><00:02:09.520><c> and</c><00:02:09.679><c> cloudflare</c><00:02:10.319><c> has</c>
+
+00:02:10.469 --> 00:02:10.479 align:start position:0%
+payment very easily and cloudflare has
+
+
+00:02:10.479 --> 00:02:12.470 align:start position:0%
+payment very easily and cloudflare has
+this<00:02:10.640><c> MCP</c><00:02:11.200><c> class</c><00:02:11.599><c> you</c><00:02:11.760><c> can</c><00:02:11.920><c> just</c><00:02:12.080><c> turn</c><00:02:12.239><c> any</c>
+
+00:02:12.470 --> 00:02:12.480 align:start position:0%
+this MCP class you can just turn any
+
+
+00:02:12.480 --> 00:02:15.110 align:start position:0%
+this MCP class you can just turn any
+function<00:02:12.879><c> right</c><00:02:13.200><c> into</c><00:02:13.440><c> a</c><00:02:13.680><c> MCP</c><00:02:14.239><c> tool</c><00:02:14.640><c> and</c><00:02:14.879><c> also</c>
+
+00:02:15.110 --> 00:02:15.120 align:start position:0%
+function right into a MCP tool and also
+
+
+00:02:15.120 --> 00:02:17.030 align:start position:0%
+function right into a MCP tool and also
+set<00:02:15.280><c> up</c><00:02:15.440><c> the</c><00:02:15.599><c> OOS</c><00:02:16.160><c> layer</c><00:02:16.400><c> and</c><00:02:16.560><c> in</c><00:02:16.720><c> the</c><00:02:16.800><c> end</c>
+
+00:02:17.030 --> 00:02:17.040 align:start position:0%
+set up the OOS layer and in the end
+
+
+00:02:17.040 --> 00:02:19.030 align:start position:0%
+set up the OOS layer and in the end
+we're<00:02:17.200><c> going</c><00:02:17.280><c> to</c><00:02:17.440><c> use</c><00:02:17.599><c> MCP</c><00:02:18.239><c> remote</c><00:02:18.640><c> which</c><00:02:18.879><c> is</c>
+
+00:02:19.030 --> 00:02:19.040 align:start position:0%
+we're going to use MCP remote which is
+
+
+00:02:19.040 --> 00:02:21.110 align:start position:0%
+we're going to use MCP remote which is
+allow<00:02:19.280><c> you</c><00:02:19.440><c> to</c><00:02:19.599><c> achieve</c><00:02:20.160><c> this</c><00:02:20.400><c> type</c><00:02:20.640><c> of</c><00:02:20.720><c> UX</c>
+
+00:02:21.110 --> 00:02:21.120 align:start position:0%
+allow you to achieve this type of UX
+
+
+00:02:21.120 --> 00:02:22.710 align:start position:0%
+allow you to achieve this type of UX
+that<00:02:21.280><c> prompt</c><00:02:21.520><c> user</c><00:02:21.840><c> to</c><00:02:22.000><c> create</c><00:02:22.160><c> account</c><00:02:22.480><c> and</c>
+
+00:02:22.710 --> 00:02:22.720 align:start position:0%
+that prompt user to create account and
+
+
+00:02:22.720 --> 00:02:24.229 align:start position:0%
+that prompt user to create account and
+sign<00:02:22.879><c> in</c><00:02:23.040><c> but</c><00:02:23.200><c> before</c><00:02:23.360><c> you</c><00:02:23.520><c> launch</c><00:02:23.760><c> your</c><00:02:24.000><c> paid</c>
+
+00:02:24.229 --> 00:02:24.239 align:start position:0%
+sign in but before you launch your paid
+
+
+00:02:24.239 --> 00:02:26.309 align:start position:0%
+sign in but before you launch your paid
+MCP<00:02:24.800><c> to</c><00:02:24.959><c> the</c><00:02:25.120><c> world</c><00:02:25.520><c> how</c><00:02:25.680><c> will</c><00:02:25.840><c> you</c><00:02:26.000><c> know</c><00:02:26.080><c> if</c>
+
+00:02:26.309 --> 00:02:26.319 align:start position:0%
+MCP to the world how will you know if
+
+
+00:02:26.319 --> 00:02:28.309 align:start position:0%
+MCP to the world how will you know if
+your<00:02:26.560><c> pricing</c><00:02:27.040><c> strategy</c><00:02:27.440><c> for</c><00:02:27.599><c> your</c><00:02:27.760><c> large</c>
+
+00:02:28.309 --> 00:02:28.319 align:start position:0%
+your pricing strategy for your large
+
+
+00:02:28.319 --> 00:02:30.470 align:start position:0%
+your pricing strategy for your large
+model<00:02:28.560><c> product</c><00:02:28.959><c> actually</c><00:02:29.280><c> makes</c><00:02:29.520><c> sense</c><00:02:30.000><c> or</c><00:02:30.239><c> if</c>
+
+00:02:30.470 --> 00:02:30.480 align:start position:0%
+model product actually makes sense or if
+
+
+00:02:30.480 --> 00:02:32.309 align:start position:0%
+model product actually makes sense or if
+users<00:02:30.800><c> are</c><00:02:31.040><c> secretly</c><00:02:31.520><c> burning</c><00:02:31.920><c> through</c><00:02:32.080><c> your</c>
+
+00:02:32.309 --> 00:02:32.319 align:start position:0%
+users are secretly burning through your
+
+
+00:02:32.319 --> 00:02:34.630 align:start position:0%
+users are secretly burning through your
+API<00:02:32.720><c> budgets</c><00:02:33.360><c> this</c><00:02:33.599><c> is</c><00:02:33.760><c> where</c><00:02:34.080><c> her</c><00:02:34.080><c> headon</c><00:02:34.560><c> is</c>
+
+00:02:34.630 --> 00:02:34.640 align:start position:0%
+API budgets this is where her headon is
+
+
+00:02:34.640 --> 00:02:36.070 align:start position:0%
+API budgets this is where her headon is
+such<00:02:34.800><c> a</c><00:02:34.959><c> game</c><00:02:35.120><c> changanger</c><00:02:35.280><c> manager.</c><00:02:35.920><c> So,</c>
+
+00:02:36.070 --> 00:02:36.080 align:start position:0%
+such a game changanger manager. So,
+
+
+00:02:36.080 --> 00:02:37.990 align:start position:0%
+such a game changanger manager. So,
+Helicon<00:02:36.560><c> is</c><00:02:36.720><c> an</c><00:02:36.800><c> all-in-one</c><00:02:37.360><c> platform</c><00:02:37.680><c> for</c>
+
+00:02:37.990 --> 00:02:38.000 align:start position:0%
+Helicon is an all-in-one platform for
+
+
+00:02:38.000 --> 00:02:39.509 align:start position:0%
+Helicon is an all-in-one platform for
+monitoring,<00:02:38.560><c> debugging,</c><00:02:39.040><c> and</c><00:02:39.280><c> most</c>
+
+00:02:39.509 --> 00:02:39.519 align:start position:0%
+monitoring, debugging, and most
+
+
+00:02:39.519 --> 00:02:40.949 align:start position:0%
+monitoring, debugging, and most
+importantly,<00:02:40.080><c> understanding</c><00:02:40.480><c> how</c><00:02:40.800><c> people</c>
+
+00:02:40.949 --> 00:02:40.959 align:start position:0%
+importantly, understanding how people
+
+
+00:02:40.959 --> 00:02:42.869 align:start position:0%
+importantly, understanding how people
+are<00:02:41.200><c> actually</c><00:02:41.519><c> using</c><00:02:41.840><c> your</c><00:02:42.080><c> large</c><00:02:42.640><c> model</c>
+
+00:02:42.869 --> 00:02:42.879 align:start position:0%
+are actually using your large model
+
+
+00:02:42.879 --> 00:02:44.309 align:start position:0%
+are actually using your large model
+application.<00:02:43.519><c> You</c><00:02:43.680><c> get</c><00:02:43.840><c> real-time</c>
+
+00:02:44.309 --> 00:02:44.319 align:start position:0%
+application. You get real-time
+
+
+00:02:44.319 --> 00:02:46.470 align:start position:0%
+application. You get real-time
+visibility<00:02:44.879><c> into</c><00:02:45.280><c> exactly</c><00:02:45.760><c> how</c><00:02:46.000><c> much</c><00:02:46.160><c> each</c>
+
+00:02:46.470 --> 00:02:46.480 align:start position:0%
+visibility into exactly how much each
+
+
+00:02:46.480 --> 00:02:48.869 align:start position:0%
+visibility into exactly how much each
+user<00:02:46.800><c> or</c><00:02:46.959><c> endpoint</c><00:02:47.440><c> is</c><00:02:47.680><c> costing</c><00:02:48.000><c> you</c><00:02:48.400><c> down</c><00:02:48.720><c> to</c>
+
+00:02:48.869 --> 00:02:48.879 align:start position:0%
+user or endpoint is costing you down to
+
+
+00:02:48.879 --> 00:02:51.030 align:start position:0%
+user or endpoint is costing you down to
+every<00:02:49.120><c> single</c><00:02:49.440><c> API</c><00:02:49.920><c> call,</c><00:02:50.239><c> prompt,</c><00:02:50.560><c> and</c><00:02:50.720><c> model</c>
+
+00:02:51.030 --> 00:02:51.040 align:start position:0%
+every single API call, prompt, and model
+
+
+00:02:51.040 --> 00:02:52.949 align:start position:0%
+every single API call, prompt, and model
+used.<00:02:51.440><c> With</c><00:02:51.680><c> this</c><00:02:51.840><c> detailed</c><00:02:52.160><c> cost</c><00:02:52.400><c> and</c><00:02:52.640><c> usage</c>
+
+00:02:52.949 --> 00:02:52.959 align:start position:0%
+used. With this detailed cost and usage
+
+
+00:02:52.959 --> 00:02:54.630 align:start position:0%
+used. With this detailed cost and usage
+analytics,<00:02:53.440><c> you</c><00:02:53.599><c> can</c><00:02:53.760><c> see</c><00:02:53.920><c> which</c><00:02:54.160><c> feature</c><00:02:54.400><c> are</c>
+
+00:02:54.630 --> 00:02:54.640 align:start position:0%
+analytics, you can see which feature are
+
+
+00:02:54.640 --> 00:02:56.470 align:start position:0%
+analytics, you can see which feature are
+driving<00:02:54.959><c> your</c><00:02:55.200><c> bill</c><00:02:55.680><c> and</c><00:02:55.920><c> where</c><00:02:56.160><c> you</c><00:02:56.319><c> might</c>
+
+00:02:56.470 --> 00:02:56.480 align:start position:0%
+driving your bill and where you might
+
+
+00:02:56.480 --> 00:02:58.390 align:start position:0%
+driving your bill and where you might
+need<00:02:56.640><c> to</c><00:02:56.720><c> adjust</c><00:02:57.040><c> your</c><00:02:57.280><c> pricing</c><00:02:57.599><c> to.</c><00:02:58.160><c> But</c><00:02:58.239><c> it</c>
+
+00:02:58.390 --> 00:02:58.400 align:start position:0%
+need to adjust your pricing to. But it
+
+
+00:02:58.400 --> 00:03:00.550 align:start position:0%
+need to adjust your pricing to. But it
+goes<00:02:58.720><c> way</c><00:02:58.959><c> beyond</c><00:02:59.280><c> just</c><00:02:59.519><c> cost.</c><00:02:59.920><c> It</c><00:03:00.160><c> helps</c><00:03:00.400><c> you</c>
+
+00:03:00.550 --> 00:03:00.560 align:start position:0%
+goes way beyond just cost. It helps you
+
+
+00:03:00.560 --> 00:03:02.470 align:start position:0%
+goes way beyond just cost. It helps you
+analyze<00:03:01.040><c> how</c><00:03:01.280><c> people</c><00:03:01.519><c> are</c><00:03:01.760><c> interacting</c><00:03:02.239><c> with</c>
+
+00:03:02.470 --> 00:03:02.480 align:start position:0%
+analyze how people are interacting with
+
+
+00:03:02.480 --> 00:03:04.390 align:start position:0%
+analyze how people are interacting with
+your<00:03:02.640><c> prompt</c><00:03:03.120><c> which</c><00:03:03.280><c> allow</c><00:03:03.599><c> you</c><00:03:03.760><c> to</c><00:03:04.000><c> spotted</c>
+
+00:03:04.390 --> 00:03:04.400 align:start position:0%
+your prompt which allow you to spotted
+
+
+00:03:04.400 --> 00:03:06.309 align:start position:0%
+your prompt which allow you to spotted
+patterns<00:03:04.959><c> and</c><00:03:05.200><c> understand</c><00:03:05.599><c> where</c><00:03:05.920><c> you</c><00:03:06.159><c> can</c>
+
+00:03:06.309 --> 00:03:06.319 align:start position:0%
+patterns and understand where you can
+
+
+00:03:06.319 --> 00:03:08.390 align:start position:0%
+patterns and understand where you can
+optimize<00:03:06.959><c> and</c><00:03:07.120><c> even</c><00:03:07.360><c> get</c><00:03:07.519><c> data</c><00:03:07.760><c> sets</c><00:03:08.080><c> so</c><00:03:08.239><c> that</c>
+
+00:03:08.390 --> 00:03:08.400 align:start position:0%
+optimize and even get data sets so that
+
+
+00:03:08.400 --> 00:03:09.910 align:start position:0%
+optimize and even get data sets so that
+you<00:03:08.560><c> can</c><00:03:08.640><c> fine-tune</c><00:03:09.120><c> your</c><00:03:09.280><c> own</c><00:03:09.440><c> model</c><00:03:09.680><c> to</c>
+
+00:03:09.910 --> 00:03:09.920 align:start position:0%
+you can fine-tune your own model to
+
+
+00:03:09.920 --> 00:03:11.509 align:start position:0%
+you can fine-tune your own model to
+reduce<00:03:10.239><c> cost</c><00:03:10.480><c> while</c><00:03:10.720><c> improving</c><00:03:11.120><c> performance</c>
+
+00:03:11.509 --> 00:03:11.519 align:start position:0%
+reduce cost while improving performance
+
+
+00:03:11.519 --> 00:03:13.670 align:start position:0%
+reduce cost while improving performance
+and<00:03:11.760><c> reliability.</c><00:03:12.480><c> It</c><00:03:12.720><c> has</c><00:03:12.879><c> loads</c><00:03:13.120><c> of</c><00:03:13.360><c> super</c>
+
+00:03:13.670 --> 00:03:13.680 align:start position:0%
+and reliability. It has loads of super
+
+
+00:03:13.680 --> 00:03:16.070 align:start position:0%
+and reliability. It has loads of super
+useful<00:03:14.239><c> functionalities</c><00:03:14.959><c> like</c><00:03:15.280><c> caching</c><00:03:15.760><c> if</c>
+
+00:03:16.070 --> 00:03:16.080 align:start position:0%
+useful functionalities like caching if
+
+
+00:03:16.080 --> 00:03:17.990 align:start position:0%
+useful functionalities like caching if
+users<00:03:16.400><c> are</c><00:03:16.640><c> asked</c><00:03:16.879><c> the</c><00:03:17.120><c> same</c><00:03:17.360><c> requests</c><00:03:17.760><c> to</c>
+
+00:03:17.990 --> 00:03:18.000 align:start position:0%
+users are asked the same requests to
+
+
+00:03:18.000 --> 00:03:19.830 align:start position:0%
+users are asked the same requests to
+launch<00:03:18.400><c> your</c><00:03:18.560><c> model.</c><00:03:19.040><c> It</c><00:03:19.200><c> will</c><00:03:19.360><c> just</c><00:03:19.519><c> return</c>
+
+00:03:19.830 --> 00:03:19.840 align:start position:0%
+launch your model. It will just return
+
+
+00:03:19.840 --> 00:03:21.589 align:start position:0%
+launch your model. It will just return
+the<00:03:20.000><c> result</c><00:03:20.400><c> cach</c><00:03:20.720><c> before</c><00:03:21.120><c> so</c><00:03:21.280><c> it</c><00:03:21.440><c> doesn't</c>
+
+00:03:21.589 --> 00:03:21.599 align:start position:0%
+the result cach before so it doesn't
+
+
+00:03:21.599 --> 00:03:23.430 align:start position:0%
+the result cach before so it doesn't
+cost<00:03:21.840><c> you</c><00:03:22.000><c> anything</c><00:03:22.319><c> and</c><00:03:22.560><c> reduce</c><00:03:22.959><c> latency.</c>
+
+00:03:23.430 --> 00:03:23.440 align:start position:0%
+cost you anything and reduce latency.
+
+
+00:03:23.440 --> 00:03:24.869 align:start position:0%
+cost you anything and reduce latency.
+They<00:03:23.680><c> also</c><00:03:23.840><c> have</c><00:03:24.000><c> prompt</c><00:03:24.400><c> experiments</c>
+
+00:03:24.869 --> 00:03:24.879 align:start position:0%
+They also have prompt experiments
+
+
+00:03:24.879 --> 00:03:26.630 align:start position:0%
+They also have prompt experiments
+feature<00:03:25.120><c> where</c><00:03:25.440><c> you</c><00:03:25.599><c> can</c><00:03:25.840><c> compare</c><00:03:26.239><c> multiple</c>
+
+00:03:26.630 --> 00:03:26.640 align:start position:0%
+feature where you can compare multiple
+
+
+00:03:26.640 --> 00:03:28.309 align:start position:0%
+feature where you can compare multiple
+different<00:03:26.879><c> prompts</c><00:03:27.360><c> across</c><00:03:27.680><c> thousands</c><00:03:28.159><c> of</c>
+
+00:03:28.309 --> 00:03:28.319 align:start position:0%
+different prompts across thousands of
+
+
+00:03:28.319 --> 00:03:30.470 align:start position:0%
+different prompts across thousands of
+different<00:03:28.640><c> real</c><00:03:28.959><c> user</c><00:03:29.280><c> requests.</c><00:03:30.080><c> So</c><00:03:30.159><c> you</c><00:03:30.400><c> can</c>
+
+00:03:30.470 --> 00:03:30.480 align:start position:0%
+different real user requests. So you can
+
+
+00:03:30.480 --> 00:03:32.470 align:start position:0%
+different real user requests. So you can
+iterate<00:03:30.799><c> your</c><00:03:30.959><c> prompts</c><00:03:31.360><c> with</c><00:03:31.599><c> confidence.</c><00:03:32.319><c> So</c>
+
+00:03:32.470 --> 00:03:32.480 align:start position:0%
+iterate your prompts with confidence. So
+
+
+00:03:32.480 --> 00:03:34.710 align:start position:0%
+iterate your prompts with confidence. So
+if<00:03:32.640><c> you're</c><00:03:32.799><c> building</c><00:03:33.040><c> a</c><00:03:33.280><c> paid</c><00:03:33.519><c> MCP</c><00:03:34.159><c> server</c><00:03:34.480><c> or</c>
+
+00:03:34.710 --> 00:03:34.720 align:start position:0%
+if you're building a paid MCP server or
+
+
+00:03:34.720 --> 00:03:36.390 align:start position:0%
+if you're building a paid MCP server or
+any<00:03:34.959><c> large</c><00:03:35.280><c> language</c><00:03:35.519><c> model</c><00:03:35.840><c> powered</c><00:03:36.159><c> app,</c>
+
+00:03:36.390 --> 00:03:36.400 align:start position:0%
+any large language model powered app,
+
+
+00:03:36.400 --> 00:03:38.229 align:start position:0%
+any large language model powered app,
+use<00:03:36.640><c> headcom</c><00:03:37.120><c> to</c><00:03:37.280><c> monitor</c><00:03:37.519><c> your</c><00:03:37.760><c> cost,</c>
+
+00:03:38.229 --> 00:03:38.239 align:start position:0%
+use headcom to monitor your cost,
+
+
+00:03:38.239 --> 00:03:39.750 align:start position:0%
+use headcom to monitor your cost,
+understand<00:03:38.640><c> your</c><00:03:38.799><c> users</c><00:03:39.200><c> and</c><00:03:39.360><c> build</c><00:03:39.599><c> a</c>
+
+00:03:39.750 --> 00:03:39.760 align:start position:0%
+understand your users and build a
+
+
+00:03:39.760 --> 00:03:41.430 align:start position:0%
+understand your users and build a
+business<00:03:40.000><c> that</c><00:03:40.239><c> actually</c><00:03:40.640><c> scales.</c><00:03:41.120><c> I</c><00:03:41.280><c> have</c>
+
+00:03:41.430 --> 00:03:41.440 align:start position:0%
+business that actually scales. I have
+
+
+00:03:41.440 --> 00:03:42.949 align:start position:0%
+business that actually scales. I have
+put<00:03:41.599><c> a</c><00:03:41.760><c> link</c><00:03:41.920><c> in</c><00:03:42.159><c> the</c><00:03:42.319><c> description</c><00:03:42.560><c> below</c><00:03:42.799><c> for</c>
+
+00:03:42.949 --> 00:03:42.959 align:start position:0%
+put a link in the description below for
+
+
+00:03:42.959 --> 00:03:45.030 align:start position:0%
+put a link in the description below for
+you<00:03:43.120><c> to</c><00:03:43.280><c> get</c><00:03:43.519><c> start.</c><00:03:44.000><c> Now</c><00:03:44.400><c> without</c><00:03:44.720><c> further</c>
+
+00:03:45.030 --> 00:03:45.040 align:start position:0%
+you to get start. Now without further
+
+
+00:03:45.040 --> 00:03:47.030 align:start position:0%
+you to get start. Now without further
+ado,<00:03:45.440><c> let</c><00:03:45.599><c> me</c><00:03:45.760><c> show</c><00:03:45.840><c> you</c><00:03:46.000><c> how</c><00:03:46.239><c> to</c><00:03:46.400><c> build</c><00:03:46.560><c> a</c><00:03:46.720><c> paid</c>
+
+00:03:47.030 --> 00:03:47.040 align:start position:0%
+ado, let me show you how to build a paid
+
+
+00:03:47.040 --> 00:03:49.350 align:start position:0%
+ado, let me show you how to build a paid
+MCP<00:03:47.599><c> server.</c><00:03:48.000><c> So,</c><00:03:48.239><c> Stripe</c><00:03:48.640><c> has</c><00:03:48.799><c> this</c><00:03:48.959><c> agent</c>
+
+00:03:49.350 --> 00:03:49.360 align:start position:0%
+MCP server. So, Stripe has this agent
+
+
+00:03:49.360 --> 00:03:51.670 align:start position:0%
+MCP server. So, Stripe has this agent
+toolkit.<00:03:49.760><c> They</c><00:03:50.000><c> allow</c><00:03:50.239><c> you</c><00:03:50.319><c> to</c><00:03:50.480><c> define</c><00:03:50.879><c> an</c><00:03:51.040><c> MCP</c>
+
+00:03:51.670 --> 00:03:51.680 align:start position:0%
+toolkit. They allow you to define an MCP
+
+
+00:03:51.680 --> 00:03:53.509 align:start position:0%
+toolkit. They allow you to define an MCP
+server<00:03:52.159><c> and</c><00:03:52.319><c> you</c><00:03:52.480><c> can</c><00:03:52.640><c> just</c><00:03:52.799><c> add</c><00:03:53.120><c> payment</c>
+
+00:03:53.509 --> 00:03:53.519 align:start position:0%
+server and you can just add payment
+
+
+00:03:53.519 --> 00:03:55.589 align:start position:0%
+server and you can just add payment
+gator<00:03:53.920><c> tools</c><00:03:54.239><c> by</c><00:03:54.480><c> define</c><00:03:54.799><c> the</c><00:03:55.040><c> name,</c><00:03:55.360><c> the</c>
+
+00:03:55.589 --> 00:03:55.599 align:start position:0%
+gator tools by define the name, the
+
+
+00:03:55.599 --> 00:03:57.830 align:start position:0%
+gator tools by define the name, the
+function<00:03:56.080><c> as</c><00:03:56.319><c> well</c><00:03:56.400><c> as</c><00:03:56.640><c> price</c><00:03:57.040><c> ID.</c><00:03:57.519><c> And</c><00:03:57.599><c> with</c>
+
+00:03:57.830 --> 00:03:57.840 align:start position:0%
+function as well as price ID. And with
+
+
+00:03:57.840 --> 00:03:59.990 align:start position:0%
+function as well as price ID. And with
+this,<00:03:58.000><c> you</c><00:03:58.239><c> can</c><00:03:58.319><c> set</c><00:03:58.480><c> up</c><00:03:58.640><c> quite</c><00:03:59.040><c> sophisticated</c>
+
+00:03:59.990 --> 00:04:00.000 align:start position:0%
+this, you can set up quite sophisticated
+
+
+00:04:00.000 --> 00:04:01.830 align:start position:0%
+this, you can set up quite sophisticated
+pricing<00:04:00.480><c> strategy.</c><00:04:01.040><c> Either</c><00:04:01.360><c> set</c><00:04:01.519><c> up</c><00:04:01.599><c> a</c>
+
+00:04:01.830 --> 00:04:01.840 align:start position:0%
+pricing strategy. Either set up a
+
+
+00:04:01.840 --> 00:04:03.910 align:start position:0%
+pricing strategy. Either set up a
+one-off<00:04:02.239><c> pricing</c><00:04:02.640><c> for</c><00:04:02.879><c> lifetime</c><00:04:03.439><c> access</c><00:04:03.760><c> to</c>
+
+00:04:03.910 --> 00:04:03.920 align:start position:0%
+one-off pricing for lifetime access to
+
+
+00:04:03.920 --> 00:04:05.750 align:start position:0%
+one-off pricing for lifetime access to
+your<00:04:04.080><c> awesome</c><00:04:04.480><c> MCB</c><00:04:04.959><c> server.</c><00:04:05.360><c> But</c><00:04:05.519><c> you</c><00:04:05.680><c> can</c>
+
+00:04:05.750 --> 00:04:05.760 align:start position:0%
+your awesome MCB server. But you can
+
+
+00:04:05.760 --> 00:04:07.589 align:start position:0%
+your awesome MCB server. But you can
+also<00:04:05.920><c> set</c><00:04:06.080><c> up</c><00:04:06.239><c> a</c><00:04:06.400><c> recurring</c><00:04:06.799><c> subscription</c><00:04:07.439><c> as</c>
+
+00:04:07.589 --> 00:04:07.599 align:start position:0%
+also set up a recurring subscription as
+
+
+00:04:07.599 --> 00:04:09.670 align:start position:0%
+also set up a recurring subscription as
+well<00:04:07.760><c> as</c><00:04:08.000><c> usage</c><00:04:08.560><c> based</c><00:04:08.879><c> pricing,</c><00:04:09.360><c> which</c><00:04:09.519><c> is</c>
+
+00:04:09.670 --> 00:04:09.680 align:start position:0%
+well as usage based pricing, which is
+
+
+00:04:09.680 --> 00:04:11.190 align:start position:0%
+well as usage based pricing, which is
+probably<00:04:09.920><c> the</c><00:04:10.159><c> most</c><00:04:10.480><c> interesting</c><00:04:10.959><c> and</c>
+
+00:04:11.190 --> 00:04:11.200 align:start position:0%
+probably the most interesting and
+
+
+00:04:11.200 --> 00:04:13.670 align:start position:0%
+probably the most interesting and
+suitable<00:04:11.680><c> one</c><00:04:11.840><c> for</c><00:04:12.159><c> MCP</c><00:04:12.720><c> server</c><00:04:13.040><c> where</c><00:04:13.439><c> you</c>
+
+00:04:13.670 --> 00:04:13.680 align:start position:0%
+suitable one for MCP server where you
+
+
+00:04:13.680 --> 00:04:15.509 align:start position:0%
+suitable one for MCP server where you
+probably<00:04:14.000><c> use</c><00:04:14.239><c> different</c><00:04:14.560><c> AI</c><00:04:14.959><c> model</c><00:04:15.200><c> behind</c>
+
+00:04:15.509 --> 00:04:15.519 align:start position:0%
+probably use different AI model behind
+
+
+00:04:15.519 --> 00:04:17.349 align:start position:0%
+probably use different AI model behind
+the<00:04:15.680><c> scenes.</c><00:04:16.079><c> And</c><00:04:16.320><c> all</c><00:04:16.479><c> those</c><00:04:16.720><c> capabilities</c>
+
+00:04:17.349 --> 00:04:17.359 align:start position:0%
+the scenes. And all those capabilities
+
+
+00:04:17.359 --> 00:04:19.590 align:start position:0%
+the scenes. And all those capabilities
+can<00:04:17.680><c> be</c><00:04:17.840><c> achieved</c><00:04:18.320><c> with</c><00:04:18.560><c> just</c><00:04:18.799><c> few</c><00:04:19.120><c> lines</c><00:04:19.440><c> of</c>
+
+00:04:19.590 --> 00:04:19.600 align:start position:0%
+can be achieved with just few lines of
+
+
+00:04:19.600 --> 00:04:22.870 align:start position:0%
+can be achieved with just few lines of
+code<00:04:20.000><c> by</c><00:04:20.239><c> using</c><00:04:20.560><c> this</c><00:04:20.880><c> paid</c><00:04:21.280><c> MCP</c><00:04:22.000><c> agent</c><00:04:22.400><c> class</c>
+
+00:04:22.870 --> 00:04:22.880 align:start position:0%
+code by using this paid MCP agent class
+
+
+00:04:22.880 --> 00:04:25.350 align:start position:0%
+code by using this paid MCP agent class
+provided<00:04:23.199><c> by</c><00:04:23.440><c> stripe.</c><00:04:24.160><c> So</c><00:04:24.320><c> this</c><00:04:24.560><c> paid</c><00:04:24.880><c> MCP</c>
+
+00:04:25.350 --> 00:04:25.360 align:start position:0%
+provided by stripe. So this paid MCP
+
+
+00:04:25.360 --> 00:04:27.670 align:start position:0%
+provided by stripe. So this paid MCP
+agent<00:04:25.680><c> class</c><00:04:26.000><c> is</c><00:04:26.160><c> a</c><00:04:26.400><c> extended</c><00:04:26.960><c> version</c><00:04:27.360><c> of</c>
+
+00:04:27.670 --> 00:04:27.680 align:start position:0%
+agent class is a extended version of
+
+
+00:04:27.680 --> 00:04:30.310 align:start position:0%
+agent class is a extended version of
+Cloudflare's<00:04:28.320><c> MCP</c><00:04:29.040><c> agent</c><00:04:29.520><c> class</c><00:04:29.919><c> which</c><00:04:30.160><c> is</c><00:04:30.160><c> a</c>
+
+00:04:30.310 --> 00:04:30.320 align:start position:0%
+Cloudflare's MCP agent class which is a
+
+
+00:04:30.320 --> 00:04:31.909 align:start position:0%
+Cloudflare's MCP agent class which is a
+package<00:04:30.560><c> that</c><00:04:30.720><c> allow</c><00:04:30.960><c> you</c><00:04:31.120><c> to</c><00:04:31.280><c> turn</c><00:04:31.600><c> any</c>
+
+00:04:31.909 --> 00:04:31.919 align:start position:0%
+package that allow you to turn any
+
+
+00:04:31.919 --> 00:04:34.550 align:start position:0%
+package that allow you to turn any
+functions<00:04:32.400><c> you</c><00:04:32.639><c> build</c><00:04:32.880><c> into</c><00:04:33.199><c> a</c><00:04:33.440><c> MCP2</c><00:04:34.320><c> very</c>
+
+00:04:34.550 --> 00:04:34.560 align:start position:0%
+functions you build into a MCP2 very
+
+
+00:04:34.560 --> 00:04:36.710 align:start position:0%
+functions you build into a MCP2 very
+easily.<00:04:35.199><c> Let</c><00:04:35.360><c> me</c><00:04:35.520><c> take</c><00:04:35.680><c> you</c><00:04:35.840><c> through</c><00:04:36.000><c> this</c><00:04:36.240><c> MCP</c>
+
+00:04:36.710 --> 00:04:36.720 align:start position:0%
+easily. Let me take you through this MCP
+
+
+00:04:36.720 --> 00:04:38.469 align:start position:0%
+easily. Let me take you through this MCP
+agent<00:04:37.120><c> very</c><00:04:37.360><c> quickly</c><00:04:37.600><c> so</c><00:04:37.759><c> you</c><00:04:38.000><c> understand</c><00:04:38.240><c> the</c>
+
+00:04:38.469 --> 00:04:38.479 align:start position:0%
+agent very quickly so you understand the
+
+
+00:04:38.479 --> 00:04:40.310 align:start position:0%
+agent very quickly so you understand the
+fundamentals.<00:04:39.199><c> Then</c><00:04:39.440><c> we</c><00:04:39.600><c> showcase</c><00:04:39.919><c> some</c><00:04:40.080><c> new</c>
+
+00:04:40.310 --> 00:04:40.320 align:start position:0%
+fundamentals. Then we showcase some new
+
+
+00:04:40.320 --> 00:04:42.550 align:start position:0%
+fundamentals. Then we showcase some new
+capabilities<00:04:40.880><c> from</c><00:04:41.120><c> this</c><00:04:41.360><c> paid</c><00:04:41.680><c> MCP</c><00:04:42.160><c> agent</c>
+
+00:04:42.550 --> 00:04:42.560 align:start position:0%
+capabilities from this paid MCP agent
+
+
+00:04:42.560 --> 00:04:44.469 align:start position:0%
+capabilities from this paid MCP agent
+class.<00:04:43.040><c> You</c><00:04:43.199><c> can</c><00:04:43.360><c> just</c><00:04:43.520><c> open</c><00:04:43.759><c> cursor</c><00:04:44.160><c> in</c><00:04:44.320><c> any</c>
+
+00:04:44.469 --> 00:04:44.479 align:start position:0%
+class. You can just open cursor in any
+
+
+00:04:44.479 --> 00:04:46.390 align:start position:0%
+class. You can just open cursor in any
+folder<00:04:44.880><c> and</c><00:04:45.120><c> do</c><00:04:45.280><c> this.</c><00:04:45.520><c> Create</c><00:04:45.680><c> Cloudflare</c>
+
+00:04:46.390 --> 00:04:46.400 align:start position:0%
+folder and do this. Create Cloudflare
+
+
+00:04:46.400 --> 00:04:48.790 align:start position:0%
+folder and do this. Create Cloudflare
+test<00:04:46.800><c> my</c><00:04:47.040><c> MCP</c><00:04:47.520><c> server</c><00:04:48.000><c> template</c><00:04:48.479><c> is</c>
+
+00:04:48.790 --> 00:04:48.800 align:start position:0%
+test my MCP server template is
+
+
+00:04:48.800 --> 00:04:51.749 align:start position:0%
+test my MCP server template is
+Cloudflare<00:04:49.360><c> AI</c><00:04:49.680><c> demo</c><00:04:50.240><c> remote</c><00:04:50.560><c> MCP</c><00:04:51.040><c> oles</c><00:04:51.600><c> and</c>
+
+00:04:51.749 --> 00:04:51.759 align:start position:0%
+Cloudflare AI demo remote MCP oles and
+
+
+00:04:51.759 --> 00:04:54.550 align:start position:0%
+Cloudflare AI demo remote MCP oles and
+inside<00:04:52.240><c> source</c><00:04:52.479><c> folder.</c><00:04:53.040><c> This</c><00:04:53.440><c> index</c><00:04:53.919><c> ts</c><00:04:54.400><c> is</c>
+
+00:04:54.550 --> 00:04:54.560 align:start position:0%
+inside source folder. This index ts is
+
+
+00:04:54.560 --> 00:04:56.550 align:start position:0%
+inside source folder. This index ts is
+how<00:04:54.720><c> you</c><00:04:54.800><c> can</c><00:04:54.960><c> set</c><00:04:55.120><c> up</c><00:04:55.280><c> MCP</c><00:04:55.840><c> server.</c><00:04:56.240><c> So</c><00:04:56.320><c> you</c>
+
+00:04:56.550 --> 00:04:56.560 align:start position:0%
+how you can set up MCP server. So you
+
+
+00:04:56.560 --> 00:04:57.990 align:start position:0%
+how you can set up MCP server. So you
+will<00:04:56.720><c> use</c><00:04:56.800><c> this</c><00:04:57.040><c> class</c><00:04:57.360><c> defined</c><00:04:57.680><c> by</c>
+
+00:04:57.990 --> 00:04:58.000 align:start position:0%
+will use this class defined by
+
+
+00:04:58.000 --> 00:05:00.550 align:start position:0%
+will use this class defined by
+cloudflare<00:04:58.720><c> called</c><00:04:58.880><c> MCP</c><00:04:59.440><c> agent.</c><00:04:59.919><c> Give</c><00:05:00.080><c> a</c><00:05:00.320><c> name</c>
+
+00:05:00.550 --> 00:05:00.560 align:start position:0%
+cloudflare called MCP agent. Give a name
+
+
+00:05:00.560 --> 00:05:02.629 align:start position:0%
+cloudflare called MCP agent. Give a name
+version<00:05:01.120><c> and</c><00:05:01.360><c> then</c><00:05:01.600><c> start</c><00:05:01.840><c> adding</c><00:05:02.160><c> tools</c><00:05:02.479><c> like</c>
+
+00:05:02.629 --> 00:05:02.639 align:start position:0%
+version and then start adding tools like
+
+
+00:05:02.639 --> 00:05:05.030 align:start position:0%
+version and then start adding tools like
+a<00:05:02.880><c> simple</c><00:05:03.120><c> MCP</c><00:05:03.759><c> tool</c><00:05:04.080><c> for</c><00:05:04.320><c> adding</c><00:05:04.720><c> numbers</c>
+
+00:05:05.030 --> 00:05:05.040 align:start position:0%
+a simple MCP tool for adding numbers
+
+
+00:05:05.040 --> 00:05:07.110 align:start position:0%
+a simple MCP tool for adding numbers
+together<00:05:05.600><c> or</c><00:05:05.840><c> a</c><00:05:06.000><c> bit</c><00:05:06.160><c> more</c><00:05:06.400><c> sophisticated</c>
+
+00:05:07.110 --> 00:05:07.120 align:start position:0%
+together or a bit more sophisticated
+
+
+00:05:07.120 --> 00:05:08.710 align:start position:0%
+together or a bit more sophisticated
+calculation.<00:05:07.840><c> You</c><00:05:08.080><c> can</c><00:05:08.160><c> give</c><00:05:08.240><c> it</c><00:05:08.320><c> the</c><00:05:08.479><c> name,</c>
+
+00:05:08.710 --> 00:05:08.720 align:start position:0%
+calculation. You can give it the name,
+
+
+00:05:08.720 --> 00:05:10.469 align:start position:0%
+calculation. You can give it the name,
+the<00:05:08.960><c> type</c><00:05:09.120><c> of</c><00:05:09.280><c> input</c><00:05:09.600><c> that</c><00:05:09.840><c> this</c><00:05:10.000><c> tool</c><00:05:10.320><c> should</c>
+
+00:05:10.469 --> 00:05:10.479 align:start position:0%
+the type of input that this tool should
+
+
+00:05:10.479 --> 00:05:11.990 align:start position:0%
+the type of input that this tool should
+take<00:05:10.880><c> and</c><00:05:11.120><c> define</c><00:05:11.440><c> the</c><00:05:11.600><c> actual</c>
+
+00:05:11.990 --> 00:05:12.000 align:start position:0%
+take and define the actual
+
+
+00:05:12.000 --> 00:05:13.749 align:start position:0%
+take and define the actual
+functionalities.<00:05:12.880><c> All</c><00:05:13.039><c> you</c><00:05:13.120><c> need</c><00:05:13.199><c> to</c><00:05:13.360><c> do</c><00:05:13.520><c> just</c>
+
+00:05:13.749 --> 00:05:13.759 align:start position:0%
+functionalities. All you need to do just
+
+
+00:05:13.759 --> 00:05:16.510 align:start position:0%
+functionalities. All you need to do just
+pasting<00:05:14.080><c> the</c><00:05:14.240><c> name</c><00:05:14.400><c> of</c><00:05:14.639><c> MCP</c><00:05:15.280><c> server</c><00:05:15.759><c> the</c>
+
+00:05:16.510 --> 00:05:16.520 align:start position:0%
+pasting the name of MCP server the
+
+
+00:05:16.520 --> 00:05:19.110 align:start position:0%
+pasting the name of MCP server the
+URL/MCP.<00:05:17.520><c> So</c><00:05:17.680><c> this</c><00:05:17.840><c> is</c><00:05:18.000><c> how</c><00:05:18.240><c> simple</c><00:05:18.560><c> it</c><00:05:18.720><c> is</c><00:05:18.880><c> for</c>
+
+00:05:19.110 --> 00:05:19.120 align:start position:0%
+URL/MCP. So this is how simple it is for
+
+
+00:05:19.120 --> 00:05:20.710 align:start position:0%
+URL/MCP. So this is how simple it is for
+you<00:05:19.199><c> to</c><00:05:19.360><c> create</c><00:05:19.520><c> your</c><00:05:19.600><c> own</c><00:05:19.759><c> MCP.</c><00:05:20.320><c> And</c><00:05:20.400><c> what</c>
+
+00:05:20.710 --> 00:05:20.720 align:start position:0%
+you to create your own MCP. And what
+
+
+00:05:20.720 --> 00:05:22.790 align:start position:0%
+you to create your own MCP. And what
+Strap<00:05:21.039><c> did</c><00:05:21.199><c> is</c><00:05:21.440><c> basically</c><00:05:22.000><c> have</c><00:05:22.160><c> a</c><00:05:22.320><c> new</c><00:05:22.560><c> class</c>
+
+00:05:22.790 --> 00:05:22.800 align:start position:0%
+Strap did is basically have a new class
+
+
+00:05:22.800 --> 00:05:25.270 align:start position:0%
+Strap did is basically have a new class
+called<00:05:23.039><c> paid</c><00:05:23.440><c> MCP</c><00:05:24.000><c> agent</c><00:05:24.720><c> that</c><00:05:24.880><c> is</c><00:05:25.039><c> built</c>
+
+00:05:25.270 --> 00:05:25.280 align:start position:0%
+called paid MCP agent that is built
+
+
+00:05:25.280 --> 00:05:28.469 align:start position:0%
+called paid MCP agent that is built
+based<00:05:25.600><c> upon</c><00:05:26.000><c> Clawflar's</c><00:05:26.880><c> MCP</c><00:05:27.520><c> agent</c><00:05:27.919><c> class.</c>
+
+00:05:28.469 --> 00:05:28.479 align:start position:0%
+based upon Clawflar's MCP agent class.
+
+
+00:05:28.479 --> 00:05:30.150 align:start position:0%
+based upon Clawflar's MCP agent class.
+So<00:05:28.560><c> the</c><00:05:28.720><c> setup</c><00:05:29.039><c> is</c><00:05:29.199><c> very</c><00:05:29.440><c> similar.</c><00:05:29.840><c> You</c><00:05:30.080><c> can</c>
+
+00:05:30.150 --> 00:05:30.160 align:start position:0%
+So the setup is very similar. You can
+
+
+00:05:30.160 --> 00:05:31.990 align:start position:0%
+So the setup is very similar. You can
+still<00:05:30.400><c> add</c><00:05:30.639><c> public</c><00:05:30.880><c> tools</c><00:05:31.199><c> like</c><00:05:31.440><c> what</c><00:05:31.600><c> you</c><00:05:31.759><c> did</c>
+
+00:05:31.990 --> 00:05:32.000 align:start position:0%
+still add public tools like what you did
+
+
+00:05:32.000 --> 00:05:34.629 align:start position:0%
+still add public tools like what you did
+before.<00:05:32.639><c> But</c><00:05:32.800><c> what</c><00:05:33.039><c> you</c><00:05:33.280><c> can</c><00:05:33.440><c> do</c><00:05:33.680><c> now</c><00:05:34.080><c> is</c><00:05:34.320><c> that</c>
+
+00:05:34.629 --> 00:05:34.639 align:start position:0%
+before. But what you can do now is that
+
+
+00:05:34.639 --> 00:05:36.870 align:start position:0%
+before. But what you can do now is that
+you<00:05:34.880><c> can</c><00:05:35.039><c> also</c><00:05:35.360><c> add</c><00:05:35.520><c> a</c><00:05:35.759><c> paid</c><00:05:36.080><c> tool</c><00:05:36.400><c> and</c><00:05:36.560><c> all</c><00:05:36.720><c> you</c>
+
+00:05:36.870 --> 00:05:36.880 align:start position:0%
+you can also add a paid tool and all you
+
+
+00:05:36.880 --> 00:05:38.710 align:start position:0%
+you can also add a paid tool and all you
+need<00:05:36.960><c> to</c><00:05:37.120><c> do</c><00:05:37.360><c> just</c><00:05:37.680><c> passing</c><00:05:38.160><c> on</c><00:05:38.400><c> this</c>
+
+00:05:38.710 --> 00:05:38.720 align:start position:0%
+need to do just passing on this
+
+
+00:05:38.720 --> 00:05:41.270 align:start position:0%
+need to do just passing on this
+additional<00:05:39.280><c> information</c><00:05:40.000><c> which</c><00:05:40.160><c> is</c><00:05:40.400><c> price</c><00:05:40.720><c> ID</c>
+
+00:05:41.270 --> 00:05:41.280 align:start position:0%
+additional information which is price ID
+
+
+00:05:41.280 --> 00:05:43.270 align:start position:0%
+additional information which is price ID
+the<00:05:41.440><c> payment</c><00:05:41.759><c> reason</c><00:05:42.160><c> which</c><00:05:42.400><c> will</c><00:05:42.560><c> show</c><00:05:42.720><c> up</c><00:05:42.960><c> if</c>
+
+00:05:43.270 --> 00:05:43.280 align:start position:0%
+the payment reason which will show up if
+
+
+00:05:43.280 --> 00:05:45.270 align:start position:0%
+the payment reason which will show up if
+user<00:05:43.600><c> haven't</c><00:05:43.919><c> paid</c><00:05:44.160><c> to</c><00:05:44.400><c> explain</c><00:05:44.800><c> why</c><00:05:45.039><c> they</c>
+
+00:05:45.270 --> 00:05:45.280 align:start position:0%
+user haven't paid to explain why they
+
+
+00:05:45.280 --> 00:05:47.189 align:start position:0%
+user haven't paid to explain why they
+should<00:05:45.440><c> upgrade</c><00:05:46.000><c> and</c><00:05:46.240><c> that's</c><00:05:46.479><c> pretty</c><00:05:46.720><c> much</c><00:05:46.880><c> it</c>
+
+00:05:47.189 --> 00:05:47.199 align:start position:0%
+should upgrade and that's pretty much it
+
+
+00:05:47.199 --> 00:05:49.350 align:start position:0%
+should upgrade and that's pretty much it
+with<00:05:47.440><c> this</c><00:05:47.600><c> setup.</c><00:05:48.080><c> If</c><00:05:48.240><c> a</c><00:05:48.400><c> user</c><00:05:48.720><c> try</c><00:05:48.960><c> to</c><00:05:49.120><c> call</c>
+
+00:05:49.350 --> 00:05:49.360 align:start position:0%
+with this setup. If a user try to call
+
+
+00:05:49.360 --> 00:05:51.670 align:start position:0%
+with this setup. If a user try to call
+this<00:05:49.680><c> specific</c><00:05:50.000><c> MCB</c><00:05:50.560><c> tool</c><00:05:50.880><c> but</c><00:05:51.120><c> they</c><00:05:51.360><c> haven't</c>
+
+00:05:51.670 --> 00:05:51.680 align:start position:0%
+this specific MCB tool but they haven't
+
+
+00:05:51.680 --> 00:05:53.990 align:start position:0%
+this specific MCB tool but they haven't
+paid<00:05:51.919><c> yet,</c><00:05:52.560><c> it</c><00:05:52.720><c> will</c><00:05:52.880><c> return</c><00:05:53.120><c> a</c><00:05:53.280><c> result</c><00:05:53.600><c> of</c><00:05:53.919><c> the</c>
+
+00:05:53.990 --> 00:05:54.000 align:start position:0%
+paid yet, it will return a result of the
+
+
+00:05:54.000 --> 00:05:56.230 align:start position:0%
+paid yet, it will return a result of the
+payment<00:05:54.400><c> link</c><00:05:54.960><c> as</c><00:05:55.199><c> well</c><00:05:55.360><c> as</c><00:05:55.520><c> a</c><00:05:55.680><c> reason</c><00:05:56.000><c> why</c>
+
+00:05:56.230 --> 00:05:56.240 align:start position:0%
+payment link as well as a reason why
+
+
+00:05:56.240 --> 00:05:58.150 align:start position:0%
+payment link as well as a reason why
+they<00:05:56.400><c> need</c><00:05:56.560><c> to</c><00:05:56.720><c> pay.</c><00:05:57.360><c> So</c><00:05:57.520><c> the</c><00:05:57.680><c> agent</c><00:05:58.000><c> can</c>
+
+00:05:58.150 --> 00:05:58.160 align:start position:0%
+they need to pay. So the agent can
+
+
+00:05:58.160 --> 00:05:59.749 align:start position:0%
+they need to pay. So the agent can
+actually<00:05:58.400><c> render</c><00:05:58.800><c> and</c><00:05:59.039><c> show</c><00:05:59.199><c> this</c><00:05:59.440><c> payment</c>
+
+00:05:59.749 --> 00:05:59.759 align:start position:0%
+actually render and show this payment
+
+
+00:05:59.759 --> 00:06:01.830 align:start position:0%
+actually render and show this payment
+link<00:06:00.080><c> to</c><00:06:00.240><c> the</c><00:06:00.400><c> user.</c><00:06:01.039><c> And</c><00:06:01.280><c> as</c><00:06:01.440><c> I</c><00:06:01.600><c> mentioned</c>
+
+00:06:01.830 --> 00:06:01.840 align:start position:0%
+link to the user. And as I mentioned
+
+
+00:06:01.840 --> 00:06:03.110 align:start position:0%
+link to the user. And as I mentioned
+before,<00:06:02.240><c> there</c><00:06:02.400><c> are</c><00:06:02.560><c> multiple</c><00:06:02.960><c> different</c>
+
+00:06:03.110 --> 00:06:03.120 align:start position:0%
+before, there are multiple different
+
+
+00:06:03.120 --> 00:06:04.870 align:start position:0%
+before, there are multiple different
+ways<00:06:03.360><c> you</c><00:06:03.600><c> can</c><00:06:03.680><c> set</c><00:06:03.919><c> up</c><00:06:04.000><c> payment</c><00:06:04.400><c> strategy.</c>
+
+00:06:04.870 --> 00:06:04.880 align:start position:0%
+ways you can set up payment strategy.
+
+
+00:06:04.880 --> 00:06:06.790 align:start position:0%
+ways you can set up payment strategy.
+This<00:06:05.199><c> example</c><00:06:05.520><c> of</c><00:06:05.759><c> how</c><00:06:05.919><c> do</c><00:06:06.080><c> you</c><00:06:06.240><c> set</c><00:06:06.400><c> up</c><00:06:06.479><c> a</c>
+
+00:06:06.790 --> 00:06:06.800 align:start position:0%
+This example of how do you set up a
+
+
+00:06:06.800 --> 00:06:09.029 align:start position:0%
+This example of how do you set up a
+one-time<00:06:07.280><c> payment.</c><00:06:07.919><c> Just</c><00:06:08.080><c> go</c><00:06:08.240><c> to</c><00:06:08.479><c> Stripe,</c>
+
+00:06:09.029 --> 00:06:09.039 align:start position:0%
+one-time payment. Just go to Stripe,
+
+
+00:06:09.039 --> 00:06:10.790 align:start position:0%
+one-time payment. Just go to Stripe,
+create<00:06:09.280><c> a</c><00:06:09.520><c> product,</c><00:06:09.919><c> and</c><00:06:10.080><c> the</c><00:06:10.319><c> pricing</c><00:06:10.639><c> will</c>
+
+00:06:10.790 --> 00:06:10.800 align:start position:0%
+create a product, and the pricing will
+
+
+00:06:10.800 --> 00:06:13.029 align:start position:0%
+create a product, and the pricing will
+be<00:06:11.039><c> one</c><00:06:11.280><c> off,</c><00:06:11.680><c> give</c><00:06:11.840><c> the</c><00:06:12.080><c> price,</c><00:06:12.720><c> then</c><00:06:12.880><c> you</c>
+
+00:06:13.029 --> 00:06:13.039 align:start position:0%
+be one off, give the price, then you
+
+
+00:06:13.039 --> 00:06:15.110 align:start position:0%
+be one off, give the price, then you
+will<00:06:13.199><c> get</c><00:06:13.360><c> this</c><00:06:13.680><c> pricing</c><00:06:14.240><c> ID</c><00:06:14.560><c> that</c><00:06:14.800><c> you</c><00:06:14.960><c> can</c>
+
+00:06:15.110 --> 00:06:15.120 align:start position:0%
+will get this pricing ID that you can
+
+
+00:06:15.120 --> 00:06:17.189 align:start position:0%
+will get this pricing ID that you can
+copy<00:06:15.680><c> and</c><00:06:15.919><c> paste</c><00:06:16.240><c> over.</c><00:06:16.639><c> You</c><00:06:16.800><c> will</c><00:06:16.960><c> need</c><00:06:17.039><c> to</c>
+
+00:06:17.189 --> 00:06:17.199 align:start position:0%
+copy and paste over. You will need to
+
+
+00:06:17.199 --> 00:06:19.270 align:start position:0%
+copy and paste over. You will need to
+define<00:06:17.520><c> a</c><00:06:17.840><c> payment</c><00:06:18.240><c> success,</c><00:06:18.720><c> which</c><00:06:18.960><c> is</c><00:06:19.120><c> where</c>
+
+00:06:19.270 --> 00:06:19.280 align:start position:0%
+define a payment success, which is where
+
+
+00:06:19.280 --> 00:06:21.189 align:start position:0%
+define a payment success, which is where
+do<00:06:19.440><c> you</c><00:06:19.600><c> want</c><00:06:19.680><c> to</c><00:06:19.759><c> take</c><00:06:20.000><c> users</c><00:06:20.319><c> to</c><00:06:20.639><c> after</c><00:06:20.960><c> they</c>
+
+00:06:21.189 --> 00:06:21.199 align:start position:0%
+do you want to take users to after they
+
+
+00:06:21.199 --> 00:06:23.189 align:start position:0%
+do you want to take users to after they
+pay<00:06:21.520><c> successfully.</c><00:06:22.160><c> So</c><00:06:22.319><c> you</c><00:06:22.479><c> can</c><00:06:22.720><c> create</c><00:06:22.880><c> a</c>
+
+00:06:23.189 --> 00:06:23.199 align:start position:0%
+pay successfully. So you can create a
+
+
+00:06:23.199 --> 00:06:25.270 align:start position:0%
+pay successfully. So you can create a
+nice<00:06:23.440><c> looking</c><00:06:23.840><c> page</c><00:06:24.319><c> that</c><00:06:24.560><c> showing</c><00:06:24.800><c> users</c>
+
+00:06:25.270 --> 00:06:25.280 align:start position:0%
+nice looking page that showing users
+
+
+00:06:25.280 --> 00:06:27.029 align:start position:0%
+nice looking page that showing users
+instruction<00:06:25.759><c> about</c><00:06:26.000><c> what</c><00:06:26.160><c> to</c><00:06:26.319><c> do</c><00:06:26.400><c> next.</c><00:06:26.880><c> So</c>
+
+00:06:27.029 --> 00:06:27.039 align:start position:0%
+instruction about what to do next. So
+
+
+00:06:27.039 --> 00:06:28.950 align:start position:0%
+instruction about what to do next. So
+this<00:06:27.199><c> is</c><00:06:27.280><c> a</c><00:06:27.440><c> onetime</c><00:06:27.840><c> payment.</c><00:06:28.400><c> You</c><00:06:28.639><c> can</c><00:06:28.720><c> also</c>
+
+00:06:28.950 --> 00:06:28.960 align:start position:0%
+this is a onetime payment. You can also
+
+
+00:06:28.960 --> 00:06:30.550 align:start position:0%
+this is a onetime payment. You can also
+create<00:06:29.120><c> a</c><00:06:29.360><c> subscription</c><00:06:29.759><c> payment</c><00:06:30.240><c> where</c>
+
+00:06:30.550 --> 00:06:30.560 align:start position:0%
+create a subscription payment where
+
+
+00:06:30.560 --> 00:06:32.710 align:start position:0%
+create a subscription payment where
+setup<00:06:30.880><c> is</c><00:06:31.199><c> almost</c><00:06:31.680><c> identical</c><00:06:32.160><c> except</c><00:06:32.479><c> the</c>
+
+00:06:32.710 --> 00:06:32.720 align:start position:0%
+setup is almost identical except the
+
+
+00:06:32.720 --> 00:06:34.390 align:start position:0%
+setup is almost identical except the
+pricing<00:06:33.039><c> will</c><00:06:33.280><c> be</c><00:06:33.440><c> recurring</c><00:06:33.919><c> and</c><00:06:34.160><c> you</c><00:06:34.319><c> can</c>
+
+00:06:34.390 --> 00:06:34.400 align:start position:0%
+pricing will be recurring and you can
+
+
+00:06:34.400 --> 00:06:36.469 align:start position:0%
+pricing will be recurring and you can
+set<00:06:34.560><c> up</c><00:06:34.720><c> flat</c><00:06:34.960><c> rate</c><00:06:35.280><c> fee</c><00:06:35.520><c> here</c><00:06:35.840><c> and</c><00:06:36.000><c> pasting</c>
+
+00:06:36.469 --> 00:06:36.479 align:start position:0%
+set up flat rate fee here and pasting
+
+
+00:06:36.479 --> 00:06:39.110 align:start position:0%
+set up flat rate fee here and pasting
+over<00:06:36.720><c> the</c><00:06:36.960><c> price</c><00:06:37.440><c> ID</c><00:06:38.000><c> and</c><00:06:38.240><c> the</c><00:06:38.400><c> mode</c><00:06:38.639><c> will</c><00:06:38.880><c> be</c>
+
+00:06:39.110 --> 00:06:39.120 align:start position:0%
+over the price ID and the mode will be
+
+
+00:06:39.120 --> 00:06:40.629 align:start position:0%
+over the price ID and the mode will be
+subscription.<00:06:39.680><c> But</c><00:06:39.840><c> the</c><00:06:40.000><c> most</c><00:06:40.240><c> interesting</c>
+
+00:06:40.629 --> 00:06:40.639 align:start position:0%
+subscription. But the most interesting
+
+
+00:06:40.639 --> 00:06:42.950 align:start position:0%
+subscription. But the most interesting
+part<00:06:40.800><c> is</c><00:06:41.039><c> this</c><00:06:41.280><c> usage</c><00:06:41.840><c> based</c><00:06:42.160><c> payment</c><00:06:42.560><c> method</c>
+
+00:06:42.950 --> 00:06:42.960 align:start position:0%
+part is this usage based payment method
+
+
+00:06:42.960 --> 00:06:45.430 align:start position:0%
+part is this usage based payment method
+every<00:06:43.199><c> time</c><00:06:43.440><c> when</c><00:06:43.680><c> user</c><00:06:44.000><c> uses</c><00:06:44.400><c> MCP</c><00:06:44.960><c> tool.</c><00:06:45.280><c> It</c>
+
+00:06:45.430 --> 00:06:45.440 align:start position:0%
+every time when user uses MCP tool. It
+
+
+00:06:45.440 --> 00:06:47.270 align:start position:0%
+every time when user uses MCP tool. It
+will<00:06:45.520><c> record</c><00:06:45.840><c> a</c><00:06:46.000><c> usage</c><00:06:46.319><c> and</c><00:06:46.639><c> consumer</c>
+
+00:06:47.270 --> 00:06:47.280 align:start position:0%
+will record a usage and consumer
+
+
+00:06:47.280 --> 00:06:49.029 align:start position:0%
+will record a usage and consumer
+credits.<00:06:47.840><c> You</c><00:06:48.000><c> need</c><00:06:48.080><c> to</c><00:06:48.240><c> do</c><00:06:48.319><c> is</c><00:06:48.560><c> choose</c><00:06:48.800><c> this</c>
+
+00:06:49.029 --> 00:06:49.039 align:start position:0%
+credits. You need to do is choose this
+
+
+00:06:49.039 --> 00:06:51.110 align:start position:0%
+credits. You need to do is choose this
+usage<00:06:49.520><c> based</c><00:06:49.840><c> pricing.</c><00:06:50.240><c> The</c><00:06:50.479><c> most</c><00:06:50.639><c> common</c><00:06:50.960><c> one</c>
+
+00:06:51.110 --> 00:06:51.120 align:start position:0%
+usage based pricing. The most common one
+
+
+00:06:51.120 --> 00:06:53.029 align:start position:0%
+usage based pricing. The most common one
+is<00:06:51.360><c> probably</c><00:06:51.680><c> per</c><00:06:52.000><c> tier.</c><00:06:52.479><c> So</c><00:06:52.560><c> let's</c><00:06:52.720><c> say</c><00:06:52.880><c> you</c>
+
+00:06:53.029 --> 00:06:53.039 align:start position:0%
+is probably per tier. So let's say you
+
+
+00:06:53.039 --> 00:06:55.510 align:start position:0%
+is probably per tier. So let's say you
+want<00:06:53.120><c> to</c><00:06:53.280><c> set</c><00:06:53.440><c> up</c><00:06:53.520><c> a</c><00:06:53.759><c> emoji</c><00:06:54.319><c> generator</c><00:06:54.880><c> MCP.</c>
+
+00:06:55.510 --> 00:06:55.520 align:start position:0%
+want to set up a emoji generator MCP.
+
+
+00:06:55.520 --> 00:06:57.670 align:start position:0%
+want to set up a emoji generator MCP.
+The<00:06:55.680><c> first</c><00:06:55.919><c> five</c><00:06:56.160><c> generation</c><00:06:56.639><c> will</c><00:06:56.880><c> be</c><00:06:57.039><c> free</c>
+
+00:06:57.670 --> 00:06:57.680 align:start position:0%
+The first five generation will be free
+
+
+00:06:57.680 --> 00:06:59.749 align:start position:0%
+The first five generation will be free
+per<00:06:58.000><c> unit</c><00:06:58.400><c> price</c><00:06:58.720><c> will</c><00:06:58.880><c> be</c><00:06:59.039><c> zero</c><00:06:59.360><c> and</c><00:06:59.520><c> there's</c>
+
+00:06:59.749 --> 00:06:59.759 align:start position:0%
+per unit price will be zero and there's
+
+
+00:06:59.759 --> 00:07:01.990 align:start position:0%
+per unit price will be zero and there's
+no<00:07:00.000><c> flat</c><00:07:00.319><c> fee.</c><00:07:00.800><c> After</c><00:07:01.120><c> that</c><00:07:01.520><c> you</c><00:07:01.759><c> want</c><00:07:01.840><c> to</c>
+
+00:07:01.990 --> 00:07:02.000 align:start position:0%
+no flat fee. After that you want to
+
+
+00:07:02.000 --> 00:07:04.390 align:start position:0%
+no flat fee. After that you want to
+charge<00:07:02.319><c> $1</c><00:07:03.039><c> and</c><00:07:03.280><c> it</c><00:07:03.520><c> will</c><00:07:03.759><c> give</c><00:07:03.919><c> them</c><00:07:04.080><c> some</c>
+
+00:07:04.390 --> 00:07:04.400 align:start position:0%
+charge $1 and it will give them some
+
+
+00:07:04.400 --> 00:07:07.110 align:start position:0%
+charge $1 and it will give them some
+credits<00:07:04.720><c> to</c><00:07:04.960><c> generate</c><00:07:05.360><c> let's</c><00:07:05.599><c> say</c><00:07:05.919><c> 30</c><00:07:06.160><c> emojis.</c>
+
+00:07:07.110 --> 00:07:07.120 align:start position:0%
+credits to generate let's say 30 emojis.
+
+
+00:07:07.120 --> 00:07:09.270 align:start position:0%
+credits to generate let's say 30 emojis.
+You<00:07:07.360><c> want</c><00:07:07.440><c> to</c><00:07:07.599><c> give</c><00:07:07.759><c> a</c><00:07:08.080><c> new</c><00:07:08.319><c> tier</c><00:07:08.639><c> which</c><00:07:08.880><c> charge</c>
+
+00:07:09.270 --> 00:07:09.280 align:start position:0%
+You want to give a new tier which charge
+
+
+00:07:09.280 --> 00:07:12.390 align:start position:0%
+You want to give a new tier which charge
+$10<00:07:10.000><c> that</c><00:07:10.319><c> gives</c><00:07:10.479><c> them</c><00:07:10.800><c> 500</c><00:07:11.199><c> credits.</c><00:07:11.919><c> If</c><00:07:12.160><c> they</c>
+
+00:07:12.390 --> 00:07:12.400 align:start position:0%
+$10 that gives them 500 credits. If they
+
+
+00:07:12.400 --> 00:07:15.029 align:start position:0%
+$10 that gives them 500 credits. If they
+exceed<00:07:12.880><c> that</c><00:07:13.280><c> 500</c><00:07:13.759><c> quota</c><00:07:14.400><c> then</c><00:07:14.639><c> you</c><00:07:14.800><c> will</c>
+
+00:07:15.029 --> 00:07:15.039 align:start position:0%
+exceed that 500 quota then you will
+
+
+00:07:15.039 --> 00:07:16.110 align:start position:0%
+exceed that 500 quota then you will
+charge
+
+00:07:16.110 --> 00:07:16.120 align:start position:0%
+charge
+
+
+00:07:16.120 --> 00:07:19.270 align:start position:0%
+charge
+0.001<00:07:17.120><c> per</c><00:07:17.360><c> new</c><00:07:17.599><c> emoji</c><00:07:18.080><c> generated.</c><00:07:18.880><c> So</c><00:07:19.039><c> you</c>
+
+00:07:19.270 --> 00:07:19.280 align:start position:0%
+0.001 per new emoji generated. So you
+
+
+00:07:19.280 --> 00:07:20.710 align:start position:0%
+0.001 per new emoji generated. So you
+can<00:07:19.360><c> create</c><00:07:19.599><c> that</c><00:07:19.919><c> but</c><00:07:20.160><c> you</c><00:07:20.319><c> will</c><00:07:20.479><c> need</c><00:07:20.560><c> to</c>
+
+00:07:20.710 --> 00:07:20.720 align:start position:0%
+can create that but you will need to
+
+
+00:07:20.720 --> 00:07:22.550 align:start position:0%
+can create that but you will need to
+attach<00:07:20.960><c> a</c><00:07:21.120><c> meter.</c><00:07:21.520><c> You</c><00:07:21.759><c> can</c><00:07:21.840><c> search</c><00:07:22.000><c> for</c><00:07:22.240><c> meter</c>
+
+00:07:22.550 --> 00:07:22.560 align:start position:0%
+attach a meter. You can search for meter
+
+
+00:07:22.560 --> 00:07:24.629 align:start position:0%
+attach a meter. You can search for meter
+on<00:07:22.800><c> stripe</c><00:07:23.120><c> and</c><00:07:23.280><c> then</c><00:07:23.520><c> create</c><00:07:23.680><c> a</c><00:07:23.759><c> meter.</c><00:07:24.319><c> Meter</c>
+
+00:07:24.629 --> 00:07:24.639 align:start position:0%
+on stripe and then create a meter. Meter
+
+
+00:07:24.639 --> 00:07:26.469 align:start position:0%
+on stripe and then create a meter. Meter
+is<00:07:24.800><c> basically</c><00:07:25.120><c> counter</c><00:07:25.599><c> that</c><00:07:25.840><c> keep</c><00:07:26.080><c> track</c><00:07:26.319><c> the</c>
+
+00:07:26.469 --> 00:07:26.479 align:start position:0%
+is basically counter that keep track the
+
+
+00:07:26.479 --> 00:07:28.309 align:start position:0%
+is basically counter that keep track the
+usage<00:07:26.880><c> of</c><00:07:27.039><c> the</c><00:07:27.199><c> user.</c><00:07:27.599><c> You</c><00:07:27.759><c> can</c><00:07:27.840><c> give</c><00:07:27.919><c> a</c><00:07:28.160><c> name</c>
+
+00:07:28.309 --> 00:07:28.319 align:start position:0%
+usage of the user. You can give a name
+
+
+00:07:28.319 --> 00:07:30.309 align:start position:0%
+usage of the user. You can give a name
+and<00:07:28.639><c> choosing</c><00:07:29.039><c> how</c><00:07:29.280><c> you</c><00:07:29.440><c> want</c><00:07:29.599><c> this</c><00:07:29.840><c> meter</c><00:07:30.160><c> to</c>
+
+00:07:30.309 --> 00:07:30.319 align:start position:0%
+and choosing how you want this meter to
+
+
+00:07:30.319 --> 00:07:31.990 align:start position:0%
+and choosing how you want this meter to
+be<00:07:30.400><c> added.</c><00:07:30.800><c> You</c><00:07:30.960><c> will</c><00:07:31.120><c> choose</c><00:07:31.280><c> that</c><00:07:31.520><c> meter</c><00:07:31.840><c> to</c>
+
+00:07:31.990 --> 00:07:32.000 align:start position:0%
+be added. You will choose that meter to
+
+
+00:07:32.000 --> 00:07:34.390 align:start position:0%
+be added. You will choose that meter to
+track<00:07:32.319><c> the</c><00:07:32.560><c> usage.</c><00:07:33.360><c> Then</c><00:07:33.520><c> you</c><00:07:33.680><c> can</c><00:07:33.840><c> just</c><00:07:34.080><c> copy</c>
+
+00:07:34.390 --> 00:07:34.400 align:start position:0%
+track the usage. Then you can just copy
+
+
+00:07:34.400 --> 00:07:36.950 align:start position:0%
+track the usage. Then you can just copy
+this<00:07:34.720><c> pricing</c><00:07:35.280><c> ID</c><00:07:35.599><c> over</c><00:07:36.000><c> to</c><00:07:36.240><c> the</c><00:07:36.400><c> line</c><00:07:36.639><c> item</c>
+
+00:07:36.950 --> 00:07:36.960 align:start position:0%
+this pricing ID over to the line item
+
+
+00:07:36.960 --> 00:07:39.270 align:start position:0%
+this pricing ID over to the line item
+here<00:07:37.280><c> as</c><00:07:37.520><c> well</c><00:07:37.599><c> as</c><00:07:37.919><c> meter</c><00:07:38.319><c> event</c><00:07:38.880><c> which</c><00:07:39.120><c> is</c>
+
+00:07:39.270 --> 00:07:39.280 align:start position:0%
+here as well as meter event which is
+
+
+00:07:39.280 --> 00:07:41.189 align:start position:0%
+here as well as meter event which is
+this<00:07:39.680><c> event</c><00:07:40.000><c> name</c><00:07:40.319><c> you</c><00:07:40.479><c> can</c><00:07:40.639><c> get</c><00:07:40.800><c> from</c><00:07:41.039><c> the</c>
+
+00:07:41.189 --> 00:07:41.199 align:start position:0%
+this event name you can get from the
+
+
+00:07:41.199 --> 00:07:43.270 align:start position:0%
+this event name you can get from the
+meter<00:07:41.599><c> page</c><00:07:42.080><c> and</c><00:07:42.319><c> the</c><00:07:42.479><c> mode</c><00:07:42.720><c> will</c><00:07:42.880><c> be</c><00:07:43.039><c> still</c>
+
+00:07:43.270 --> 00:07:43.280 align:start position:0%
+meter page and the mode will be still
+
+
+00:07:43.280 --> 00:07:45.189 align:start position:0%
+meter page and the mode will be still
+subscription.<00:07:43.919><c> So</c><00:07:44.160><c> this</c><00:07:44.400><c> setup</c><00:07:44.960><c> will</c>
+
+00:07:45.189 --> 00:07:45.199 align:start position:0%
+subscription. So this setup will
+
+
+00:07:45.199 --> 00:07:47.029 align:start position:0%
+subscription. So this setup will
+automatically<00:07:45.680><c> track</c><00:07:45.919><c> the</c><00:07:46.160><c> usage.</c><00:07:46.639><c> So</c><00:07:46.880><c> in</c>
+
+00:07:47.029 --> 00:07:47.039 align:start position:0%
+automatically track the usage. So in
+
+
+00:07:47.039 --> 00:07:49.189 align:start position:0%
+automatically track the usage. So in
+this<00:07:47.280><c> example</c><00:07:47.680><c> chat</c><00:07:48.080><c> earlier</c><00:07:48.560><c> I</c><00:07:48.800><c> call</c><00:07:48.960><c> this</c>
+
+00:07:49.189 --> 00:07:49.199 align:start position:0%
+this example chat earlier I call this
+
+
+00:07:49.199 --> 00:07:52.070 align:start position:0%
+this example chat earlier I call this
+MCP<00:07:49.840><c> server</c><00:07:50.319><c> 10</c><00:07:50.639><c> times</c><00:07:51.120><c> and</c><00:07:51.280><c> in</c><00:07:51.440><c> the</c><00:07:51.599><c> invoice</c>
+
+00:07:52.070 --> 00:07:52.080 align:start position:0%
+MCP server 10 times and in the invoice
+
+
+00:07:52.080 --> 00:07:54.070 align:start position:0%
+MCP server 10 times and in the invoice
+automatically<00:07:52.720><c> track</c><00:07:52.960><c> my</c><00:07:53.199><c> usage</c><00:07:53.759><c> and</c>
+
+00:07:54.070 --> 00:07:54.080 align:start position:0%
+automatically track my usage and
+
+
+00:07:54.080 --> 00:07:55.909 align:start position:0%
+automatically track my usage and
+calculate<00:07:54.479><c> the</c><00:07:54.639><c> invoice</c><00:07:55.120><c> dynamically.</c><00:07:55.759><c> So</c>
+
+00:07:55.909 --> 00:07:55.919 align:start position:0%
+calculate the invoice dynamically. So
+
+
+00:07:55.919 --> 00:07:57.830 align:start position:0%
+calculate the invoice dynamically. So
+this<00:07:56.080><c> is</c><00:07:56.160><c> how</c><00:07:56.319><c> you</c><00:07:56.479><c> can</c><00:07:56.560><c> use</c><00:07:56.879><c> stripe</c><00:07:57.360><c> agent</c>
+
+00:07:57.830 --> 00:07:57.840 align:start position:0%
+this is how you can use stripe agent
+
+
+00:07:57.840 --> 00:07:59.749 align:start position:0%
+this is how you can use stripe agent
+toolkit<00:07:58.319><c> to</c><00:07:58.479><c> add</c><00:07:58.720><c> pricing</c><00:07:59.120><c> and</c><00:07:59.280><c> payment</c><00:07:59.599><c> to</c>
+
+00:07:59.749 --> 00:07:59.759 align:start position:0%
+toolkit to add pricing and payment to
+
+
+00:07:59.759 --> 00:08:01.430 align:start position:0%
+toolkit to add pricing and payment to
+your<00:07:59.919><c> MCP</c><00:08:00.479><c> server</c><00:08:00.800><c> so</c><00:08:00.960><c> you</c><00:08:01.120><c> can</c><00:08:01.199><c> start</c>
+
+00:08:01.430 --> 00:08:01.440 align:start position:0%
+your MCP server so you can start
+
+
+00:08:01.440 --> 00:08:03.110 align:start position:0%
+your MCP server so you can start
+monetize.<00:08:02.080><c> If</c><00:08:02.240><c> you</c><00:08:02.319><c> want</c><00:08:02.400><c> to</c><00:08:02.560><c> get</c><00:08:02.720><c> more</c><00:08:02.960><c> in</c>
+
+00:08:03.110 --> 00:08:03.120 align:start position:0%
+monetize. If you want to get more in
+
+
+00:08:03.120 --> 00:08:04.950 align:start position:0%
+monetize. If you want to get more in
+depth<00:08:03.360><c> step-by-step</c><00:08:04.000><c> tutorial</c><00:08:04.560><c> I</c><00:08:04.800><c> have</c>
+
+00:08:04.950 --> 00:08:04.960 align:start position:0%
+depth step-by-step tutorial I have
+
+
+00:08:04.960 --> 00:08:06.710 align:start position:0%
+depth step-by-step tutorial I have
+detailed<00:08:05.360><c> breakdown</c><00:08:05.840><c> for</c><00:08:06.000><c> how</c><00:08:06.160><c> to</c><00:08:06.400><c> build</c><00:08:06.560><c> a</c>
+
+00:08:06.710 --> 00:08:06.720 align:start position:0%
+detailed breakdown for how to build a
+
+
+00:08:06.720 --> 00:08:09.029 align:start position:0%
+detailed breakdown for how to build a
+proper<00:08:07.039><c> MCP</c><00:08:07.680><c> server</c><00:08:08.080><c> as</c><00:08:08.240><c> well</c><00:08:08.400><c> as</c><00:08:08.639><c> template</c>
+
+00:08:09.029 --> 00:08:09.039 align:start position:0%
+proper MCP server as well as template
+
+
+00:08:09.039 --> 00:08:10.790 align:start position:0%
+proper MCP server as well as template
+that<00:08:09.280><c> already</c><00:08:09.599><c> have</c><00:08:09.919><c> authentication</c><00:08:10.639><c> and</c>
+
+00:08:10.790 --> 00:08:10.800 align:start position:0%
+that already have authentication and
+
+
+00:08:10.800 --> 00:08:12.790 align:start position:0%
+that already have authentication and
+payment<00:08:11.199><c> built</c><00:08:11.440><c> in.</c><00:08:11.759><c> All</c><00:08:11.919><c> those</c><00:08:12.160><c> tutorial</c><00:08:12.560><c> and</c>
+
+00:08:12.790 --> 00:08:12.800 align:start position:0%
+payment built in. All those tutorial and
+
+
+00:08:12.800 --> 00:08:15.510 align:start position:0%
+payment built in. All those tutorial and
+MCP<00:08:13.360><c> template</c><00:08:13.840><c> will</c><00:08:14.080><c> be</c><00:08:14.240><c> inside</c><00:08:14.800><c> AI</c><00:08:15.199><c> builder</c>
+
+00:08:15.510 --> 00:08:15.520 align:start position:0%
+MCP template will be inside AI builder
+
+
+00:08:15.520 --> 00:08:17.029 align:start position:0%
+MCP template will be inside AI builder
+club<00:08:15.759><c> I'm</c><00:08:15.919><c> building.</c><00:08:16.240><c> I</c><00:08:16.400><c> have</c><00:08:16.560><c> put</c><00:08:16.720><c> the</c><00:08:16.879><c> link</c>
+
+00:08:17.029 --> 00:08:17.039 align:start position:0%
+club I'm building. I have put the link
+
+
+00:08:17.039 --> 00:08:18.469 align:start position:0%
+club I'm building. I have put the link
+in<00:08:17.199><c> the</c><00:08:17.360><c> description</c><00:08:17.680><c> below.</c><00:08:18.000><c> So</c><00:08:18.160><c> if</c><00:08:18.319><c> you're</c>
+
+00:08:18.469 --> 00:08:18.479 align:start position:0%
+in the description below. So if you're
+
+
+00:08:18.479 --> 00:08:19.990 align:start position:0%
+in the description below. So if you're
+interested,<00:08:18.879><c> feel</c><00:08:19.039><c> free</c><00:08:19.199><c> to</c><00:08:19.360><c> join.</c><00:08:19.680><c> But</c><00:08:19.759><c> apart</c>
+
+00:08:19.990 --> 00:08:20.000 align:start position:0%
+interested, feel free to join. But apart
+
+
+00:08:20.000 --> 00:08:21.270 align:start position:0%
+interested, feel free to join. But apart
+from<00:08:20.160><c> that,</c><00:08:20.400><c> you</c><00:08:20.560><c> also</c><00:08:20.800><c> need</c><00:08:20.879><c> to</c><00:08:21.039><c> set</c><00:08:21.120><c> up</c>
+
+00:08:21.270 --> 00:08:21.280 align:start position:0%
+from that, you also need to set up
+
+
+00:08:21.280 --> 00:08:23.350 align:start position:0%
+from that, you also need to set up
+authentication<00:08:21.919><c> system</c><00:08:22.319><c> for</c><00:08:22.560><c> the</c><00:08:22.720><c> MCP</c>
+
+00:08:23.350 --> 00:08:23.360 align:start position:0%
+authentication system for the MCP
+
+
+00:08:23.360 --> 00:08:25.589 align:start position:0%
+authentication system for the MCP
+server.<00:08:24.000><c> So</c><00:08:24.160><c> user</c><00:08:24.560><c> can</c><00:08:24.720><c> sign</c><00:08:24.960><c> up</c><00:08:25.120><c> and</c><00:08:25.360><c> track</c>
+
+00:08:25.589 --> 00:08:25.599 align:start position:0%
+server. So user can sign up and track
+
+
+00:08:25.599 --> 00:08:27.029 align:start position:0%
+server. So user can sign up and track
+their<00:08:25.840><c> usage.</c><00:08:26.240><c> So</c><00:08:26.400><c> here</c><00:08:26.560><c> we're</c><00:08:26.720><c> going</c><00:08:26.800><c> to</c><00:08:26.879><c> use</c>
+
+00:08:27.029 --> 00:08:27.039 align:start position:0%
+their usage. So here we're going to use
+
+
+00:08:27.039 --> 00:08:29.350 align:start position:0%
+their usage. So here we're going to use
+two<00:08:27.280><c> things.</c><00:08:27.759><c> One</c><00:08:27.919><c> is</c><00:08:28.160><c> Cloudflare</c><00:08:28.879><c> OS</c>
+
+00:08:29.350 --> 00:08:29.360 align:start position:0%
+two things. One is Cloudflare OS
+
+
+00:08:29.360 --> 00:08:31.749 align:start position:0%
+two things. One is Cloudflare OS
+provider.<00:08:29.919><c> Another</c><00:08:30.240><c> is</c><00:08:30.479><c> a</c><00:08:30.720><c> MCP</c><00:08:31.360><c> remote</c>
+
+00:08:31.749 --> 00:08:31.759 align:start position:0%
+provider. Another is a MCP remote
+
+
+00:08:31.759 --> 00:08:33.430 align:start position:0%
+provider. Another is a MCP remote
+package.<00:08:32.320><c> So</c><00:08:32.399><c> to</c><00:08:32.640><c> build</c><00:08:32.800><c> authentication</c>
+
+00:08:33.430 --> 00:08:33.440 align:start position:0%
+package. So to build authentication
+
+
+00:08:33.440 --> 00:08:35.990 align:start position:0%
+package. So to build authentication
+system<00:08:33.839><c> for</c><00:08:34.080><c> your</c><00:08:34.399><c> own</c><00:08:34.640><c> MCP</c><00:08:35.279><c> server,</c><00:08:35.760><c> you</c>
+
+00:08:35.990 --> 00:08:36.000 align:start position:0%
+system for your own MCP server, you
+
+
+00:08:36.000 --> 00:08:37.430 align:start position:0%
+system for your own MCP server, you
+actually<00:08:36.240><c> need</c><00:08:36.399><c> to</c><00:08:36.560><c> do</c><00:08:36.800><c> something</c><00:08:37.120><c> called</c>
+
+00:08:37.430 --> 00:08:37.440 align:start position:0%
+actually need to do something called
+
+
+00:08:37.440 --> 00:08:40.149 align:start position:0%
+actually need to do something called
+OOS.<00:08:38.159><c> OS</c><00:08:38.479><c> is</c><00:08:38.560><c> a</c><00:08:38.719><c> protocol</c><00:08:39.039><c> that</c><00:08:39.279><c> allow</c><00:08:39.680><c> user</c><00:08:40.000><c> to</c>
+
+00:08:40.149 --> 00:08:40.159 align:start position:0%
+OOS. OS is a protocol that allow user to
+
+
+00:08:40.159 --> 00:08:41.990 align:start position:0%
+OOS. OS is a protocol that allow user to
+grant<00:08:40.479><c> access</c><00:08:41.039><c> to</c><00:08:41.360><c> certain</c><00:08:41.680><c> client</c>
+
+00:08:41.990 --> 00:08:42.000 align:start position:0%
+grant access to certain client
+
+
+00:08:42.000 --> 00:08:43.829 align:start position:0%
+grant access to certain client
+application<00:08:42.640><c> to</c><00:08:42.880><c> the</c><00:08:43.039><c> server</c><00:08:43.360><c> data.</c><00:08:43.760><c> For</c>
+
+00:08:43.829 --> 00:08:43.839 align:start position:0%
+application to the server data. For
+
+
+00:08:43.839 --> 00:08:45.350 align:start position:0%
+application to the server data. For
+example,<00:08:44.080><c> you</c><00:08:44.240><c> often</c><00:08:44.560><c> will</c><00:08:44.720><c> see</c><00:08:44.959><c> things</c><00:08:45.120><c> like</c>
+
+00:08:45.350 --> 00:08:45.360 align:start position:0%
+example, you often will see things like
+
+
+00:08:45.360 --> 00:08:47.110 align:start position:0%
+example, you often will see things like
+login<00:08:45.839><c> with</c><00:08:46.000><c> Google</c><00:08:46.320><c> or</c><00:08:46.560><c> login</c><00:08:46.880><c> with</c>
+
+00:08:47.110 --> 00:08:47.120 align:start position:0%
+login with Google or login with
+
+
+00:08:47.120 --> 00:08:48.630 align:start position:0%
+login with Google or login with
+Facebook.<00:08:47.680><c> That's</c><00:08:47.839><c> kind</c><00:08:48.000><c> of</c><00:08:48.080><c> common</c><00:08:48.320><c> use</c><00:08:48.480><c> case</c>
+
+00:08:48.630 --> 00:08:48.640 align:start position:0%
+Facebook. That's kind of common use case
+
+
+00:08:48.640 --> 00:08:50.710 align:start position:0%
+Facebook. That's kind of common use case
+for<00:08:48.800><c> OASP.</c><00:08:49.360><c> But</c><00:08:49.519><c> for</c><00:08:49.680><c> MCP,</c><00:08:50.080><c> we</c><00:08:50.320><c> need</c><00:08:50.399><c> to</c><00:08:50.560><c> use</c>
+
+00:08:50.710 --> 00:08:50.720 align:start position:0%
+for OASP. But for MCP, we need to use
+
+
+00:08:50.720 --> 00:08:52.710 align:start position:0%
+for OASP. But for MCP, we need to use
+OAS<00:08:51.120><c> because</c><00:08:51.360><c> for</c><00:08:51.519><c> MCP,</c><00:08:52.080><c> you</c><00:08:52.240><c> often</c><00:08:52.560><c> just</c>
+
+00:08:52.710 --> 00:08:52.720 align:start position:0%
+OAS because for MCP, you often just
+
+
+00:08:52.720 --> 00:08:54.470 align:start position:0%
+OAS because for MCP, you often just
+build<00:08:52.880><c> a</c><00:08:53.040><c> server</c><00:08:53.360><c> and</c><00:08:53.600><c> it</c><00:08:53.760><c> is</c><00:08:53.920><c> designed</c><00:08:54.160><c> to</c><00:08:54.399><c> be</c>
+
+00:08:54.470 --> 00:08:54.480 align:start position:0%
+build a server and it is designed to be
+
+
+00:08:54.480 --> 00:08:56.470 align:start position:0%
+build a server and it is designed to be
+used<00:08:54.800><c> in</c><00:08:55.040><c> multiple</c><00:08:55.440><c> different</c><00:08:55.680><c> clients</c><00:08:56.240><c> like</c>
+
+00:08:56.470 --> 00:08:56.480 align:start position:0%
+used in multiple different clients like
+
+
+00:08:56.480 --> 00:08:58.470 align:start position:0%
+used in multiple different clients like
+cursor,<00:08:56.959><c> wing</c><00:08:57.279><c> serve.</c><00:08:57.600><c> And</c><00:08:57.760><c> the</c><00:08:57.920><c> way</c><00:08:58.000><c> it</c><00:08:58.240><c> work</c>
+
+00:08:58.470 --> 00:08:58.480 align:start position:0%
+cursor, wing serve. And the way it work
+
+
+00:08:58.480 --> 00:09:00.870 align:start position:0%
+cursor, wing serve. And the way it work
+is<00:08:58.640><c> that</c><00:08:58.880><c> when</c><00:08:59.200><c> someone</c><00:08:59.440><c> add</c><00:08:59.680><c> your</c><00:08:59.839><c> MCP</c><00:09:00.480><c> server</c>
+
+00:09:00.870 --> 00:09:00.880 align:start position:0%
+is that when someone add your MCP server
+
+
+00:09:00.880 --> 00:09:03.670 align:start position:0%
+is that when someone add your MCP server
+to<00:09:01.200><c> cursor,</c><00:09:01.839><c> it</c><00:09:02.080><c> will</c><00:09:02.320><c> send</c><00:09:02.480><c> a</c><00:09:02.720><c> request</c><00:09:03.200><c> to</c><00:09:03.519><c> to</c>
+
+00:09:03.670 --> 00:09:03.680 align:start position:0%
+to cursor, it will send a request to to
+
+
+00:09:03.680 --> 00:09:05.750 align:start position:0%
+to cursor, it will send a request to to
+the<00:09:03.839><c> MCP</c><00:09:04.399><c> server</c><00:09:04.720><c> to</c><00:09:04.959><c> check</c><00:09:05.120><c> if</c><00:09:05.279><c> a</c><00:09:05.440><c> user</c>
+
+00:09:05.750 --> 00:09:05.760 align:start position:0%
+the MCP server to check if a user
+
+
+00:09:05.760 --> 00:09:07.509 align:start position:0%
+the MCP server to check if a user
+already<00:09:06.080><c> logging</c><00:09:06.480><c> or</c><00:09:06.640><c> not.</c><00:09:06.880><c> If</c><00:09:07.120><c> it's</c><00:09:07.360><c> not</c>
+
+00:09:07.509 --> 00:09:07.519 align:start position:0%
+already logging or not. If it's not
+
+
+00:09:07.519 --> 00:09:09.750 align:start position:0%
+already logging or not. If it's not
+authorized,<00:09:08.160><c> it'll</c><00:09:08.560><c> open</c><00:09:08.800><c> the</c><00:09:08.959><c> browser,</c><00:09:09.600><c> get</c>
+
+00:09:09.750 --> 00:09:09.760 align:start position:0%
+authorized, it'll open the browser, get
+
+
+00:09:09.760 --> 00:09:12.230 align:start position:0%
+authorized, it'll open the browser, get
+a<00:09:09.920><c> O</c><00:09:10.240><c> code</c><00:09:10.560><c> and</c><00:09:10.800><c> wait</c><00:09:11.040><c> for</c><00:09:11.200><c> user</c><00:09:11.519><c> to</c><00:09:11.760><c> login</c>
+
+00:09:12.230 --> 00:09:12.240 align:start position:0%
+a O code and wait for user to login
+
+
+00:09:12.240 --> 00:09:13.750 align:start position:0%
+a O code and wait for user to login
+successfully.<00:09:12.880><c> And</c><00:09:13.040><c> after</c><00:09:13.200><c> that,</c><00:09:13.440><c> it</c><00:09:13.600><c> will</c>
+
+00:09:13.750 --> 00:09:13.760 align:start position:0%
+successfully. And after that, it will
+
+
+00:09:13.760 --> 00:09:15.910 align:start position:0%
+successfully. And after that, it will
+ping<00:09:14.080><c> server</c><00:09:14.320><c> to</c><00:09:14.560><c> generate</c><00:09:14.880><c> access</c><00:09:15.200><c> code</c><00:09:15.680><c> and</c>
+
+00:09:15.910 --> 00:09:15.920 align:start position:0%
+ping server to generate access code and
+
+
+00:09:15.920 --> 00:09:18.310 align:start position:0%
+ping server to generate access code and
+verify<00:09:16.320><c> if</c><00:09:16.560><c> user</c><00:09:16.800><c> grant</c><00:09:17.120><c> access.</c><00:09:17.680><c> This</c><00:09:18.000><c> flow</c>
+
+00:09:18.310 --> 00:09:18.320 align:start position:0%
+verify if user grant access. This flow
+
+
+00:09:18.320 --> 00:09:20.310 align:start position:0%
+verify if user grant access. This flow
+might<00:09:18.640><c> feels</c><00:09:18.880><c> a</c><00:09:19.040><c> bit</c><00:09:19.200><c> more</c><00:09:19.440><c> complicated.</c><00:09:20.240><c> But</c>
+
+00:09:20.310 --> 00:09:20.320 align:start position:0%
+might feels a bit more complicated. But
+
+
+00:09:20.320 --> 00:09:21.670 align:start position:0%
+might feels a bit more complicated. But
+the<00:09:20.480><c> good</c><00:09:20.560><c> thing</c><00:09:20.720><c> is</c><00:09:20.880><c> that</c><00:09:21.040><c> Cloudflare</c>
+
+00:09:21.670 --> 00:09:21.680 align:start position:0%
+the good thing is that Cloudflare
+
+
+00:09:21.680 --> 00:09:23.590 align:start position:0%
+the good thing is that Cloudflare
+actually<00:09:22.000><c> provides</c><00:09:22.320><c> this</c><00:09:22.560><c> OS</c><00:09:22.959><c> provider</c><00:09:23.279><c> class</c>
+
+00:09:23.590 --> 00:09:23.600 align:start position:0%
+actually provides this OS provider class
+
+
+00:09:23.600 --> 00:09:25.190 align:start position:0%
+actually provides this OS provider class
+that<00:09:23.760><c> is</c><00:09:24.000><c> automatically</c><00:09:24.640><c> handling</c><00:09:25.040><c> the</c>
+
+00:09:25.190 --> 00:09:25.200 align:start position:0%
+that is automatically handling the
+
+
+00:09:25.200 --> 00:09:27.269 align:start position:0%
+that is automatically handling the
+pipeline<00:09:25.519><c> for</c><00:09:25.680><c> this</c><00:09:25.839><c> OS.</c><00:09:26.480><c> All</c><00:09:26.640><c> you</c><00:09:26.800><c> need</c><00:09:26.880><c> to</c><00:09:27.040><c> do</c>
+
+00:09:27.269 --> 00:09:27.279 align:start position:0%
+pipeline for this OS. All you need to do
+
+
+00:09:27.279 --> 00:09:30.070 align:start position:0%
+pipeline for this OS. All you need to do
+just<00:09:27.600><c> implement</c><00:09:28.160><c> a</c><00:09:28.480><c> actual</c><00:09:28.880><c> signup</c><00:09:29.360><c> flow</c><00:09:29.839><c> and</c>
+
+00:09:30.070 --> 00:09:30.080 align:start position:0%
+just implement a actual signup flow and
+
+
+00:09:30.080 --> 00:09:31.910 align:start position:0%
+just implement a actual signup flow and
+put<00:09:30.240><c> that</c><00:09:30.480><c> logic</c><00:09:30.880><c> inside</c><00:09:31.279><c> the</c><00:09:31.519><c> default</c>
+
+00:09:31.910 --> 00:09:31.920 align:start position:0%
+put that logic inside the default
+
+
+00:09:31.920 --> 00:09:33.190 align:start position:0%
+put that logic inside the default
+handler<00:09:32.320><c> and</c><00:09:32.560><c> you</c><00:09:32.720><c> don't</c><00:09:32.800><c> need</c><00:09:32.880><c> to</c><00:09:33.040><c> worry</c>
+
+00:09:33.190 --> 00:09:33.200 align:start position:0%
+handler and you don't need to worry
+
+
+00:09:33.200 --> 00:09:34.870 align:start position:0%
+handler and you don't need to worry
+about<00:09:33.440><c> any</c><00:09:33.680><c> other</c><00:09:33.920><c> stuff.</c><00:09:34.160><c> And</c><00:09:34.320><c> if</c><00:09:34.560><c> you</c><00:09:34.640><c> check</c>
+
+00:09:34.870 --> 00:09:34.880 align:start position:0%
+about any other stuff. And if you check
+
+
+00:09:34.880 --> 00:09:36.870 align:start position:0%
+about any other stuff. And if you check
+the<00:09:35.040><c> example</c><00:09:35.440><c> ripple</c><00:09:35.839><c> from</c><00:09:36.160><c> stripe</c><00:09:36.640><c> that's</c>
+
+00:09:36.870 --> 00:09:36.880 align:start position:0%
+the example ripple from stripe that's
+
+
+00:09:36.880 --> 00:09:38.670 align:start position:0%
+the example ripple from stripe that's
+exactly<00:09:37.279><c> what</c><00:09:37.519><c> they</c><00:09:37.760><c> did.</c><00:09:38.160><c> So</c><00:09:38.320><c> in</c><00:09:38.480><c> the</c>
+
+00:09:38.670 --> 00:09:38.680 align:start position:0%
+exactly what they did. So in the
+
+
+00:09:38.680 --> 00:09:40.870 align:start position:0%
+exactly what they did. So in the
+index.ts<00:09:39.680><c> at</c><00:09:39.839><c> top</c><00:09:40.080><c> they</c><00:09:40.240><c> were</c><00:09:40.399><c> defined</c><00:09:40.640><c> those</c>
+
+00:09:40.870 --> 00:09:40.880 align:start position:0%
+index.ts at top they were defined those
+
+
+00:09:40.880 --> 00:09:43.509 align:start position:0%
+index.ts at top they were defined those
+pay<00:09:41.120><c> tools</c><00:09:41.600><c> but</c><00:09:41.920><c> at</c><00:09:42.080><c> the</c><00:09:42.240><c> bottom</c><00:09:42.640><c> there's</c><00:09:42.880><c> a</c><00:09:43.040><c> OS</c>
+
+00:09:43.509 --> 00:09:43.519 align:start position:0%
+pay tools but at the bottom there's a OS
+
+
+00:09:43.519 --> 00:09:45.509 align:start position:0%
+pay tools but at the bottom there's a OS
+provider<00:09:44.000><c> where</c><00:09:44.240><c> the</c><00:09:44.399><c> default</c><00:09:44.800><c> handler</c><00:09:45.200><c> is</c>
+
+00:09:45.509 --> 00:09:45.519 align:start position:0%
+provider where the default handler is
+
+
+00:09:45.519 --> 00:09:48.070 align:start position:0%
+provider where the default handler is
+app<00:09:45.920><c> which</c><00:09:46.160><c> is</c><00:09:46.240><c> stored</c><00:09:46.480><c> in</c><00:09:46.640><c> this</c><00:09:46.920><c> app.ts.</c><00:09:47.920><c> So</c>
+
+00:09:48.070 --> 00:09:48.080 align:start position:0%
+app which is stored in this app.ts. So
+
+
+00:09:48.080 --> 00:09:51.190 align:start position:0%
+app which is stored in this app.ts. So
+inside<00:09:48.440><c> app.ts</c><00:09:49.440><c> it</c><00:09:49.680><c> has</c><00:09:49.839><c> this</c><00:09:50.240><c> /authorized</c>
+
+00:09:51.190 --> 00:09:51.200 align:start position:0%
+inside app.ts it has this /authorized
+
+
+00:09:51.200 --> 00:09:53.269 align:start position:0%
+inside app.ts it has this /authorized
+endpoint<00:09:51.760><c> and</c><00:09:52.000><c> they</c><00:09:52.240><c> just</c><00:09:52.399><c> have</c><00:09:52.560><c> this</c><00:09:52.880><c> mock</c>
+
+00:09:53.269 --> 00:09:53.279 align:start position:0%
+endpoint and they just have this mock
+
+
+00:09:53.279 --> 00:09:55.269 align:start position:0%
+endpoint and they just have this mock
+authentication<00:09:54.000><c> system</c><00:09:54.399><c> that</c><00:09:54.560><c> is</c><00:09:54.720><c> always</c><00:09:55.040><c> log</c>
+
+00:09:55.269 --> 00:09:55.279 align:start position:0%
+authentication system that is always log
+
+
+00:09:55.279 --> 00:09:57.509 align:start position:0%
+authentication system that is always log
+in<00:09:55.519><c> true.</c><00:09:55.920><c> So</c><00:09:56.080><c> it</c><00:09:56.240><c> will</c><00:09:56.399><c> just</c><00:09:56.640><c> always</c><00:09:57.040><c> assume</c>
+
+00:09:57.509 --> 00:09:57.519 align:start position:0%
+in true. So it will just always assume
+
+
+00:09:57.519 --> 00:09:59.829 align:start position:0%
+in true. So it will just always assume
+that<00:09:57.680><c> user</c><00:09:58.000><c> login</c><00:09:58.640><c> and</c><00:09:58.880><c> they</c><00:09:59.120><c> can</c><00:09:59.279><c> go</c><00:09:59.440><c> to</c><00:09:59.600><c> the</c>
+
+00:09:59.829 --> 00:09:59.839 align:start position:0%
+that user login and they can go to the
+
+
+00:09:59.839 --> 00:10:01.910 align:start position:0%
+that user login and they can go to the
+approval<00:10:00.320><c> directly</c><00:10:00.959><c> by</c><00:10:01.200><c> putting</c><00:10:01.519><c> the</c><00:10:01.680><c> email</c>
+
+00:10:01.910 --> 00:10:01.920 align:start position:0%
+approval directly by putting the email
+
+
+00:10:01.920 --> 00:10:04.230 align:start position:0%
+approval directly by putting the email
+and<00:10:02.160><c> click</c><00:10:02.399><c> approve.</c><00:10:03.040><c> So</c><00:10:03.200><c> to</c><00:10:03.519><c> build</c><00:10:03.760><c> actual</c>
+
+00:10:04.230 --> 00:10:04.240 align:start position:0%
+and click approve. So to build actual
+
+
+00:10:04.240 --> 00:10:06.070 align:start position:0%
+and click approve. So to build actual
+authentication<00:10:05.040><c> layer</c><00:10:05.519><c> you</c><00:10:05.680><c> just</c><00:10:05.839><c> need</c><00:10:05.920><c> to</c>
+
+00:10:06.070 --> 00:10:06.080 align:start position:0%
+authentication layer you just need to
+
+
+00:10:06.080 --> 00:10:07.670 align:start position:0%
+authentication layer you just need to
+build<00:10:06.240><c> your</c><00:10:06.399><c> own</c><00:10:06.560><c> authentication</c><00:10:07.200><c> flow</c><00:10:07.519><c> which</c>
+
+00:10:07.670 --> 00:10:07.680 align:start position:0%
+build your own authentication flow which
+
+
+00:10:07.680 --> 00:10:09.030 align:start position:0%
+build your own authentication flow which
+I<00:10:07.839><c> will</c><00:10:08.000><c> show</c><00:10:08.080><c> you</c><00:10:08.160><c> how</c><00:10:08.320><c> to</c><00:10:08.399><c> do</c><00:10:08.560><c> very</c><00:10:08.800><c> quickly</c>
+
+00:10:09.030 --> 00:10:09.040 align:start position:0%
+I will show you how to do very quickly
+
+
+00:10:09.040 --> 00:10:10.590 align:start position:0%
+I will show you how to do very quickly
+then<00:10:09.279><c> replace</c><00:10:09.600><c> logic</c>
+
+00:10:10.590 --> 00:10:10.600 align:start position:0%
+then replace logic
+
+
+00:10:10.600 --> 00:10:12.949 align:start position:0%
+then replace logic
+inside/auorize<00:10:11.600><c> instead</c><00:10:11.920><c> of</c><00:10:12.080><c> always</c><00:10:12.399><c> log</c><00:10:12.640><c> in</c>
+
+00:10:12.949 --> 00:10:12.959 align:start position:0%
+inside/auorize instead of always log in
+
+
+00:10:12.959 --> 00:10:14.630 align:start position:0%
+inside/auorize instead of always log in
+you<00:10:13.200><c> need</c><00:10:13.279><c> to</c><00:10:13.440><c> do</c><00:10:13.600><c> the</c><00:10:13.839><c> check</c><00:10:14.079><c> does</c><00:10:14.240><c> the</c><00:10:14.399><c> user</c>
+
+00:10:14.630 --> 00:10:14.640 align:start position:0%
+you need to do the check does the user
+
+
+00:10:14.640 --> 00:10:16.389 align:start position:0%
+you need to do the check does the user
+actually<00:10:14.880><c> login</c><00:10:15.279><c> if</c><00:10:15.440><c> not</c><00:10:15.680><c> you</c><00:10:15.920><c> show</c><00:10:16.079><c> them</c><00:10:16.240><c> a</c>
+
+00:10:16.389 --> 00:10:16.399 align:start position:0%
+actually login if not you show them a
+
+
+00:10:16.399 --> 00:10:18.710 align:start position:0%
+actually login if not you show them a
+signup<00:10:16.720><c> page</c><00:10:17.120><c> so</c><00:10:17.360><c> this</c><00:10:17.519><c> is</c><00:10:17.680><c> cloudfare</c><00:10:18.240><c> part</c>
+
+00:10:18.710 --> 00:10:18.720 align:start position:0%
+signup page so this is cloudfare part
+
+
+00:10:18.720 --> 00:10:20.870 align:start position:0%
+signup page so this is cloudfare part
+the<00:10:19.040><c> second</c><00:10:19.360><c> piece</c><00:10:19.600><c> that</c><00:10:19.839><c> you</c><00:10:20.160><c> really</c><00:10:20.399><c> need</c><00:10:20.640><c> is</c>
+
+00:10:20.870 --> 00:10:20.880 align:start position:0%
+the second piece that you really need is
+
+
+00:10:20.880 --> 00:10:23.430 align:start position:0%
+the second piece that you really need is
+this<00:10:21.120><c> package</c><00:10:21.519><c> called</c><00:10:21.839><c> MCP</c><00:10:22.399><c> remote</c><00:10:22.880><c> mcp</c>
+
+00:10:23.430 --> 00:10:23.440 align:start position:0%
+this package called MCP remote mcp
+
+
+00:10:23.440 --> 00:10:25.190 align:start position:0%
+this package called MCP remote mcp
+remote<00:10:23.760><c> as</c><00:10:23.920><c> I</c><00:10:24.079><c> mentioned</c><00:10:24.399><c> before</c><00:10:24.800><c> is</c><00:10:25.040><c> a</c>
+
+00:10:25.190 --> 00:10:25.200 align:start position:0%
+remote as I mentioned before is a
+
+
+00:10:25.200 --> 00:10:27.509 align:start position:0%
+remote as I mentioned before is a
+special<00:10:25.519><c> package</c><00:10:26.000><c> that</c><00:10:26.240><c> help</c><00:10:26.399><c> you</c><00:10:26.640><c> mimic</c><00:10:27.120><c> UX</c>
+
+00:10:27.509 --> 00:10:27.519 align:start position:0%
+special package that help you mimic UX
+
+
+00:10:27.519 --> 00:10:29.430 align:start position:0%
+special package that help you mimic UX
+where<00:10:27.760><c> you</c><00:10:27.920><c> will</c><00:10:28.079><c> prompt</c><00:10:28.399><c> user</c><00:10:28.720><c> to</c><00:10:28.959><c> login</c><00:10:29.279><c> when</c>
+
+00:10:29.430 --> 00:10:29.440 align:start position:0%
+where you will prompt user to login when
+
+
+00:10:29.440 --> 00:10:31.430 align:start position:0%
+where you will prompt user to login when
+they<00:10:29.600><c> try</c><00:10:29.760><c> to</c><00:10:29.920><c> connect</c><00:10:30.160><c> your</c><00:10:30.320><c> MCP</c><00:10:30.880><c> server</c><00:10:31.279><c> in</c>
+
+00:10:31.430 --> 00:10:31.440 align:start position:0%
+they try to connect your MCP server in
+
+
+00:10:31.440 --> 00:10:33.670 align:start position:0%
+they try to connect your MCP server in
+cursor<00:10:32.000><c> cuz</c><00:10:32.320><c> if</c><00:10:32.480><c> you</c><00:10:32.720><c> don't</c><00:10:32.880><c> have</c><00:10:33.200><c> that</c><00:10:33.440><c> and</c>
+
+00:10:33.670 --> 00:10:33.680 align:start position:0%
+cursor cuz if you don't have that and
+
+
+00:10:33.680 --> 00:10:35.829 align:start position:0%
+cursor cuz if you don't have that and
+just<00:10:33.920><c> do</c><00:10:34.079><c> the</c><00:10:34.320><c> normal</c><00:10:34.720><c> connection</c><00:10:35.360><c> it</c><00:10:35.600><c> won't</c>
+
+00:10:35.829 --> 00:10:35.839 align:start position:0%
+just do the normal connection it won't
+
+
+00:10:35.839 --> 00:10:37.670 align:start position:0%
+just do the normal connection it won't
+be<00:10:35.920><c> able</c><00:10:36.160><c> to</c><00:10:36.320><c> connect</c><00:10:36.640><c> the</c><00:10:36.880><c> system</c><00:10:37.200><c> properly</c>
+
+00:10:37.670 --> 00:10:37.680 align:start position:0%
+be able to connect the system properly
+
+
+00:10:37.680 --> 00:10:39.110 align:start position:0%
+be able to connect the system properly
+because<00:10:38.000><c> user</c><00:10:38.240><c> hadn't</c><00:10:38.640><c> given</c><00:10:38.959><c> any</c>
+
+00:10:39.110 --> 00:10:39.120 align:start position:0%
+because user hadn't given any
+
+
+00:10:39.120 --> 00:10:40.790 align:start position:0%
+because user hadn't given any
+authentication<00:10:39.839><c> user</c><00:10:40.160><c> will</c><00:10:40.320><c> have</c><00:10:40.480><c> to</c><00:10:40.560><c> go</c><00:10:40.640><c> to</c>
+
+00:10:40.790 --> 00:10:40.800 align:start position:0%
+authentication user will have to go to
+
+
+00:10:40.800 --> 00:10:43.269 align:start position:0%
+authentication user will have to go to
+your<00:10:41.040><c> application</c><00:10:41.680><c> generate</c><00:10:42.079><c> a</c><00:10:42.399><c> API</c><00:10:42.800><c> key</c><00:10:43.040><c> and</c>
+
+00:10:43.269 --> 00:10:43.279 align:start position:0%
+your application generate a API key and
+
+
+00:10:43.279 --> 00:10:45.990 align:start position:0%
+your application generate a API key and
+pass<00:10:43.519><c> on</c><00:10:43.760><c> here</c><00:10:44.160><c> but</c><00:10:44.399><c> what</c><00:10:44.720><c> MCP</c><00:10:45.360><c> remote</c><00:10:45.600><c> will</c><00:10:45.839><c> do</c>
+
+00:10:45.990 --> 00:10:46.000 align:start position:0%
+pass on here but what MCP remote will do
+
+
+00:10:46.000 --> 00:10:47.750 align:start position:0%
+pass on here but what MCP remote will do
+is<00:10:46.240><c> that</c><00:10:46.480><c> you</c><00:10:46.640><c> can</c><00:10:46.800><c> just</c><00:10:46.959><c> change</c><00:10:47.200><c> the</c><00:10:47.360><c> command</c>
+
+00:10:47.750 --> 00:10:47.760 align:start position:0%
+is that you can just change the command
+
+
+00:10:47.760 --> 00:10:51.750 align:start position:0%
+is that you can just change the command
+to<00:10:47.920><c> MPX</c><00:10:48.880><c> MCP</c><00:10:49.519><c> remote</c><00:10:50.079><c> and</c><00:10:50.399><c> the</c><00:10:50.640><c> URL</c><00:10:51.120><c> endpoint</c>
+
+00:10:51.750 --> 00:10:51.760 align:start position:0%
+to MPX MCP remote and the URL endpoint
+
+
+00:10:51.760 --> 00:10:53.269 align:start position:0%
+to MPX MCP remote and the URL endpoint
+this<00:10:52.079><c> will</c><00:10:52.240><c> kind</c><00:10:52.320><c> of</c><00:10:52.480><c> mimic</c><00:10:52.800><c> the</c><00:10:52.959><c> experience</c>
+
+00:10:53.269 --> 00:10:53.279 align:start position:0%
+this will kind of mimic the experience
+
+
+00:10:53.279 --> 00:10:55.269 align:start position:0%
+this will kind of mimic the experience
+so<00:10:53.440><c> when</c><00:10:53.680><c> user</c><00:10:53.920><c> try</c><00:10:54.079><c> to</c><00:10:54.240><c> add</c><00:10:54.480><c> that</c><00:10:54.959><c> it</c><00:10:55.120><c> will</c>
+
+00:10:55.269 --> 00:10:55.279 align:start position:0%
+so when user try to add that it will
+
+
+00:10:55.279 --> 00:10:56.710 align:start position:0%
+so when user try to add that it will
+automatically<00:10:55.680><c> open</c><00:10:55.920><c> the</c><00:10:56.160><c> browser</c><00:10:56.480><c> and</c>
+
+00:10:56.710 --> 00:10:56.720 align:start position:0%
+automatically open the browser and
+
+
+00:10:56.720 --> 00:10:58.790 align:start position:0%
+automatically open the browser and
+prompt<00:10:57.120><c> user</c><00:10:57.360><c> to</c><00:10:57.519><c> sign</c><00:10:57.760><c> in</c><00:10:58.079><c> and</c><00:10:58.320><c> only</c><00:10:58.560><c> after</c>
+
+00:10:58.790 --> 00:10:58.800 align:start position:0%
+prompt user to sign in and only after
+
+
+00:10:58.800 --> 00:11:01.269 align:start position:0%
+prompt user to sign in and only after
+user<00:10:59.040><c> approve</c><00:10:59.680><c> the</c><00:10:59.839><c> MCP</c><00:11:00.399><c> tools</c><00:11:00.720><c> will</c><00:11:00.880><c> show</c><00:11:01.040><c> up</c>
+
+00:11:01.269 --> 00:11:01.279 align:start position:0%
+user approve the MCP tools will show up
+
+
+00:11:01.279 --> 00:11:02.949 align:start position:0%
+user approve the MCP tools will show up
+properly<00:11:01.839><c> so</c><00:11:02.000><c> with</c><00:11:02.240><c> These</c><00:11:02.480><c> two</c><00:11:02.640><c> things</c>
+
+00:11:02.949 --> 00:11:02.959 align:start position:0%
+properly so with These two things
+
+
+00:11:02.959 --> 00:11:04.870 align:start position:0%
+properly so with These two things
+together<00:11:03.440><c> you</c><00:11:03.680><c> can</c><00:11:03.760><c> achieve</c><00:11:04.160><c> that</c><00:11:04.399><c> experience</c>
+
+00:11:04.870 --> 00:11:04.880 align:start position:0%
+together you can achieve that experience
+
+
+00:11:04.880 --> 00:11:07.110 align:start position:0%
+together you can achieve that experience
+where<00:11:05.120><c> it</c><00:11:05.279><c> prompt</c><00:11:05.600><c> user</c><00:11:05.839><c> to</c><00:11:06.079><c> log</c><00:11:06.320><c> in</c><00:11:06.720><c> they</c><00:11:06.959><c> can</c>
+
+00:11:07.110 --> 00:11:07.120 align:start position:0%
+where it prompt user to log in they can
+
+
+00:11:07.120 --> 00:11:09.190 align:start position:0%
+where it prompt user to log in they can
+start<00:11:07.279><c> using</c><00:11:07.680><c> right</c><00:11:07.839><c> away</c><00:11:08.399><c> and</c><00:11:08.640><c> for</c><00:11:08.880><c> the</c><00:11:09.040><c> first</c>
+
+00:11:09.190 --> 00:11:09.200 align:start position:0%
+start using right away and for the first
+
+
+00:11:09.200 --> 00:11:11.350 align:start position:0%
+start using right away and for the first
+time<00:11:09.680><c> it</c><00:11:09.839><c> will</c><00:11:10.000><c> prompt</c><00:11:10.320><c> user</c><00:11:10.640><c> to</c><00:11:10.800><c> give</c><00:11:11.040><c> credit</c>
+
+00:11:11.350 --> 00:11:11.360 align:start position:0%
+time it will prompt user to give credit
+
+
+00:11:11.360 --> 00:11:13.110 align:start position:0%
+time it will prompt user to give credit
+card<00:11:11.600><c> and</c><00:11:11.839><c> upgrade</c><00:11:12.320><c> and</c><00:11:12.480><c> you</c><00:11:12.720><c> will</c><00:11:12.880><c> capture</c>
+
+00:11:13.110 --> 00:11:13.120 align:start position:0%
+card and upgrade and you will capture
+
+
+00:11:13.120 --> 00:11:15.190 align:start position:0%
+card and upgrade and you will capture
+the<00:11:13.279><c> email</c><00:11:13.600><c> address</c><00:11:13.839><c> of</c><00:11:14.079><c> every</c><00:11:14.399><c> single</c><00:11:14.720><c> users</c>
+
+00:11:15.190 --> 00:11:15.200 align:start position:0%
+the email address of every single users
+
+
+00:11:15.200 --> 00:11:16.949 align:start position:0%
+the email address of every single users
+who<00:11:15.440><c> are</c><00:11:15.600><c> interesting</c><00:11:16.079><c> using</c><00:11:16.320><c> your</c><00:11:16.480><c> MCP</c>
+
+00:11:16.949 --> 00:11:16.959 align:start position:0%
+who are interesting using your MCP
+
+
+00:11:16.959 --> 00:11:18.710 align:start position:0%
+who are interesting using your MCP
+server<00:11:17.279><c> and</c><00:11:17.519><c> here's</c><00:11:17.839><c> one</c><00:11:18.079><c> quick</c><00:11:18.240><c> example</c><00:11:18.560><c> of</c>
+
+00:11:18.710 --> 00:11:18.720 align:start position:0%
+server and here's one quick example of
+
+
+00:11:18.720 --> 00:11:20.710 align:start position:0%
+server and here's one quick example of
+how<00:11:18.880><c> I</c><00:11:19.040><c> build</c><00:11:19.279><c> the</c><00:11:19.360><c> authentication</c><00:11:20.320><c> system</c>
+
+00:11:20.710 --> 00:11:20.720 align:start position:0%
+how I build the authentication system
+
+
+00:11:20.720 --> 00:11:22.630 align:start position:0%
+how I build the authentication system
+based<00:11:21.040><c> on</c><00:11:21.200><c> stripe</c><00:11:21.600><c> ripple</c><00:11:21.920><c> I</c><00:11:22.079><c> showed</c><00:11:22.240><c> earlier</c>
+
+00:11:22.630 --> 00:11:22.640 align:start position:0%
+based on stripe ripple I showed earlier
+
+
+00:11:22.640 --> 00:11:25.030 align:start position:0%
+based on stripe ripple I showed earlier
+I<00:11:22.800><c> use</c><00:11:23.120><c> superbase</c><00:11:23.680><c> as</c><00:11:23.920><c> authentication</c><00:11:24.560><c> system</c>
+
+00:11:25.030 --> 00:11:25.040 align:start position:0%
+I use superbase as authentication system
+
+
+00:11:25.040 --> 00:11:27.190 align:start position:0%
+I use superbase as authentication system
+creating<00:11:25.600><c> new</c><00:11:25.839><c> superbase</c><00:11:26.399><c> project</c><00:11:26.800><c> and</c><00:11:26.959><c> if</c><00:11:27.120><c> I</c>
+
+00:11:27.190 --> 00:11:27.200 align:start position:0%
+creating new superbase project and if I
+
+
+00:11:27.200 --> 00:11:29.269 align:start position:0%
+creating new superbase project and if I
+go<00:11:27.360><c> to</c><00:11:27.519><c> setting</c><00:11:27.839><c> data</c><00:11:28.160><c> API</c><00:11:28.720><c> it</c><00:11:28.880><c> will</c><00:11:29.040><c> give</c><00:11:29.120><c> me</c>
+
+00:11:29.269 --> 00:11:29.279 align:start position:0%
+go to setting data API it will give me
+
+
+00:11:29.279 --> 00:11:31.829 align:start position:0%
+go to setting data API it will give me
+this<00:11:29.440><c> URL</c><00:11:30.160><c> as</c><00:11:30.399><c> well</c><00:11:30.480><c> as</c><00:11:30.880><c> anonymous</c><00:11:31.279><c> key</c><00:11:31.519><c> I</c><00:11:31.680><c> just</c>
+
+00:11:31.829 --> 00:11:31.839 align:start position:0%
+this URL as well as anonymous key I just
+
+
+00:11:31.839 --> 00:11:34.230 align:start position:0%
+this URL as well as anonymous key I just
+need<00:11:32.000><c> to</c><00:11:32.160><c> change</c><00:11:32.320><c> thedev.v</c><00:11:33.279><c> vars</c><00:11:33.680><c> which</c><00:11:34.000><c> is</c>
+
+00:11:34.230 --> 00:11:34.240 align:start position:0%
+need to change thedev.v vars which is
+
+
+00:11:34.240 --> 00:11:36.870 align:start position:0%
+need to change thedev.v vars which is
+like<00:11:34.720><c> EMV</c><00:11:35.120><c> file</c><00:11:35.440><c> for</c><00:11:35.680><c> Cloudflare</c><00:11:36.320><c> superbase</c>
+
+00:11:36.870 --> 00:11:36.880 align:start position:0%
+like EMV file for Cloudflare superbase
+
+
+00:11:36.880 --> 00:11:39.430 align:start position:0%
+like EMV file for Cloudflare superbase
+URL<00:11:37.360><c> and</c><00:11:37.600><c> key</c><00:11:37.839><c> and</c><00:11:38.079><c> service</c><00:11:38.560><c> row</c><00:11:38.720><c> key</c><00:11:39.040><c> which</c><00:11:39.279><c> is</c>
+
+00:11:39.430 --> 00:11:39.440 align:start position:0%
+URL and key and service row key which is
+
+
+00:11:39.440 --> 00:11:41.030 align:start position:0%
+URL and key and service row key which is
+this<00:11:39.680><c> three</c><00:11:39.839><c> items</c><00:11:40.240><c> here</c><00:11:40.560><c> then</c><00:11:40.800><c> go</c><00:11:40.880><c> to</c>
+
+00:11:41.030 --> 00:11:41.040 align:start position:0%
+this three items here then go to
+
+
+00:11:41.040 --> 00:11:42.710 align:start position:0%
+this three items here then go to
+authentications<00:11:41.920><c> turn</c><00:11:42.160><c> on</c><00:11:42.320><c> the</c><00:11:42.480><c> email</c>
+
+00:11:42.710 --> 00:11:42.720 align:start position:0%
+authentications turn on the email
+
+
+00:11:42.720 --> 00:11:44.710 align:start position:0%
+authentications turn on the email
+authentication<00:11:43.440><c> and</c><00:11:43.600><c> then</c><00:11:43.760><c> go</c><00:11:43.920><c> to</c><00:11:44.079><c> emails</c><00:11:44.480><c> to</c>
+
+00:11:44.710 --> 00:11:44.720 align:start position:0%
+authentication and then go to emails to
+
+
+00:11:44.720 --> 00:11:46.310 align:start position:0%
+authentication and then go to emails to
+set<00:11:44.800><c> up</c><00:11:45.040><c> the</c><00:11:45.200><c> email</c><00:11:45.519><c> templates</c><00:11:46.000><c> they're</c><00:11:46.240><c> going</c>
+
+00:11:46.310 --> 00:11:46.320 align:start position:0%
+set up the email templates they're going
+
+
+00:11:46.320 --> 00:11:47.829 align:start position:0%
+set up the email templates they're going
+to<00:11:46.399><c> send</c><00:11:46.560><c> to</c><00:11:46.800><c> user</c><00:11:47.040><c> when</c><00:11:47.200><c> they</c><00:11:47.360><c> try</c><00:11:47.440><c> to</c><00:11:47.600><c> create</c>
+
+00:11:47.829 --> 00:11:47.839 align:start position:0%
+to send to user when they try to create
+
+
+00:11:47.839 --> 00:11:50.069 align:start position:0%
+to send to user when they try to create
+account<00:11:48.160><c> the</c><00:11:48.399><c> approach</c><00:11:48.640><c> I</c><00:11:48.880><c> normally</c><00:11:49.200><c> use</c><00:11:49.440><c> is</c><00:11:49.760><c> a</c>
+
+00:11:50.069 --> 00:11:50.079 align:start position:0%
+account the approach I normally use is a
+
+
+00:11:50.079 --> 00:11:51.990 align:start position:0%
+account the approach I normally use is a
+one-time<00:11:50.640><c> password</c><00:11:51.279><c> which</c><00:11:51.440><c> is</c><00:11:51.680><c> every</c><00:11:51.839><c> time</c>
+
+00:11:51.990 --> 00:11:52.000 align:start position:0%
+one-time password which is every time
+
+
+00:11:52.000 --> 00:11:53.910 align:start position:0%
+one-time password which is every time
+when<00:11:52.160><c> user</c><00:11:52.640><c> put</c><00:11:52.800><c> in</c><00:11:52.959><c> the</c><00:11:53.120><c> email</c><00:11:53.279><c> address</c><00:11:53.600><c> we</c>
+
+00:11:53.910 --> 00:11:53.920 align:start position:0%
+when user put in the email address we
+
+
+00:11:53.920 --> 00:11:55.829 align:start position:0%
+when user put in the email address we
+send<00:11:54.079><c> them</c><00:11:54.160><c> a</c><00:11:54.399><c> six</c><00:11:54.720><c> digits</c><00:11:55.120><c> for</c><00:11:55.440><c> one-time</c>
+
+00:11:55.829 --> 00:11:55.839 align:start position:0%
+send them a six digits for one-time
+
+
+00:11:55.839 --> 00:11:58.790 align:start position:0%
+send them a six digits for one-time
+password<00:11:56.560><c> this</c><00:11:56.720><c> one</c><00:11:56.880><c> I</c><00:11:57.120><c> found</c><00:11:57.440><c> has</c><00:11:57.839><c> best</c><00:11:58.399><c> email</c>
+
+00:11:58.790 --> 00:11:58.800 align:start position:0%
+password this one I found has best email
+
+
+00:11:58.800 --> 00:12:00.470 align:start position:0%
+password this one I found has best email
+deliverability<00:11:59.519><c> so</c><00:11:59.760><c> I</c><00:11:59.920><c> don't</c><00:12:00.000><c> need</c><00:12:00.160><c> to</c><00:12:00.320><c> worry</c>
+
+00:12:00.470 --> 00:12:00.480 align:start position:0%
+deliverability so I don't need to worry
+
+
+00:12:00.480 --> 00:12:02.630 align:start position:0%
+deliverability so I don't need to worry
+about<00:12:00.720><c> those</c><00:12:00.959><c> email</c><00:12:01.279><c> goes</c><00:12:01.600><c> to</c><00:12:01.839><c> users</c><00:12:02.399><c> like</c>
+
+00:12:02.630 --> 00:12:02.640 align:start position:0%
+about those email goes to users like
+
+
+00:12:02.640 --> 00:12:04.389 align:start position:0%
+about those email goes to users like
+spam<00:12:02.800><c> sandbox.</c><00:12:03.440><c> So</c><00:12:03.680><c> you</c><00:12:03.839><c> can</c><00:12:04.000><c> just</c><00:12:04.160><c> change</c>
+
+00:12:04.389 --> 00:12:04.399 align:start position:0%
+spam sandbox. So you can just change
+
+
+00:12:04.399 --> 00:12:06.310 align:start position:0%
+spam sandbox. So you can just change
+this<00:12:04.640><c> and</c><00:12:04.880><c> add</c><00:12:05.040><c> a</c><00:12:05.279><c> token</c><00:12:05.519><c> here</c><00:12:05.760><c> and</c><00:12:05.920><c> then</c><00:12:06.079><c> click</c>
+
+00:12:06.310 --> 00:12:06.320 align:start position:0%
+this and add a token here and then click
+
+
+00:12:06.320 --> 00:12:07.670 align:start position:0%
+this and add a token here and then click
+save.<00:12:06.639><c> Once</c><00:12:06.800><c> you've</c><00:12:07.040><c> done</c><00:12:07.120><c> that,</c><00:12:07.360><c> we</c><00:12:07.519><c> just</c>
+
+00:12:07.670 --> 00:12:07.680 align:start position:0%
+save. Once you've done that, we just
+
+
+00:12:07.680 --> 00:12:10.550 align:start position:0%
+save. Once you've done that, we just
+need<00:12:07.839><c> to</c><00:12:08.000><c> create</c><00:12:08.320><c> a</c><00:12:09.079><c> superbase.ts</c><00:12:10.079><c> which</c><00:12:10.399><c> has</c>
+
+00:12:10.550 --> 00:12:10.560 align:start position:0%
+need to create a superbase.ts which has
+
+
+00:12:10.560 --> 00:12:12.629 align:start position:0%
+need to create a superbase.ts which has
+a<00:12:10.720><c> function</c><00:12:10.959><c> to</c><00:12:11.200><c> set</c><00:12:11.360><c> up</c><00:12:11.519><c> a</c><00:12:11.760><c> superbase</c><00:12:12.240><c> client</c>
+
+00:12:12.629 --> 00:12:12.639 align:start position:0%
+a function to set up a superbase client
+
+
+00:12:12.639 --> 00:12:14.710 align:start position:0%
+a function to set up a superbase client
+and<00:12:12.880><c> then</c><00:12:13.040><c> a</c><00:12:13.200><c> function</c><00:12:13.519><c> to</c><00:12:13.760><c> send</c><00:12:14.160><c> onetime</c>
+
+00:12:14.710 --> 00:12:14.720 align:start position:0%
+and then a function to send onetime
+
+
+00:12:14.720 --> 00:12:16.870 align:start position:0%
+and then a function to send onetime
+password<00:12:15.200><c> to</c><00:12:15.440><c> the</c><00:12:15.680><c> user</c><00:12:16.000><c> and</c><00:12:16.240><c> superbase</c>
+
+00:12:16.870 --> 00:12:16.880 align:start position:0%
+password to the user and superbase
+
+
+00:12:16.880 --> 00:12:18.550 align:start position:0%
+password to the user and superbase
+already<00:12:17.120><c> have</c><00:12:17.360><c> the</c><00:12:17.519><c> predefined</c><00:12:18.079><c> function</c><00:12:18.399><c> to</c>
+
+00:12:18.550 --> 00:12:18.560 align:start position:0%
+already have the predefined function to
+
+
+00:12:18.560 --> 00:12:20.069 align:start position:0%
+already have the predefined function to
+handle<00:12:18.880><c> everything.</c><00:12:19.360><c> So</c><00:12:19.519><c> you</c><00:12:19.680><c> don't</c><00:12:19.839><c> need</c><00:12:19.920><c> to</c>
+
+00:12:20.069 --> 00:12:20.079 align:start position:0%
+handle everything. So you don't need to
+
+
+00:12:20.079 --> 00:12:21.910 align:start position:0%
+handle everything. So you don't need to
+worry<00:12:20.320><c> about</c><00:12:20.560><c> that</c><00:12:20.800><c> too</c><00:12:20.959><c> much</c><00:12:21.360><c> as</c><00:12:21.519><c> well</c><00:12:21.680><c> as</c><00:12:21.760><c> a</c>
+
+00:12:21.910 --> 00:12:21.920 align:start position:0%
+worry about that too much as well as a
+
+
+00:12:21.920 --> 00:12:23.750 align:start position:0%
+worry about that too much as well as a
+function<00:12:22.160><c> to</c><00:12:22.399><c> verify</c><00:12:22.880><c> if</c><00:12:23.120><c> the</c><00:12:23.360><c> onetime</c>
+
+00:12:23.750 --> 00:12:23.760 align:start position:0%
+function to verify if the onetime
+
+
+00:12:23.760 --> 00:12:25.590 align:start position:0%
+function to verify if the onetime
+password<00:12:24.240><c> is</c><00:12:24.480><c> correct.</c><00:12:24.880><c> And</c><00:12:25.040><c> we</c><00:12:25.200><c> also</c><00:12:25.360><c> have</c><00:12:25.440><c> a</c>
+
+00:12:25.590 --> 00:12:25.600 align:start position:0%
+password is correct. And we also have a
+
+
+00:12:25.600 --> 00:12:27.829 align:start position:0%
+password is correct. And we also have a
+session<00:12:26.079><c> TS.</c><00:12:26.639><c> This</c><00:12:26.800><c> is</c><00:12:26.880><c> to</c><00:12:27.040><c> be</c><00:12:27.200><c> used</c><00:12:27.519><c> after</c>
+
+00:12:27.829 --> 00:12:27.839 align:start position:0%
+session TS. This is to be used after
+
+
+00:12:27.839 --> 00:12:29.910 align:start position:0%
+session TS. This is to be used after
+user<00:12:28.160><c> sign</c><00:12:28.480><c> once</c><00:12:28.880><c> you</c><00:12:29.040><c> want</c><00:12:29.200><c> to</c><00:12:29.360><c> remember</c><00:12:29.680><c> that</c>
+
+00:12:29.910 --> 00:12:29.920 align:start position:0%
+user sign once you want to remember that
+
+
+00:12:29.920 --> 00:12:31.430 align:start position:0%
+user sign once you want to remember that
+they<00:12:30.079><c> have</c><00:12:30.320><c> been</c><00:12:30.480><c> signed</c><00:12:30.639><c> in.</c><00:12:30.959><c> So</c><00:12:31.120><c> they</c><00:12:31.279><c> don't</c>
+
+00:12:31.430 --> 00:12:31.440 align:start position:0%
+they have been signed in. So they don't
+
+
+00:12:31.440 --> 00:12:33.190 align:start position:0%
+they have been signed in. So they don't
+need<00:12:31.600><c> to</c><00:12:31.760><c> keep</c><00:12:31.920><c> doing</c><00:12:32.079><c> this.</c><00:12:32.480><c> So</c><00:12:32.639><c> it</c><00:12:32.880><c> has</c><00:12:32.959><c> this</c>
+
+00:12:33.190 --> 00:12:33.200 align:start position:0%
+need to keep doing this. So it has this
+
+
+00:12:33.200 --> 00:12:34.870 align:start position:0%
+need to keep doing this. So it has this
+function<00:12:33.519><c> called</c><00:12:33.839><c> store</c><00:12:34.079><c> sessions</c><00:12:34.560><c> as</c><00:12:34.800><c> well</c>
+
+00:12:34.870 --> 00:12:34.880 align:start position:0%
+function called store sessions as well
+
+
+00:12:34.880 --> 00:12:36.949 align:start position:0%
+function called store sessions as well
+as<00:12:35.120><c> get</c><00:12:35.440><c> sessions</c><00:12:35.839><c> when</c><00:12:36.079><c> user</c><00:12:36.399><c> try</c><00:12:36.560><c> to</c><00:12:36.639><c> connect</c>
+
+00:12:36.949 --> 00:12:36.959 align:start position:0%
+as get sessions when user try to connect
+
+
+00:12:36.959 --> 00:12:39.190 align:start position:0%
+as get sessions when user try to connect
+server<00:12:37.279><c> again</c><00:12:37.680><c> and</c><00:12:37.839><c> in</c><00:12:38.079><c> app.ts</c><00:12:38.639><c> TS</c><00:12:38.959><c> you</c><00:12:39.120><c> will</c>
+
+00:12:39.190 --> 00:12:39.200 align:start position:0%
+server again and in app.ts TS you will
+
+
+00:12:39.200 --> 00:12:41.590 align:start position:0%
+server again and in app.ts TS you will
+want<00:12:39.360><c> to</c><00:12:39.519><c> change</c><00:12:40.000><c> the</c><00:12:40.240><c> logic</c><00:12:40.639><c> inside</c><00:12:41.200><c> /</c>
+
+00:12:41.590 --> 00:12:41.600 align:start position:0%
+want to change the logic inside /
+
+
+00:12:41.600 --> 00:12:44.629 align:start position:0%
+want to change the logic inside /
+authorize<00:12:42.320><c> and</c><00:12:42.560><c> again</c><00:12:43.040><c> /</c><00:12:43.440><c> authorize</c><00:12:44.000><c> is</c><00:12:44.320><c> where</c>
+
+00:12:44.629 --> 00:12:44.639 align:start position:0%
+authorize and again / authorize is where
+
+
+00:12:44.639 --> 00:12:46.470 align:start position:0%
+authorize and again / authorize is where
+you<00:12:44.800><c> will</c><00:12:45.040><c> define</c><00:12:45.360><c> the</c><00:12:45.600><c> whole</c><00:12:45.760><c> logic</c><00:12:46.160><c> about</c>
+
+00:12:46.470 --> 00:12:46.480 align:start position:0%
+you will define the whole logic about
+
+
+00:12:46.480 --> 00:12:49.030 align:start position:0%
+you will define the whole logic about
+check<00:12:46.800><c> if</c><00:12:47.040><c> user</c><00:12:47.440><c> login</c><00:12:47.839><c> already</c><00:12:48.480><c> if</c><00:12:48.639><c> not</c><00:12:48.880><c> it</c>
+
+00:12:49.030 --> 00:12:49.040 align:start position:0%
+check if user login already if not it
+
+
+00:12:49.040 --> 00:12:51.910 align:start position:0%
+check if user login already if not it
+will<00:12:49.200><c> request</c><00:12:49.680><c> onetime</c><00:12:50.160><c> password</c><00:12:50.880><c> verify</c><00:12:51.519><c> it</c>
+
+00:12:51.910 --> 00:12:51.920 align:start position:0%
+will request onetime password verify it
+
+
+00:12:51.920 --> 00:12:54.150 align:start position:0%
+will request onetime password verify it
+the<00:12:52.160><c> endpoint</c><00:12:52.639><c> for</c><00:12:52.880><c> verifying</c><00:12:53.440><c> the</c><00:12:53.680><c> onetime</c>
+
+00:12:54.150 --> 00:12:54.160 align:start position:0%
+the endpoint for verifying the onetime
+
+
+00:12:54.160 --> 00:12:55.750 align:start position:0%
+the endpoint for verifying the onetime
+password<00:12:54.720><c> and</c><00:12:54.880><c> the</c><00:12:55.040><c> page</c><00:12:55.360><c> where</c><00:12:55.519><c> we're</c><00:12:55.680><c> going</c>
+
+00:12:55.750 --> 00:12:55.760 align:start position:0%
+password and the page where we're going
+
+
+00:12:55.760 --> 00:12:57.430 align:start position:0%
+password and the page where we're going
+to<00:12:55.839><c> show</c><00:12:56.000><c> to</c><00:12:56.240><c> users</c><00:12:56.720><c> after</c><00:12:56.959><c> they</c><00:12:57.200><c> make</c><00:12:57.279><c> a</c>
+
+00:12:57.430 --> 00:12:57.440 align:start position:0%
+to show to users after they make a
+
+
+00:12:57.440 --> 00:12:58.949 align:start position:0%
+to show to users after they make a
+payment<00:12:57.760><c> successfully</c><00:12:58.399><c> that's</c><00:12:58.639><c> pretty</c><00:12:58.800><c> much</c>
+
+00:12:58.949 --> 00:12:58.959 align:start position:0%
+payment successfully that's pretty much
+
+
+00:12:58.959 --> 00:13:00.470 align:start position:0%
+payment successfully that's pretty much
+it<00:12:59.200><c> if</c><00:12:59.440><c> you</c><00:12:59.519><c> want</c><00:12:59.600><c> to</c><00:12:59.760><c> learn</c><00:12:59.839><c> more</c><00:13:00.079><c> I</c><00:13:00.320><c> have</c>
+
+00:13:00.470 --> 00:13:00.480 align:start position:0%
+it if you want to learn more I have
+
+
+00:13:00.480 --> 00:13:02.310 align:start position:0%
+it if you want to learn more I have
+detailed<00:13:00.880><c> breakdown</c><00:13:01.360><c> of</c><00:13:01.600><c> how</c><00:13:01.760><c> to</c><00:13:01.920><c> build</c><00:13:02.160><c> a</c>
+
+00:13:02.310 --> 00:13:02.320 align:start position:0%
+detailed breakdown of how to build a
+
+
+00:13:02.320 --> 00:13:05.110 align:start position:0%
+detailed breakdown of how to build a
+proper<00:13:02.720><c> MCP</c><00:13:03.440><c> server</c><00:13:03.920><c> with</c><00:13:04.160><c> code</c><00:13:04.399><c> example</c><00:13:04.800><c> and</c>
+
+00:13:05.110 --> 00:13:05.120 align:start position:0%
+proper MCP server with code example and
+
+
+00:13:05.120 --> 00:13:07.190 align:start position:0%
+proper MCP server with code example and
+explanation<00:13:05.680><c> so</c><00:13:05.839><c> you</c><00:13:06.000><c> can</c><00:13:06.160><c> follow</c><00:13:06.399><c> along</c><00:13:06.880><c> copy</c>
+
+00:13:07.190 --> 00:13:07.200 align:start position:0%
+explanation so you can follow along copy
+
+
+00:13:07.200 --> 00:13:09.590 align:start position:0%
+explanation so you can follow along copy
+paste<00:13:07.360><c> and</c><00:13:07.519><c> plugin</c><00:13:07.920><c> as</c><00:13:08.320><c> as</c><00:13:08.560><c> a</c><00:13:08.720><c> paid</c><00:13:09.040><c> MCP</c>
+
+00:13:09.590 --> 00:13:09.600 align:start position:0%
+paste and plugin as as a paid MCP
+
+
+00:13:09.600 --> 00:13:11.030 align:start position:0%
+paste and plugin as as a paid MCP
+template.<00:13:10.160><c> They</c><00:13:10.480><c> already</c><00:13:10.720><c> have</c>
+
+00:13:11.030 --> 00:13:11.040 align:start position:0%
+template. They already have
+
+
+00:13:11.040 --> 00:13:13.350 align:start position:0%
+template. They already have
+authentication<00:13:11.920><c> os</c><00:13:12.480><c> flow</c><00:13:12.800><c> and</c><00:13:13.040><c> stripe</c>
+
+00:13:13.350 --> 00:13:13.360 align:start position:0%
+authentication os flow and stripe
+
+
+00:13:13.360 --> 00:13:15.350 align:start position:0%
+authentication os flow and stripe
+payment<00:13:13.760><c> set</c><00:13:14.000><c> up</c><00:13:14.240><c> publicly.</c><00:13:14.720><c> So</c><00:13:14.880><c> you</c><00:13:15.040><c> can</c><00:13:15.120><c> just</c>
+
+00:13:15.350 --> 00:13:15.360 align:start position:0%
+payment set up publicly. So you can just
+
+
+00:13:15.360 --> 00:13:17.750 align:start position:0%
+payment set up publicly. So you can just
+take<00:13:15.600><c> and</c><00:13:15.920><c> launch</c><00:13:16.160><c> your</c><00:13:16.399><c> own</c><00:13:16.480><c> paid</c><00:13:16.800><c> MCP</c><00:13:17.360><c> server</c>
+
+00:13:17.750 --> 00:13:17.760 align:start position:0%
+take and launch your own paid MCP server
+
+
+00:13:17.760 --> 00:13:19.750 align:start position:0%
+take and launch your own paid MCP server
+a<00:13:18.000><c> few</c><00:13:18.160><c> hours.</c><00:13:18.639><c> All</c><00:13:18.800><c> those</c><00:13:19.040><c> tutorial</c><00:13:19.519><c> and</c>
+
+00:13:19.750 --> 00:13:19.760 align:start position:0%
+a few hours. All those tutorial and
+
+
+00:13:19.760 --> 00:13:21.670 align:start position:0%
+a few hours. All those tutorial and
+templates<00:13:20.320><c> is</c><00:13:20.560><c> available</c><00:13:20.880><c> in</c><00:13:21.120><c> AI</c><00:13:21.440><c> builder</c>
+
+00:13:21.670 --> 00:13:21.680 align:start position:0%
+templates is available in AI builder
+
+
+00:13:21.680 --> 00:13:23.430 align:start position:0%
+templates is available in AI builder
+cloud<00:13:21.920><c> where</c><00:13:22.160><c> we</c><00:13:22.399><c> have</c><00:13:22.480><c> a</c><00:13:22.639><c> community</c><00:13:22.959><c> of</c><00:13:23.200><c> top</c>
+
+00:13:23.430 --> 00:13:23.440 align:start position:0%
+cloud where we have a community of top
+
+
+00:13:23.440 --> 00:13:25.030 align:start position:0%
+cloud where we have a community of top
+AI<00:13:23.760><c> builders</c><00:13:24.079><c> who</c><00:13:24.320><c> are</c><00:13:24.560><c> building</c><00:13:24.800><c> and</c>
+
+00:13:25.030 --> 00:13:25.040 align:start position:0%
+AI builders who are building and
+
+
+00:13:25.040 --> 00:13:26.870 align:start position:0%
+AI builders who are building and
+launching<00:13:25.360><c> their</c><00:13:25.519><c> own</c><00:13:25.680><c> AI</c><00:13:26.000><c> products.</c><00:13:26.480><c> So</c><00:13:26.639><c> they</c>
+
+00:13:26.870 --> 00:13:26.880 align:start position:0%
+launching their own AI products. So they
+
+
+00:13:26.880 --> 00:13:28.470 align:start position:0%
+launching their own AI products. So they
+might<00:13:27.040><c> already</c><00:13:27.279><c> experience</c><00:13:27.680><c> a</c><00:13:27.920><c> problem</c><00:13:28.240><c> and</c>
+
+00:13:28.470 --> 00:13:28.480 align:start position:0%
+might already experience a problem and
+
+
+00:13:28.480 --> 00:13:29.990 align:start position:0%
+might already experience a problem and
+challenge<00:13:28.800><c> that</c><00:13:28.959><c> you</c><00:13:29.120><c> are</c><00:13:29.200><c> facing</c><00:13:29.519><c> today.</c><00:13:29.839><c> You</c>
+
+00:13:29.990 --> 00:13:30.000 align:start position:0%
+challenge that you are facing today. You
+
+
+00:13:30.000 --> 00:13:31.670 align:start position:0%
+challenge that you are facing today. You
+can<00:13:30.079><c> come</c><00:13:30.240><c> and</c><00:13:30.480><c> get</c><00:13:30.720><c> advice</c><00:13:31.120><c> as</c><00:13:31.360><c> well</c><00:13:31.440><c> as</c>
+
+00:13:31.670 --> 00:13:31.680 align:start position:0%
+can come and get advice as well as
+
+
+00:13:31.680 --> 00:13:34.230 align:start position:0%
+can come and get advice as well as
+in-depth<00:13:32.240><c> course</c><00:13:32.720><c> about</c><00:13:33.200><c> AI</c><00:13:33.519><c> coding</c><00:13:33.920><c> and</c>
+
+00:13:34.230 --> 00:13:34.240 align:start position:0%
+in-depth course about AI coding and
+
+
+00:13:34.240 --> 00:13:36.069 align:start position:0%
+in-depth course about AI coding and
+building<00:13:34.560><c> large</c><00:13:35.120><c> model</c><00:13:35.360><c> application</c><00:13:35.839><c> from</c>
+
+00:13:36.069 --> 00:13:36.079 align:start position:0%
+building large model application from
+
+
+00:13:36.079 --> 00:13:38.550 align:start position:0%
+building large model application from
+myself<00:13:36.560><c> and</c><00:13:36.880><c> industry</c><00:13:37.440><c> experts</c><00:13:38.079><c> and</c><00:13:38.320><c> we're</c>
+
+00:13:38.550 --> 00:13:38.560 align:start position:0%
+myself and industry experts and we're
+
+
+00:13:38.560 --> 00:13:40.389 align:start position:0%
+myself and industry experts and we're
+continuously<00:13:39.279><c> providing</c><00:13:39.760><c> more</c><00:13:40.000><c> and</c><00:13:40.160><c> more</c>
+
+00:13:40.389 --> 00:13:40.399 align:start position:0%
+continuously providing more and more
+
+
+00:13:40.399 --> 00:13:42.550 align:start position:0%
+continuously providing more and more
+useful<00:13:40.800><c> tools</c><00:13:41.120><c> to</c><00:13:41.440><c> bootstrap</c><00:13:42.000><c> your</c><00:13:42.240><c> process</c>
+
+00:13:42.550 --> 00:13:42.560 align:start position:0%
+useful tools to bootstrap your process
+
+
+00:13:42.560 --> 00:13:44.470 align:start position:0%
+useful tools to bootstrap your process
+of<00:13:42.800><c> building</c><00:13:43.040><c> and</c><00:13:43.360><c> launching</c><00:13:43.680><c> AI</c><00:13:44.000><c> products</c>
+
+00:13:44.470 --> 00:13:44.480 align:start position:0%
+of building and launching AI products
+
+
+00:13:44.480 --> 00:13:46.949 align:start position:0%
+of building and launching AI products
+from<00:13:44.800><c> SAS</c><00:13:45.200><c> templates</c><00:13:45.680><c> and</c><00:13:45.839><c> tank</c><00:13:46.320><c> coder</c><00:13:46.720><c> which</c>
+
+00:13:46.949 --> 00:13:46.959 align:start position:0%
+from SAS templates and tank coder which
+
+
+00:13:46.959 --> 00:13:49.110 align:start position:0%
+from SAS templates and tank coder which
+can<00:13:47.120><c> help</c><00:13:47.279><c> you</c><00:13:47.519><c> generate</c><00:13:47.920><c> effective</c><00:13:48.480><c> PRD</c><00:13:48.959><c> and</c>
+
+00:13:49.110 --> 00:13:49.120 align:start position:0%
+can help you generate effective PRD and
+
+
+00:13:49.120 --> 00:13:51.110 align:start position:0%
+can help you generate effective PRD and
+cursor<00:13:49.519><c> rules</c><00:13:49.839><c> and</c><00:13:50.079><c> many</c><00:13:50.320><c> other</c><00:13:50.560><c> perks</c><00:13:50.880><c> of</c>
+
+00:13:51.110 --> 00:13:51.120 align:start position:0%
+cursor rules and many other perks of
+
+
+00:13:51.120 --> 00:13:53.030 align:start position:0%
+cursor rules and many other perks of
+essential<00:13:51.600><c> parts.</c><00:13:52.160><c> If</c><00:13:52.320><c> you're</c><00:13:52.480><c> interested,</c><00:13:52.880><c> I</c>
+
+00:13:53.030 --> 00:13:53.040 align:start position:0%
+essential parts. If you're interested, I
+
+
+00:13:53.040 --> 00:13:54.710 align:start position:0%
+essential parts. If you're interested, I
+have<00:13:53.200><c> put</c><00:13:53.360><c> a</c><00:13:53.519><c> link</c><00:13:53.760><c> in</c><00:13:53.920><c> the</c><00:13:54.079><c> description</c><00:13:54.480><c> below</c>
+
+00:13:54.710 --> 00:13:54.720 align:start position:0%
+have put a link in the description below
+
+
+00:13:54.720 --> 00:13:56.629 align:start position:0%
+have put a link in the description below
+for<00:13:54.959><c> you</c><00:13:55.120><c> to</c><00:13:55.279><c> click</c><00:13:55.440><c> and</c><00:13:55.760><c> join.</c><00:13:56.160><c> I'm</c><00:13:56.399><c> really</c>
+
+00:13:56.629 --> 00:13:56.639 align:start position:0%
+for you to click and join. I'm really
+
+
+00:13:56.639 --> 00:13:58.310 align:start position:0%
+for you to click and join. I'm really
+excited<00:13:56.959><c> to</c><00:13:57.120><c> see</c><00:13:57.279><c> what</c><00:13:57.440><c> type</c><00:13:57.680><c> of</c><00:13:57.760><c> MC</c><00:13:58.160><c> you're</c>
+
+00:13:58.310 --> 00:13:58.320 align:start position:0%
+excited to see what type of MC you're
+
+
+00:13:58.320 --> 00:13:59.670 align:start position:0%
+excited to see what type of MC you're
+going<00:13:58.399><c> to</c><00:13:58.480><c> build.</c><00:13:58.800><c> I</c><00:13:59.040><c> hope</c><00:13:59.120><c> you</c><00:13:59.279><c> enjoy</c><00:13:59.519><c> this</c>
+
+00:13:59.670 --> 00:13:59.680 align:start position:0%
+going to build. I hope you enjoy this
+
+
+00:13:59.680 --> 00:14:02.720 align:start position:0%
+going to build. I hope you enjoy this
+video<00:13:59.920><c> and</c><00:14:00.160><c> I</c><00:14:00.320><c> see</c><00:14:00.399><c> you</c><00:14:00.560><c> next</c>

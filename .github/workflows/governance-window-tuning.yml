@@ -1,0 +1,46 @@
+name: governance-window-tuning
+on:
+  schedule:
+    # Run weekly on Monday at 6 AM UTC (after weekend testing patterns)
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      analysis_days: { description: "Days of history to analyze", default: "7", required: true }
+      risk_tolerance: { description: "Risk tolerance", default: "medium", required: true }
+
+jobs:
+  tune-windows:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    env:
+      ANALYSIS_DAYS: ${{ github.event.inputs.analysis_days || 7 }}
+      RISK_TOLERANCE: ${{ github.event.inputs.risk_tolerance || 'medium' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      - name: Analyze system patterns and tune windows
+        run: |
+          echo "🔍 Analyzing system patterns for window tuning..."
+          python3 scripts/gov_window_tuner.py \
+            --calculate-optimal \
+            --analysis-days="$ANALYSIS_DAYS" \
+            --risk-tolerance="$RISK_TOLERANCE" \
+            --save-settings
+
+      - name: Show new window settings
+        run: |
+          echo "🎯 Updated Canary Window Settings:"
+          python3 scripts/gov_window_tuner.py --get-current-settings
+
+      - name: Notify Slack of window tuning
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          SETTINGS=$(python3 scripts/gov_window_tuner.py --get-current-settings 2>/dev/null)
+          if [ $? -eq 0 ]; then
+            ./scripts/gov_notify_slack.sh "Canary Windows Tuned" "Weekly window optimization completed:\n\`\`\`\n$SETTINGS\n\`\`\`"
+          fi

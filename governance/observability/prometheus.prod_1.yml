@@ -1,0 +1,69 @@
+# Prometheus Configuration - Production Stack
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  evaluation_interval: 30s
+  external_labels:
+    env: 'production'
+    cluster: 'stack-v1'
+
+# Alert manager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['localhost:9093']
+      timeout: 10s
+
+# Alert rules
+rule_files:
+  - 'alerts/bridge_slo.yml'
+
+# Service discovery and scraping
+scrape_configs:
+  # Bridge adapter
+  - job_name: 'bridge'
+    static_configs:
+      - targets: ['localhost:8014']
+        labels:
+          service: 'bridge'
+          tier: 'adapter'
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+
+  # UAT service
+  - job_name: 'uat'
+    static_configs:
+      - targets: ['localhost:8181']
+        labels:
+          service: 'uat'
+          tier: 'backend'
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+
+  # Athena service
+  - job_name: 'athena'
+    static_configs:
+      - targets: ['localhost:8090']
+        labels:
+          service: 'athena'
+          tier: 'backend'
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+
+  # Watchdog metrics
+  - job_name: 'watchdog'
+    static_configs:
+      - targets: ['localhost:9091']  # Pushgateway
+        labels:
+          service: 'watchdog'
+          tier: 'ops'
+    honor_labels: true
+    scrape_interval: 30s
+
+  # Prometheus self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          service: 'prometheus'
+          tier: 'observability'

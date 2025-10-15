@@ -1,0 +1,49 @@
+name: UI Golden
+on:
+  pull_request:
+    branches: [ main, v0.9.* ]
+jobs:
+  ui-golden:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Xcode version
+        run: xcodebuild -version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: NeuroForgeApp
+        run: xcodegen generate
+
+      - name: Warm services (best-effort)
+        run: NeuroForgeApp/scripts/warmup_services.sh || true
+
+      - name: UI Tests with golden diff
+        working-directory: NeuroForgeApp
+        run: make golden-ci
+        env:
+          API_BASE: http://localhost:8014
+          QA_MODE: "1"
+          GOLDEN_TOLERANCE: "0.003"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ui-golden-artifacts
+          path: |
+            NeuroForgeApp/artifacts/**
+            NeuroForgeApp/UITests/Golden/Actual/**
+            NeuroForgeApp/UITests/Golden/Diffs/**
+          retention-days: 7
+
+      - name: Upload test logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: xcodebuild-golden-log
+          path: NeuroForgeApp/artifacts/xcodebuild-ui-tests.log
+          retention-days: 7

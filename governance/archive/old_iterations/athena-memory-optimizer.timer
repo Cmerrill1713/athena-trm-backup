@@ -1,0 +1,17 @@
+[Unit]
+Description=Weekly Athena Memory Optimization
+Requires=athena-memory-optimizer.service
+
+[Timer]
+# Run weekly on Sunday at 3:00 AM
+OnCalendar=weekly
+Persistent=true
+
+# If system was down, run optimization when it comes back up
+Persistent=true
+
+# Accuracy (don't run if more than 6 hours late)
+AccuracySec=6h
+
+[Install]
+WantedBy=timers.target

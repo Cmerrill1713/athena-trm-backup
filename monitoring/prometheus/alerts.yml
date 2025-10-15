@@ -1,0 +1,24 @@
+groups:
+- name: governance.rules
+  interval: 30s
+  rules:
+  - alert: ECEHigh
+    expr: governance_ece > 0.06
+    for: 5m
+    labels: { severity: warning }
+    annotations: { summary: "ECE exceeded target", description: "ECE={{ $value }}" }
+  - alert: EntropyDriftHigh
+    expr: governance_entropy_drift > 0.25
+    for: 2m
+    labels: { severity: critical }
+    annotations: { summary: "Entropy drift high", description: "Drift={{ $value }}" }
+  - alert: ViolationSpike
+    expr: rate(governance_violation_rate[5m]) > 0.02
+    for: 5m
+    labels: { severity: warning }
+    annotations: { summary: "Violation rate spiking", description: "Rate={{ $value }}" }
+  - alert: AutohealErrors
+    expr: increase(governance_autoheal_errors_total[10m]) > 0
+    for: 1m
+    labels: { severity: warning }
+    annotations: { summary: "Autoheal errors detected" }

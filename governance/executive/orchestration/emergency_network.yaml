@@ -1,0 +1,6 @@
+name: emergency_network_congestion
+trigger: network_congestion
+expected:
+  quarantine: true
+  alert: critical
+  rollback: allowed

@@ -1,0 +1,19 @@
+{
+  "title": "Governance Overview",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "panels": [
+    {"type":"graph","title":"ECE","targets":[{"expr":"governance_ece"}],"id":1},
+    {"type":"graph","title":"Entropy Drift","targets":[{"expr":"governance_entropy_drift"}],"id":2},
+    {"type":"graph","title":"Violation Rate","targets":[{"expr":"governance_violation_rate"}],"id":3},
+    {"type":"graph","title":"Fix Confidence","targets":[{"expr":"governance_fix_confidence"}],"id":4},
+    {"type":"graph","title":"Consistency Index","targets":[{"expr":"governance_consistency_index"}],"id":5},
+    {"type":"graph","title":"Edge Case Score","targets":[{"expr":"governance_edge_case_score"}],"id":6},
+    {"type":"graph","title":"Δ Solve Rate","targets":[{"expr":"governance_solve_rate_delta"}],"id":7},
+    {"type":"graph","title":"Δ Violation Rate","targets":[{"expr":"governance_violation_rate_delta"}],"id":8},
+    {"type":"graph","title":"Δ Latency p95","targets":[{"expr":"governance_latency_p95_delta"}],"id":9},
+    {"type":"graph","title":"ECE Post-Canary","targets":[{"expr":"governance_ece_post"}],"id":10},
+    {"type":"stat","title":"Autoheal Errors (Δ10m)","targets":[{"expr":"increase(governance_autoheal_errors_total[10m])"}],"id":11}
+  ]
+}

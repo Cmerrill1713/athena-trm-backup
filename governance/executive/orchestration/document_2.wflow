@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>AMApplicationBuild</key>
+    <string>438.2</string>
+    <key>AMApplicationVersion</key>
+    <string>2.9</string>
+    <key>AMDocumentVersion</key>
+    <string>2</string>
+    <key>actions</key>
+    <array>
+        <dict>
+            <key>action</key>
+            <dict>
+                <key>ActionBundlePath</key>
+                <string>/System/Library/Automator/Run Shell Script.action</string>
+                <key>ActionName</key>
+                <string>Run Shell Script</string>
+                <key>ActionParameters</key>
+                <dict>
+                    <key>COMMAND_STRING</key>
+                    <string>#!/bin/zsh
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LAUNCHER_SCRIPT="$SCRIPT_DIR/athena_launcher.sh"
+
+if [ -f "$LAUNCHER_SCRIPT" ]; then
+    "$LAUNCHER_SCRIPT" frontend
+else
+    osascript -e 'display dialog "Athena launcher script not found. Please ensure athena_launcher.sh is in the same directory as the Quick Action." buttons {"OK"} default button "OK" with icon stop'
+fi</string>
+                    <key>INPUT_METHOD</key>
+                    <integer>0</integer>
+                    <key>SHELL_PATH</key>
+                    <string>/bin/zsh</string>
+                    <key>inputMethod</key>
+                    <integer>0</integer>
+                    <key>shell</key>
+                    <string>/bin/zsh</string>
+                    <key>source</key>
+                    <string>#!/bin/zsh
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LAUNCHER_SCRIPT="$SCRIPT_DIR/athena_launcher.sh"
+
+if [ -f "$LAUNCHER_SCRIPT" ]; then
+    "$LAUNCHER_SCRIPT" frontend
+else
+    osascript -e 'display dialog "Athena launcher script not found. Please ensure athena_launcher.sh is in the same directory as the Quick Action." buttons {"OK"} default button "OK" with icon stop'
+fi</string>
+                </dict>
+                <key>BundleVersion</key>
+                <integer>1</integer>
+                <key>CanShowSelectedItemsWhenRun</key>
+                <false/>
+                <key>CanShowWhenRun</key>
+                <true/>
+                <key>Category</key>
+                <array>
+                    <string>AMCategoryUtilities</string>
+                </array>
+                <key>Class Name</key>
+                <string>RunShellScript</string>
+                <key>InputUUID</key>
+                <string>2E8B3B8A-7F7C-4B5F-8B7D-8F8E8F8G8H8I</string>
+                <key>Keywords</key>
+                <array/>
+                <key>OutputUUID</key>
+                <string>2E8B3B8A-7F7C-4B5F-8B7D-8F8E8F8G8H8J</string>
+                <key>UUID</key>
+                <string>2E8B3B8A-7F7C-4B5F-8B7D-8F8E8F8G8H8K</string>
+                <key>UnlocalizedApplications</key>
+                <array/>
+                <key>arguments</key>
+                <dict>
+                    <key>COMMAND_STRING</key>
+                    <dict>
+                        <key>description</key>
+                        <string>Shell script to run</string>
+                        <key>label</key>
+                        <string>Shell:</string>
+                        <key>type</key>
+                        <string>0</string>
+                    </dict>
+                    <key>INPUT_METHOD</key>
+                    <dict>
+                        <key>description</key>
+                        <string>Pass input:</string>
+                        <key>label</key>
+                        <string>to stdin</string>
+                        <key>type</key>
+                        <string>0</string>
+                    </dict>
+                    <key>SHELL_PATH</key>
+                    <dict>
+                        <key>description</key>
+                        <string>Shell to use</string>
+                        <key>label</key>
+                        <string>Shell:</string>
+                        <key>type</key>
+                        <string>0</string>
+                    </dict>
+                </dict>
+                <key>isViewVisible</key>
+                <integer>1</integer>
+                <key>location</key>
+                <string>404.000000:188.000000</string>
+                <key>nibPath</key>
+                <string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
+            </dict>
+            <key>isViewVisible</key>
+            <integer>1</integer>
+        </dict>
+    </array>
+    <key>connectors</key>
+    <dict/>
+    <key>state</key>
+    <dict>
+        <key>AMLogTabViewSelectedIndex</key>
+        <integer>0</integer>
+        <key>AMWorkflowViewExpandedSections</key>
+        <string>1</string>
+        <key>AMWorkflowViewSelectedActionIndex</key>
+        <integer>0</integer>
+    </dict>
+    <key>workflowMetaData</key>
+    <dict>
+        <key>workflowType</key>
+        <string>QuickAction</string>
+        <key>workflowTypeIdentifier</key>
+        <string>com.apple.Automator.quick-action</string>
+    </dict>
+    <key>workflowProperties</key>
+    <dict>
+        <key>quickAction</key>
+        <dict>
+            <key>Applicability</key>
+            <dict>
+                <key>Context</key>
+                <string>Dock</string>
+                <key>Files</key>
+                <array/>
+                <key>Folders</key>
+                <array/>
+                <key>Images</key>
+                <array/>
+                <key>QuickActionSurrogate</key>
+                <string>com.apple.finder</string>
+                <key>Text</key>
+                <array/>
+            </dict>
+            <key>Input</key>
+            <dict>
+                <key>Type</key>
+                <string>None</string>
+            </dict>
+            <key>Name</key>
+            <string>Start Athena Frontend</string>
+            <key>Output</key>
+            <dict>
+                <key>Type</key>
+                <string>None</string>
+            </dict>
+        </dict>
+    </dict>
+</dict>
+</plist>

@@ -1,0 +1,38 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install research-specific dependencies
+RUN pip install --no-cache-dir \
+    torch==2.0.0 \
+    httpx==0.24.1 \
+    numpy==1.24.3
+
+# Copy application code
+COPY agents /app/agents
+COPY orchestrator /app/orchestrator
+COPY common /app/common
+
+# Create necessary directories
+RUN mkdir -p /app/state/research/implementations \
+             /app/state/research/cache \
+             /app/logs \
+             /app/pids
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+    CMD python3 -c "import sys; sys.exit(0)"
+
+# Default command (can be overridden)
+CMD ["python3", "agents/autonomous_research_queue.py"]

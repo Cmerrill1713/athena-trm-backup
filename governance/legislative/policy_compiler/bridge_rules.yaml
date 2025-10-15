@@ -1,0 +1,16 @@
+groups:
+- name: bridge_health
+  rules:
+  - alert: BridgeUnhealthy
+    expr: bridge_health == 0
+    for: 2m
+    labels: {severity: page}
+    annotations:
+      summary: "Bridge health down"
+
+  - alert: BridgePortCollision
+    expr: (bridge_health == 0) and (process_open_fds{job="bridge"} > 0)
+    for: 2m
+    labels: {severity: page}
+    annotations:
+      summary: "Bridge unhealthy and process present (possible double-run or port collision)"

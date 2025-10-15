@@ -1,0 +1,77 @@
+global:
+  resolve_timeout: 5m
+  slack_api_url: '${SLACK_WEBHOOK_URL}'
+
+route:
+  receiver: 'default'
+  group_by: ['alertname', 'severity']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 12h
+
+  routes:
+    # Page severity goes to pager
+    - match:
+        severity: page
+      receiver: 'pager'
+      repeat_interval: 5m
+
+    # Warn goes to Slack
+    - match:
+        severity: warn
+      receiver: 'slack'
+      repeat_interval: 1h
+
+    # Info goes to Slack with longer repeat
+    - match:
+        severity: info
+      receiver: 'slack'
+      repeat_interval: 4h
+
+    # Deadman heartbeat - special handling
+    - match:
+        alertname: MonitoringDeadman
+      receiver: 'deadman'
+      repeat_interval: 24h
+
+receivers:
+  - name: 'default'
+    # Fallback receiver
+
+  - name: 'pager'
+    # PagerDuty/OpsGenie integration
+    # webhook_configs:
+    #   - url: '${PAGERDUTY_WEBHOOK_URL}'
+    #     send_resolved: true
+
+  - name: 'slack'
+    slack_configs:
+      - send_resolved: true
+        channel: '#trm-alerts'
+        title: '{{ .GroupLabels.alertname }}'
+        text: |
+          *Severity:* `{{ .GroupLabels.severity }}`
+          *Summary:* {{ range .Alerts }}{{ .Annotations.summary }}{{ end }}
+          *Description:* {{ range .Alerts }}{{ .Annotations.description }}{{ end }}
+
+          <{{ .ExternalURL }}|View in Prometheus>
+        color: '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'
+
+  - name: 'deadman'
+    # Minimal logging for heartbeat
+    # If this stops, check Prometheus/AlertManager health
+
+inhibit_rules:
+  # Suppress warnings if there's a page-level alert
+  - source_match:
+      severity: 'page'
+    target_match:
+      severity: 'warn'
+    equal: ['alertname']
+
+  # Suppress info if there's a warning
+  - source_match:
+      severity: 'warn'
+    target_match:
+      severity: 'info'
+    equal: ['alertname']

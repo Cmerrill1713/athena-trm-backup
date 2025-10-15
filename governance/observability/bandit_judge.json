@@ -1,0 +1,59 @@
+{
+  "dashboard": {
+    "title": "Bandit vs Judge",
+    "panels": [
+      {
+        "title": "Win Rate by Variant",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "bandit_wins_total / bandit_trials_total",
+            "legendFormat": "{{variant}}"
+          }
+        ]
+      },
+      {
+        "title": "Judge Scores Over Time",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "avg_over_time(judge_helpfulness[24h])",
+            "legendFormat": "Helpfulness"
+          },
+          {
+            "expr": "avg_over_time(judge_factuality[24h])",
+            "legendFormat": "Factuality"
+          },
+          {
+            "expr": "avg_over_time(judge_clarity[24h])",
+            "legendFormat": "Clarity"
+          }
+        ]
+      },
+      {
+        "title": "Latency p95",
+        "type": "singlestat",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(latency_bucket[5m])) by (le))"
+          }
+        ]
+      },
+      {
+        "title": "Judge Quality Alert",
+        "type": "alertlist",
+        "conditions": [
+          {
+            "evaluator": {"type": "gt", "params": [5]},
+            "operator": {"type": "and"},
+            "query": {"params": ["judge_helpfulness", "2h", "now"]},
+            "reducer": {"type": "avg"},
+            "type": "query"
+          }
+        ],
+        "frequency": "60s",
+        "message": "Judge helpfulness < 5 for 2h"
+      }
+    ]
+  }
+}

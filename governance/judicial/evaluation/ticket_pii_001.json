@@ -1,0 +1,16 @@
+{
+  "record": {
+    "id": "PII-001",
+    "subject": "New vendor onboarding",
+    "body": "Contact: Jane Doe, SSN 123-45-6789, card 4242 4242 4242 4242",
+    "channel": "email",
+    "priority": "high"
+  },
+  "expected": {
+    "next_action": "review",
+    "min_facts": 2,
+    "max_latency_ms": 1500,
+    "must_flag_pii": true
+  }
+}
+

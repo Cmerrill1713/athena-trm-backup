@@ -1,0 +1,235 @@
+minimum_treaty:
+  version: "FOP-1.0"
+  name: "Federation Baseline Agreement"
+  effective_date: "2024-12-19T00:00:00Z"
+
+  # Core sovereignty protections
+  non_aggression:
+    enabled: true
+    description: "No jurisdiction shall take actions harmful to another jurisdiction's sovereignty"
+    enforcement: "automatic_quarantine"
+    evidence_required: true
+
+  evidence_sharing:
+    enabled: true
+    format: "FOP-1.0"
+    description: "Evidence shared in standardized, privacy-preserving format"
+    validation: "automatic"
+    retention_days: 365
+
+  exit_freedom:
+    enabled: true
+    notice_required: false
+    description: "Any jurisdiction may exit federation at will"
+    cleanup_required: true
+    data_retention: "archival_only"
+
+  # Performance commitments
+  response_sla:
+    consume_feed_ms_p95: 250
+    publish_ack_ms_p95: 300
+    join_ack_ms_p95: 500
+    description: "Performance guarantees for federation operations"
+    monitoring: "continuous"
+    violation_penalty: "reputation_deduction"
+
+  # Privacy and security
+  privacy:
+    epsilon: 0.3
+    k_anonymity: 5
+    description: "Differential privacy and anonymity protections"
+    verification: "federation_audit"
+    breach_penalty: "quarantine"
+
+  security:
+    mtls_required: true
+    jws_required: true
+    key_rotation_days: 90
+    description: "Cryptographic security requirements"
+    audit_frequency: "weekly"
+    compromise_response: "immediate_isolation"
+
+  # Operational requirements
+  monitoring:
+    health_reporting: true
+    slo_reporting: true
+    incident_reporting: true
+    description: "Continuous operational transparency"
+    frequency: "real_time"
+    accuracy_required: true
+
+# Consensus and governance
+consensus:
+  amendment_quorum: "2/3_sovereign"
+  description: "Requirements for treaty modifications"
+  voting_period_days: 30
+  implementation_grace_days: 90
+
+  dispute_resolution:
+    tribunal_required: true
+    arbitration_window_h: 24
+    evidence_bundle_required: true
+    description: "Cross-jurisdiction conflict resolution"
+    appeal_allowed: true
+    final_authority: "constitutional_court"
+
+  soft_fail_policy:
+    description: "Behavior when federation services are degraded"
+    mode: "local_enforce"
+    options:
+      - "local_enforce": "Continue with local constitutional enforcement"
+      - "degraded_mode": "Reduced federation participation"
+      - "isolate": "Complete federation disconnection"
+
+# Extended treaty options (optional adoption)
+extended_policies:
+  threat_sharing:
+    enabled: false
+    description: "Real-time threat intelligence sharing"
+    classification_levels: ["low", "medium", "high", "critical"]
+    encryption_required: true
+
+  coordinated_response:
+    enabled: false
+    description: "Federation-wide coordinated incident response"
+    activation_threshold: "critical_threat"
+    command_structure: "federation_council"
+
+  resource_sharing:
+    enabled: false
+    description: "Computational resource pooling"
+    fair_allocation: true
+    reputation_weighted: true
+
+  joint_research:
+    enabled: false
+    description: "Collaborative AI safety research"
+    ip_sharing: "federation_only"
+    publication_rights: "shared"
+
+# Implementation phases
+phases:
+  phase1_baseline:
+    policies: ["non_aggression", "evidence_sharing", "exit_freedom", "response_sla", "privacy", "security", "monitoring"]
+    description: "Core federation functionality"
+    auto_adopt: true
+
+  phase2_coordination:
+    policies: ["threat_sharing", "coordinated_response"]
+    description: "Advanced threat coordination"
+    adoption_quorum: "simple_majority"
+    prerequisites: ["phase1_baseline"]
+
+  phase3_collaboration:
+    policies: ["resource_sharing", "joint_research"]
+    description: "Deep federation collaboration"
+    adoption_quorum: "2/3_sovereign"
+    prerequisites: ["phase2_coordination"]
+
+# Compliance monitoring
+compliance:
+  automated_verification:
+    enabled: true
+    frequency: "continuous"
+    metrics:
+      - "response_sla_compliance"
+      - "evidence_format_compliance"
+      - "privacy_budget_compliance"
+      - "security_posture_compliance"
+
+  manual_audit:
+    enabled: true
+    frequency: "quarterly"
+    scope: "full_system"
+    independent_auditor: true
+
+  violation_response:
+    warning_threshold: 3
+    quarantine_threshold: 5
+    tribunal_threshold: 7
+    description: "Progressive enforcement for treaty violations"
+
+# Evolution and amendment
+evolution:
+  amendment_process:
+    proposal_rights: "sovereign_only"
+    review_period_days: 30
+    voting_period_days: 14
+    ratification_quorum: "2/3_sovereign"
+    implementation_grace_days: 90
+
+  version_compatibility:
+    backward_compatible: true
+    migration_required: false
+    support_period_years: 2
+
+  sunset_provisions:
+    enabled: true
+    review_frequency_years: 1
+    automatic_extension: true
+    termination_quorum: "unanimous"
+
+# Emergency provisions
+emergency:
+  federation_crisis:
+    declaration_authority: "tribunal_only"
+    temporary_suspension_allowed: true
+    maximum_duration_days: 30
+    reinstatement_quorum: "simple_majority"
+
+  jurisdiction_compromise:
+    isolation_automatic: true
+    evidence_segregation: true
+    recovery_assessment_required: true
+    tribunal_review_mandatory: true
+
+  systemic_failure:
+    degraded_mode_activation: "automatic"
+    local_enforcement_fallback: true
+    recovery_coordination: "federation_council"
+
+# Metrics and reporting
+metrics:
+  treaty_compliance_score:
+    calculation: "weighted_average"
+    weights:
+      sla_compliance: 0.4
+      evidence_quality: 0.3
+      privacy_compliance: 0.2
+      security_posture: 0.1
+    reporting_frequency: "daily"
+    alert_thresholds:
+      warning: 0.8
+      critical: 0.6
+
+  federation_health_score:
+    components:
+      - "active_jurisdictions"
+      - "evidence_flow_rate"
+      - "dispute_resolution_efficiency"
+      - "threat_response_effectiveness"
+    aggregation: "geometric_mean"
+    dashboard_available: true
+
+# Termination and dissolution
+termination:
+  voluntary_exit:
+    notice_required: false
+    cleanup_required: true
+    data_handling: "archival_retention"
+    reputation_preservation: true
+
+  involuntary_removal:
+    causes:
+      - "treaty_violation_repeated"
+      - "security_compromise"
+      - "sovereignty_breach"
+      - "performance_failure_persistent"
+    process: "tribunal_review"
+    appeal_allowed: true
+
+  federation_dissolution:
+    trigger: "universal_consent"
+    process: "orderly_winddown"
+    data_distribution: "equal_share"
+    final_settlement: "tribunal_approval"

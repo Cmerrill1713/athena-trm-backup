@@ -1,0 +1,76 @@
+{
+  "panels": [
+    {
+      "title": "Promotions (24h)",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "trm:promotions_24h{env=\"$env\"}",
+          "legendFormat": "{{action}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "palette-classic"},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"value": 0, "color": "green"},
+              {"value": 2, "color": "yellow"},
+              {"value": 4, "color": "red"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "title": "Promotion Rate (per minute)",
+      "type": "graph",
+      "targets": [
+        {
+          "expr": "trm:promotion_rate_5m{env=\"$env\"} * 60",
+          "legendFormat": "{{action}}"
+        }
+      ]
+    },
+    {
+      "title": "Promotions by Action (24h)",
+      "type": "piechart",
+      "targets": [
+        {
+          "expr": "sum by (action) (increase(promotions_total{env=\"$env\"}[24h]))",
+          "legendFormat": "{{action}}"
+        }
+      ]
+    },
+    {
+      "title": "Last 10 Promotions",
+      "type": "table",
+      "targets": [
+        {
+          "expr": "topk(10, increase(promotions_total{env=\"$env\"}[7d]))",
+          "format": "table",
+          "instant": true
+        }
+      ],
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {"Time": true},
+            "indexByName": {
+              "action": 0,
+              "from_model": 1,
+              "to_model": 2,
+              "reason": 3,
+              "task": 4,
+              "Value": 5
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+

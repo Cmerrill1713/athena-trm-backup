@@ -1,0 +1,127 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "id": null,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Active sessions",
+      "datasource": "Prometheus",
+      "id": 11,
+      "gridPos": {"h": 6, "w": 6, "x": 0, "y": 0},
+      "targets": [
+        {
+          "expr": "sum(app_active_sessions)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area"
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Ops window openings",
+      "datasource": "Prometheus",
+      "id": 12,
+      "gridPos": {"h": 8, "w": 12, "x": 6, "y": 0},
+      "targets": [
+        {
+          "expr": "sum(rate(app_ops_window_open_total[5m]))",
+          "legendFormat": "Manual opens",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(app_ops_window_auto_open_total[5m]))",
+          "legendFormat": "Auto opens",
+          "refId": "B"
+        },
+        {
+          "expr": "sum(rate(app_ops_window_auto_open_blocked_total[5m]))",
+          "legendFormat": "Blocked (debounce/limit)",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Session cap usage %",
+      "datasource": "Prometheus",
+      "id": 13,
+      "gridPos": {"h": 8, "w": 12, "x": 18, "y": 0},
+      "targets": [
+        {
+          "expr": "100 * sum(app_active_sessions) / clamp_min(sum(app_session_cap), 1)",
+          "legendFormat": "Usage %",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"value": null, "color": "green"},
+              {"value": 70, "color": "yellow"},
+              {"value": 90, "color": "red"}
+            ]
+          },
+          "unit": "percent"
+        }
+      }
+    },
+    {
+      "type": "piechart",
+      "title": "Auto-open block reasons",
+      "datasource": "Prometheus",
+      "id": 14,
+      "gridPos": {"h": 10, "w": 12, "x": 0, "y": 8},
+      "targets": [
+        {
+          "expr": "sum by (reason) (increase(app_ops_window_auto_open_blocked_total[1h]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Confidence distribution (last 1h)",
+      "datasource": "Prometheus",
+      "id": 15,
+      "gridPos": {"h": 10, "w": 12, "x": 12, "y": 8},
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.50, sum by (le) (increase(app_response_confidence_bucket[1h])))",
+          "legendFormat": "p50",
+          "refId": "A"
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum by (le) (increase(app_response_confidence_bucket[1h])))",
+          "legendFormat": "p95",
+          "refId": "B"
+        }
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["ops", "monitoring"],
+  "time": {"from": "now-6h", "to": "now"},
+  "title": "Ops Window Analytics",
+  "uid": "neuroforge-ops",
+  "version": 1
+}

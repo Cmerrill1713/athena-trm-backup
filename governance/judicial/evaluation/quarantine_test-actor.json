@@ -1,0 +1,1 @@
+{"actor": "test-actor", "profile": "strict", "ts": 1760340412.315806, "profileSpec": {"network": "egress_block", "model_ops": ["no_update", "no_fine_tune"], "io": ["read_only"], "duration_s": 86400}}

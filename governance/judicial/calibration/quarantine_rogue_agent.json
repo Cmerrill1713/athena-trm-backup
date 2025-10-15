@@ -1,0 +1,1 @@
+{"actor": "rogue_agent", "profile": "strict", "ts": 1760340810.4157388, "profileSpec": {"network": "egress_block", "model_ops": ["no_update", "no_fine_tune"], "io": ["read_only"], "duration_s": 86400}}

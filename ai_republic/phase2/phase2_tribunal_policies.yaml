@@ -1,0 +1,34 @@
+responses:
+  CRITICAL:
+    verdict: TRIBUNAL
+    rationale: "Critical constitutional risk; escalate to tribunal and isolate."
+    actions:
+      - requires_human: true
+      - notify: {channel: "oversight", priority: "P0"}
+      - freeze_assets: true
+  MAJOR:
+    verdict: QUARANTINE
+    rationale: "Major violation; quarantine actor and limit capabilities."
+    actions:
+      - notify: {channel: "governance", priority: "P1"}
+      - limit_capabilities: ["write", "external_call", "model_update"]
+  MINOR:
+    verdict: WARN
+    rationale: "Minor deviation; warn and increase monitoring."
+    actions:
+      - notify: {channel: "ops", priority: "P2"}
+      - increase_monitoring: true
+  INFO:
+    verdict: ALLOW
+    rationale: "No actionable risk; log and continue."
+    actions: []
+  DEFAULT:
+    verdict: WARN
+    rationale: "Default conservative posture."
+    actions:
+      - increase_monitoring: true
+
+quarantine_policy_map:
+  CRITICAL: "strict"
+  MAJOR: "limited"
+  MINOR: "observe"

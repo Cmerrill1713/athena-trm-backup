@@ -1,0 +1,65 @@
+name: ui-golden
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ui-golden:
+    runs-on: macos-14
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Xcode version
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Cache SPM
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.swiftpm
+            ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+
+      - name: Start local services (if needed)
+        shell: bash
+        run: |
+          # If you have a docker-compose for local stubs, start it here.
+          # For now, rely on mocked/skip-safe tests in QA_MODE.
+          echo "No local services required (tests are skip-safe)."
+
+      - name: QA warmup (skip if not needed)
+        shell: bash
+        run: |
+          cd NeuroForgeApp
+          chmod +x scripts/warmup_services.sh || true
+          ./scripts/warmup_services.sh || true
+
+      - name: Run UI tests with Golden diff (CI tolerance)
+        env:
+          GOLDEN_TOLERANCE: "0.003"   # 0.3% for CI
+          API_BASE: "http://localhost:8014"
+          QA_MODE: "1"
+        shell: bash
+        run: |
+          cd NeuroForgeApp
+          make golden-ci
+
+      - name: Collect artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-artifacts
+          path: |
+            NeuroForgeApp/artifacts/**
+            NeuroForgeApp/UITests/Golden/Actual/**
+            NeuroForgeApp/UITests/Golden/Diffs/**
+          if-no-files-found: warn

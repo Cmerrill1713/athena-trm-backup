@@ -1,0 +1,37 @@
+{
+  "": {
+    "dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/NIOResumableUpload.d",
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/NIOResumableUpload.o",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/master.swiftdeps"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio-extras/Sources/NIOResumableUpload/HTTPResumableUpload.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUpload.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUpload~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUpload.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUpload.dia"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio-extras/Sources/NIOResumableUpload/HTTPResumableUploadChannel.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadChannel.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadChannel~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadChannel.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadChannel.dia"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio-extras/Sources/NIOResumableUpload/HTTPResumableUploadContext.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadContext.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadContext~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadContext.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadContext.dia"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio-extras/Sources/NIOResumableUpload/HTTPResumableUploadHandler.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadHandler.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadHandler~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadHandler.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadHandler.dia"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio-extras/Sources/NIOResumableUpload/HTTPResumableUploadProtocol.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadProtocol.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadProtocol~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadProtocol.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOResumableUpload.build/HTTPResumableUploadProtocol.dia"
+  }
+}

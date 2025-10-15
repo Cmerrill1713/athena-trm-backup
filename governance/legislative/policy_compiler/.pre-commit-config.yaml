@@ -1,0 +1,51 @@
+repos:
+  # Basic file hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: [--unsafe]  # Allow custom YAML tags
+      - id: check-json
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+
+  # Python: Syntax-only gate (REQUIRED)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--select, E9,F63,F7,F82]  # Syntax errors only
+
+  # Python: Full style check (MANUAL - run with: pre-commit run flake8 -a)
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.1.1
+    hooks:
+      - id: flake8
+        stages: [manual]
+        additional_dependencies: [flake8-bugbear==24.8.19]
+
+  # Swift: Architecture enforcement
+  - repo: local
+    hooks:
+      - id: guard-single-ui
+        name: guard-single-ui
+        entry: bash scripts/guard_single_ui.sh
+        language: system
+        pass_filenames: false
+        files: '^NeuroForgeApp/.*\.swift$'
+
+  # Shell scripts
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.9.0
+    hooks:
+      - id: shellcheck
+        args: [--severity=warning]
+
+  # YAML
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        args: [--format, parsable, --strict]

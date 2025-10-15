@@ -1,0 +1,66 @@
+name: governance-deploy
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  gate-and-deploy:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    env:
+      PROM_URL: ${{ secrets.PROM_URL }}          # e.g., http://prometheus:9090
+      ECE_MAX: "0.06"
+      ENTROPY_CRIT: "0.25"
+      VIOLATION_SPIKE: "0.02"
+      COMPOSE_FILE: "docker-compose.athena-governance.yml"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      - name: Install deploy deps
+        run: pip install requests
+
+      - name: Verify policy bundle unchanged
+        run: |
+          python legislative/policy_compiler.py policy/governance_policy.yaml policy/god_judge_verdict_mapping.yaml
+          git diff --exit-code manifests/policy_bundle.json || { echo "Policy bundle changed. Require review."; exit 1; }
+
+      - name: Predictive risk assessment
+        run: |
+          echo "🔮 Running predictive governance analysis..."
+          python3 scripts/gov_predictor.py --predict-rollback-probability --traffic-rate 100 --deployment-type feature
+          echo "✅ Risk assessment completed"
+
+      - name: Governance pre-deploy gate
+        run: |
+          python3 scripts/gov_predeploy_gate.py
+
+      # If deploying to a remote host, use SSH (add your own secrets/inventory)
+      - name: Deploy via SSH
+        if: ${{ success() }}
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            cd ${{ secrets.DEPLOY_PATH }}
+            export COMPOSE_FILE=docker-compose.athena-governance.yml
+            export PROM_URL=${{ secrets.PROM_URL }}
+            ./scripts/gov_deploy.sh
+
+  promote-or-rollback:
+    needs: [gate-and-deploy]
+    runs-on: ubuntu-22.04
+    if: ${{ always() }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decide promote vs rollback (simple heuristic)
+        run: |
+          echo "Checking post-deploy health..."
+          # Placeholder: you can poll a webhook or scrape KPIs and decide here.
+          echo "Promote when green, rollback if alerts fired."

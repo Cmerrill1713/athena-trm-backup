@@ -1,0 +1,171 @@
+# Routing Policy - Smart Model Selection Based on Confidence, Cost, and Task
+# Routes tasks to small models + TRM, escalates to frontier only when needed
+
+version: "1.0.0"
+strategy: "confidence_tiered"
+
+# Confidence-based routing thresholds
+thresholds:
+  high_confidence: 0.75      # Keep on small model
+  medium_confidence: 0.45    # Re-ask with tools + RAG
+  low_confidence: 0.45       # TRM recursive plan
+  
+# Escalation triggers
+escalate_if:
+  - condition: "confidence < 0.45"
+    after_attempts: 2
+    target: "frontier:limited-quota"
+  
+  - condition: "safety_flag == true"
+    after_attempts: 0
+    target: "frontier:gpt4"
+    reason: "Safety-sensitive requires frontier"
+  
+  - condition: "tool_failures >= 2"
+    after_attempts: 1
+    target: "trm:repair-plan"
+    reason: "Tool chain broken, need replanning"
+  
+  - condition: "rag_recall < 0.6"
+    after_attempts: 1
+    target: "trm:query-rewrite"
+    reason: "Poor retrieval, need query reformulation"
+
+# Route-specific models (domain specialization)
+domain_models:
+  code:
+    primary: "deepseek-coder:6.7b"
+    fallback: "codellama:7b"
+    tools: ["grep", "ast_parse", "pytest"]
+  
+  logs:
+    primary: "mistral:7b-instruct"
+    fallback: "llama3:8b"
+    tools: ["grep", "jq", "tail", "awk"]
+  
+  ops:
+    primary: "phi3:mini"
+    fallback: "mistral:7b"
+    tools: ["curl", "kubectl", "docker", "systemctl"]
+  
+  summarization:
+    primary: "llama3:8b"
+    fallback: "mistral:7b"
+    tools: ["wc", "head"]
+  
+  reasoning:
+    primary: "trm:recursive"
+    fallback: "frontier:gpt4o-mini"
+    tools: ["none"]
+  
+  vision:
+    primary: "llava:7b"
+    fallback: "gpt4-vision"
+    tools: ["fastvlm", "ocr"]
+
+# Fallback budget controls
+fallback:
+  target: "frontier:gpt4o-mini"
+  budget_per_hour_usd: 2.00
+  max_tokens_per_request: 4096
+  alert_on_overage: true
+  
+# TRM configuration
+trm:
+  max_depth: 5
+  tools_enabled: true
+  critique_enabled: true
+  plan_format: "numbered_steps"
+  artifact_storage: "redis"  # or "memory"
+  
+# RAG configuration
+rag:
+  mode: "hybrid"              # BM25 + dense
+  top_k: 5
+  rerank: true
+  rerank_model: "bge-reranker-base"
+  max_passages: 3             # Cap for small model context
+  require_citations: true
+  freshness_boost_days: 30    # Boost recent docs
+  
+# Tool execution
+tools:
+  timeout_seconds: 10
+  max_retries: 2
+  acl_mode: "whitelist"       # Only allow safe commands
+  safe_commands:
+    - "grep"
+    - "curl"
+    - "jq"
+    - "pytest"
+    - "weaviate.query"
+    - "psql -c SELECT"        # Read-only SQL
+  
+# Structured output enforcement
+schema_enforcement:
+  enabled: true
+  reject_invalid: true
+  repair_attempts: 1
+  required_fields:
+    answer:
+      type: "string"
+      required: true
+    sources:
+      type: "array"
+      required: true
+    confidence:
+      type: "float"
+      required: true
+    decisions:
+      type: "array"
+      required: false
+
+# Session optimization
+session:
+  cache_enabled: true
+  cache_ttl_seconds: 3600
+  cache_key_fields: ["norm_query", "doc_version", "route"]
+  kv_reuse: true              # Reuse KV cache for identical tool calls
+  
+# Evaluation & metrics
+evaluation:
+  enabled: true
+  golden_set_path: "eval/golden_tasks.jsonl"
+  metrics:
+    - "task_success_rate"
+    - "latency_p50"
+    - "latency_p95"
+    - "cost_per_1k_queries"
+    - "rag_recall_at_k"
+    - "citation_validity"
+    - "tool_success_rate"
+    - "escalation_rate"
+    - "brier_score"
+  nightly_run: true
+  alert_on_regression: true
+  regression_threshold_pct: 5
+
+# Closed-loop learning
+learning:
+  enabled: true
+  capture_red_turns: true     # Low confidence or failed
+  training_sink: "training/accepted/"
+  format: "jsonl"
+  fields: ["prompt", "plan", "tools", "passages", "label", "human_fix"]
+  distillation_schedule: "weekly"
+  teacher_model: "frontier:gpt4o"
+  student_model: "deepseek-coder:6.7b"
+
+# Safety canaries
+safety:
+  canary_tasks_path: "eval/canaries.jsonl"
+  run_frequency: "hourly"
+  alert_on_failure: true
+  slack_webhook: "${ALERT_WEBHOOK_URL}"
+  
+# Cost tracking
+cost:
+  track_per_route: true
+  alert_threshold_usd: 10.00
+  export_to: "prometheus"
+

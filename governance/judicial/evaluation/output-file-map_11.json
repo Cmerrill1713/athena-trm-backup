@@ -1,0 +1,13 @@
+{
+  "": {
+    "dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/MetricsTestKit.build/MetricsTestKit.d",
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/MetricsTestKit.build/MetricsTestKit.o",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/MetricsTestKit.build/master.swiftdeps"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-metrics/Sources/MetricsTestKit/TestMetrics.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/MetricsTestKit.build/TestMetrics.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/MetricsTestKit.build/TestMetrics~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/MetricsTestKit.build/TestMetrics.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/MetricsTestKit.build/TestMetrics.dia"
+  }
+}

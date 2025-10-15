@@ -1,0 +1,36 @@
+workspace:
+  root: "/Users/christianmerrill/Documents/GitHub"
+  repos: ["/Users/christianmerrill/Documents/GitHub"]
+  entrypoints: ["Makefile", "start_server.sh", "docker-compose.yml"]
+models:
+  judge: "local-7B"
+  exec: "local-7B"
+  advocate: "local-7B"
+reasoning_caps:
+  tot_branches_max: 3
+  tot_depth_max: 2
+  got_nodes_max: 16
+calibration:
+  ece_target: 0.06
+  disable_tot_if_ece_gt: true
+observability:
+  prometheus:
+    config_paths: ["prometheus.yml"]
+  grafana:
+    dashboards: ["grafana/dashboards/*.json"]
+bus:
+  type: "inproc"
+  topics: ["exec.receipt.*", "judicial.verdict.*", "release.canary.*"]
+datastores:
+  postgres: { present: true, db: "governance" }
+  redis:    { present: true }
+governance:
+  policies: ["governance/legislative/canary_rules/typescript-fixer.json", "governance/judicial/evaluation/god-judge-receipt-schema.json"]
+  schemas: ["governance/judicial/evaluation/god-judge-receipt-schema.json", "governance/judicial/calibration/ai_agent_schema.json"]
+  samples: ["governance/judicial/evaluation/sample-god-judge-receipt.json"]
+ops:
+  slos: { latency_p95: 30, violation_max: 0.01 }
+  retention: { receipts_days: 14, logs_days: 7, snapshots_days: 5 }
+traffic:
+  target_tasks_per_min: 25
+  percent_tot: 20

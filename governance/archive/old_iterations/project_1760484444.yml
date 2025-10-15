@@ -1,0 +1,40 @@
+name: NeuroForgeApp
+options:
+  minimumXcodeGenVersion: 2.38.0
+targets:
+  NeuroForgeApp:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Sources
+    resources:
+      - path: Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.neuroforge.app
+        CODE_SIGNING_ALLOWED: NO
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: Info.plist
+        SWIFT_VERSION: 5.9
+        MACOSX_DEPLOYMENT_TARGET: 14.0
+      configs:
+        Debug:
+          OTHER_SWIFT_FLAGS: -parse-as-library
+    scheme:
+      testTargets: [NeuroForgeAppUITests]
+      environmentVariables:
+        API_BASE: http://localhost:8014
+        QA_MODE: "1"
+  NeuroForgeAppUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: UITests
+    dependencies:
+      - target: NeuroForgeApp
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.neuroforge.app.UITests
+        CODE_SIGNING_ALLOWED: NO

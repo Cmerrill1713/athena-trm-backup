@@ -1,0 +1,50 @@
+# AI Republic Cursor Rules
+# =========================
+#
+# Development workflow for zero-sudo, user-space native AI Republic
+#
+# Frontend: SwiftUI app in NeuroForgeApp/
+# Backend: Python services throughout repo
+# Tests:   User-space burn-in in ~/.local/share/ai-republic/
+
+# Always use user-space paths
+- AR_HOME=~/.local/share/ai-republic
+- PYTHONPATH includes AR_HOME
+- No sudo anywhere in runtime paths
+
+# Build commands
+- make frontend  # Build SwiftUI app
+- make backend   # Start Python services
+- make test      # Run burn-in tests
+- make all       # Full development stack
+
+# Test commands
+- bash ~/.local/share/ai-republic/TEST_NOW.sh  # Run all tests
+- ar-maint  # Maintenance mode test
+- ar-spike  # Emergency spike test
+- ar-status # AI Republic status
+
+# Development workflow
+1. make setup    # Initialize environment
+2. make frontend # Build SwiftUI app
+3. make backend  # Start services
+4. make test     # Verify everything works
+5. make watch    # Auto-rebuild on changes
+
+# Emergency debugging
+- If password prompts appear: pkill -f "sudo .*ai-republic"
+- Check PYTHONPATH includes ~/.local/share/ai-republic
+- Run: set -x; bash ~/.local/share/ai-republic/TEST_NOW.sh
+
+# File organization
+- Frontend: NeuroForgeApp/
+- Backend: athena/, ai_republic/, scripts/
+- Tests: ~/.local/share/ai-republic/
+- Config: ~/.local/share/ai-republic/src/config_flags.py
+
+# Key invariants
+- Zero sudo in all test paths
+- User-space installation only
+- Environment variables over file configs
+- Fallback stubs for missing dependencies
+- Maintenance mode forces DRY_RUN=1

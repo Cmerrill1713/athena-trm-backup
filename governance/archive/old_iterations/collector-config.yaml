@@ -1,0 +1,37 @@
+# OpenTelemetry Collector Configuration
+# Receives traces from Bridge/Athena and forwards to Tempo
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+    timeout: 1s
+    send_batch_size: 1024
+
+  resource:
+    attributes:
+    - key: deployment.environment
+      value: "production"
+      action: insert
+    - key: service.version
+      value: "v0.9.7"
+      action: insert
+
+exporters:
+  otlp:
+    endpoint: "tempo:4317"
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch, resource]
+      exporters: [otlp]

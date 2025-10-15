@@ -1,0 +1,12 @@
+{
+  "name": "Promotions & Rollbacks",
+  "datasource": "Prometheus",
+  "enable": true,
+  "iconColor": "blue",
+  "query": "increase(promotions_total{env=\"$env\"}[5m]) > 0",
+  "titleFormat": "{{ action | toUpper }}: {{ from_model }} → {{ to_model }}",
+  "tags": ["{{ action }}", "{{ reason }}", "{{ task }}"],
+  "textFormat": "env={{ env }}, build={{ build }}",
+  "type": "tags"
+}
+

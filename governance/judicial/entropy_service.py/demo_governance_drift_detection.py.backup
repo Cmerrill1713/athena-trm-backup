@@ -1,0 +1,275 @@
+#!/usr/bin/env python3
+"""
+Governance Drift Detection - Live Demonstration
+===============================================
+
+This script demonstrates the complete governance drift detection system
+in action, showing how it detects, responds to, and recovers from
+governance drift incidents.
+
+Usage:
+    python3 scripts/demo_governance_drift_detection.py
+"""
+
+import asyncio
+import time
+from datetime import datetime, timedelta
+from AI_Projects.universal_ai_tools.src.core.governance_drift_detection import (
+    GovernanceDriftDetector,
+    DriftDetectionConfig,
+    GovernanceDriftMetrics
+)
+from scripts.governance_drift_rollback_hooks import (
+    GovernanceRollbackManager,
+    RollbackConfiguration
+)
+
+def create_mock_governance_engine():
+    """Create a mock governance engine for demonstration."""
+    class MockGovernanceEngine:
+        def __init__(self):
+            self.governance_log = []
+            self._generate_baseline_data()
+
+        def _generate_baseline_data(self):
+            """Generate realistic baseline governance data."""
+            base_time = datetime.now() - timedelta(hours=48)
+
+            # Generate 100 assessments over 48 hours
+            for i in range(100):
+                timestamp = base_time + timedelta(minutes=i*30)  # Every 30 minutes
+
+                # Normal baseline: ~5% violations, high governance scores
+                is_violation = (i % 20) == 0  # 5% violation rate
+                governance_score = 0.85 + (i % 10) * 0.01  # 0.85-0.94 range
+
+                self.governance_log.append({
+                    'assessment': {
+                        'overall_clearance': not is_violation,
+                        'governance_score': governance_score
+                    },
+                    'timestamp': timestamp,
+                    'strategy_id': f'strategy_{(i % 5) + 1}'
+                })
+
+    return MockGovernanceEngine()
+
+async def simulate_normal_operation(drift_detector, rollback_manager, duration_minutes=10):
+    """Simulate normal system operation."""
+    print("🟢 Simulating normal governance operation...")
+    start_time = datetime.now()
+
+    while (datetime.now() - start_time).seconds < (duration_minutes * 60):
+        # Collect metrics
+        metrics = drift_detector.collect_current_metrics()
+
+        # Check for drift (should be none in normal operation)
+        incidents = drift_detector.detect_drift(metrics)
+
+        if incidents:
+            print(f"⚠️ Unexpected incident during normal operation: {incidents[0].incident_id}")
+        else:
+            print(f"✅ Normal operation - Violation rate: {metrics.violation_rate:.1%}, "
+                  f"Governance score: {metrics.governance_score_avg:.2f}")
+
+        # Check quarantines
+        released = rollback_manager.check_quarantine_status()
+        if released:
+            print(f"🔓 Released quarantines: {released}")
+
+        await asyncio.sleep(2)  # Check every 2 seconds for demo
+
+def simulate_governance_drift(governance_engine):
+    """Simulate governance drift by injecting problematic assessments."""
+    print("\n🟠 Injecting governance drift...")
+    drift_start = datetime.now()
+
+    # Inject 20 assessments with high violation rate (40% violations)
+    for i in range(20):
+        timestamp = drift_start + timedelta(minutes=i)
+
+        # High violation rate and declining governance scores
+        is_violation = (i % 5) < 2  # 40% violation rate
+        governance_score = 0.6 - (i * 0.01)  # Declining from 0.6
+
+        governance_engine.governance_log.append({
+            'assessment': {
+                'overall_clearance': not is_violation,
+                'governance_score': governance_score
+            },
+            'timestamp': timestamp,
+            'strategy_id': f'strategy_{(i % 3) + 1}'  # Focus on 3 strategies
+        })
+
+async def simulate_drift_detection(drift_detector, rollback_manager):
+    """Simulate drift detection and response."""
+    print("🔴 Simulating drift detection and response...")
+    start_time = datetime.now()
+
+    incident_detected = False
+    response_triggered = False
+
+    while (datetime.now() - start_time).seconds < 30:  # 30 second simulation
+        # Collect current metrics
+        metrics = drift_detector.collect_current_metrics()
+        print(".2f"
+        # Check for drift
+        incidents = drift_detector.detect_drift(metrics)
+
+        if incidents and not incident_detected:
+            incident = incidents[0]
+            print(f"🚨 DRIFT DETECTED: {incident.drift_type.value} "
+                  f"(severity: {incident.severity.value})")
+            print(f"   Baseline: {incident.baseline_value:.2f} → Current: {incident.current_value:.2f} "
+                  f"(Δ: {incident.delta_percentage:.1f}%)")
+            print(f"   Confidence: {incident.confidence_score:.2f}")
+            print(f"   Affected strategies: {incident.affected_strategies}")
+
+            incident_detected = True
+
+            # Trigger response
+            response = await rollback_manager.handle_drift_incident(incident)
+            print(f"🛡️ RESPONSE TRIGGERED: {response['actions_taken']}")
+            if response['quarantined_strategies']:
+                print(f"   Quarantined strategies: {response['quarantined_strategies']}")
+
+            response_triggered = True
+
+        elif incident_detected and response_triggered:
+            # Check recovery progress
+            active_quarantines = len(rollback_manager.active_quarantines)
+            print(f"⏳ Recovery monitoring - Active quarantines: {active_quarantines}")
+
+        await asyncio.sleep(1)
+
+def simulate_recovery(governance_engine):
+    """Simulate recovery by injecting healthy assessments."""
+    print("
+🟢 Simulating governance recovery..."    recovery_start = datetime.now()
+
+    # Inject 15 assessments showing recovery (low violations, improving scores)
+    for i in range(15):
+        timestamp = recovery_start + timedelta(minutes=i)
+
+        # Recovery: low violation rate, improving governance scores
+        is_violation = (i % 10) == 0  # 10% violation rate (improving)
+        governance_score = 0.75 + (i * 0.01)  # Improving from 0.75
+
+        governance_engine.governance_log.append({
+            'assessment': {
+                'overall_clearance': not is_violation,
+                'governance_score': governance_score
+            },
+            'timestamp': timestamp,
+            'strategy_id': f'strategy_{(i % 5) + 1}'
+        })
+
+async def simulate_recovery_monitoring(drift_detector, rollback_manager):
+    """Simulate recovery monitoring and quarantine release."""
+    print("📈 Simulating recovery monitoring..."    start_time = datetime.now()
+
+    recovery_complete = False
+
+    while (datetime.now() - start_time).seconds < 20 and not recovery_complete:
+        # Collect metrics
+        metrics = drift_detector.collect_current_metrics()
+        print(".2f"
+        # Check for drift (should be resolving)
+        incidents = drift_detector.detect_drift(metrics)
+
+        if not incidents:
+            print("✅ Drift resolved - system recovering")
+
+            # Check quarantine status
+            released = rollback_manager.check_quarantine_status()
+            if released:
+                print(f"🔓 Auto-released quarantines: {released}")
+                recovery_complete = True
+            else:
+                print("⏳ Awaiting quarantine expiration...")
+        else:
+            print(f"⚠️ Still detecting drift: {incidents[0].drift_type.value}")
+
+        await asyncio.sleep(2)
+
+async def main():
+    """Run the complete governance drift detection demonstration."""
+    print("🧠 GOVERNANCE DRIFT DETECTION - LIVE DEMONSTRATION")
+    print("=" * 70)
+    print()
+
+    # Initialize components
+    print("🔧 Initializing governance drift detection system...")
+
+    # Create mock governance engine
+    governance_engine = create_mock_governance_engine()
+
+    # Configure drift detection (sensitive settings for demo)
+    drift_config = DriftDetectionConfig(
+        violation_rate_threshold=0.15,  # 15% threshold for demo
+        policy_delta_threshold=0.2,
+        behavioral_shift_threshold=0.25,
+        governance_score_threshold=0.15,
+        min_samples_for_significance=5,  # Lower for demo
+        drift_check_interval_seconds=1,  # Fast checks for demo
+        baseline_update_interval_hours=24
+    )
+
+    # Configure rollback
+    rollback_config = RollbackConfiguration(
+        default_quarantine_hours=24,
+        auto_recovery_enabled=True,
+        recovery_monitoring_hours=1,  # Fast recovery for demo
+        recovery_success_threshold=0.7
+    )
+
+    # Initialize components
+    drift_detector = GovernanceDriftDetector(drift_config)
+    rollback_manager = GovernanceRollbackManager(rollback_config)
+
+    # Integrate
+    drift_detector.integrate_with_governance(governance_engine)
+    rollback_manager.integrate_with_drift_detector(drift_detector)
+
+    print("✅ System initialized and integrated")
+    print()
+
+    # Phase 1: Normal Operation
+    await simulate_normal_operation(drift_detector, rollback_manager, duration_minutes=1)
+
+    # Phase 2: Inject Drift
+    simulate_governance_drift(governance_engine)
+
+    # Phase 3: Detect and Respond
+    await simulate_drift_detection(drift_detector, rollback_manager)
+
+    # Phase 4: Simulate Recovery
+    simulate_recovery(governance_engine)
+
+    # Phase 5: Monitor Recovery
+    await simulate_recovery_monitoring(drift_detector, rollback_manager)
+
+    # Final Statistics
+    print("
+📊 FINAL STATISTICS"    print("-" * 30)
+
+    drift_stats = drift_detector.get_drift_statistics()
+    rollback_stats = rollback_manager.get_rollback_statistics()
+
+    print(f"Total drift incidents detected: {drift_stats['total_incidents']}")
+    print(f"Rollback incidents triggered: {rollback_stats['total_rollback_incidents']}")
+    print(f"Strategies quarantined: {rollback_stats['active_quarantines']}")
+    print(f"Successful recoveries: {rollback_stats['successful_recoveries']}")
+    print(".1f"
+    print("
+🎉 Demonstration complete!"    print("The governance drift detection system successfully:"    print("  ✅ Monitored governance metrics continuously"    print("  ✅ Detected drift with statistical significance"    print("  ✅ Triggered automated quarantine responses"    print("  ✅ Monitored recovery and auto-released quarantines"    print("  ✅ Maintained system stability throughout"
+
+if __name__ == "__main__":
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\n👋 Demonstration interrupted by user")
+    except Exception as e:
+        print(f"\n❌ Demonstration failed: {e}")
+        import traceback
+        traceback.print_exc()

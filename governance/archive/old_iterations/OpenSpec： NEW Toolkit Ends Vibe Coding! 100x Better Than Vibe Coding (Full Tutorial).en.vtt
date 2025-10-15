@@ -1,0 +1,2543 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.080 --> 00:00:02.070 align:start position:0%
+
+Around<00:00:00.400><c> a</c><00:00:00.560><c> month</c><00:00:00.719><c> ago,</c><00:00:01.040><c> we</c><00:00:01.280><c> had</c><00:00:01.520><c> taken</c><00:00:01.760><c> a</c><00:00:01.920><c> look</c>
+
+00:00:02.070 --> 00:00:02.080 align:start position:0%
+Around a month ago, we had taken a look
+
+
+00:00:02.080 --> 00:00:04.470 align:start position:0%
+Around a month ago, we had taken a look
+at<00:00:02.320><c> GitHub</c><00:00:02.879><c> spec</c><00:00:03.280><c> kit,</c><00:00:03.600><c> an</c><00:00:03.840><c> open-source</c>
+
+00:00:04.470 --> 00:00:04.480 align:start position:0%
+at GitHub spec kit, an open-source
+
+
+00:00:04.480 --> 00:00:06.390 align:start position:0%
+at GitHub spec kit, an open-source
+toolkit<00:00:04.960><c> designed</c><00:00:05.279><c> to</c><00:00:05.520><c> help</c><00:00:05.680><c> you</c><00:00:05.839><c> get</c><00:00:06.080><c> started</c>
+
+00:00:06.390 --> 00:00:06.400 align:start position:0%
+toolkit designed to help you get started
+
+
+00:00:06.400 --> 00:00:08.470 align:start position:0%
+toolkit designed to help you get started
+with<00:00:06.720><c> specdriven</c><00:00:07.440><c> development.</c><00:00:08.240><c> This</c>
+
+00:00:08.470 --> 00:00:08.480 align:start position:0%
+with specdriven development. This
+
+
+00:00:08.480 --> 00:00:10.629 align:start position:0%
+with specdriven development. This
+approach<00:00:08.960><c> can</c><00:00:09.200><c> greatly</c><00:00:09.679><c> improve</c><00:00:10.160><c> both</c><00:00:10.400><c> your</c>
+
+00:00:10.629 --> 00:00:10.639 align:start position:0%
+approach can greatly improve both your
+
+
+00:00:10.639 --> 00:00:13.270 align:start position:0%
+approach can greatly improve both your
+code<00:00:10.960><c> quality</c><00:00:11.360><c> and</c><00:00:11.679><c> develop</c><00:00:12.160><c> efficiency.</c>
+
+00:00:13.270 --> 00:00:13.280 align:start position:0%
+code quality and develop efficiency.
+
+
+00:00:13.280 --> 00:00:15.030 align:start position:0%
+code quality and develop efficiency.
+It's<00:00:13.599><c> actually</c><00:00:13.840><c> quite</c><00:00:14.160><c> incredible</c><00:00:14.719><c> because</c>
+
+00:00:15.030 --> 00:00:15.040 align:start position:0%
+It's actually quite incredible because
+
+
+00:00:15.040 --> 00:00:18.390 align:start position:0%
+It's actually quite incredible because
+it<00:00:15.360><c> allows</c><00:00:15.679><c> AI</c><00:00:16.080><c> agents</c><00:00:16.560><c> to</c><00:00:16.800><c> focus</c><00:00:17.359><c> directly</c><00:00:18.080><c> on</c>
+
+00:00:18.390 --> 00:00:18.400 align:start position:0%
+it allows AI agents to focus directly on
+
+
+00:00:18.400 --> 00:00:20.710 align:start position:0%
+it allows AI agents to focus directly on
+specifications<00:00:19.199><c> that</c><00:00:19.439><c> are</c><00:00:19.680><c> executable,</c>
+
+00:00:20.710 --> 00:00:20.720 align:start position:0%
+specifications that are executable,
+
+
+00:00:20.720 --> 00:00:22.630 align:start position:0%
+specifications that are executable,
+meaning<00:00:20.960><c> they</c><00:00:21.279><c> can</c><00:00:21.439><c> generate</c><00:00:21.920><c> real</c><00:00:22.240><c> working</c>
+
+00:00:22.630 --> 00:00:22.640 align:start position:0%
+meaning they can generate real working
+
+
+00:00:22.640 --> 00:00:25.429 align:start position:0%
+meaning they can generate real working
+implementations,<00:00:23.920><c> not</c><00:00:24.080><c> just</c><00:00:24.320><c> vibe</c><00:00:24.720><c> code</c><00:00:25.119><c> or</c>
+
+00:00:25.429 --> 00:00:25.439 align:start position:0%
+implementations, not just vibe code or
+
+
+00:00:25.439 --> 00:00:27.910 align:start position:0%
+implementations, not just vibe code or
+random<00:00:25.760><c> suggestions</c><00:00:26.240><c> that</c><00:00:26.640><c> sound</c><00:00:27.279><c> right</c><00:00:27.599><c> but</c>
+
+00:00:27.910 --> 00:00:27.920 align:start position:0%
+random suggestions that sound right but
+
+
+00:00:27.920 --> 00:00:30.310 align:start position:0%
+random suggestions that sound right but
+don't<00:00:28.160><c> actually</c><00:00:28.480><c> run.</c><00:00:29.359><c> Now,</c><00:00:29.679><c> this</c><00:00:29.840><c> framework</c>
+
+00:00:30.310 --> 00:00:30.320 align:start position:0%
+don't actually run. Now, this framework
+
+
+00:00:30.320 --> 00:00:32.549 align:start position:0%
+don't actually run. Now, this framework
+is<00:00:30.560><c> truly</c><00:00:30.960><c> impressive</c><00:00:31.519><c> and</c><00:00:31.840><c> it</c><00:00:32.000><c> can</c><00:00:32.160><c> greatly</c>
+
+00:00:32.549 --> 00:00:32.559 align:start position:0%
+is truly impressive and it can greatly
+
+
+00:00:32.559 --> 00:00:34.630 align:start position:0%
+is truly impressive and it can greatly
+elevate<00:00:33.040><c> your</c><00:00:33.200><c> coding</c><00:00:33.600><c> workflow,</c><00:00:34.239><c> bringing</c>
+
+00:00:34.630 --> 00:00:34.640 align:start position:0%
+elevate your coding workflow, bringing
+
+
+00:00:34.640 --> 00:00:37.030 align:start position:0%
+elevate your coding workflow, bringing
+structure,<00:00:35.360><c> clarity,</c><00:00:35.840><c> and</c><00:00:36.079><c> precision</c><00:00:36.559><c> as</c><00:00:36.880><c> to</c>
+
+00:00:37.030 --> 00:00:37.040 align:start position:0%
+structure, clarity, and precision as to
+
+
+00:00:37.040 --> 00:00:39.510 align:start position:0%
+structure, clarity, and precision as to
+how<00:00:37.360><c> AI</c><00:00:37.840><c> collaborates</c><00:00:38.399><c> with</c><00:00:38.640><c> you.</c><00:00:39.200><c> But</c><00:00:39.360><c> the</c>
+
+00:00:39.510 --> 00:00:39.520 align:start position:0%
+how AI collaborates with you. But the
+
+
+00:00:39.520 --> 00:00:41.910 align:start position:0%
+how AI collaborates with you. But the
+main<00:00:39.760><c> thing</c><00:00:39.920><c> is</c><00:00:40.480><c> spec</c><00:00:40.879><c> kit</c><00:00:41.120><c> works</c><00:00:41.440><c> best</c><00:00:41.680><c> for</c>
+
+00:00:41.910 --> 00:00:41.920 align:start position:0%
+main thing is spec kit works best for
+
+
+00:00:41.920 --> 00:00:43.590 align:start position:0%
+main thing is spec kit works best for
+brand<00:00:42.239><c> new</c><00:00:42.559><c> projects</c><00:00:42.960><c> when</c><00:00:43.200><c> you're</c><00:00:43.360><c> working</c>
+
+00:00:43.590 --> 00:00:43.600 align:start position:0%
+brand new projects when you're working
+
+
+00:00:43.600 --> 00:00:45.590 align:start position:0%
+brand new projects when you're working
+from<00:00:43.840><c> scratch.</c><00:00:44.559><c> Once</c><00:00:44.879><c> your</c><00:00:45.040><c> code</c><00:00:45.360><c> base</c>
+
+00:00:45.590 --> 00:00:45.600 align:start position:0%
+from scratch. Once your code base
+
+
+00:00:45.600 --> 00:00:47.830 align:start position:0%
+from scratch. Once your code base
+evolves,<00:00:46.320><c> managing</c><00:00:46.879><c> updates</c><00:00:47.280><c> and</c><00:00:47.520><c> changes</c>
+
+00:00:47.830 --> 00:00:47.840 align:start position:0%
+evolves, managing updates and changes
+
+
+00:00:47.840 --> 00:00:50.229 align:start position:0%
+evolves, managing updates and changes
+across<00:00:48.239><c> specs</c><00:00:48.719><c> become</c><00:00:49.039><c> quite</c><00:00:49.360><c> messy.</c><00:00:50.000><c> It's</c>
+
+00:00:50.229 --> 00:00:50.239 align:start position:0%
+across specs become quite messy. It's
+
+
+00:00:50.239 --> 00:00:52.709 align:start position:0%
+across specs become quite messy. It's
+not<00:00:50.399><c> ideal</c><00:00:50.800><c> for</c><00:00:51.039><c> ongoing</c><00:00:51.600><c> development,</c><00:00:52.559><c> but</c>
+
+00:00:52.709 --> 00:00:52.719 align:start position:0%
+not ideal for ongoing development, but
+
+
+00:00:52.719 --> 00:00:55.990 align:start position:0%
+not ideal for ongoing development, but
+that's<00:00:53.039><c> where</c><00:00:53.440><c> OpenSpec</c><00:00:54.239><c> comes</c><00:00:54.480><c> in.</c><00:00:55.120><c> OpenSpec</c>
+
+00:00:55.990 --> 00:00:56.000 align:start position:0%
+that's where OpenSpec comes in. OpenSpec
+
+
+00:00:56.000 --> 00:00:58.150 align:start position:0%
+that's where OpenSpec comes in. OpenSpec
+is<00:00:56.320><c> a</c><00:00:56.559><c> new</c><00:00:56.719><c> toolkit</c><00:00:57.199><c> that</c><00:00:57.520><c> builds</c><00:00:57.840><c> on</c>
+
+00:00:58.150 --> 00:00:58.160 align:start position:0%
+is a new toolkit that builds on
+
+
+00:00:58.160 --> 00:01:00.310 align:start position:0%
+is a new toolkit that builds on
+specdriven<00:00:58.800><c> development.</c><00:00:59.680><c> It</c><00:00:59.840><c> aligns</c><00:01:00.079><c> with</c>
+
+00:01:00.310 --> 00:01:00.320 align:start position:0%
+specdriven development. It aligns with
+
+
+00:01:00.320 --> 00:01:02.549 align:start position:0%
+specdriven development. It aligns with
+humans<00:01:00.640><c> and</c><00:01:00.879><c> AI</c><00:01:01.280><c> coding</c><00:01:01.600><c> assistants</c><00:01:02.079><c> on</c><00:01:02.320><c> what</c>
+
+00:01:02.549 --> 00:01:02.559 align:start position:0%
+humans and AI coding assistants on what
+
+
+00:01:02.559 --> 00:01:05.270 align:start position:0%
+humans and AI coding assistants on what
+to<00:01:02.800><c> build</c><00:01:03.359><c> before</c><00:01:03.760><c> any</c><00:01:04.080><c> code</c><00:01:04.320><c> is</c><00:01:04.559><c> written.</c>
+
+00:01:05.270 --> 00:01:05.280 align:start position:0%
+to build before any code is written.
+
+
+00:01:05.280 --> 00:01:07.429 align:start position:0%
+to build before any code is written.
+It's<00:01:05.600><c> quite</c><00:01:05.840><c> lightweight</c><00:01:06.560><c> and</c><00:01:06.880><c> it's</c><00:01:07.119><c> easier</c>
+
+00:01:07.429 --> 00:01:07.439 align:start position:0%
+It's quite lightweight and it's easier
+
+
+00:01:07.439 --> 00:01:10.070 align:start position:0%
+It's quite lightweight and it's easier
+to<00:01:07.600><c> work</c><00:01:07.760><c> with</c><00:01:08.000><c> than</c><00:01:08.479><c> spec</c><00:01:08.880><c> kit.</c><00:01:09.520><c> It</c><00:01:09.760><c> requires</c>
+
+00:01:10.070 --> 00:01:10.080 align:start position:0%
+to work with than spec kit. It requires
+
+
+00:01:10.080 --> 00:01:12.390 align:start position:0%
+to work with than spec kit. It requires
+no<00:01:10.320><c> API</c><00:01:10.720><c> keys</c><00:01:11.040><c> and</c><00:01:11.280><c> it</c><00:01:11.439><c> ensures</c><00:01:11.840><c> your</c><00:01:12.080><c> intent</c>
+
+00:01:12.390 --> 00:01:12.400 align:start position:0%
+no API keys and it ensures your intent
+
+
+00:01:12.400 --> 00:01:14.710 align:start position:0%
+no API keys and it ensures your intent
+is<00:01:12.640><c> locked</c><00:01:12.960><c> before</c><00:01:13.280><c> implementation</c><00:01:14.320><c> and</c><00:01:14.479><c> it's</c>
+
+00:01:14.710 --> 00:01:14.720 align:start position:0%
+is locked before implementation and it's
+
+
+00:01:14.720 --> 00:01:16.710 align:start position:0%
+is locked before implementation and it's
+going<00:01:14.799><c> to</c><00:01:14.960><c> give</c><00:01:15.119><c> you</c><00:01:15.360><c> more</c><00:01:15.600><c> deterministic</c>
+
+00:01:16.710 --> 00:01:16.720 align:start position:0%
+going to give you more deterministic
+
+
+00:01:16.720 --> 00:01:18.789 align:start position:0%
+going to give you more deterministic
+reviewable<00:01:17.360><c> results</c><00:01:17.840><c> instead</c><00:01:18.159><c> of</c><00:01:18.400><c> AI</c>
+
+00:01:18.789 --> 00:01:18.799 align:start position:0%
+reviewable results instead of AI
+
+
+00:01:18.799 --> 00:01:20.630 align:start position:0%
+reviewable results instead of AI
+guesswork.<00:01:19.759><c> It</c><00:01:20.000><c> keeps</c><00:01:20.240><c> everything</c>
+
+00:01:20.630 --> 00:01:20.640 align:start position:0%
+guesswork. It keeps everything
+
+
+00:01:20.640 --> 00:01:23.190 align:start position:0%
+guesswork. It keeps everything
+structured<00:01:21.040><c> with</c><00:01:21.360><c> proposals,</c><00:01:22.320><c> tasks</c><00:01:22.799><c> as</c><00:01:23.040><c> well</c>
+
+00:01:23.190 --> 00:01:23.200 align:start position:0%
+structured with proposals, tasks as well
+
+
+00:01:23.200 --> 00:01:25.830 align:start position:0%
+structured with proposals, tasks as well
+as<00:01:23.439><c> spec</c><00:01:23.759><c> updates,</c><00:01:24.560><c> making</c><00:01:24.960><c> scope</c><00:01:25.360><c> changes</c>
+
+00:01:25.830 --> 00:01:25.840 align:start position:0%
+as spec updates, making scope changes
+
+
+00:01:25.840 --> 00:01:28.230 align:start position:0%
+as spec updates, making scope changes
+auditable<00:01:26.479><c> and</c><00:01:26.799><c> transparent.</c><00:01:27.520><c> And</c><00:01:27.680><c> unlike</c>
+
+00:01:28.230 --> 00:01:28.240 align:start position:0%
+auditable and transparent. And unlike
+
+
+00:01:28.240 --> 00:01:30.390 align:start position:0%
+auditable and transparent. And unlike
+different<00:01:28.560><c> tool</c><00:01:29.119><c> and</c><00:01:29.360><c> unlike</c><00:01:29.759><c> toolkits</c><00:01:30.240><c> like</c>
+
+00:01:30.390 --> 00:01:30.400 align:start position:0%
+different tool and unlike toolkits like
+
+
+00:01:30.400 --> 00:01:32.469 align:start position:0%
+different tool and unlike toolkits like
+spec<00:01:30.799><c> kit</c><00:01:31.040><c> or</c><00:01:31.280><c> something</c><00:01:31.439><c> like</c><00:01:31.680><c> Curo,</c><00:01:32.159><c> which</c>
+
+00:01:32.469 --> 00:01:32.479 align:start position:0%
+spec kit or something like Curo, which
+
+
+00:01:32.479 --> 00:01:34.870 align:start position:0%
+spec kit or something like Curo, which
+shines<00:01:32.799><c> for</c><00:01:33.040><c> new</c><00:01:33.360><c> features,</c><00:01:34.159><c> openspec</c>
+
+00:01:34.870 --> 00:01:34.880 align:start position:0%
+shines for new features, openspec
+
+
+00:01:34.880 --> 00:01:37.830 align:start position:0%
+shines for new features, openspec
+evolves<00:01:35.439><c> when</c><00:01:35.840><c> modifying</c><00:01:36.400><c> existing</c><00:01:36.960><c> systems,</c>
+
+00:01:37.830 --> 00:01:37.840 align:start position:0%
+evolves when modifying existing systems,
+
+
+00:01:37.840 --> 00:01:39.910 align:start position:0%
+evolves when modifying existing systems,
+cleanly<00:01:38.400><c> separating</c><00:01:38.960><c> your</c><00:01:39.200><c> current</c><00:01:39.600><c> truth</c>
+
+00:01:39.910 --> 00:01:39.920 align:start position:0%
+cleanly separating your current truth
+
+
+00:01:39.920 --> 00:01:42.469 align:start position:0%
+cleanly separating your current truth
+from<00:01:40.159><c> proposed</c><00:01:40.720><c> updates.</c><00:01:41.520><c> In</c><00:01:41.759><c> short,</c><00:01:42.240><c> it's</c>
+
+00:01:42.469 --> 00:01:42.479 align:start position:0%
+from proposed updates. In short, it's
+
+
+00:01:42.479 --> 00:01:44.149 align:start position:0%
+from proposed updates. In short, it's
+going<00:01:42.560><c> to</c><00:01:42.640><c> bring</c><00:01:42.880><c> more</c><00:01:43.119><c> control,</c><00:01:43.680><c> clarity,</c>
+
+00:01:44.149 --> 00:01:44.159 align:start position:0%
+going to bring more control, clarity,
+
+
+00:01:44.159 --> 00:01:46.630 align:start position:0%
+going to bring more control, clarity,
+and<00:01:44.400><c> reliability</c><00:01:45.280><c> while</c><00:01:45.600><c> being</c><00:01:45.840><c> lightweight</c>
+
+00:01:46.630 --> 00:01:46.640 align:start position:0%
+and reliability while being lightweight
+
+
+00:01:46.640 --> 00:01:49.190 align:start position:0%
+and reliability while being lightweight
+to<00:01:47.200><c> specdriven</c><00:01:47.840><c> AI</c><00:01:48.240><c> development</c><00:01:48.720><c> at</c><00:01:48.960><c> any</c>
+
+00:01:49.190 --> 00:01:49.200 align:start position:0%
+to specdriven AI development at any
+
+
+00:01:49.200 --> 00:01:51.109 align:start position:0%
+to specdriven AI development at any
+stage<00:01:49.439><c> of</c><00:01:49.680><c> your</c><00:01:49.920><c> product.</c><00:01:50.720><c> But</c><00:01:50.799><c> you</c><00:01:50.960><c> may</c>
+
+00:01:51.109 --> 00:01:51.119 align:start position:0%
+stage of your product. But you may
+
+
+00:01:51.119 --> 00:01:53.190 align:start position:0%
+stage of your product. But you may
+wonder,<00:01:51.439><c> how</c><00:01:51.600><c> does</c><00:01:51.840><c> open</c><00:01:52.240><c> spec</c><00:01:52.560><c> compared</c><00:01:52.960><c> to</c>
+
+00:01:53.190 --> 00:01:53.200 align:start position:0%
+wonder, how does open spec compared to
+
+
+00:01:53.200 --> 00:01:55.429 align:start position:0%
+wonder, how does open spec compared to
+these<00:01:53.439><c> other</c><00:01:53.600><c> toolkits</c><00:01:54.159><c> like</c><00:01:54.399><c> spec</c><00:01:54.720><c> kit?</c>
+
+00:01:55.429 --> 00:01:55.439 align:start position:0%
+these other toolkits like spec kit?
+
+
+00:01:55.439 --> 00:01:57.350 align:start position:0%
+these other toolkits like spec kit?
+Well,<00:01:55.680><c> the</c><00:01:55.920><c> thing</c><00:01:56.000><c> is</c><00:01:56.320><c> it's</c><00:01:56.560><c> able</c><00:01:56.799><c> to</c><00:01:56.960><c> handle</c>
+
+00:01:57.350 --> 00:01:57.360 align:start position:0%
+Well, the thing is it's able to handle
+
+
+00:01:57.360 --> 00:01:59.190 align:start position:0%
+Well, the thing is it's able to handle
+evolving<00:01:57.920><c> features</c><00:01:58.240><c> better</c><00:01:58.560><c> with</c><00:01:58.880><c> separate</c>
+
+00:01:59.190 --> 00:01:59.200 align:start position:0%
+evolving features better with separate
+
+
+00:01:59.200 --> 00:02:01.670 align:start position:0%
+evolving features better with separate
+folders<00:01:59.680><c> for</c><00:02:00.000><c> current</c><00:02:00.320><c> specs</c><00:02:00.719><c> and</c><00:02:00.960><c> changes.</c>
+
+00:02:01.670 --> 00:02:01.680 align:start position:0%
+folders for current specs and changes.
+
+
+00:02:01.680 --> 00:02:03.990 align:start position:0%
+folders for current specs and changes.
+With<00:02:01.920><c> Kurode,</c><00:02:02.719><c> it</c><00:02:02.960><c> is</c><00:02:03.200><c> something</c><00:02:03.520><c> that</c><00:02:03.759><c> does</c>
+
+00:02:03.990 --> 00:02:04.000 align:start position:0%
+With Kurode, it is something that does
+
+
+00:02:04.000 --> 00:02:05.910 align:start position:0%
+With Kurode, it is something that does
+better<00:02:04.320><c> at</c><00:02:04.560><c> grouping</c><00:02:04.960><c> all</c><00:02:05.200><c> updates</c><00:02:05.600><c> for</c><00:02:05.759><c> a</c>
+
+00:02:05.910 --> 00:02:05.920 align:start position:0%
+better at grouping all updates for a
+
+
+00:02:05.920 --> 00:02:07.670 align:start position:0%
+better at grouping all updates for a
+feature<00:02:06.240><c> in</c><00:02:06.479><c> one</c><00:02:06.719><c> place</c><00:02:06.960><c> for</c><00:02:07.200><c> easier</c>
+
+00:02:07.670 --> 00:02:07.680 align:start position:0%
+feature in one place for easier
+
+
+00:02:07.680 --> 00:02:10.630 align:start position:0%
+feature in one place for easier
+tracking.<00:02:08.640><c> And</c><00:02:09.119><c> if</c><00:02:09.440><c> it's</c><00:02:10.080><c> something</c><00:02:10.319><c> that's</c>
+
+00:02:10.630 --> 00:02:10.640 align:start position:0%
+tracking. And if it's something that's
+
+
+00:02:10.640 --> 00:02:12.309 align:start position:0%
+tracking. And if it's something that's
+compared<00:02:10.959><c> to</c><00:02:11.280><c> something</c><00:02:11.520><c> that</c><00:02:11.760><c> doesn't</c><00:02:12.080><c> have</c>
+
+00:02:12.309 --> 00:02:12.319 align:start position:0%
+compared to something that doesn't have
+
+
+00:02:12.319 --> 00:02:15.030 align:start position:0%
+compared to something that doesn't have
+any<00:02:12.560><c> sort</c><00:02:12.800><c> of</c><00:02:13.280><c> specd</c><00:02:13.599><c> driven</c><00:02:13.920><c> toolkit,</c><00:02:14.720><c> it</c><00:02:14.959><c> is</c>
+
+00:02:15.030 --> 00:02:15.040 align:start position:0%
+any sort of specd driven toolkit, it is
+
+
+00:02:15.040 --> 00:02:16.869 align:start position:0%
+any sort of specd driven toolkit, it is
+going<00:02:15.120><c> to</c><00:02:15.200><c> ensure</c><00:02:15.599><c> more</c><00:02:15.920><c> predictable</c><00:02:16.560><c> agreed</c>
+
+00:02:16.869 --> 00:02:16.879 align:start position:0%
+going to ensure more predictable agreed
+
+
+00:02:16.879 --> 00:02:19.670 align:start position:0%
+going to ensure more predictable agreed
+upon<00:02:17.280><c> outputs</c><00:02:17.760><c> instead</c><00:02:18.080><c> of</c><00:02:18.239><c> vague</c><00:02:18.640><c> AI</c><00:02:19.040><c> code</c>
+
+00:02:19.670 --> 00:02:19.680 align:start position:0%
+upon outputs instead of vague AI code
+
+
+00:02:19.680 --> 00:02:22.309 align:start position:0%
+upon outputs instead of vague AI code
+that<00:02:20.000><c> is</c><00:02:20.239><c> generated</c><00:02:20.720><c> from</c><00:02:20.959><c> a</c><00:02:21.200><c> natural</c><00:02:21.599><c> prompt.</c>
+
+00:02:22.309 --> 00:02:22.319 align:start position:0%
+that is generated from a natural prompt.
+
+
+00:02:22.319 --> 00:02:24.070 align:start position:0%
+that is generated from a natural prompt.
+And<00:02:22.560><c> what's</c><00:02:22.800><c> great</c><00:02:22.959><c> is</c><00:02:23.120><c> that</c><00:02:23.360><c> it's</c><00:02:23.680><c> supported</c>
+
+00:02:24.070 --> 00:02:24.080 align:start position:0%
+And what's great is that it's supported
+
+
+00:02:24.080 --> 00:02:26.550 align:start position:0%
+And what's great is that it's supported
+by<00:02:24.239><c> many</c><00:02:24.560><c> tools</c><00:02:24.879><c> like</c><00:02:25.120><c> cloud</c><00:02:25.440><c> code,</c><00:02:25.760><c> cursor,</c>
+
+00:02:26.550 --> 00:02:26.560 align:start position:0%
+by many tools like cloud code, cursor,
+
+
+00:02:26.560 --> 00:02:29.270 align:start position:0%
+by many tools like cloud code, cursor,
+open<00:02:26.959><c> code,</c><00:02:27.360><c> kilo</c><00:02:27.840><c> code,</c><00:02:28.239><c> codeex,</c><00:02:28.800><c> and</c><00:02:29.040><c> so</c>
+
+00:02:29.270 --> 00:02:29.280 align:start position:0%
+open code, kilo code, codeex, and so
+
+
+00:02:29.280 --> 00:02:30.630 align:start position:0%
+open code, kilo code, codeex, and so
+many<00:02:29.440><c> others.</c><00:02:29.920><c> And</c><00:02:30.080><c> there's</c><00:02:30.319><c> going</c><00:02:30.400><c> to</c><00:02:30.480><c> be</c>
+
+00:02:30.630 --> 00:02:30.640 align:start position:0%
+many others. And there's going to be
+
+
+00:02:30.640 --> 00:02:32.790 align:start position:0%
+many others. And there's going to be
+other<00:02:30.879><c> tools</c><00:02:31.280><c> that</c><00:02:31.520><c> will</c><00:02:31.760><c> be</c><00:02:31.920><c> added</c><00:02:32.239><c> soon</c><00:02:32.560><c> like</c>
+
+00:02:32.790 --> 00:02:32.800 align:start position:0%
+other tools that will be added soon like
+
+
+00:02:32.800 --> 00:02:35.110 align:start position:0%
+other tools that will be added soon like
+root<00:02:33.120><c> code</c><00:02:33.760><c> when</c><00:02:34.319><c> code.</c><00:02:34.720><c> You</c><00:02:34.800><c> even</c><00:02:34.959><c> have</c>
+
+00:02:35.110 --> 00:02:35.120 align:start position:0%
+root code when code. You even have
+
+
+00:02:35.120 --> 00:02:39.110 align:start position:0%
+root code when code. You even have
+Gemini<00:02:35.599><c> CLI.</c><00:02:36.800><c> So</c><00:02:37.200><c> apparently</c><00:02:37.920><c> Zapier</c><00:02:38.560><c> is</c><00:02:38.800><c> dead</c>
+
+00:02:39.110 --> 00:02:39.120 align:start position:0%
+Gemini CLI. So apparently Zapier is dead
+
+
+00:02:39.120 --> 00:02:41.830 align:start position:0%
+Gemini CLI. So apparently Zapier is dead
+again,<00:02:39.680><c> right?</c><00:02:40.239><c> Every</c><00:02:40.560><c> time</c><00:02:40.720><c> a</c><00:02:40.959><c> new</c><00:02:41.120><c> AI</c><00:02:41.519><c> tool</c>
+
+00:02:41.830 --> 00:02:41.840 align:start position:0%
+again, right? Every time a new AI tool
+
+
+00:02:41.840 --> 00:02:43.990 align:start position:0%
+again, right? Every time a new AI tool
+drops,<00:02:42.319><c> people</c><00:02:42.640><c> rush</c><00:02:42.959><c> to</c><00:02:43.200><c> say</c><00:02:43.440><c> it's</c><00:02:43.680><c> the</c><00:02:43.920><c> end</c>
+
+00:02:43.990 --> 00:02:44.000 align:start position:0%
+drops, people rush to say it's the end
+
+
+00:02:44.000 --> 00:02:46.790 align:start position:0%
+drops, people rush to say it's the end
+of<00:02:44.239><c> Zapier.</c><00:02:45.200><c> But</c><00:02:45.360><c> here's</c><00:02:45.680><c> the</c><00:02:45.920><c> truth.</c><00:02:46.480><c> It's</c>
+
+00:02:46.790 --> 00:02:46.800 align:start position:0%
+of Zapier. But here's the truth. It's
+
+
+00:02:46.800 --> 00:02:49.509 align:start position:0%
+of Zapier. But here's the truth. It's
+never<00:02:47.200><c> been</c><00:02:47.440><c> more</c><00:02:47.760><c> alive.</c><00:02:48.720><c> Recently,</c><00:02:49.120><c> we</c><00:02:49.360><c> saw</c>
+
+00:02:49.509 --> 00:02:49.519 align:start position:0%
+never been more alive. Recently, we saw
+
+
+00:02:49.519 --> 00:02:52.790 align:start position:0%
+never been more alive. Recently, we saw
+the<00:02:49.760><c> shiny</c><00:02:50.080><c> new</c><00:02:50.480><c> open</c><00:02:50.879><c> AI</c><00:02:51.360><c> tool,</c><00:02:51.840><c> Agent</c><00:02:52.319><c> Kit,</c>
+
+00:02:52.790 --> 00:02:52.800 align:start position:0%
+the shiny new open AI tool, Agent Kit,
+
+
+00:02:52.800 --> 00:02:55.270 align:start position:0%
+the shiny new open AI tool, Agent Kit,
+which<00:02:53.040><c> is</c><00:02:53.200><c> about</c><00:02:53.599><c> answer</c><00:02:53.920><c> optimization,</c><00:02:55.040><c> not</c>
+
+00:02:55.270 --> 00:02:55.280 align:start position:0%
+which is about answer optimization, not
+
+
+00:02:55.280 --> 00:02:57.990 align:start position:0%
+which is about answer optimization, not
+workflow<00:02:55.760><c> orchestration.</c><00:02:56.800><c> It</c><00:02:56.959><c> helps</c><00:02:57.200><c> chatb</c>
+
+00:02:57.990 --> 00:02:58.000 align:start position:0%
+workflow orchestration. It helps chatb
+
+
+00:02:58.000 --> 00:03:00.070 align:start position:0%
+workflow orchestration. It helps chatb
+think<00:02:58.239><c> better.</c><00:02:58.640><c> But</c><00:02:58.879><c> Zapier</c><00:02:59.440><c> helps</c><00:02:59.599><c> you</c><00:02:59.840><c> do</c>
+
+00:03:00.070 --> 00:03:00.080 align:start position:0%
+think better. But Zapier helps you do
+
+
+00:03:00.080 --> 00:03:02.229 align:start position:0%
+think better. But Zapier helps you do
+more.<00:03:00.720><c> Zapier</c><00:03:01.360><c> doesn't</c><00:03:01.599><c> just</c><00:03:01.760><c> guess</c><00:03:02.000><c> the</c>
+
+00:03:02.229 --> 00:03:02.239 align:start position:0%
+more. Zapier doesn't just guess the
+
+
+00:03:02.239 --> 00:03:04.470 align:start position:0%
+more. Zapier doesn't just guess the
+right<00:03:02.400><c> answer.</c><00:03:03.120><c> It</c><00:03:03.440><c> orchestrates</c><00:03:04.159><c> real</c>
+
+00:03:04.470 --> 00:03:04.480 align:start position:0%
+right answer. It orchestrates real
+
+
+00:03:04.480 --> 00:03:07.589 align:start position:0%
+right answer. It orchestrates real
+actions<00:03:04.959><c> across</c><00:03:05.519><c> 8,000</c><00:03:06.239><c> plus</c><00:03:06.640><c> apps</c><00:03:07.360><c> with</c>
+
+00:03:07.589 --> 00:03:07.599 align:start position:0%
+actions across 8,000 plus apps with
+
+
+00:03:07.599 --> 00:03:10.149 align:start position:0%
+actions across 8,000 plus apps with
+deterministic<00:03:08.560><c> reliability.</c><00:03:09.680><c> And</c><00:03:09.920><c> guess</c>
+
+00:03:10.149 --> 00:03:10.159 align:start position:0%
+deterministic reliability. And guess
+
+
+00:03:10.159 --> 00:03:13.030 align:start position:0%
+deterministic reliability. And guess
+what?<00:03:10.720><c> Zapier</c><00:03:11.360><c> even</c><00:03:11.680><c> plays</c><00:03:12.080><c> nice</c><00:03:12.400><c> with</c><00:03:12.720><c> Open</c>
+
+00:03:13.030 --> 00:03:13.040 align:start position:0%
+what? Zapier even plays nice with Open
+
+
+00:03:13.040 --> 00:03:16.070 align:start position:0%
+what? Zapier even plays nice with Open
+AI's<00:03:13.519><c> new</c><00:03:13.840><c> MCP.</c><00:03:14.720><c> So</c><00:03:14.879><c> you</c><00:03:15.120><c> can</c><00:03:15.200><c> route</c><00:03:15.599><c> answers</c>
+
+00:03:16.070 --> 00:03:16.080 align:start position:0%
+AI's new MCP. So you can route answers
+
+
+00:03:16.080 --> 00:03:18.309 align:start position:0%
+AI's new MCP. So you can route answers
+through<00:03:16.319><c> Chhatbt</c><00:03:17.200><c> and</c><00:03:17.519><c> automate</c><00:03:18.000><c> results</c>
+
+00:03:18.309 --> 00:03:18.319 align:start position:0%
+through Chhatbt and automate results
+
+
+00:03:18.319 --> 00:03:21.190 align:start position:0%
+through Chhatbt and automate results
+with<00:03:18.640><c> Zapier.</c><00:03:19.680><c> Zapier</c><00:03:20.400><c> has</c><00:03:20.640><c> been</c><00:03:20.879><c> here</c>
+
+00:03:21.190 --> 00:03:21.200 align:start position:0%
+with Zapier. Zapier has been here
+
+
+00:03:21.200 --> 00:03:24.309 align:start position:0%
+with Zapier. Zapier has been here
+before.<00:03:22.080><c> Platform</c><00:03:22.560><c> native</c><00:03:22.959><c> integrations,</c><00:03:24.080><c> IP</c>
+
+00:03:24.309 --> 00:03:24.319 align:start position:0%
+before. Platform native integrations, IP
+
+
+00:03:24.319 --> 00:03:27.350 align:start position:0%
+before. Platform native integrations, IP
+pass<00:03:24.720><c> tools,</c><00:03:25.360><c> even</c><00:03:25.599><c> chatbt</c><00:03:26.400><c> itself.</c><00:03:27.120><c> They</c>
+
+00:03:27.350 --> 00:03:27.360 align:start position:0%
+pass tools, even chatbt itself. They
+
+
+00:03:27.360 --> 00:03:29.990 align:start position:0%
+pass tools, even chatbt itself. They
+were<00:03:27.519><c> all</c><00:03:27.680><c> called</c><00:03:28.000><c> Zapier</c><00:03:28.560><c> killers.</c><00:03:29.440><c> Yet</c><00:03:29.760><c> here</c>
+
+00:03:29.990 --> 00:03:30.000 align:start position:0%
+were all called Zapier killers. Yet here
+
+
+00:03:30.000 --> 00:03:32.789 align:start position:0%
+were all called Zapier killers. Yet here
+we<00:03:30.319><c> are</c><00:03:30.720><c> still</c><00:03:31.040><c> leading,</c><00:03:31.680><c> still</c><00:03:32.000><c> integrating,</c>
+
+00:03:32.789 --> 00:03:32.799 align:start position:0%
+we are still leading, still integrating,
+
+
+00:03:32.799 --> 00:03:34.710 align:start position:0%
+we are still leading, still integrating,
+still<00:03:33.120><c> lighting</c><00:03:33.519><c> the</c><00:03:33.680><c> way</c><00:03:33.920><c> for</c><00:03:34.080><c> the</c><00:03:34.239><c> future</c><00:03:34.480><c> of</c>
+
+00:03:34.710 --> 00:03:34.720 align:start position:0%
+still lighting the way for the future of
+
+
+00:03:34.720 --> 00:03:38.229 align:start position:0%
+still lighting the way for the future of
+automation.<00:03:35.840><c> And</c><00:03:36.080><c> now</c><00:03:36.560><c> with</c><00:03:36.879><c> Zapier</c><00:03:37.440><c> Cobbot,</c>
+
+00:03:38.229 --> 00:03:38.239 align:start position:0%
+automation. And now with Zapier Cobbot,
+
+
+00:03:38.239 --> 00:03:40.470 align:start position:0%
+automation. And now with Zapier Cobbot,
+you<00:03:38.480><c> can</c><00:03:38.640><c> describe</c><00:03:39.120><c> what</c><00:03:39.440><c> you</c><00:03:39.599><c> need</c><00:03:39.840><c> in</c><00:03:40.080><c> plain</c>
+
+00:03:40.470 --> 00:03:40.480 align:start position:0%
+you can describe what you need in plain
+
+
+00:03:40.480 --> 00:03:42.470 align:start position:0%
+you can describe what you need in plain
+English<00:03:41.040><c> and</c><00:03:41.280><c> it</c><00:03:41.519><c> will</c><00:03:41.680><c> build</c><00:03:41.920><c> a</c><00:03:42.159><c> full</c>
+
+00:03:42.470 --> 00:03:42.480 align:start position:0%
+English and it will build a full
+
+
+00:03:42.480 --> 00:03:44.869 align:start position:0%
+English and it will build a full
+production<00:03:42.959><c> ready</c><00:03:43.280><c> workflow</c><00:03:43.680><c> for</c><00:03:43.920><c> you.</c><00:03:44.480><c> Plus,</c>
+
+00:03:44.869 --> 00:03:44.879 align:start position:0%
+production ready workflow for you. Plus,
+
+
+00:03:44.879 --> 00:03:47.110 align:start position:0%
+production ready workflow for you. Plus,
+the<00:03:45.040><c> new</c><00:03:45.280><c> Opus</c><00:03:45.760><c> Clip</c><00:03:46.000><c> integration</c><00:03:46.640><c> lets</c><00:03:46.879><c> you</c>
+
+00:03:47.110 --> 00:03:47.120 align:start position:0%
+the new Opus Clip integration lets you
+
+
+00:03:47.120 --> 00:03:49.270 align:start position:0%
+the new Opus Clip integration lets you
+automate<00:03:47.599><c> your</c><00:03:47.840><c> video</c><00:03:48.239><c> pipeline</c><00:03:48.959><c> and</c>
+
+00:03:49.270 --> 00:03:49.280 align:start position:0%
+automate your video pipeline and
+
+
+00:03:49.280 --> 00:03:52.470 align:start position:0%
+automate your video pipeline and
+repurpose<00:03:50.000><c> content</c><00:03:50.400><c> at</c><00:03:50.720><c> scale.</c><00:03:51.599><c> So</c><00:03:52.080><c> the</c><00:03:52.319><c> next</c>
+
+00:03:52.470 --> 00:03:52.480 align:start position:0%
+repurpose content at scale. So the next
+
+
+00:03:52.480 --> 00:03:54.949 align:start position:0%
+repurpose content at scale. So the next
+time<00:03:52.640><c> you</c><00:03:52.879><c> see</c><00:03:53.040><c> a</c><00:03:53.200><c> Zapier</c><00:03:53.760><c> killer,</c><00:03:54.480><c> remember</c>
+
+00:03:54.949 --> 00:03:54.959 align:start position:0%
+time you see a Zapier killer, remember
+
+
+00:03:54.959 --> 00:03:58.070 align:start position:0%
+time you see a Zapier killer, remember
+Zapier<00:03:55.519><c> isn't</c><00:03:55.840><c> dying.</c><00:03:56.560><c> It's</c><00:03:56.879><c> redefining</c><00:03:57.599><c> AI</c>
+
+00:03:58.070 --> 00:03:58.080 align:start position:0%
+Zapier isn't dying. It's redefining AI
+
+
+00:03:58.080 --> 00:04:00.149 align:start position:0%
+Zapier isn't dying. It's redefining AI
+orchestration.<00:03:59.200><c> So</c><00:03:59.360><c> use</c><00:03:59.519><c> the</c><00:03:59.680><c> link</c><00:03:59.840><c> in</c><00:04:00.000><c> the</c>
+
+00:04:00.149 --> 00:04:00.159 align:start position:0%
+orchestration. So use the link in the
+
+
+00:04:00.159 --> 00:04:01.589 align:start position:0%
+orchestration. So use the link in the
+description<00:04:00.400><c> below</c><00:04:00.720><c> so</c><00:04:00.879><c> that</c><00:04:01.040><c> you</c><00:04:01.200><c> can</c><00:04:01.280><c> build</c>
+
+00:04:01.589 --> 00:04:01.599 align:start position:0%
+description below so that you can build
+
+
+00:04:01.599 --> 00:04:04.149 align:start position:0%
+description below so that you can build
+smarter<00:04:02.159><c> today.</c><00:04:03.120><c> But</c><00:04:03.280><c> now</c><00:04:03.439><c> let's</c><00:04:03.760><c> get</c><00:04:03.920><c> started</c>
+
+00:04:04.149 --> 00:04:04.159 align:start position:0%
+smarter today. But now let's get started
+
+
+00:04:04.159 --> 00:04:06.229 align:start position:0%
+smarter today. But now let's get started
+and<00:04:04.480><c> showcase</c><00:04:04.799><c> how</c><00:04:05.040><c> you</c><00:04:05.200><c> can</c><00:04:05.360><c> set</c><00:04:05.519><c> this</c><00:04:05.760><c> up.</c><00:04:06.080><c> To</c>
+
+00:04:06.229 --> 00:04:06.239 align:start position:0%
+and showcase how you can set this up. To
+
+
+00:04:06.239 --> 00:04:08.070 align:start position:0%
+and showcase how you can set this up. To
+install<00:04:06.640><c> this</c><00:04:07.040><c> globally,</c><00:04:07.519><c> you</c><00:04:07.760><c> can</c><00:04:07.840><c> use</c><00:04:07.920><c> the</c>
+
+00:04:08.070 --> 00:04:08.080 align:start position:0%
+install this globally, you can use the
+
+
+00:04:08.080 --> 00:04:09.830 align:start position:0%
+install this globally, you can use the
+npm<00:04:08.560><c> install</c><00:04:08.959><c> command,</c><00:04:09.200><c> but</c><00:04:09.439><c> just</c><00:04:09.599><c> make</c><00:04:09.760><c> sure</c>
+
+00:04:09.830 --> 00:04:09.840 align:start position:0%
+npm install command, but just make sure
+
+
+00:04:09.840 --> 00:04:11.270 align:start position:0%
+npm install command, but just make sure
+you<00:04:10.000><c> have</c><00:04:10.080><c> the</c><00:04:10.239><c> prerequisites</c><00:04:10.879><c> installed</c>
+
+00:04:11.270 --> 00:04:11.280 align:start position:0%
+you have the prerequisites installed
+
+
+00:04:11.280 --> 00:04:13.830 align:start position:0%
+you have the prerequisites installed
+having<00:04:11.519><c> the</c><00:04:11.760><c> latest</c><00:04:12.080><c> version</c><00:04:12.400><c> of</c><00:04:12.720><c> node.</c><00:04:13.519><c> And</c>
+
+00:04:13.830 --> 00:04:13.840 align:start position:0%
+having the latest version of node. And
+
+
+00:04:13.840 --> 00:04:15.750 align:start position:0%
+having the latest version of node. And
+once<00:04:14.080><c> you</c><00:04:14.319><c> have</c><00:04:14.480><c> that</c><00:04:14.720><c> installed,</c><00:04:15.439><c> we</c><00:04:15.680><c> can</c>
+
+00:04:15.750 --> 00:04:15.760 align:start position:0%
+once you have that installed, we can
+
+
+00:04:15.760 --> 00:04:17.909 align:start position:0%
+once you have that installed, we can
+open<00:04:16.000><c> up</c><00:04:16.160><c> our</c><00:04:16.400><c> terminal</c><00:04:16.880><c> like</c><00:04:17.120><c> command</c><00:04:17.519><c> prompt</c>
+
+00:04:17.909 --> 00:04:17.919 align:start position:0%
+open up our terminal like command prompt
+
+
+00:04:17.919 --> 00:04:20.310 align:start position:0%
+open up our terminal like command prompt
+and<00:04:18.079><c> then</c><00:04:18.320><c> paste</c><00:04:18.639><c> in</c><00:04:19.120><c> the</c><00:04:19.359><c> mpm</c><00:04:19.919><c> install</c>
+
+00:04:20.310 --> 00:04:20.320 align:start position:0%
+and then paste in the mpm install
+
+
+00:04:20.320 --> 00:04:22.550 align:start position:0%
+and then paste in the mpm install
+command<00:04:20.639><c> to</c><00:04:20.880><c> install</c><00:04:21.280><c> the</c><00:04:21.519><c> openspec</c>
+
+00:04:22.550 --> 00:04:22.560 align:start position:0%
+command to install the openspec
+
+
+00:04:22.560 --> 00:04:25.110 align:start position:0%
+command to install the openspec
+globally.<00:04:23.440><c> Once</c><00:04:23.680><c> that</c><00:04:23.919><c> is</c><00:04:24.160><c> installed,</c><00:04:24.880><c> you</c>
+
+00:04:25.110 --> 00:04:25.120 align:start position:0%
+globally. Once that is installed, you
+
+
+00:04:25.120 --> 00:04:26.950 align:start position:0%
+globally. Once that is installed, you
+can<00:04:25.280><c> then</c><00:04:25.600><c> verify</c><00:04:26.000><c> the</c><00:04:26.240><c> installation</c><00:04:26.720><c> by</c>
+
+00:04:26.950 --> 00:04:26.960 align:start position:0%
+can then verify the installation by
+
+
+00:04:26.960 --> 00:04:29.110 align:start position:0%
+can then verify the installation by
+running<00:04:27.199><c> the</c><00:04:27.440><c> openspec</c><00:04:28.000><c> version</c><00:04:28.400><c> command.</c>
+
+00:04:29.110 --> 00:04:29.120 align:start position:0%
+running the openspec version command.
+
+
+00:04:29.120 --> 00:04:31.110 align:start position:0%
+running the openspec version command.
+See<00:04:29.280><c> if</c><00:04:29.440><c> it's</c><00:04:29.600><c> installed,</c><00:04:30.000><c> which</c><00:04:30.240><c> it</c><00:04:30.479><c> is.</c><00:04:30.880><c> Now</c>
+
+00:04:31.110 --> 00:04:31.120 align:start position:0%
+See if it's installed, which it is. Now
+
+
+00:04:31.120 --> 00:04:33.670 align:start position:0%
+See if it's installed, which it is. Now
+we<00:04:31.440><c> can</c><00:04:31.600><c> initialize</c><00:04:32.320><c> openspec</c><00:04:32.960><c> into</c><00:04:33.360><c> our</c>
+
+00:04:33.670 --> 00:04:33.680 align:start position:0%
+we can initialize openspec into our
+
+
+00:04:33.680 --> 00:04:36.070 align:start position:0%
+we can initialize openspec into our
+project<00:04:34.160><c> directory.</c><00:04:35.040><c> So,</c><00:04:35.280><c> I've</c><00:04:35.520><c> gone</c><00:04:35.759><c> ahead</c>
+
+00:04:36.070 --> 00:04:36.080 align:start position:0%
+project directory. So, I've gone ahead
+
+
+00:04:36.080 --> 00:04:39.110 align:start position:0%
+project directory. So, I've gone ahead
+and<00:04:36.479><c> I</c><00:04:36.720><c> have</c><00:04:36.960><c> created</c><00:04:37.440><c> a</c><00:04:37.759><c> template</c><00:04:38.240><c> app</c><00:04:38.560><c> for</c><00:04:38.880><c> my</c>
+
+00:04:39.110 --> 00:04:39.120 align:start position:0%
+and I have created a template app for my
+
+
+00:04:39.120 --> 00:04:41.350 align:start position:0%
+and I have created a template app for my
+AI<00:04:39.600><c> detection</c><00:04:40.080><c> tool</c><00:04:40.639><c> that</c><00:04:40.880><c> I'm</c><00:04:41.040><c> going</c><00:04:41.120><c> to</c><00:04:41.280><c> be</c>
+
+00:04:41.350 --> 00:04:41.360 align:start position:0%
+AI detection tool that I'm going to be
+
+
+00:04:41.360 --> 00:04:44.469 align:start position:0%
+AI detection tool that I'm going to be
+building<00:04:41.680><c> out</c><00:04:42.080><c> with</c><00:04:42.479><c> this</c><00:04:42.800><c> new</c><00:04:43.199><c> openspec</c><00:04:43.840><c> kit.</c>
+
+00:04:44.469 --> 00:04:44.479 align:start position:0%
+building out with this new openspec kit.
+
+
+00:04:44.479 --> 00:04:45.909 align:start position:0%
+building out with this new openspec kit.
+Now,<00:04:44.720><c> what</c><00:04:44.880><c> we're</c><00:04:45.040><c> going</c><00:04:45.120><c> to</c><00:04:45.199><c> be</c><00:04:45.360><c> doing</c><00:04:45.600><c> is</c>
+
+00:04:45.909 --> 00:04:45.919 align:start position:0%
+Now, what we're going to be doing is
+
+
+00:04:45.919 --> 00:04:48.070 align:start position:0%
+Now, what we're going to be doing is
+initializing<00:04:46.800><c> openspec</c><00:04:47.520><c> within</c><00:04:47.840><c> that</c>
+
+00:04:48.070 --> 00:04:48.080 align:start position:0%
+initializing openspec within that
+
+
+00:04:48.080 --> 00:04:50.070 align:start position:0%
+initializing openspec within that
+project<00:04:48.479><c> directory.</c><00:04:49.120><c> So,</c><00:04:49.280><c> we</c><00:04:49.520><c> can</c><00:04:49.600><c> then</c><00:04:49.840><c> paste</c>
+
+00:04:50.070 --> 00:04:50.080 align:start position:0%
+project directory. So, we can then paste
+
+
+00:04:50.080 --> 00:04:52.710 align:start position:0%
+project directory. So, we can then paste
+in<00:04:50.240><c> the</c><00:04:50.479><c> openspec</c><00:04:51.280><c> initialize</c><00:04:51.919><c> command</c><00:04:52.479><c> which</c>
+
+00:04:52.710 --> 00:04:52.720 align:start position:0%
+in the openspec initialize command which
+
+
+00:04:52.720 --> 00:04:55.670 align:start position:0%
+in the openspec initialize command which
+will<00:04:52.960><c> open</c><00:04:53.199><c> up</c><00:04:53.600><c> openspec</c><00:04:54.240><c> for</c><00:04:54.400><c> me.</c><00:04:54.960><c> Now,</c><00:04:55.280><c> it</c><00:04:55.520><c> is</c>
+
+00:04:55.670 --> 00:04:55.680 align:start position:0%
+will open up openspec for me. Now, it is
+
+
+00:04:55.680 --> 00:04:58.150 align:start position:0%
+will open up openspec for me. Now, it is
+saying<00:04:56.000><c> that</c><00:04:56.400><c> you</c><00:04:56.639><c> can</c><00:04:56.800><c> configure</c><00:04:57.440><c> openspec</c>
+
+00:04:58.150 --> 00:04:58.160 align:start position:0%
+saying that you can configure openspec
+
+
+00:04:58.160 --> 00:05:00.629 align:start position:0%
+saying that you can configure openspec
+with<00:04:58.560><c> whatever</c><00:04:59.040><c> AI</c><00:04:59.360><c> assistant</c><00:04:59.840><c> you</c><00:05:00.080><c> want</c><00:05:00.320><c> that</c>
+
+00:05:00.629 --> 00:05:00.639 align:start position:0%
+with whatever AI assistant you want that
+
+
+00:05:00.639 --> 00:05:02.469 align:start position:0%
+with whatever AI assistant you want that
+we<00:05:00.880><c> had</c><00:05:01.120><c> mentioned.</c><00:05:01.600><c> So</c><00:05:01.759><c> if</c><00:05:02.000><c> you</c><00:05:02.080><c> want</c><00:05:02.160><c> to</c><00:05:02.320><c> use</c>
+
+00:05:02.469 --> 00:05:02.479 align:start position:0%
+we had mentioned. So if you want to use
+
+
+00:05:02.479 --> 00:05:03.909 align:start position:0%
+we had mentioned. So if you want to use
+any<00:05:02.720><c> of</c><00:05:02.800><c> these</c><00:05:03.120><c> different</c><00:05:03.280><c> tools,</c><00:05:03.680><c> you</c><00:05:03.840><c> can</c>
+
+00:05:03.909 --> 00:05:03.919 align:start position:0%
+any of these different tools, you can
+
+
+00:05:03.919 --> 00:05:05.749 align:start position:0%
+any of these different tools, you can
+now<00:05:04.240><c> specify</c><00:05:04.720><c> which</c><00:05:05.040><c> one</c><00:05:05.199><c> you</c><00:05:05.360><c> want</c><00:05:05.440><c> to</c><00:05:05.600><c> work</c>
+
+00:05:05.749 --> 00:05:05.759 align:start position:0%
+now specify which one you want to work
+
+
+00:05:05.759 --> 00:05:07.670 align:start position:0%
+now specify which one you want to work
+with.<00:05:06.000><c> So</c><00:05:06.160><c> you</c><00:05:06.320><c> can</c><00:05:06.479><c> click</c><00:05:06.720><c> enter</c><00:05:07.280><c> and</c><00:05:07.520><c> then</c>
+
+00:05:07.670 --> 00:05:07.680 align:start position:0%
+with. So you can click enter and then
+
+
+00:05:07.680 --> 00:05:09.749 align:start position:0%
+with. So you can click enter and then
+you<00:05:07.840><c> can</c><00:05:08.000><c> select</c><00:05:08.560><c> amongst</c><00:05:08.960><c> these</c><00:05:09.280><c> different</c>
+
+00:05:09.749 --> 00:05:09.759 align:start position:0%
+you can select amongst these different
+
+
+00:05:09.759 --> 00:05:12.629 align:start position:0%
+you can select amongst these different
+options<00:05:10.320><c> like</c><00:05:10.560><c> GitHub</c><00:05:10.960><c> copilot,</c><00:05:11.680><c> kilo</c><00:05:12.080><c> code</c>
+
+00:05:12.629 --> 00:05:12.639 align:start position:0%
+options like GitHub copilot, kilo code
+
+
+00:05:12.639 --> 00:05:14.790 align:start position:0%
+options like GitHub copilot, kilo code
+or<00:05:12.960><c> something</c><00:05:13.280><c> like</c><00:05:13.680><c> cloud</c><00:05:14.080><c> code.</c><00:05:14.560><c> I'm</c><00:05:14.720><c> going</c>
+
+00:05:14.790 --> 00:05:14.800 align:start position:0%
+or something like cloud code. I'm going
+
+
+00:05:14.800 --> 00:05:17.189 align:start position:0%
+or something like cloud code. I'm going
+to<00:05:14.960><c> actually</c><00:05:15.199><c> use</c><00:05:15.360><c> kilo</c><00:05:15.840><c> code</c><00:05:16.080><c> in</c><00:05:16.320><c> my</c><00:05:16.639><c> case.</c><00:05:17.039><c> So</c>
+
+00:05:17.189 --> 00:05:17.199 align:start position:0%
+to actually use kilo code in my case. So
+
+
+00:05:17.199 --> 00:05:19.110 align:start position:0%
+to actually use kilo code in my case. So
+we're<00:05:17.360><c> going</c><00:05:17.440><c> to</c><00:05:17.520><c> go</c><00:05:17.680><c> ahead</c><00:05:17.919><c> and</c><00:05:18.080><c> click</c><00:05:18.400><c> enter.</c>
+
+00:05:19.110 --> 00:05:19.120 align:start position:0%
+we're going to go ahead and click enter.
+
+
+00:05:19.120 --> 00:05:20.870 align:start position:0%
+we're going to go ahead and click enter.
+And<00:05:19.360><c> after</c><00:05:19.680><c> initializing</c><00:05:20.320><c> it,</c><00:05:20.639><c> you're</c><00:05:20.880><c> going</c>
+
+00:05:20.870 --> 00:05:20.880 align:start position:0%
+And after initializing it, you're going
+
+
+00:05:20.880 --> 00:05:23.670 align:start position:0%
+And after initializing it, you're going
+to<00:05:21.039><c> see</c><00:05:21.199><c> a</c><00:05:21.440><c> couple</c><00:05:21.759><c> of</c><00:05:22.000><c> new</c><00:05:22.320><c> files</c><00:05:22.880><c> within</c><00:05:23.360><c> this</c>
+
+00:05:23.670 --> 00:05:23.680 align:start position:0%
+to see a couple of new files within this
+
+
+00:05:23.680 --> 00:05:26.310 align:start position:0%
+to see a couple of new files within this
+template<00:05:24.479><c> for</c><00:05:24.720><c> our</c><00:05:24.960><c> AI</c><00:05:25.360><c> detection</c><00:05:25.840><c> tools.</c>
+
+00:05:26.310 --> 00:05:26.320 align:start position:0%
+template for our AI detection tools.
+
+
+00:05:26.320 --> 00:05:29.510 align:start position:0%
+template for our AI detection tools.
+Here<00:05:26.639><c> it</c><00:05:26.880><c> has</c><00:05:27.199><c> created</c><00:05:27.600><c> an</c><00:05:27.919><c> agents</c><00:05:28.560><c> MD</c><00:05:29.039><c> file.</c>
+
+00:05:29.510 --> 00:05:29.520 align:start position:0%
+Here it has created an agents MD file.
+
+
+00:05:29.520 --> 00:05:31.510 align:start position:0%
+Here it has created an agents MD file.
+And<00:05:30.000><c> essentially</c><00:05:30.720><c> if</c><00:05:30.880><c> you</c><00:05:31.039><c> select</c><00:05:31.280><c> the</c>
+
+00:05:31.510 --> 00:05:31.520 align:start position:0%
+And essentially if you select the
+
+
+00:05:31.520 --> 00:05:34.310 align:start position:0%
+And essentially if you select the
+supported<00:05:31.919><c> tools</c><00:05:32.479><c> say</c><00:05:32.800><c> like</c><00:05:33.120><c> cursor</c><00:05:33.680><c> or</c><00:05:33.919><c> cloud</c>
+
+00:05:34.310 --> 00:05:34.320 align:start position:0%
+supported tools say like cursor or cloud
+
+
+00:05:34.320 --> 00:05:35.990 align:start position:0%
+supported tools say like cursor or cloud
+code<00:05:34.479><c> or</c><00:05:34.720><c> something</c><00:05:34.880><c> like</c><00:05:35.039><c> kilo</c><00:05:35.360><c> code</c><00:05:35.680><c> in</c><00:05:35.840><c> my</c>
+
+00:05:35.990 --> 00:05:36.000 align:start position:0%
+code or something like kilo code in my
+
+
+00:05:36.000 --> 00:05:38.150 align:start position:0%
+code or something like kilo code in my
+case<00:05:36.560><c> opensp</c><00:05:36.960><c> spec</c><00:05:37.199><c> will</c><00:05:37.520><c> automatically</c>
+
+00:05:38.150 --> 00:05:38.160 align:start position:0%
+case opensp spec will automatically
+
+
+00:05:38.160 --> 00:05:40.390 align:start position:0%
+case opensp spec will automatically
+configure<00:05:38.720><c> custom</c><00:05:39.120><c> slash</c><00:05:39.440><c> commands</c><00:05:39.840><c> and</c><00:05:40.000><c> tool</c>
+
+00:05:40.390 --> 00:05:40.400 align:start position:0%
+configure custom slash commands and tool
+
+
+00:05:40.400 --> 00:05:42.390 align:start position:0%
+configure custom slash commands and tool
+specific<00:05:40.800><c> instructions</c><00:05:41.759><c> for</c><00:05:42.080><c> that</c>
+
+00:05:42.390 --> 00:05:42.400 align:start position:0%
+specific instructions for that
+
+
+00:05:42.400 --> 00:05:45.430 align:start position:0%
+specific instructions for that
+particular<00:05:42.960><c> AI</c><00:05:43.360><c> agent.</c><00:05:44.080><c> So</c><00:05:44.479><c> this</c><00:05:44.800><c> MD</c><00:05:45.199><c> file</c>
+
+00:05:45.430 --> 00:05:45.440 align:start position:0%
+particular AI agent. So this MD file
+
+
+00:05:45.440 --> 00:05:47.830 align:start position:0%
+particular AI agent. So this MD file
+will<00:05:45.680><c> then</c><00:05:45.919><c> be</c><00:05:46.080><c> handed</c><00:05:46.479><c> off</c><00:05:46.880><c> to</c><00:05:47.120><c> my</c><00:05:47.440><c> coding</c>
+
+00:05:47.830 --> 00:05:47.840 align:start position:0%
+will then be handed off to my coding
+
+
+00:05:47.840 --> 00:05:49.590 align:start position:0%
+will then be handed off to my coding
+agent<00:05:48.320><c> and</c><00:05:48.560><c> it's</c><00:05:48.720><c> going</c><00:05:48.800><c> to</c><00:05:48.880><c> be</c><00:05:49.039><c> associated</c>
+
+00:05:49.590 --> 00:05:49.600 align:start position:0%
+agent and it's going to be associated
+
+
+00:05:49.600 --> 00:05:51.430 align:start position:0%
+agent and it's going to be associated
+within<00:05:50.000><c> my</c><00:05:50.160><c> project</c><00:05:50.479><c> file</c><00:05:50.880><c> which</c><00:05:51.120><c> you</c><00:05:51.280><c> saw</c>
+
+00:05:51.430 --> 00:05:51.440 align:start position:0%
+within my project file which you saw
+
+
+00:05:51.440 --> 00:05:53.350 align:start position:0%
+within my project file which you saw
+that<00:05:51.680><c> it</c><00:05:52.000><c> had</c><00:05:52.240><c> actually</c><00:05:52.560><c> generated</c><00:05:53.120><c> over</c>
+
+00:05:53.350 --> 00:05:53.360 align:start position:0%
+that it had actually generated over
+
+
+00:05:53.360 --> 00:05:55.189 align:start position:0%
+that it had actually generated over
+here.<00:05:53.840><c> But</c><00:05:54.000><c> now</c><00:05:54.160><c> that</c><00:05:54.320><c> we</c><00:05:54.560><c> have</c><00:05:54.800><c> everything</c>
+
+00:05:55.189 --> 00:05:55.199 align:start position:0%
+here. But now that we have everything
+
+
+00:05:55.199 --> 00:05:56.950 align:start position:0%
+here. But now that we have everything
+ready,<00:05:55.680><c> the</c><00:05:56.000><c> first</c><00:05:56.160><c> step</c><00:05:56.400><c> is</c><00:05:56.560><c> where</c><00:05:56.800><c> we're</c>
+
+00:05:56.950 --> 00:05:56.960 align:start position:0%
+ready, the first step is where we're
+
+
+00:05:56.960 --> 00:05:59.110 align:start position:0%
+ready, the first step is where we're
+going<00:05:57.120><c> to</c><00:05:57.199><c> populate</c><00:05:57.680><c> our</c><00:05:58.000><c> project</c><00:05:58.479><c> context.</c>
+
+00:05:59.110 --> 00:05:59.120 align:start position:0%
+going to populate our project context.
+
+
+00:05:59.120 --> 00:06:01.270 align:start position:0%
+going to populate our project context.
+So<00:05:59.360><c> what</c><00:05:59.600><c> we</c><00:05:59.759><c> can</c><00:05:59.840><c> do</c><00:06:00.000><c> is</c><00:06:00.240><c> first</c><00:06:00.560><c> copy</c><00:06:00.960><c> this</c>
+
+00:06:01.270 --> 00:06:01.280 align:start position:0%
+So what we can do is first copy this
+
+
+00:06:01.280 --> 00:06:03.749 align:start position:0%
+So what we can do is first copy this
+natural<00:06:01.680><c> prompt</c><00:06:02.080><c> that</c><00:06:02.639><c> openspec</c><00:06:03.280><c> provides</c>
+
+00:06:03.749 --> 00:06:03.759 align:start position:0%
+natural prompt that openspec provides
+
+
+00:06:03.759 --> 00:06:05.430 align:start position:0%
+natural prompt that openspec provides
+and<00:06:03.919><c> then</c><00:06:04.080><c> we</c><00:06:04.240><c> can</c><00:06:04.400><c> go</c><00:06:04.560><c> into</c><00:06:04.800><c> whatever</c><00:06:05.199><c> coding</c>
+
+00:06:05.430 --> 00:06:05.440 align:start position:0%
+and then we can go into whatever coding
+
+
+00:06:05.440 --> 00:06:06.710 align:start position:0%
+and then we can go into whatever coding
+agent<00:06:05.759><c> we're</c><00:06:05.919><c> working</c><00:06:06.080><c> with.</c><00:06:06.319><c> So</c><00:06:06.400><c> in</c><00:06:06.560><c> this</c>
+
+00:06:06.710 --> 00:06:06.720 align:start position:0%
+agent we're working with. So in this
+
+
+00:06:06.720 --> 00:06:08.790 align:start position:0%
+agent we're working with. So in this
+case<00:06:06.880><c> we're</c><00:06:07.120><c> working</c><00:06:07.360><c> with</c><00:06:07.600><c> kilo</c><00:06:08.000><c> code.</c><00:06:08.560><c> I've</c>
+
+00:06:08.790 --> 00:06:08.800 align:start position:0%
+case we're working with kilo code. I've
+
+
+00:06:08.800 --> 00:06:11.270 align:start position:0%
+case we're working with kilo code. I've
+gone<00:06:08.960><c> ahead</c><00:06:09.280><c> and</c><00:06:09.600><c> added</c><00:06:10.319><c> my</c><00:06:10.560><c> folder</c><00:06:11.039><c> as</c>
+
+00:06:11.270 --> 00:06:11.280 align:start position:0%
+gone ahead and added my folder as
+
+
+00:06:11.280 --> 00:06:12.870 align:start position:0%
+gone ahead and added my folder as
+context.<00:06:11.840><c> And</c><00:06:11.919><c> then</c><00:06:12.080><c> I</c><00:06:12.319><c> can</c><00:06:12.400><c> send</c><00:06:12.560><c> in</c><00:06:12.720><c> this</c>
+
+00:06:12.870 --> 00:06:12.880 align:start position:0%
+context. And then I can send in this
+
+
+00:06:12.880 --> 00:06:15.749 align:start position:0%
+context. And then I can send in this
+prompt<00:06:13.440><c> to</c><00:06:13.680><c> read</c><00:06:13.919><c> the</c><00:06:14.319><c> openspec</c><00:06:14.960><c> project</c><00:06:15.360><c> MD</c>
+
+00:06:15.749 --> 00:06:15.759 align:start position:0%
+prompt to read the openspec project MD
+
+
+00:06:15.759 --> 00:06:17.909 align:start position:0%
+prompt to read the openspec project MD
+and<00:06:15.919><c> help</c><00:06:16.160><c> me</c><00:06:16.319><c> fill</c><00:06:16.560><c> out</c><00:06:16.720><c> all</c><00:06:16.960><c> the</c><00:06:17.520><c> details</c>
+
+00:06:17.909 --> 00:06:17.919 align:start position:0%
+and help me fill out all the details
+
+
+00:06:17.919 --> 00:06:19.830 align:start position:0%
+and help me fill out all the details
+that<00:06:18.160><c> are</c><00:06:18.319><c> necessary</c><00:06:18.720><c> about</c><00:06:18.960><c> my</c><00:06:19.199><c> project.</c><00:06:19.680><c> And</c>
+
+00:06:19.830 --> 00:06:19.840 align:start position:0%
+that are necessary about my project. And
+
+
+00:06:19.840 --> 00:06:21.270 align:start position:0%
+that are necessary about my project. And
+you<00:06:20.000><c> can</c><00:06:20.080><c> see</c><00:06:20.160><c> that</c><00:06:20.400><c> the</c><00:06:20.560><c> coding</c><00:06:20.880><c> agent</c><00:06:21.120><c> is</c>
+
+00:06:21.270 --> 00:06:21.280 align:start position:0%
+you can see that the coding agent is
+
+
+00:06:21.280 --> 00:06:22.710 align:start position:0%
+you can see that the coding agent is
+going<00:06:21.360><c> to</c><00:06:21.440><c> get</c><00:06:21.600><c> the</c><00:06:21.759><c> instructions</c><00:06:22.240><c> to</c><00:06:22.479><c> read</c>
+
+00:06:22.710 --> 00:06:22.720 align:start position:0%
+going to get the instructions to read
+
+
+00:06:22.720 --> 00:06:24.710 align:start position:0%
+going to get the instructions to read
+this<00:06:22.880><c> file</c><00:06:23.360><c> and</c><00:06:23.600><c> make</c><00:06:23.759><c> the</c><00:06:24.000><c> necessary</c><00:06:24.400><c> changes</c>
+
+00:06:24.710 --> 00:06:24.720 align:start position:0%
+this file and make the necessary changes
+
+
+00:06:24.720 --> 00:06:26.950 align:start position:0%
+this file and make the necessary changes
+for<00:06:24.960><c> my</c><00:06:25.120><c> text</c><00:06:25.440><c> stack.</c><00:06:26.080><c> So</c><00:06:26.319><c> now</c><00:06:26.479><c> you</c><00:06:26.720><c> can</c><00:06:26.800><c> see</c>
+
+00:06:26.950 --> 00:06:26.960 align:start position:0%
+for my text stack. So now you can see
+
+
+00:06:26.960 --> 00:06:29.270 align:start position:0%
+for my text stack. So now you can see
+that<00:06:27.280><c> it</c><00:06:27.520><c> has</c><00:06:27.840><c> filled</c><00:06:28.160><c> out</c><00:06:28.400><c> all</c><00:06:28.639><c> the</c><00:06:28.800><c> necessary</c>
+
+00:06:29.270 --> 00:06:29.280 align:start position:0%
+that it has filled out all the necessary
+
+
+00:06:29.280 --> 00:06:31.350 align:start position:0%
+that it has filled out all the necessary
+details<00:06:29.680><c> within</c><00:06:30.000><c> the</c><00:06:30.240><c> project</c><00:06:30.639><c> MD</c><00:06:31.039><c> with</c><00:06:31.199><c> the</c>
+
+00:06:31.350 --> 00:06:31.360 align:start position:0%
+details within the project MD with the
+
+
+00:06:31.360 --> 00:06:33.189 align:start position:0%
+details within the project MD with the
+comprehensive<00:06:31.919><c> details</c><00:06:32.319><c> about</c><00:06:32.639><c> my</c><00:06:32.880><c> AI</c>
+
+00:06:33.189 --> 00:06:33.199 align:start position:0%
+comprehensive details about my AI
+
+
+00:06:33.199 --> 00:06:35.590 align:start position:0%
+comprehensive details about my AI
+detection<00:06:33.680><c> tool.</c><00:06:34.400><c> But</c><00:06:34.560><c> now</c><00:06:34.800><c> the</c><00:06:35.039><c> next</c><00:06:35.199><c> step</c><00:06:35.440><c> is</c>
+
+00:06:35.590 --> 00:06:35.600 align:start position:0%
+detection tool. But now the next step is
+
+
+00:06:35.600 --> 00:06:37.670 align:start position:0%
+detection tool. But now the next step is
+where<00:06:35.840><c> we're</c><00:06:36.080><c> going</c><00:06:36.160><c> to</c><00:06:36.319><c> be</c><00:06:36.479><c> able</c><00:06:36.639><c> to</c><00:06:37.120><c> give</c>
+
+00:06:37.670 --> 00:06:37.680 align:start position:0%
+where we're going to be able to give
+
+
+00:06:37.680 --> 00:06:39.670 align:start position:0%
+where we're going to be able to give
+openspec<00:06:38.319><c> all</c><00:06:38.479><c> the</c><00:06:38.720><c> features</c><00:06:39.039><c> that</c><00:06:39.280><c> we</c><00:06:39.520><c> want</c>
+
+00:06:39.670 --> 00:06:39.680 align:start position:0%
+openspec all the features that we want
+
+
+00:06:39.680 --> 00:06:42.309 align:start position:0%
+openspec all the features that we want
+it<00:06:39.919><c> to</c><00:06:40.160><c> thoroughly</c><00:06:40.720><c> follow.</c><00:06:41.360><c> So</c><00:06:41.600><c> in</c><00:06:41.840><c> this</c><00:06:42.000><c> case</c>
+
+00:06:42.309 --> 00:06:42.319 align:start position:0%
+it to thoroughly follow. So in this case
+
+
+00:06:42.319 --> 00:06:44.790 align:start position:0%
+it to thoroughly follow. So in this case
+it<00:06:42.560><c> is</c><00:06:42.880><c> going</c><00:06:42.960><c> to</c><00:06:43.199><c> say</c><00:06:43.440><c> that</c><00:06:44.080><c> you</c><00:06:44.319><c> copy</c><00:06:44.639><c> this</c>
+
+00:06:44.790 --> 00:06:44.800 align:start position:0%
+it is going to say that you copy this
+
+
+00:06:44.800 --> 00:06:46.230 align:start position:0%
+it is going to say that you copy this
+prompt<00:06:45.039><c> and</c><00:06:45.199><c> then</c><00:06:45.360><c> you</c><00:06:45.520><c> add</c><00:06:45.680><c> your</c><00:06:45.919><c> features</c>
+
+00:06:46.230 --> 00:06:46.240 align:start position:0%
+prompt and then you add your features
+
+
+00:06:46.240 --> 00:06:48.629 align:start position:0%
+prompt and then you add your features
+over<00:06:46.479><c> here</c><00:06:46.880><c> like</c><00:06:47.120><c> creating</c><00:06:47.440><c> me</c><00:06:47.680><c> the</c><00:06:47.840><c> openspec</c>
+
+00:06:48.629 --> 00:06:48.639 align:start position:0%
+over here like creating me the openspec
+
+
+00:06:48.639 --> 00:06:50.710 align:start position:0%
+over here like creating me the openspec
+change<00:06:49.039><c> proposal</c><00:06:49.680><c> for</c><00:06:49.919><c> this</c><00:06:50.160><c> feature.</c><00:06:50.560><c> So</c>
+
+00:06:50.710 --> 00:06:50.720 align:start position:0%
+change proposal for this feature. So
+
+
+00:06:50.720 --> 00:06:52.550 align:start position:0%
+change proposal for this feature. So
+right<00:06:50.880><c> now</c><00:06:51.360><c> I'm</c><00:06:51.600><c> saying</c><00:06:51.840><c> that</c><00:06:52.080><c> I</c><00:06:52.240><c> am</c><00:06:52.400><c> building</c>
+
+00:06:52.550 --> 00:06:52.560 align:start position:0%
+right now I'm saying that I am building
+
+
+00:06:52.560 --> 00:06:55.110 align:start position:0%
+right now I'm saying that I am building
+an<00:06:52.800><c> AI</c><00:06:53.120><c> detection</c><00:06:53.520><c> tool.</c><00:06:54.000><c> Please</c><00:06:54.319><c> create</c><00:06:54.880><c> an</c>
+
+00:06:55.110 --> 00:06:55.120 align:start position:0%
+an AI detection tool. Please create an
+
+
+00:06:55.120 --> 00:06:57.510 align:start position:0%
+an AI detection tool. Please create an
+openspec<00:06:55.840><c> change</c><00:06:56.160><c> proposal</c><00:06:56.960><c> for</c><00:06:57.280><c> this</c>
+
+00:06:57.510 --> 00:06:57.520 align:start position:0%
+openspec change proposal for this
+
+
+00:06:57.520 --> 00:06:59.430 align:start position:0%
+openspec change proposal for this
+feature.<00:06:58.000><c> And</c><00:06:58.160><c> within</c><00:06:58.479><c> that</c><00:06:58.720><c> project</c><00:06:59.039><c> MD</c>
+
+00:06:59.430 --> 00:06:59.440 align:start position:0%
+feature. And within that project MD
+
+
+00:06:59.440 --> 00:07:01.430 align:start position:0%
+feature. And within that project MD
+file,<00:06:59.919><c> it</c><00:07:00.160><c> is</c><00:07:00.319><c> going</c><00:07:00.400><c> to</c><00:07:00.560><c> write</c><00:07:00.800><c> up</c><00:07:00.960><c> all</c><00:07:01.199><c> the</c>
+
+00:07:01.430 --> 00:07:01.440 align:start position:0%
+file, it is going to write up all the
+
+
+00:07:01.440 --> 00:07:03.189 align:start position:0%
+file, it is going to write up all the
+necessary<00:07:01.840><c> details</c><00:07:02.160><c> that</c><00:07:02.400><c> are</c><00:07:02.560><c> needed</c><00:07:02.960><c> for</c>
+
+00:07:03.189 --> 00:07:03.199 align:start position:0%
+necessary details that are needed for
+
+
+00:07:03.199 --> 00:07:05.189 align:start position:0%
+necessary details that are needed for
+the<00:07:03.440><c> AI</c><00:07:03.840><c> to</c><00:07:04.080><c> follow</c><00:07:04.400><c> in</c><00:07:04.639><c> terms</c><00:07:04.800><c> of</c><00:07:04.960><c> the</c>
+
+00:07:05.189 --> 00:07:05.199 align:start position:0%
+the AI to follow in terms of the
+
+
+00:07:05.199 --> 00:07:07.029 align:start position:0%
+the AI to follow in terms of the
+architecture<00:07:05.919><c> pattern,</c><00:07:06.479><c> the</c><00:07:06.720><c> state</c>
+
+00:07:07.029 --> 00:07:07.039 align:start position:0%
+architecture pattern, the state
+
+
+00:07:07.039 --> 00:07:09.670 align:start position:0%
+architecture pattern, the state
+management<00:07:07.919><c> testing</c><00:07:08.319><c> strategies</c><00:07:09.120><c> and</c><00:07:09.520><c> all</c>
+
+00:07:09.670 --> 00:07:09.680 align:start position:0%
+management testing strategies and all
+
+
+00:07:09.680 --> 00:07:11.110 align:start position:0%
+management testing strategies and all
+the<00:07:09.919><c> necessary</c><00:07:10.319><c> details</c><00:07:10.560><c> that</c><00:07:10.800><c> will</c><00:07:10.960><c> make</c>
+
+00:07:11.110 --> 00:07:11.120 align:start position:0%
+the necessary details that will make
+
+
+00:07:11.120 --> 00:07:14.390 align:start position:0%
+the necessary details that will make
+sure<00:07:11.280><c> that</c><00:07:11.599><c> our</c><00:07:11.840><c> app</c><00:07:12.479><c> is</c><00:07:13.039><c> proficient.</c><00:07:14.080><c> So</c><00:07:14.160><c> we</c>
+
+00:07:14.390 --> 00:07:14.400 align:start position:0%
+sure that our app is proficient. So we
+
+
+00:07:14.400 --> 00:07:16.150 align:start position:0%
+sure that our app is proficient. So we
+can<00:07:14.479><c> then</c><00:07:14.720><c> go</c><00:07:14.880><c> ahead</c><00:07:15.120><c> and</c><00:07:15.440><c> send</c><00:07:15.680><c> in</c><00:07:15.919><c> our</c>
+
+00:07:16.150 --> 00:07:16.160 align:start position:0%
+can then go ahead and send in our
+
+
+00:07:16.160 --> 00:07:18.710 align:start position:0%
+can then go ahead and send in our
+feature<00:07:16.560><c> request</c><00:07:17.280><c> to</c><00:07:17.599><c> kilo</c><00:07:18.000><c> code,</c><00:07:18.319><c> the</c><00:07:18.479><c> agent</c>
+
+00:07:18.710 --> 00:07:18.720 align:start position:0%
+feature request to kilo code, the agent
+
+
+00:07:18.720 --> 00:07:20.790 align:start position:0%
+feature request to kilo code, the agent
+that<00:07:18.960><c> will</c><00:07:19.039><c> then</c><00:07:19.280><c> execute</c><00:07:19.680><c> it</c><00:07:19.840><c> autonomously.</c>
+
+00:07:20.790 --> 00:07:20.800 align:start position:0%
+that will then execute it autonomously.
+
+
+00:07:20.800 --> 00:07:22.790 align:start position:0%
+that will then execute it autonomously.
+And<00:07:21.039><c> the</c><00:07:21.280><c> reason</c><00:07:21.440><c> why</c><00:07:21.680><c> I</c><00:07:21.919><c> actually</c><00:07:22.160><c> use</c><00:07:22.400><c> kilo</c>
+
+00:07:22.790 --> 00:07:22.800 align:start position:0%
+And the reason why I actually use kilo
+
+
+00:07:22.800 --> 00:07:24.950 align:start position:0%
+And the reason why I actually use kilo
+code<00:07:23.120><c> over</c><00:07:23.520><c> any</c><00:07:23.759><c> of</c><00:07:23.840><c> the</c><00:07:24.000><c> other</c><00:07:24.240><c> AI</c><00:07:24.639><c> coding</c>
+
+00:07:24.950 --> 00:07:24.960 align:start position:0%
+code over any of the other AI coding
+
+
+00:07:24.960 --> 00:07:26.710 align:start position:0%
+code over any of the other AI coding
+agents<00:07:25.280><c> is</c><00:07:25.520><c> because</c><00:07:25.840><c> it's</c><00:07:26.080><c> going</c><00:07:26.160><c> to</c><00:07:26.319><c> be</c><00:07:26.479><c> able</c>
+
+00:07:26.710 --> 00:07:26.720 align:start position:0%
+agents is because it's going to be able
+
+
+00:07:26.720 --> 00:07:29.270 align:start position:0%
+agents is because it's going to be able
+to<00:07:27.039><c> understand</c><00:07:27.840><c> all</c><00:07:28.160><c> the</c><00:07:28.400><c> different</c><00:07:28.800><c> commands</c>
+
+00:07:29.270 --> 00:07:29.280 align:start position:0%
+to understand all the different commands
+
+
+00:07:29.280 --> 00:07:31.830 align:start position:0%
+to understand all the different commands
+that<00:07:29.840><c> would</c><00:07:30.080><c> be</c><00:07:30.240><c> necessary</c><00:07:30.639><c> to</c><00:07:30.880><c> use</c><00:07:31.199><c> at</c><00:07:31.520><c> any</c>
+
+00:07:31.830 --> 00:07:31.840 align:start position:0%
+that would be necessary to use at any
+
+
+00:07:31.840 --> 00:07:34.230 align:start position:0%
+that would be necessary to use at any
+point<00:07:32.479><c> like</c><00:07:32.880><c> using</c><00:07:33.120><c> the</c><00:07:33.440><c> opensp</c><00:07:33.759><c> spec</c><00:07:34.000><c> list</c>
+
+00:07:34.230 --> 00:07:34.240 align:start position:0%
+point like using the opensp spec list
+
+
+00:07:34.240 --> 00:07:35.909 align:start position:0%
+point like using the opensp spec list
+command<00:07:34.560><c> to</c><00:07:34.880><c> take</c><00:07:35.039><c> a</c><00:07:35.199><c> look</c><00:07:35.360><c> at</c><00:07:35.520><c> all</c><00:07:35.759><c> the</c>
+
+00:07:35.909 --> 00:07:35.919 align:start position:0%
+command to take a look at all the
+
+
+00:07:35.919 --> 00:07:38.390 align:start position:0%
+command to take a look at all the
+different<00:07:36.160><c> tasks</c><00:07:36.720><c> that</c><00:07:37.039><c> it</c><00:07:37.360><c> has</c><00:07:37.599><c> generated</c>
+
+00:07:38.390 --> 00:07:38.400 align:start position:0%
+different tasks that it has generated
+
+
+00:07:38.400 --> 00:07:39.990 align:start position:0%
+different tasks that it has generated
+and<00:07:38.639><c> it</c><00:07:38.880><c> will</c><00:07:39.039><c> make</c><00:07:39.199><c> sure</c><00:07:39.280><c> that</c><00:07:39.520><c> it</c><00:07:39.680><c> will</c>
+
+00:07:39.990 --> 00:07:40.000 align:start position:0%
+and it will make sure that it will
+
+
+00:07:40.000 --> 00:07:42.070 align:start position:0%
+and it will make sure that it will
+process<00:07:40.479><c> all</c><00:07:40.720><c> of</c><00:07:40.800><c> them</c><00:07:41.039><c> individually</c>
+
+00:07:42.070 --> 00:07:42.080 align:start position:0%
+process all of them individually
+
+
+00:07:42.080 --> 00:07:44.309 align:start position:0%
+process all of them individually
+autonomously<00:07:43.199><c> as</c><00:07:43.440><c> well</c><00:07:43.599><c> as</c><00:07:43.759><c> keeping</c><00:07:44.000><c> you</c><00:07:44.160><c> in</c>
+
+00:07:44.309 --> 00:07:44.319 align:start position:0%
+autonomously as well as keeping you in
+
+
+00:07:44.319 --> 00:07:46.710 align:start position:0%
+autonomously as well as keeping you in
+the<00:07:44.479><c> loop.</c><00:07:44.960><c> And</c><00:07:45.199><c> after</c><00:07:45.520><c> it</c><00:07:45.599><c> has</c><00:07:45.919><c> generated</c><00:07:46.479><c> all</c>
+
+00:07:46.710 --> 00:07:46.720 align:start position:0%
+the loop. And after it has generated all
+
+
+00:07:46.720 --> 00:07:49.270 align:start position:0%
+the loop. And after it has generated all
+the<00:07:46.960><c> details</c><00:07:47.440><c> for</c><00:07:47.759><c> our</c><00:07:48.080><c> proposal,</c><00:07:48.880><c> it</c><00:07:49.120><c> is</c>
+
+00:07:49.270 --> 00:07:49.280 align:start position:0%
+the details for our proposal, it is
+
+
+00:07:49.280 --> 00:07:50.870 align:start position:0%
+the details for our proposal, it is
+going<00:07:49.440><c> to</c><00:07:49.520><c> allow</c><00:07:49.759><c> you</c><00:07:49.919><c> to</c><00:07:50.080><c> review</c><00:07:50.479><c> through</c><00:07:50.720><c> all</c>
+
+00:07:50.870 --> 00:07:50.880 align:start position:0%
+going to allow you to review through all
+
+
+00:07:50.880 --> 00:07:52.790 align:start position:0%
+going to allow you to review through all
+of<00:07:51.039><c> these</c><00:07:51.199><c> proposal</c><00:07:51.680><c> files</c><00:07:52.000><c> like</c><00:07:52.160><c> the</c><00:07:52.400><c> design</c>
+
+00:07:52.790 --> 00:07:52.800 align:start position:0%
+of these proposal files like the design
+
+
+00:07:52.800 --> 00:07:55.350 align:start position:0%
+of these proposal files like the design
+MD<00:07:53.520><c> has</c><00:07:53.759><c> generated</c><00:07:54.319><c> all</c><00:07:54.560><c> the</c><00:07:54.800><c> different</c><00:07:55.039><c> task</c>
+
+00:07:55.350 --> 00:07:55.360 align:start position:0%
+MD has generated all the different task
+
+
+00:07:55.360 --> 00:07:57.189 align:start position:0%
+MD has generated all the different task
+list<00:07:55.919><c> where</c><00:07:56.240><c> you</c><00:07:56.400><c> can</c><00:07:56.639><c> review</c><00:07:56.960><c> through</c>
+
+00:07:57.189 --> 00:07:57.199 align:start position:0%
+list where you can review through
+
+
+00:07:57.199 --> 00:07:59.189 align:start position:0%
+list where you can review through
+everything<00:07:57.919><c> and</c><00:07:58.319><c> see</c><00:07:58.479><c> if</c><00:07:58.639><c> you</c><00:07:58.800><c> want</c><00:07:58.960><c> to</c>
+
+00:07:59.189 --> 00:07:59.199 align:start position:0%
+everything and see if you want to
+
+
+00:07:59.199 --> 00:08:00.950 align:start position:0%
+everything and see if you want to
+actually<00:07:59.680><c> follow</c><00:07:59.919><c> through</c><00:08:00.160><c> with</c><00:08:00.319><c> it.</c><00:08:00.800><c> If</c>
+
+00:08:00.950 --> 00:08:00.960 align:start position:0%
+actually follow through with it. If
+
+
+00:08:00.960 --> 00:08:03.270 align:start position:0%
+actually follow through with it. If
+there's<00:08:01.280><c> certain</c><00:08:01.599><c> sections</c><00:08:01.919><c> that</c><00:08:02.319><c> you</c><00:08:02.560><c> do</c><00:08:02.720><c> not</c>
+
+00:08:03.270 --> 00:08:03.280 align:start position:0%
+there's certain sections that you do not
+
+
+00:08:03.280 --> 00:08:05.350 align:start position:0%
+there's certain sections that you do not
+want<00:08:03.599><c> to</c><00:08:03.840><c> work</c><00:08:04.000><c> on,</c><00:08:04.319><c> you</c><00:08:04.479><c> can</c><00:08:04.560><c> take</c><00:08:04.639><c> it</c><00:08:04.800><c> out</c><00:08:05.039><c> and</c>
+
+00:08:05.350 --> 00:08:05.360 align:start position:0%
+want to work on, you can take it out and
+
+
+00:08:05.360 --> 00:08:08.150 align:start position:0%
+want to work on, you can take it out and
+add<00:08:05.599><c> your</c><00:08:05.919><c> own</c><00:08:06.560><c> implementation.</c><00:08:07.759><c> And</c>
+
+00:08:08.150 --> 00:08:08.160 align:start position:0%
+add your own implementation. And
+
+
+00:08:08.160 --> 00:08:10.869 align:start position:0%
+add your own implementation. And
+essentially<00:08:08.639><c> this</c><00:08:08.960><c> is</c><00:08:09.360><c> the</c><00:08:09.759><c> thoughtout</c><00:08:10.319><c> plan</c>
+
+00:08:10.869 --> 00:08:10.879 align:start position:0%
+essentially this is the thoughtout plan
+
+
+00:08:10.879 --> 00:08:13.110 align:start position:0%
+essentially this is the thoughtout plan
+that<00:08:11.199><c> it</c><00:08:11.520><c> is</c><00:08:11.759><c> going</c><00:08:11.840><c> to</c><00:08:12.000><c> work</c><00:08:12.319><c> on</c><00:08:12.639><c> deploying</c>
+
+00:08:13.110 --> 00:08:13.120 align:start position:0%
+that it is going to work on deploying
+
+
+00:08:13.120 --> 00:08:15.110 align:start position:0%
+that it is going to work on deploying
+with<00:08:13.360><c> the</c><00:08:13.520><c> agent</c><00:08:13.919><c> to</c><00:08:14.160><c> create</c><00:08:14.479><c> your</c><00:08:14.720><c> AI</c>
+
+00:08:15.110 --> 00:08:15.120 align:start position:0%
+with the agent to create your AI
+
+
+00:08:15.120 --> 00:08:17.430 align:start position:0%
+with the agent to create your AI
+detection<00:08:15.599><c> tool</c><00:08:15.840><c> or</c><00:08:16.080><c> whatever</c><00:08:16.400><c> you</c><00:08:16.639><c> prompted</c>
+
+00:08:17.430 --> 00:08:17.440 align:start position:0%
+detection tool or whatever you prompted
+
+
+00:08:17.440 --> 00:08:20.950 align:start position:0%
+detection tool or whatever you prompted
+in<00:08:17.680><c> the</c><00:08:17.919><c> initial</c><00:08:18.800><c> section.</c><00:08:20.240><c> Now</c><00:08:20.479><c> all</c><00:08:20.720><c> you</c><00:08:20.879><c> got</c>
+
+00:08:20.950 --> 00:08:20.960 align:start position:0%
+in the initial section. Now all you got
+
+
+00:08:20.960 --> 00:08:22.950 align:start position:0%
+in the initial section. Now all you got
+to<00:08:21.120><c> do</c><00:08:21.280><c> is</c><00:08:21.440><c> just</c><00:08:21.759><c> implement</c><00:08:22.080><c> the</c><00:08:22.319><c> change</c><00:08:22.800><c> which</c>
+
+00:08:22.950 --> 00:08:22.960 align:start position:0%
+to do is just implement the change which
+
+
+00:08:22.960 --> 00:08:25.189 align:start position:0%
+to do is just implement the change which
+is<00:08:23.120><c> what</c><00:08:23.440><c> they</c><00:08:23.759><c> specified</c><00:08:24.319><c> within</c><00:08:24.639><c> the</c><00:08:24.800><c> GitHub</c>
+
+00:08:25.189 --> 00:08:25.199 align:start position:0%
+is what they specified within the GitHub
+
+
+00:08:25.199 --> 00:08:27.029 align:start position:0%
+is what they specified within the GitHub
+repository.<00:08:25.840><c> So</c><00:08:26.000><c> now</c><00:08:26.160><c> I</c><00:08:26.400><c> can</c><00:08:26.479><c> just</c><00:08:26.639><c> simply</c>
+
+00:08:27.029 --> 00:08:27.039 align:start position:0%
+repository. So now I can just simply
+
+
+00:08:27.039 --> 00:08:29.749 align:start position:0%
+repository. So now I can just simply
+instruct<00:08:27.440><c> the</c><00:08:27.759><c> AI</c><00:08:28.240><c> agent</c><00:08:28.879><c> to</c><00:08:29.199><c> implement</c><00:08:29.520><c> the</c>
+
+00:08:29.749 --> 00:08:29.759 align:start position:0%
+instruct the AI agent to implement the
+
+
+00:08:29.759 --> 00:08:31.589 align:start position:0%
+instruct the AI agent to implement the
+AI<00:08:30.160><c> detection</c><00:08:30.560><c> tool</c><00:08:30.879><c> according</c><00:08:31.280><c> to</c><00:08:31.360><c> the</c>
+
+00:08:31.589 --> 00:08:31.599 align:start position:0%
+AI detection tool according to the
+
+
+00:08:31.599 --> 00:08:33.430 align:start position:0%
+AI detection tool according to the
+openspec<00:08:32.320><c> proposal.</c><00:08:32.880><c> all</c><00:08:33.120><c> of</c><00:08:33.200><c> these</c>
+
+00:08:33.430 --> 00:08:33.440 align:start position:0%
+openspec proposal. all of these
+
+
+00:08:33.440 --> 00:08:35.509 align:start position:0%
+openspec proposal. all of these
+different<00:08:33.680><c> proposals</c><00:08:34.320><c> that</c><00:08:34.560><c> has</c><00:08:34.800><c> listed</c><00:08:35.440><c> in</c>
+
+00:08:35.509 --> 00:08:35.519 align:start position:0%
+different proposals that has listed in
+
+
+00:08:35.519 --> 00:08:37.350 align:start position:0%
+different proposals that has listed in
+terms<00:08:35.680><c> of</c><00:08:35.839><c> the</c><00:08:36.000><c> design,</c><00:08:36.320><c> the</c><00:08:36.560><c> task</c><00:08:36.800><c> list,</c><00:08:37.120><c> as</c>
+
+00:08:37.350 --> 00:08:37.360 align:start position:0%
+terms of the design, the task list, as
+
+
+00:08:37.360 --> 00:08:39.750 align:start position:0%
+terms of the design, the task list, as
+well<00:08:37.519><c> as</c><00:08:37.760><c> the</c><00:08:38.000><c> different</c><00:08:38.240><c> specifications.</c><00:08:39.519><c> I</c>
+
+00:08:39.750 --> 00:08:39.760 align:start position:0%
+well as the different specifications. I
+
+
+00:08:39.760 --> 00:08:41.589 align:start position:0%
+well as the different specifications. I
+also<00:08:40.000><c> told</c><00:08:40.159><c> it</c><00:08:40.399><c> do</c><00:08:40.560><c> not</c><00:08:40.719><c> add</c><00:08:40.959><c> any</c><00:08:41.200><c> extra</c>
+
+00:08:41.589 --> 00:08:41.599 align:start position:0%
+also told it do not add any extra
+
+
+00:08:41.599 --> 00:08:43.829 align:start position:0%
+also told it do not add any extra
+features<00:08:41.919><c> beyond</c><00:08:42.320><c> what's</c><00:08:42.560><c> specified.</c><00:08:43.360><c> So</c><00:08:43.599><c> now</c>
+
+00:08:43.829 --> 00:08:43.839 align:start position:0%
+features beyond what's specified. So now
+
+
+00:08:43.839 --> 00:08:46.230 align:start position:0%
+features beyond what's specified. So now
+we<00:08:44.080><c> can</c><00:08:44.240><c> have</c><00:08:44.399><c> it</c><00:08:44.880><c> work</c><00:08:45.200><c> on</c><00:08:45.519><c> tackling</c><00:08:46.000><c> this</c>
+
+00:08:46.230 --> 00:08:46.240 align:start position:0%
+we can have it work on tackling this
+
+
+00:08:46.240 --> 00:08:47.990 align:start position:0%
+we can have it work on tackling this
+task.<00:08:46.560><c> And</c><00:08:46.640><c> you</c><00:08:46.800><c> can</c><00:08:46.959><c> see</c><00:08:47.040><c> that</c><00:08:47.440><c> it</c><00:08:47.760><c> only</c>
+
+00:08:47.990 --> 00:08:48.000 align:start position:0%
+task. And you can see that it only
+
+
+00:08:48.000 --> 00:08:50.870 align:start position:0%
+task. And you can see that it only
+costed<00:08:48.560><c> 48</c><00:08:49.040><c> cents</c><00:08:49.600><c> in</c><00:08:49.839><c> comparison</c><00:08:50.320><c> to</c><00:08:50.560><c> what</c>
+
+00:08:50.870 --> 00:08:50.880 align:start position:0%
+costed 48 cents in comparison to what
+
+
+00:08:50.880 --> 00:08:54.310 align:start position:0%
+costed 48 cents in comparison to what
+specit<00:08:51.440><c> did,</c><00:08:51.680><c> which</c><00:08:52.000><c> took</c><00:08:52.800><c> approximately,</c><00:08:54.000><c> I</c>
+
+00:08:54.310 --> 00:08:54.320 align:start position:0%
+specit did, which took approximately, I
+
+
+00:08:54.320 --> 00:08:55.910 align:start position:0%
+specit did, which took approximately, I
+believe,<00:08:54.640><c> 20</c><00:08:54.880><c> minutes</c><00:08:55.120><c> to</c><00:08:55.360><c> generate</c><00:08:55.680><c> my</c>
+
+00:08:55.910 --> 00:08:55.920 align:start position:0%
+believe, 20 minutes to generate my
+
+
+00:08:55.920 --> 00:08:58.710 align:start position:0%
+believe, 20 minutes to generate my
+proposed<00:08:56.399><c> plan</c><00:08:57.040><c> for</c><00:08:57.519><c> the</c><00:08:57.760><c> task</c><00:08:58.080><c> list</c><00:08:58.320><c> that</c><00:08:58.560><c> I</c>
+
+00:08:58.710 --> 00:08:58.720 align:start position:0%
+proposed plan for the task list that I
+
+
+00:08:58.720 --> 00:09:00.870 align:start position:0%
+proposed plan for the task list that I
+told<00:08:58.959><c> it</c><00:08:59.120><c> to</c><00:08:59.279><c> generate.</c><00:08:59.920><c> And</c><00:09:00.160><c> it</c><00:09:00.399><c> spent</c>
+
+00:09:00.870 --> 00:09:00.880 align:start position:0%
+told it to generate. And it spent
+
+
+00:09:00.880 --> 00:09:03.590 align:start position:0%
+told it to generate. And it spent
+probably<00:09:01.279><c> around</c><00:09:01.920><c> $5</c><00:09:02.560><c> I</c><00:09:02.800><c> believe</c><00:09:02.959><c> in</c><00:09:03.200><c> my</c><00:09:03.440><c> last</c>
+
+00:09:03.590 --> 00:09:03.600 align:start position:0%
+probably around $5 I believe in my last
+
+
+00:09:03.600 --> 00:09:06.550 align:start position:0%
+probably around $5 I believe in my last
+video<00:09:04.320><c> which</c><00:09:04.560><c> is</c><00:09:04.880><c> a</c><00:09:05.120><c> drastic</c><00:09:05.839><c> difference</c><00:09:06.240><c> from</c>
+
+00:09:06.550 --> 00:09:06.560 align:start position:0%
+video which is a drastic difference from
+
+
+00:09:06.560 --> 00:09:10.230 align:start position:0%
+video which is a drastic difference from
+this<00:09:07.120><c> which</c><00:09:07.360><c> is</c><00:09:07.519><c> only</c><00:09:07.839><c> 51.</c><00:09:08.959><c> And</c><00:09:09.120><c> as</c><00:09:09.600><c> Kilo</c><00:09:10.000><c> code</c>
+
+00:09:10.230 --> 00:09:10.240 align:start position:0%
+this which is only 51. And as Kilo code
+
+
+00:09:10.240 --> 00:09:12.790 align:start position:0%
+this which is only 51. And as Kilo code
+is<00:09:10.399><c> working</c><00:09:10.800><c> on</c><00:09:11.120><c> executing</c><00:09:11.680><c> this</c><00:09:11.920><c> task</c><00:09:12.480><c> of</c>
+
+00:09:12.790 --> 00:09:12.800 align:start position:0%
+is working on executing this task of
+
+
+00:09:12.800 --> 00:09:15.030 align:start position:0%
+is working on executing this task of
+generating<00:09:13.360><c> our</c><00:09:13.600><c> AI</c><00:09:14.000><c> detection</c><00:09:14.399><c> tool</c><00:09:14.720><c> with</c>
+
+00:09:15.030 --> 00:09:15.040 align:start position:0%
+generating our AI detection tool with
+
+
+00:09:15.040 --> 00:09:17.990 align:start position:0%
+generating our AI detection tool with
+the<00:09:15.440><c> specifications</c><00:09:16.240><c> that</c><00:09:16.959><c> the</c><00:09:17.360><c> open</c><00:09:17.680><c> spec</c>
+
+00:09:17.990 --> 00:09:18.000 align:start position:0%
+the specifications that the open spec
+
+
+00:09:18.000 --> 00:09:19.990 align:start position:0%
+the specifications that the open spec
+kit<00:09:18.240><c> has</c><00:09:18.480><c> developed</c><00:09:19.120><c> we</c><00:09:19.279><c> can</c><00:09:19.440><c> actually</c><00:09:19.680><c> go</c>
+
+00:09:19.990 --> 00:09:20.000 align:start position:0%
+kit has developed we can actually go
+
+
+00:09:20.000 --> 00:09:22.150 align:start position:0%
+kit has developed we can actually go
+within<00:09:20.480><c> our</c><00:09:20.720><c> terminal</c><00:09:21.120><c> and</c><00:09:21.279><c> we</c><00:09:21.519><c> can</c><00:09:21.600><c> run</c><00:09:21.839><c> the</c>
+
+00:09:22.150 --> 00:09:22.160 align:start position:0%
+within our terminal and we can run the
+
+
+00:09:22.160 --> 00:09:24.630 align:start position:0%
+within our terminal and we can run the
+open<00:09:22.560><c> spec</c><00:09:23.040><c> view</c><00:09:23.360><c> command.</c><00:09:24.080><c> This</c><00:09:24.320><c> will</c><00:09:24.480><c> give</c>
+
+00:09:24.630 --> 00:09:24.640 align:start position:0%
+open spec view command. This will give
+
+
+00:09:24.640 --> 00:09:26.710 align:start position:0%
+open spec view command. This will give
+us<00:09:24.800><c> a</c><00:09:24.959><c> good</c><00:09:25.200><c> understanding</c><00:09:25.680><c> of</c><00:09:25.920><c> the</c><00:09:26.240><c> progress</c>
+
+00:09:26.710 --> 00:09:26.720 align:start position:0%
+us a good understanding of the progress
+
+
+00:09:26.720 --> 00:09:29.030 align:start position:0%
+us a good understanding of the progress
+of<00:09:27.040><c> the</c><00:09:27.279><c> generation</c><00:09:27.760><c> right</c><00:09:28.000><c> now.</c><00:09:28.640><c> Right</c><00:09:28.880><c> now</c>
+
+00:09:29.030 --> 00:09:29.040 align:start position:0%
+of the generation right now. Right now
+
+
+00:09:29.040 --> 00:09:32.470 align:start position:0%
+of the generation right now. Right now
+it<00:09:29.360><c> is</c><00:09:29.600><c> working</c><00:09:30.000><c> on</c><00:09:30.800><c> 46</c><00:09:31.440><c> different</c><00:09:31.760><c> tasks.</c><00:09:32.240><c> We</c>
+
+00:09:32.470 --> 00:09:32.480 align:start position:0%
+it is working on 46 different tasks. We
+
+
+00:09:32.480 --> 00:09:35.190 align:start position:0%
+it is working on 46 different tasks. We
+just<00:09:32.640><c> started</c><00:09:32.959><c> it.</c><00:09:33.519><c> So</c><00:09:33.920><c> as</c><00:09:34.240><c> it</c><00:09:34.399><c> progresses</c><00:09:35.040><c> it</c>
+
+00:09:35.190 --> 00:09:35.200 align:start position:0%
+just started it. So as it progresses it
+
+
+00:09:35.200 --> 00:09:37.350 align:start position:0%
+just started it. So as it progresses it
+will<00:09:35.360><c> give</c><00:09:35.600><c> us</c><00:09:35.920><c> visualization</c><00:09:36.640><c> of</c><00:09:36.959><c> all</c><00:09:37.120><c> the</c>
+
+00:09:37.350 --> 00:09:37.360 align:start position:0%
+will give us visualization of all the
+
+
+00:09:37.360 --> 00:09:39.269 align:start position:0%
+will give us visualization of all the
+different<00:09:37.600><c> changes</c><00:09:38.080><c> being</c><00:09:38.320><c> made.</c><00:09:38.880><c> There</c><00:09:39.120><c> we</c>
+
+00:09:39.269 --> 00:09:39.279 align:start position:0%
+different changes being made. There we
+
+
+00:09:39.279 --> 00:09:41.990 align:start position:0%
+different changes being made. There we
+go.<00:09:39.519><c> It</c><00:09:39.839><c> has</c><00:09:40.160><c> finished</c><00:09:40.480><c> generating</c><00:09:41.200><c> our</c><00:09:41.519><c> AI</c>
+
+00:09:41.990 --> 00:09:42.000 align:start position:0%
+go. It has finished generating our AI
+
+
+00:09:42.000 --> 00:09:44.470 align:start position:0%
+go. It has finished generating our AI
+detection<00:09:42.480><c> tool.</c><00:09:42.959><c> And</c><00:09:43.200><c> this</c><00:09:43.519><c> is</c><00:09:43.760><c> what</c><00:09:44.080><c> we</c><00:09:44.240><c> have</c>
+
+00:09:44.470 --> 00:09:44.480 align:start position:0%
+detection tool. And this is what we have
+
+
+00:09:44.480 --> 00:09:46.470 align:start position:0%
+detection tool. And this is what we have
+gotten.<00:09:45.120><c> This</c><00:09:45.279><c> is</c><00:09:45.440><c> where</c><00:09:45.600><c> we</c><00:09:45.760><c> can</c><00:09:45.839><c> paste</c><00:09:46.160><c> in</c>
+
+00:09:46.470 --> 00:09:46.480 align:start position:0%
+gotten. This is where we can paste in
+
+
+00:09:46.480 --> 00:09:50.070 align:start position:0%
+gotten. This is where we can paste in
+any<00:09:46.800><c> sort</c><00:09:47.120><c> of</c><00:09:47.440><c> AI</c><00:09:48.080><c> slop</c><00:09:48.640><c> like</c><00:09:48.880><c> this</c><00:09:49.120><c> AI</c><00:09:49.519><c> story.</c>
+
+00:09:50.070 --> 00:09:50.080 align:start position:0%
+any sort of AI slop like this AI story.
+
+
+00:09:50.080 --> 00:09:51.829 align:start position:0%
+any sort of AI slop like this AI story.
+And<00:09:50.240><c> then</c><00:09:50.399><c> we</c><00:09:50.560><c> can</c><00:09:50.640><c> analyze</c><00:09:51.040><c> the</c><00:09:51.279><c> text.</c><00:09:51.680><c> And</c>
+
+00:09:51.829 --> 00:09:51.839 align:start position:0%
+And then we can analyze the text. And
+
+
+00:09:51.839 --> 00:09:53.829 align:start position:0%
+And then we can analyze the text. And
+you<00:09:52.000><c> can</c><00:09:52.160><c> see</c><00:09:52.320><c> right</c><00:09:52.480><c> away</c><00:09:53.040><c> that</c><00:09:53.360><c> it</c><00:09:53.600><c> is</c>
+
+00:09:53.829 --> 00:09:53.839 align:start position:0%
+you can see right away that it is
+
+
+00:09:53.839 --> 00:09:55.670 align:start position:0%
+you can see right away that it is
+confident<00:09:54.240><c> that</c><00:09:54.480><c> this</c><00:09:54.720><c> is</c><00:09:54.880><c> AI</c><00:09:55.279><c> detected,</c>
+
+00:09:55.670 --> 00:09:55.680 align:start position:0%
+confident that this is AI detected,
+
+
+00:09:55.680 --> 00:09:57.990 align:start position:0%
+confident that this is AI detected,
+which<00:09:56.000><c> is</c><00:09:56.080><c> true</c><00:09:56.320><c> cuz</c><00:09:56.560><c> I</c><00:09:56.800><c> had</c><00:09:57.040><c> it</c><00:09:57.200><c> generated</c><00:09:57.760><c> by</c>
+
+00:09:57.990 --> 00:09:58.000 align:start position:0%
+which is true cuz I had it generated by
+
+
+00:09:58.000 --> 00:10:00.470 align:start position:0%
+which is true cuz I had it generated by
+Chad<00:09:58.320><c> GBT.</c><00:09:59.279><c> And</c><00:09:59.440><c> it</c><00:09:59.760><c> talks</c><00:10:00.080><c> about</c><00:10:00.240><c> the</c>
+
+00:10:00.470 --> 00:10:00.480 align:start position:0%
+Chad GBT. And it talks about the
+
+
+00:10:00.480 --> 00:10:03.910 align:start position:0%
+Chad GBT. And it talks about the
+analysis<00:10:01.040><c> of</c><00:10:01.279><c> what</c><00:10:02.080><c> is</c><00:10:02.399><c> AI</c><00:10:02.880><c> generated</c><00:10:03.680><c> like</c>
+
+00:10:03.910 --> 00:10:03.920 align:start position:0%
+analysis of what is AI generated like
+
+
+00:10:03.920 --> 00:10:06.070 align:start position:0%
+analysis of what is AI generated like
+the<00:10:04.080><c> different</c><00:10:04.320><c> contents</c><00:10:04.800><c> of</c><00:10:05.040><c> this</c><00:10:05.519><c> as</c><00:10:05.760><c> well</c>
+
+00:10:06.070 --> 00:10:06.080 align:start position:0%
+the different contents of this as well
+
+
+00:10:06.080 --> 00:10:08.389 align:start position:0%
+the different contents of this as well
+as<00:10:06.320><c> the</c><00:10:06.560><c> metrics</c><00:10:06.959><c> like</c><00:10:07.120><c> the</c><00:10:07.279><c> perplexity</c><00:10:08.160><c> as</c>
+
+00:10:08.389 --> 00:10:08.399 align:start position:0%
+as the metrics like the perplexity as
+
+
+00:10:08.399 --> 00:10:10.870 align:start position:0%
+as the metrics like the perplexity as
+well<00:10:08.640><c> as</c><00:10:08.880><c> the</c><00:10:09.120><c> burstiness.</c><00:10:10.080><c> And</c><00:10:10.320><c> all</c><00:10:10.560><c> of</c><00:10:10.640><c> this</c>
+
+00:10:10.870 --> 00:10:10.880 align:start position:0%
+well as the burstiness. And all of this
+
+
+00:10:10.880 --> 00:10:13.509 align:start position:0%
+well as the burstiness. And all of this
+was<00:10:11.120><c> fully</c><00:10:11.440><c> generated</c><00:10:12.240><c> with</c><00:10:12.720><c> kilo</c><00:10:13.120><c> code</c>
+
+00:10:13.509 --> 00:10:13.519 align:start position:0%
+was fully generated with kilo code
+
+
+00:10:13.519 --> 00:10:16.150 align:start position:0%
+was fully generated with kilo code
+powered<00:10:13.920><c> by</c><00:10:14.320><c> openspec</c><00:10:15.040><c> which</c><00:10:15.279><c> is</c><00:10:15.440><c> costing</c><00:10:15.839><c> me</c>
+
+00:10:16.150 --> 00:10:16.160 align:start position:0%
+powered by openspec which is costing me
+
+
+00:10:16.160 --> 00:10:18.550 align:start position:0%
+powered by openspec which is costing me
+$2<00:10:16.560><c> to</c><00:10:16.800><c> fully</c><00:10:17.120><c> generate</c><00:10:17.600><c> alongside</c><00:10:18.079><c> with</c><00:10:18.320><c> the</c>
+
+00:10:18.550 --> 00:10:18.560 align:start position:0%
+$2 to fully generate alongside with the
+
+
+00:10:18.560 --> 00:10:20.710 align:start position:0%
+$2 to fully generate alongside with the
+plan.<00:10:19.200><c> And</c><00:10:19.440><c> you</c><00:10:19.600><c> can</c><00:10:19.760><c> see</c><00:10:19.920><c> how</c><00:10:20.160><c> detailed</c><00:10:20.560><c> it</c>
+
+00:10:20.710 --> 00:10:20.720 align:start position:0%
+plan. And you can see how detailed it
+
+
+00:10:20.720 --> 00:10:22.630 align:start position:0%
+plan. And you can see how detailed it
+was.<00:10:21.040><c> made</c><00:10:21.279><c> sure</c><00:10:21.440><c> that</c><00:10:21.600><c> it's</c><00:10:21.920><c> functional</c><00:10:22.320><c> in</c>
+
+00:10:22.630 --> 00:10:22.640 align:start position:0%
+was. made sure that it's functional in
+
+
+00:10:22.640 --> 00:10:25.430 align:start position:0%
+was. made sure that it's functional in
+one<00:10:22.880><c> shot</c><00:10:23.360><c> and</c><00:10:23.680><c> it</c><00:10:23.920><c> added</c><00:10:24.480><c> all</c><00:10:24.720><c> the</c><00:10:24.959><c> necessary</c>
+
+00:10:25.430 --> 00:10:25.440 align:start position:0%
+one shot and it added all the necessary
+
+
+00:10:25.440 --> 00:10:27.509 align:start position:0%
+one shot and it added all the necessary
+things<00:10:25.600><c> that</c><00:10:25.839><c> we</c><00:10:26.079><c> had</c><00:10:26.320><c> requested</c><00:10:27.120><c> like</c><00:10:27.360><c> the</c>
+
+00:10:27.509 --> 00:10:27.519 align:start position:0%
+things that we had requested like the
+
+
+00:10:27.519 --> 00:10:30.069 align:start position:0%
+things that we had requested like the
+detection<00:10:27.920><c> tool</c><00:10:28.640><c> having</c><00:10:29.040><c> different</c><00:10:29.600><c> results</c>
+
+00:10:30.069 --> 00:10:30.079 align:start position:0%
+detection tool having different results
+
+
+00:10:30.079 --> 00:10:32.870 align:start position:0%
+detection tool having different results
+being<00:10:30.399><c> analyzed</c><00:10:31.040><c> and</c><00:10:31.279><c> a</c><00:10:31.519><c> lot</c><00:10:31.680><c> more.</c><00:10:32.320><c> This</c><00:10:32.560><c> is</c>
+
+00:10:32.870 --> 00:10:32.880 align:start position:0%
+being analyzed and a lot more. This is
+
+
+00:10:32.880 --> 00:10:35.590 align:start position:0%
+being analyzed and a lot more. This is
+the<00:10:33.200><c> power</c><00:10:33.440><c> of</c><00:10:33.839><c> openspec</c><00:10:34.640><c> and</c><00:10:35.040><c> I</c><00:10:35.279><c> know</c><00:10:35.440><c> the</c>
+
+00:10:35.590 --> 00:10:35.600 align:start position:0%
+the power of openspec and I know the
+
+
+00:10:35.600 --> 00:10:37.190 align:start position:0%
+the power of openspec and I know the
+front<00:10:35.760><c> end</c><00:10:36.000><c> doesn't</c><00:10:36.240><c> look</c><00:10:36.399><c> good</c><00:10:36.640><c> but</c><00:10:36.880><c> that's</c>
+
+00:10:37.190 --> 00:10:37.200 align:start position:0%
+front end doesn't look good but that's
+
+
+00:10:37.200 --> 00:10:40.389 align:start position:0%
+front end doesn't look good but that's
+just<00:10:37.839><c> odd</c><00:10:38.160><c> code</c><00:10:38.560><c> or</c><00:10:38.800><c> sorry</c><00:10:39.040><c> cloud</c><00:10:39.360><c> sonic</c><00:10:39.760><c> 4.5</c>
+
+00:10:40.389 --> 00:10:40.399 align:start position:0%
+just odd code or sorry cloud sonic 4.5
+
+
+00:10:40.399 --> 00:10:41.750 align:start position:0%
+just odd code or sorry cloud sonic 4.5
+which<00:10:40.640><c> doesn't</c><00:10:40.880><c> really</c><00:10:41.120><c> generate</c><00:10:41.440><c> the</c><00:10:41.600><c> best</c>
+
+00:10:41.750 --> 00:10:41.760 align:start position:0%
+which doesn't really generate the best
+
+
+00:10:41.760 --> 00:10:43.910 align:start position:0%
+which doesn't really generate the best
+frontends<00:10:42.320><c> at</c><00:10:42.480><c> the</c><00:10:42.560><c> moment</c><00:10:43.120><c> but</c><00:10:43.519><c> you</c><00:10:43.680><c> can</c><00:10:43.839><c> see</c>
+
+00:10:43.910 --> 00:10:43.920 align:start position:0%
+frontends at the moment but you can see
+
+
+00:10:43.920 --> 00:10:45.910 align:start position:0%
+frontends at the moment but you can see
+that<00:10:44.160><c> the</c><00:10:44.320><c> quality</c><00:10:44.640><c> is</c><00:10:44.880><c> there</c><00:10:45.120><c> in</c><00:10:45.440><c> terms</c><00:10:45.680><c> of</c>
+
+00:10:45.910 --> 00:10:45.920 align:start position:0%
+that the quality is there in terms of
+
+
+00:10:45.920 --> 00:10:48.230 align:start position:0%
+that the quality is there in terms of
+the<00:10:46.160><c> output.</c><00:10:46.800><c> If</c><00:10:47.040><c> you</c><00:10:47.200><c> like</c><00:10:47.360><c> this</c><00:10:47.600><c> video</c><00:10:47.920><c> and</c>
+
+00:10:48.230 --> 00:10:48.240 align:start position:0%
+the output. If you like this video and
+
+
+00:10:48.240 --> 00:10:50.150 align:start position:0%
+the output. If you like this video and
+would<00:10:48.480><c> love</c><00:10:48.640><c> to</c><00:10:48.800><c> support</c><00:10:49.040><c> the</c><00:10:49.360><c> channel,</c><00:10:49.920><c> you</c>
+
+00:10:50.150 --> 00:10:50.160 align:start position:0%
+would love to support the channel, you
+
+
+00:10:50.160 --> 00:10:52.150 align:start position:0%
+would love to support the channel, you
+can<00:10:50.320><c> consider</c><00:10:50.720><c> donating</c><00:10:51.279><c> to</c><00:10:51.519><c> my</c><00:10:51.760><c> channel</c>
+
+00:10:52.150 --> 00:10:52.160 align:start position:0%
+can consider donating to my channel
+
+
+00:10:52.160 --> 00:10:54.230 align:start position:0%
+can consider donating to my channel
+through<00:10:52.320><c> the</c><00:10:52.560><c> super</c><00:10:52.880><c> thanks</c><00:10:53.279><c> option</c><00:10:53.680><c> below.</c>
+
+00:10:54.230 --> 00:10:54.240 align:start position:0%
+through the super thanks option below.
+
+
+00:10:54.240 --> 00:10:56.470 align:start position:0%
+through the super thanks option below.
+Or<00:10:54.480><c> you</c><00:10:54.720><c> can</c><00:10:54.880><c> consider</c><00:10:55.279><c> joining</c><00:10:55.680><c> our</c><00:10:56.079><c> private</c>
+
+00:10:56.470 --> 00:10:56.480 align:start position:0%
+Or you can consider joining our private
+
+
+00:10:56.480 --> 00:10:58.470 align:start position:0%
+Or you can consider joining our private
+Discord<00:10:57.040><c> where</c><00:10:57.279><c> you</c><00:10:57.440><c> can</c><00:10:57.600><c> access</c><00:10:58.000><c> multiple</c>
+
+00:10:58.470 --> 00:10:58.480 align:start position:0%
+Discord where you can access multiple
+
+
+00:10:58.480 --> 00:11:00.550 align:start position:0%
+Discord where you can access multiple
+subscriptions<00:10:59.040><c> to</c><00:10:59.279><c> different</c><00:10:59.519><c> AI</c><00:10:59.920><c> tools</c><00:11:00.320><c> for</c>
+
+00:11:00.550 --> 00:11:00.560 align:start position:0%
+subscriptions to different AI tools for
+
+
+00:11:00.560 --> 00:11:03.509 align:start position:0%
+subscriptions to different AI tools for
+free<00:11:00.880><c> on</c><00:11:01.120><c> a</c><00:11:01.279><c> monthly</c><00:11:01.600><c> basis,</c><00:11:02.480><c> plus</c><00:11:02.800><c> daily</c><00:11:03.120><c> AI</c>
+
+00:11:03.509 --> 00:11:03.519 align:start position:0%
+free on a monthly basis, plus daily AI
+
+
+00:11:03.519 --> 00:11:05.910 align:start position:0%
+free on a monthly basis, plus daily AI
+news<00:11:03.839><c> and</c><00:11:04.079><c> exclusive</c><00:11:04.640><c> content,</c><00:11:05.360><c> plus</c><00:11:05.600><c> a</c><00:11:05.760><c> lot</c>
+
+00:11:05.910 --> 00:11:05.920 align:start position:0%
+news and exclusive content, plus a lot
+
+
+00:11:05.920 --> 00:11:07.670 align:start position:0%
+news and exclusive content, plus a lot
+more.<00:11:06.560><c> But</c><00:11:06.640><c> that's</c><00:11:06.880><c> basically</c><00:11:07.360><c> guys</c><00:11:07.519><c> for</c>
+
+00:11:07.670 --> 00:11:07.680 align:start position:0%
+more. But that's basically guys for
+
+
+00:11:07.680 --> 00:11:09.990 align:start position:0%
+more. But that's basically guys for
+today's<00:11:08.000><c> video</c><00:11:08.240><c> on</c><00:11:08.560><c> OpenSpec.</c><00:11:09.440><c> This</c><00:11:09.600><c> is</c><00:11:09.760><c> a</c>
+
+00:11:09.990 --> 00:11:10.000 align:start position:0%
+today's video on OpenSpec. This is a
+
+
+00:11:10.000 --> 00:11:12.710 align:start position:0%
+today's video on OpenSpec. This is a
+pretty<00:11:10.480><c> cool</c><00:11:10.800><c> new</c><00:11:11.120><c> tool</c><00:11:11.440><c> that</c><00:11:11.760><c> can</c><00:11:12.000><c> turn</c><00:11:12.320><c> AI</c>
+
+00:11:12.710 --> 00:11:12.720 align:start position:0%
+pretty cool new tool that can turn AI
+
+
+00:11:12.720 --> 00:11:14.870 align:start position:0%
+pretty cool new tool that can turn AI
+proposals<00:11:13.279><c> into</c><00:11:13.519><c> the</c><00:11:13.839><c> structured</c><00:11:14.399><c> reviewable</c>
+
+00:11:14.870 --> 00:11:14.880 align:start position:0%
+proposals into the structured reviewable
+
+
+00:11:14.880 --> 00:11:17.190 align:start position:0%
+proposals into the structured reviewable
+implementation<00:11:15.600><c> plan</c><00:11:16.240><c> that</c><00:11:16.560><c> you</c><00:11:16.720><c> can</c><00:11:16.880><c> give</c><00:11:17.040><c> to</c>
+
+00:11:17.190 --> 00:11:17.200 align:start position:0%
+implementation plan that you can give to
+
+
+00:11:17.200 --> 00:11:19.509 align:start position:0%
+implementation plan that you can give to
+whatever<00:11:17.600><c> AI</c><00:11:18.000><c> agent.</c><00:11:18.640><c> It's</c><00:11:18.880><c> lightweight,</c>
+
+00:11:19.509 --> 00:11:19.519 align:start position:0%
+whatever AI agent. It's lightweight,
+
+
+00:11:19.519 --> 00:11:21.350 align:start position:0%
+whatever AI agent. It's lightweight,
+which<00:11:19.760><c> is</c><00:11:19.839><c> why</c><00:11:20.000><c> I</c><00:11:20.240><c> really</c><00:11:20.399><c> like</c><00:11:20.560><c> it.</c><00:11:21.040><c> And</c><00:11:21.120><c> it's</c>
+
+00:11:21.350 --> 00:11:21.360 align:start position:0%
+which is why I really like it. And it's
+
+
+00:11:21.360 --> 00:11:22.790 align:start position:0%
+which is why I really like it. And it's
+something<00:11:21.519><c> that</c><00:11:21.760><c> you</c><00:11:22.000><c> can</c><00:11:22.079><c> easily</c><00:11:22.399><c> work</c><00:11:22.560><c> with</c>
+
+00:11:22.790 --> 00:11:22.800 align:start position:0%
+something that you can easily work with
+
+
+00:11:22.800 --> 00:11:25.030 align:start position:0%
+something that you can easily work with
+right<00:11:23.040><c> away</c><00:11:23.519><c> where</c><00:11:23.760><c> you</c><00:11:23.920><c> can</c><00:11:24.320><c> seamlessly</c><00:11:24.800><c> move</c>
+
+00:11:25.030 --> 00:11:25.040 align:start position:0%
+right away where you can seamlessly move
+
+
+00:11:25.040 --> 00:11:27.509 align:start position:0%
+right away where you can seamlessly move
+from<00:11:25.360><c> specs</c><00:11:25.680><c> to</c><00:11:25.920><c> writing</c><00:11:26.320><c> code</c><00:11:26.800><c> a</c><00:11:27.040><c> bit</c><00:11:27.200><c> better</c>
+
+00:11:27.509 --> 00:11:27.519 align:start position:0%
+from specs to writing code a bit better
+
+
+00:11:27.519 --> 00:11:30.069 align:start position:0%
+from specs to writing code a bit better
+than<00:11:27.839><c> any</c><00:11:28.160><c> other</c><00:11:28.480><c> AI</c><00:11:28.880><c> coding</c><00:11:29.200><c> agent.</c><00:11:29.760><c> But</c><00:11:29.920><c> let</c>
+
+00:11:30.069 --> 00:11:30.079 align:start position:0%
+than any other AI coding agent. But let
+
+
+00:11:30.079 --> 00:11:31.509 align:start position:0%
+than any other AI coding agent. But let
+me<00:11:30.160><c> know</c><00:11:30.240><c> what</c><00:11:30.480><c> you</c><00:11:30.560><c> guys</c><00:11:30.800><c> think.</c><00:11:31.120><c> This</c><00:11:31.360><c> is</c>
+
+00:11:31.509 --> 00:11:31.519 align:start position:0%
+me know what you guys think. This is
+
+
+00:11:31.519 --> 00:11:33.430 align:start position:0%
+me know what you guys think. This is
+something<00:11:31.760><c> that</c><00:11:32.000><c> is</c><00:11:32.240><c> completely</c><00:11:32.800><c> free</c><00:11:33.120><c> and</c>
+
+00:11:33.430 --> 00:11:33.440 align:start position:0%
+something that is completely free and
+
+
+00:11:33.440 --> 00:11:34.949 align:start position:0%
+something that is completely free and
+open<00:11:33.760><c> source</c><00:11:34.079><c> that</c><00:11:34.240><c> you</c><00:11:34.399><c> can</c><00:11:34.480><c> easily</c><00:11:34.800><c> get</c>
+
+00:11:34.949 --> 00:11:34.959 align:start position:0%
+open source that you can easily get
+
+
+00:11:34.959 --> 00:11:36.630 align:start position:0%
+open source that you can easily get
+started.<00:11:35.600><c> So,</c><00:11:35.839><c> I'll</c><00:11:36.000><c> leave</c><00:11:36.160><c> all</c><00:11:36.320><c> these</c><00:11:36.480><c> links</c>
+
+00:11:36.630 --> 00:11:36.640 align:start position:0%
+started. So, I'll leave all these links
+
+
+00:11:36.640 --> 00:11:38.310 align:start position:0%
+started. So, I'll leave all these links
+in<00:11:36.800><c> the</c><00:11:36.959><c> description</c><00:11:37.360><c> below.</c><00:11:37.920><c> Make</c><00:11:38.079><c> sure</c><00:11:38.160><c> you</c>
+
+00:11:38.310 --> 00:11:38.320 align:start position:0%
+in the description below. Make sure you
+
+
+00:11:38.320 --> 00:11:39.910 align:start position:0%
+in the description below. Make sure you
+go<00:11:38.399><c> ahead</c><00:11:38.640><c> and</c><00:11:38.800><c> take</c><00:11:38.880><c> a</c><00:11:39.040><c> look</c><00:11:39.200><c> at</c><00:11:39.360><c> the</c><00:11:39.600><c> second</c>
+
+00:11:39.910 --> 00:11:39.920 align:start position:0%
+go ahead and take a look at the second
+
+
+00:11:39.920 --> 00:11:41.670 align:start position:0%
+go ahead and take a look at the second
+channel<00:11:40.160><c> if</c><00:11:40.320><c> you</c><00:11:40.480><c> haven't</c><00:11:40.640><c> already.</c><00:11:41.120><c> Join</c><00:11:41.440><c> the</c>
+
+00:11:41.670 --> 00:11:41.680 align:start position:0%
+channel if you haven't already. Join the
+
+
+00:11:41.680 --> 00:11:43.829 align:start position:0%
+channel if you haven't already. Join the
+newsletter,<00:11:42.560><c> join</c><00:11:42.800><c> our</c><00:11:43.040><c> Discord,</c><00:11:43.519><c> follow</c><00:11:43.760><c> me</c>
+
+00:11:43.829 --> 00:11:43.839 align:start position:0%
+newsletter, join our Discord, follow me
+
+
+00:11:43.839 --> 00:11:45.110 align:start position:0%
+newsletter, join our Discord, follow me
+on<00:11:44.000><c> Twitter,</c><00:11:44.240><c> and</c><00:11:44.399><c> lastly,</c><00:11:44.800><c> make</c><00:11:44.880><c> sure</c><00:11:45.040><c> you</c>
+
+00:11:45.110 --> 00:11:45.120 align:start position:0%
+on Twitter, and lastly, make sure you
+
+
+00:11:45.120 --> 00:11:46.710 align:start position:0%
+on Twitter, and lastly, make sure you
+guys<00:11:45.360><c> subscribe,</c><00:11:45.920><c> turn</c><00:11:46.000><c> on</c><00:11:46.160><c> the</c><00:11:46.320><c> notification</c>
+
+00:11:46.710 --> 00:11:46.720 align:start position:0%
+guys subscribe, turn on the notification
+
+
+00:11:46.720 --> 00:11:48.310 align:start position:0%
+guys subscribe, turn on the notification
+bell,<00:11:47.040><c> like</c><00:11:47.279><c> this</c><00:11:47.440><c> video,</c><00:11:47.680><c> and</c><00:11:47.920><c> please</c><00:11:48.079><c> take</c><00:11:48.240><c> a</c>
+
+00:11:48.310 --> 00:11:48.320 align:start position:0%
+bell, like this video, and please take a
+
+
+00:11:48.320 --> 00:11:49.670 align:start position:0%
+bell, like this video, and please take a
+look<00:11:48.399><c> at</c><00:11:48.560><c> our</c><00:11:48.720><c> previous</c><00:11:48.959><c> videos</c><00:11:49.200><c> cuz</c><00:11:49.440><c> there</c><00:11:49.600><c> is</c>
+
+00:11:49.670 --> 00:11:49.680 align:start position:0%
+look at our previous videos cuz there is
+
+
+00:11:49.680 --> 00:11:51.110 align:start position:0%
+look at our previous videos cuz there is
+a<00:11:49.839><c> lot</c><00:11:49.920><c> of</c><00:11:50.079><c> content</c><00:11:50.320><c> that</c><00:11:50.560><c> you'll</c><00:11:50.880><c> truly</c>
+
+00:11:51.110 --> 00:11:51.120 align:start position:0%
+a lot of content that you'll truly
+
+
+00:11:51.120 --> 00:11:52.630 align:start position:0%
+a lot of content that you'll truly
+benefit<00:11:51.440><c> from.</c><00:11:52.000><c> But</c><00:11:52.079><c> with</c><00:11:52.240><c> that</c><00:11:52.399><c> thought,</c>
+
+00:11:52.630 --> 00:11:52.640 align:start position:0%
+benefit from. But with that thought,
+
+
+00:11:52.640 --> 00:11:54.069 align:start position:0%
+benefit from. But with that thought,
+guys,<00:11:52.880><c> have</c><00:11:53.040><c> an</c><00:11:53.200><c> amazing</c><00:11:53.440><c> day,</c><00:11:53.760><c> spread</c>
+
+00:11:54.069 --> 00:11:54.079 align:start position:0%
+guys, have an amazing day, spread
+
+
+00:11:54.079 --> 00:11:55.509 align:start position:0%
+guys, have an amazing day, spread
+positivity,<00:11:54.560><c> and</c><00:11:54.720><c> I'll</c><00:11:54.880><c> see</c><00:11:54.959><c> you</c><00:11:55.040><c> guys</c><00:11:55.279><c> really</c>
+
+00:11:55.509 --> 00:11:55.519 align:start position:0%
+positivity, and I'll see you guys really
+
+
+00:11:55.519 --> 00:11:58.720 align:start position:0%
+positivity, and I'll see you guys really
+shortly.<00:11:56.160><c> He</c><00:11:56.320><c> suffers.</c>

@@ -1,0 +1,35 @@
+[Unit]
+Description=AI Republic Federation Gateway (FOP)
+After=network.target ai-republic-constitutional.service
+Wants=ai-republic-constitutional.service
+Requires=ai-republic-judicial.service
+
+[Service]
+Type=simple
+User=ai-republic
+Group=ai-republic
+WorkingDirectory=/opt/ai-republic/federation
+ExecStart=/usr/bin/env python3 -m uvicorn fop_gateway_api:app --host 0.0.0.0 --port 8094 --workers 4
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-republic-fop
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/var/log/ai-republic /var/lib/ai-republic
+ProtectHome=true
+
+# Resource limits
+MemoryLimit=1G
+CPUQuota=50%
+
+# Environment
+Environment=PYTHONPATH=/opt/ai-republic/federation
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

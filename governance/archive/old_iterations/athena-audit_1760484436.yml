@@ -1,0 +1,96 @@
+name: Athena Audit
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'athena/**'
+      - 'scripts/athena_*'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'athena/**'
+      - 'scripts/athena_*'
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+
+jobs:
+  athena-audit:
+    name: Athena Component Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install audit dependencies
+        run: |
+          pip install -r athena/requirements.txt
+          pip install pytest coverage
+
+      - name: Run Athena unit tests
+        run: |
+          cd athena
+          python -m pytest -v --tb=short
+
+      - name: Run Athena coverage analysis
+        run: |
+          cd athena
+          coverage run -m pytest -q
+          coverage report -m > coverage_report.txt || true
+
+      - name: Lint Athena code
+        run: |
+          pip install flake8
+          flake8 athena --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 athena --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Check Athena imports
+        run: |
+          python -c "import athena.db; import athena.judge; print('✅ Athena imports OK')"
+
+      - name: Audit Athena scripts
+        run: |
+          find scripts -name "athena_*" -type f -executable | while read script; do
+            echo "Auditing $script..."
+            bash -n "$script" || echo "Syntax error in $script"
+          done
+
+      - name: Generate audit summary
+        id: audit_summary
+        run: |
+          echo "audit_completed=true" >> $GITHUB_OUTPUT
+          echo "summary=<<EOF" >> $GITHUB_OUTPUT
+          echo "**Audit completed for commit:** \`${{ github.sha }}\`" >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "### Summary" >> $GITHUB_OUTPUT
+          echo "- Tests: $(find athena -name "*.py" | wc -l) Python files audited" >> $GITHUB_OUTPUT
+          echo "- Scripts: $(find scripts -name "athena_*" | wc -l) Athena scripts found" >> $GITHUB_OUTPUT
+          echo "- Coverage: $(cat athena/coverage_report.txt | grep "TOTAL" | awk '{print $4}' || echo "N/A")" >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "### Status: ✅ Passed" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Upload audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: athena-audit-${{ github.sha }}
+          path: |
+            athena/coverage_report.txt
+          retention-days: 7
+
+      - name: Post audit results to summary
+        if: always()
+        run: |
+          echo "${{ steps.audit_summary.outputs.summary }}" >> $GITHUB_STEP_SUMMARY
+

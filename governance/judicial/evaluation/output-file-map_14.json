@@ -1,0 +1,13 @@
+{
+  "": {
+    "dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/ServiceLifecycleTestKit.build/ServiceLifecycleTestKit.d",
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/ServiceLifecycleTestKit.build/ServiceLifecycleTestKit.o",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/ServiceLifecycleTestKit.build/master.swiftdeps"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-service-lifecycle/Sources/ServiceLifecycleTestKit/GracefulShutdown.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/ServiceLifecycleTestKit.build/GracefulShutdown.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/ServiceLifecycleTestKit.build/GracefulShutdown~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/ServiceLifecycleTestKit.build/GracefulShutdown.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/ServiceLifecycleTestKit.build/GracefulShutdown.dia"
+  }
+}

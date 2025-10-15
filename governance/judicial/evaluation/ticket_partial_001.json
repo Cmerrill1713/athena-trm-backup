@@ -1,0 +1,16 @@
+{
+  "record": {
+    "id": "PART-001",
+    "subject": "(no subject)",
+    "body": "",
+    "channel": "email",
+    "priority": "low"
+  },
+  "expected": {
+    "next_action": "review",
+    "min_facts": 0,
+    "max_latency_ms": 1500,
+    "allow_graceful_failure": true
+  }
+}
+

@@ -1,0 +1,72 @@
+{
+  "timestamp": "2025-10-12T01:25:36.482617",
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "warned": 0,
+    "skipped": 1,
+    "total": 10
+  },
+  "results": [
+    {
+      "test": "Docker services",
+      "status": "PASS",
+      "details": "16 containers running",
+      "timestamp": "2025-10-12T01:25:26.533768"
+    },
+    {
+      "test": "Health: unified_chat",
+      "status": "PASS",
+      "details": "http://localhost:8014 responding",
+      "timestamp": "2025-10-12T01:25:26.543306"
+    },
+    {
+      "test": "Health: tts_proxy",
+      "status": "PASS",
+      "details": "http://localhost:8888 responding",
+      "timestamp": "2025-10-12T01:25:26.546266"
+    },
+    {
+      "test": "Health: knowledge_8088",
+      "status": "PASS",
+      "details": "http://localhost:8088 responding",
+      "timestamp": "2025-10-12T01:25:26.550534"
+    },
+    {
+      "test": "Health: knowledge_8089",
+      "status": "PASS",
+      "details": "http://localhost:8089 responding",
+      "timestamp": "2025-10-12T01:25:26.555472"
+    },
+    {
+      "test": "Health: knowledge_8091",
+      "status": "PASS",
+      "details": "http://localhost:8091 responding",
+      "timestamp": "2025-10-12T01:25:26.560279"
+    },
+    {
+      "test": "Health: weaviate",
+      "status": "PASS",
+      "details": "http://localhost:8090 responding",
+      "timestamp": "2025-10-12T01:25:26.564017"
+    },
+    {
+      "test": "Swift build",
+      "status": "PASS",
+      "details": "Build succeeded",
+      "timestamp": "2025-10-12T01:25:36.473861"
+    },
+    {
+      "test": "UI tests",
+      "status": "SKIP",
+      "details": "QA_MODE not enabled or NeuroForgeApp not found",
+      "timestamp": "2025-10-12T01:25:36.473951"
+    },
+    {
+      "test": "Functional: chat",
+      "status": "PASS",
+      "details": "Validator responding (422 accepted)",
+      "timestamp": "2025-10-12T01:25:36.482217"
+    }
+  ]
+}

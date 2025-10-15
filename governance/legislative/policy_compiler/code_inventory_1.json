@@ -1,0 +1,491 @@
+{
+  "grand_total": {
+    "files": 403,
+    "lines": 675030,
+    "by_lang": {
+      "Markdown": {
+        "files": 57,
+        "lines": 14722
+      },
+      "Shell": {
+        "files": 66,
+        "lines": 5579
+      },
+      "OTHER": {
+        "files": 15,
+        "lines": 1378
+      },
+      "PLIST": {
+        "files": 6,
+        "lines": 197
+      },
+      "YAML": {
+        "files": 12,
+        "lines": 793
+      },
+      "TEMPLATE": {
+        "files": 2,
+        "lines": 55
+      },
+      "Swift": {
+        "files": 47,
+        "lines": 5721
+      },
+      "PBXPROJ": {
+        "files": 2,
+        "lines": 1728
+      },
+      "XCWORKSPACEDATA": {
+        "files": 1,
+        "lines": 7
+      },
+      "XCSCHEME": {
+        "files": 2,
+        "lines": 220
+      },
+      "JSON": {
+        "files": 31,
+        "lines": 312516
+      },
+      "Python": {
+        "files": 116,
+        "lines": 22071
+      },
+      "ICNS": {
+        "files": 1,
+        "lines": 142
+      },
+      "TXT": {
+        "files": 12,
+        "lines": 304824
+      },
+      "TOML": {
+        "files": 2,
+        "lines": 71
+      },
+      "XCCONFIG": {
+        "files": 1,
+        "lines": 7
+      },
+      "C": {
+        "files": 2,
+        "lines": 22
+      },
+      "ENTITLEMENTS": {
+        "files": 1,
+        "lines": 16
+      },
+      "DS_STORE": {
+        "files": 2,
+        "lines": 2
+      },
+      "PATCH": {
+        "files": 1,
+        "lines": 569
+      },
+      "LOCK": {
+        "files": 1,
+        "lines": 1780
+      },
+      "JavaScript": {
+        "files": 16,
+        "lines": 2380
+      },
+      "HTML": {
+        "files": 1,
+        "lines": 13
+      },
+      "SVG": {
+        "files": 2,
+        "lines": 17
+      },
+      "CSS": {
+        "files": 1,
+        "lines": 100
+      },
+      "SQL": {
+        "files": 3,
+        "lines": 100
+      }
+    }
+  },
+  "components": [
+    {
+      "component": "NeuroForgeApp",
+      "path": "/Users/christianmerrill/Documents/GitHub/NeuroForgeApp",
+      "git_rev": null,
+      "totals": {
+        "files": 102,
+        "lines": 18193,
+        "by_lang": {
+          "Markdown": {
+            "files": 38,
+            "lines": 11357
+          },
+          "Shell": {
+            "files": 13,
+            "lines": 1443
+          },
+          "OTHER": {
+            "files": 2,
+            "lines": 179
+          },
+          "PLIST": {
+            "files": 2,
+            "lines": 87
+          },
+          "YAML": {
+            "files": 3,
+            "lines": 156
+          },
+          "TEMPLATE": {
+            "files": 1,
+            "lines": 25
+          },
+          "Swift": {
+            "files": 36,
+            "lines": 3540
+          },
+          "PBXPROJ": {
+            "files": 1,
+            "lines": 559
+          },
+          "XCWORKSPACEDATA": {
+            "files": 1,
+            "lines": 7
+          },
+          "XCSCHEME": {
+            "files": 1,
+            "lines": 142
+          },
+          "JSON": {
+            "files": 1,
+            "lines": 68
+          },
+          "Python": {
+            "files": 2,
+            "lines": 488
+          },
+          "ICNS": {
+            "files": 1,
+            "lines": 142
+          }
+        }
+      }
+    },
+    {
+      "component": "Orchestrator",
+      "path": "/Users/christianmerrill/Documents/GitHub/orchestrator",
+      "git_rev": null,
+      "totals": {
+        "files": 37,
+        "lines": 4381,
+        "by_lang": {
+          "YAML": {
+            "files": 1,
+            "lines": 54
+          },
+          "TXT": {
+            "files": 1,
+            "lines": 14
+          },
+          "Python": {
+            "files": 22,
+            "lines": 2424
+          },
+          "OTHER": {
+            "files": 1,
+            "lines": 68
+          },
+          "Shell": {
+            "files": 5,
+            "lines": 421
+          },
+          "Markdown": {
+            "files": 4,
+            "lines": 1330
+          },
+          "JSON": {
+            "files": 1,
+            "lines": 18
+          },
+          "PLIST": {
+            "files": 2,
+            "lines": 52
+          }
+        }
+      }
+    },
+    {
+      "component": "Agents",
+      "path": "/Users/christianmerrill/Documents/GitHub/agents",
+      "git_rev": null,
+      "totals": {
+        "files": 11,
+        "lines": 2879,
+        "by_lang": {
+          "Python": {
+            "files": 8,
+            "lines": 2100
+          },
+          "TXT": {
+            "files": 1,
+            "lines": 11
+          },
+          "Markdown": {
+            "files": 2,
+            "lines": 768
+          }
+        }
+      }
+    },
+    {
+      "component": "FastVLM",
+      "path": "/Users/christianmerrill/Documents/GitHub/fastvlm",
+      "git_rev": null,
+      "totals": {
+        "files": 105,
+        "lines": 621475,
+        "by_lang": {
+          "Python": {
+            "files": 41,
+            "lines": 9305
+          },
+          "Shell": {
+            "files": 4,
+            "lines": 265
+          },
+          "TXT": {
+            "files": 7,
+            "lines": 302672
+          },
+          "Markdown": {
+            "files": 7,
+            "lines": 920
+          },
+          "TEMPLATE": {
+            "files": 1,
+            "lines": 30
+          },
+          "OTHER": {
+            "files": 7,
+            "lines": 729
+          },
+          "TOML": {
+            "files": 1,
+            "lines": 33
+          },
+          "XCCONFIG": {
+            "files": 1,
+            "lines": 7
+          },
+          "Swift": {
+            "files": 10,
+            "lines": 1990
+          },
+          "C": {
+            "files": 2,
+            "lines": 22
+          },
+          "ENTITLEMENTS": {
+            "files": 1,
+            "lines": 16
+          },
+          "PLIST": {
+            "files": 1,
+            "lines": 5
+          },
+          "JSON": {
+            "files": 17,
+            "lines": 303663
+          },
+          "PBXPROJ": {
+            "files": 1,
+            "lines": 1169
+          },
+          "XCSCHEME": {
+            "files": 1,
+            "lines": 78
+          },
+          "DS_STORE": {
+            "files": 2,
+            "lines": 2
+          },
+          "PATCH": {
+            "files": 1,
+            "lines": 569
+          }
+        }
+      }
+    },
+    {
+      "component": "Kokoro",
+      "path": "/Users/christianmerrill/Documents/GitHub/kokoro",
+      "git_rev": "dfb907a",
+      "totals": {
+        "files": 54,
+        "lines": 17691,
+        "by_lang": {
+          "OTHER": {
+            "files": 5,
+            "lines": 402
+          },
+          "LOCK": {
+            "files": 1,
+            "lines": 1780
+          },
+          "TOML": {
+            "files": 1,
+            "lines": 38
+          },
+          "Markdown": {
+            "files": 6,
+            "lines": 347
+          },
+          "TXT": {
+            "files": 3,
+            "lines": 2127
+          },
+          "Python": {
+            "files": 13,
+            "lines": 2176
+          },
+          "YAML": {
+            "files": 1,
+            "lines": 15
+          },
+          "JavaScript": {
+            "files": 15,
+            "lines": 2258
+          },
+          "JSON": {
+            "files": 5,
+            "lines": 8418
+          },
+          "HTML": {
+            "files": 1,
+            "lines": 13
+          },
+          "SVG": {
+            "files": 2,
+            "lines": 17
+          },
+          "CSS": {
+            "files": 1,
+            "lines": 100
+          }
+        }
+      }
+    },
+    {
+      "component": "Scripts",
+      "path": "/Users/christianmerrill/Documents/GitHub/scripts",
+      "git_rev": null,
+      "totals": {
+        "files": 77,
+        "lines": 9186,
+        "by_lang": {
+          "Shell": {
+            "files": 44,
+            "lines": 3450
+          },
+          "Python": {
+            "files": 29,
+            "lines": 5355
+          },
+          "JavaScript": {
+            "files": 1,
+            "lines": 122
+          },
+          "PLIST": {
+            "files": 1,
+            "lines": 53
+          },
+          "Swift": {
+            "files": 1,
+            "lines": 191
+          },
+          "SQL": {
+            "files": 1,
+            "lines": 15
+          }
+        }
+      }
+    },
+    {
+      "component": "Monitoring",
+      "path": "/Users/christianmerrill/Documents/GitHub/monitoring",
+      "git_rev": null,
+      "totals": {
+        "files": 7,
+        "lines": 568,
+        "by_lang": {
+          "YAML": {
+            "files": 7,
+            "lines": 568
+          }
+        }
+      }
+    },
+    {
+      "component": "Dashboards",
+      "path": "/Users/christianmerrill/Documents/GitHub/dashboards",
+      "git_rev": null,
+      "totals": {
+        "files": 4,
+        "lines": 187,
+        "by_lang": {
+          "JSON": {
+            "files": 4,
+            "lines": 187
+          }
+        }
+      }
+    },
+    {
+      "component": "Database",
+      "path": "/Users/christianmerrill/Documents/GitHub/db",
+      "git_rev": null,
+      "totals": {
+        "files": 2,
+        "lines": 85,
+        "by_lang": {
+          "SQL": {
+            "files": 2,
+            "lines": 85
+          }
+        }
+      }
+    },
+    {
+      "component": "Examples",
+      "path": "/Users/christianmerrill/Documents/GitHub/examples",
+      "git_rev": null,
+      "totals": {
+        "files": 1,
+        "lines": 223,
+        "by_lang": {
+          "Python": {
+            "files": 1,
+            "lines": 223
+          }
+        }
+      }
+    },
+    {
+      "component": "Config",
+      "path": "/Users/christianmerrill/Documents/GitHub/config",
+      "git_rev": null,
+      "totals": {
+        "files": 3,
+        "lines": 162,
+        "by_lang": {
+          "JSON": {
+            "files": 3,
+            "lines": 162
+          }
+        }
+      }
+    }
+  ]
+}

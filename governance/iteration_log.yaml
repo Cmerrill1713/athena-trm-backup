@@ -1,0 +1,30 @@
+version: v1.6
+author: Governance Cleanup Script
+date: 2025-10-14T18:28:09-05:00
+summary: "Consolidated scattered iterations into governed tiered structure - legislative/judicial/executive/devil_advocate/observability"
+files_moved:    58666
+backup_location: "/Users/christianmerrill/Documents/GitHub/governance_backup_20251014_182158"
+categories:
+  legislative:
+    - policy_compiler: "Policy compilation and enforcement logic"
+    - canary_rules: "Gradual rollout and safety rules"
+  judicial:
+    - entropy_service.py: "System entropy monitoring and drift detection"
+    - evaluation: "Performance and correctness evaluation"
+    - calibration: "Model calibration and fine-tuning"
+  executive:
+    - start_server.sh: "Service startup and orchestration"
+    - docker: "Container deployment configurations"
+    - orchestration: "Service coordination and scaling"
+  devil_advocate:
+    - stress_tests: "Load and failure scenario testing"
+    - red_team_sets: "Adversarial testing scenarios"
+  observability:
+    - "Monitoring, metrics, and alerting configurations"
+  archive:
+    old_iterations: "Retired iterations and deprecated code"
+changes:
+  - "Moved    58666 files into governance structure"
+  - "Created backup at /Users/christianmerrill/Documents/GitHub/governance_backup_20251014_182158"
+  - "Established iteration versioning system"
+  - "Generated governance manifest"

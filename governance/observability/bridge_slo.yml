@@ -1,0 +1,166 @@
+groups:
+  - name: bridge-slo
+    interval: 30s
+    rules:
+      # Error rate SLO: < 1% errors over 5 minutes
+      - alert: BridgeErrorBudgetBurn
+        expr: |
+          (
+            rate(http_requests_total{service="bridge",status=~"5.."}[5m])
+            /
+            rate(http_requests_total{service="bridge"}[5m])
+          ) > 0.01
+        for: 10m
+        labels:
+          severity: page
+          service: bridge
+          tier: slo
+        annotations:
+          summary: "Bridge error rate > 1% for 10 minutes"
+          description: "Current error rate: {{ $value | humanizePercentage }}"
+          runbook: "Check /tmp/bridge_8014.log and run 'make truth'"
+
+      # Latency SLO: p95 < 250ms
+      - alert: BridgeLatencyBudgetBurn
+        expr: |
+          histogram_quantile(0.95,
+            rate(http_request_duration_seconds_bucket{service="bridge"}[5m])
+          ) > 0.250
+        for: 10m
+        labels:
+          severity: page
+          service: bridge
+          tier: slo
+        annotations:
+          summary: "Bridge p95 latency > 250ms for 10 minutes"
+          description: "Current p95: {{ $value | humanizeDuration }}"
+          runbook: "Check for slow downstream calls or resource exhaustion"
+
+      # Availability SLO: service must be reachable
+      - alert: BridgeDown
+        expr: up{service="bridge"} == 0
+        for: 1m
+        labels:
+          severity: page
+          service: bridge
+          tier: availability
+        annotations:
+          summary: "Bridge is down"
+          description: "Bridge has been unreachable for 1 minute"
+          runbook: "Check 'make truth' and /tmp/bridge_8014.log"
+
+  - name: watchdog-health
+    interval: 30s
+    rules:
+      # Watchdog flapping: > 5 heals in 1 hour
+      - alert: WatchdogFlapping
+        expr: increase(watchdog_heals_total[1h]) > 5
+        for: 0m
+        labels:
+          severity: ticket
+          service: watchdog
+          tier: reliability
+        annotations:
+          summary: "Watchdog healed >5 times in last hour"
+          description: "Stack is unstable. {{ $value }} recoveries in 1h"
+          runbook: "Check /tmp/watchdog_stack.log for patterns. Likely systemic issue."
+
+      # MTTR SLO: recovery < 60s
+      - alert: WatchdogSlowRecovery
+        expr: watchdog_recovery_duration_seconds > 60
+        for: 0m
+        labels:
+          severity: ticket
+          service: watchdog
+          tier: slo
+        annotations:
+          summary: "Watchdog recovery took > 60s"
+          description: "Recovery time: {{ $value }}s (SLO: <60s)"
+          runbook: "Check if services are slow to start or health checks timing out"
+
+      # Watchdog max retries exhausted
+      - alert: WatchdogMaxRetriesExhausted
+        expr: watchdog_max_retries_reached == 1
+        for: 0m
+        labels:
+          severity: page
+          service: watchdog
+          tier: availability
+        annotations:
+          summary: "Watchdog gave up after max retries"
+          description: "Manual intervention required"
+          runbook: "Run 'make truth', check logs, manually recover with 'make nuke-ports && make stack-up'"
+
+  - name: backend-health
+    interval: 30s
+    rules:
+      # UAT unhealthy
+      - alert: UATUnhealthy
+        expr: up{service="uat"} == 0
+        for: 2m
+        labels:
+          severity: page
+          service: uat
+          tier: availability
+        annotations:
+          summary: "UAT service is down"
+          description: "UAT unreachable for 2 minutes"
+          runbook: "Check /tmp/uat_8181.log and restart with 'make stack-restart'"
+
+      # Athena unhealthy
+      - alert: AthenaUnhealthy
+        expr: up{service="athena"} == 0
+        for: 2m
+        labels:
+          severity: page
+          service: athena
+          tier: availability
+        annotations:
+          summary: "Athena service is down"
+          description: "Athena unreachable for 2 minutes"
+          runbook: "Check /tmp/athena_8090.log and restart with 'make stack-restart'"
+
+  - name: performance
+    interval: 30s
+    rules:
+      # High request rate (potential abuse)
+      - alert: BridgeHighRequestRate
+        expr: rate(http_requests_total{service="bridge"}[1m]) > 100
+        for: 5m
+        labels:
+          severity: ticket
+          service: bridge
+          tier: performance
+        annotations:
+          summary: "Bridge receiving unusually high request rate"
+          description: "Current rate: {{ $value }} req/s"
+          runbook: "Check for abuse, DDoS, or runaway client"
+
+      # Memory pressure
+      - alert: BridgeHighMemory
+        expr: process_resident_memory_bytes{service="bridge"} > 1e9
+        for: 10m
+        labels:
+          severity: ticket
+          service: bridge
+          tier: performance
+        annotations:
+          summary: "Bridge using > 1GB memory"
+          description: "Current: {{ $value | humanize1024 }}B"
+          runbook: "Check for memory leaks or large response caching"
+
+  - name: circuit-breaker
+    interval: 30s
+    rules:
+      # Circuit breaker open
+      - alert: CircuitBreakerOpen
+        expr: circuit_breaker_state{service="bridge"} == 1
+        for: 5m
+        labels:
+          severity: ticket
+          service: bridge
+          tier: reliability
+        annotations:
+          summary: "Circuit breaker open for {{ $labels.backend }}"
+          description: "Backend {{ $labels.backend }} is being bypassed"
+          runbook: "Check backend health and error rates. Breaker auto-closes when healthy."

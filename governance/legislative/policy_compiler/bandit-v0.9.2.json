@@ -1,0 +1,18 @@
+{
+  "summarize": {
+    "summ_capability_stub": {
+      "wins": 6,
+      "losses": 1,
+      "samples": 5,
+      "promotable": true
+    }
+  },
+  "plan": {
+    "plan_capability_stub": {
+      "wins": 4,
+      "losses": 1,
+      "samples": 3,
+      "promotable": false
+    }
+  }
+}

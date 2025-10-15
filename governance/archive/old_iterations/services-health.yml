@@ -1,0 +1,47 @@
+name: services-health
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write  # To create issues if services are down
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check backend services
+        shell: bash
+        run: |
+          # This is a monitoring job - checks if public services are reachable
+          # Modify URLs to your actual deployed endpoints
+
+          echo "🔍 Checking service health..."
+
+          # Add your deployed service URLs here
+          # For local dev, this would run on a schedule to monitor production
+
+          # Example:
+          # curl -f https://your-api.com/health || exit 1
+
+          echo "✅ Health check placeholder (configure with your deployed URLs)"
+
+      - name: Create issue if unhealthy
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '⚠️ Service Health Check Failed',
+              body: 'Automated health check detected service issues. Check the workflow logs for details.',
+              labels: ['bug', 'automated', 'health-check']
+            })

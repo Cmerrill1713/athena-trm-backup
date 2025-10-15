@@ -1,0 +1,325 @@
+{
+  "intents": {
+    "stack_up": {
+      "phrases": [
+        "bring everything online",
+        "start the stack",
+        "wake up",
+        "power on",
+        "initialize system",
+        "boot up"
+      ],
+      "command": "make stack-up",
+      "response": "Bringing all services online...",
+      "requires_confirmation": false
+    },
+    "stack_down": {
+      "phrases": [
+        "shut everything down",
+        "stop the stack",
+        "power off",
+        "sleep mode",
+        "shut down services"
+      ],
+      "command": "make stack-down",
+      "response": "Shutting down all services...",
+      "requires_confirmation": true
+    },
+    "auto_heal_start": {
+      "phrases": [
+        "enable watchdog",
+        "start self healing",
+        "activate guardian",
+        "enable auto heal",
+        "turn on monitoring"
+      ],
+      "command": "make auto-heal-start",
+      "response": "Watchdog enabled. System will self-heal on failures.",
+      "requires_confirmation": false
+    },
+    "deploy_canary": {
+      "phrases": [
+        "ship it",
+        "deploy to canary",
+        "test this branch",
+        "canary deployment",
+        "validate for production"
+      ],
+      "command": "make athena-canary",
+      "response": "Deploying canary... I'll monitor SLOs and auto-promote or rollback.",
+      "requires_confirmation": true
+    },
+    "rollback": {
+      "phrases": [
+        "backtrack",
+        "roll back",
+        "undo deployment",
+        "revert to stable",
+        "emergency rollback"
+      ],
+      "command": "make athena-cleanup && make stack-restart",
+      "response": "Rolling back to last stable state...",
+      "requires_confirmation": true
+    },
+    "smoke_tests": {
+      "phrases": [
+        "run smoke tests",
+        "quick validation",
+        "fast check",
+        "smoke check"
+      ],
+      "command": "make athena-tests-smoke",
+      "response": "Running smoke tests...",
+      "requires_confirmation": false
+    },
+    "full_tests": {
+      "phrases": [
+        "run all tests",
+        "full validation",
+        "complete test suite",
+        "test everything"
+      ],
+      "command": "make athena-tests",
+      "response": "Running full integration test suite...",
+      "requires_confirmation": false
+    },
+    "truth_check": {
+      "phrases": [
+        "check the gate",
+        "what's running",
+        "system status",
+        "give me truth",
+        "reality check",
+        "show me receipts"
+      ],
+      "command": "make truth",
+      "response": "Checking actual system state...",
+      "requires_confirmation": false
+    },
+    "tier4_proof": {
+      "phrases": [
+        "production gate",
+        "ready for prod",
+        "validate for production",
+        "tier 4 check"
+      ],
+      "command": "make tier4-proof",
+      "response": "Running production gate validation...",
+      "requires_confirmation": false
+    },
+    "chaos_test": {
+      "phrases": [
+        "chaos test",
+        "resilience check",
+        "break things",
+        "test recovery"
+      ],
+      "command": "make chaos-test",
+      "response": "Running chaos engineering tests...",
+      "requires_confirmation": true
+    },
+    "security_scan": {
+      "phrases": [
+        "security scan",
+        "check for vulnerabilities",
+        "run security checks",
+        "audit security"
+      ],
+      "command": "make sec-check",
+      "response": "Running security audit...",
+      "requires_confirmation": false
+    },
+    "kill_ghosts": {
+      "phrases": [
+        "kill the ghosts",
+        "nuke ports",
+        "clear zombies",
+        "eliminate ghosts"
+      ],
+      "command": "make nuke-ports",
+      "response": "Eliminating ghost processes...",
+      "requires_confirmation": true
+    },
+    "restart_stack": {
+      "phrases": [
+        "restart everything",
+        "fresh start",
+        "reboot the stack",
+        "clean restart"
+      ],
+      "command": "make stack-restart",
+      "response": "Restarting all services...",
+      "requires_confirmation": true
+    },
+    "open_dashboard": {
+      "phrases": [
+        "open the dashboard",
+        "show me grafana",
+        "open monitoring",
+        "show metrics"
+      ],
+      "command": "open http://localhost:3001",
+      "response": "Opening Grafana dashboard...",
+      "requires_confirmation": false
+    },
+    "watchdog_status": {
+      "phrases": [
+        "watchdog status",
+        "how's the guardian",
+        "check auto heal",
+        "watchdog health"
+      ],
+      "command": "make auto-heal-status",
+      "response": "Checking watchdog status...",
+      "requires_confirmation": false
+    },
+    "deployment_history": {
+      "phrases": [
+        "show deployment history",
+        "what have you decided",
+        "show audit trail",
+        "athena history"
+      ],
+      "command": "make athena-history",
+      "response": "Loading deployment audit trail...",
+      "requires_confirmation": false
+    },
+    "prod_deploy": {
+      "phrases": [
+        "deploy to production",
+        "go live",
+        "production deployment",
+        "ship to prod"
+      ],
+      "command": "make prod-up",
+      "response": "Deploying production stack with Docker Compose...",
+      "requires_confirmation": true
+    },
+    "health_check": {
+      "phrases": [
+        "health check",
+        "are we healthy",
+        "system health",
+        "check services"
+      ],
+      "command": "curl -s http://127.0.0.1:8014/health | jq .",
+      "response": "Checking system health...",
+      "requires_confirmation": false
+    },
+    "shadow_traffic": {
+      "phrases": [
+        "shadow traffic 10 percent",
+        "mirror 10 percent",
+        "enable shadow mode",
+        "split traffic"
+      ],
+      "command": "echo 'Canary mirroring 10% traffic to :8015' && make athena-canary MIRROR_PERCENT=10",
+      "response": "Enabling 10% traffic shadow to canary...",
+      "requires_confirmation": true
+    },
+    "incident_report": {
+      "phrases": [
+        "generate incident report",
+        "create postmortem",
+        "incident summary",
+        "what went wrong"
+      ],
+      "command": "echo '=== INCIDENT REPORT ===' && make athena-history | tail -20 && echo '' && make auto-heal-logs | grep -E 'unhealthy|recovery|failed' | tail -10",
+      "response": "Generating incident report from audit trail and watchdog logs...",
+      "requires_confirmation": false
+    },
+    "tail_errors": {
+      "phrases": [
+        "show recent errors",
+        "tail errors last 5 minutes",
+        "what's failing",
+        "recent failures"
+      ],
+      "command": "echo '=== RECENT ERRORS ===' && tail -100 /tmp/bridge_8014.log /tmp/athena_8090.log /tmp/uat_8181.log 2>/dev/null | grep -iE 'error|exception|fail|traceback' | tail -20",
+      "response": "Showing recent errors from all services...",
+      "requires_confirmation": false
+    },
+    "create_rollback_point": {
+      "phrases": [
+        "create rollback point",
+        "snapshot current state",
+        "save checkpoint",
+        "create restore point"
+      ],
+      "command": "git tag -a rollback-$(date +%Y%m%d-%H%M%S) -m 'Rollback point created via Athena' && echo 'Rollback point created. Restore with: git reset --hard <tag>'",
+      "response": "Creating rollback point (git tag)...",
+      "requires_confirmation": false
+    },
+    "snapshot_traces": {
+      "phrases": [
+        "snapshot traces",
+        "backup traces",
+        "export trace data",
+        "save current traces"
+      ],
+      "command": "curl -s http://127.0.0.1:8181/traces > /tmp/traces_snapshot_$(date +%Y%m%d_%H%M%S).json && echo 'Traces exported to /tmp/traces_snapshot_*.json' && ls -lh /tmp/traces_snapshot_*.json | tail -1",
+      "response": "Snapshotting current trace data...",
+      "requires_confirmation": false
+    }
+  },
+  "confirmations": {
+    "high_risk": [
+      "stack_down",
+      "rollback",
+      "kill_ghosts",
+      "restart_stack",
+      "deploy_canary",
+      "chaos_test",
+      "prod_deploy"
+    ],
+    "confirmation_phrase": "Confirm: yes or no?"
+  },
+  "responses": {
+    "unknown_intent": "I didn't understand that command. Try 'help' for available commands.",
+    "confirmation_required": "This action requires confirmation. Say 'yes' to proceed or 'no' to cancel.",
+    "action_cancelled": "Action cancelled.",
+    "action_executing": "Executing...",
+    "action_complete": "Done."
+  },
+  "help": {
+    "categories": {
+      "Stack Management": [
+        "bring everything online",
+        "shut everything down",
+        "restart everything",
+        "what's running"
+      ],
+      "Testing": [
+        "run smoke tests",
+        "run all tests",
+        "chaos test",
+        "production gate"
+      ],
+      "Deployment": [
+        "ship it",
+        "backtrack",
+        "deploy to production",
+        "shadow traffic 10 percent"
+      ],
+      "Monitoring": [
+        "watchdog status",
+        "show deployment history",
+        "open the dashboard",
+        "health check",
+        "show recent errors"
+      ],
+      "Emergency": [
+        "kill the ghosts",
+        "fresh start",
+        "check the gate"
+      ],
+      "Data & Audit": [
+        "snapshot traces",
+        "create rollback point",
+        "generate incident report",
+        "tail errors last 5 minutes"
+      ]
+    }
+  }
+}
+

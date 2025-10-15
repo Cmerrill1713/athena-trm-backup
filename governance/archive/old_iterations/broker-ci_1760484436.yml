@@ -1,0 +1,109 @@
+name: Assistant Broker CI
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'assistant-broker/**'
+      - 'scripts/**'
+      - '.github/workflows/broker-ci.yml'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'assistant-broker/**'
+      - 'scripts/**'
+
+jobs:
+  build-broker:
+    name: Build & Test Broker
+    runs-on: macos-14
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.2.app
+      
+      - name: Build broker
+        working-directory: assistant-broker
+        run: swift build -c release
+      
+      - name: Check binary exists
+        run: |
+          if [ ! -f assistant-broker/.build/release/assistant-broker ]; then
+            echo "❌ Binary not found"
+            exit 1
+          fi
+          echo "✅ Binary built successfully"
+      
+      - name: Syntax check scripts
+        run: |
+          echo "Checking script syntax..."
+          for script in scripts/*.sh; do
+            bash -n "$script" || { echo "❌ Syntax error in $script"; exit 1; }
+            echo "✅ $script"
+          done
+      
+      - name: Check scripts are executable
+        run: |
+          for script in scripts/*.sh; do
+            if [ ! -x "$script" ]; then
+              echo "⚠️  $script not executable"
+              chmod +x "$script"
+            fi
+          done
+      
+      - name: Upload broker binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: assistant-broker-macos
+          path: assistant-broker/.build/release/assistant-broker
+          retention-days: 30
+  
+  lint-scripts:
+    name: Lint Shell Scripts
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install ShellCheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      
+      - name: Run ShellCheck
+        run: |
+          find scripts -name "*.sh" -print0 | xargs -0 shellcheck || true
+  
+  security-scan:
+    name: Security Check
+    runs-on: macos-14
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check for hardcoded secrets
+        run: |
+          if grep -r "ASSISTANT_BROKER_TOKEN.*=" assistant-broker/Sources --exclude-dir=".build" | grep -v "ProcessInfo.processInfo.environment"; then
+            echo "❌ Found hardcoded token"
+            exit 1
+          fi
+          echo "✅ No hardcoded secrets found"
+      
+      - name: Verify localhost binding
+        run: |
+          if ! grep -q 'hostname = "127.0.0.1"' assistant-broker/Sources/AssistantBroker/main.swift; then
+            echo "❌ Localhost binding not enforced"
+            exit 1
+          fi
+          echo "✅ Localhost binding verified"
+      
+      - name: Check allowlists
+        run: |
+          echo "Checking command allowlist..."
+          grep "ALLOWED_CMDS" assistant-broker/Sources/AssistantBroker/main.swift
+          echo "Checking path allowlist..."
+          grep "ALLOWED_DIRS" assistant-broker/Sources/AssistantBroker/main.swift
+

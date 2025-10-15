@@ -1,0 +1,100 @@
+{
+  "version": "v1.6",
+  "timestamp": "2025-10-14T18:30:00-05:00",
+  "component": "god_judge",
+  "receipt_id": "receipt_20251014_183000_001",
+
+  "calibration_metrics": {
+    "ece": 0.055,
+    "ece_interpretation": "Good calibration - below 0.06 threshold, ToT/GoT enabled",
+    "calibration_bins": [0.1, 0.3, 0.5, 0.7, 0.9]
+  },
+
+  "entropy_metrics": {
+    "entropy_drift": 0.04,
+    "entropy_drift_interpretation": "Low drift - system stable, no review needed",
+    "baseline_entropy": 0.85,
+    "current_entropy": 0.89
+  },
+
+  "autoheal_metrics": {
+    "errors": 7,
+    "rules_matched": 0,
+    "fixes_applied": 0,
+    "autoheal_status": "HARD_FAIL - errors detected but no rules matched",
+    "error_types": [
+      "typescript_syntax_errors",
+      "missing_imports",
+      "type_mismatches"
+    ]
+  },
+
+  "fix_confidence_metrics": {
+    "fix_confidence": 0.0,
+    "confidence_interpretation": "No fixes attempted - confidence undefined",
+    "confidence_breakdown": {
+      "syntax_fixes": 0.0,
+      "import_fixes": 0.0,
+      "type_fixes": 0.0
+    }
+  },
+
+  "evaluation_metrics": {
+    "edge_case_score": 0.78,
+    "consistency_index": 0.92,
+    "temp_sensitivity": 0.15,
+    "evaluation_status": "PASS - strong performance on adversarial inputs"
+  },
+
+  "test_metrics": {
+    "tests_pass": 15,
+    "tests_total": 18,
+    "tests_failed": 3,
+    "critical_errors": 0,
+    "class_min": 10,
+    "test_status": "PASS - meets minimum requirements"
+  },
+
+  "build_metrics": {
+    "build_success_rate": 0.85,
+    "build_time_seconds": 45.2,
+    "build_status": "PASS - meets 85% success threshold"
+  },
+
+  "verdict": {
+    "final_verdict": "HARD_FAIL",
+    "reason": "autoheal_errors > 0 AND rules_matched == 0",
+    "confidence": "high",
+    "recommendations": [
+      "Fix auto-heal rule matching logic",
+      "Review TypeScript fixer confidence thresholds",
+      "Address 7 auto-heal errors before promotion"
+    ]
+  },
+
+  "governance_actions": [
+    {
+      "action": "block_promotion",
+      "component": "typescript-fixer",
+      "reason": "auto-heal system not functioning"
+    },
+    {
+      "action": "flag_for_review",
+      "component": "god_judge",
+      "reason": "entropy drift monitoring active"
+    }
+  ],
+
+  "prometheus_metrics": {
+    "governance_ece": 0.055,
+    "governance_entropy_drift": 0.04,
+    "governance_autoheal_errors_total": 7,
+    "governance_autoheal_rules_matched_total": 0,
+    "governance_autoheal_fixes_applied_total": 0,
+    "governance_fix_confidence": 0.0,
+    "governance_edge_case_score": 0.78,
+    "governance_consistency_index": 0.92,
+    "governance_violation_rate": 2,
+    "governance_verdicts_total": 1
+  }
+}

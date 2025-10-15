@@ -1,0 +1,10 @@
+{
+  "orchestrator_base": "http://127.0.0.1:8014",
+  "endpoints": {
+    "traces": "/traces",
+    "trace": "/trace/{id}"
+  },
+  "service_name": "neuroforge-bridge",
+  "version": "1.0.0"
+}
+

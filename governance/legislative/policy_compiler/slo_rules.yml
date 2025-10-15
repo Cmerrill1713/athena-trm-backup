@@ -1,0 +1,110 @@
+groups:
+  - name: service_slo
+    interval: 30s
+    rules:
+      # Error rate (5xx) over 5m and 1h
+      - alert: HighErrorRate5m
+        expr: sum(rate(http_requests_total{code=~"5.."}[5m])) / clamp_min(sum(rate(http_requests_total[5m])), 1) > 0.02
+        for: 10m
+        labels:
+          severity: page
+          component: bridge
+        annotations:
+          summary: "Error rate > 2% (5m)"
+          description: "Current 5xx ratio is {{ $value | printf \"%.2f\" }} over 5m."
+          runbook: "Check logs: curl http://127.0.0.1:8014/ops/logs?service=bridge&tail=200"
+
+      - alert: HighErrorRate1h
+        expr: sum(rate(http_requests_total{code=~"5.."}[1h])) / clamp_min(sum(rate(http_requests_total[1h])), 1) > 0.01
+        for: 30m
+        labels:
+          severity: ticket
+          component: bridge
+        annotations:
+          summary: "Error rate > 1% (1h)"
+          description: "Sustained error rate above SLO"
+
+      # p95 latency SLO (Bridge/API)
+      - record: job_route:p95_latency_seconds:5m
+        expr: histogram_quantile(0.95, sum by (le, job, route) (rate(bridge_request_latency_seconds_bucket[5m])))
+
+      - alert: LatencyP95Degraded
+        expr: job_route:p95_latency_seconds:5m > 0.800
+        for: 15m
+        labels:
+          severity: page
+          component: performance
+        annotations:
+          summary: "p95 latency > 800ms"
+          description: "Route {{ $labels.route }} breaching SLO for 15m. Current: {{ $value | printf \"%.3f\" }}s"
+          runbook: "Check service health in Ops window"
+
+      # Burn rate (SRE-style fast/slow)
+      - alert: SLOBurnFast
+        expr: (sum(rate(http_requests_total{code=~"5.."}[5m])) / clamp_min(sum(rate(http_requests_total[5m])), 1)) / 0.01 > 14.4
+        for: 5m
+        labels:
+          severity: page
+          component: slo
+        annotations:
+          summary: "Fast SLO burn >14.4x"
+          description: "Error budget burning rapidly. Will exhaust in ~6h at this rate."
+          runbook: "Immediate investigation required"
+
+      - alert: SLOBurnSlow
+        expr: (sum(rate(http_requests_total{code=~"5.."}[1h])) / clamp_min(sum(rate(http_requests_total[1h])), 1)) / 0.01 > 6
+        for: 2h
+        labels:
+          severity: ticket
+          component: slo
+        annotations:
+          summary: "Slow SLO burn >6x"
+          description: "Error budget depleting. Will exhaust in ~5 days at this rate."
+
+  - name: security_redaction
+    interval: 30s
+    rules:
+      - alert: RedactionSpike
+        expr: sum(increase(bridge_logs_redactions_total[5m])) > 5
+        for: 10m
+        labels:
+          severity: page
+          component: security
+        annotations:
+          summary: "Redaction events spiking"
+          description: "{{ $value }} redactions in 5m. Possible secret exposure attempts."
+          runbook: "See RUNBOOKS/LOG_SECURITY_RUNBOOK.md"
+
+      - alert: LogRequestRateHigh
+        expr: rate(bridge_logs_requests_total[5m]) > 10
+        for: 2m
+        labels:
+          severity: warning
+          component: logs
+        annotations:
+          summary: "High log request rate detected"
+          description: "Log endpoint receiving {{ $value }} req/s (threshold: 10/s)"
+          runbook: "Check for abuse or legitimate monitoring spike"
+
+      - alert: LogReadFailures
+        expr: rate(bridge_logs_errors_total[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+          component: logs
+        annotations:
+          summary: "Log read errors detected"
+          description: "{{ $value }} log read errors/s"
+          runbook: "Check file permissions and paths in SERVICE_LOGS mapping"
+
+      - alert: LogReadTimeout
+        expr: rate(bridge_logs_timeout_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+          component: logs_performance
+        annotations:
+          summary: "Log read timeouts occurring"
+          description: "Log reads timing out after 5s"
+          runbook: "Check log file sizes and disk I/O performance"
+

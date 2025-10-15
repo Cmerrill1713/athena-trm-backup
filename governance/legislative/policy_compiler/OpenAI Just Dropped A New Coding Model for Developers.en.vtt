@@ -1,0 +1,1727 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.080 --> 00:00:01.990 align:start position:0%
+
+OpenAI<00:00:00.640><c> just</c><00:00:00.880><c> released</c><00:00:01.280><c> a</c><00:00:01.520><c> new</c><00:00:01.680><c> version</c><00:00:01.839><c> of</c>
+
+00:00:01.990 --> 00:00:02.000 align:start position:0%
+OpenAI just released a new version of
+
+
+00:00:02.000 --> 00:00:05.670 align:start position:0%
+OpenAI just released a new version of
+GPD5<00:00:02.879><c> specially</c><00:00:03.679><c> trained</c><00:00:04.000><c> for</c><00:00:04.240><c> coding.</c><00:00:05.440><c> This</c>
+
+00:00:05.670 --> 00:00:05.680 align:start position:0%
+GPD5 specially trained for coding. This
+
+
+00:00:05.680 --> 00:00:07.829 align:start position:0%
+GPD5 specially trained for coding. This
+is<00:00:06.000><c> exclusively</c><00:00:06.799><c> available</c><00:00:07.279><c> within</c><00:00:07.600><c> their</c>
+
+00:00:07.829 --> 00:00:07.839 align:start position:0%
+is exclusively available within their
+
+
+00:00:07.839 --> 00:00:10.629 align:start position:0%
+is exclusively available within their
+codeex<00:00:08.240><c> environment.</c><00:00:09.440><c> You</c><00:00:09.599><c> can</c><00:00:09.760><c> access</c><00:00:10.080><c> it</c><00:00:10.400><c> in</c>
+
+00:00:10.629 --> 00:00:10.639 align:start position:0%
+codeex environment. You can access it in
+
+
+00:00:10.639 --> 00:00:14.709 align:start position:0%
+codeex environment. You can access it in
+terminal<00:00:11.599><c> in</c><00:00:11.920><c> an</c><00:00:12.000><c> IDE</c><00:00:12.559><c> and</c><00:00:12.880><c> on</c><00:00:13.200><c> web</c><00:00:14.240><c> and</c><00:00:14.480><c> this</c>
+
+00:00:14.709 --> 00:00:14.719 align:start position:0%
+terminal in an IDE and on web and this
+
+
+00:00:14.719 --> 00:00:16.550 align:start position:0%
+terminal in an IDE and on web and this
+is<00:00:14.880><c> much</c><00:00:15.120><c> better</c><00:00:15.280><c> at</c><00:00:15.519><c> code</c><00:00:15.759><c> reviews</c><00:00:16.160><c> than</c><00:00:16.400><c> the</c>
+
+00:00:16.550 --> 00:00:16.560 align:start position:0%
+is much better at code reviews than the
+
+
+00:00:16.560 --> 00:00:19.029 align:start position:0%
+is much better at code reviews than the
+previous<00:00:16.880><c> versions.</c><00:00:18.160><c> So</c><00:00:18.400><c> it's</c><00:00:18.720><c> really</c>
+
+00:00:19.029 --> 00:00:19.039 align:start position:0%
+previous versions. So it's really
+
+
+00:00:19.039 --> 00:00:21.670 align:start position:0%
+previous versions. So it's really
+specialized<00:00:19.760><c> specifically</c><00:00:20.320><c> for</c><00:00:20.560><c> coding.</c><00:00:21.279><c> It</c>
+
+00:00:21.670 --> 00:00:21.680 align:start position:0%
+specialized specifically for coding. It
+
+
+00:00:21.680 --> 00:00:24.470 align:start position:0%
+specialized specifically for coding. It
+seems<00:00:21.920><c> to</c><00:00:22.080><c> be</c><00:00:22.240><c> much</c><00:00:22.560><c> better</c><00:00:22.880><c> at</c><00:00:23.359><c> coding</c><00:00:23.760><c> tasks</c>
+
+00:00:24.470 --> 00:00:24.480 align:start position:0%
+seems to be much better at coding tasks
+
+
+00:00:24.480 --> 00:00:27.990 align:start position:0%
+seems to be much better at coding tasks
+even<00:00:24.800><c> compared</c><00:00:25.119><c> to</c><00:00:25.359><c> GPT5</c><00:00:26.160><c> on</c><00:00:26.480><c> high</c><00:00:26.800><c> settings</c>
+
+00:00:27.990 --> 00:00:28.000 align:start position:0%
+even compared to GPT5 on high settings
+
+
+00:00:28.000 --> 00:00:30.390 align:start position:0%
+even compared to GPT5 on high settings
+and<00:00:28.400><c> for</c><00:00:28.960><c> complex</c><00:00:29.439><c> tasks</c><00:00:29.840><c> it</c><00:00:30.080><c> can</c><00:00:30.240><c> run</c>
+
+00:00:30.390 --> 00:00:30.400 align:start position:0%
+and for complex tasks it can run
+
+
+00:00:30.400 --> 00:00:34.709 align:start position:0%
+and for complex tasks it can run
+independently<00:00:31.439><c> for</c><00:00:31.679><c> more</c><00:00:31.920><c> than</c><00:00:32.239><c> 7</c><00:00:32.719><c> hours.</c><00:00:34.079><c> So</c>
+
+00:00:34.709 --> 00:00:34.719 align:start position:0%
+independently for more than 7 hours. So
+
+
+00:00:34.719 --> 00:00:37.670 align:start position:0%
+independently for more than 7 hours. So
+long<00:00:35.120><c> horizon</c><00:00:35.600><c> coding</c><00:00:35.920><c> tasks</c><00:00:36.480><c> are</c><00:00:37.120><c> in</c><00:00:37.360><c> reach</c>
+
+00:00:37.670 --> 00:00:37.680 align:start position:0%
+long horizon coding tasks are in reach
+
+
+00:00:37.680 --> 00:00:41.110 align:start position:0%
+long horizon coding tasks are in reach
+now.<00:00:38.320><c> So</c><00:00:38.640><c> this</c><00:00:38.879><c> is</c><00:00:39.520><c> a</c><00:00:39.840><c> specialized</c><00:00:40.559><c> optimized</c>
+
+00:00:41.110 --> 00:00:41.120 align:start position:0%
+now. So this is a specialized optimized
+
+
+00:00:41.120 --> 00:00:43.670 align:start position:0%
+now. So this is a specialized optimized
+version<00:00:41.360><c> of</c><00:00:41.520><c> GPT5</c><00:00:42.399><c> which</c><00:00:42.640><c> they're</c><00:00:42.960><c> calling</c>
+
+00:00:43.670 --> 00:00:43.680 align:start position:0%
+version of GPT5 which they're calling
+
+
+00:00:43.680 --> 00:00:46.229 align:start position:0%
+version of GPT5 which they're calling
+GPT5<00:00:44.480><c> codeex.</c><00:00:45.120><c> They</c><00:00:45.360><c> really</c><00:00:45.600><c> need</c><00:00:45.760><c> to</c><00:00:45.920><c> work</c><00:00:46.079><c> on</c>
+
+00:00:46.229 --> 00:00:46.239 align:start position:0%
+GPT5 codeex. They really need to work on
+
+
+00:00:46.239 --> 00:00:48.150 align:start position:0%
+GPT5 codeex. They really need to work on
+their<00:00:46.480><c> naming.</c><00:00:47.200><c> It's</c><00:00:47.520><c> getting</c><00:00:47.840><c> really</c>
+
+00:00:48.150 --> 00:00:48.160 align:start position:0%
+their naming. It's getting really
+
+
+00:00:48.160 --> 00:00:50.549 align:start position:0%
+their naming. It's getting really
+confusing.<00:00:49.280><c> But</c><00:00:49.520><c> this</c><00:00:49.760><c> is</c><00:00:49.920><c> a</c><00:00:50.079><c> specialized</c>
+
+00:00:50.549 --> 00:00:50.559 align:start position:0%
+confusing. But this is a specialized
+
+
+00:00:50.559 --> 00:00:52.869 align:start position:0%
+confusing. But this is a specialized
+model<00:00:50.960><c> trained</c><00:00:51.440><c> for</c><00:00:51.760><c> real</c><00:00:52.079><c> world</c><00:00:52.399><c> software</c>
+
+00:00:52.869 --> 00:00:52.879 align:start position:0%
+model trained for real world software
+
+
+00:00:52.879 --> 00:00:55.350 align:start position:0%
+model trained for real world software
+engineering<00:00:53.600><c> workflows.</c><00:00:54.800><c> And</c><00:00:55.039><c> you're</c><00:00:55.280><c> going</c>
+
+00:00:55.350 --> 00:00:55.360 align:start position:0%
+engineering workflows. And you're going
+
+
+00:00:55.360 --> 00:00:57.430 align:start position:0%
+engineering workflows. And you're going
+to<00:00:55.520><c> see</c><00:00:55.760><c> later</c><00:00:56.079><c> in</c><00:00:56.239><c> the</c><00:00:56.399><c> video</c><00:00:56.640><c> that</c><00:00:56.879><c> they</c><00:00:57.199><c> have</c>
+
+00:00:57.430 --> 00:00:57.440 align:start position:0%
+to see later in the video that they have
+
+
+00:00:57.440 --> 00:01:00.630 align:start position:0%
+to see later in the video that they have
+focused<00:00:57.920><c> on</c><00:00:58.960><c> real</c><00:00:59.440><c> world</c><00:01:00.079><c> software</c>
+
+00:01:00.630 --> 00:01:00.640 align:start position:0%
+focused on real world software
+
+
+00:01:00.640 --> 00:01:03.029 align:start position:0%
+focused on real world software
+engineering<00:01:01.120><c> tasks</c><00:01:01.520><c> including</c><00:01:01.920><c> code</c><00:01:02.239><c> reviews</c>
+
+00:01:03.029 --> 00:01:03.039 align:start position:0%
+engineering tasks including code reviews
+
+
+00:01:03.039 --> 00:01:05.830 align:start position:0%
+engineering tasks including code reviews
+and<00:01:03.440><c> it's</c><00:01:03.760><c> a</c><00:01:04.159><c> much</c><00:01:04.479><c> better</c><00:01:04.799><c> at</c><00:01:05.040><c> long</c><00:01:05.360><c> horizon</c>
+
+00:01:05.830 --> 00:01:05.840 align:start position:0%
+and it's a much better at long horizon
+
+
+00:01:05.840 --> 00:01:07.429 align:start position:0%
+and it's a much better at long horizon
+tasks.
+
+00:01:07.429 --> 00:01:07.439 align:start position:0%
+tasks.
+
+
+00:01:07.439 --> 00:01:10.070 align:start position:0%
+tasks.
+So<00:01:07.840><c> CEX</c><00:01:08.400><c> is</c><00:01:08.640><c> now</c><00:01:08.880><c> available</c><00:01:09.360><c> everywhere.</c><00:01:09.920><c> So</c>
+
+00:01:10.070 --> 00:01:10.080 align:start position:0%
+So CEX is now available everywhere. So
+
+
+00:01:10.080 --> 00:01:11.990 align:start position:0%
+So CEX is now available everywhere. So
+there<00:01:10.240><c> is</c><00:01:10.400><c> a</c><00:01:10.560><c> cloud</c><00:01:10.880><c> version</c><00:01:11.280><c> within</c><00:01:11.680><c> chat</c>
+
+00:01:11.990 --> 00:01:12.000 align:start position:0%
+there is a cloud version within chat
+
+
+00:01:12.000 --> 00:01:15.190 align:start position:0%
+there is a cloud version within chat
+GPT.<00:01:12.799><c> There</c><00:01:13.040><c> is</c><00:01:13.360><c> even</c><00:01:13.680><c> a</c><00:01:13.840><c> code</c><00:01:14.159><c> review</c><00:01:14.479><c> version</c>
+
+00:01:15.190 --> 00:01:15.200 align:start position:0%
+GPT. There is even a code review version
+
+
+00:01:15.200 --> 00:01:17.350 align:start position:0%
+GPT. There is even a code review version
+and<00:01:15.520><c> you</c><00:01:15.680><c> can</c><00:01:15.840><c> use</c><00:01:16.000><c> it</c><00:01:16.560><c> either</c><00:01:16.960><c> through</c><00:01:17.119><c> the</c>
+
+00:01:17.350 --> 00:01:17.360 align:start position:0%
+and you can use it either through the
+
+
+00:01:17.360 --> 00:01:20.390 align:start position:0%
+and you can use it either through the
+CLI<00:01:18.159><c> or</c><00:01:18.560><c> IDE</c><00:01:19.200><c> extension.</c><00:01:19.840><c> I</c><00:01:20.080><c> think</c><00:01:20.159><c> it's</c>
+
+00:01:20.390 --> 00:01:20.400 align:start position:0%
+CLI or IDE extension. I think it's
+
+
+00:01:20.400 --> 00:01:23.510 align:start position:0%
+CLI or IDE extension. I think it's
+available<00:01:20.799><c> in</c><00:01:21.280><c> VS</c><00:01:21.680><c> code</c><00:01:22.240><c> and</c><00:01:22.720><c> cursor</c><00:01:23.119><c> at</c><00:01:23.360><c> the</c>
+
+00:01:23.510 --> 00:01:23.520 align:start position:0%
+available in VS code and cursor at the
+
+
+00:01:23.520 --> 00:01:26.630 align:start position:0%
+available in VS code and cursor at the
+moment<00:01:24.400><c> and</c><00:01:24.799><c> it's</c><00:01:25.119><c> part</c><00:01:25.280><c> of</c><00:01:25.360><c> your</c><00:01:25.600><c> chart</c><00:01:25.840><c> GPT</c>
+
+00:01:26.630 --> 00:01:26.640 align:start position:0%
+moment and it's part of your chart GPT
+
+
+00:01:26.640 --> 00:01:27.910 align:start position:0%
+moment and it's part of your chart GPT
+subscription.<00:01:27.200><c> So</c><00:01:27.360><c> it's</c><00:01:27.600><c> going</c><00:01:27.680><c> to</c><00:01:27.840><c> be</c>
+
+00:01:27.910 --> 00:01:27.920 align:start position:0%
+subscription. So it's going to be
+
+
+00:01:27.920 --> 00:01:30.550 align:start position:0%
+subscription. So it's going to be
+available<00:01:28.320><c> to</c><00:01:28.479><c> plus</c><00:01:28.880><c> pro</c><00:01:29.119><c> business</c><00:01:30.080><c> education</c>
+
+00:01:30.550 --> 00:01:30.560 align:start position:0%
+available to plus pro business education
+
+
+00:01:30.560 --> 00:01:32.710 align:start position:0%
+available to plus pro business education
+and<00:01:30.799><c> enterprise</c><00:01:31.360><c> plans.</c><00:01:31.920><c> You</c><00:01:32.159><c> don't</c><00:01:32.400><c> have</c><00:01:32.560><c> to</c>
+
+00:01:32.710 --> 00:01:32.720 align:start position:0%
+and enterprise plans. You don't have to
+
+
+00:01:32.720 --> 00:01:34.789 align:start position:0%
+and enterprise plans. You don't have to
+pay<00:01:32.960><c> anything</c><00:01:33.280><c> extra.</c><00:01:34.079><c> Keep</c><00:01:34.240><c> in</c><00:01:34.400><c> mind</c><00:01:34.560><c> there</c>
+
+00:01:34.789 --> 00:01:34.799 align:start position:0%
+pay anything extra. Keep in mind there
+
+
+00:01:34.799 --> 00:01:36.469 align:start position:0%
+pay anything extra. Keep in mind there
+are<00:01:34.960><c> some</c><00:01:35.119><c> rate</c><00:01:35.360><c> limits</c><00:01:35.680><c> but</c><00:01:35.920><c> I</c><00:01:36.159><c> think</c><00:01:36.240><c> they</c>
+
+00:01:36.469 --> 00:01:36.479 align:start position:0%
+are some rate limits but I think they
+
+
+00:01:36.479 --> 00:01:39.109 align:start position:0%
+are some rate limits but I think they
+are<00:01:36.640><c> pretty</c><00:01:36.880><c> generous.</c><00:01:38.159><c> So</c><00:01:38.400><c> first</c><00:01:38.640><c> a</c><00:01:38.880><c> quick</c>
+
+00:01:39.109 --> 00:01:39.119 align:start position:0%
+are pretty generous. So first a quick
+
+
+00:01:39.119 --> 00:01:40.710 align:start position:0%
+are pretty generous. So first a quick
+look<00:01:39.200><c> at</c><00:01:39.360><c> some</c><00:01:39.600><c> benchmarks.</c><00:01:40.240><c> The</c><00:01:40.400><c> first</c><00:01:40.560><c> one</c>
+
+00:01:40.710 --> 00:01:40.720 align:start position:0%
+look at some benchmarks. The first one
+
+
+00:01:40.720 --> 00:01:42.310 align:start position:0%
+look at some benchmarks. The first one
+that<00:01:40.880><c> they</c><00:01:41.040><c> have</c><00:01:41.200><c> reported</c><00:01:41.520><c> is</c><00:01:41.759><c> the</c><00:01:42.000><c> sweep</c>
+
+00:01:42.310 --> 00:01:42.320 align:start position:0%
+that they have reported is the sweep
+
+
+00:01:42.320 --> 00:01:45.429 align:start position:0%
+that they have reported is the sweep
+bench<00:01:42.799><c> verified.</c><00:01:43.759><c> It</c><00:01:43.920><c> seems</c><00:01:44.159><c> to</c><00:01:44.320><c> be</c><00:01:45.040><c> a</c><00:01:45.280><c> couple</c>
+
+00:01:45.429 --> 00:01:45.439 align:start position:0%
+bench verified. It seems to be a couple
+
+
+00:01:45.439 --> 00:01:49.429 align:start position:0%
+bench verified. It seems to be a couple
+of<00:01:45.759><c> percent</c><00:01:46.479><c> better</c><00:01:47.200><c> than</c><00:01:47.920><c> the</c><00:01:48.240><c> existing</c><00:01:48.640><c> GPD</c>
+
+00:01:49.429 --> 00:01:49.439 align:start position:0%
+of percent better than the existing GPD
+
+
+00:01:49.439 --> 00:01:53.109 align:start position:0%
+of percent better than the existing GPD
+5<00:01:50.079><c> on</c><00:01:50.320><c> high</c><00:01:50.640><c> settings.</c><00:01:51.600><c> It</c><00:01:51.920><c> also</c><00:01:52.159><c> has</c><00:01:52.399><c> the</c><00:01:52.720><c> same</c>
+
+00:01:53.109 --> 00:01:53.119 align:start position:0%
+5 on high settings. It also has the same
+
+
+00:01:53.119 --> 00:01:55.271 align:start position:0%
+5 on high settings. It also has the same
+reasoning<00:01:53.520><c> efforts,</c><00:01:54.000><c> low,</c><00:01:54.399><c> medium,</c><00:01:54.799><c> high.</c>
+
+00:01:55.271 --> 00:01:55.281 align:start position:0%
+reasoning efforts, low, medium, high.
+
+
+00:01:55.281 --> 00:01:56.710 align:start position:0%
+reasoning efforts, low, medium, high.
+[snorts]<00:01:55.520><c> Now,</c><00:01:55.840><c> something</c><00:01:56.079><c> you</c><00:01:56.240><c> will</c><00:01:56.399><c> notice</c>
+
+00:01:56.710 --> 00:01:56.720 align:start position:0%
+[snorts] Now, something you will notice
+
+
+00:01:56.720 --> 00:01:59.990 align:start position:0%
+[snorts] Now, something you will notice
+is<00:01:56.880><c> that</c><00:01:57.119><c> this</c><00:01:57.439><c> is</c><00:01:57.600><c> not</c><00:01:57.840><c> the</c><00:01:58.240><c> actual</c><00:01:58.960><c> reported</c>
+
+00:01:59.990 --> 00:02:00.000 align:start position:0%
+is that this is not the actual reported
+
+
+00:02:00.000 --> 00:02:03.270 align:start position:0%
+is that this is not the actual reported
+score<00:02:00.320><c> of</c><00:02:00.560><c> GPT5</c><00:02:01.360><c> Hive.</c><00:02:02.320><c> Actually,</c><00:02:02.719><c> if</c><00:02:02.880><c> you</c><00:02:03.040><c> go</c>
+
+00:02:03.270 --> 00:02:03.280 align:start position:0%
+score of GPT5 Hive. Actually, if you go
+
+
+00:02:03.280 --> 00:02:05.910 align:start position:0%
+score of GPT5 Hive. Actually, if you go
+back<00:02:03.759><c> to</c><00:02:04.000><c> the</c><00:02:04.640><c> initial</c><00:02:05.119><c> announcement</c><00:02:05.680><c> of</c>
+
+00:02:05.910 --> 00:02:05.920 align:start position:0%
+back to the initial announcement of
+
+
+00:02:05.920 --> 00:02:09.990 align:start position:0%
+back to the initial announcement of
+GBD5,<00:02:07.119><c> it</c><00:02:07.360><c> was</c><00:02:07.600><c> 74.9%</c>
+
+00:02:09.990 --> 00:02:10.000 align:start position:0%
+GBD5, it was 74.9%
+
+
+00:02:10.000 --> 00:02:12.150 align:start position:0%
+GBD5, it was 74.9%
+on<00:02:10.239><c> the</c><00:02:10.399><c> Sweepbench</c><00:02:10.959><c> verified.</c><00:02:11.760><c> But</c><00:02:11.920><c> you'll</c>
+
+00:02:12.150 --> 00:02:12.160 align:start position:0%
+on the Sweepbench verified. But you'll
+
+
+00:02:12.160 --> 00:02:15.110 align:start position:0%
+on the Sweepbench verified. But you'll
+notice<00:02:12.400><c> that</c><00:02:12.640><c> it</c><00:02:12.879><c> was</c><00:02:13.040><c> using</c><00:02:13.280><c> only</c><00:02:13.840><c> 477</c>
+
+00:02:15.110 --> 00:02:15.120 align:start position:0%
+notice that it was using only 477
+
+
+00:02:15.120 --> 00:02:17.589 align:start position:0%
+notice that it was using only 477
+questions<00:02:15.599><c> out</c><00:02:15.840><c> of</c><00:02:16.000><c> the</c><00:02:16.239><c> 500s</c><00:02:17.200><c> that</c><00:02:17.440><c> are</c>
+
+00:02:17.589 --> 00:02:17.599 align:start position:0%
+questions out of the 500s that are
+
+
+00:02:17.599 --> 00:02:20.229 align:start position:0%
+questions out of the 500s that are
+available<00:02:18.000><c> on</c><00:02:18.239><c> Sweepbench</c><00:02:18.800><c> verified.</c><00:02:20.000><c> In</c>
+
+00:02:20.229 --> 00:02:20.239 align:start position:0%
+available on Sweepbench verified. In
+
+
+00:02:20.239 --> 00:02:22.390 align:start position:0%
+available on Sweepbench verified. In
+fact,<00:02:20.720><c> any</c><00:02:21.040><c> previous</c><00:02:21.440><c> model</c><00:02:21.920><c> that</c><00:02:22.239><c> was</c>
+
+00:02:22.390 --> 00:02:22.400 align:start position:0%
+fact, any previous model that was
+
+
+00:02:22.400 --> 00:02:23.990 align:start position:0%
+fact, any previous model that was
+trained<00:02:22.720><c> and</c><00:02:22.879><c> tested</c><00:02:23.200><c> on</c><00:02:23.360><c> Sweepbench</c>
+
+00:02:23.990 --> 00:02:24.000 align:start position:0%
+trained and tested on Sweepbench
+
+
+00:02:24.000 --> 00:02:27.670 align:start position:0%
+trained and tested on Sweepbench
+verified<00:02:24.319><c> from</c><00:02:24.560><c> OpenAI</c><00:02:25.280><c> were</c><00:02:25.520><c> tested</c><00:02:25.840><c> on</c><00:02:26.160><c> 477</c>
+
+00:02:27.670 --> 00:02:27.680 align:start position:0%
+verified from OpenAI were tested on 477
+
+
+00:02:27.680 --> 00:02:30.390 align:start position:0%
+verified from OpenAI were tested on 477
+questions.<00:02:28.879><c> But</c><00:02:29.120><c> now</c><00:02:29.360><c> for</c><00:02:29.520><c> this</c><00:02:29.760><c> test</c><00:02:30.080><c> they</c>
+
+00:02:30.390 --> 00:02:30.400 align:start position:0%
+questions. But now for this test they
+
+
+00:02:30.400 --> 00:02:33.270 align:start position:0%
+questions. But now for this test they
+are<00:02:30.560><c> testing</c><00:02:30.879><c> it</c><00:02:31.120><c> on</c><00:02:31.360><c> all</c><00:02:31.760><c> 500</c><00:02:32.319><c> questions</c><00:02:33.040><c> and</c>
+
+00:02:33.270 --> 00:02:33.280 align:start position:0%
+are testing it on all 500 questions and
+
+
+00:02:33.280 --> 00:02:36.790 align:start position:0%
+are testing it on all 500 questions and
+you<00:02:33.440><c> can</c><00:02:33.599><c> actually</c><00:02:33.920><c> see</c><00:02:34.080><c> that</c><00:02:34.560><c> the</c><00:02:34.800><c> GBT</c><00:02:35.440><c> 5</c><00:02:35.760><c> high</c>
+
+00:02:36.790 --> 00:02:36.800 align:start position:0%
+you can actually see that the GBT 5 high
+
+
+00:02:36.800 --> 00:02:39.589 align:start position:0%
+you can actually see that the GBT 5 high
+has<00:02:37.120><c> a</c><00:02:37.360><c> huge</c><00:02:38.319><c> performance</c><00:02:38.800><c> decrease.</c><00:02:39.280><c> So</c><00:02:39.360><c> it</c>
+
+00:02:39.589 --> 00:02:39.599 align:start position:0%
+has a huge performance decrease. So it
+
+
+00:02:39.599 --> 00:02:41.830 align:start position:0%
+has a huge performance decrease. So it
+seems<00:02:39.760><c> like</c><00:02:40.239><c> for</c><00:02:40.480><c> the</c><00:02:40.720><c> remaining</c><00:02:41.040><c> 22</c>
+
+00:02:41.830 --> 00:02:41.840 align:start position:0%
+seems like for the remaining 22
+
+
+00:02:41.840 --> 00:02:44.630 align:start position:0%
+seems like for the remaining 22
+questions<00:02:43.120><c> GPT5</c>
+
+00:02:44.630 --> 00:02:44.640 align:start position:0%
+questions GPT5
+
+
+00:02:44.640 --> 00:02:47.670 align:start position:0%
+questions GPT5
+is<00:02:44.959><c> struggling</c><00:02:45.360><c> a</c><00:02:45.680><c> lot</c><00:02:46.319><c> and</c><00:02:46.800><c> same</c><00:02:47.200><c> seems</c><00:02:47.440><c> to</c><00:02:47.599><c> be</c>
+
+00:02:47.670 --> 00:02:47.680 align:start position:0%
+is struggling a lot and same seems to be
+
+
+00:02:47.680 --> 00:02:50.309 align:start position:0%
+is struggling a lot and same seems to be
+the<00:02:47.920><c> case</c><00:02:48.080><c> with</c><00:02:48.319><c> GPT5</c><00:02:49.360><c> codeex</c><00:02:49.840><c> on</c><00:02:50.080><c> high</c>
+
+00:02:50.309 --> 00:02:50.319 align:start position:0%
+the case with GPT5 codeex on high
+
+
+00:02:50.319 --> 00:02:52.470 align:start position:0%
+the case with GPT5 codeex on high
+settings<00:02:50.720><c> as</c><00:02:50.959><c> well</c><00:02:51.360><c> because</c><00:02:51.599><c> it's</c><00:02:51.920><c> not</c><00:02:52.239><c> able</c>
+
+00:02:52.470 --> 00:02:52.480 align:start position:0%
+settings as well because it's not able
+
+
+00:02:52.480 --> 00:02:56.150 align:start position:0%
+settings as well because it's not able
+to<00:02:52.720><c> even</c><00:02:53.440><c> beat</c><00:02:54.080><c> this</c><00:02:54.400><c> score.</c><00:02:55.360><c> So</c><00:02:55.680><c> that</c><00:02:55.920><c> being</c>
+
+00:02:56.150 --> 00:02:56.160 align:start position:0%
+to even beat this score. So that being
+
+
+00:02:56.160 --> 00:02:58.309 align:start position:0%
+to even beat this score. So that being
+said,<00:02:56.560><c> 23</c><00:02:57.120><c> questions</c><00:02:57.519><c> are</c><00:02:57.840><c> still</c><00:02:58.000><c> a</c>
+
+00:02:58.309 --> 00:02:58.319 align:start position:0%
+said, 23 questions are still a
+
+
+00:02:58.319 --> 00:02:59.910 align:start position:0%
+said, 23 questions are still a
+significant<00:02:58.800><c> portion</c><00:02:59.200><c> and</c><00:02:59.519><c> I'm</c><00:02:59.680><c> actually</c>
+
+00:02:59.910 --> 00:02:59.920 align:start position:0%
+significant portion and I'm actually
+
+
+00:02:59.920 --> 00:03:02.710 align:start position:0%
+significant portion and I'm actually
+glad<00:03:00.160><c> that</c><00:03:00.400><c> they</c><00:03:00.720><c> started</c><00:03:01.120><c> adding</c><00:03:01.519><c> those.</c><00:03:02.319><c> Now</c>
+
+00:03:02.710 --> 00:03:02.720 align:start position:0%
+glad that they started adding those. Now
+
+
+00:03:02.720 --> 00:03:05.110 align:start position:0%
+glad that they started adding those. Now
+when<00:03:02.879><c> it</c><00:03:03.040><c> comes</c><00:03:03.200><c> to</c><00:03:03.440><c> code</c><00:03:03.760><c> refactoring</c><00:03:04.400><c> tasks,</c>
+
+00:03:05.110 --> 00:03:05.120 align:start position:0%
+when it comes to code refactoring tasks,
+
+
+00:03:05.120 --> 00:03:09.110 align:start position:0%
+when it comes to code refactoring tasks,
+it's<00:03:06.000><c> easily</c><00:03:07.040><c> I</c><00:03:07.280><c> would</c><00:03:07.360><c> say</c><00:03:07.599><c> 50%</c><00:03:08.480><c> better</c><00:03:08.800><c> than</c>
+
+00:03:09.110 --> 00:03:09.120 align:start position:0%
+it's easily I would say 50% better than
+
+
+00:03:09.120 --> 00:03:11.670 align:start position:0%
+it's easily I would say 50% better than
+GPD5<00:03:09.920><c> on</c><00:03:10.080><c> high</c><00:03:10.400><c> settings,</c><00:03:11.040><c> which</c><00:03:11.280><c> is</c><00:03:11.440><c> pretty</c>
+
+00:03:11.670 --> 00:03:11.680 align:start position:0%
+GPD5 on high settings, which is pretty
+
+
+00:03:11.680 --> 00:03:15.110 align:start position:0%
+GPD5 on high settings, which is pretty
+incredible.<00:03:12.879><c> But</c><00:03:13.680><c> I</c><00:03:14.000><c> personally</c><00:03:14.400><c> think</c><00:03:14.720><c> this</c>
+
+00:03:15.110 --> 00:03:15.120 align:start position:0%
+incredible. But I personally think this
+
+
+00:03:15.120 --> 00:03:17.190 align:start position:0%
+incredible. But I personally think this
+is<00:03:15.280><c> the</c><00:03:15.519><c> most</c><00:03:15.840><c> important</c><00:03:16.400><c> chart</c><00:03:16.720><c> of</c><00:03:16.959><c> this</c>
+
+00:03:17.190 --> 00:03:17.200 align:start position:0%
+is the most important chart of this
+
+
+00:03:17.200 --> 00:03:19.990 align:start position:0%
+is the most important chart of this
+release.<00:03:17.680><c> And</c><00:03:17.840><c> it</c><00:03:18.319><c> really</c><00:03:18.720><c> shows</c><00:03:19.280><c> where</c><00:03:19.680><c> these</c>
+
+00:03:19.990 --> 00:03:20.000 align:start position:0%
+release. And it really shows where these
+
+
+00:03:20.000 --> 00:03:22.470 align:start position:0%
+release. And it really shows where these
+coding<00:03:20.400><c> agents</c><00:03:20.800><c> are</c><00:03:21.040><c> going.</c><00:03:22.000><c> In</c><00:03:22.239><c> order</c><00:03:22.400><c> to</c>
+
+00:03:22.470 --> 00:03:22.480 align:start position:0%
+coding agents are going. In order to
+
+
+00:03:22.480 --> 00:03:24.790 align:start position:0%
+coding agents are going. In order to
+explain<00:03:22.800><c> that</c><00:03:22.959><c> chart,</c><00:03:23.360><c> let's</c><00:03:23.680><c> look</c><00:03:23.760><c> at</c><00:03:24.000><c> this.</c>
+
+00:03:24.790 --> 00:03:24.800 align:start position:0%
+explain that chart, let's look at this.
+
+
+00:03:24.800 --> 00:03:28.149 align:start position:0%
+explain that chart, let's look at this.
+So<00:03:24.959><c> according</c><00:03:25.360><c> to</c><00:03:25.599><c> them,</c><00:03:26.000><c> for</c><00:03:26.239><c> the</c><00:03:26.480><c> bottom</c><00:03:26.879><c> 10%</c>
+
+00:03:28.149 --> 00:03:28.159 align:start position:0%
+So according to them, for the bottom 10%
+
+
+00:03:28.159 --> 00:03:30.710 align:start position:0%
+So according to them, for the bottom 10%
+of<00:03:28.400><c> the</c><00:03:28.560><c> user</c><00:03:28.959><c> turns</c><00:03:29.840><c> in</c><00:03:30.080><c> terms</c><00:03:30.239><c> of</c><00:03:30.319><c> the</c><00:03:30.560><c> number</c>
+
+00:03:30.710 --> 00:03:30.720 align:start position:0%
+of the user turns in terms of the number
+
+
+00:03:30.720 --> 00:03:35.030 align:start position:0%
+of the user turns in terms of the number
+of<00:03:30.879><c> tokens</c><00:03:31.280><c> generated,</c><00:03:32.400><c> GPD5</c><00:03:33.440><c> uses</c>
+
+00:03:35.030 --> 00:03:35.040 align:start position:0%
+of tokens generated, GPD5 uses
+
+
+00:03:35.040 --> 00:03:38.710 align:start position:0%
+of tokens generated, GPD5 uses
+93%<00:03:35.920><c> or</c><00:03:36.239><c> almost</c><00:03:36.560><c> 94%</c><00:03:37.599><c> fewer</c><00:03:38.000><c> tokens</c><00:03:38.400><c> than</c>
+
+00:03:38.710 --> 00:03:38.720 align:start position:0%
+93% or almost 94% fewer tokens than
+
+
+00:03:38.720 --> 00:03:43.350 align:start position:0%
+93% or almost 94% fewer tokens than
+GPD5.<00:03:39.599><c> GPD5</c><00:03:40.400><c> codeex.</c><00:03:41.840><c> But</c><00:03:42.000><c> for</c><00:03:42.239><c> the</c><00:03:42.400><c> top</c><00:03:42.640><c> 10%,</c>
+
+00:03:43.350 --> 00:03:43.360 align:start position:0%
+GPD5. GPD5 codeex. But for the top 10%,
+
+
+00:03:43.360 --> 00:03:46.470 align:start position:0%
+GPD5. GPD5 codeex. But for the top 10%,
+GPD5<00:03:44.159><c> codeex</c><00:03:44.799><c> thinks</c><00:03:45.120><c> more</c><00:03:45.680><c> spending</c><00:03:46.159><c> twice</c>
+
+00:03:46.470 --> 00:03:46.480 align:start position:0%
+GPD5 codeex thinks more spending twice
+
+
+00:03:46.480 --> 00:03:49.350 align:start position:0%
+GPD5 codeex thinks more spending twice
+as<00:03:46.720><c> long</c><00:03:47.519><c> and</c><00:03:47.840><c> editing,</c><00:03:48.400><c> testing,</c><00:03:49.040><c> and</c>
+
+00:03:49.350 --> 00:03:49.360 align:start position:0%
+as long and editing, testing, and
+
+
+00:03:49.360 --> 00:03:53.350 align:start position:0%
+as long and editing, testing, and
+iterating.<00:03:50.400><c> So</c><00:03:50.720><c> if</c><00:03:50.959><c> you</c><00:03:51.120><c> look</c><00:03:51.440><c> here,</c><00:03:52.799><c> this</c><00:03:53.120><c> has</c>
+
+00:03:53.350 --> 00:03:53.360 align:start position:0%
+iterating. So if you look here, this has
+
+
+00:03:53.360 --> 00:03:56.309 align:start position:0%
+iterating. So if you look here, this has
+the<00:03:53.519><c> ability</c><00:03:53.920><c> to</c><00:03:54.159><c> dynamically</c><00:03:55.440><c> select</c><00:03:56.080><c> the</c>
+
+00:03:56.309 --> 00:03:56.319 align:start position:0%
+the ability to dynamically select the
+
+
+00:03:56.319 --> 00:03:58.869 align:start position:0%
+the ability to dynamically select the
+reasoning<00:03:56.720><c> effort</c><00:03:57.439><c> and</c><00:03:57.760><c> then</c><00:03:58.080><c> also</c><00:03:58.480><c> how</c><00:03:58.720><c> many</c>
+
+00:03:58.869 --> 00:03:58.879 align:start position:0%
+reasoning effort and then also how many
+
+
+00:03:58.879 --> 00:04:01.429 align:start position:0%
+reasoning effort and then also how many
+tokens<00:03:59.280><c> it's</c><00:03:59.599><c> going</c><00:03:59.680><c> to</c><00:03:59.920><c> generate.</c><00:04:00.720><c> So</c><00:04:01.040><c> for</c>
+
+00:04:01.429 --> 00:04:01.439 align:start position:0%
+tokens it's going to generate. So for
+
+
+00:04:01.439 --> 00:04:04.149 align:start position:0%
+tokens it's going to generate. So for
+low<00:04:01.680><c> reasoning</c><00:04:02.080><c> or</c><00:04:02.400><c> low</c><00:04:02.640><c> effort</c><00:04:02.959><c> tasks,</c><00:04:03.519><c> it's</c>
+
+00:04:04.149 --> 00:04:04.159 align:start position:0%
+low reasoning or low effort tasks, it's
+
+
+00:04:04.159 --> 00:04:06.390 align:start position:0%
+low reasoning or low effort tasks, it's
+generating<00:04:04.640><c> a</c><00:04:04.879><c> lot</c><00:04:05.360><c> a</c><00:04:05.599><c> lot</c><00:04:05.760><c> less</c><00:04:06.000><c> tokens</c>
+
+00:04:06.390 --> 00:04:06.400 align:start position:0%
+generating a lot a lot less tokens
+
+
+00:04:06.400 --> 00:04:09.190 align:start position:0%
+generating a lot a lot less tokens
+compared<00:04:06.640><c> to</c><00:04:06.799><c> GPD5.</c><00:04:08.159><c> But</c><00:04:08.560><c> where</c><00:04:08.959><c> the</c>
+
+00:04:09.190 --> 00:04:09.200 align:start position:0%
+compared to GPD5. But where the
+
+
+00:04:09.200 --> 00:04:11.830 align:start position:0%
+compared to GPD5. But where the
+complexity<00:04:09.680><c> of</c><00:04:09.840><c> the</c><00:04:10.000><c> task</c><00:04:10.319><c> increases,</c><00:04:11.519><c> it's</c>
+
+00:04:11.830 --> 00:04:11.840 align:start position:0%
+complexity of the task increases, it's
+
+
+00:04:11.840 --> 00:04:13.750 align:start position:0%
+complexity of the task increases, it's
+generating<00:04:12.400><c> almost</c><00:04:12.799><c> twice</c><00:04:13.200><c> the</c><00:04:13.439><c> number</c><00:04:13.599><c> of</c>
+
+00:04:13.750 --> 00:04:13.760 align:start position:0%
+generating almost twice the number of
+
+
+00:04:13.760 --> 00:04:16.949 align:start position:0%
+generating almost twice the number of
+tokens<00:04:14.239><c> of</c><00:04:14.480><c> GPD5.</c><00:04:15.599><c> Now</c><00:04:15.920><c> hopefully</c><00:04:16.320><c> these</c><00:04:16.639><c> are</c>
+
+00:04:16.949 --> 00:04:16.959 align:start position:0%
+tokens of GPD5. Now hopefully these are
+
+
+00:04:16.959 --> 00:04:19.509 align:start position:0%
+tokens of GPD5. Now hopefully these are
+useful<00:04:17.359><c> tokens</c><00:04:17.919><c> based</c><00:04:18.239><c> on</c><00:04:18.479><c> the</c><00:04:18.959><c> results</c><00:04:19.280><c> that</c>
+
+00:04:19.509 --> 00:04:19.519 align:start position:0%
+useful tokens based on the results that
+
+
+00:04:19.519 --> 00:04:22.310 align:start position:0%
+useful tokens based on the results that
+we<00:04:19.680><c> saw</c><00:04:20.320><c> from</c><00:04:20.560><c> the</c><00:04:20.720><c> benchmarks</c><00:04:21.680><c> but</c><00:04:21.919><c> you</c><00:04:22.160><c> can</c>
+
+00:04:22.310 --> 00:04:22.320 align:start position:0%
+we saw from the benchmarks but you can
+
+
+00:04:22.320 --> 00:04:23.990 align:start position:0%
+we saw from the benchmarks but you can
+actually<00:04:22.560><c> see</c><00:04:22.720><c> that</c><00:04:22.960><c> the</c><00:04:23.199><c> model</c><00:04:23.520><c> has</c><00:04:23.759><c> the</c>
+
+00:04:23.990 --> 00:04:24.000 align:start position:0%
+actually see that the model has the
+
+
+00:04:24.000 --> 00:04:26.950 align:start position:0%
+actually see that the model has the
+ability<00:04:24.479><c> now</c><00:04:25.120><c> to</c><00:04:25.440><c> think</c><00:04:25.759><c> longer</c><00:04:26.160><c> for</c><00:04:26.479><c> complex</c>
+
+00:04:26.950 --> 00:04:26.960 align:start position:0%
+ability now to think longer for complex
+
+
+00:04:26.960 --> 00:04:29.830 align:start position:0%
+ability now to think longer for complex
+tasks<00:04:27.759><c> and</c><00:04:28.000><c> this</c><00:04:28.160><c> is</c><00:04:28.400><c> one</c><00:04:28.639><c> of</c><00:04:28.800><c> the</c><00:04:28.960><c> promise</c><00:04:29.440><c> of</c>
+
+00:04:29.830 --> 00:04:29.840 align:start position:0%
+tasks and this is one of the promise of
+
+
+00:04:29.840 --> 00:04:31.909 align:start position:0%
+tasks and this is one of the promise of
+GBT5<00:04:30.639><c> type</c><00:04:30.800><c> of</c><00:04:30.960><c> models</c><00:04:31.280><c> that</c><00:04:31.520><c> they</c><00:04:31.680><c> are</c><00:04:31.840><c> going</c>
+
+00:04:31.909 --> 00:04:31.919 align:start position:0%
+GBT5 type of models that they are going
+
+
+00:04:31.919 --> 00:04:34.310 align:start position:0%
+GBT5 type of models that they are going
+to<00:04:32.000><c> have</c><00:04:32.240><c> this</c><00:04:32.479><c> dynamic</c><00:04:32.960><c> routing</c><00:04:33.600><c> but</c><00:04:33.919><c> here</c>
+
+00:04:34.310 --> 00:04:34.320 align:start position:0%
+to have this dynamic routing but here
+
+
+00:04:34.320 --> 00:04:36.870 align:start position:0%
+to have this dynamic routing but here
+even<00:04:34.639><c> it's</c><00:04:35.199><c> dynamically</c><00:04:36.000><c> selecting</c><00:04:36.479><c> the</c>
+
+00:04:36.870 --> 00:04:36.880 align:start position:0%
+even it's dynamically selecting the
+
+
+00:04:36.880 --> 00:04:38.870 align:start position:0%
+even it's dynamically selecting the
+effort<00:04:37.199><c> that</c><00:04:37.440><c> is</c><00:04:37.600><c> going</c><00:04:37.759><c> to</c><00:04:37.840><c> put</c><00:04:38.080><c> in</c><00:04:38.479><c> based</c><00:04:38.800><c> on</c>
+
+00:04:38.870 --> 00:04:38.880 align:start position:0%
+effort that is going to put in based on
+
+
+00:04:38.880 --> 00:04:41.590 align:start position:0%
+effort that is going to put in based on
+the<00:04:39.120><c> complexity</c><00:04:39.600><c> of</c><00:04:39.759><c> the</c><00:04:39.919><c> task.</c><00:04:40.960><c> So</c><00:04:41.199><c> here</c><00:04:41.360><c> they</c>
+
+00:04:41.590 --> 00:04:41.600 align:start position:0%
+the complexity of the task. So here they
+
+
+00:04:41.600 --> 00:04:44.550 align:start position:0%
+the complexity of the task. So here they
+say<00:04:41.919><c> GP5</c><00:04:42.560><c> codeex</c><00:04:43.120><c> adopts</c><00:04:43.600><c> how</c><00:04:43.840><c> much</c><00:04:44.080><c> time</c><00:04:44.240><c> it</c>
+
+00:04:44.550 --> 00:04:44.560 align:start position:0%
+say GP5 codeex adopts how much time it
+
+
+00:04:44.560 --> 00:04:47.830 align:start position:0%
+say GP5 codeex adopts how much time it
+spends<00:04:45.759><c> thinking</c><00:04:46.560><c> more</c><00:04:46.880><c> dynamically</c><00:04:47.520><c> based</c>
+
+00:04:47.830 --> 00:04:47.840 align:start position:0%
+spends thinking more dynamically based
+
+
+00:04:47.840 --> 00:04:49.909 align:start position:0%
+spends thinking more dynamically based
+on<00:04:47.919><c> the</c><00:04:48.160><c> complexity</c><00:04:48.639><c> of</c><00:04:48.800><c> the</c><00:04:48.960><c> task.</c><00:04:49.360><c> As</c><00:04:49.600><c> I</c><00:04:49.680><c> said</c>
+
+00:04:49.909 --> 00:04:49.919 align:start position:0%
+on the complexity of the task. As I said
+
+
+00:04:49.919 --> 00:04:51.590 align:start position:0%
+on the complexity of the task. As I said
+this<00:04:50.080><c> is</c><00:04:50.160><c> going</c><00:04:50.240><c> to</c><00:04:50.320><c> be</c><00:04:50.479><c> pretty</c><00:04:50.720><c> incredible</c><00:04:51.280><c> if</c>
+
+00:04:51.590 --> 00:04:51.600 align:start position:0%
+this is going to be pretty incredible if
+
+
+00:04:51.600 --> 00:04:55.110 align:start position:0%
+this is going to be pretty incredible if
+it<00:04:51.840><c> works</c><00:04:53.199><c> and</c><00:04:53.759><c> the</c><00:04:54.160><c> model</c><00:04:54.479><c> combines</c><00:04:54.800><c> two</c>
+
+00:04:55.110 --> 00:04:55.120 align:start position:0%
+it works and the model combines two
+
+
+00:04:55.120 --> 00:04:56.710 align:start position:0%
+it works and the model combines two
+essential<00:04:55.360><c> skills</c><00:04:55.680><c> for</c><00:04:55.840><c> coding</c><00:04:56.160><c> agents.</c><00:04:56.560><c> So</c>
+
+00:04:56.710 --> 00:04:56.720 align:start position:0%
+essential skills for coding agents. So
+
+
+00:04:56.720 --> 00:04:58.469 align:start position:0%
+essential skills for coding agents. So
+pairing<00:04:57.120><c> with</c><00:04:57.280><c> developers</c><00:04:57.680><c> in</c><00:04:57.919><c> interactive</c>
+
+00:04:58.469 --> 00:04:58.479 align:start position:0%
+pairing with developers in interactive
+
+
+00:04:58.479 --> 00:05:00.390 align:start position:0%
+pairing with developers in interactive
+sessions.<00:04:59.040><c> So</c><00:04:59.199><c> you</c><00:04:59.360><c> can</c><00:04:59.520><c> actually</c><00:04:59.919><c> use</c><00:05:00.080><c> it</c><00:05:00.240><c> as</c>
+
+00:05:00.390 --> 00:05:00.400 align:start position:0%
+sessions. So you can actually use it as
+
+
+00:05:00.400 --> 00:05:03.189 align:start position:0%
+sessions. So you can actually use it as
+a<00:05:00.560><c> chat</c><00:05:00.880><c> model</c><00:05:01.520><c> and</c><00:05:01.840><c> then</c><00:05:02.160><c> you</c><00:05:02.479><c> can</c><00:05:02.639><c> offload</c>
+
+00:05:03.189 --> 00:05:03.199 align:start position:0%
+a chat model and then you can offload
+
+
+00:05:03.199 --> 00:05:06.070 align:start position:0%
+a chat model and then you can offload
+the<00:05:03.440><c> work</c><00:05:04.320><c> which</c><00:05:05.120><c> the</c><00:05:05.440><c> model</c><00:05:05.680><c> can</c><00:05:05.840><c> do</c>
+
+00:05:06.070 --> 00:05:06.080 align:start position:0%
+the work which the model can do
+
+
+00:05:06.080 --> 00:05:08.469 align:start position:0%
+the work which the model can do
+independently<00:05:06.800><c> for</c><00:05:07.039><c> longer</c><00:05:07.440><c> tasks.</c><00:05:08.080><c> And</c><00:05:08.320><c> the</c>
+
+00:05:08.469 --> 00:05:08.479 align:start position:0%
+independently for longer tasks. And the
+
+
+00:05:08.479 --> 00:05:11.670 align:start position:0%
+independently for longer tasks. And the
+beauty<00:05:08.639><c> of</c><00:05:08.880><c> Codex</c><00:05:09.759><c> as</c><00:05:10.000><c> a</c><00:05:10.320><c> product</c><00:05:10.639><c> is</c><00:05:10.880><c> that</c><00:05:11.440><c> you</c>
+
+00:05:11.670 --> 00:05:11.680 align:start position:0%
+beauty of Codex as a product is that you
+
+
+00:05:11.680 --> 00:05:14.469 align:start position:0%
+beauty of Codex as a product is that you
+can<00:05:12.000><c> run</c><00:05:12.160><c> it</c><00:05:12.400><c> locally</c><00:05:12.720><c> on</c><00:05:12.960><c> CLI</c><00:05:13.759><c> and</c><00:05:14.000><c> then</c><00:05:14.240><c> if</c>
+
+00:05:14.469 --> 00:05:14.479 align:start position:0%
+can run it locally on CLI and then if
+
+
+00:05:14.479 --> 00:05:16.310 align:start position:0%
+can run it locally on CLI and then if
+you<00:05:14.639><c> want</c><00:05:14.800><c> you</c><00:05:15.039><c> can</c><00:05:15.120><c> just</c><00:05:15.280><c> offload</c><00:05:15.759><c> some</c><00:05:15.919><c> tasks</c>
+
+00:05:16.310 --> 00:05:16.320 align:start position:0%
+you want you can just offload some tasks
+
+
+00:05:16.320 --> 00:05:18.870 align:start position:0%
+you want you can just offload some tasks
+to<00:05:16.560><c> the</c><00:05:16.720><c> cloud</c><00:05:17.039><c> version</c><00:05:17.680><c> which</c><00:05:18.160><c> runs</c><00:05:18.479><c> in</c><00:05:18.639><c> the</c>
+
+00:05:18.870 --> 00:05:18.880 align:start position:0%
+to the cloud version which runs in the
+
+
+00:05:18.880 --> 00:05:22.230 align:start position:0%
+to the cloud version which runs in the
+cloud<00:05:19.520><c> independent</c><00:05:20.400><c> of</c><00:05:20.960><c> your</c><00:05:21.199><c> input</c><00:05:21.840><c> which</c><00:05:22.080><c> is</c>
+
+00:05:22.230 --> 00:05:22.240 align:start position:0%
+cloud independent of your input which is
+
+
+00:05:22.240 --> 00:05:25.510 align:start position:0%
+cloud independent of your input which is
+a<00:05:22.479><c> pretty</c><00:05:22.880><c> great</c><00:05:23.360><c> user</c><00:05:23.759><c> experience.</c><00:05:25.039><c> Another</c>
+
+00:05:25.510 --> 00:05:25.520 align:start position:0%
+a pretty great user experience. Another
+
+
+00:05:25.520 --> 00:05:27.029 align:start position:0%
+a pretty great user experience. Another
+aspect<00:05:25.840><c> that</c><00:05:26.080><c> they</c><00:05:26.240><c> have</c><00:05:26.479><c> specifically</c>
+
+00:05:27.029 --> 00:05:27.039 align:start position:0%
+aspect that they have specifically
+
+
+00:05:27.039 --> 00:05:29.990 align:start position:0%
+aspect that they have specifically
+focused<00:05:27.520><c> on</c><00:05:27.919><c> is</c><00:05:28.240><c> code</c><00:05:28.560><c> reviews.</c><00:05:29.120><c> Now</c><00:05:29.600><c> software</c>
+
+00:05:29.990 --> 00:05:30.000 align:start position:0%
+focused on is code reviews. Now software
+
+
+00:05:30.000 --> 00:05:31.990 align:start position:0%
+focused on is code reviews. Now software
+engineers<00:05:30.400><c> do</c><00:05:30.639><c> a</c><00:05:30.800><c> lot</c><00:05:30.880><c> of</c><00:05:30.960><c> code</c><00:05:31.199><c> reviews.</c><00:05:31.840><c> So</c>
+
+00:05:31.990 --> 00:05:32.000 align:start position:0%
+engineers do a lot of code reviews. So
+
+
+00:05:32.000 --> 00:05:34.230 align:start position:0%
+engineers do a lot of code reviews. So
+they<00:05:32.240><c> say</c><00:05:32.400><c> that</c><00:05:32.639><c> GPT5</c><00:05:33.280><c> codex</c><00:05:33.759><c> has</c><00:05:34.000><c> been</c>
+
+00:05:34.230 --> 00:05:34.240 align:start position:0%
+they say that GPT5 codex has been
+
+
+00:05:34.240 --> 00:05:36.550 align:start position:0%
+they say that GPT5 codex has been
+trained<00:05:34.960><c> specifically</c><00:05:35.520><c> for</c><00:05:35.840><c> conducting</c><00:05:36.320><c> code</c>
+
+00:05:36.550 --> 00:05:36.560 align:start position:0%
+trained specifically for conducting code
+
+
+00:05:36.560 --> 00:05:39.029 align:start position:0%
+trained specifically for conducting code
+reviews<00:05:37.280><c> and</c><00:05:37.680><c> finding</c><00:05:38.000><c> critical</c><00:05:38.400><c> flaws.</c><00:05:38.800><c> When</c>
+
+00:05:39.029 --> 00:05:39.039 align:start position:0%
+reviews and finding critical flaws. When
+
+
+00:05:39.039 --> 00:05:41.990 align:start position:0%
+reviews and finding critical flaws. When
+reviewing<00:05:39.759><c> it</c><00:05:40.000><c> navigates</c><00:05:40.479><c> your</c><00:05:40.960><c> codebase</c>
+
+00:05:41.990 --> 00:05:42.000 align:start position:0%
+reviewing it navigates your codebase
+
+
+00:05:42.000 --> 00:05:44.150 align:start position:0%
+reviewing it navigates your codebase
+reasons<00:05:42.479><c> through</c><00:05:42.880><c> dependencies</c><00:05:43.520><c> and</c><00:05:43.840><c> runs</c>
+
+00:05:44.150 --> 00:05:44.160 align:start position:0%
+reasons through dependencies and runs
+
+
+00:05:44.160 --> 00:05:46.790 align:start position:0%
+reasons through dependencies and runs
+your<00:05:44.479><c> code</c><00:05:44.720><c> and</c><00:05:45.039><c> tests</c><00:05:45.520><c> it</c><00:05:45.840><c> in</c><00:05:46.080><c> order</c><00:05:46.320><c> to</c>
+
+00:05:46.790 --> 00:05:46.800 align:start position:0%
+your code and tests it in order to
+
+
+00:05:46.800 --> 00:05:49.189 align:start position:0%
+your code and tests it in order to
+validate<00:05:47.360><c> correctness.</c><00:05:48.320><c> I</c><00:05:48.639><c> personally</c><00:05:48.960><c> have</c>
+
+00:05:49.189 --> 00:05:49.199 align:start position:0%
+validate correctness. I personally have
+
+
+00:05:49.199 --> 00:05:52.870 align:start position:0%
+validate correctness. I personally have
+been<00:05:49.600><c> mostly</c><00:05:50.000><c> using</c><00:05:50.720><c> clot</c><00:05:51.120><c> code</c><00:05:51.759><c> but</c><00:05:52.320><c> I</c><00:05:52.639><c> am</c>
+
+00:05:52.870 --> 00:05:52.880 align:start position:0%
+been mostly using clot code but I am
+
+
+00:05:52.880 --> 00:05:56.710 align:start position:0%
+been mostly using clot code but I am
+going<00:05:53.039><c> to</c><00:05:53.600><c> definitely</c><00:05:54.160><c> try</c><00:05:54.880><c> GBD5</c><00:05:55.600><c> codecs</c><00:05:56.400><c> and</c>
+
+00:05:56.710 --> 00:05:56.720 align:start position:0%
+going to definitely try GBD5 codecs and
+
+
+00:05:56.720 --> 00:06:00.070 align:start position:0%
+going to definitely try GBD5 codecs and
+see<00:05:56.960><c> how</c><00:05:57.280><c> good</c><00:05:57.600><c> this</c><00:05:57.919><c> model</c><00:05:58.320><c> is.</c><00:05:59.360><c> So</c><00:05:59.680><c> based</c><00:05:59.919><c> on</c>
+
+00:06:00.070 --> 00:06:00.080 align:start position:0%
+see how good this model is. So based on
+
+
+00:06:00.080 --> 00:06:02.870 align:start position:0%
+see how good this model is. So based on
+their<00:06:00.400><c> internal</c><00:06:01.199><c> benchmarks,</c><00:06:02.000><c> the</c><00:06:02.400><c> number</c><00:06:02.639><c> of</c>
+
+00:06:02.870 --> 00:06:02.880 align:start position:0%
+their internal benchmarks, the number of
+
+
+00:06:02.880 --> 00:06:05.510 align:start position:0%
+their internal benchmarks, the number of
+incorrect<00:06:03.520><c> comments</c><00:06:04.000><c> has</c><00:06:04.560><c> reduced</c>
+
+00:06:05.510 --> 00:06:05.520 align:start position:0%
+incorrect comments has reduced
+
+
+00:06:05.520 --> 00:06:08.230 align:start position:0%
+incorrect comments has reduced
+substantially.<00:06:06.479><c> It</c><00:06:06.720><c> went</c><00:06:06.880><c> from</c><00:06:07.280><c> 13%</c><00:06:07.919><c> all</c><00:06:08.160><c> the</c>
+
+00:06:08.230 --> 00:06:08.240 align:start position:0%
+substantially. It went from 13% all the
+
+
+00:06:08.240 --> 00:06:10.390 align:start position:0%
+substantially. It went from 13% all the
+way<00:06:08.400><c> down</c><00:06:08.560><c> to</c><00:06:08.720><c> almost</c><00:06:09.199><c> 4%</c><00:06:09.759><c> which</c><00:06:10.000><c> is</c><00:06:10.160><c> pretty</c>
+
+00:06:10.390 --> 00:06:10.400 align:start position:0%
+way down to almost 4% which is pretty
+
+
+00:06:10.400 --> 00:06:12.550 align:start position:0%
+way down to almost 4% which is pretty
+incredible.<00:06:11.280><c> The</c><00:06:11.520><c> number</c><00:06:11.680><c> of</c><00:06:11.840><c> high</c><00:06:12.080><c> impact</c>
+
+00:06:12.550 --> 00:06:12.560 align:start position:0%
+incredible. The number of high impact
+
+
+00:06:12.560 --> 00:06:15.830 align:start position:0%
+incredible. The number of high impact
+comments<00:06:13.360><c> generated</c><00:06:13.919><c> by</c><00:06:14.319><c> GPT5</c><00:06:15.120><c> codeex</c>
+
+00:06:15.830 --> 00:06:15.840 align:start position:0%
+comments generated by GPT5 codeex
+
+
+00:06:15.840 --> 00:06:19.029 align:start position:0%
+comments generated by GPT5 codeex
+compared<00:06:16.160><c> to</c><00:06:16.319><c> GPT5</c><00:06:17.039><c> has</c><00:06:17.280><c> increased</c><00:06:18.319><c> again</c><00:06:18.800><c> by</c>
+
+00:06:19.029 --> 00:06:19.039 align:start position:0%
+compared to GPT5 has increased again by
+
+
+00:06:19.039 --> 00:06:23.350 align:start position:0%
+compared to GPT5 has increased again by
+a<00:06:19.199><c> good</c><00:06:19.600><c> 12</c><00:06:19.840><c> to</c><00:06:20.160><c> 13%.</c><00:06:21.440><c> And</c><00:06:22.639><c> that</c><00:06:22.880><c> being</c><00:06:23.120><c> said</c>
+
+00:06:23.350 --> 00:06:23.360 align:start position:0%
+a good 12 to 13%. And that being said
+
+
+00:06:23.360 --> 00:06:25.749 align:start position:0%
+a good 12 to 13%. And that being said
+that<00:06:23.680><c> it</c><00:06:23.919><c> has</c><00:06:24.080><c> actually</c><00:06:24.400><c> reduced</c><00:06:24.800><c> the</c><00:06:25.360><c> average</c>
+
+00:06:25.749 --> 00:06:25.759 align:start position:0%
+that it has actually reduced the average
+
+
+00:06:25.759 --> 00:06:28.550 align:start position:0%
+that it has actually reduced the average
+number<00:06:26.000><c> of</c><00:06:26.319><c> comments</c><00:06:26.800><c> per</c><00:06:27.520><c> PR</c><00:06:28.080><c> which</c><00:06:28.319><c> is</c>
+
+00:06:28.550 --> 00:06:28.560 align:start position:0%
+number of comments per PR which is
+
+
+00:06:28.560 --> 00:06:31.270 align:start position:0%
+number of comments per PR which is
+pretty<00:06:28.960><c> good</c><00:06:29.199><c> as</c><00:06:29.440><c> well.</c><00:06:30.400><c> Now</c><00:06:30.639><c> these</c><00:06:30.880><c> updates</c>
+
+00:06:31.270 --> 00:06:31.280 align:start position:0%
+pretty good as well. Now these updates
+
+
+00:06:31.280 --> 00:06:35.510 align:start position:0%
+pretty good as well. Now these updates
+are<00:06:31.520><c> available</c><00:06:32.400><c> in</c><00:06:33.039><c> CEX</c><00:06:33.600><c> CLI.</c><00:06:34.720><c> You</c><00:06:34.880><c> can</c><00:06:35.039><c> also</c>
+
+00:06:35.510 --> 00:06:35.520 align:start position:0%
+are available in CEX CLI. You can also
+
+
+00:06:35.520 --> 00:06:38.870 align:start position:0%
+are available in CEX CLI. You can also
+use<00:06:36.240><c> this</c><00:06:36.560><c> as</c><00:06:36.720><c> a</c><00:06:36.960><c> part</c><00:06:37.120><c> of</c><00:06:37.360><c> IDE.</c><00:06:38.319><c> For</c><00:06:38.479><c> example,</c>
+
+00:06:38.870 --> 00:06:38.880 align:start position:0%
+use this as a part of IDE. For example,
+
+
+00:06:38.880 --> 00:06:40.870 align:start position:0%
+use this as a part of IDE. For example,
+VS<00:06:39.280><c> code</c><00:06:39.520><c> and</c><00:06:39.680><c> cursel</c><00:06:40.240><c> have</c><00:06:40.400><c> support</c><00:06:40.639><c> for</c>
+
+00:06:40.870 --> 00:06:40.880 align:start position:0%
+VS code and cursel have support for
+
+
+00:06:40.880 --> 00:06:44.070 align:start position:0%
+VS code and cursel have support for
+codec<00:06:41.280><c> cla</c><00:06:42.240><c> but</c><00:06:42.479><c> I</c><00:06:42.720><c> don't</c><00:06:42.880><c> know</c><00:06:43.600><c> how</c><00:06:43.840><c> the</c>
+
+00:06:44.070 --> 00:06:44.080 align:start position:0%
+codec cla but I don't know how the
+
+
+00:06:44.080 --> 00:06:45.990 align:start position:0%
+codec cla but I don't know how the
+experience<00:06:44.639><c> is</c><00:06:44.960><c> going</c><00:06:45.120><c> to</c><00:06:45.280><c> be</c><00:06:45.520><c> because</c><00:06:45.759><c> I</c>
+
+00:06:45.990 --> 00:06:46.000 align:start position:0%
+experience is going to be because I
+
+
+00:06:46.000 --> 00:06:48.390 align:start position:0%
+experience is going to be because I
+think<00:06:46.319><c> these</c><00:06:46.639><c> are</c><00:06:46.960><c> different</c><00:06:47.280><c> integrations.</c>
+
+00:06:48.390 --> 00:06:48.400 align:start position:0%
+think these are different integrations.
+
+
+00:06:48.400 --> 00:06:49.909 align:start position:0%
+think these are different integrations.
+Although<00:06:48.720><c> the</c><00:06:48.960><c> underlying</c><00:06:49.360><c> model</c><00:06:49.600><c> is</c><00:06:49.759><c> the</c>
+
+00:06:49.909 --> 00:06:49.919 align:start position:0%
+Although the underlying model is the
+
+
+00:06:49.919 --> 00:06:51.909 align:start position:0%
+Although the underlying model is the
+same,<00:06:50.080><c> but</c><00:06:50.400><c> depending</c><00:06:50.880><c> on</c><00:06:51.280><c> the</c><00:06:51.520><c> interface</c>
+
+00:06:51.909 --> 00:06:51.919 align:start position:0%
+same, but depending on the interface
+
+
+00:06:51.919 --> 00:06:54.150 align:start position:0%
+same, but depending on the interface
+that<00:06:52.080><c> you're</c><00:06:52.319><c> using,</c><00:06:52.720><c> I</c><00:06:52.960><c> think</c><00:06:53.120><c> you</c><00:06:53.440><c> may</c><00:06:53.919><c> run</c>
+
+00:06:54.150 --> 00:06:54.160 align:start position:0%
+that you're using, I think you may run
+
+
+00:06:54.160 --> 00:06:56.629 align:start position:0%
+that you're using, I think you may run
+into<00:06:54.560><c> different</c><00:06:54.800><c> experience.</c><00:06:56.000><c> From</c><00:06:56.240><c> what</c><00:06:56.479><c> I</c>
+
+00:06:56.629 --> 00:06:56.639 align:start position:0%
+into different experience. From what I
+
+
+00:06:56.639 --> 00:06:59.510 align:start position:0%
+into different experience. From what I
+have<00:06:56.800><c> seen</c><00:06:57.039><c> and</c><00:06:57.280><c> heard,</c><00:06:57.759><c> Codex</c><00:06:58.240><c> CLI</c><00:06:58.960><c> seems</c><00:06:59.360><c> to</c>
+
+00:06:59.510 --> 00:06:59.520 align:start position:0%
+have seen and heard, Codex CLI seems to
+
+
+00:06:59.520 --> 00:07:02.230 align:start position:0%
+have seen and heard, Codex CLI seems to
+be<00:06:59.680><c> the</c><00:06:59.919><c> purest</c><00:07:00.880><c> experience</c><00:07:01.440><c> where</c><00:07:01.759><c> you</c><00:07:02.000><c> can</c>
+
+00:07:02.230 --> 00:07:02.240 align:start position:0%
+be the purest experience where you can
+
+
+00:07:02.240 --> 00:07:05.029 align:start position:0%
+be the purest experience where you can
+get<00:07:02.400><c> the</c><00:07:02.720><c> best</c><00:07:03.039><c> results.</c><00:07:04.319><c> So,</c><00:07:04.560><c> I'm</c><00:07:04.800><c> going</c><00:07:04.960><c> to</c>
+
+00:07:05.029 --> 00:07:05.039 align:start position:0%
+get the best results. So, I'm going to
+
+
+00:07:05.039 --> 00:07:09.510 align:start position:0%
+get the best results. So, I'm going to
+do<00:07:05.280><c> some</c><00:07:05.599><c> tests</c><00:07:06.240><c> with</c><00:07:06.720><c> Codeex</c><00:07:07.520><c> CLI</c><00:07:08.160><c> and</c><00:07:08.720><c> Codeex</c>
+
+00:07:09.510 --> 00:07:09.520 align:start position:0%
+do some tests with Codeex CLI and Codeex
+
+
+00:07:09.520 --> 00:07:12.390 align:start position:0%
+do some tests with Codeex CLI and Codeex
+in<00:07:09.759><c> the</c><00:07:10.000><c> IDE</c><00:07:10.800><c> and</c><00:07:11.120><c> we'll</c><00:07:11.520><c> probably</c><00:07:12.080><c> report</c>
+
+00:07:12.390 --> 00:07:12.400 align:start position:0%
+in the IDE and we'll probably report
+
+
+00:07:12.400 --> 00:07:14.629 align:start position:0%
+in the IDE and we'll probably report
+this<00:07:12.639><c> in</c><00:07:12.880><c> another</c><00:07:13.280><c> video.</c><00:07:13.919><c> people</c><00:07:14.160><c> who</c><00:07:14.400><c> had</c>
+
+00:07:14.629 --> 00:07:14.639 align:start position:0%
+this in another video. people who had
+
+
+00:07:14.639 --> 00:07:16.629 align:start position:0%
+this in another video. people who had
+early<00:07:14.880><c> access</c><00:07:15.360><c> to</c><00:07:15.599><c> this</c><00:07:15.759><c> model</c><00:07:16.080><c> seems</c><00:07:16.400><c> to</c>
+
+00:07:16.629 --> 00:07:16.639 align:start position:0%
+early access to this model seems to
+
+
+00:07:16.639 --> 00:07:19.270 align:start position:0%
+early access to this model seems to
+really<00:07:16.960><c> like</c><00:07:17.199><c> it</c><00:07:17.680><c> and</c><00:07:17.919><c> open</c><00:07:18.080><c> aim.</c><00:07:18.800><c> I'm</c><00:07:19.039><c> also</c>
+
+00:07:19.270 --> 00:07:19.280 align:start position:0%
+really like it and open aim. I'm also
+
+
+00:07:19.280 --> 00:07:22.070 align:start position:0%
+really like it and open aim. I'm also
+open<00:07:19.520><c> to</c><00:07:19.759><c> early</c><00:07:20.080><c> access.</c><00:07:21.039><c> Okay.</c><00:07:21.360><c> So</c><00:07:21.599><c> here</c><00:07:21.840><c> is</c>
+
+00:07:22.070 --> 00:07:22.080 align:start position:0%
+open to early access. Okay. So here is
+
+
+00:07:22.080 --> 00:07:25.350 align:start position:0%
+open to early access. Okay. So here is
+Dan.<00:07:22.479><c> I</c><00:07:22.720><c> think</c><00:07:22.800><c> he</c><00:07:23.039><c> is</c><00:07:23.440><c> part</c><00:07:23.680><c> of</c><00:07:23.840><c> the</c><00:07:24.400><c> every</c><00:07:25.039><c> or</c>
+
+00:07:25.350 --> 00:07:25.360 align:start position:0%
+Dan. I think he is part of the every or
+
+
+00:07:25.360 --> 00:07:28.070 align:start position:0%
+Dan. I think he is part of the every or
+CEO<00:07:25.759><c> or</c><00:07:25.919><c> co-founder</c><00:07:26.400><c> of</c><00:07:26.639><c> every.</c><00:07:27.280><c> So</c><00:07:27.520><c> he</c><00:07:27.759><c> says</c>
+
+00:07:28.070 --> 00:07:28.080 align:start position:0%
+CEO or co-founder of every. So he says
+
+
+00:07:28.080 --> 00:07:30.150 align:start position:0%
+CEO or co-founder of every. So he says
+there<00:07:28.319><c> are</c><00:07:28.479><c> two</c><00:07:28.720><c> important</c><00:07:29.039><c> things.</c><00:07:29.520><c> Dynamic</c>
+
+00:07:30.150 --> 00:07:30.160 align:start position:0%
+there are two important things. Dynamic
+
+
+00:07:30.160 --> 00:07:32.469 align:start position:0%
+there are two important things. Dynamic
+thinking<00:07:30.560><c> time.</c><00:07:31.199><c> They</c><00:07:31.440><c> moved</c><00:07:31.759><c> this</c><00:07:32.080><c> pattern</c>
+
+00:07:32.469 --> 00:07:32.479 align:start position:0%
+thinking time. They moved this pattern
+
+
+00:07:32.479 --> 00:07:34.950 align:start position:0%
+thinking time. They moved this pattern
+from<00:07:32.800><c> Chad</c><00:07:33.120><c> GPT</c><00:07:33.520><c> to</c><00:07:33.680><c> their</c><00:07:33.919><c> coding</c><00:07:34.240><c> model.</c>
+
+00:07:34.950 --> 00:07:34.960 align:start position:0%
+from Chad GPT to their coding model.
+
+
+00:07:34.960 --> 00:07:36.870 align:start position:0%
+from Chad GPT to their coding model.
+It's<00:07:35.199><c> going</c><00:07:35.280><c> to</c><00:07:35.440><c> be</c><00:07:35.680><c> standard</c><00:07:36.080><c> going</c><00:07:36.319><c> forward.</c>
+
+00:07:36.870 --> 00:07:36.880 align:start position:0%
+It's going to be standard going forward.
+
+
+00:07:36.880 --> 00:07:39.270 align:start position:0%
+It's going to be standard going forward.
+Right?<00:07:37.120><c> So</c><00:07:37.280><c> the</c><00:07:37.440><c> model</c><00:07:37.919><c> itself</c><00:07:38.479><c> can</c><00:07:38.800><c> decide</c>
+
+00:07:39.270 --> 00:07:39.280 align:start position:0%
+Right? So the model itself can decide
+
+
+00:07:39.280 --> 00:07:42.390 align:start position:0%
+Right? So the model itself can decide
+how<00:07:39.599><c> much</c><00:07:40.160><c> thinking</c><00:07:41.039><c> effort</c><00:07:41.840><c> it</c><00:07:42.080><c> needs</c><00:07:42.240><c> to</c>
+
+00:07:42.390 --> 00:07:42.400 align:start position:0%
+how much thinking effort it needs to
+
+
+00:07:42.400 --> 00:07:44.230 align:start position:0%
+how much thinking effort it needs to
+spend<00:07:42.800><c> based</c><00:07:43.039><c> on</c><00:07:43.199><c> the</c><00:07:43.440><c> complexity</c><00:07:43.919><c> of</c><00:07:44.080><c> the</c>
+
+00:07:44.230 --> 00:07:44.240 align:start position:0%
+spend based on the complexity of the
+
+
+00:07:44.240 --> 00:07:47.189 align:start position:0%
+spend based on the complexity of the
+task<00:07:44.880><c> and</c><00:07:45.120><c> then</c><00:07:45.440><c> local</c><00:07:45.840><c> to</c><00:07:46.240><c> web</c><00:07:46.560><c> handoff.</c><00:07:47.039><c> So</c>
+
+00:07:47.189 --> 00:07:47.199 align:start position:0%
+task and then local to web handoff. So
+
+
+00:07:47.199 --> 00:07:50.309 align:start position:0%
+task and then local to web handoff. So
+your<00:07:47.440><c> agent</c><00:07:48.000><c> should</c><00:07:48.639><c> be</c><00:07:48.800><c> with</c><00:07:49.039><c> you</c><00:07:49.759><c> with</c><00:07:50.000><c> full</c>
+
+00:07:50.309 --> 00:07:50.319 align:start position:0%
+your agent should be with you with full
+
+
+00:07:50.319 --> 00:07:52.790 align:start position:0%
+your agent should be with you with full
+context<00:07:51.199><c> wherever</c><00:07:51.680><c> you</c><00:07:51.919><c> use</c><00:07:52.080><c> it.</c><00:07:52.479><c> Now</c><00:07:52.639><c> the</c>
+
+00:07:52.790 --> 00:07:52.800 align:start position:0%
+context wherever you use it. Now the
+
+
+00:07:52.800 --> 00:07:55.589 align:start position:0%
+context wherever you use it. Now the
+beauty<00:07:53.120><c> is</c><00:07:53.280><c> that</c><00:07:53.440><c> you</c><00:07:53.599><c> can</c><00:07:53.759><c> start</c><00:07:53.919><c> a</c><00:07:54.160><c> task</c><00:07:54.639><c> in</c><00:07:55.360><c> a</c>
+
+00:07:55.589 --> 00:07:55.599 align:start position:0%
+beauty is that you can start a task in a
+
+
+00:07:55.599 --> 00:07:58.390 align:start position:0%
+beauty is that you can start a task in a
+CLI<00:07:56.240><c> and</c><00:07:56.479><c> then</c><00:07:56.720><c> hand</c><00:07:56.960><c> it</c><00:07:57.120><c> off</c><00:07:57.360><c> to</c><00:07:57.840><c> the</c><00:07:58.080><c> web</c>
+
+00:07:58.390 --> 00:07:58.400 align:start position:0%
+CLI and then hand it off to the web
+
+
+00:07:58.400 --> 00:08:01.670 align:start position:0%
+CLI and then hand it off to the web
+version<00:07:58.720><c> of</c><00:07:59.039><c> codeex</c><00:07:59.919><c> and</c><00:08:00.560><c> according</c><00:08:00.960><c> to</c><00:08:01.360><c> these</c>
+
+00:08:01.670 --> 00:08:01.680 align:start position:0%
+version of codeex and according to these
+
+
+00:08:01.680 --> 00:08:04.550 align:start position:0%
+version of codeex and according to these
+reports<00:08:02.080><c> it</c><00:08:02.240><c> seems</c><00:08:02.479><c> to</c><00:08:02.639><c> be</c><00:08:02.800><c> working.</c><00:08:03.840><c> So</c><00:08:04.240><c> by</c>
+
+00:08:04.550 --> 00:08:04.560 align:start position:0%
+reports it seems to be working. So by
+
+
+00:08:04.560 --> 00:08:06.469 align:start position:0%
+reports it seems to be working. So by
+default,<00:08:05.039><c> Codex</c><00:08:05.520><c> runs</c><00:08:05.759><c> in</c><00:08:05.840><c> a</c><00:08:06.000><c> sandbox</c>
+
+00:08:06.469 --> 00:08:06.479 align:start position:0%
+default, Codex runs in a sandbox
+
+
+00:08:06.479 --> 00:08:08.230 align:start position:0%
+default, Codex runs in a sandbox
+environment<00:08:07.039><c> with</c><00:08:07.360><c> network</c><00:08:07.759><c> access</c>
+
+00:08:08.230 --> 00:08:08.240 align:start position:0%
+environment with network access
+
+
+00:08:08.240 --> 00:08:11.029 align:start position:0%
+environment with network access
+disabled.<00:08:09.199><c> This</c><00:08:09.440><c> is</c><00:08:09.680><c> for</c><00:08:09.919><c> the</c><00:08:10.160><c> safety</c><00:08:10.639><c> because</c>
+
+00:08:11.029 --> 00:08:11.039 align:start position:0%
+disabled. This is for the safety because
+
+
+00:08:11.039 --> 00:08:13.510 align:start position:0%
+disabled. This is for the safety because
+it's<00:08:11.360><c> going</c><00:08:11.520><c> to</c><00:08:11.599><c> be</c><00:08:11.759><c> running</c><00:08:12.080><c> code</c><00:08:12.639><c> and</c><00:08:13.280><c> you</c>
+
+00:08:13.510 --> 00:08:13.520 align:start position:0%
+it's going to be running code and you
+
+
+00:08:13.520 --> 00:08:15.909 align:start position:0%
+it's going to be running code and you
+don't<00:08:13.680><c> want</c><00:08:14.080><c> the</c><00:08:14.319><c> agent</c><00:08:14.720><c> to</c><00:08:15.440><c> run</c><00:08:15.680><c> either</c>
+
+00:08:15.909 --> 00:08:15.919 align:start position:0%
+don't want the agent to run either
+
+
+00:08:15.919 --> 00:08:17.670 align:start position:0%
+don't want the agent to run either
+malicious<00:08:16.479><c> code</c><00:08:16.639><c> or</c><00:08:17.039><c> perform</c><00:08:17.360><c> some</c>
+
+00:08:17.670 --> 00:08:17.680 align:start position:0%
+malicious code or perform some
+
+
+00:08:17.680 --> 00:08:20.390 align:start position:0%
+malicious code or perform some
+destructive<00:08:18.319><c> actions.</c><00:08:19.599><c> It's</c><00:08:19.840><c> a</c><00:08:20.080><c> similar</c>
+
+00:08:20.390 --> 00:08:20.400 align:start position:0%
+destructive actions. It's a similar
+
+
+00:08:20.400 --> 00:08:22.710 align:start position:0%
+destructive actions. It's a similar
+pattern<00:08:20.720><c> that</c><00:08:20.960><c> we</c><00:08:21.120><c> have</c><00:08:21.280><c> seen</c><00:08:21.599><c> in</c><00:08:21.919><c> other</c><00:08:22.160><c> CLIs</c>
+
+00:08:22.710 --> 00:08:22.720 align:start position:0%
+pattern that we have seen in other CLIs
+
+
+00:08:22.720 --> 00:08:25.350 align:start position:0%
+pattern that we have seen in other CLIs
+including<00:08:23.039><c> clot</c><00:08:23.360><c> code,</c><00:08:23.680><c> Gemini</c><00:08:24.160><c> CLI</c><00:08:24.960><c> and</c><00:08:25.120><c> I</c>
+
+00:08:25.350 --> 00:08:25.360 align:start position:0%
+including clot code, Gemini CLI and I
+
+
+00:08:25.360 --> 00:08:27.189 align:start position:0%
+including clot code, Gemini CLI and I
+think<00:08:25.440><c> that</c><00:08:25.599><c> is</c><00:08:25.759><c> the</c><00:08:26.000><c> right</c><00:08:26.240><c> way</c><00:08:26.400><c> to</c><00:08:26.560><c> go</c><00:08:26.879><c> now</c>
+
+00:08:27.189 --> 00:08:27.199 align:start position:0%
+think that is the right way to go now
+
+
+00:08:27.199 --> 00:08:30.070 align:start position:0%
+think that is the right way to go now
+with<00:08:27.440><c> these</c><00:08:27.759><c> updates.</c><00:08:28.639><c> Codex</c><00:08:29.120><c> CLI</c><00:08:29.599><c> definitely</c>
+
+00:08:30.070 --> 00:08:30.080 align:start position:0%
+with these updates. Codex CLI definitely
+
+
+00:08:30.080 --> 00:08:33.269 align:start position:0%
+with these updates. Codex CLI definitely
+is<00:08:30.319><c> catching</c><00:08:30.720><c> up</c><00:08:30.879><c> to</c><00:08:31.280><c> clot</c><00:08:31.599><c> code</c><00:08:32.719><c> which</c><00:08:32.959><c> is</c>
+
+00:08:33.269 --> 00:08:33.279 align:start position:0%
+is catching up to clot code which is
+
+
+00:08:33.279 --> 00:08:35.829 align:start position:0%
+is catching up to clot code which is
+great<00:08:33.519><c> for</c><00:08:33.839><c> us</c><00:08:34.240><c> customers</c><00:08:34.719><c> and</c><00:08:34.959><c> consumers.</c>
+
+00:08:35.829 --> 00:08:35.839 align:start position:0%
+great for us customers and consumers.
+
+
+00:08:35.839 --> 00:08:38.070 align:start position:0%
+great for us customers and consumers.
+Now<00:08:36.240><c> pricing</c><00:08:36.560><c> and</c><00:08:36.719><c> availability.</c><00:08:37.440><c> So</c><00:08:37.599><c> this</c><00:08:37.760><c> is</c>
+
+00:08:38.070 --> 00:08:38.080 align:start position:0%
+Now pricing and availability. So this is
+
+
+00:08:38.080 --> 00:08:40.790 align:start position:0%
+Now pricing and availability. So this is
+part<00:08:38.240><c> of</c><00:08:38.560><c> chartp</c><00:08:39.440><c> plus</c><00:08:39.760><c> pro</c><00:08:40.080><c> business</c>
+
+00:08:40.790 --> 00:08:40.800 align:start position:0%
+part of chartp plus pro business
+
+
+00:08:40.800 --> 00:08:42.949 align:start position:0%
+part of chartp plus pro business
+education<00:08:41.200><c> in</c><00:08:41.519><c> enterprise.</c><00:08:42.320><c> I</c><00:08:42.640><c> think</c><00:08:42.719><c> they</c>
+
+00:08:42.949 --> 00:08:42.959 align:start position:0%
+education in enterprise. I think they
+
+
+00:08:42.959 --> 00:08:46.710 align:start position:0%
+education in enterprise. I think they
+have<00:08:43.599><c> pretty</c><00:08:44.560><c> generous</c><00:08:45.680><c> rate</c><00:08:46.000><c> limits</c><00:08:46.480><c> for</c>
+
+00:08:46.710 --> 00:08:46.720 align:start position:0%
+have pretty generous rate limits for
+
+
+00:08:46.720 --> 00:08:49.190 align:start position:0%
+have pretty generous rate limits for
+each<00:08:46.959><c> of</c><00:08:47.120><c> these,</c><00:08:47.760><c> but</c><00:08:48.000><c> they</c><00:08:48.240><c> say</c><00:08:48.320><c> that</c><00:08:48.959><c> with</c>
+
+00:08:49.190 --> 00:08:49.200 align:start position:0%
+each of these, but they say that with
+
+
+00:08:49.200 --> 00:08:51.590 align:start position:0%
+each of these, but they say that with
+plus<00:08:49.519><c> edu</c><00:08:50.000><c> and</c><00:08:50.160><c> business</c><00:08:50.480><c> seats</c><00:08:50.880><c> can</c><00:08:51.120><c> cover</c><00:08:51.360><c> a</c>
+
+00:08:51.590 --> 00:08:51.600 align:start position:0%
+plus edu and business seats can cover a
+
+
+00:08:51.600 --> 00:08:53.750 align:start position:0%
+plus edu and business seats can cover a
+few<00:08:51.839><c> focused</c><00:08:52.399><c> coding</c><00:08:52.800><c> sessions</c><00:08:53.120><c> each</c><00:08:53.440><c> week</c>
+
+00:08:53.750 --> 00:08:53.760 align:start position:0%
+few focused coding sessions each week
+
+
+00:08:53.760 --> 00:08:57.110 align:start position:0%
+few focused coding sessions each week
+while<00:08:54.080><c> pro</c><00:08:54.720><c> can</c><00:08:55.040><c> support</c><00:08:55.360><c> a</c><00:08:55.600><c> full</c><00:08:56.480><c> work</c><00:08:56.800><c> week</c>
+
+00:08:57.110 --> 00:08:57.120 align:start position:0%
+while pro can support a full work week
+
+
+00:08:57.120 --> 00:08:59.750 align:start position:0%
+while pro can support a full work week
+across<00:08:57.519><c> multiple</c><00:08:58.080><c> projects.</c><00:08:58.800><c> Right?</c><00:08:59.200><c> So</c><00:08:59.519><c> do</c>
+
+00:08:59.750 --> 00:08:59.760 align:start position:0%
+across multiple projects. Right? So do
+
+
+00:08:59.760 --> 00:09:02.470 align:start position:0%
+across multiple projects. Right? So do
+check<00:08:59.920><c> it</c><00:09:00.080><c> out</c><00:09:00.240><c> and</c><00:09:00.480><c> see</c><00:09:00.800><c> if</c><00:09:01.120><c> you</c><00:09:01.600><c> run</c><00:09:01.839><c> into</c><00:09:02.240><c> any</c>
+
+00:09:02.470 --> 00:09:02.480 align:start position:0%
+check it out and see if you run into any
+
+
+00:09:02.480 --> 00:09:05.269 align:start position:0%
+check it out and see if you run into any
+issues.<00:09:03.440><c> Now</c><00:09:03.920><c> this</c><00:09:04.240><c> does</c><00:09:04.399><c> not</c><00:09:04.640><c> seem</c><00:09:04.880><c> to</c><00:09:05.120><c> be</c>
+
+00:09:05.269 --> 00:09:05.279 align:start position:0%
+issues. Now this does not seem to be
+
+
+00:09:05.279 --> 00:09:07.910 align:start position:0%
+issues. Now this does not seem to be
+available<00:09:06.160><c> through</c><00:09:06.560><c> API</c><00:09:07.040><c> yet.</c><00:09:07.279><c> They</c><00:09:07.519><c> say</c><00:09:07.680><c> for</c>
+
+00:09:07.910 --> 00:09:07.920 align:start position:0%
+available through API yet. They say for
+
+
+00:09:07.920 --> 00:09:10.790 align:start position:0%
+available through API yet. They say for
+developers<00:09:08.320><c> using</c><00:09:08.560><c> Codex</c><00:09:09.200><c> CLI</c><00:09:09.680><c> via</c><00:09:10.000><c> the</c><00:09:10.240><c> API,</c>
+
+00:09:10.790 --> 00:09:10.800 align:start position:0%
+developers using Codex CLI via the API,
+
+
+00:09:10.800 --> 00:09:13.990 align:start position:0%
+developers using Codex CLI via the API,
+we<00:09:11.040><c> plan</c><00:09:11.279><c> to</c><00:09:11.440><c> make</c><00:09:11.680><c> GPD5</c><00:09:12.560><c> CEX</c><00:09:13.040><c> available</c><00:09:13.680><c> in</c>
+
+00:09:13.990 --> 00:09:14.000 align:start position:0%
+we plan to make GPD5 CEX available in
+
+
+00:09:14.000 --> 00:09:15.750 align:start position:0%
+we plan to make GPD5 CEX available in
+the<00:09:14.160><c> API</c><00:09:14.560><c> soon.</c><00:09:14.959><c> So,</c><00:09:15.120><c> I</c><00:09:15.279><c> think</c><00:09:15.360><c> it's</c><00:09:15.519><c> going</c><00:09:15.680><c> to</c>
+
+00:09:15.750 --> 00:09:15.760 align:start position:0%
+the API soon. So, I think it's going to
+
+
+00:09:15.760 --> 00:09:18.310 align:start position:0%
+the API soon. So, I think it's going to
+be<00:09:15.920><c> available</c><00:09:16.480><c> pretty</c><00:09:16.880><c> soon.</c><00:09:17.839><c> Okay,</c><00:09:18.080><c> I'm</c>
+
+00:09:18.310 --> 00:09:18.320 align:start position:0%
+be available pretty soon. Okay, I'm
+
+
+00:09:18.320 --> 00:09:21.910 align:start position:0%
+be available pretty soon. Okay, I'm
+going<00:09:18.399><c> to</c><00:09:18.560><c> be</c><00:09:18.800><c> testing</c><00:09:19.360><c> GPD5</c><00:09:20.480><c> codecs</c><00:09:21.600><c> in</c>
+
+00:09:21.910 --> 00:09:21.920 align:start position:0%
+going to be testing GPD5 codecs in
+
+
+00:09:21.920 --> 00:09:24.630 align:start position:0%
+going to be testing GPD5 codecs in
+Codeex<00:09:22.399><c> CLI.</c><00:09:23.680><c> It's</c><00:09:23.920><c> really</c><00:09:24.080><c> hard</c><00:09:24.240><c> to</c><00:09:24.480><c> keep</c>
+
+00:09:24.630 --> 00:09:24.640 align:start position:0%
+Codeex CLI. It's really hard to keep
+
+
+00:09:24.640 --> 00:09:26.389 align:start position:0%
+Codeex CLI. It's really hard to keep
+track<00:09:24.800><c> of</c><00:09:24.959><c> how</c><00:09:25.200><c> many</c><00:09:25.360><c> codecs</c><00:09:25.760><c> there</c><00:09:26.000><c> are.</c>
+
+00:09:26.389 --> 00:09:26.399 align:start position:0%
+track of how many codecs there are.
+
+
+00:09:26.399 --> 00:09:28.949 align:start position:0%
+track of how many codecs there are.
+Watch<00:09:26.640><c> out</c><00:09:26.880><c> for</c><00:09:27.040><c> the</c><00:09:27.279><c> that</c><00:09:27.600><c> video.</c><00:09:28.240><c> Anyways,</c><00:09:28.720><c> I</c>
+
+00:09:28.949 --> 00:09:28.959 align:start position:0%
+Watch out for the that video. Anyways, I
+
+
+00:09:28.959 --> 00:09:30.470 align:start position:0%
+Watch out for the that video. Anyways, I
+hope<00:09:29.040><c> you</c><00:09:29.200><c> find</c><00:09:29.440><c> this</c><00:09:29.600><c> video</c><00:09:29.839><c> useful.</c><00:09:30.240><c> Thanks</c>
+
+00:09:30.470 --> 00:09:30.480 align:start position:0%
+hope you find this video useful. Thanks
+
+
+00:09:30.480 --> 00:09:32.150 align:start position:0%
+hope you find this video useful. Thanks
+for<00:09:30.640><c> watching</c><00:09:30.880><c> and</c><00:09:31.040><c> as</c><00:09:31.279><c> always,</c><00:09:31.760><c> see</c><00:09:31.920><c> you</c><00:09:32.000><c> in</c>
+
+00:09:32.150 --> 00:09:32.160 align:start position:0%
+for watching and as always, see you in
+
+
+00:09:32.160 --> 00:09:34.399 align:start position:0%
+for watching and as always, see you in
+the<00:09:32.240><c> next</c>

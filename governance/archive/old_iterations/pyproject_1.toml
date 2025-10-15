@@ -1,0 +1,35 @@
+[project]
+name = "universal-ai-tools"
+version = "1.0.0"
+description = "Universal AI Tools - Multi-model LLM platform"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "test"]
+addopts = "-q --tb=short"
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+filterwarnings = [
+  "ignore::DeprecationWarning:numpy.*",
+  "ignore::DeprecationWarning:torch.*",
+  "ignore::PytestCollectionWarning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]  # Line too long (handled by formatter)
+
+# Forbid imports that bypass proper module structure
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.per-file-ignores]
+# Allow api.* imports only in these files
+"src/api/api_server.py" = ["TID252"]
+"src/api/*_routes.py" = ["TID252"]
+"api/app.py" = ["TID252"]

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>11</integer>
+	<key>logs</key>
+	<dict>
+		<key>6ED6A88F-20D1-4275-BD13-C0A40961EDA0</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>125BB172-63C5-49B5-B5FB-1DA7762635AB</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>1</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.unit.cocoaUnitTest</string>
+			<key>fileName</key>
+			<string>Test-NeuroForgeApp-2025.10.11_16-29-04--0500.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>2</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>NeuroForgeApp project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>NeuroForgeApp</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Test NeuroForgeApp</string>
+			<key>timeStartedRecording</key>
+			<real>781910944.63247204</real>
+			<key>timeStoppedRecording</key>
+			<real>781910954.29370499</real>
+			<key>title</key>
+			<string>Test NeuroForgeApp</string>
+			<key>uniqueIdentifier</key>
+			<string>6ED6A88F-20D1-4275-BD13-C0A40961EDA0</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

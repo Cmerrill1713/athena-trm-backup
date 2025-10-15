@@ -1,0 +1,21 @@
+{
+  "vision": {
+    "enabled": true,
+    "providers": ["fastvlm", "mlx"],
+    "fastvlm_base": "http://127.0.0.1:8811",
+    "fallback": "mlx"
+  },
+  "models": {
+    "fastvlm": {
+      "endpoint": "http://127.0.0.1:8811/v1/vision",
+      "model": "llava-fastvithd_1.5b_stage3",
+      "timeout_ms": 5000,
+      "preferred_for": ["general", "describe", "ocr", "chart"]
+    },
+    "mlx": {
+      "endpoint": "http://localhost:8015/v1/vision",
+      "timeout_ms": 3000,
+      "preferred_for": ["lightweight"]
+    }
+  }
+}

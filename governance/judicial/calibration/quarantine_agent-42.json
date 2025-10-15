@@ -1,0 +1,1 @@
+{"actor": "agent-42", "profile": "limited", "ts": 1760340422.023443, "profileSpec": {"network": "restricted", "model_ops": ["no_update"], "io": ["write_limited"], "duration_s": 14400}}

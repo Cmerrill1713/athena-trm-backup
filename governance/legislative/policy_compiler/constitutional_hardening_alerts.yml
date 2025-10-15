@@ -1,0 +1,173 @@
+# Constitutional Auto-Evolution Hardening Alerts
+# Deploy to Prometheus alerting rules
+
+groups:
+  - name: constitutional_hardening
+    rules:
+
+    # 1. Causal Proof - CUPED Uplift
+    - alert: ConstitutionalUpliftInsufficient
+      expr: (cuped_adjusted_uplift{policy="constitutional"} - ignoring(policy) cuped_adjusted_uplift{policy="control"}) < 0.3
+      for: 1h
+      labels:
+        severity: warning
+        team: ml-platform
+      annotations:
+        summary: "Constitutional policy uplift below threshold"
+        description: "CUPED-adjusted judge score uplift < 0.3 points. Consider rolling back or investigating confounders."
+        runbook_url: "https://internal.runbook/causal-validation"
+
+    # 2. Governance Quality - FP/FN Rates
+    - alert: GovernanceFalsePositiveRateHigh
+      expr: governance_false_positive_rate > 0.1
+      for: 30m
+      labels:
+        severity: warning
+        team: ml-platform
+      annotations:
+        summary: "High governance false positive rate"
+        description: "Governance blocking good strategies >10% of the time"
+
+    - alert: GovernanceFalseNegativeRateHigh
+      expr: governance_false_negative_rate > 0.1
+      for: 30m
+      labels:
+        severity: warning
+        team: ml-platform
+      annotations:
+        summary: "High governance false negative rate"
+        description: "Governance passing bad strategies >10% of the time"
+
+    # 3. Privacy Math - Budget Exceeded
+    - alert: PrivacyBudgetExceeded
+      expr: max_over_time(privacy_epsilon_30d[30d]) > 2.0
+      for: 5m
+      labels:
+        severity: critical
+        team: privacy
+      annotations:
+        summary: "Privacy budget exceeded"
+        description: "Differential privacy ε > 2.0 over 30 days for deployment {{ $labels.deployment_id }}"
+
+    # 4. Non-stationarity - Reward Drift
+    - alert: RewardDriftDetected
+      expr: |
+        abs(
+          avg_over_time(judge_helpfulness_avg{strategy=~".+"}[30m])
+          - avg_over_time(judge_helpfulness_avg{strategy=~".+"}[30m] offset 30m)
+        ) > 0.4
+      for: 15m
+      labels:
+        severity: warning
+        team: ml-platform
+      annotations:
+        summary: "Reward drift detected"
+        description: "Strategy {{ $labels.strategy }} showing >0.4 point reward drift"
+
+    # 5. Constitutional Invariants
+    - alert: MonocultureRisk
+      expr: max(strategy_traffic_pct) > 0.7
+      for: 30m
+      labels:
+        severity: warning
+        team: ml-platform
+      annotations:
+        summary: "Monoculture risk detected"
+        description: "Single strategy commanding >70% of traffic"
+
+    - alert: OverFilteringDetected
+      expr: quantile(0.5, docs_used) < 3
+      for: 15m
+      labels:
+        severity: warning
+        team: ml-platform
+      annotations:
+        summary: "Over-filtering detected"
+        description: "Median documents used < 3, risking context starvation"
+
+    - alert: LatencyBudgetExceeded
+      expr: histogram_quantile(0.95, rate(router_latency_bucket[5m])) > 800
+      for: 10m
+      labels:
+        severity: warning
+        team: ml-platform
+      annotations:
+        summary: "Router latency budget exceeded"
+        description: "P95 router latency > 800ms"
+
+    # 6. Break-glass Automations
+    - alert: StrategyQuarantineTriggered
+      expr: |
+        (reward_drift < -0.5) or
+        (latency_p95_increase > 200) or
+        (governance_warnings_total - governance_warnings_total offset 30m > 3)
+      for: 5m
+      labels:
+        severity: critical
+        team: ml-platform
+      annotations:
+        summary: "Strategy quarantine triggered"
+        description: "Auto-quarantining strategy due to performance degradation"
+        runbook_url: "https://internal.runbook/quarantine-strategy"
+
+    - alert: FederationIntegrityBreach
+      expr: |
+        (federation_signature_mismatches > 0) or
+        (missing_privacy_accounting > 0)
+      for: 1m
+      labels:
+        severity: critical
+        team: security
+      annotations:
+        summary: "Federation integrity breach"
+        description: "Halting federation ingestion due to integrity violation"
+        runbook_url: "https://internal.runbook/federation-integrity"
+
+    # 7. Cost-Aware Policy KPI
+    - alert: PolicyUtilityDecline
+      expr: |
+        utility_score{policy="neural+bandit+const"} <
+        utility_score{policy=~".*static.*"} * 0.9
+      for: 2h
+      labels:
+        severity: warning
+        team: ml-platform
+      annotations:
+        summary: "Constitutional policy utility declining"
+        description: "Neural+bandit+const utility < 90% of best static policy"
+
+    # 8. Fairness Violations
+    - alert: FairnessViolationDetected
+      expr: |
+        abs(fairness_deviation) > 0.5
+      for: 1h
+      labels:
+        severity: warning
+        team: ml-platform
+      annotations:
+        summary: "Fairness violation detected"
+        description: "Stratum {{ $labels.stratum }} deviates >0.5 points from global mean"
+
+    # 9. Federation Health
+    - alert: FederationParticipationLow
+      expr: count(federation_contributions_total) < 3
+      for: 1h
+      labels:
+        severity: info
+        team: ml-platform
+      annotations:
+        summary: "Low federation participation"
+        description: "Only {{ $value }} deployments contributing to federation"
+
+    # 10. Bandit Health
+    - alert: BanditExplorationUnhealthy
+      expr: |
+        bandit_exploration_rate < 0.05 or
+        bandit_exploration_rate > 0.3
+      for: 30m
+      labels:
+        severity: warning
+        team: ml-platform
+      annotations:
+        summary: "Bandit exploration rate unhealthy"
+        description: "Exploration rate {{ $value }} outside healthy bounds [0.05, 0.3]"

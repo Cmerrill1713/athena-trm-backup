@@ -1,0 +1,111 @@
+# Traefik Dynamic Configuration
+# Routing rules, middlewares, and services
+
+http:
+  routers:
+    # Bridge API with rate limiting
+    bridge-api:
+      rule: "Host(`localhost`) && PathPrefix(`/api`)"
+      service: bridge
+      middlewares:
+        - rate-limit
+        - cors
+      entryPoints:
+        - web
+
+    # Athena direct access
+    athena-api:
+      rule: "Host(`localhost`) && PathPrefix(`/athena`)"
+      service: athena
+      middlewares:
+        - cors
+      entryPoints:
+        - web
+
+    # UAT API
+    uat-api:
+      rule: "Host(`localhost`) && PathPrefix(`/uat`)"
+      service: uat
+      middlewares:
+        - cors
+      entryPoints:
+        - web
+
+    # RAG service
+    rag-api:
+      rule: "Host(`localhost`) && PathPrefix(`/rag`)"
+      service: rag
+      middlewares:
+        - cors
+      entryPoints:
+        - web
+
+    # Vision service
+    vision-api:
+      rule: "Host(`localhost`) && PathPrefix(`/vision`)"
+      service: vision
+      middlewares:
+        - cors
+      entryPoints:
+        - web
+
+    # Kokoro TTS
+    kokoro-api:
+      rule: "Host(`localhost`) && PathPrefix(`/tts`)"
+      service: kokoro
+      middlewares:
+        - cors
+      entryPoints:
+        - web
+
+  services:
+    bridge:
+      loadBalancer:
+        servers:
+          - url: "http://athena-bridge:8014"
+
+    athena:
+      loadBalancer:
+        servers:
+          - url: "http://athena-athena:8090"
+
+    uat:
+      loadBalancer:
+        servers:
+          - url: "http://athena-uat:8181"
+
+    rag:
+      loadBalancer:
+        servers:
+          - url: "http://athena-rag:8015"
+
+    vision:
+      loadBalancer:
+        servers:
+          - url: "http://athena-vision:8016"
+
+    kokoro:
+      loadBalancer:
+        servers:
+          - url: "http://athena-kokoro:8020"
+
+  middlewares:
+    rate-limit:
+      rateLimit:
+        burst: 100
+        average: 50
+
+    cors:
+      headers:
+        accessControlAllowOriginList:
+          - "*"
+        accessControlAllowMethods:
+          - "GET"
+          - "POST"
+          - "PUT"
+          - "DELETE"
+          - "OPTIONS"
+        accessControlAllowHeaders:
+          - "Content-Type"
+          - "Authorization"
+        accessControlMaxAge: 86400

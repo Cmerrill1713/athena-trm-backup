@@ -1,0 +1,16 @@
+{
+  "record": {
+    "id": "EMOJI-001",
+    "subject": "🚨 URGENT 🚨 Shipment Issue",
+    "body": "Hey team! 👋\n\nWe've got a problem with PO#777 😱. The shipment was supposed to arrive today but vendor says it's delayed until next week 📅. Customer is NOT happy 😤.\n\nCan someone please follow up ASAP? 🙏\n\nThanks! ✨",
+    "channel": "slack",
+    "priority": "urgent",
+    "sla_mins_left": 30
+  },
+  "expected": {
+    "next_action": "escalate",
+    "min_facts": 3,
+    "max_latency_ms": 1500
+  }
+}
+

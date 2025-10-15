@@ -1,0 +1,95 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Redaction events / 5m",
+      "datasource": "Prometheus",
+      "id": 1,
+      "gridPos": {"h": 6, "w": 8, "x": 0, "y": 0},
+      "targets": [
+        {
+          "expr": "sum(increase(app_redaction_events_total[5m]))",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"value": null, "color": "green"},
+              {"value": 3, "color": "yellow"},
+              {"value": 5, "color": "red"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Redaction events (rate)",
+      "datasource": "Prometheus",
+      "id": 2,
+      "gridPos": {"h": 8, "w": 16, "x": 8, "y": 0},
+      "targets": [
+        {
+          "expr": "sum(rate(app_redaction_events_total[5m]))",
+          "legendFormat": "Redaction rate",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Top sources (last 1h)",
+      "datasource": "Prometheus",
+      "id": 3,
+      "gridPos": {"h": 10, "w": 24, "x": 0, "y": 8},
+      "targets": [
+        {
+          "expr": "topk(10, sum by (service,route) (increase(app_redaction_events_total[1h])))",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["security", "redaction"],
+  "templating": {"list": []},
+  "time": {"from": "now-6h", "to": "now"},
+  "timezone": "",
+  "title": "Redaction Security",
+  "uid": "neuroforge-redaction",
+  "version": 1
+}

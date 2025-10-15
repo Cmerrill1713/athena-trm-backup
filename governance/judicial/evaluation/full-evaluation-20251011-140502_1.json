@@ -1,0 +1,64 @@
+{
+  "results": [
+    {
+      "service": "Chat Health",
+      "port": "8014",
+      "result": "PASS",
+      "notes": "200 JSON ok"
+    },
+    {
+      "service": "TTS Health",
+      "port": "8888",
+      "result": "PASS",
+      "notes": "200 JSON ok"
+    },
+    {
+      "service": "TTS Speak",
+      "port": "8888",
+      "result": "PASS",
+      "notes": "audio payload present"
+    },
+    {
+      "service": "Knowledge Gateway",
+      "port": "8088",
+      "result": "PASS",
+      "notes": "200 JSON ok"
+    },
+    {
+      "service": "Knowledge Sync",
+      "port": "8089",
+      "result": "PASS",
+      "notes": "200 JSON ok"
+    },
+    {
+      "service": "Knowledge Context",
+      "port": "8091",
+      "result": "PASS",
+      "notes": "200 JSON ok"
+    },
+    {
+      "service": "Weaviate Ready",
+      "port": "8090",
+      "result": "PASS",
+      "notes": "HTTP 200"
+    },
+    {
+      "service": "Prometheus",
+      "port": "9090",
+      "result": "PASS",
+      "notes": "HTTP 200"
+    },
+    {
+      "service": "Grafana",
+      "port": "3001",
+      "result": "PASS",
+      "notes": "HTTP 200"
+    },
+    {
+      "service": "SearxNG",
+      "port": "8081",
+      "result": "PASS",
+      "notes": "HTTP 200"
+    }
+  ]
+}

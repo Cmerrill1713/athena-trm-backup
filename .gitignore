@@ -1,123 +1,104 @@
-# Node / web
-node_modules/
-.next/
-dist/
-build/
-.npm/
-.yarn/
+# Environment files (NEVER COMMIT SECRETS!)
+.env
+.env.local
+.env.*.local
 
 # Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+kokoro-venv/
+*.egg-info/
+.pytest_cache/
+
+# macOS
+.DS_Store
+*.xcuserstate
+xcuserdata/
+DerivedData/
+
+# Logs
+*.log
+logs/
+*.out
+*.err
+nohup.out
+
+# PID files
+*.pid
+.stack/
+
+# Build artifacts
+build/
+dist/
+*.app
+*.dmg
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Secrets baseline
+.secrets.baseline
+
+# Test artifacts
+pytest_report.json
+pytest_report.xml
+artifacts/*.zip
+
+# Temporary files
+*.tmp
+tmp/
+
+# Cache and temporary files
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Python
-.venv/
-venv/
-ENV/
-env/
-kokoro-venv/
-.env
-.env.*
-!.env.example
+*.so
+*.egg
 *.egg-info/
+dist/
+build/
+.eggs/
 .pytest_cache/
+.mypy_cache/
 .coverage
 htmlcov/
 
-# Swift / Xcode
-DerivedData/
-*.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
-*.xcuserdatad/
-*.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
-*.swiftmodule
-*.swiftdoc
-.build/
-*.dSYM/
-*.app/
-
-# Go / Rust cache
-target/
-*.prof
-coverage/
-Cargo.lock
-
-# Docker & local
-docker-data/
-*.log
-*.tmp
-.tmp/
-.cache/
-/tmp/
-
-# Artifacts & datasets
-artifacts/*.log
-artifacts/*.zip
-artifacts/*.json
-!artifacts/.gitkeep
-*.tar
-*.tar.gz
-*.sqlite
-*.db
-*.csv
-*.parquet
-
-# Models / weights (use LFS)
-models/*.pt
-models/*.bin
-models/*.safetensors
-checkpoints/
-*.ckpt
-
-# Backups
-backups/*.sql
-backups/*.dump
-backups/*.zst
-!backups/.gitkeep
-
-# OS noise
-.DS_Store
-Thumbs.db
+# IDE
+.vscode/.cache/
+.cursor/
 *.swp
 *.swo
 *~
 
-# IDE
-.vscode/
-.idea/
-*.sublime-*
+# OS
+.DS_Store
+Thumbs.db
 
 # Logs
-logs/*.log
-/tmp/
-*.out
-*.err
+*.log
 
-# Secrets & credentials
-*.key
-*.pem
-*.crt
-credentials/
-secrets/
-.secrets/
+# Build artifacts
+.next/
+node_modules/
 
-# Temp files
-*.bak
-*.backup
-.env.shadow
-models/routing_flags.json
+# Governance backups
+governance_backup_*/
+docker_intake/
+infra_snapshot/
+*.zip
 
-# Test outputs
-test_*.swift
-VoiceProof
-VoiceProof.swift
-test_kokoro.py
-*.wav
-*.mp3
-
-# Large data files
-*.h5
-*.hdf5
-*.pkl
-*.pickle
-
+# Large binary files
+*.dylib
+*.tar
+*.tar.gz

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>AMApplicationBuild</key>
+    <string>438.2</string>
+    <key>AMApplicationVersion</key>
+    <string>2.9</string>
+    <key>AMDocumentVersion</key>
+    <string>2</string>
+    <key>actions</key>
+    <array>
+        <dict>
+            <key>action</key>
+            <dict>
+                <key>ActionBundlePath</key>
+                <string>/System/Library/Automator/Run Shell Script.action</string>
+                <key>ActionName</key>
+                <string>Run Shell Script</string>
+                <key>ActionParameters</key>
+                <dict>
+                    <key>COMMAND_STRING</key>
+                    <string>#!/bin/zsh
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LAUNCHER_SCRIPT="$SCRIPT_DIR/athena_launcher.sh"
+
+if [ -f "$LAUNCHER_SCRIPT" ]; then
+    "$LAUNCHER_SCRIPT" stop
+else
+    osascript -e 'display dialog "Athena launcher script not found. Please ensure athena_launcher.sh is in the same directory as the Quick Action." buttons {"OK"} default button "OK" with icon stop'
+fi</string>
+                    <key>INPUT_METHOD</key>
+                    <integer>0</integer>
+                    <key>SHELL_PATH</key>
+                    <string>/bin/zsh</string>
+                </dict>
+                <key>BundleVersion</key>
+                <integer>1</integer>
+                <key>CanShowSelectedItemsWhenRun</key>
+                <false/>
+                <key>CanShowWhenRun</key>
+                <true/>
+                <key>Class Name</key>
+                <string>RunShellScript</string>
+                <key>InputUUID</key>
+                <string>2E8B3B8A-7F7C-4B5F-8B7D-8F8E8F8G8H8I</string>
+                <key>OutputUUID</key>
+                <string>2E8B3B8A-7F7C-4B5F-8B7D-8F8E8F8G8H8J</string>
+                <key>UUID</key>
+                <string>2E8B3B8A-7F7C-4B5F-8B7D-8F8E8F8G8H8K</string>
+                <key>UnlocalizedApplications</key>
+                <array/>
+            </dict>
+            <key>isViewVisible</key>
+            <integer>1</integer>
+        </dict>
+    </array>
+    <key>connectors</key>
+    <dict/>
+    <key>workflowMetaData</key>
+    <dict>
+        <key>workflowType</key>
+        <string>QuickAction</string>
+        <key>workflowTypeIdentifier</key>
+        <string>com.apple.Automator.quick-action</string>
+    </dict>
+    <key>workflowProperties</key>
+    <dict>
+        <key>quickAction</key>
+        <dict>
+            <key>Name</key>
+            <string>Stop Athena</string>
+        </dict>
+    </dict>
+</dict>
+</plist>

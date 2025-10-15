@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CanaryWindowResult",
+  "type": "object",
+  "required": ["window", "solve_rate_delta", "violation_rate_delta", "latency_p95_delta", "ece_post", "decision"],
+  "properties": {
+    "window": { "type": "string" },
+    "solve_rate_delta": { "type": "number" },
+    "violation_rate_delta": { "type": "number" },
+    "latency_p95_delta": { "type": "number" },
+    "ece_post": { "type": "number" },
+    "decision": { "enum": ["PROMOTE", "HOLD", "ROLLBACK"] }
+  }
+}

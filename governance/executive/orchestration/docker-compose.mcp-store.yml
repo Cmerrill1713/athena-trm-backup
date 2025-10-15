@@ -1,0 +1,40 @@
+name: universal-ai-tools
+
+services:
+  # MCP Store Service - Unified validation results storage
+  athena-mcp-store:
+    image: python:3.11-slim
+    container_name: athena-mcp-store
+    working_dir: /app
+    command: bash -lc "pip install -q -r requirements.txt && uvicorn app:app --host 0.0.0.0 --port 8411"
+    restart: unless-stopped
+    ports:
+      - "8411:8411"
+    environment:
+      MCPSTORE_PG: postgresql://postgres:postgres@athena-postgres:5432/universal_ai_tools
+      MCPSTORE_WEAVIATE_HOST: http://athena-weaviate:8080
+      MCPSTORE_REDIS: redis://athena-redis:6379
+      MCPSTORE_ENABLE_WEAVIATE: "true"
+      MCPSTORE_ENABLE_REDIS: "true"
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./services/mcp_store:/app:rw
+      - mcp_store_cache:/root/.cache/pip
+    networks:
+      - ai-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8411/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  mcp_store_cache:
+    driver: local
+
+networks:
+  ai-network:
+    name: universal-ai-network
+    external: true
+

@@ -1,0 +1,31 @@
+[Unit]
+Description=Athena Daily Briefing Scheduler for AI Republic
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=ai-republic
+Group=ai-republic
+WorkingDirectory=/opt/ai-republic
+ExecStart=/usr/bin/python3 /opt/ai-republic/athena_scheduler.py --start
+Restart=always
+RestartSec=10
+
+# Environment
+Environment=PYTHONPATH=/opt/ai-republic
+Environment=USER=Christian
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=athena-briefing
+
+# Security
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ReadWritePaths=/var/log/ai-republic /opt/ai-republic/logs
+
+[Install]
+WantedBy=multi-user.target

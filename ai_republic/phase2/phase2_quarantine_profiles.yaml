@@ -1,0 +1,16 @@
+profiles:
+  strict:
+    network: "egress_block"
+    model_ops: ["no_update", "no_fine_tune"]
+    io: ["read_only"]
+    duration_s: 86400
+  limited:
+    network: "restricted"
+    model_ops: ["no_update"]
+    io: ["write_limited"]
+    duration_s: 14400
+  observe:
+    network: "normal"
+    model_ops: []
+    io: []
+    duration_s: 1800

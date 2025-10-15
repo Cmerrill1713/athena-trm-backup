@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JudicialVerdict",
+  "type": "object",
+  "required": ["task_id", "verdict", "calibrated_conf", "ece_estimate", "entropy_drift", "actions"],
+  "properties": {
+    "task_id": { "type": "string" },
+    "verdict": { "enum": ["PASS", "SOFT_FAIL", "HARD_FAIL"] },
+    "score": { "type": "number" },
+    "calibrated_conf": { "type": "number" },
+    "ece_estimate": { "type": "number" },
+    "entropy_drift": { "type": "number" },
+    "ensemble_variance": { "type": "number" },
+    "actions": { "type": "array", "items": { "type": "string" } }
+  }
+}

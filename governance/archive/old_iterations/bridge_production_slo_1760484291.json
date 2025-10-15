@@ -1,0 +1,221 @@
+{
+  "dashboard": {
+    "title": "Bridge Production SLOs",
+    "tags": ["production", "slo", "bridge"],
+    "timezone": "browser",
+    "schemaVersion": 27,
+    "version": 1,
+    "refresh": "10s",
+    "panels": [
+      {
+        "id": 1,
+        "title": "🎯 Error Rate (SLO: < 1%)",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "targets": [
+          {
+            "expr": "(\n  rate(http_requests_total{service=\"bridge\",status=~\"5..\"}[5m])\n  /\n  rate(http_requests_total{service=\"bridge\"}[5m])\n) * 100",
+            "legendFormat": "Error Rate %",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          {"format": "percent", "label": "Error Rate", "show": true},
+          {"format": "short", "show": false}
+        ],
+        "alert": {
+          "conditions": [
+            {
+              "evaluator": {"params": [1], "type": "gt"},
+              "query": {"params": ["A", "10m", "now"]},
+              "type": "query"
+            }
+          ],
+          "name": "Bridge Error Budget Burn"
+        },
+        "thresholds": [
+          {"value": 1, "colorMode": "critical", "fill": true, "op": "gt"}
+        ]
+      },
+      {
+        "id": 2,
+        "title": "⚡ p95 Latency (SLO: < 250ms)",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{service=\"bridge\"}[5m])) * 1000",
+            "legendFormat": "p95 Latency (ms)",
+            "refId": "A"
+          },
+          {
+            "expr": "histogram_quantile(0.50, rate(http_request_duration_seconds_bucket{service=\"bridge\"}[5m])) * 1000",
+            "legendFormat": "p50 Latency (ms)",
+            "refId": "B"
+          }
+        ],
+        "yaxes": [
+          {"format": "ms", "label": "Latency", "show": true},
+          {"format": "short", "show": false}
+        ],
+        "thresholds": [
+          {"value": 250, "colorMode": "critical", "fill": true, "op": "gt"}
+        ]
+      },
+      {
+        "id": 3,
+        "title": "📊 Request Rate",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+        "targets": [
+          {
+            "expr": "rate(http_requests_total{service=\"bridge\"}[1m])",
+            "legendFormat": "{{method}} {{endpoint}}",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          {"format": "reqps", "label": "Requests/sec", "show": true},
+          {"format": "short", "show": false}
+        ]
+      },
+      {
+        "id": 4,
+        "title": "🔴 Error Count (5xx)",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total{service=\"bridge\",status=~\"5..\"}[5m])) by (status)",
+            "legendFormat": "{{status}}",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          {"format": "reqps", "label": "Errors/sec", "show": true},
+          {"format": "short", "show": false}
+        ]
+      },
+      {
+        "id": 5,
+        "title": "🤖 Watchdog Recoveries",
+        "type": "stat",
+        "gridPos": {"h": 6, "w": 6, "x": 0, "y": 16},
+        "targets": [
+          {
+            "expr": "increase(watchdog_heals_total[1h])",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "orientation": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 3, "color": "yellow"},
+                {"value": 5, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 6,
+        "title": "⏱️ Last Recovery MTTR",
+        "type": "stat",
+        "gridPos": {"h": 6, "w": 6, "x": 6, "y": 16},
+        "targets": [
+          {
+            "expr": "watchdog_recovery_duration_seconds",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "orientation": "auto",
+          "unit": "s"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 30, "color": "yellow"},
+                {"value": 60, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 7,
+        "title": "🔄 Circuit Breaker State",
+        "type": "stat",
+        "gridPos": {"h": 6, "w": 6, "x": 12, "y": 16},
+        "targets": [
+          {
+            "expr": "circuit_breaker_state{service=\"bridge\"}",
+            "legendFormat": "{{backend}}",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {"type": "value", "value": "0", "text": "Closed ✅"},
+              {"type": "value", "value": "1", "text": "Open 🔴"},
+              {"type": "value", "value": "2", "text": "Half-Open 🟡"}
+            ],
+            "thresholds": {
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 1, "color": "red"},
+                {"value": 2, "color": "yellow"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 8,
+        "title": "🟢 Availability (SLO: > 99.9%)",
+        "type": "stat",
+        "gridPos": {"h": 6, "w": 6, "x": 18, "y": 16},
+        "targets": [
+          {
+            "expr": "avg_over_time(up{service=\"bridge\"}[24h]) * 100",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "unit": "percent"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"value": 0, "color": "red"},
+                {"value": 99.9, "color": "green"}
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+

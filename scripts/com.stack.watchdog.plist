@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.stack.watchdog</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/christianmerrill/Documents/GitHub/scripts/stack_watchdog.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/christianmerrill/Documents/GitHub</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>WORKSPACE_ROOT</key>
+        <string>/Users/christianmerrill/Documents/GitHub</string>
+        <key>CHECK_INTERVAL</key>
+        <string>30</string>
+        <key>MAX_RESTARTS_PER_HOUR</key>
+        <string>5</string>
+        <key>ATH_TOKEN</key>
+        <string>supersecret</string>
+        <key>UAT_TOKEN</key>
+        <string>supersecret</string>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/stack_watchdog_stdout.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/tmp/stack_watchdog_stderr.log</string>
+
+    <key>ThrottleInterval</key>
+    <integer>10</integer>
+</dict>
+</plist>

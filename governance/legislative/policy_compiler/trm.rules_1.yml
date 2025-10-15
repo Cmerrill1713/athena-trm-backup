@@ -1,0 +1,100 @@
+groups:
+# Recording rules - pre-aggregated metrics for faster dashboards
+- name: trm-recording
+  interval: 30s
+  rules:
+  - record: trm:success_rate:5m
+    expr: |
+      sum(increase(routing_success_total[5m]))
+      /
+      sum(increase(routing_decisions_total[5m]))
+
+  - record: trm:latency_p95_ms:5m
+    expr: |
+      histogram_quantile(0.95,
+        sum by (le) (rate(routing_latency_ms_bucket[5m]))
+      )
+
+  - record: trm:latency_p50_ms:5m
+    expr: |
+      histogram_quantile(0.50,
+        sum by (le) (rate(routing_latency_ms_bucket[5m]))
+      )
+
+  - record: trm:decisions_per_minute:5m
+    expr: sum(rate(routing_decisions_total[5m])) * 60
+
+  - record: trm:success_rate:1h
+    expr: |
+      sum(increase(routing_success_total[1h]))
+      /
+      sum(increase(routing_decisions_total[1h]))
+
+# Alert rules
+- name: trm-evolution
+  rules:
+  - alert: TRMAccuracyDrop
+    expr: avg_over_time(trm_accuracy_delta{delta_type="route_accuracy"}[6h]) < 0
+    for: 30m
+    labels: {severity: page}
+    annotations:
+      summary: "TRM accuracy regression"
+      description: "Average accuracy delta negative over last 6h."
+
+  - alert: RoutingSuccessLow
+    expr: (sum(increase(routing_success_total[30m])) / sum(increase(routing_decisions_total[30m]))) < 0.70
+    for: 15m
+    labels: {severity: warn}
+    annotations:
+      summary: "Routing success below 70%"
+      description: "Success rate dipped below threshold in the last 30m."
+
+  - alert: LatencyP95High
+    expr: histogram_quantile(0.95, sum(rate(routing_latency_ms_bucket[5m])) by (le)) > 1500
+    for: 10m
+    labels: {severity: warn}
+    annotations:
+      summary: "p95 latency high"
+      description: "p95 routing latency >1500ms for 10m."
+
+  - alert: NoRoutingActivity
+    expr: sum(increase(routing_decisions_total[1h])) == 0
+    for: 1h
+    labels: {severity: info}
+    annotations:
+      summary: "No routing activity in 1h"
+      description: "Possible pipeline stall."
+
+  - alert: PromotionsSpike
+    expr: increase(trm_promotions_total[1h]) > 3
+    for: 5m
+    labels: {severity: info}
+    annotations:
+      summary: "Unusual promotion frequency"
+      description: "Check evaluation gates."
+
+  # Deadman's switch - always fires if monitoring is healthy
+  - alert: MonitoringDeadman
+    expr: vector(1)
+    for: 15m
+    labels: {severity: page}
+    annotations:
+      summary: "Monitoring heartbeat"
+      description: "If this alert stops firing, Prometheus or AlertManager is down."
+
+  # Circuit breaker alerts
+  - alert: BreakerOpenTooLong
+    expr: circuit_breaker_open == 1 and circuit_breaker_open_duration_seconds > 600
+    for: 2m
+    labels: {severity: warn}
+    annotations:
+      summary: "Circuit breaker open for {{ $labels.model }}"
+      description: "{{ $labels.model }} breaker has been open for {{ $value }}s (>10m). Check logs and restart if needed."
+
+  - alert: BreakerTripSpike
+    expr: increase(circuit_breaker_trips_total[5m]) > 3
+    for: 1m
+    labels: {severity: warn}
+    annotations:
+      summary: "Circuit breaker trip spike for {{ $labels.model }}"
+      description: "{{ $labels.model }} breaker tripped {{ $value }} times in 5m. Investigate instability."

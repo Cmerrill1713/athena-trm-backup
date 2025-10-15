@@ -1,0 +1,66 @@
+# Prometheus Alerts for Log Security
+
+groups:
+  - name: log_security
+    interval: 30s
+    rules:
+      # Alert on excessive log requests (potential abuse)
+      - alert: LogRequestRateHigh
+        expr: rate(bridge_logs_requests_total[5m]) > 10
+        for: 2m
+        labels:
+          severity: warning
+          component: logs
+        annotations:
+          summary: "High log request rate detected"
+          description: "Log endpoint receiving {{ $value }} req/s (threshold: 10/s)"
+          runbook: "Check for abuse or legitimate monitoring spike"
+      
+      # Alert on redaction spikes (potential secret leakage attempts)
+      - alert: LogRedactionSpike
+        expr: rate(bridge_logs_redactions_total[5m]) > rate(bridge_logs_redactions_total[1h] offset 1h) * 3
+        for: 5m
+        labels:
+          severity: warning
+          component: logs_security
+        annotations:
+          summary: "Log redaction rate spiked"
+          description: "Redactions increased 3x above baseline"
+          runbook: "Investigate: someone may be trying to expose secrets"
+      
+      # Alert on clamp events (someone requesting huge tails)
+      - alert: LogTailClamped
+        expr: rate(bridge_logs_clamped_total[10m]) > 1
+        for: 5m
+        labels:
+          severity: info
+          component: logs
+        annotations:
+          summary: "Log tail requests being clamped"
+          description: "{{ $value }} requests/min hitting max-tail limit"
+          runbook: "Normal if ops window auto-refresh active; investigate if persistent"
+      
+      # Alert on failed log reads
+      - alert: LogReadFailures
+        expr: rate(bridge_logs_errors_total[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+          component: logs
+        annotations:
+          summary: "Log read errors detected"
+          description: "{{ $value }} log read errors/s"
+          runbook: "Check file permissions and paths in SERVICE_LOGS mapping"
+      
+      # Alert on timeout events
+      - alert: LogReadTimeout
+        expr: rate(bridge_logs_timeout_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+          component: logs_performance
+        annotations:
+          summary: "Log read timeouts occurring"
+          description: "Log reads timing out after 5s"
+          runbook: "Check log file sizes and disk I/O performance"
+

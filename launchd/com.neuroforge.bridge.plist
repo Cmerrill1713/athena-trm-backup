@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.neuroforge.bridge</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/env</string>
+    <string>bash</string>
+    <string>-lc</string>
+    <string>cd ~/Documents/GitHub && USE_MOCK=0 UAT_BASE=http://127.0.0.1:8080 ATHENA_BASE=http://127.0.0.1:8090 ENV=dev python3 -m uvicorn bridge.adapter:app --host 127.0.0.1 --port 8014</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>~/Library/Logs/neuroforge-bridge.out</string>
+  <key>StandardErrorPath</key>
+  <string>~/Library/Logs/neuroforge-bridge.err</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+</dict>
+</plist>

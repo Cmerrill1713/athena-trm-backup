@@ -1,0 +1,22 @@
+Command: docker ps --format {{.Names}}: {{.Status}}
+Exit code: 0
+
+=== STDOUT ===
+athena-api: Up 5 hours (healthy)
+athena-evolutionary: Up 6 hours (healthy)
+athena-knowledge-gateway: Up 6 hours
+athena-knowledge-sync: Up 6 hours
+athena-knowledge-context: Up 6 hours
+athena-postgres-exporter: Up 6 hours
+athena-redis-exporter: Up 6 hours
+athena-grafana: Up 6 hours
+athena-postgres: Up 6 hours (healthy)
+athena-redis: Up 6 hours (healthy)
+athena-prometheus: Up 5 hours
+athena-netdata: Up 6 hours (healthy)
+athena-alertmanager: Up 6 hours
+athena-node-exporter: Up 6 hours
+athena-searxng: Up 6 hours
+athena-weaviate: Up 6 hours
+
+=== STDERR ===

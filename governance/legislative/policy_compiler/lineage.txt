@@ -1,0 +1,9 @@
+baseline
+└─ 
+   fastvlm-1.5b
+   └─  (Δ=+6.1%)
+      fastvlm-0.5b
+      └─  (Δ=+3.3%)
+         fastvlm-7b
+         └─  (ROLLBACK)
+            fastvlm-0.5b (cycle)

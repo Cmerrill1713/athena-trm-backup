@@ -1,0 +1,16 @@
+{
+  "record": {
+    "id": "ES-001",
+    "subject": "Retraso en el envío",
+    "body": "Por favor confirme el estado de la orden PO#555. El cliente esperaba la entrega el 15 de octubre pero aún no ha recibido actualización. Urgente.",
+    "channel": "email",
+    "priority": "high",
+    "language": "es"
+  },
+  "expected": {
+    "next_action": "escalate",
+    "min_facts": 2,
+    "max_latency_ms": 1500
+  }
+}
+

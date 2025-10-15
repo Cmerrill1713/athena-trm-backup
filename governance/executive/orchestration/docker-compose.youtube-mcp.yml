@@ -1,0 +1,21 @@
+name: universal-ai-tools
+
+services:
+  # MCP Ecosystem - YouTube Transcript Server
+  # Note: This container runs idle and MCP server is invoked via 'docker exec'
+  mcp-ecosystem:
+    image: mcp/youtube-transcript:latest
+    container_name: mcp-ecosystem
+    restart: unless-stopped
+    entrypoint: ["/bin/sh", "-c", "while true; do sleep 3600; done"]
+    networks:
+      - ai-network
+    labels:
+      - "mcp.server=youtube-transcript"
+      - "mcp.tools=get_transcript,get_timed_transcript,get_video_info"
+      - "mcp.type=stdio"
+
+networks:
+  ai-network:
+    name: universal-ai-network
+    external: true

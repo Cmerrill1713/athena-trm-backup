@@ -1,0 +1,31 @@
+{
+  "": {
+    "dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/VaporTestUtils.d",
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/VaporTestUtils.o",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/master.swiftdeps"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/vapor/Sources/VaporTestUtils/TestingApplication.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/TestingApplication.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/TestingApplication~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/TestingApplication.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/TestingApplication.dia"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/vapor/Sources/VaporTestUtils/TestingHTTPRequest.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/TestingHTTPRequest.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/TestingHTTPRequest~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/TestingHTTPRequest.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/TestingHTTPRequest.dia"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/vapor/Sources/VaporTestUtils/TestingHTTPResponse.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/TestingHTTPResponse.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/TestingHTTPResponse~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/TestingHTTPResponse.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/TestingHTTPResponse.dia"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/vapor/Sources/VaporTestUtils/Utilities.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/Utilities.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/Utilities~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/Utilities.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/VaporTestUtils.build/Utilities.dia"
+  }
+}

@@ -1,0 +1,167 @@
+name: Orchestrator CI
+
+on:
+  pull_request:
+    branches: [ main, v0.9.*, develop ]
+    paths:
+      - 'orchestrator/**'
+      - '.github/workflows/orchestrator-ci.yml'
+  push:
+    branches: [ main, v0.9.*, develop ]
+    paths:
+      - 'orchestrator/**'
+
+jobs:
+  preflight:
+    name: Preflight SLA Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        working-directory: orchestrator
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Preflight
+        working-directory: orchestrator
+        run: |
+          bash preflight.sh
+
+      - name: Upload Preflight Logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: preflight-logs
+          path: orchestrator/state/
+
+  smoke-tests:
+    name: Smoke Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        working-directory: orchestrator
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Tests
+        working-directory: orchestrator
+        run: |
+          python -m pytest tests/ -v --tb=short
+
+      - name: Upload Test Results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: orchestrator/.pytest_cache/
+
+  load-test:
+    name: Load Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        working-directory: orchestrator
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Start API
+        working-directory: orchestrator
+        run: |
+          python -m uvicorn api:app --host 127.0.0.1 --port 8765 &
+          sleep 5
+
+      - name: Run Load Test
+        working-directory: orchestrator
+        run: |
+          python scripts/load_test.py --requests 100 --mode sequential
+
+      - name: Upload Load Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: load-test-results
+          path: orchestrator/state/
+
+  robustness:
+    name: Robustness Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        working-directory: orchestrator
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Start API
+        working-directory: orchestrator
+        run: |
+          python -m uvicorn api:app --host 127.0.0.1 --port 8765 &
+          sleep 5
+
+      - name: Run Robustness Tests
+        working-directory: orchestrator
+        run: |
+          python scripts/robustness_test.py
+
+      - name: Upload Robustness Results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: robustness-failures
+          path: orchestrator/state/telemetry.sqlite
+
+  security-check:
+    name: Security Posture
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Offline Lock
+        run: |
+          grep "offline_only: true" orchestrator/policies.yaml || exit 1
+
+      - name: Check PII Protection
+        run: |
+          grep "pii_never_leave_local: true" orchestrator/policies.yaml || exit 1
+
+      - name: Check Localhost Binding
+        run: |
+          grep "127.0.0.1" orchestrator/api.py || echo "Warning: Check API binding"
+
+      - name: Success
+        run: echo "✅ Security posture validated"

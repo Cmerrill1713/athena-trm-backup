@@ -1,0 +1,47 @@
+{
+  "treaty_version": "FOP-1.0",
+  "api": {
+    "host": "0.0.0.0",
+    "port": 8094,
+    "workers": 4,
+    "timeout": 30
+  },
+  "security": {
+    "mtls_required": true,
+    "jws_required": true,
+    "signing_alg": "EdDSA",
+    "key_rotation_days": 90,
+    "cert_validity_days": 365
+  },
+  "privacy": {
+    "epsilon": 0.3,
+    "k_anonymity": 5,
+    "batch_size_max": 1000,
+    "retention_days": 365
+  },
+  "limits": {
+    "publish_per_min": 60,
+    "feed_page": 500,
+    "join_requests_per_hour": 10,
+    "reputation_updates_per_hour": 100
+  },
+  "reputation": {
+    "calculation_interval_hours": 1,
+    "promotion_days": 14,
+    "demotion_threshold": -0.5,
+    "peer_review_enabled": true
+  },
+  "monitoring": {
+    "health_check_interval_seconds": 30,
+    "metrics_enabled": true,
+    "alerts_enabled": true,
+    "log_level": "INFO"
+  },
+  "storage": {
+    "evidence_backend": "memory",
+    "membership_backend": "memory",
+    "reputation_backend": "file",
+    "max_evidence_items": 10000,
+    "backup_interval_hours": 24
+  }
+}

@@ -1,0 +1,125 @@
+# Prometheus configuration for NeuroForge services
+# Monitoring: Bridge, Athena, UAT, RAG, Vision, Kokoro
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'neuroforge'
+    environment: 'local'
+
+# Load alert rules
+rule_files:
+  - /etc/prometheus/alerts/*.yml
+
+# Scrape configurations for all running services
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # === Python Services (NeuroForge Core) ===
+
+  # Bridge - API Gateway with TRM routing
+  - job_name: 'bridge'
+    static_configs:
+      - targets: ['host.docker.internal:8014']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # Athena - Orchestration (shares port with Weaviate)
+  - job_name: 'athena'
+    static_configs:
+      - targets: ['host.docker.internal:8090']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # UAT - Universal AI Tools
+  - job_name: 'uat'
+    static_configs:
+      - targets: ['host.docker.internal:8181']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # RAG Service
+  - job_name: 'rag'
+    static_configs:
+      - targets: ['host.docker.internal:8015']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # Vision Service
+  - job_name: 'vision'
+    static_configs:
+      - targets: ['host.docker.internal:8016']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # Kokoro TTS
+  - job_name: 'kokoro'
+    static_configs:
+      - targets: ['host.docker.internal:8020']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # === Rust Services ===
+
+  # Assistantd - Parameter analytics
+  - job_name: 'assistantd'
+    static_configs:
+      - targets: ['host.docker.internal:8085']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # ML Inference
+  - job_name: 'ml-inference'
+    static_configs:
+      - targets: ['host.docker.internal:8091']
+    metrics_path: /metrics
+    scrape_interval: 15s
+
+  # === Go Services ===
+
+  # Orchestration Service
+  - job_name: 'orchestration'
+    static_configs:
+      - targets: ['host.docker.internal:8080']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # Chat Service (shares port with Vision)
+  - job_name: 'chat-service'
+    static_configs:
+      - targets: ['host.docker.internal:8016']
+    metrics_path: /metrics
+    scrape_interval: 15s
+
+  # === External/Optional Services ===
+
+  # Weaviate - Vector database (48K+ documents)
+  - job_name: 'weaviate'
+    static_configs:
+      - targets: ['host.docker.internal:8090']
+    metrics_path: /v1/.well-known/ready
+    scrape_interval: 30s
+
+  # FastVLM - Vision model
+  - job_name: 'fastvlm'
+    static_configs:
+      - targets: ['host.docker.internal:8811']
+    metrics_path: /metrics
+    scrape_interval: 15s
+
+  # Ollama - LLM backend
+  - job_name: 'ollama'
+    static_configs:
+      - targets: ['host.docker.internal:11434']
+    metrics_path: /metrics
+    scrape_interval: 30s
+
+# Alerting configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['alertmanager:9093']

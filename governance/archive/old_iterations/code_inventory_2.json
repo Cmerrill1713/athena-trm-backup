@@ -1,0 +1,68 @@
+{
+  "timestamp": "2025-10-12T17:49:48.844976Z",
+  "version": "v0.9.3-dev",
+  "components": {
+    "Backend Services": {
+      "Shell": {
+        "files": 4,
+        "lines": 624
+      },
+      "Python": {
+        "files": 3,
+        "lines": 467
+      }
+    },
+    "Scripts": {
+      "Shell": {
+        "files": 114,
+        "lines": 18239
+      },
+      "Python": {
+        "files": 41,
+        "lines": 7718
+      },
+      "JSON": {
+        "files": 2,
+        "lines": 410
+      },
+      "Markdown": {
+        "files": 4,
+        "lines": 1126
+      }
+    },
+    "Tools": {
+      "Shell": {
+        "files": 4,
+        "lines": 624
+      },
+      "Python": {
+        "files": 3,
+        "lines": 467
+      }
+    },
+    "Eval Fixtures": {
+      "JSON": {
+        "files": 10,
+        "lines": 160
+      }
+    }
+  },
+  "totals": {
+    "Shell": {
+      "files": 122,
+      "lines": 19487
+    },
+    "Python": {
+      "files": 47,
+      "lines": 8652
+    },
+    "JSON": {
+      "files": 12,
+      "lines": 570
+    },
+    "Markdown": {
+      "files": 4,
+      "lines": 1126
+    }
+  }
+}

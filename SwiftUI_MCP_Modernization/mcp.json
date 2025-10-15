@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "athena-mcp": {
+      "transport": "http",
+      "url": "http://localhost:3333",
+      "capabilities": ["tools", "resources", "prompts"]
+    }
+  }
+}

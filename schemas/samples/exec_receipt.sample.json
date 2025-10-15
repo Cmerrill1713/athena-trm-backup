@@ -1,0 +1,10 @@
+{
+  "receipt_id": "rcpt-demo-001",
+  "task_id": "T-demo-42",
+  "agent_class": "ToolExec",
+  "tool_signature": "doc_parser@2.1",
+  "metrics": { "tokens": 2100, "latency_s": 1.9, "cost_usd": 0.002 },
+  "checks": { "schema_pass": true, "unit_pass_rate": 1.0 },
+  "autoheal": { "errors": 0, "rules_matched": 0, "fixes_applied": 0 },
+  "fix_confidence": 0.82
+}

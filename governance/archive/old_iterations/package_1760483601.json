@@ -1,0 +1,14 @@
+{
+  "name": "mcp-ecosystem",
+  "version": "1.0.0",
+  "description": "Complete MCP Ecosystem with Python and Node.js tools",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0"
+  },
+  "scripts": {
+    "start": "node node_servers/index.js"
+  }
+}
+

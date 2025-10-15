@@ -1,0 +1,2295 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.240 --> 00:00:03.510 align:start position:0%
+
+What<00:00:00.480><c> if</c><00:00:00.719><c> you</c><00:00:01.040><c> had</c><00:00:01.360><c> a</c><00:00:01.600><c> full</c><00:00:01.920><c> stack</c><00:00:02.480><c> ML</c><00:00:03.040><c> engineer</c>
+
+00:00:03.510 --> 00:00:03.520 align:start position:0%
+What if you had a full stack ML engineer
+
+
+00:00:03.520 --> 00:00:05.910 align:start position:0%
+What if you had a full stack ML engineer
+that<00:00:03.919><c> never</c><00:00:04.240><c> sleeps?</c><00:00:04.880><c> One</c><00:00:05.120><c> that</c><00:00:05.359><c> can</c><00:00:05.520><c> explore</c>
+
+00:00:05.910 --> 00:00:05.920 align:start position:0%
+that never sleeps? One that can explore
+
+
+00:00:05.920 --> 00:00:09.030 align:start position:0%
+that never sleeps? One that can explore
+data,<00:00:06.640><c> engineer</c><00:00:07.120><c> features,</c><00:00:08.000><c> train</c><00:00:08.400><c> models,</c>
+
+00:00:09.030 --> 00:00:09.040 align:start position:0%
+data, engineer features, train models,
+
+
+00:00:09.040 --> 00:00:12.230 align:start position:0%
+data, engineer features, train models,
+tune<00:00:09.440><c> them,</c><00:00:10.080><c> deploy,</c><00:00:10.719><c> and</c><00:00:11.040><c> even</c><00:00:11.440><c> monitor</c><00:00:11.840><c> them</c>
+
+00:00:12.230 --> 00:00:12.240 align:start position:0%
+tune them, deploy, and even monitor them
+
+
+00:00:12.240 --> 00:00:14.789 align:start position:0%
+tune them, deploy, and even monitor them
+all<00:00:12.559><c> on</c><00:00:12.719><c> its</c><00:00:12.960><c> own.</c><00:00:13.679><c> Well,</c><00:00:14.000><c> this</c><00:00:14.160><c> is</c><00:00:14.320><c> where</c><00:00:14.559><c> I'd</c>
+
+00:00:14.789 --> 00:00:14.799 align:start position:0%
+all on its own. Well, this is where I'd
+
+
+00:00:14.799 --> 00:00:17.189 align:start position:0%
+all on its own. Well, this is where I'd
+like<00:00:14.960><c> to</c><00:00:15.120><c> introduce</c><00:00:15.599><c> Neo,</c><00:00:16.320><c> the</c><00:00:16.560><c> world's</c><00:00:16.960><c> first</c>
+
+00:00:17.189 --> 00:00:17.199 align:start position:0%
+like to introduce Neo, the world's first
+
+
+00:00:17.199 --> 00:00:19.590 align:start position:0%
+like to introduce Neo, the world's first
+autonomous<00:00:17.920><c> machine</c><00:00:18.320><c> learning</c><00:00:18.720><c> engineer.</c>
+
+00:00:19.590 --> 00:00:19.600 align:start position:0%
+autonomous machine learning engineer.
+
+
+00:00:19.600 --> 00:00:22.390 align:start position:0%
+autonomous machine learning engineer.
+And<00:00:19.760><c> it's</c><00:00:20.160><c> truly</c><00:00:20.560><c> impressive.</c><00:00:21.600><c> Neo</c><00:00:22.080><c> is</c><00:00:22.240><c> a</c>
+
+00:00:22.390 --> 00:00:22.400 align:start position:0%
+And it's truly impressive. Neo is a
+
+
+00:00:22.400 --> 00:00:25.109 align:start position:0%
+And it's truly impressive. Neo is a
+super<00:00:22.720><c> intelligent</c><00:00:23.439><c> AI</c><00:00:24.000><c> engineer</c><00:00:24.640><c> built</c><00:00:24.880><c> to</c>
+
+00:00:25.109 --> 00:00:25.119 align:start position:0%
+super intelligent AI engineer built to
+
+
+00:00:25.119 --> 00:00:28.230 align:start position:0%
+super intelligent AI engineer built to
+handle<00:00:25.359><c> the</c><00:00:25.600><c> entire</c><00:00:26.000><c> ML</c><00:00:26.480><c> workflow</c><00:00:27.279><c> end</c><00:00:27.519><c> to</c><00:00:27.680><c> end</c>
+
+00:00:28.230 --> 00:00:28.240 align:start position:0%
+handle the entire ML workflow end to end
+
+
+00:00:28.240 --> 00:00:30.550 align:start position:0%
+handle the entire ML workflow end to end
+with<00:00:28.560><c> human</c><00:00:28.800><c> in</c><00:00:28.960><c> the</c><00:00:29.119><c> loop</c><00:00:29.439><c> control</c><00:00:30.080><c> so</c><00:00:30.320><c> you're</c>
+
+00:00:30.550 --> 00:00:30.560 align:start position:0%
+with human in the loop control so you're
+
+
+00:00:30.560 --> 00:00:33.350 align:start position:0%
+with human in the loop control so you're
+always<00:00:30.960><c> in</c><00:00:31.279><c> charge.</c><00:00:31.920><c> It's</c><00:00:32.239><c> powered</c><00:00:32.559><c> by</c><00:00:32.960><c> 11</c>
+
+00:00:33.350 --> 00:00:33.360 align:start position:0%
+always in charge. It's powered by 11
+
+
+00:00:33.360 --> 00:00:35.670 align:start position:0%
+always in charge. It's powered by 11
+specialized<00:00:34.000><c> agents</c><00:00:34.640><c> and</c><00:00:34.960><c> a</c><00:00:35.200><c> brand</c><00:00:35.440><c> new</c>
+
+00:00:35.670 --> 00:00:35.680 align:start position:0%
+specialized agents and a brand new
+
+
+00:00:35.680 --> 00:00:38.470 align:start position:0%
+specialized agents and a brand new
+multi-<00:00:36.160><c> aent</c><00:00:36.640><c> orchestrator.</c><00:00:37.760><c> Neo</c><00:00:38.160><c> achieved</c>
+
+00:00:38.470 --> 00:00:38.480 align:start position:0%
+multi- aent orchestrator. Neo achieved
+
+
+00:00:38.480 --> 00:00:41.670 align:start position:0%
+multi- aent orchestrator. Neo achieved
+the<00:00:38.719><c> highest</c><00:00:39.040><c> score</c><00:00:39.280><c> on</c><00:00:39.600><c> open</c><00:00:40.000><c> AI's</c><00:00:40.559><c> MLE</c><00:00:41.120><c> bench</c>
+
+00:00:41.670 --> 00:00:41.680 align:start position:0%
+the highest score on open AI's MLE bench
+
+
+00:00:41.680 --> 00:00:44.549 align:start position:0%
+the highest score on open AI's MLE bench
+with<00:00:41.920><c> the</c><00:00:42.160><c> 34.2</c><00:00:43.200><c> percentage.</c><00:00:44.160><c> This</c><00:00:44.399><c> is</c>
+
+00:00:44.549 --> 00:00:44.559 align:start position:0%
+with the 34.2 percentage. This is
+
+
+00:00:44.559 --> 00:00:47.270 align:start position:0%
+with the 34.2 percentage. This is
+surpassing<00:00:45.200><c> Deepseek,</c><00:00:46.160><c> Microsoft's</c><00:00:46.879><c> RD</c>
+
+00:00:47.270 --> 00:00:47.280 align:start position:0%
+surpassing Deepseek, Microsoft's RD
+
+
+00:00:47.280 --> 00:00:50.229 align:start position:0%
+surpassing Deepseek, Microsoft's RD
+Agent,<00:00:48.079><c> Aid,</c><00:00:48.800><c> Open</c><00:00:49.200><c> Hands,</c><00:00:49.680><c> and</c><00:00:49.920><c> proving</c>
+
+00:00:50.229 --> 00:00:50.239 align:start position:0%
+Agent, Aid, Open Hands, and proving
+
+
+00:00:50.239 --> 00:00:53.670 align:start position:0%
+Agent, Aid, Open Hands, and proving
+itself<00:00:50.719><c> across</c><00:00:51.280><c> 75</c><00:00:51.920><c> Kaggle</c><00:00:52.559><c> competitions.</c>
+
+00:00:53.670 --> 00:00:53.680 align:start position:0%
+itself across 75 Kaggle competitions.
+
+
+00:00:53.680 --> 00:00:56.150 align:start position:0%
+itself across 75 Kaggle competitions.
+But<00:00:53.920><c> Neo</c><00:00:54.399><c> isn't</c><00:00:54.719><c> just</c><00:00:54.960><c> about</c><00:00:55.280><c> benchmarks.</c>
+
+00:00:56.150 --> 00:00:56.160 align:start position:0%
+But Neo isn't just about benchmarks.
+
+
+00:00:56.160 --> 00:00:58.069 align:start position:0%
+But Neo isn't just about benchmarks.
+It's<00:00:56.399><c> actually</c><00:00:56.640><c> designed</c><00:00:56.960><c> for</c><00:00:57.199><c> realworld</c><00:00:57.840><c> use</c>
+
+00:00:58.069 --> 00:00:58.079 align:start position:0%
+It's actually designed for realworld use
+
+
+00:00:58.079 --> 00:01:01.830 align:start position:0%
+It's actually designed for realworld use
+cases.<00:00:59.039><c> Neo</c><00:00:59.520><c> also</c><00:00:59.840><c> has</c><00:01:00.000><c> a</c><00:01:00.239><c> VPC</c><00:01:00.800><c> mode,</c><00:01:01.280><c> so</c><00:01:01.520><c> the</c>
+
+00:01:01.830 --> 00:01:01.840 align:start position:0%
+cases. Neo also has a VPC mode, so the
+
+
+00:01:01.840 --> 00:01:03.349 align:start position:0%
+cases. Neo also has a VPC mode, so the
+data<00:01:02.160><c> never</c><00:01:02.480><c> actually</c><00:01:02.800><c> leaves</c><00:01:03.120><c> your</c>
+
+00:01:03.349 --> 00:01:03.359 align:start position:0%
+data never actually leaves your
+
+
+00:01:03.359 --> 00:01:05.509 align:start position:0%
+data never actually leaves your
+environment.<00:01:04.239><c> There's</c><00:01:04.559><c> also</c><00:01:04.799><c> an</c><00:01:05.040><c> effort</c>
+
+00:01:05.509 --> 00:01:05.519 align:start position:0%
+environment. There's also an effort
+
+
+00:01:05.519 --> 00:01:07.750 align:start position:0%
+environment. There's also an effort
+quotient<00:01:06.159><c> where</c><00:01:06.479><c> you</c><00:01:06.640><c> can</c><00:01:06.799><c> choose</c><00:01:07.040><c> how</c><00:01:07.360><c> deeply</c>
+
+00:01:07.750 --> 00:01:07.760 align:start position:0%
+quotient where you can choose how deeply
+
+
+00:01:07.760 --> 00:01:10.550 align:start position:0%
+quotient where you can choose how deeply
+Neo<00:01:08.560><c> should</c><00:01:08.880><c> actually</c><00:01:09.280><c> reason</c><00:01:09.840><c> from</c><00:01:10.159><c> quick</c>
+
+00:01:10.550 --> 00:01:10.560 align:start position:0%
+Neo should actually reason from quick
+
+
+00:01:10.560 --> 00:01:12.390 align:start position:0%
+Neo should actually reason from quick
+drafts<00:01:10.960><c> to</c><00:01:11.280><c> actual</c><00:01:11.600><c> production</c><00:01:12.080><c> ready</c>
+
+00:01:12.390 --> 00:01:12.400 align:start position:0%
+drafts to actual production ready
+
+
+00:01:12.400 --> 00:01:14.789 align:start position:0%
+drafts to actual production ready
+builds.<00:01:13.200><c> So</c><00:01:13.520><c> overall,</c><00:01:14.000><c> this</c><00:01:14.159><c> isn't</c><00:01:14.479><c> just</c><00:01:14.640><c> a</c>
+
+00:01:14.789 --> 00:01:14.799 align:start position:0%
+builds. So overall, this isn't just a
+
+
+00:01:14.799 --> 00:01:18.230 align:start position:0%
+builds. So overall, this isn't just a
+coding<00:01:15.200><c> assistant.</c><00:01:16.159><c> This</c><00:01:16.400><c> is</c><00:01:16.640><c> an</c><00:01:16.960><c> ML</c><00:01:17.520><c> engineer</c>
+
+00:01:18.230 --> 00:01:18.240 align:start position:0%
+coding assistant. This is an ML engineer
+
+
+00:01:18.240 --> 00:01:20.870 align:start position:0%
+coding assistant. This is an ML engineer
+that's<00:01:18.640><c> faster,</c><00:01:19.520><c> tireless,</c><00:01:20.080><c> and</c><00:01:20.320><c> built</c><00:01:20.640><c> to</c>
+
+00:01:20.870 --> 00:01:20.880 align:start position:0%
+that's faster, tireless, and built to
+
+
+00:01:20.880 --> 00:01:23.910 align:start position:0%
+that's faster, tireless, and built to
+make<00:01:21.200><c> every</c><00:01:21.520><c> workflow</c><00:01:22.080><c> 10</c><00:01:22.400><c> times</c><00:01:22.720><c> faster.</c><00:01:23.600><c> In</c>
+
+00:01:23.910 --> 00:01:23.920 align:start position:0%
+make every workflow 10 times faster. In
+
+
+00:01:23.920 --> 00:01:25.910 align:start position:0%
+make every workflow 10 times faster. In
+essence,<00:01:24.560><c> Neo</c><00:01:24.960><c> streamlines</c><00:01:25.600><c> machine</c>
+
+00:01:25.910 --> 00:01:25.920 align:start position:0%
+essence, Neo streamlines machine
+
+
+00:01:25.920 --> 00:01:27.990 align:start position:0%
+essence, Neo streamlines machine
+learning<00:01:26.240><c> end</c><00:01:26.479><c> to</c><00:01:26.640><c> end</c><00:01:27.200><c> that</c><00:01:27.520><c> is</c><00:01:27.680><c> going</c><00:01:27.840><c> to</c>
+
+00:01:27.990 --> 00:01:28.000 align:start position:0%
+learning end to end that is going to
+
+
+00:01:28.000 --> 00:01:30.710 align:start position:0%
+learning end to end that is going to
+take<00:01:28.240><c> you</c><00:01:28.479><c> from</c><00:01:28.720><c> an</c><00:01:28.960><c> idea</c><00:01:29.680><c> to</c><00:01:29.920><c> code</c><00:01:30.479><c> to</c>
+
+00:01:30.710 --> 00:01:30.720 align:start position:0%
+take you from an idea to code to
+
+
+00:01:30.720 --> 00:01:33.670 align:start position:0%
+take you from an idea to code to
+insights<00:01:31.280><c> in</c><00:01:31.520><c> a</c><00:01:31.759><c> single</c><00:01:32.079><c> interface.</c><00:01:33.280><c> But</c><00:01:33.439><c> now</c>
+
+00:01:33.670 --> 00:01:33.680 align:start position:0%
+insights in a single interface. But now
+
+
+00:01:33.680 --> 00:01:36.069 align:start position:0%
+insights in a single interface. But now
+let's<00:01:33.920><c> actually</c><00:01:34.240><c> see</c><00:01:34.400><c> it</c><00:01:34.640><c> in</c><00:01:34.960><c> action.</c><00:01:35.759><c> This</c><00:01:35.920><c> is</c>
+
+00:01:36.069 --> 00:01:36.079 align:start position:0%
+let's actually see it in action. This is
+
+
+00:01:36.079 --> 00:01:38.469 align:start position:0%
+let's actually see it in action. This is
+where<00:01:36.240><c> Neo</c><00:01:36.720><c> was</c><00:01:36.960><c> actually</c><00:01:37.360><c> asked</c><00:01:37.600><c> to</c><00:01:37.840><c> build</c><00:01:38.159><c> a</c>
+
+00:01:38.469 --> 00:01:38.479 align:start position:0%
+where Neo was actually asked to build a
+
+
+00:01:38.479 --> 00:01:41.109 align:start position:0%
+where Neo was actually asked to build a
+speech<00:01:38.880><c> recognition</c><00:01:39.520><c> model</c><00:01:40.000><c> for</c><00:01:40.479><c> clinical</c>
+
+00:01:41.109 --> 00:01:41.119 align:start position:0%
+speech recognition model for clinical
+
+
+00:01:41.119 --> 00:01:43.590 align:start position:0%
+speech recognition model for clinical
+transcriptions.<00:01:42.320><c> It</c><00:01:42.560><c> actually</c><00:01:42.960><c> fine-tuned</c>
+
+00:01:43.590 --> 00:01:43.600 align:start position:0%
+transcriptions. It actually fine-tuned
+
+
+00:01:43.600 --> 00:01:45.910 align:start position:0%
+transcriptions. It actually fine-tuned
+the<00:01:43.759><c> whisper</c><00:01:44.240><c> small</c><00:01:44.560><c> model,</c><00:01:45.200><c> successfully</c>
+
+00:01:45.910 --> 00:01:45.920 align:start position:0%
+the whisper small model, successfully
+
+
+00:01:45.920 --> 00:01:48.149 align:start position:0%
+the whisper small model, successfully
+reducing<00:01:46.320><c> the</c><00:01:46.560><c> word</c><00:01:47.040><c> error</c><00:01:47.280><c> rate,</c><00:01:47.759><c> which</c><00:01:48.000><c> is</c>
+
+00:01:48.149 --> 00:01:48.159 align:start position:0%
+reducing the word error rate, which is
+
+
+00:01:48.159 --> 00:01:49.990 align:start position:0%
+reducing the word error rate, which is
+pretty<00:01:48.399><c> impressive.</c>
+
+00:01:49.990 --> 00:01:50.000 align:start position:0%
+pretty impressive.
+
+
+00:01:50.000 --> 00:01:52.310 align:start position:0%
+pretty impressive.
+In<00:01:50.320><c> this</c><00:01:50.479><c> example,</c><00:01:50.960><c> when</c><00:01:51.200><c> Neo</c><00:01:51.680><c> was</c><00:01:51.920><c> tasked</c>
+
+00:01:52.310 --> 00:01:52.320 align:start position:0%
+In this example, when Neo was tasked
+
+
+00:01:52.320 --> 00:01:54.789 align:start position:0%
+In this example, when Neo was tasked
+with<00:01:52.640><c> building</c><00:01:53.119><c> an</c><00:01:53.439><c> ETA</c><00:01:54.000><c> prediction</c><00:01:54.479><c> model</c>
+
+00:01:54.789 --> 00:01:54.799 align:start position:0%
+with building an ETA prediction model
+
+
+00:01:54.799 --> 00:01:57.350 align:start position:0%
+with building an ETA prediction model
+from<00:01:55.040><c> a</c><00:01:55.280><c> public</c><00:01:55.600><c> data</c><00:01:56.000><c> set,</c><00:01:56.560><c> it</c><00:01:56.880><c> handled</c><00:01:57.200><c> the</c>
+
+00:01:57.350 --> 00:01:57.360 align:start position:0%
+from a public data set, it handled the
+
+
+00:01:57.360 --> 00:02:00.149 align:start position:0%
+from a public data set, it handled the
+entire<00:01:57.759><c> pipeline</c><00:01:58.320><c> autonomously</c><00:01:59.439><c> from</c><00:01:59.759><c> data</c>
+
+00:02:00.149 --> 00:02:00.159 align:start position:0%
+entire pipeline autonomously from data
+
+
+00:02:00.159 --> 00:02:02.630 align:start position:0%
+entire pipeline autonomously from data
+cleaning<00:02:00.640><c> and</c><00:02:00.960><c> feature</c><00:02:01.520><c> engineering</c><00:02:02.399><c> to</c>
+
+00:02:02.630 --> 00:02:02.640 align:start position:0%
+cleaning and feature engineering to
+
+
+00:02:02.640 --> 00:02:05.030 align:start position:0%
+cleaning and feature engineering to
+model<00:02:02.960><c> selection</c><00:02:03.840><c> and</c><00:02:04.159><c> hyperparameter</c>
+
+00:02:05.030 --> 00:02:05.040 align:start position:0%
+model selection and hyperparameter
+
+
+00:02:05.040 --> 00:02:07.510 align:start position:0%
+model selection and hyperparameter
+tuning.<00:02:05.840><c> It</c><00:02:06.000><c> evaluated</c><00:02:06.560><c> the</c><00:02:06.799><c> model</c><00:02:07.200><c> and</c>
+
+00:02:07.510 --> 00:02:07.520 align:start position:0%
+tuning. It evaluated the model and
+
+
+00:02:07.520 --> 00:02:09.350 align:start position:0%
+tuning. It evaluated the model and
+generated<00:02:08.160><c> detailed</c><00:02:08.640><c> metrics</c><00:02:09.119><c> and</c>
+
+00:02:09.350 --> 00:02:09.360 align:start position:0%
+generated detailed metrics and
+
+
+00:02:09.360 --> 00:02:12.070 align:start position:0%
+generated detailed metrics and
+visualizations.<00:02:10.640><c> And</c><00:02:10.879><c> finally,</c><00:02:11.599><c> Neo</c>
+
+00:02:12.070 --> 00:02:12.080 align:start position:0%
+visualizations. And finally, Neo
+
+
+00:02:12.080 --> 00:02:13.990 align:start position:0%
+visualizations. And finally, Neo
+produced<00:02:12.400><c> a</c><00:02:12.720><c> productionready</c><00:02:13.520><c> prediction</c>
+
+00:02:13.990 --> 00:02:14.000 align:start position:0%
+produced a productionready prediction
+
+
+00:02:14.000 --> 00:02:17.110 align:start position:0%
+produced a productionready prediction
+pipeline<00:02:14.800><c> with</c><00:02:15.120><c> fully</c><00:02:15.520><c> documented</c><00:02:16.160><c> code</c><00:02:16.720><c> and</c>
+
+00:02:17.110 --> 00:02:17.120 align:start position:0%
+pipeline with fully documented code and
+
+
+00:02:17.120 --> 00:02:20.550 align:start position:0%
+pipeline with fully documented code and
+reproducible<00:02:18.160><c> steps.</c><00:02:19.599><c> This</c><00:02:19.760><c> is</c><00:02:19.920><c> why</c><00:02:20.160><c> I</c><00:02:20.319><c> really</c>
+
+00:02:20.550 --> 00:02:20.560 align:start position:0%
+reproducible steps. This is why I really
+
+
+00:02:20.560 --> 00:02:23.030 align:start position:0%
+reproducible steps. This is why I really
+wanted<00:02:20.800><c> to</c><00:02:20.959><c> make</c><00:02:21.040><c> a</c><00:02:21.280><c> video</c><00:02:21.520><c> on</c><00:02:21.840><c> Neo</c><00:02:22.319><c> cuz</c><00:02:22.560><c> it</c><00:02:22.879><c> is</c>
+
+00:02:23.030 --> 00:02:23.040 align:start position:0%
+wanted to make a video on Neo cuz it is
+
+
+00:02:23.040 --> 00:02:25.670 align:start position:0%
+wanted to make a video on Neo cuz it is
+truly<00:02:23.520><c> remarkable.</c><00:02:24.480><c> Now,</c><00:02:24.879><c> unfortunately,</c>
+
+00:02:25.670 --> 00:02:25.680 align:start position:0%
+truly remarkable. Now, unfortunately,
+
+
+00:02:25.680 --> 00:02:27.750 align:start position:0%
+truly remarkable. Now, unfortunately,
+it's<00:02:26.000><c> not</c><00:02:26.239><c> fully</c><00:02:26.640><c> available</c><00:02:27.040><c> for</c><00:02:27.360><c> everyone</c>
+
+00:02:27.750 --> 00:02:27.760 align:start position:0%
+it's not fully available for everyone
+
+
+00:02:27.760 --> 00:02:30.710 align:start position:0%
+it's not fully available for everyone
+yet,<00:02:28.319><c> but</c><00:02:28.560><c> you</c><00:02:28.800><c> can</c><00:02:29.040><c> request</c><00:02:29.599><c> access</c><00:02:30.160><c> as</c><00:02:30.480><c> they</c>
+
+00:02:30.710 --> 00:02:30.720 align:start position:0%
+yet, but you can request access as they
+
+
+00:02:30.720 --> 00:02:32.869 align:start position:0%
+yet, but you can request access as they
+are<00:02:30.959><c> moving</c><00:02:31.360><c> into</c><00:02:31.680><c> their</c><00:02:31.920><c> early</c><00:02:32.400><c> access</c>
+
+00:02:32.869 --> 00:02:32.879 align:start position:0%
+are moving into their early access
+
+
+00:02:32.879 --> 00:02:35.589 align:start position:0%
+are moving into their early access
+phase.<00:02:33.519><c> So,</c><00:02:33.840><c> if</c><00:02:34.080><c> you</c><00:02:34.239><c> are</c><00:02:34.400><c> an</c><00:02:34.720><c> individual</c><00:02:35.120><c> or</c><00:02:35.440><c> a</c>
+
+00:02:35.589 --> 00:02:35.599 align:start position:0%
+phase. So, if you are an individual or a
+
+
+00:02:35.599 --> 00:02:38.630 align:start position:0%
+phase. So, if you are an individual or a
+company,<00:02:36.239><c> you</c><00:02:36.480><c> can</c><00:02:36.640><c> simply</c><00:02:37.040><c> request</c><00:02:37.680><c> for</c><00:02:38.000><c> NEO</c>
+
+00:02:38.630 --> 00:02:38.640 align:start position:0%
+company, you can simply request for NEO
+
+
+00:02:38.640 --> 00:02:40.309 align:start position:0%
+company, you can simply request for NEO
+by<00:02:38.879><c> heading</c><00:02:39.200><c> over</c><00:02:39.360><c> to</c><00:02:39.519><c> this</c><00:02:39.760><c> page,</c><00:02:39.920><c> which</c><00:02:40.160><c> I'll</c>
+
+00:02:40.309 --> 00:02:40.319 align:start position:0%
+by heading over to this page, which I'll
+
+
+00:02:40.319 --> 00:02:41.589 align:start position:0%
+by heading over to this page, which I'll
+leave<00:02:40.400><c> a</c><00:02:40.560><c> link</c><00:02:40.720><c> to</c><00:02:40.879><c> in</c><00:02:41.040><c> the</c><00:02:41.200><c> description</c>
+
+00:02:41.589 --> 00:02:41.599 align:start position:0%
+leave a link to in the description
+
+
+00:02:41.599 --> 00:02:45.270 align:start position:0%
+leave a link to in the description
+below.<00:02:42.720><c> But</c><00:02:43.040><c> thankfully,</c><00:02:44.080><c> I</c><00:02:44.480><c> have</c><00:02:44.800><c> gotten</c>
+
+00:02:45.270 --> 00:02:45.280 align:start position:0%
+below. But thankfully, I have gotten
+
+
+00:02:45.280 --> 00:02:47.509 align:start position:0%
+below. But thankfully, I have gotten
+access<00:02:45.680><c> to</c><00:02:46.000><c> Neo.</c><00:02:46.480><c> So,</c><00:02:46.720><c> this</c><00:02:46.879><c> way</c><00:02:47.120><c> I</c><00:02:47.360><c> can</c>
+
+00:02:47.509 --> 00:02:47.519 align:start position:0%
+access to Neo. So, this way I can
+
+
+00:02:47.519 --> 00:02:49.830 align:start position:0%
+access to Neo. So, this way I can
+showcase<00:02:48.000><c> all</c><00:02:48.239><c> the</c><00:02:48.400><c> features</c><00:02:48.959><c> of</c><00:02:49.120><c> part</c><00:02:49.280><c> of</c><00:02:49.440><c> it.</c>
+
+00:02:49.830 --> 00:02:49.840 align:start position:0%
+showcase all the features of part of it.
+
+
+00:02:49.840 --> 00:02:51.750 align:start position:0%
+showcase all the features of part of it.
+But<00:02:50.000><c> let's</c><00:02:50.239><c> say</c><00:02:50.400><c> if</c><00:02:50.640><c> you</c><00:02:50.800><c> do</c><00:02:50.959><c> get</c><00:02:51.200><c> access,</c>
+
+00:02:51.750 --> 00:02:51.760 align:start position:0%
+But let's say if you do get access,
+
+
+00:02:51.760 --> 00:02:53.589 align:start position:0%
+But let's say if you do get access,
+you'll<00:02:52.000><c> then</c><00:02:52.239><c> be</c><00:02:52.400><c> sent</c><00:02:52.560><c> over</c><00:02:52.800><c> to</c><00:02:52.959><c> the</c><00:02:53.120><c> Neo</c>
+
+00:02:53.589 --> 00:02:53.599 align:start position:0%
+you'll then be sent over to the Neo
+
+
+00:02:53.599 --> 00:02:55.670 align:start position:0%
+you'll then be sent over to the Neo
+dashboard.<00:02:54.480><c> This</c><00:02:54.640><c> is</c><00:02:54.720><c> where</c><00:02:54.959><c> you</c><00:02:55.200><c> can</c><00:02:55.360><c> manage</c>
+
+00:02:55.670 --> 00:02:55.680 align:start position:0%
+dashboard. This is where you can manage
+
+
+00:02:55.680 --> 00:02:58.470 align:start position:0%
+dashboard. This is where you can manage
+all<00:02:55.920><c> of</c><00:02:56.080><c> your</c><00:02:56.400><c> projects</c><00:02:56.959><c> or</c><00:02:57.360><c> access</c><00:02:57.920><c> example</c>
+
+00:02:58.470 --> 00:02:58.480 align:start position:0%
+all of your projects or access example
+
+
+00:02:58.480 --> 00:03:00.949 align:start position:0%
+all of your projects or access example
+projects<00:02:58.959><c> to</c><00:02:59.120><c> get</c><00:02:59.280><c> a</c><00:02:59.440><c> better</c><00:02:59.680><c> feel</c><00:03:00.000><c> of</c><00:03:00.239><c> Neo.</c>
+
+00:03:00.949 --> 00:03:00.959 align:start position:0%
+projects to get a better feel of Neo.
+
+
+00:03:00.959 --> 00:03:02.710 align:start position:0%
+projects to get a better feel of Neo.
+You<00:03:01.200><c> can</c><00:03:01.280><c> also</c><00:03:01.599><c> access</c><00:03:02.000><c> them</c><00:03:02.319><c> through</c><00:03:02.560><c> the</c>
+
+00:03:02.710 --> 00:03:02.720 align:start position:0%
+You can also access them through the
+
+
+00:03:02.720 --> 00:03:04.630 align:start position:0%
+You can also access them through the
+lefth<00:03:03.040><c> hand</c><00:03:03.200><c> panel.</c><00:03:03.920><c> You</c><00:03:04.080><c> can</c><00:03:04.239><c> manage</c><00:03:04.480><c> your</c>
+
+00:03:04.630 --> 00:03:04.640 align:start position:0%
+lefth hand panel. You can manage your
+
+
+00:03:04.640 --> 00:03:07.110 align:start position:0%
+lefth hand panel. You can manage your
+secret<00:03:05.280><c> keys.</c><00:03:06.000><c> You</c><00:03:06.080><c> can</c><00:03:06.239><c> view</c><00:03:06.480><c> the</c><00:03:06.640><c> docs</c><00:03:06.959><c> as</c>
+
+00:03:07.110 --> 00:03:07.120 align:start position:0%
+secret keys. You can view the docs as
+
+
+00:03:07.120 --> 00:03:08.710 align:start position:0%
+secret keys. You can view the docs as
+well<00:03:07.200><c> as</c><00:03:07.280><c> the</c><00:03:07.519><c> settings.</c><00:03:07.840><c> Now,</c><00:03:08.000><c> the</c><00:03:08.159><c> docs</c><00:03:08.560><c> is</c>
+
+00:03:08.710 --> 00:03:08.720 align:start position:0%
+well as the settings. Now, the docs is
+
+
+00:03:08.720 --> 00:03:10.790 align:start position:0%
+well as the settings. Now, the docs is
+where<00:03:08.879><c> you</c><00:03:09.120><c> can</c><00:03:09.440><c> get</c><00:03:09.680><c> more</c><00:03:09.920><c> details</c><00:03:10.319><c> about</c><00:03:10.560><c> the</c>
+
+00:03:10.790 --> 00:03:10.800 align:start position:0%
+where you can get more details about the
+
+
+00:03:10.800 --> 00:03:12.790 align:start position:0%
+where you can get more details about the
+VPC<00:03:11.360><c> mode</c><00:03:11.840><c> and</c><00:03:12.000><c> a</c><00:03:12.239><c> couple</c><00:03:12.480><c> other</c>
+
+00:03:12.790 --> 00:03:12.800 align:start position:0%
+VPC mode and a couple other
+
+
+00:03:12.800 --> 00:03:15.110 align:start position:0%
+VPC mode and a couple other
+configuration<00:03:13.760><c> docs.</c><00:03:14.480><c> So,</c><00:03:14.720><c> if</c><00:03:14.959><c> you're</c>
+
+00:03:15.110 --> 00:03:15.120 align:start position:0%
+configuration docs. So, if you're
+
+
+00:03:15.120 --> 00:03:16.630 align:start position:0%
+configuration docs. So, if you're
+interested,<00:03:15.680><c> definitely</c><00:03:16.080><c> take</c><00:03:16.239><c> a</c><00:03:16.400><c> look</c><00:03:16.480><c> at</c>
+
+00:03:16.630 --> 00:03:16.640 align:start position:0%
+interested, definitely take a look at
+
+
+00:03:16.640 --> 00:03:17.830 align:start position:0%
+interested, definitely take a look at
+this<00:03:16.800><c> with</c><00:03:16.959><c> the</c><00:03:17.040><c> link</c><00:03:17.200><c> in</c><00:03:17.360><c> the</c><00:03:17.519><c> description</c>
+
+00:03:17.830 --> 00:03:17.840 align:start position:0%
+this with the link in the description
+
+
+00:03:17.840 --> 00:03:19.830 align:start position:0%
+this with the link in the description
+below.<00:03:18.480><c> Before</c><00:03:18.720><c> we</c><00:03:18.879><c> get</c><00:03:19.040><c> started,</c><00:03:19.440><c> I</c><00:03:19.680><c> just</c>
+
+00:03:19.830 --> 00:03:19.840 align:start position:0%
+below. Before we get started, I just
+
+
+00:03:19.840 --> 00:03:20.949 align:start position:0%
+below. Before we get started, I just
+want<00:03:19.920><c> to</c><00:03:20.080><c> mention</c><00:03:20.319><c> that</c><00:03:20.640><c> you</c><00:03:20.800><c> should</c>
+
+00:03:20.949 --> 00:03:20.959 align:start position:0%
+want to mention that you should
+
+
+00:03:20.959 --> 00:03:22.710 align:start position:0%
+want to mention that you should
+definitely<00:03:21.360><c> go</c><00:03:21.519><c> ahead</c><00:03:21.760><c> and</c><00:03:22.000><c> subscribe</c><00:03:22.400><c> to</c><00:03:22.560><c> the</c>
+
+00:03:22.710 --> 00:03:22.720 align:start position:0%
+definitely go ahead and subscribe to the
+
+
+00:03:22.720 --> 00:03:25.190 align:start position:0%
+definitely go ahead and subscribe to the
+World<00:03:22.959><c> of</c><00:03:23.200><c> AI</c><00:03:23.760><c> newsletter.</c><00:03:24.400><c> I'm</c><00:03:24.720><c> constantly</c>
+
+00:03:25.190 --> 00:03:25.200 align:start position:0%
+World of AI newsletter. I'm constantly
+
+
+00:03:25.200 --> 00:03:27.030 align:start position:0%
+World of AI newsletter. I'm constantly
+posting<00:03:25.599><c> different</c><00:03:25.920><c> newsletters</c><00:03:26.560><c> on</c><00:03:26.800><c> a</c>
+
+00:03:27.030 --> 00:03:27.040 align:start position:0%
+posting different newsletters on a
+
+
+00:03:27.040 --> 00:03:29.589 align:start position:0%
+posting different newsletters on a
+weekly<00:03:27.360><c> basis.</c><00:03:28.159><c> So</c><00:03:28.560><c> this</c><00:03:28.800><c> is</c><00:03:28.959><c> where</c><00:03:29.200><c> you</c><00:03:29.440><c> can</c>
+
+00:03:29.589 --> 00:03:29.599 align:start position:0%
+weekly basis. So this is where you can
+
+
+00:03:29.599 --> 00:03:31.990 align:start position:0%
+weekly basis. So this is where you can
+easily<00:03:30.000><c> get</c><00:03:30.400><c> up-to-date</c><00:03:31.040><c> knowledge</c><00:03:31.680><c> about</c>
+
+00:03:31.990 --> 00:03:32.000 align:start position:0%
+easily get up-to-date knowledge about
+
+
+00:03:32.000 --> 00:03:34.070 align:start position:0%
+easily get up-to-date knowledge about
+what<00:03:32.239><c> is</c><00:03:32.400><c> happening</c><00:03:32.640><c> in</c><00:03:32.879><c> the</c><00:03:33.040><c> AI</c><00:03:33.360><c> space.</c><00:03:33.840><c> So</c>
+
+00:03:34.070 --> 00:03:34.080 align:start position:0%
+what is happening in the AI space. So
+
+
+00:03:34.080 --> 00:03:35.670 align:start position:0%
+what is happening in the AI space. So
+definitely<00:03:34.400><c> go</c><00:03:34.560><c> ahead</c><00:03:34.799><c> and</c><00:03:35.040><c> subscribe</c><00:03:35.440><c> as</c>
+
+00:03:35.670 --> 00:03:35.680 align:start position:0%
+definitely go ahead and subscribe as
+
+
+00:03:35.680 --> 00:03:37.990 align:start position:0%
+definitely go ahead and subscribe as
+this<00:03:35.920><c> is</c><00:03:36.080><c> completely</c><00:03:36.480><c> for</c><00:03:36.720><c> free.</c><00:03:37.440><c> Here</c><00:03:37.680><c> is</c><00:03:37.840><c> an</c>
+
+00:03:37.990 --> 00:03:38.000 align:start position:0%
+this is completely for free. Here is an
+
+
+00:03:38.000 --> 00:03:39.509 align:start position:0%
+this is completely for free. Here is an
+example<00:03:38.319><c> where</c><00:03:38.640><c> Neo</c><00:03:39.040><c> is</c><00:03:39.280><c> going</c><00:03:39.360><c> to</c>
+
+00:03:39.509 --> 00:03:39.519 align:start position:0%
+example where Neo is going to
+
+
+00:03:39.519 --> 00:03:41.910 align:start position:0%
+example where Neo is going to
+autonomously<00:03:40.319><c> build</c><00:03:40.640><c> a</c><00:03:40.959><c> chat</c><00:03:41.280><c> moderation</c>
+
+00:03:41.910 --> 00:03:41.920 align:start position:0%
+autonomously build a chat moderation
+
+
+00:03:41.920 --> 00:03:45.030 align:start position:0%
+autonomously build a chat moderation
+pipeline<00:03:42.560><c> and</c><00:03:42.720><c> you</c><00:03:42.959><c> can</c><00:03:43.120><c> see</c><00:03:43.360><c> how</c><00:03:43.680><c> helpful</c><00:03:44.480><c> Neo</c>
+
+00:03:45.030 --> 00:03:45.040 align:start position:0%
+pipeline and you can see how helpful Neo
+
+
+00:03:45.040 --> 00:03:47.350 align:start position:0%
+pipeline and you can see how helpful Neo
+actually<00:03:45.360><c> is.</c><00:03:45.840><c> In</c><00:03:46.080><c> this</c><00:03:46.319><c> demo,</c><00:03:46.720><c> I</c><00:03:46.959><c> actually</c>
+
+00:03:47.350 --> 00:03:47.360 align:start position:0%
+actually is. In this demo, I actually
+
+
+00:03:47.360 --> 00:03:50.229 align:start position:0%
+actually is. In this demo, I actually
+asked<00:03:47.680><c> it</c><00:03:48.159><c> to</c><00:03:48.400><c> detect</c><00:03:48.799><c> profanity</c><00:03:49.440><c> in</c><00:03:49.760><c> harmful</c>
+
+00:03:50.229 --> 00:03:50.239 align:start position:0%
+asked it to detect profanity in harmful
+
+
+00:03:50.239 --> 00:03:53.030 align:start position:0%
+asked it to detect profanity in harmful
+text<00:03:50.640><c> in</c><00:03:51.040><c> messages.</c><00:03:51.920><c> And</c><00:03:52.159><c> since</c><00:03:52.480><c> there's</c><00:03:52.799><c> no</c>
+
+00:03:53.030 --> 00:03:53.040 align:start position:0%
+text in messages. And since there's no
+
+
+00:03:53.040 --> 00:03:56.149 align:start position:0%
+text in messages. And since there's no
+real<00:03:53.280><c> data</c><00:03:53.599><c> set</c><00:03:54.319><c> which</c><00:03:54.560><c> was</c><00:03:54.879><c> provided,</c><00:03:55.599><c> Neo</c><00:03:56.000><c> is</c>
+
+00:03:56.149 --> 00:03:56.159 align:start position:0%
+real data set which was provided, Neo is
+
+
+00:03:56.159 --> 00:03:58.070 align:start position:0%
+real data set which was provided, Neo is
+going<00:03:56.319><c> to</c><00:03:56.400><c> generate</c><00:03:56.799><c> a</c><00:03:57.040><c> synthetic</c><00:03:57.599><c> data</c><00:03:57.840><c> set</c>
+
+00:03:58.070 --> 00:03:58.080 align:start position:0%
+going to generate a synthetic data set
+
+
+00:03:58.080 --> 00:04:00.710 align:start position:0%
+going to generate a synthetic data set
+that<00:03:58.400><c> covers</c><00:03:58.879><c> English</c><00:03:59.599><c> messages</c><00:04:00.239><c> and</c><00:04:00.480><c> it</c>
+
+00:04:00.710 --> 00:04:00.720 align:start position:0%
+that covers English messages and it
+
+
+00:04:00.720 --> 00:04:03.030 align:start position:0%
+that covers English messages and it
+includes<00:04:01.200><c> profanity,</c><00:04:02.159><c> hate</c><00:04:02.480><c> speech,</c>
+
+00:04:03.030 --> 00:04:03.040 align:start position:0%
+includes profanity, hate speech,
+
+
+00:04:03.040 --> 00:04:05.670 align:start position:0%
+includes profanity, hate speech,
+bullying<00:04:03.599><c> and</c><00:04:03.840><c> explicit</c><00:04:04.400><c> threats.</c><00:04:05.360><c> But</c><00:04:05.439><c> to</c>
+
+00:04:05.670 --> 00:04:05.680 align:start position:0%
+bullying and explicit threats. But to
+
+
+00:04:05.680 --> 00:04:07.990 align:start position:0%
+bullying and explicit threats. But to
+ensure<00:04:06.000><c> the</c><00:04:06.319><c> system</c><00:04:06.640><c> is</c><00:04:06.879><c> practical</c><00:04:07.360><c> for</c><00:04:07.599><c> real</c>
+
+00:04:07.990 --> 00:04:08.000 align:start position:0%
+ensure the system is practical for real
+
+
+00:04:08.000 --> 00:04:10.550 align:start position:0%
+ensure the system is practical for real
+world<00:04:08.239><c> use,</c><00:04:08.879><c> it</c><00:04:09.200><c> was</c><00:04:09.439><c> able</c><00:04:09.680><c> to</c><00:04:09.840><c> define</c><00:04:10.319><c> key</c>
+
+00:04:10.550 --> 00:04:10.560 align:start position:0%
+world use, it was able to define key
+
+
+00:04:10.560 --> 00:04:12.710 align:start position:0%
+world use, it was able to define key
+parameters<00:04:11.200><c> like</c><00:04:11.519><c> the</c><00:04:11.760><c> chat</c><00:04:12.080><c> environment</c>
+
+00:04:12.710 --> 00:04:12.720 align:start position:0%
+parameters like the chat environment
+
+
+00:04:12.720 --> 00:04:15.030 align:start position:0%
+parameters like the chat environment
+should<00:04:13.040><c> handle</c><00:04:13.439><c> moderate</c><00:04:14.000><c> to</c><00:04:14.319><c> high</c><00:04:14.640><c> message</c>
+
+00:04:15.030 --> 00:04:15.040 align:start position:0%
+should handle moderate to high message
+
+
+00:04:15.040 --> 00:04:17.430 align:start position:0%
+should handle moderate to high message
+volumes<00:04:15.439><c> with</c><00:04:15.680><c> low</c><00:04:15.920><c> latency</c><00:04:16.479><c> detection.</c><00:04:17.280><c> And</c>
+
+00:04:17.430 --> 00:04:17.440 align:start position:0%
+volumes with low latency detection. And
+
+
+00:04:17.440 --> 00:04:19.830 align:start position:0%
+volumes with low latency detection. And
+the<00:04:17.680><c> main</c><00:04:17.919><c> success</c><00:04:18.320><c> metric</c><00:04:18.799><c> is</c><00:04:19.120><c> high</c><00:04:19.440><c> recall</c>
+
+00:04:19.830 --> 00:04:19.840 align:start position:0%
+the main success metric is high recall
+
+
+00:04:19.840 --> 00:04:21.990 align:start position:0%
+the main success metric is high recall
+for<00:04:20.079><c> harmful</c><00:04:20.560><c> content.</c><00:04:21.280><c> that's</c><00:04:21.600><c> balanced</c>
+
+00:04:21.990 --> 00:04:22.000 align:start position:0%
+for harmful content. that's balanced
+
+
+00:04:22.000 --> 00:04:25.110 align:start position:0%
+for harmful content. that's balanced
+with<00:04:22.240><c> reasonable</c><00:04:22.880><c> precision</c><00:04:23.759><c> measured</c><00:04:24.160><c> by</c><00:04:24.560><c> F1</c>
+
+00:04:25.110 --> 00:04:25.120 align:start position:0%
+with reasonable precision measured by F1
+
+
+00:04:25.120 --> 00:04:27.189 align:start position:0%
+with reasonable precision measured by F1
+scores.<00:04:25.759><c> And</c><00:04:25.919><c> right</c><00:04:26.080><c> now</c><00:04:26.240><c> you</c><00:04:26.479><c> can</c><00:04:26.560><c> see</c><00:04:26.880><c> the</c>
+
+00:04:27.189 --> 00:04:27.199 align:start position:0%
+scores. And right now you can see the
+
+
+00:04:27.199 --> 00:04:30.790 align:start position:0%
+scores. And right now you can see the
+first<00:04:27.840><c> pass</c><00:04:28.160><c> ledger</c><00:04:28.639><c> list</c><00:04:29.040><c> is</c><00:04:29.680><c> the</c><00:04:29.919><c> stage</c><00:04:30.240><c> one</c>
+
+00:04:30.790 --> 00:04:30.800 align:start position:0%
+first pass ledger list is the stage one
+
+
+00:04:30.800 --> 00:04:32.950 align:start position:0%
+first pass ledger list is the stage one
+where<00:04:31.120><c> it's</c><00:04:31.440><c> focusing</c><00:04:31.919><c> on</c><00:04:32.160><c> the</c><00:04:32.400><c> data</c><00:04:32.720><c> set</c>
+
+00:04:32.950 --> 00:04:32.960 align:start position:0%
+where it's focusing on the data set
+
+
+00:04:32.960 --> 00:04:35.270 align:start position:0%
+where it's focusing on the data set
+engineering<00:04:33.520><c> and</c><00:04:33.759><c> the</c><00:04:34.000><c> preparation.</c><00:04:35.040><c> This</c><00:04:35.199><c> is</c>
+
+00:04:35.270 --> 00:04:35.280 align:start position:0%
+engineering and the preparation. This is
+
+
+00:04:35.280 --> 00:04:37.270 align:start position:0%
+engineering and the preparation. This is
+where<00:04:35.520><c> it's</c><00:04:35.759><c> going</c><00:04:35.840><c> to</c><00:04:36.000><c> run</c><00:04:36.240><c> to</c><00:04:36.639><c> focus</c><00:04:37.040><c> on</c>
+
+00:04:37.270 --> 00:04:37.280 align:start position:0%
+where it's going to run to focus on
+
+
+00:04:37.280 --> 00:04:39.270 align:start position:0%
+where it's going to run to focus on
+things<00:04:37.520><c> like</c><00:04:37.919><c> analyzing</c><00:04:38.400><c> the</c><00:04:38.639><c> moderation</c>
+
+00:04:39.270 --> 00:04:39.280 align:start position:0%
+things like analyzing the moderation
+
+
+00:04:39.280 --> 00:04:41.670 align:start position:0%
+things like analyzing the moderation
+categories,<00:04:40.320><c> creating</c><00:04:40.639><c> a</c><00:04:40.880><c> comprehensive</c>
+
+00:04:41.670 --> 00:04:41.680 align:start position:0%
+categories, creating a comprehensive
+
+
+00:04:41.680 --> 00:04:43.909 align:start position:0%
+categories, creating a comprehensive
+annotation<00:04:42.320><c> guideline</c><00:04:43.040><c> and</c><00:04:43.280><c> a</c><00:04:43.440><c> couple</c><00:04:43.680><c> other</c>
+
+00:04:43.909 --> 00:04:43.919 align:start position:0%
+annotation guideline and a couple other
+
+
+00:04:43.919 --> 00:04:46.950 align:start position:0%
+annotation guideline and a couple other
+tasks.<00:04:44.479><c> And</c><00:04:44.720><c> you</c><00:04:44.880><c> can</c><00:04:45.040><c> see</c><00:04:45.199><c> that</c><00:04:45.520><c> this</c><00:04:45.919><c> is</c><00:04:46.639><c> a</c>
+
+00:04:46.950 --> 00:04:46.960 align:start position:0%
+tasks. And you can see that this is a
+
+
+00:04:46.960 --> 00:04:49.110 align:start position:0%
+tasks. And you can see that this is a
+super<00:04:47.360><c> agent</c><00:04:47.759><c> that</c><00:04:48.080><c> will</c><00:04:48.320><c> autonomously</c>
+
+00:04:49.110 --> 00:04:49.120 align:start position:0%
+super agent that will autonomously
+
+
+00:04:49.120 --> 00:04:51.990 align:start position:0%
+super agent that will autonomously
+handle<00:04:49.600><c> end-to-end</c><00:04:50.400><c> pipeline</c><00:04:51.199><c> tasks</c><00:04:51.680><c> from</c>
+
+00:04:51.990 --> 00:04:52.000 align:start position:0%
+handle end-to-end pipeline tasks from
+
+
+00:04:52.000 --> 00:04:54.150 align:start position:0%
+handle end-to-end pipeline tasks from
+data<00:04:52.400><c> generation</c><00:04:53.360><c> all</c><00:04:53.600><c> the</c><00:04:53.759><c> way</c><00:04:53.840><c> to</c>
+
+00:04:54.150 --> 00:04:54.160 align:start position:0%
+data generation all the way to
+
+
+00:04:54.160 --> 00:04:57.270 align:start position:0%
+data generation all the way to
+processing<00:04:54.960><c> the</c><00:04:55.199><c> model</c><00:04:55.520><c> training</c><00:04:56.160><c> evaluation</c>
+
+00:04:57.270 --> 00:04:57.280 align:start position:0%
+processing the model training evaluation
+
+
+00:04:57.280 --> 00:04:59.670 align:start position:0%
+processing the model training evaluation
+to<00:04:57.520><c> deployment</c><00:04:58.479><c> and</c><00:04:58.800><c> all</c><00:04:59.040><c> of</c><00:04:59.199><c> this</c><00:04:59.440><c> is</c>
+
+00:04:59.670 --> 00:04:59.680 align:start position:0%
+to deployment and all of this is
+
+
+00:04:59.680 --> 00:05:01.749 align:start position:0%
+to deployment and all of this is
+designed<00:05:00.000><c> to</c><00:05:00.320><c> integrate</c><00:05:00.800><c> seamlessly</c><00:05:01.360><c> with</c><00:05:01.600><c> a</c>
+
+00:05:01.749 --> 00:05:01.759 align:start position:0%
+designed to integrate seamlessly with a
+
+
+00:05:01.759 --> 00:05:04.629 align:start position:0%
+designed to integrate seamlessly with a
+python-based<00:05:02.800><c> backend</c><00:05:03.759><c> and</c><00:05:04.080><c> this</c><00:05:04.400><c> will</c>
+
+00:05:04.629 --> 00:05:04.639 align:start position:0%
+python-based backend and this will
+
+
+00:05:04.639 --> 00:05:06.870 align:start position:0%
+python-based backend and this will
+provide<00:05:05.120><c> real</c><00:05:05.440><c> time</c><00:05:05.680><c> moderation</c><00:05:06.400><c> through</c><00:05:06.639><c> an</c>
+
+00:05:06.870 --> 00:05:06.880 align:start position:0%
+provide real time moderation through an
+
+
+00:05:06.880 --> 00:05:08.390 align:start position:0%
+provide real time moderation through an
+API.
+
+00:05:08.390 --> 00:05:08.400 align:start position:0%
+API.
+
+
+00:05:08.400 --> 00:05:10.390 align:start position:0%
+API.
+Right<00:05:08.560><c> now</c><00:05:08.800><c> it</c><00:05:09.120><c> is</c><00:05:09.280><c> taking</c><00:05:09.600><c> off</c><00:05:09.759><c> all</c><00:05:10.000><c> the</c><00:05:10.160><c> tasks</c>
+
+00:05:10.390 --> 00:05:10.400 align:start position:0%
+Right now it is taking off all the tasks
+
+
+00:05:10.400 --> 00:05:12.230 align:start position:0%
+Right now it is taking off all the tasks
+that<00:05:10.639><c> it's</c><00:05:10.880><c> completing</c><00:05:11.360><c> like</c><00:05:11.600><c> creating</c><00:05:11.840><c> the</c>
+
+00:05:12.230 --> 00:05:12.240 align:start position:0%
+that it's completing like creating the
+
+
+00:05:12.240 --> 00:05:15.430 align:start position:0%
+that it's completing like creating the
+comprehensive<00:05:13.280><c> synthetic</c><00:05:13.840><c> data</c><00:05:14.560><c> and</c><00:05:14.960><c> also</c>
+
+00:05:15.430 --> 00:05:15.440 align:start position:0%
+comprehensive synthetic data and also
+
+
+00:05:15.440 --> 00:05:18.230 align:start position:0%
+comprehensive synthetic data and also
+validating<00:05:16.000><c> it</c><00:05:16.320><c> which</c><00:05:16.639><c> is</c><00:05:17.039><c> great.</c><00:05:17.759><c> And</c><00:05:18.080><c> right</c>
+
+00:05:18.230 --> 00:05:18.240 align:start position:0%
+validating it which is great. And right
+
+
+00:05:18.240 --> 00:05:20.310 align:start position:0%
+validating it which is great. And right
+now<00:05:18.479><c> you</c><00:05:18.720><c> can</c><00:05:18.880><c> also</c><00:05:19.120><c> access</c><00:05:19.520><c> the</c><00:05:19.759><c> synthetic</c>
+
+00:05:20.310 --> 00:05:20.320 align:start position:0%
+now you can also access the synthetic
+
+
+00:05:20.320 --> 00:05:23.110 align:start position:0%
+now you can also access the synthetic
+data<00:05:20.560><c> set</c><00:05:21.280><c> through</c><00:05:21.520><c> the</c><00:05:21.759><c> CSC</c><00:05:22.240><c> file</c><00:05:22.560><c> that</c><00:05:22.800><c> it</c>
+
+00:05:23.110 --> 00:05:23.120 align:start position:0%
+data set through the CSC file that it
+
+
+00:05:23.120 --> 00:05:25.029 align:start position:0%
+data set through the CSC file that it
+has<00:05:23.520><c> generated.</c>
+
+00:05:25.029 --> 00:05:25.039 align:start position:0%
+has generated.
+
+
+00:05:25.039 --> 00:05:27.430 align:start position:0%
+has generated.
+Looks<00:05:25.360><c> like</c><00:05:25.520><c> Neo</c><00:05:26.080><c> has</c><00:05:26.400><c> finished</c><00:05:26.800><c> the</c><00:05:27.039><c> full</c>
+
+00:05:27.430 --> 00:05:27.440 align:start position:0%
+Looks like Neo has finished the full
+
+
+00:05:27.440 --> 00:05:29.670 align:start position:0%
+Looks like Neo has finished the full
+data<00:05:27.759><c> set</c><00:05:28.080><c> engineering</c><00:05:28.720><c> and</c><00:05:29.039><c> preparation</c>
+
+00:05:29.670 --> 00:05:29.680 align:start position:0%
+data set engineering and preparation
+
+
+00:05:29.680 --> 00:05:31.749 align:start position:0%
+data set engineering and preparation
+workflow.<00:05:30.320><c> And</c><00:05:30.560><c> it's</c><00:05:30.800><c> truly</c><00:05:31.199><c> amazing</c><00:05:31.520><c> because</c>
+
+00:05:31.749 --> 00:05:31.759 align:start position:0%
+workflow. And it's truly amazing because
+
+
+00:05:31.759 --> 00:05:34.310 align:start position:0%
+workflow. And it's truly amazing because
+it<00:05:32.000><c> analyzed</c><00:05:32.479><c> the</c><00:05:32.639><c> moderation</c><00:05:33.199><c> categories.</c>
+
+00:05:34.310 --> 00:05:34.320 align:start position:0%
+it analyzed the moderation categories.
+
+
+00:05:34.320 --> 00:05:36.390 align:start position:0%
+it analyzed the moderation categories.
+It<00:05:34.720><c> focused</c><00:05:35.120><c> on</c><00:05:35.360><c> creating</c><00:05:35.600><c> the</c><00:05:35.840><c> synthetic</c>
+
+00:05:36.390 --> 00:05:36.400 align:start position:0%
+It focused on creating the synthetic
+
+
+00:05:36.400 --> 00:05:38.870 align:start position:0%
+It focused on creating the synthetic
+data.<00:05:37.120><c> It</c><00:05:37.360><c> generated</c><00:05:37.840><c> all</c><00:05:38.080><c> the</c><00:05:38.240><c> contents</c><00:05:38.639><c> for</c>
+
+00:05:38.870 --> 00:05:38.880 align:start position:0%
+data. It generated all the contents for
+
+
+00:05:38.880 --> 00:05:41.189 align:start position:0%
+data. It generated all the contents for
+it.<00:05:39.360><c> It</c><00:05:39.600><c> also</c><00:05:39.840><c> created</c><00:05:40.160><c> the</c><00:05:40.400><c> Python</c><00:05:40.880><c> based</c>
+
+00:05:41.189 --> 00:05:41.199 align:start position:0%
+it. It also created the Python based
+
+
+00:05:41.199 --> 00:05:43.350 align:start position:0%
+it. It also created the Python based
+synthetic<00:05:41.680><c> database</c><00:05:42.240><c> generation</c><00:05:42.800><c> framework</c>
+
+00:05:43.350 --> 00:05:43.360 align:start position:0%
+synthetic database generation framework
+
+
+00:05:43.360 --> 00:05:45.830 align:start position:0%
+synthetic database generation framework
+which<00:05:43.600><c> is</c><00:05:43.759><c> also</c><00:05:44.080><c> great.</c><00:05:44.960><c> And</c><00:05:45.120><c> what's</c><00:05:45.440><c> great</c><00:05:45.600><c> is</c>
+
+00:05:45.830 --> 00:05:45.840 align:start position:0%
+which is also great. And what's great is
+
+
+00:05:45.840 --> 00:05:48.870 align:start position:0%
+which is also great. And what's great is
+that<00:05:46.080><c> all</c><00:05:46.320><c> the</c><00:05:46.479><c> artifacts</c><00:05:47.360><c> are</c><00:05:48.000><c> now</c><00:05:48.400><c> including</c>
+
+00:05:48.870 --> 00:05:48.880 align:start position:0%
+that all the artifacts are now including
+
+
+00:05:48.880 --> 00:05:52.390 align:start position:0%
+that all the artifacts are now including
+the<00:05:49.440><c> CSV</c><00:05:50.240><c> data</c><00:05:50.560><c> set</c><00:05:50.800><c> as</c><00:05:51.120><c> well</c><00:05:51.280><c> as</c><00:05:51.520><c> the</c><00:05:51.840><c> schema</c>
+
+00:05:52.390 --> 00:05:52.400 align:start position:0%
+the CSV data set as well as the schema
+
+
+00:05:52.400 --> 00:05:55.350 align:start position:0%
+the CSV data set as well as the schema
+JSON<00:05:52.800><c> file</c><00:05:53.440><c> where</c><00:05:53.759><c> it's</c><00:05:54.160><c> documenting</c><00:05:54.880><c> the</c>
+
+00:05:55.350 --> 00:05:55.360 align:start position:0%
+JSON file where it's documenting the
+
+
+00:05:55.360 --> 00:05:58.150 align:start position:0%
+JSON file where it's documenting the
+validated<00:05:56.560><c> uh</c><00:05:56.720><c> data</c><00:05:57.039><c> set</c><00:05:57.360><c> which</c><00:05:57.600><c> is</c><00:05:57.840><c> great</c>
+
+00:05:58.150 --> 00:05:58.160 align:start position:0%
+validated uh data set which is great
+
+
+00:05:58.160 --> 00:06:00.150 align:start position:0%
+validated uh data set which is great
+because<00:05:58.400><c> this</c><00:05:58.639><c> way</c><00:05:58.800><c> you</c><00:05:58.960><c> can</c><00:05:59.120><c> now</c><00:05:59.360><c> access</c><00:05:59.840><c> the</c>
+
+00:06:00.150 --> 00:06:00.160 align:start position:0%
+because this way you can now access the
+
+
+00:06:00.160 --> 00:06:02.070 align:start position:0%
+because this way you can now access the
+synthetic<00:06:00.639><c> data</c><00:06:00.880><c> that</c><00:06:01.120><c> we</c><00:06:01.280><c> had</c><00:06:01.440><c> requested</c><00:06:01.840><c> it</c>
+
+00:06:02.070 --> 00:06:02.080 align:start position:0%
+synthetic data that we had requested it
+
+
+00:06:02.080 --> 00:06:04.150 align:start position:0%
+synthetic data that we had requested it
+to<00:06:02.240><c> generate</c><00:06:02.720><c> for</c><00:06:02.960><c> the</c><00:06:03.120><c> next</c><00:06:03.280><c> phase</c><00:06:03.680><c> which</c><00:06:03.919><c> is</c>
+
+00:06:04.150 --> 00:06:04.160 align:start position:0%
+to generate for the next phase which is
+
+
+00:06:04.160 --> 00:06:06.230 align:start position:0%
+to generate for the next phase which is
+training<00:06:04.479><c> the</c><00:06:04.800><c> baseline</c><00:06:05.440><c> classification</c>
+
+00:06:06.230 --> 00:06:06.240 align:start position:0%
+training the baseline classification
+
+
+00:06:06.240 --> 00:06:08.390 align:start position:0%
+training the baseline classification
+model<00:06:06.960><c> which</c><00:06:07.120><c> is</c><00:06:07.280><c> where</c><00:06:07.520><c> it's</c><00:06:07.759><c> working</c><00:06:08.080><c> on</c>
+
+00:06:08.390 --> 00:06:08.400 align:start position:0%
+model which is where it's working on
+
+
+00:06:08.400 --> 00:06:11.189 align:start position:0%
+model which is where it's working on
+this<00:06:08.560><c> next</c><00:06:08.880><c> step.</c><00:06:10.160><c> But</c><00:06:10.400><c> personally,</c><00:06:10.880><c> I'm</c>
+
+00:06:11.189 --> 00:06:11.199 align:start position:0%
+this next step. But personally, I'm
+
+
+00:06:11.199 --> 00:06:13.670 align:start position:0%
+this next step. But personally, I'm
+truly<00:06:11.520><c> impressed</c><00:06:12.240><c> as</c><00:06:12.479><c> to</c><00:06:12.639><c> how</c><00:06:12.880><c> Neo</c><00:06:13.280><c> was</c><00:06:13.520><c> able</c>
+
+00:06:13.670 --> 00:06:13.680 align:start position:0%
+truly impressed as to how Neo was able
+
+
+00:06:13.680 --> 00:06:15.909 align:start position:0%
+truly impressed as to how Neo was able
+to<00:06:13.840><c> handle</c><00:06:14.160><c> the</c><00:06:14.400><c> entire</c><00:06:14.880><c> data</c><00:06:15.199><c> set</c><00:06:15.440><c> creation</c>
+
+00:06:15.909 --> 00:06:15.919 align:start position:0%
+to handle the entire data set creation
+
+
+00:06:15.919 --> 00:06:18.230 align:start position:0%
+to handle the entire data set creation
+process.<00:06:16.800><c> It</c><00:06:17.039><c> was</c><00:06:17.199><c> able</c><00:06:17.360><c> to</c><00:06:17.520><c> do</c><00:06:17.600><c> this</c><00:06:17.840><c> fully</c>
+
+00:06:18.230 --> 00:06:18.240 align:start position:0%
+process. It was able to do this fully
+
+
+00:06:18.240 --> 00:06:20.790 align:start position:0%
+process. It was able to do this fully
+autonomously<00:06:19.039><c> from</c><00:06:19.360><c> defining</c><00:06:19.840><c> the</c><00:06:20.080><c> schema</c>
+
+00:06:20.790 --> 00:06:20.800 align:start position:0%
+autonomously from defining the schema
+
+
+00:06:20.800 --> 00:06:22.629 align:start position:0%
+autonomously from defining the schema
+and<00:06:21.120><c> the</c><00:06:21.280><c> annotation</c><00:06:21.919><c> guidelines</c><00:06:22.400><c> to</c>
+
+00:06:22.629 --> 00:06:22.639 align:start position:0%
+and the annotation guidelines to
+
+
+00:06:22.639 --> 00:06:25.270 align:start position:0%
+and the annotation guidelines to
+generate<00:06:23.039><c> a</c><00:06:23.280><c> fully</c><00:06:23.680><c> validated</c><00:06:24.479><c> highquality</c>
+
+00:06:25.270 --> 00:06:25.280 align:start position:0%
+generate a fully validated highquality
+
+
+00:06:25.280 --> 00:06:27.990 align:start position:0%
+generate a fully validated highquality
+synthetic<00:06:25.840><c> data</c><00:06:26.160><c> set.</c><00:06:26.720><c> It</c><00:06:26.960><c> not</c><00:06:27.199><c> only</c><00:06:27.440><c> ensured</c>
+
+00:06:27.990 --> 00:06:28.000 align:start position:0%
+synthetic data set. It not only ensured
+
+
+00:06:28.000 --> 00:06:30.629 align:start position:0%
+synthetic data set. It not only ensured
+the<00:06:28.319><c> balanced</c><00:06:28.720><c> coverage</c><00:06:29.199><c> across</c><00:06:29.680><c> all</c><00:06:30.000><c> harmful</c>
+
+00:06:30.629 --> 00:06:30.639 align:start position:0%
+the balanced coverage across all harmful
+
+
+00:06:30.639 --> 00:06:32.629 align:start position:0%
+the balanced coverage across all harmful
+content<00:06:31.199><c> categories,</c><00:06:32.000><c> but</c><00:06:32.240><c> it</c><00:06:32.400><c> also</c>
+
+00:06:32.629 --> 00:06:32.639 align:start position:0%
+content categories, but it also
+
+
+00:06:32.639 --> 00:06:36.070 align:start position:0%
+content categories, but it also
+incorporated<00:06:33.360><c> multilel</c><00:06:34.319><c> support</c><00:06:35.120><c> as</c><00:06:35.440><c> well</c><00:06:35.680><c> as</c>
+
+00:06:36.070 --> 00:06:36.080 align:start position:0%
+incorporated multilel support as well as
+
+
+00:06:36.080 --> 00:06:38.790 align:start position:0%
+incorporated multilel support as well as
+reproducibility<00:06:37.199><c> which</c><00:06:37.440><c> you</c><00:06:37.680><c> can</c><00:06:37.840><c> see</c><00:06:38.400><c> within</c>
+
+00:06:38.790 --> 00:06:38.800 align:start position:0%
+reproducibility which you can see within
+
+
+00:06:38.800 --> 00:06:41.670 align:start position:0%
+reproducibility which you can see within
+the<00:06:38.960><c> exploreration</c><00:06:40.319><c> validation.</c><00:06:41.280><c> It</c><00:06:41.520><c> was</c>
+
+00:06:41.670 --> 00:06:41.680 align:start position:0%
+the exploreration validation. It was
+
+
+00:06:41.680 --> 00:06:43.590 align:start position:0%
+the exploreration validation. It was
+able<00:06:41.840><c> to</c><00:06:42.160><c> focus</c><00:06:42.479><c> on</c><00:06:42.720><c> this.</c><00:06:43.120><c> It</c><00:06:43.360><c> also</c>
+
+00:06:43.590 --> 00:06:43.600 align:start position:0%
+able to focus on this. It also
+
+
+00:06:43.600 --> 00:06:46.710 align:start position:0%
+able to focus on this. It also
+demonstrated<00:06:44.560><c> how</c><00:06:44.960><c> capable</c><00:06:45.520><c> it</c><00:06:45.840><c> was</c><00:06:46.240><c> in</c><00:06:46.560><c> terms</c>
+
+00:06:46.710 --> 00:06:46.720 align:start position:0%
+demonstrated how capable it was in terms
+
+
+00:06:46.720 --> 00:06:49.029 align:start position:0%
+demonstrated how capable it was in terms
+of<00:06:46.880><c> managing</c><00:06:47.440><c> complex</c><00:06:47.919><c> end</c><00:06:48.160><c> toend</c><00:06:48.639><c> ML</c>
+
+00:06:49.029 --> 00:06:49.039 align:start position:0%
+of managing complex end toend ML
+
+
+00:06:49.039 --> 00:06:51.510 align:start position:0%
+of managing complex end toend ML
+workflows<00:06:49.600><c> without</c><00:06:50.000><c> manual</c><00:06:50.400><c> intervention.</c><00:06:51.280><c> I</c>
+
+00:06:51.510 --> 00:06:51.520 align:start position:0%
+workflows without manual intervention. I
+
+
+00:06:51.520 --> 00:06:53.350 align:start position:0%
+workflows without manual intervention. I
+didn't<00:06:51.759><c> do</c><00:06:52.000><c> anything.</c><00:06:52.400><c> It</c><00:06:52.639><c> did</c><00:06:52.880><c> all</c><00:06:53.039><c> of</c><00:06:53.199><c> this</c>
+
+00:06:53.350 --> 00:06:53.360 align:start position:0%
+didn't do anything. It did all of this
+
+
+00:06:53.360 --> 00:06:56.390 align:start position:0%
+didn't do anything. It did all of this
+autonomously<00:06:54.160><c> which</c><00:06:54.400><c> is</c><00:06:54.560><c> quite</c><00:06:54.800><c> impressive.</c>
+
+00:06:56.390 --> 00:06:56.400 align:start position:0%
+autonomously which is quite impressive.
+
+
+00:06:56.400 --> 00:06:58.550 align:start position:0%
+autonomously which is quite impressive.
+So,<00:06:56.800><c> looks</c><00:06:57.039><c> like</c><00:06:57.199><c> Neil</c><00:06:57.680><c> was</c><00:06:57.919><c> successfully</c>
+
+00:06:58.550 --> 00:06:58.560 align:start position:0%
+So, looks like Neil was successfully
+
+
+00:06:58.560 --> 00:07:00.550 align:start position:0%
+So, looks like Neil was successfully
+able<00:06:58.800><c> to</c><00:06:59.039><c> train</c><00:06:59.280><c> the</c><00:06:59.520><c> baseline</c><00:07:00.000><c> models</c><00:07:00.319><c> for</c>
+
+00:07:00.550 --> 00:07:00.560 align:start position:0%
+able to train the baseline models for
+
+
+00:07:00.560 --> 00:07:02.790 align:start position:0%
+able to train the baseline models for
+chat<00:07:00.880><c> moderation</c><00:07:01.599><c> with</c><00:07:01.840><c> the</c><00:07:02.080><c> logistic</c>
+
+00:07:02.790 --> 00:07:02.800 align:start position:0%
+chat moderation with the logistic
+
+
+00:07:02.800 --> 00:07:05.270 align:start position:0%
+chat moderation with the logistic
+regression<00:07:03.440><c> classifier</c><00:07:04.400><c> and</c><00:07:04.639><c> achieved</c><00:07:05.120><c> a</c>
+
+00:07:05.270 --> 00:07:05.280 align:start position:0%
+regression classifier and achieved a
+
+
+00:07:05.280 --> 00:07:09.510 align:start position:0%
+regression classifier and achieved a
+92.4<00:07:06.560><c> percentage</c><00:07:07.280><c> on</c><00:07:07.520><c> the</c><00:07:07.759><c> F1</c><00:07:08.319><c> score</c><00:07:08.880><c> and</c><00:07:09.199><c> a</c>
+
+00:07:09.510 --> 00:07:09.520 align:start position:0%
+92.4 percentage on the F1 score and a
+
+
+00:07:09.520 --> 00:07:13.270 align:start position:0%
+92.4 percentage on the F1 score and a
+90%<00:07:10.400><c> on</c><00:07:10.800><c> recall.</c><00:07:11.599><c> So</c><00:07:12.160><c> now</c><00:07:12.479><c> what</c><00:07:12.720><c> it's</c><00:07:13.039><c> going</c><00:07:13.120><c> to</c>
+
+00:07:13.270 --> 00:07:13.280 align:start position:0%
+90% on recall. So now what it's going to
+
+
+00:07:13.280 --> 00:07:15.909 align:start position:0%
+90% on recall. So now what it's going to
+work<00:07:13.440><c> on</c><00:07:14.080><c> is</c><00:07:14.560><c> having</c><00:07:14.880><c> it</c><00:07:15.280><c> build</c><00:07:15.599><c> a</c>
+
+00:07:15.909 --> 00:07:15.919 align:start position:0%
+work on is having it build a
+
+
+00:07:15.919 --> 00:07:18.469 align:start position:0%
+work on is having it build a
+productionready<00:07:16.720><c> real-time</c><00:07:17.280><c> API</c><00:07:18.160><c> using</c>
+
+00:07:18.469 --> 00:07:18.479 align:start position:0%
+productionready real-time API using
+
+
+00:07:18.479 --> 00:07:21.029 align:start position:0%
+productionready real-time API using
+flask<00:07:18.960><c> and</c><00:07:19.120><c> fast</c><00:07:19.440><c> API</c><00:07:20.319><c> and</c><00:07:20.560><c> it's</c><00:07:20.800><c> going</c><00:07:20.880><c> to</c>
+
+00:07:21.029 --> 00:07:21.039 align:start position:0%
+flask and fast API and it's going to
+
+
+00:07:21.039 --> 00:07:23.830 align:start position:0%
+flask and fast API and it's going to
+work<00:07:21.280><c> on</c><00:07:21.599><c> loading</c><00:07:22.000><c> the</c><00:07:22.240><c> trained</c><00:07:22.639><c> models</c><00:07:23.520><c> as</c>
+
+00:07:23.830 --> 00:07:23.840 align:start position:0%
+work on loading the trained models as
+
+
+00:07:23.840 --> 00:07:26.309 align:start position:0%
+work on loading the trained models as
+well<00:07:24.080><c> as</c><00:07:24.639><c> providing</c><00:07:25.039><c> the</c><00:07:25.280><c> endpoints</c><00:07:25.919><c> per</c>
+
+00:07:26.309 --> 00:07:26.319 align:start position:0%
+well as providing the endpoints per
+
+
+00:07:26.319 --> 00:07:29.189 align:start position:0%
+well as providing the endpoints per
+category<00:07:26.960><c> for</c><00:07:27.280><c> moderation</c><00:07:27.759><c> outputs.</c><00:07:28.639><c> So</c><00:07:28.960><c> all</c>
+
+00:07:29.189 --> 00:07:29.199 align:start position:0%
+category for moderation outputs. So all
+
+
+00:07:29.199 --> 00:07:31.909 align:start position:0%
+category for moderation outputs. So all
+of<00:07:29.280><c> this</c><00:07:29.440><c> is</c><00:07:29.680><c> done</c><00:07:30.240><c> autonomously</c><00:07:30.960><c> by</c><00:07:31.199><c> Neo.</c>
+
+00:07:31.909 --> 00:07:31.919 align:start position:0%
+of this is done autonomously by Neo.
+
+
+00:07:31.919 --> 00:07:33.670 align:start position:0%
+of this is done autonomously by Neo.
+It's<00:07:32.160><c> going</c><00:07:32.240><c> to</c><00:07:32.319><c> create</c><00:07:32.560><c> a</c><00:07:32.800><c> fully</c><00:07:33.120><c> deployable</c>
+
+00:07:33.670 --> 00:07:33.680 align:start position:0%
+It's going to create a fully deployable
+
+
+00:07:33.680 --> 00:07:35.670 align:start position:0%
+It's going to create a fully deployable
+system<00:07:34.080><c> ready</c><00:07:34.319><c> to</c><00:07:34.479><c> integrate</c><00:07:34.880><c> into</c><00:07:35.199><c> a</c><00:07:35.440><c> live</c>
+
+00:07:35.670 --> 00:07:35.680 align:start position:0%
+system ready to integrate into a live
+
+
+00:07:35.680 --> 00:07:37.510 align:start position:0%
+system ready to integrate into a live
+chat<00:07:36.000><c> environment.</c><00:07:36.800><c> And</c><00:07:36.960><c> you</c><00:07:37.120><c> can</c><00:07:37.199><c> see</c><00:07:37.280><c> that</c>
+
+00:07:37.510 --> 00:07:37.520 align:start position:0%
+chat environment. And you can see that
+
+
+00:07:37.520 --> 00:07:39.670 align:start position:0%
+chat environment. And you can see that
+right<00:07:37.680><c> now</c><00:07:37.919><c> it</c><00:07:38.240><c> is</c><00:07:38.400><c> writing</c><00:07:38.720><c> the</c><00:07:38.960><c> code</c><00:07:39.199><c> for</c><00:07:39.440><c> all</c>
+
+00:07:39.670 --> 00:07:39.680 align:start position:0%
+right now it is writing the code for all
+
+
+00:07:39.680 --> 00:07:42.070 align:start position:0%
+right now it is writing the code for all
+of<00:07:39.759><c> this</c><00:07:40.000><c> to</c><00:07:40.240><c> be</c><00:07:40.400><c> functional</c><00:07:40.960><c> all</c><00:07:41.199><c> on</c><00:07:41.440><c> its</c><00:07:41.680><c> own</c>
+
+00:07:42.070 --> 00:07:42.080 align:start position:0%
+of this to be functional all on its own
+
+
+00:07:42.080 --> 00:07:44.390 align:start position:0%
+of this to be functional all on its own
+with<00:07:42.319><c> the</c><00:07:42.479><c> demo</c><00:07:42.800><c> API</c><00:07:43.280><c> as</c><00:07:43.520><c> well</c><00:07:43.919><c> with</c><00:07:44.160><c> the</c>
+
+00:07:44.390 --> 00:07:44.400 align:start position:0%
+with the demo API as well with the
+
+
+00:07:44.400 --> 00:07:47.990 align:start position:0%
+with the demo API as well with the
+validation<00:07:45.199><c> as</c><00:07:45.520><c> well</c><00:07:45.599><c> as</c><00:07:45.759><c> the</c><00:07:45.919><c> inference.</c>
+
+00:07:47.990 --> 00:07:48.000 align:start position:0%
+validation as well as the inference.
+
+
+00:07:48.000 --> 00:07:50.230 align:start position:0%
+validation as well as the inference.
+So<00:07:48.319><c> looks</c><00:07:48.560><c> like</c><00:07:48.720><c> the</c><00:07:48.880><c> chat</c><00:07:49.199><c> moderation</c><00:07:49.759><c> API</c>
+
+00:07:50.230 --> 00:07:50.240 align:start position:0%
+So looks like the chat moderation API
+
+
+00:07:50.240 --> 00:07:52.469 align:start position:0%
+So looks like the chat moderation API
+environment<00:07:50.720><c> is</c><00:07:51.039><c> ready</c><00:07:51.199><c> for</c><00:07:51.440><c> production</c><00:07:52.160><c> and</c>
+
+00:07:52.469 --> 00:07:52.479 align:start position:0%
+environment is ready for production and
+
+
+00:07:52.479 --> 00:07:55.270 align:start position:0%
+environment is ready for production and
+what<00:07:52.720><c> I've</c><00:07:53.039><c> done</c><00:07:53.199><c> now</c><00:07:53.520><c> is</c><00:07:54.000><c> I</c><00:07:54.319><c> have</c><00:07:54.560><c> approved</c><00:07:55.039><c> it</c>
+
+00:07:55.270 --> 00:07:55.280 align:start position:0%
+what I've done now is I have approved it
+
+
+00:07:55.280 --> 00:07:57.430 align:start position:0%
+what I've done now is I have approved it
+myself<00:07:55.680><c> as</c><00:07:55.919><c> well</c><00:07:56.080><c> with</c><00:07:56.319><c> human</c><00:07:56.560><c> in</c><00:07:56.720><c> the</c><00:07:56.879><c> loop</c>
+
+00:07:57.430 --> 00:07:57.440 align:start position:0%
+myself as well with human in the loop
+
+
+00:07:57.440 --> 00:08:00.309 align:start position:0%
+myself as well with human in the loop
+and<00:07:57.759><c> I</c><00:07:58.000><c> have</c><00:07:58.240><c> now</c><00:07:58.560><c> requested</c><00:07:59.039><c> it</c><00:07:59.520><c> to</c><00:07:59.840><c> actually</c>
+
+00:08:00.309 --> 00:08:00.319 align:start position:0%
+and I have now requested it to actually
+
+
+00:08:00.319 --> 00:08:02.550 align:start position:0%
+and I have now requested it to actually
+focus<00:08:00.720><c> on</c><00:08:00.960><c> the</c><00:08:01.120><c> next</c><00:08:01.360><c> phase</c><00:08:01.759><c> to</c><00:08:01.919><c> deploy</c><00:08:02.319><c> and</c>
+
+00:08:02.550 --> 00:08:02.560 align:start position:0%
+focus on the next phase to deploy and
+
+
+00:08:02.560 --> 00:08:04.150 align:start position:0%
+focus on the next phase to deploy and
+demonstrate<00:08:03.039><c> the</c><00:08:03.280><c> chat</c><00:08:03.599><c> moderation</c>
+
+00:08:04.150 --> 00:08:04.160 align:start position:0%
+demonstrate the chat moderation
+
+
+00:08:04.160 --> 00:08:07.029 align:start position:0%
+demonstrate the chat moderation
+pipeline.<00:08:05.039><c> This</c><00:08:05.280><c> is</c><00:08:05.360><c> where</c><00:08:05.599><c> I</c><00:08:05.840><c> told</c><00:08:06.000><c> it</c><00:08:06.560><c> to</c>
+
+00:08:07.029 --> 00:08:07.039 align:start position:0%
+pipeline. This is where I told it to
+
+
+00:08:07.039 --> 00:08:08.950 align:start position:0%
+pipeline. This is where I told it to
+actually<00:08:07.520><c> execute</c><00:08:08.000><c> this</c><00:08:08.400><c> where</c><00:08:08.560><c> I</c><00:08:08.720><c> want</c><00:08:08.879><c> to</c>
+
+00:08:08.950 --> 00:08:08.960 align:start position:0%
+actually execute this where I want to
+
+
+00:08:08.960 --> 00:08:11.589 align:start position:0%
+actually execute this where I want to
+access<00:08:09.360><c> it</c><00:08:09.680><c> to</c><00:08:10.000><c> see</c><00:08:10.160><c> how</c><00:08:10.319><c> it</c><00:08:10.560><c> actually</c><00:08:10.800><c> works.</c>
+
+00:08:11.589 --> 00:08:11.599 align:start position:0%
+access it to see how it actually works.
+
+
+00:08:11.599 --> 00:08:14.469 align:start position:0%
+access it to see how it actually works.
+And<00:08:11.919><c> all</c><00:08:12.160><c> of</c><00:08:12.319><c> this</c><00:08:12.560><c> has</c><00:08:12.879><c> now</c><00:08:13.199><c> worked</c><00:08:13.599><c> on</c><00:08:14.240><c> the</c>
+
+00:08:14.469 --> 00:08:14.479 align:start position:0%
+And all of this has now worked on the
+
+
+00:08:14.479 --> 00:08:16.309 align:start position:0%
+And all of this has now worked on the
+documentation<00:08:15.360><c> which</c><00:08:15.599><c> you</c><00:08:15.759><c> can</c><00:08:15.840><c> see</c><00:08:16.080><c> there's</c>
+
+00:08:16.309 --> 00:08:16.319 align:start position:0%
+documentation which you can see there's
+
+
+00:08:16.319 --> 00:08:18.309 align:start position:0%
+documentation which you can see there's
+multiple<00:08:16.800><c> different</c><00:08:17.039><c> files</c><00:08:17.440><c> that</c><00:08:17.680><c> it</c><00:08:18.000><c> has</c>
+
+00:08:18.309 --> 00:08:18.319 align:start position:0%
+multiple different files that it has
+
+
+00:08:18.319 --> 00:08:21.189 align:start position:0%
+multiple different files that it has
+worked<00:08:18.560><c> upon.</c><00:08:19.280><c> It</c><00:08:19.599><c> audited</c><00:08:20.080><c> the</c><00:08:20.319><c> trails</c><00:08:20.960><c> the</c>
+
+00:08:21.189 --> 00:08:21.199 align:start position:0%
+worked upon. It audited the trails the
+
+
+00:08:21.199 --> 00:08:23.749 align:start position:0%
+worked upon. It audited the trails the
+responsibility<00:08:22.080><c> checks</c><00:08:22.879><c> as</c><00:08:23.199><c> well</c><00:08:23.440><c> as</c>
+
+00:08:23.749 --> 00:08:23.759 align:start position:0%
+responsibility checks as well as
+
+
+00:08:23.759 --> 00:08:25.670 align:start position:0%
+responsibility checks as well as
+ensuring<00:08:24.319><c> the</c><00:08:24.639><c> system</c><00:08:24.960><c> is</c><00:08:25.199><c> ready</c><00:08:25.440><c> for</c>
+
+00:08:25.670 --> 00:08:25.680 align:start position:0%
+ensuring the system is ready for
+
+
+00:08:25.680 --> 00:08:28.230 align:start position:0%
+ensuring the system is ready for
+production<00:08:26.160><c> grade</c><00:08:26.479><c> features.</c><00:08:27.440><c> It</c><00:08:27.680><c> is</c><00:08:27.919><c> now</c>
+
+00:08:28.230 --> 00:08:28.240 align:start position:0%
+production grade features. It is now
+
+
+00:08:28.240 --> 00:08:30.710 align:start position:0%
+production grade features. It is now
+ready<00:08:28.479><c> to</c><00:08:28.720><c> actually</c><00:08:29.199><c> access</c><00:08:29.759><c> after</c><00:08:30.160><c> this</c><00:08:30.400><c> next</c>
+
+00:08:30.710 --> 00:08:30.720 align:start position:0%
+ready to actually access after this next
+
+
+00:08:30.720 --> 00:08:32.870 align:start position:0%
+ready to actually access after this next
+step<00:08:31.199><c> which</c><00:08:31.440><c> is</c><00:08:31.520><c> where</c><00:08:31.759><c> we'll</c><00:08:32.080><c> be</c><00:08:32.159><c> demoing</c>
+
+00:08:32.870 --> 00:08:32.880 align:start position:0%
+step which is where we'll be demoing
+
+
+00:08:32.880 --> 00:08:35.509 align:start position:0%
+step which is where we'll be demoing
+this<00:08:33.120><c> chat</c><00:08:33.519><c> pipeline</c><00:08:33.919><c> that</c><00:08:34.159><c> we</c><00:08:34.320><c> had</c><00:08:34.640><c> created.</c>
+
+00:08:35.509 --> 00:08:35.519 align:start position:0%
+this chat pipeline that we had created.
+
+
+00:08:35.519 --> 00:08:37.670 align:start position:0%
+this chat pipeline that we had created.
+So<00:08:35.680><c> it</c><00:08:35.760><c> looks</c><00:08:36.000><c> like</c><00:08:36.240><c> it</c><00:08:36.560><c> is</c><00:08:36.800><c> fully</c><00:08:37.200><c> complete</c>
+
+00:08:37.670 --> 00:08:37.680 align:start position:0%
+So it looks like it is fully complete
+
+
+00:08:37.680 --> 00:08:40.149 align:start position:0%
+So it looks like it is fully complete
+now.<00:08:38.080><c> I</c><00:08:38.399><c> have</c><00:08:38.479><c> an</c><00:08:38.719><c> API</c><00:08:39.279><c> endpoint</c><00:08:39.760><c> that's</c>
+
+00:08:40.149 --> 00:08:40.159 align:start position:0%
+now. I have an API endpoint that's
+
+
+00:08:40.159 --> 00:08:42.230 align:start position:0%
+now. I have an API endpoint that's
+actually<00:08:40.479><c> running</c><00:08:41.120><c> as</c><00:08:41.360><c> well</c><00:08:41.519><c> as</c><00:08:41.760><c> the</c><00:08:42.080><c> front</c>
+
+00:08:42.230 --> 00:08:42.240 align:start position:0%
+actually running as well as the front
+
+
+00:08:42.240 --> 00:08:44.870 align:start position:0%
+actually running as well as the front
+end<00:08:42.719><c> that</c><00:08:43.039><c> has</c><00:08:43.200><c> been</c><00:08:43.360><c> fully</c><00:08:43.680><c> coded</c><00:08:44.080><c> out</c><00:08:44.560><c> and</c>
+
+00:08:44.870 --> 00:08:44.880 align:start position:0%
+end that has been fully coded out and
+
+
+00:08:44.880 --> 00:08:47.269 align:start position:0%
+end that has been fully coded out and
+you<00:08:45.120><c> can</c><00:08:45.279><c> see</c><00:08:45.360><c> that</c><00:08:45.760><c> it's</c><00:08:46.080><c> now</c><00:08:46.399><c> showcasing</c><00:08:46.959><c> the</c>
+
+00:08:47.269 --> 00:08:47.279 align:start position:0%
+you can see that it's now showcasing the
+
+
+00:08:47.279 --> 00:08:49.509 align:start position:0%
+you can see that it's now showcasing the
+complete<00:08:47.600><c> chat</c><00:08:48.000><c> moderation</c><00:08:48.560><c> pipeline.</c><00:08:49.279><c> You</c>
+
+00:08:49.509 --> 00:08:49.519 align:start position:0%
+complete chat moderation pipeline. You
+
+
+00:08:49.519 --> 00:08:51.269 align:start position:0%
+complete chat moderation pipeline. You
+can<00:08:49.600><c> see</c><00:08:49.760><c> right</c><00:08:50.000><c> now</c><00:08:50.080><c> that</c><00:08:50.320><c> it</c><00:08:50.560><c> is</c><00:08:50.720><c> showcasing</c>
+
+00:08:51.269 --> 00:08:51.279 align:start position:0%
+can see right now that it is showcasing
+
+
+00:08:51.279 --> 00:08:53.990 align:start position:0%
+can see right now that it is showcasing
+the<00:08:51.519><c> messages</c><00:08:52.000><c> that</c><00:08:52.240><c> it</c><00:08:52.480><c> has</c><00:08:52.720><c> detected</c><00:08:53.680><c> that</c>
+
+00:08:53.990 --> 00:08:54.000 align:start position:0%
+the messages that it has detected that
+
+
+00:08:54.000 --> 00:08:56.070 align:start position:0%
+the messages that it has detected that
+may<00:08:54.240><c> be</c><00:08:54.800><c> a</c><00:08:55.040><c> part</c><00:08:55.200><c> of</c><00:08:55.360><c> the</c><00:08:55.600><c> detection</c>
+
+00:08:56.070 --> 00:08:56.080 align:start position:0%
+may be a part of the detection
+
+
+00:08:56.080 --> 00:08:58.230 align:start position:0%
+may be a part of the detection
+categories<00:08:56.640><c> that</c><00:08:56.800><c> we</c><00:08:57.040><c> have</c><00:08:57.200><c> set</c><00:08:57.760><c> that</c><00:08:58.000><c> may</c>
+
+00:08:58.230 --> 00:08:58.240 align:start position:0%
+categories that we have set that may
+
+
+00:08:58.240 --> 00:09:01.110 align:start position:0%
+categories that we have set that may
+contain<00:08:58.640><c> profanity,</c><00:08:59.600><c> harassment,</c><00:09:00.399><c> spam</c><00:09:00.880><c> or</c>
+
+00:09:01.110 --> 00:09:01.120 align:start position:0%
+contain profanity, harassment, spam or
+
+
+00:09:01.120 --> 00:09:03.430 align:start position:0%
+contain profanity, harassment, spam or
+threats.<00:09:01.839><c> The</c><00:09:02.080><c> system</c><00:09:02.480><c> status</c><00:09:02.880><c> is</c><00:09:03.200><c> running</c>
+
+00:09:03.430 --> 00:09:03.440 align:start position:0%
+threats. The system status is running
+
+
+00:09:03.440 --> 00:09:05.750 align:start position:0%
+threats. The system status is running
+right<00:09:03.680><c> now</c><00:09:03.920><c> which</c><00:09:04.080><c> you</c><00:09:04.320><c> can</c><00:09:04.399><c> see</c><00:09:04.880><c> with</c><00:09:05.120><c> the</c><00:09:05.279><c> API</c>
+
+00:09:05.750 --> 00:09:05.760 align:start position:0%
+right now which you can see with the API
+
+
+00:09:05.760 --> 00:09:07.829 align:start position:0%
+right now which you can see with the API
+status<00:09:06.240><c> that</c><00:09:06.560><c> is</c><00:09:06.720><c> currently</c><00:09:07.040><c> running.</c><00:09:07.680><c> And</c>
+
+00:09:07.829 --> 00:09:07.839 align:start position:0%
+status that is currently running. And
+
+
+00:09:07.839 --> 00:09:10.790 align:start position:0%
+status that is currently running. And
+then<00:09:08.000><c> you</c><00:09:08.240><c> also</c><00:09:08.640><c> have</c><00:09:09.279><c> a</c><00:09:09.680><c> good</c><00:09:10.240><c> condensed</c>
+
+00:09:10.790 --> 00:09:10.800 align:start position:0%
+then you also have a good condensed
+
+
+00:09:10.800 --> 00:09:13.110 align:start position:0%
+then you also have a good condensed
+version<00:09:11.200><c> of</c><00:09:11.600><c> the</c><00:09:11.839><c> analytics</c><00:09:12.399><c> like</c><00:09:12.640><c> the</c><00:09:12.800><c> total</c>
+
+00:09:13.110 --> 00:09:13.120 align:start position:0%
+version of the analytics like the total
+
+
+00:09:13.120 --> 00:09:15.509 align:start position:0%
+version of the analytics like the total
+messages,<00:09:13.760><c> flagged</c><00:09:14.320><c> content,</c><00:09:14.880><c> blocked</c>
+
+00:09:15.509 --> 00:09:15.519 align:start position:0%
+messages, flagged content, blocked
+
+
+00:09:15.519 --> 00:09:17.829 align:start position:0%
+messages, flagged content, blocked
+latency<00:09:16.240><c> and</c><00:09:16.560><c> such</c><00:09:16.880><c> forth.</c><00:09:17.279><c> You</c><00:09:17.519><c> can</c><00:09:17.600><c> even</c>
+
+00:09:17.829 --> 00:09:17.839 align:start position:0%
+latency and such forth. You can even
+
+
+00:09:17.839 --> 00:09:20.230 align:start position:0%
+latency and such forth. You can even
+export<00:09:18.320><c> the</c><00:09:18.560><c> contents</c><00:09:19.040><c> that</c><00:09:19.360><c> it</c><00:09:19.600><c> has</c><00:09:19.920><c> worked</c>
+
+00:09:20.230 --> 00:09:20.240 align:start position:0%
+export the contents that it has worked
+
+
+00:09:20.240 --> 00:09:22.230 align:start position:0%
+export the contents that it has worked
+upon.<00:09:20.880><c> But</c><00:09:21.040><c> you</c><00:09:21.279><c> can</c><00:09:21.360><c> see</c><00:09:21.440><c> that</c><00:09:21.680><c> it</c><00:09:21.920><c> created</c>
+
+00:09:22.230 --> 00:09:22.240 align:start position:0%
+upon. But you can see that it created
+
+
+00:09:22.240 --> 00:09:24.470 align:start position:0%
+upon. But you can see that it created
+this<00:09:22.560><c> fullon</c><00:09:23.279><c> complete</c><00:09:23.680><c> chat</c><00:09:24.000><c> moderation</c>
+
+00:09:24.470 --> 00:09:24.480 align:start position:0%
+this fullon complete chat moderation
+
+
+00:09:24.480 --> 00:09:26.949 align:start position:0%
+this fullon complete chat moderation
+pipeline<00:09:25.120><c> with</c><00:09:25.360><c> the</c><00:09:25.600><c> front</c><00:09:25.760><c> end</c><00:09:26.000><c> as</c><00:09:26.240><c> well.</c><00:09:26.800><c> But</c>
+
+00:09:26.949 --> 00:09:26.959 align:start position:0%
+pipeline with the front end as well. But
+
+
+00:09:26.959 --> 00:09:28.949 align:start position:0%
+pipeline with the front end as well. But
+the<00:09:27.200><c> fact</c><00:09:27.279><c> that</c><00:09:27.600><c> it</c><00:09:27.839><c> also</c><00:09:28.320><c> created</c><00:09:28.640><c> the</c>
+
+00:09:28.949 --> 00:09:28.959 align:start position:0%
+the fact that it also created the
+
+
+00:09:28.959 --> 00:09:32.630 align:start position:0%
+the fact that it also created the
+synthetic<00:09:29.680><c> data</c><00:09:30.399><c> was</c><00:09:30.800><c> just</c><00:09:31.360><c> impressive.</c><00:09:32.320><c> This</c>
+
+00:09:32.630 --> 00:09:32.640 align:start position:0%
+synthetic data was just impressive. This
+
+
+00:09:32.640 --> 00:09:35.430 align:start position:0%
+synthetic data was just impressive. This
+data<00:09:33.040><c> was</c><00:09:33.279><c> fully</c><00:09:33.680><c> developed</c><00:09:34.080><c> on</c><00:09:34.320><c> its</c><00:09:34.480><c> own</c><00:09:35.040><c> as</c>
+
+00:09:35.430 --> 00:09:35.440 align:start position:0%
+data was fully developed on its own as
+
+
+00:09:35.440 --> 00:09:37.750 align:start position:0%
+data was fully developed on its own as
+well<00:09:35.600><c> as</c><00:09:35.920><c> all</c><00:09:36.080><c> of</c><00:09:36.160><c> these</c><00:09:36.480><c> lines</c><00:09:36.800><c> of</c><00:09:37.040><c> code</c><00:09:37.519><c> in</c>
+
+00:09:37.750 --> 00:09:37.760 align:start position:0%
+well as all of these lines of code in
+
+
+00:09:37.760 --> 00:09:39.750 align:start position:0%
+well as all of these lines of code in
+that<00:09:38.000><c> single</c><00:09:38.399><c> sitting.</c><00:09:38.880><c> If</c><00:09:39.120><c> you</c><00:09:39.279><c> like</c><00:09:39.519><c> this</c>
+
+00:09:39.750 --> 00:09:39.760 align:start position:0%
+that single sitting. If you like this
+
+
+00:09:39.760 --> 00:09:41.430 align:start position:0%
+that single sitting. If you like this
+video<00:09:40.080><c> and</c><00:09:40.399><c> would</c><00:09:40.560><c> love</c><00:09:40.720><c> to</c><00:09:40.959><c> support</c><00:09:41.200><c> the</c>
+
+00:09:41.430 --> 00:09:41.440 align:start position:0%
+video and would love to support the
+
+
+00:09:41.440 --> 00:09:43.910 align:start position:0%
+video and would love to support the
+channel,<00:09:42.080><c> you</c><00:09:42.240><c> can</c><00:09:42.399><c> consider</c><00:09:42.880><c> donating</c><00:09:43.360><c> to</c><00:09:43.680><c> my</c>
+
+00:09:43.910 --> 00:09:43.920 align:start position:0%
+channel, you can consider donating to my
+
+
+00:09:43.920 --> 00:09:45.829 align:start position:0%
+channel, you can consider donating to my
+channel<00:09:44.240><c> through</c><00:09:44.480><c> the</c><00:09:44.720><c> super</c><00:09:44.959><c> thanks</c><00:09:45.440><c> option</c>
+
+00:09:45.829 --> 00:09:45.839 align:start position:0%
+channel through the super thanks option
+
+
+00:09:45.839 --> 00:09:48.150 align:start position:0%
+channel through the super thanks option
+below.<00:09:46.399><c> Or</c><00:09:46.640><c> you</c><00:09:46.800><c> can</c><00:09:46.959><c> consider</c><00:09:47.440><c> joining</c><00:09:47.839><c> our</c>
+
+00:09:48.150 --> 00:09:48.160 align:start position:0%
+below. Or you can consider joining our
+
+
+00:09:48.160 --> 00:09:50.150 align:start position:0%
+below. Or you can consider joining our
+private<00:09:48.640><c> Discord</c><00:09:49.200><c> where</c><00:09:49.440><c> you</c><00:09:49.600><c> can</c><00:09:49.760><c> access</c>
+
+00:09:50.150 --> 00:09:50.160 align:start position:0%
+private Discord where you can access
+
+
+00:09:50.160 --> 00:09:52.070 align:start position:0%
+private Discord where you can access
+multiple<00:09:50.560><c> subscriptions</c><00:09:51.120><c> to</c><00:09:51.440><c> different</c><00:09:51.680><c> AI</c>
+
+00:09:52.070 --> 00:09:52.080 align:start position:0%
+multiple subscriptions to different AI
+
+
+00:09:52.080 --> 00:09:54.870 align:start position:0%
+multiple subscriptions to different AI
+tools<00:09:52.399><c> for</c><00:09:52.720><c> free</c><00:09:52.959><c> on</c><00:09:53.200><c> a</c><00:09:53.440><c> monthly</c><00:09:53.760><c> basis,</c><00:09:54.560><c> plus</c>
+
+00:09:54.870 --> 00:09:54.880 align:start position:0%
+tools for free on a monthly basis, plus
+
+
+00:09:54.880 --> 00:09:57.509 align:start position:0%
+tools for free on a monthly basis, plus
+daily<00:09:55.200><c> AI</c><00:09:55.680><c> news</c><00:09:56.000><c> and</c><00:09:56.160><c> exclusive</c><00:09:56.720><c> content,</c>
+
+00:09:57.509 --> 00:09:57.519 align:start position:0%
+daily AI news and exclusive content,
+
+
+00:09:57.519 --> 00:10:00.070 align:start position:0%
+daily AI news and exclusive content,
+plus<00:09:57.760><c> a</c><00:09:57.920><c> lot</c><00:09:58.080><c> more.</c><00:09:59.120><c> But</c><00:09:59.360><c> that's</c><00:09:59.600><c> basically</c>
+
+00:10:00.070 --> 00:10:00.080 align:start position:0%
+plus a lot more. But that's basically
+
+
+00:10:00.080 --> 00:10:02.470 align:start position:0%
+plus a lot more. But that's basically
+how<00:10:00.399><c> Neo</c><00:10:00.800><c> was</c><00:10:01.040><c> able</c><00:10:01.200><c> to</c><00:10:01.440><c> autonomously</c><00:10:02.240><c> build</c>
+
+00:10:02.470 --> 00:10:02.480 align:start position:0%
+how Neo was able to autonomously build
+
+
+00:10:02.480 --> 00:10:04.550 align:start position:0%
+how Neo was able to autonomously build
+that<00:10:02.800><c> complete</c><00:10:03.200><c> chat</c><00:10:03.519><c> moderation</c><00:10:04.080><c> pipeline</c>
+
+00:10:04.550 --> 00:10:04.560 align:start position:0%
+that complete chat moderation pipeline
+
+
+00:10:04.560 --> 00:10:07.030 align:start position:0%
+that complete chat moderation pipeline
+for<00:10:04.800><c> me.</c><00:10:05.360><c> from</c><00:10:05.680><c> building</c><00:10:06.000><c> that</c><00:10:06.320><c> high</c><00:10:06.640><c> quality</c>
+
+00:10:07.030 --> 00:10:07.040 align:start position:0%
+for me. from building that high quality
+
+
+00:10:07.040 --> 00:10:09.590 align:start position:0%
+for me. from building that high quality
+synthetic<00:10:07.519><c> data</c><00:10:07.920><c> set</c><00:10:08.399><c> to</c><00:10:08.640><c> training</c><00:10:09.040><c> baseline</c>
+
+00:10:09.590 --> 00:10:09.600 align:start position:0%
+synthetic data set to training baseline
+
+
+00:10:09.600 --> 00:10:11.509 align:start position:0%
+synthetic data set to training baseline
+models<00:10:10.160><c> to</c><00:10:10.320><c> also</c><00:10:10.640><c> deploying</c><00:10:11.040><c> a</c><00:10:11.200><c> production</c>
+
+00:10:11.509 --> 00:10:11.519 align:start position:0%
+models to also deploying a production
+
+
+00:10:11.519 --> 00:10:14.550 align:start position:0%
+models to also deploying a production
+ready<00:10:11.839><c> API</c><00:10:12.640><c> and</c><00:10:12.880><c> lastly</c><00:10:13.360><c> enabling</c><00:10:14.000><c> real-time</c>
+
+00:10:14.550 --> 00:10:14.560 align:start position:0%
+ready API and lastly enabling real-time
+
+
+00:10:14.560 --> 00:10:16.389 align:start position:0%
+ready API and lastly enabling real-time
+moderation.<00:10:15.600><c> This</c><00:10:15.760><c> isn't</c><00:10:16.079><c> just</c><00:10:16.160><c> a</c>
+
+00:10:16.389 --> 00:10:16.399 align:start position:0%
+moderation. This isn't just a
+
+
+00:10:16.399 --> 00:10:19.430 align:start position:0%
+moderation. This isn't just a
+demonstration<00:10:16.959><c> of</c><00:10:17.279><c> a</c><00:10:17.600><c> random</c><00:10:18.000><c> AI</c><00:10:18.480><c> coder</c><00:10:19.120><c> or</c>
+
+00:10:19.430 --> 00:10:19.440 align:start position:0%
+demonstration of a random AI coder or
+
+
+00:10:19.440 --> 00:10:22.550 align:start position:0%
+demonstration of a random AI coder or
+just<00:10:19.680><c> a</c><00:10:20.000><c> basic</c><00:10:20.399><c> AI.</c><00:10:21.279><c> It's</c><00:10:21.440><c> a</c><00:10:21.680><c> glimpse</c><00:10:22.000><c> into</c>
+
+00:10:22.550 --> 00:10:22.560 align:start position:0%
+just a basic AI. It's a glimpse into
+
+
+00:10:22.560 --> 00:10:25.430 align:start position:0%
+just a basic AI. It's a glimpse into
+fully<00:10:22.959><c> autonomous</c><00:10:23.680><c> ML</c><00:10:24.160><c> engineering</c><00:10:24.959><c> that</c><00:10:25.279><c> can</c>
+
+00:10:25.430 --> 00:10:25.440 align:start position:0%
+fully autonomous ML engineering that can
+
+
+00:10:25.440 --> 00:10:28.069 align:start position:0%
+fully autonomous ML engineering that can
+achieve<00:10:26.160><c> streamlining</c><00:10:26.880><c> complex</c><00:10:27.360><c> workflows</c>
+
+00:10:28.069 --> 00:10:28.079 align:start position:0%
+achieve streamlining complex workflows
+
+
+00:10:28.079 --> 00:10:29.670 align:start position:0%
+achieve streamlining complex workflows
+and<00:10:28.399><c> delivering</c><00:10:28.959><c> production</c><00:10:29.440><c> ready</c>
+
+00:10:29.670 --> 00:10:29.680 align:start position:0%
+and delivering production ready
+
+
+00:10:29.680 --> 00:10:31.190 align:start position:0%
+and delivering production ready
+solutions<00:10:30.160><c> with</c><00:10:30.399><c> minimal</c><00:10:30.880><c> human</c>
+
+00:10:31.190 --> 00:10:31.200 align:start position:0%
+solutions with minimal human
+
+
+00:10:31.200 --> 00:10:34.069 align:start position:0%
+solutions with minimal human
+intervention.<00:10:32.320><c> With</c><00:10:32.560><c> Neo,</c><00:10:33.279><c> tasks</c><00:10:33.600><c> that</c><00:10:33.839><c> used</c>
+
+00:10:34.069 --> 00:10:34.079 align:start position:0%
+intervention. With Neo, tasks that used
+
+
+00:10:34.079 --> 00:10:36.150 align:start position:0%
+intervention. With Neo, tasks that used
+to<00:10:34.240><c> take</c><00:10:34.560><c> weeks</c><00:10:34.880><c> or</c><00:10:35.200><c> months</c><00:10:35.519><c> can</c><00:10:35.760><c> now</c><00:10:36.000><c> be</c>
+
+00:10:36.150 --> 00:10:36.160 align:start position:0%
+to take weeks or months can now be
+
+
+00:10:36.160 --> 00:10:38.550 align:start position:0%
+to take weeks or months can now be
+handled<00:10:36.640><c> faster,</c><00:10:37.600><c> smarter,</c><00:10:38.079><c> and</c><00:10:38.320><c> more</c>
+
+00:10:38.550 --> 00:10:38.560 align:start position:0%
+handled faster, smarter, and more
+
+
+00:10:38.560 --> 00:10:40.870 align:start position:0%
+handled faster, smarter, and more
+reliably.<00:10:39.360><c> And</c><00:10:39.519><c> it's</c><00:10:39.760><c> going</c><00:10:39.839><c> to</c><00:10:40.000><c> empower</c><00:10:40.480><c> ML</c>
+
+00:10:40.870 --> 00:10:40.880 align:start position:0%
+reliably. And it's going to empower ML
+
+
+00:10:40.880 --> 00:10:43.350 align:start position:0%
+reliably. And it's going to empower ML
+engineers<00:10:41.360><c> to</c><00:10:41.519><c> focus</c><00:10:41.839><c> on</c><00:10:42.240><c> insights</c><00:10:43.040><c> and</c>
+
+00:10:43.350 --> 00:10:43.360 align:start position:0%
+engineers to focus on insights and
+
+
+00:10:43.360 --> 00:10:45.110 align:start position:0%
+engineers to focus on insights and
+strategy<00:10:43.839><c> rather</c><00:10:44.160><c> than</c><00:10:44.480><c> repetitive</c>
+
+00:10:45.110 --> 00:10:45.120 align:start position:0%
+strategy rather than repetitive
+
+
+00:10:45.120 --> 00:10:47.190 align:start position:0%
+strategy rather than repetitive
+implementation.<00:10:46.320><c> So,</c><00:10:46.480><c> if</c><00:10:46.640><c> you're</c><00:10:46.800><c> looking</c><00:10:46.959><c> to</c>
+
+00:10:47.190 --> 00:10:47.200 align:start position:0%
+implementation. So, if you're looking to
+
+
+00:10:47.200 --> 00:10:48.550 align:start position:0%
+implementation. So, if you're looking to
+get<00:10:47.360><c> started,</c><00:10:47.680><c> I'll</c><00:10:47.839><c> leave</c><00:10:48.000><c> a</c><00:10:48.079><c> link</c><00:10:48.240><c> to</c><00:10:48.399><c> this</c>
+
+00:10:48.550 --> 00:10:48.560 align:start position:0%
+get started, I'll leave a link to this
+
+
+00:10:48.560 --> 00:10:49.910 align:start position:0%
+get started, I'll leave a link to this
+in<00:10:48.720><c> the</c><00:10:48.880><c> description</c><00:10:49.120><c> below</c><00:10:49.360><c> so</c><00:10:49.519><c> that</c><00:10:49.680><c> you</c><00:10:49.839><c> can</c>
+
+00:10:49.910 --> 00:10:49.920 align:start position:0%
+in the description below so that you can
+
+
+00:10:49.920 --> 00:10:52.870 align:start position:0%
+in the description below so that you can
+easily<00:10:50.320><c> sign</c><00:10:50.480><c> up</c><00:10:50.720><c> for</c><00:10:51.279><c> the</c><00:10:51.519><c> early</c><00:10:51.920><c> access.</c><00:10:52.720><c> And</c>
+
+00:10:52.870 --> 00:10:52.880 align:start position:0%
+easily sign up for the early access. And
+
+
+00:10:52.880 --> 00:10:55.350 align:start position:0%
+easily sign up for the early access. And
+I'll<00:10:53.040><c> leave</c><00:10:53.279><c> also</c><00:10:53.760><c> all</c><00:10:53.920><c> the</c><00:10:54.160><c> other</c><00:10:54.320><c> links</c><00:10:54.800><c> like</c>
+
+00:10:55.350 --> 00:10:55.360 align:start position:0%
+I'll leave also all the other links like
+
+
+00:10:55.360 --> 00:10:58.470 align:start position:0%
+I'll leave also all the other links like
+the<00:10:55.839><c> demos,</c><00:10:56.480><c> the</c><00:10:56.720><c> docs,</c><00:10:57.279><c> and</c><00:10:57.519><c> so</c><00:10:57.839><c> much</c><00:10:58.000><c> more.</c>
+
+00:10:58.470 --> 00:10:58.480 align:start position:0%
+the demos, the docs, and so much more.
+
+
+00:10:58.480 --> 00:10:59.670 align:start position:0%
+the demos, the docs, and so much more.
+But<00:10:58.640><c> with</c><00:10:58.800><c> that</c><00:10:58.959><c> thought,</c><00:10:59.200><c> guys,</c><00:10:59.440><c> thank</c><00:10:59.600><c> you</c>
+
+00:10:59.670 --> 00:10:59.680 align:start position:0%
+But with that thought, guys, thank you
+
+
+00:10:59.680 --> 00:11:00.870 align:start position:0%
+But with that thought, guys, thank you
+guys<00:10:59.839><c> so</c><00:11:00.000><c> much</c><00:11:00.079><c> for</c><00:11:00.240><c> watching.</c><00:11:00.480><c> I</c><00:11:00.640><c> hope</c><00:11:00.720><c> you</c>
+
+00:11:00.870 --> 00:11:00.880 align:start position:0%
+guys so much for watching. I hope you
+
+
+00:11:00.880 --> 00:11:02.230 align:start position:0%
+guys so much for watching. I hope you
+enjoyed<00:11:01.200><c> today's</c><00:11:01.519><c> video.</c><00:11:01.839><c> Make</c><00:11:02.000><c> sure</c><00:11:02.079><c> you</c>
+
+00:11:02.230 --> 00:11:02.240 align:start position:0%
+enjoyed today's video. Make sure you
+
+
+00:11:02.240 --> 00:11:03.829 align:start position:0%
+enjoyed today's video. Make sure you
+subscribe<00:11:02.560><c> to</c><00:11:02.640><c> the</c><00:11:02.800><c> second</c><00:11:03.120><c> channel,</c><00:11:03.600><c> join</c>
+
+00:11:03.829 --> 00:11:03.839 align:start position:0%
+subscribe to the second channel, join
+
+
+00:11:03.839 --> 00:11:05.509 align:start position:0%
+subscribe to the second channel, join
+the<00:11:04.000><c> newsletter,</c><00:11:04.640><c> make</c><00:11:04.800><c> sure</c><00:11:04.880><c> you</c><00:11:05.040><c> join</c><00:11:05.279><c> our</c>
+
+00:11:05.509 --> 00:11:05.519 align:start position:0%
+the newsletter, make sure you join our
+
+
+00:11:05.519 --> 00:11:07.509 align:start position:0%
+the newsletter, make sure you join our
+private<00:11:05.839><c> Discord,</c><00:11:06.480><c> follow</c><00:11:06.800><c> me</c><00:11:06.959><c> on</c><00:11:07.200><c> Twitter,</c>
+
+00:11:07.509 --> 00:11:07.519 align:start position:0%
+private Discord, follow me on Twitter,
+
+
+00:11:07.519 --> 00:11:08.630 align:start position:0%
+private Discord, follow me on Twitter,
+and<00:11:07.680><c> lastly,</c><00:11:08.079><c> make</c><00:11:08.240><c> sure</c><00:11:08.320><c> you</c><00:11:08.399><c> guys</c>
+
+00:11:08.630 --> 00:11:08.640 align:start position:0%
+and lastly, make sure you guys
+
+
+00:11:08.640 --> 00:11:10.310 align:start position:0%
+and lastly, make sure you guys
+subscribe,<00:11:09.040><c> turn</c><00:11:09.200><c> on</c><00:11:09.360><c> notification</c><00:11:09.839><c> bell,</c>
+
+00:11:10.310 --> 00:11:10.320 align:start position:0%
+subscribe, turn on notification bell,
+
+
+00:11:10.320 --> 00:11:11.829 align:start position:0%
+subscribe, turn on notification bell,
+like<00:11:10.640><c> this</c><00:11:10.800><c> video,</c><00:11:11.120><c> and</c><00:11:11.279><c> please</c><00:11:11.519><c> take</c><00:11:11.680><c> a</c><00:11:11.760><c> look</c>
+
+00:11:11.829 --> 00:11:11.839 align:start position:0%
+like this video, and please take a look
+
+
+00:11:11.839 --> 00:11:13.190 align:start position:0%
+like this video, and please take a look
+at<00:11:12.000><c> our</c><00:11:12.160><c> previous</c><00:11:12.399><c> videos</c><00:11:12.720><c> because</c><00:11:12.880><c> there</c><00:11:13.040><c> is</c>
+
+00:11:13.190 --> 00:11:13.200 align:start position:0%
+at our previous videos because there is
+
+
+00:11:13.200 --> 00:11:14.949 align:start position:0%
+at our previous videos because there is
+a<00:11:13.360><c> lot</c><00:11:13.440><c> of</c><00:11:13.600><c> content</c><00:11:14.079><c> that</c><00:11:14.320><c> you'll</c><00:11:14.560><c> truly</c>
+
+00:11:14.949 --> 00:11:14.959 align:start position:0%
+a lot of content that you'll truly
+
+
+00:11:14.959 --> 00:11:16.550 align:start position:0%
+a lot of content that you'll truly
+benefit<00:11:15.279><c> from.</c><00:11:15.839><c> But</c><00:11:16.000><c> with</c><00:11:16.079><c> that</c><00:11:16.320><c> thought,</c>
+
+00:11:16.550 --> 00:11:16.560 align:start position:0%
+benefit from. But with that thought,
+
+
+00:11:16.560 --> 00:11:18.470 align:start position:0%
+benefit from. But with that thought,
+guys,<00:11:16.880><c> have</c><00:11:17.040><c> an</c><00:11:17.200><c> amazing</c><00:11:17.519><c> day.</c><00:11:18.079><c> Spread</c>
+
+00:11:18.470 --> 00:11:18.480 align:start position:0%
+guys, have an amazing day. Spread
+
+
+00:11:18.480 --> 00:11:19.990 align:start position:0%
+guys, have an amazing day. Spread
+positivity,<00:11:19.040><c> and</c><00:11:19.200><c> I'll</c><00:11:19.360><c> see</c><00:11:19.440><c> you</c><00:11:19.519><c> guys</c><00:11:19.680><c> fairly</c>
+
+00:11:19.990 --> 00:11:20.000 align:start position:0%
+positivity, and I'll see you guys fairly
+
+
+00:11:20.000 --> 00:11:23.440 align:start position:0%
+positivity, and I'll see you guys fairly
+shortly.<00:11:20.480><c> He</c><00:11:20.720><c> suffers.</c>

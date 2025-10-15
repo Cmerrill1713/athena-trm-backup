@@ -1,0 +1,652 @@
+import SwiftUI
+
+// MARK: - Modern Navigation Stack with Async/Await
+
+struct ModernAthenaDashboard: View {
+    @State private var navigationPath = NavigationPath()
+    @StateObject private var dashboardVM = AthenaDashboardViewModel()
+
+    var body: some View {
+        NavigationStack(path: $navigationPath) {
+            DashboardHomeView()
+                .navigationTitle("Athena Dashboard")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Menu {
+                            Button {
+                                navigationPath.append(Destination.settings)
+                            } label: {
+                                Label("Settings", systemImage: "gear")
+                            }
+
+                            Button {
+                                navigationPath.append(Destination.health)
+                            } label: {
+                                Label("System Health", systemImage: "heart.circle")
+                            }
+
+                            Divider()
+
+                            Button {
+                                Task { await dashboardVM.refreshAll() }
+                            } label: {
+                                Label("Refresh All", systemImage: "arrow.clockwise")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis.circle")
+                        }
+                    }
+                }
+                .navigationDestination(for: Destination.self) { destination in
+                    switch destination {
+                    case .health:
+                        SystemHealthView()
+                            .environmentObject(dashboardVM)
+                    case .settings:
+                        DashboardSettingsView()
+                            .environmentObject(dashboardVM)
+                    case .alerts:
+                        AlertsDetailView()
+                            .environmentObject(dashboardVM)
+                    case .metrics:
+                        MetricsDetailView()
+                            .environmentObject(dashboardVM)
+                    }
+                }
+        }
+        .environmentObject(dashboardVM)
+        .task {
+            await dashboardVM.loadInitialData()
+        }
+    }
+}
+
+// MARK: - Navigation Destinations
+
+enum Destination: Hashable {
+    case health
+    case settings
+    case alerts
+    case metrics
+}
+
+// MARK: - Home Dashboard View
+
+struct DashboardHomeView: View {
+    @EnvironmentObject private var dashboardVM: AthenaDashboardViewModel
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+                // Status Overview
+                StatusOverviewCard()
+                    .environmentObject(dashboardVM)
+
+                // Quick Actions
+                QuickActionsGrid()
+
+                // Recent Alerts
+                RecentAlertsCard()
+                    .environmentObject(dashboardVM)
+
+                // System Metrics
+                MetricsSummaryCard()
+                    .environmentObject(dashboardVM)
+            }
+            .padding()
+        }
+    }
+}
+
+// MARK: - Status Overview Card
+
+struct StatusOverviewCard: View {
+    @EnvironmentObject private var dashboardVM: AthenaDashboardViewModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Label("System Status", systemImage: "circle.grid.3x3.fill")
+                    .font(.headline)
+                Spacer()
+                StatusIndicator(isHealthy: dashboardVM.systemHealth.isHealthy)
+            }
+
+            HStack(spacing: 20) {
+                StatusMetricView(
+                    title: "Services",
+                    value: "\(dashboardVM.services.filter { $0.status == .running }.count)/\(dashboardVM.services.count)",
+                    icon: "server.rack",
+                    color: .blue
+                )
+
+                StatusMetricView(
+                    title: "Active Alerts",
+                    value: "\(dashboardVM.alerts.filter { !$0.acknowledged }.count)",
+                    icon: "exclamationmark.triangle",
+                    color: dashboardVM.alerts.contains { !$0.acknowledged && $0.severity == .critical } ? .red : .orange
+                )
+
+                StatusMetricView(
+                    title: "Memory Saved",
+                    value: dashboardVM.systemHealth.memorySavings.formatted(.percent),
+                    icon: "memorychip",
+                    color: .green
+                )
+            }
+        }
+        .padding()
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+}
+
+struct StatusIndicator: View {
+    let isHealthy: Bool
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Circle()
+                .fill(isHealthy ? Color.green : Color.red)
+                .frame(width: 8, height: 8)
+            Text(isHealthy ? "Healthy" : "Issues")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+    }
+}
+
+struct StatusMetricView: View {
+    let title: String
+    let value: String
+    let icon: String
+    let color: Color
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Image(systemName: icon)
+                .foregroundStyle(color)
+                .font(.title2)
+            Text(value)
+                .font(.title3.bold())
+                .foregroundStyle(.primary)
+            Text(title)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+    }
+}
+
+// MARK: - Quick Actions Grid
+
+struct QuickActionsGrid: View {
+    var body: some View {
+        LazyVGrid(columns: [
+            GridItem(.flexible()),
+            GridItem(.flexible()),
+            GridItem(.flexible()),
+            GridItem(.flexible())
+        ], spacing: 12) {
+            QuickActionButton(
+                title: "Acknowledge Alerts",
+                icon: "checkmark.circle",
+                color: .green,
+                action: acknowledgeAlerts
+            )
+
+            QuickActionButton(
+                title: "Test System",
+                icon: "hammer.circle",
+                color: .blue,
+                action: sendTestAlert
+            )
+
+            QuickActionButton(
+                title: "View Logs",
+                icon: "doc.text.magnifyingglass",
+                color: .gray,
+                action: openLogs
+            )
+
+            QuickActionButton(
+                title: "System Health",
+                icon: "heart.circle",
+                color: .red,
+                action: showHealth
+            )
+        }
+        .padding()
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    private func acknowledgeAlerts() {
+        // Implementation would go here
+        print("Acknowledging all alerts")
+    }
+
+    private func sendTestAlert() {
+        // Implementation would go here
+        print("Sending test alert")
+    }
+
+    private func openLogs() {
+        // Implementation would go here
+        print("Opening logs")
+    }
+
+    private func showHealth() {
+        // Implementation would go here
+        print("Showing health details")
+    }
+}
+
+struct QuickActionButton: View {
+    let title: String
+    let icon: String
+    let color: Color
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 8) {
+                Image(systemName: icon)
+                    .font(.title2)
+                    .foregroundStyle(color)
+                Text(title)
+                    .font(.caption)
+                    .foregroundStyle(.primary)
+                    .multilineTextAlignment(.center)
+            }
+            .frame(height: 80)
+            .frame(maxWidth: .infinity)
+            .background(.background)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+            )
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Recent Alerts Card
+
+struct RecentAlertsCard: View {
+    @EnvironmentObject private var dashboardVM: AthenaDashboardViewModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Label("Recent Alerts", systemImage: "bell.badge")
+                    .font(.headline)
+                Spacer()
+                Button("View All") {
+                    // Navigate to alerts detail
+                }
+                .font(.caption)
+                .foregroundStyle(.blue)
+            }
+
+            if dashboardVM.alerts.isEmpty {
+                Text("No recent alerts")
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.vertical, 20)
+            } else {
+                ForEach(dashboardVM.alerts.prefix(3)) { alert in
+                    AlertRow(alert: alert)
+                        .onTapGesture {
+                            // Handle alert tap
+                        }
+                }
+            }
+        }
+        .padding()
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+}
+
+struct AlertRow: View {
+    let alert: AthenaAlert
+
+    var body: some View {
+        HStack(spacing: 12) {
+            Circle()
+                .fill(alert.severity.color)
+                .frame(width: 8, height: 8)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(alert.title)
+                    .font(.subheadline)
+                    .lineLimit(1)
+                Text(alert.timeAgo)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Spacer()
+
+            if !alert.acknowledged {
+                Circle()
+                    .fill(Color.blue)
+                    .frame(width: 6, height: 6)
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
+
+// MARK: - Metrics Summary Card
+
+struct MetricsSummaryCard: View {
+    @EnvironmentObject private var dashboardVM: AthenaDashboardViewModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Label("System Metrics", systemImage: "chart.bar.xaxis")
+                .font(.headline)
+
+            HStack(spacing: 20) {
+                MetricView(
+                    title: "Health Score",
+                    value: dashboardVM.systemHealth.healthScore.formatted(.percent),
+                    icon: "heart.fill",
+                    color: .green
+                )
+
+                MetricView(
+                    title: "Response Time",
+                    value: "\(dashboardVM.systemHealth.averageResponseTime.formatted(.number.precision(.fractionLength(2))))s",
+                    icon: "timer",
+                    color: .blue
+                )
+
+                MetricView(
+                    title: "Tribunal Scans",
+                    value: "\(dashboardVM.systemHealth.tribunalScansToday)",
+                    icon: "magnifyingglass",
+                    color: .orange
+                )
+            }
+        }
+        .padding()
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+}
+
+struct MetricView: View {
+    let title: String
+    let value: String
+    let icon: String
+    let color: Color
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Image(systemName: icon)
+                .foregroundStyle(color)
+                .font(.title3)
+            Text(value)
+                .font(.headline)
+                .foregroundStyle(.primary)
+            Text(title)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+    }
+}
+
+// MARK: - View Models with Async/Await
+
+@MainActor
+final class AthenaDashboardViewModel: ObservableObject {
+    @Published var services: [AthenaService] = []
+    @Published var alerts: [AthenaAlert] = []
+    @Published var systemHealth = SystemHealth()
+
+    private let apiClient = ModernAthenaAPIClient()
+
+    func loadInitialData() async {
+        // Load data concurrently
+        async let servicesResult = apiClient.fetchServices()
+        async let alertsResult = apiClient.fetchAlerts()
+        async let healthResult = apiClient.fetchSystemHealth()
+
+        do {
+            let (services, alerts, health) = try await (servicesResult, alertsResult, healthResult)
+            self.services = services
+            self.alerts = alerts
+            self.systemHealth = health
+        } catch {
+            print("Failed to load initial data: \(error)")
+            // Could show error state here
+        }
+    }
+
+    func refreshAll() async {
+        await loadInitialData()
+
+        // Check for critical alerts and trigger pop-out windows
+        checkForCriticalEvents()
+    }
+
+    private func checkForCriticalEvents() {
+        // Check for critical alerts
+        let criticalAlerts = alerts.filter { !$0.acknowledged && $0.severity == .critical }
+        if !criticalAlerts.isEmpty {
+            triggerCriticalAlertWindow(criticalAlerts.first!)
+        }
+
+        // Check for tribunal decisions needed (simulate for demo)
+        if shouldShowTribunalDecision() {
+            triggerTribunalDecisionWindow()
+        }
+
+        // Check for system emergencies
+        if systemHealth.healthScore < 0.5 {
+            triggerSystemEmergencyWindow()
+        }
+    }
+
+    private func shouldShowTribunalDecision() -> Bool {
+        // In real implementation, check for pending tribunal cases from API
+        // For demo purposes, simulate occasionally having tribunal decisions
+        return Bool.random() && Bool.random() // ~25% chance
+    }
+
+    private func triggerCriticalAlertWindow(_ alert: AthenaAlert) {
+        DispatchQueue.main.async {
+            NSApp.activate(ignoringOtherApps: true)
+            NotificationCenter.default.post(
+                name: NSNotification.Name("ShowCriticalAlert"),
+                object: nil,
+                userInfo: ["alert": alert]
+            )
+        }
+    }
+
+    private func triggerTribunalDecisionWindow() {
+        DispatchQueue.main.async {
+            NSApp.activate(ignoringOtherApps: true)
+            NotificationCenter.default.post(
+                name: NSNotification.Name("ShowTribunalDecision"),
+                object: nil
+            )
+        }
+    }
+
+    private func triggerSystemEmergencyWindow() {
+        DispatchQueue.main.async {
+            NSApp.activate(ignoringOtherApps: true)
+            NotificationCenter.default.post(
+                name: NSNotification.Name("ShowSystemEmergency"),
+                object: nil
+            )
+        }
+    }
+
+    func acknowledgeAlert(_ alert: AthenaAlert) async {
+        do {
+            try await apiClient.acknowledgeAlert(alert.id)
+            // Refresh alerts after acknowledgment
+            self.alerts = try await apiClient.fetchAlerts()
+        } catch {
+            print("Failed to acknowledge alert: \(error)")
+        }
+    }
+
+    func sendTestAlert() async {
+        do {
+            try await apiClient.sendTestAlert()
+            // Refresh alerts to show the test alert
+            self.alerts = try await apiClient.fetchAlerts()
+        } catch {
+            print("Failed to send test alert: \(error)")
+        }
+    }
+}
+
+// MARK: - Modern API Client with Async/Await
+
+class ModernAthenaAPIClient {
+    private let baseURL = "http://localhost:8009"
+    private let session: URLSession
+
+    init() {
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 5.0
+        config.timeoutIntervalForResource = 10.0
+        self.session = URLSession(configuration: config)
+    }
+
+    func fetchServices() async throws -> [AthenaService] {
+        guard let url = URL(string: "\(baseURL)/status") else {
+            throw URLError(.badURL)
+        }
+
+        let (data, response) = try await session.data(from: url)
+
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+
+        // Parse response and return services
+        // This would be the actual parsing logic
+        return [
+            AthenaService(name: "Memory Optimizer", status: .running, lastRun: Date().addingTimeInterval(-300), nextRun: Date().addingTimeInterval(3300), cadence: 3600),
+            AthenaService(name: "Tribunal Monitor", status: .running, lastRun: Date().addingTimeInterval(-900), nextRun: Date().addingTimeInterval(0), cadence: 900),
+            AthenaService(name: "Voice Wake Word", status: .running, lastRun: nil, nextRun: nil, cadence: nil),
+            AthenaService(name: "Federation Sync", status: .idle, lastRun: Date().addingTimeInterval(-7200), nextRun: Date().addingTimeInterval(1800), cadence: 7200)
+        ]
+    }
+
+    func fetchAlerts() async throws -> [AthenaAlert] {
+        // Simulate network delay
+        try await Task.sleep(nanoseconds: 300_000_000) // 0.3 seconds
+
+        return [
+            AthenaAlert(id: "alert-1", timestamp: Date().addingTimeInterval(-1800), severity: .info, title: "Memory Optimization Complete", message: "Successfully optimized memory usage by 35%", acknowledged: true),
+            AthenaAlert(id: "alert-2", timestamp: Date().addingTimeInterval(-600), severity: .warning, title: "High Memory Usage Detected", message: "Memory utilization at 85%. Optimization scheduled.", acknowledged: false)
+        ]
+    }
+
+    func fetchSystemHealth() async throws -> SystemHealth {
+        // Simulate network delay
+        try await Task.sleep(nanoseconds: 200_000_000) // 0.2 seconds
+
+        return SystemHealth(
+            isHealthy: true,
+            memorySavings: 0.35,
+            tribunalScansToday: 24,
+            alertsTriggeredToday: 3,
+            averageResponseTime: 0.8,
+            healthScore: 0.95
+        )
+    }
+
+    func acknowledgeAlert(_ alertId: String) async throws {
+        // Simulate network delay
+        try await Task.sleep(nanoseconds: 200_000_000) // 0.2 seconds
+        // In real implementation, this would make an API call
+    }
+
+    func sendTestAlert() async throws {
+        // Simulate network delay
+        try await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
+        // In real implementation, this would make an API call
+    }
+}
+
+// MARK: - Data Models
+
+struct SystemHealth {
+    var isHealthy: Bool = true
+    var memorySavings: Double = 0
+    var tribunalScansToday: Int = 0
+    var alertsTriggeredToday: Int = 0
+    var averageResponseTime: Double = 0
+    var healthScore: Double = 1.0
+
+    var healthScoreDescription: String {
+        String(format: "%.1f%%", healthScore * 100)
+    }
+
+    var memorySavingsDescription: String {
+        String(format: "%.1f%%", memorySavings * 100)
+    }
+
+    var responseTimeDescription: String {
+        String(format: "%.2fs", averageResponseTime)
+    }
+}
+
+// MARK: - Additional Views (Stubs for navigation)
+
+struct SystemHealthView: View {
+    @EnvironmentObject var dashboardVM: AthenaDashboardViewModel
+
+    var body: some View {
+        Text("System Health Details")
+            .navigationTitle("Health")
+    }
+}
+
+struct DashboardSettingsView: View {
+    @EnvironmentObject var dashboardVM: AthenaDashboardViewModel
+
+    var body: some View {
+        Text("Dashboard Settings")
+            .navigationTitle("Settings")
+    }
+}
+
+struct AlertsDetailView: View {
+    @EnvironmentObject var dashboardVM: AthenaDashboardViewModel
+
+    var body: some View {
+        Text("Detailed Alerts View")
+            .navigationTitle("Alerts")
+    }
+}
+
+struct MetricsDetailView: View {
+    @EnvironmentObject var dashboardVM: AthenaDashboardViewModel
+
+    var body: some View {
+        Text("Detailed Metrics View")
+            .navigationTitle("Metrics")
+    }
+}
+
+// MARK: - Preview
+
+#Preview {
+    ModernAthenaDashboard()
+}

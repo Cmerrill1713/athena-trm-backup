@@ -1,0 +1,23 @@
+[
+  "interop/test_bridge.py::test_contract_version",
+  "interop/test_bridge.py::test_health_ok",
+  "interop/test_bridge.py::test_response_headers",
+  "interop/test_bridge.py::test_root_info",
+  "test_bandit_reward.py::test_bandit_placeholder",
+  "test_bridge_auth.py::test_chat_auth_message_200",
+  "test_bridge_auth.py::test_chat_unauth_401",
+  "test_bridge_payloads.py::test_swift_payload",
+  "test_bridge_payloads.py::test_text_payload",
+  "test_chat_payloads.py::test_bandit_choose_and_record",
+  "test_chat_payloads.py::test_bridge_auth_required",
+  "test_chat_payloads.py::test_bridge_chat_with_message",
+  "test_chat_payloads.py::test_bridge_chat_with_text",
+  "test_chat_payloads.py::test_feedback_mapping",
+  "test_chat_payloads.py::test_kokoro_health",
+  "test_chat_payloads.py::test_legacy_payload_message",
+  "test_chat_payloads.py::test_metrics_export",
+  "test_chat_payloads.py::test_new_payload_text",
+  "test_chat_payloads.py::test_swift_payload_kind_chat",
+  "test_feedback_rewards.py::test_reward_mapping_thumbsup",
+  "test_kokoro_health.py::test_kokoro_health"
+]

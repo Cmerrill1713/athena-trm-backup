@@ -1,0 +1,13 @@
+[Unit]
+Description=Athena Memory Maintenance
+After=ai-republic-constitutional.service ai-republic-judicial.service
+
+[Service]
+Type=oneshot
+User=ai-republic
+Group=ai-republic
+WorkingDirectory=/var/lib/ai-republic/athena_memory
+ExecStart=/usr/bin/env python3 /opt/ai-republic/athena_memory_maintenance.py run --quiet
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-republic-athena-maintenance
