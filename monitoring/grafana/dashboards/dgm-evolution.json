@@ -1,0 +1,190 @@
+{
+  "dashboard": {
+    "title": "DGM Evolution - Self-Improving Agents",
+    "tags": ["dgm", "self-improvement", "governance"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Evolution Progress",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "dgm_generations_total",
+            "legendFormat": "Total Generations"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8}
+      },
+      {
+        "id": 2,
+        "title": "Verdict Distribution",
+        "type": "piechart",
+        "targets": [
+          {
+            "expr": "dgm_verdicts_total",
+            "legendFormat": "{{verdict_type}}"
+          }
+        ],
+        "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8}
+      },
+      {
+        "id": 3,
+        "title": "Agent Performance (SWE-bench)",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "dgm_agent_performance{benchmark=\"swe-bench-lite\"}",
+            "legendFormat": "Current Best"
+          },
+          {
+            "expr": "0.20",
+            "legendFormat": "Baseline"
+          },
+          {
+            "expr": "0.50",
+            "legendFormat": "Paper Target"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 8, "w": 12, "h": 8},
+        "yaxes": [{"format": "percentunit", "max": 0.6, "min": 0}]
+      },
+      {
+        "id": 4,
+        "title": "Approval Rate",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "rate(dgm_verdicts_total{verdict_type=~\"APPROVE|CANARY_DEPLOY\"}[5m]) / rate(dgm_verdicts_total[5m])",
+            "legendFormat": "Approval Rate"
+          }
+        ],
+        "gridPos": {"x": 12, "y": 8, "w": 6, "h": 4},
+        "thresholds": [
+          {"value": 0, "color": "red"},
+          {"value": 0.3, "color": "yellow"},
+          {"value": 0.5, "color": "green"}
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Safety Violations",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(dgm_safety_violations_total)",
+            "legendFormat": "Total Violations"
+          }
+        ],
+        "gridPos": {"x": 18, "y": 8, "w": 6, "h": 4},
+        "thresholds": [
+          {"value": 0, "color": "green"},
+          {"value": 1, "color": "red"}
+        ]
+      },
+      {
+        "id": 6,
+        "title": "ECE Distribution",
+        "type": "heatmap",
+        "targets": [
+          {
+            "expr": "dgm_ece_estimate",
+            "legendFormat": "ECE"
+          }
+        ],
+        "gridPos": {"x": 12, "y": 12, "w": 12, "h": 8}
+      },
+      {
+        "id": 7,
+        "title": "Performance Improvement Delta",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(dgm_performance_improvement_sum[5m]) / rate(dgm_performance_improvement_count[5m])",
+            "legendFormat": "Avg Improvement"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 16, "w": 12, "h": 8},
+        "alert": {
+          "name": "Performance Regression",
+          "conditions": [
+            {
+              "evaluator": {"type": "lt", "params": [-0.05]},
+              "query": {"params": ["A", "5m", "now"]}
+            }
+          ]
+        }
+      },
+      {
+        "id": 8,
+        "title": "Archive Health",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "dgm_archive_size",
+            "legendFormat": "Archive Size"
+          },
+          {
+            "expr": "dgm_archive_diversity * 100",
+            "legendFormat": "Diversity %"
+          }
+        ],
+        "gridPos": {"x": 12, "y": 16, "w": 12, "h": 8}
+      },
+      {
+        "id": 9,
+        "title": "Circuit Breaker Status",
+        "type": "gauge",
+        "targets": [
+          {
+            "expr": "dgm_consecutive_failures",
+            "legendFormat": "Consecutive Failures"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 24, "w": 8, "h": 6},
+        "thresholds": [
+          {"value": 0, "color": "green"},
+          {"value": 3, "color": "yellow"},
+          {"value": 5, "color": "red"}
+        ]
+      },
+      {
+        "id": 10,
+        "title": "Generation Duration",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(dgm_generation_duration_seconds_sum[5m]) / rate(dgm_generation_duration_seconds_count[5m])",
+            "legendFormat": "Avg Duration"
+          }
+        ],
+        "gridPos": {"x": 8, "y": 24, "w": 8, "h": 6}
+      },
+      {
+        "id": 11,
+        "title": "Recent Verdicts",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "dgm_verdicts_total",
+            "format": "table",
+            "instant": true
+          }
+        ],
+        "gridPos": {"x": 16, "y": 24, "w": 8, "h": 6}
+      }
+    ],
+    "refresh": "30s",
+    "time": {"from": "now-6h", "to": "now"},
+    "templating": {
+      "list": [
+        {
+          "name": "benchmark",
+          "type": "query",
+          "query": "label_values(dgm_agent_performance, benchmark)"
+        }
+      ]
+    }
+  }
+}
+

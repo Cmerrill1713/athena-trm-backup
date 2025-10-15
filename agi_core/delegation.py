@@ -239,7 +239,8 @@ class AgentDelegator:
     
     def _execute_background(self, task: AgentTask) -> str:
         """Execute task in background"""
-        agent_id = f"bg_{hashlib.md5(f"{task.task_id}_{time.time()}".encode()).hexdigest()[:8]}"
+        task_time = f"{task.task_id}_{time.time()}"
+        agent_id = f"bg_{hashlib.md5(task_time.encode()).hexdigest()[:8]}"
         
         agent = BackgroundAgent(
             agent_id=agent_id,
@@ -263,7 +264,8 @@ class AgentDelegator:
     
     def _execute_sequential(self, task: AgentTask) -> str:
         """Execute task sequentially (blocking)"""
-        agent_id = f"seq_{hashlib.md5(f"{task.task_id}_{time.time()}".encode()).hexdigest()[:8]}"
+        task_time = f"{task.task_id}_{time.time()}"
+        agent_id = f"seq_{hashlib.md5(task_time.encode()).hexdigest()[:8]}"
         
         agent = BackgroundAgent(
             agent_id=agent_id,

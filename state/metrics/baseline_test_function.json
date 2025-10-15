@@ -1,0 +1,21 @@
+{
+  "target_function": "test_function",
+  "metrics": {
+    "execution_time_ms": 50.0,
+    "latency_p50_ms": 0.0,
+    "latency_p95_ms": 55.0,
+    "latency_p99_ms": 0.0,
+    "tokens_used": 0,
+    "context_utilization": 0.0,
+    "context_efficiency_score": 0.8,
+    "wasted_tokens": 0,
+    "success_rate": 0.9,
+    "error_rate": 0.0,
+    "test_coverage": 0.0,
+    "code_quality_score": 0.0,
+    "memory_mb": 0.0,
+    "cpu_percent": 0.0,
+    "timestamp": 1760571377.964614
+  },
+  "timestamp": 1760571377.9646358
+}

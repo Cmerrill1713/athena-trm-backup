@@ -1,0 +1,2 @@
+{"agent_id": "test_agent", "task_type": "test_task", "metrics": {"execution_time_ms": 45.0, "success": true}, "timestamp": 1760571377.9644952}
+{"agent_id": "test_function", "task_type": "function_execution", "metrics": {"execution_time_ms": 12.507200241088867, "success": true, "error": null, "timestamp": 1760571377.9774961}, "timestamp": 1760571377.977497}

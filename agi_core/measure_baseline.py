@@ -1,435 +1,317 @@
 #!/usr/bin/env python3
 """
-Baseline Measurement Script for STOP Integration
+Baseline Measurement Tool
 
-This script establishes baseline performance metrics for functions
-that will be optimized using the Self-Taught Optimizer (STOP) approach.
+Measures baseline performance of AGI system for comparison and optimization.
 
 Usage:
-    python measure_baseline.py [--output-dir DIR] [--iterations N]
-    
-Features:
-    - Measures current performance of key functions
-    - Establishes baseline metrics
-    - Generates comprehensive reports
-    - Provides utility scores for optimization targets
+    python -m agi_core.measure_baseline
 """
 
 import sys
 import time
-import json
-import argparse
-import statistics
 from pathlib import Path
-from typing import Dict, List, Any, Callable
-from datetime import datetime
 
-# Add parent directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.append(str(Path(__file__).parent.parent))
 
 from agi_core.evaluation_metrics import (
     MetricsCollector,
-    PerformanceMetrics,
     UtilityFunction,
-    get_metrics_collector
+    measure_execution
 )
 from agi_core.context_engineering import ContextManager
-from agi_core.agent_experts import ExpertRegistry, ExpertOrchestrator, ExpertTask
+from agi_core.agent_experts import ExpertRegistry, ExpertOrchestrator
+from agi_core.workflows import ScoutPlanBuild
+from agi_core.delegation import AgentDelegator, DelegationStrategy
 
 
-class BaselineMeasurement:
-    """
-    Establishes baseline measurements for STOP optimization
-    """
+def measure_context_operations():
+    """Measure baseline context engineering performance"""
+    print("=" * 70)
+    print("Measuring Context Operations Baseline")
+    print("=" * 70)
     
-    def __init__(self, output_dir: Path = Path("./state/baselines")):
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.metrics_collector = get_metrics_collector()
-        self.measurements: Dict[str, List[PerformanceMetrics]] = {}
-        
-    def measure_context_reduction(self, iterations: int = 10) -> PerformanceMetrics:
-        """
-        Measure baseline performance of context reduction
-        """
-        print(f"\n📊 Measuring Context Reduction Baseline ({iterations} iterations)...")
-        
-        context_manager = ContextManager()
-        measurements = []
-        
-        for i in range(iterations):
-            # Create test context
-            agent_id = f"test_agent_{i}"
-            context = context_manager.create_context(agent_id, f"session_{i}")
-            
-            # Simulate context usage
-            context.current_tokens = 150000
-            context.memory_file_tokens = 50000
-            context.mcp_tool_tokens = 60000
-            context.prompt_history_tokens = 40000
-            
-            # Measure reduction
-            start_time = time.time()
-            result = context_manager.reduce_context(agent_id)
-            execution_time_ms = (time.time() - start_time) * 1000
-            
-            # Calculate metrics
-            tokens_freed = result["tokens_freed"]
-            efficiency = result["efficiency_score"]
-            
-            measurement = {
-                "execution_time_ms": execution_time_ms,
-                "tokens_freed": tokens_freed,
-                "efficiency_score": efficiency,
-                "original_tokens": result["original_tokens"],
-                "new_tokens": result["new_tokens"]
-            }
-            measurements.append(measurement)
-            
-            print(f"  Iteration {i+1}: {execution_time_ms:.2f}ms, "
-                  f"freed {tokens_freed} tokens, efficiency={efficiency:.3f}")
-        
-        # Aggregate measurements
-        avg_metrics = PerformanceMetrics(
-            execution_time_ms=statistics.mean(m["execution_time_ms"] for m in measurements),
-            latency_p50_ms=statistics.median(m["execution_time_ms"] for m in measurements),
-            latency_p95_ms=self._percentile([m["execution_time_ms"] for m in measurements], 0.95),
-            latency_p99_ms=self._percentile([m["execution_time_ms"] for m in measurements], 0.99),
-            tokens_used=int(statistics.mean(m["new_tokens"] for m in measurements)),
-            context_efficiency_score=statistics.mean(m["efficiency_score"] for m in measurements),
-            success_rate=1.0,
-            code_quality_score=0.85  # Assumed based on current implementation
+    cm = ContextManager()
+    
+    # Test 1: Context creation
+    start = time.time()
+    context = cm.create_context("baseline_agent", "baseline_session")
+    creation_time = (time.time() - start) * 1000
+    print(f"✓ Context creation: {creation_time:.2f}ms")
+    
+    # Test 2: Context reduction
+    context.current_tokens = 150000
+    context.memory_file_tokens = 25000
+    context.mcp_tool_tokens = 30000
+    context.prompt_history_tokens = 95000
+    
+    start = time.time()
+    result = cm.reduce_context("baseline_agent")
+    reduction_time = (time.time() - start) * 1000
+    print(f"✓ Context reduction: {reduction_time:.2f}ms")
+    print(f"  - Tokens freed: {result['tokens_freed']:,}")
+    print(f"  - Efficiency: {result.get('efficiency_score', 0):.2%}")
+    
+    # Test 3: Delegation
+    start = time.time()
+    delegation = cm.delegate_to_agent(
+        "baseline_agent",
+        {"type": "test", "description": "Baseline test"},
+        "test_expert"
+    )
+    delegation_time = (time.time() - start) * 1000
+    print(f"✓ Delegation: {delegation_time:.2f}ms")
+    
+    # Test 4: Context priming
+    start = time.time()
+    primed = cm.prime_context(
+        "baseline_agent",
+        "testing",
+        {"test_data": "baseline measurement"}
+    )
+    priming_time = (time.time() - start) * 1000
+    print(f"✓ Context priming: {priming_time:.2f}ms\n")
+    
+    return {
+        "creation_time_ms": creation_time,
+        "reduction_time_ms": reduction_time,
+        "delegation_time_ms": delegation_time,
+        "priming_time_ms": priming_time
+    }
+
+
+def measure_expert_operations():
+    """Measure baseline expert agent performance"""
+    print("=" * 70)
+    print("Measuring Expert Operations Baseline")
+    print("=" * 70)
+    
+    registry = ExpertRegistry()
+    orchestrator = ExpertOrchestrator(registry)
+    
+    # Test task submission and execution
+    test_cases = [
+        ("debugging", "Debug test issue"),
+        ("refactoring", "Refactor test code"),
+        ("testing", "Write unit tests"),
+    ]
+    
+    results = []
+    
+    for task_type, description in test_cases:
+        # Submit task
+        start = time.time()
+        task_id = orchestrator.submit_task(
+            task_type=task_type,
+            description=description,
+            context={"test": True},
+            priority=5
         )
+        submission_time = (time.time() - start) * 1000
         
-        print(f"\n✅ Context Reduction Baseline:")
-        print(f"   Latency (p95): {avg_metrics.latency_p95_ms:.2f}ms")
-        print(f"   Efficiency: {avg_metrics.context_efficiency_score:.3f}")
-        print(f"   Utility Score: {avg_metrics.utility_score():.3f}")
+        # Execute task
+        start = time.time()
+        result = orchestrator.execute_task(task_id)
+        execution_time = (time.time() - start) * 1000
         
-        return avg_metrics
+        print(f"✓ {task_type}: {execution_time:.2f}ms")
+        
+        results.append({
+            "task_type": task_type,
+            "submission_time_ms": submission_time,
+            "execution_time_ms": execution_time,
+            "success": result.get("status") != "failed"
+        })
     
-    def measure_agent_execution(self, iterations: int = 10) -> PerformanceMetrics:
-        """
-        Measure baseline performance of agent task execution
-        """
-        print(f"\n📊 Measuring Agent Execution Baseline ({iterations} iterations)...")
-        
-        registry = ExpertRegistry()
-        orchestrator = ExpertOrchestrator(registry)
-        measurements = []
-        
-        for i in range(iterations):
-            # Submit test task
-            task_id = orchestrator.submit_task(
-                task_type="debugging",
-                description=f"Test debugging task {i}",
-                context={"test_file": "example.py", "error": "ImportError"},
-                priority=5
-            )
-            
-            # Execute and measure
-            start_time = time.time()
-            result = orchestrator.execute_task(task_id)
-            execution_time_ms = (time.time() - start_time) * 1000
-            
-            success = result["status"] == "completed"
-            tokens = result.get("result", {}).get("tokens_used", 2500) if success else 0
-            
-            measurement = {
-                "execution_time_ms": execution_time_ms,
-                "success": success,
-                "tokens_used": tokens
-            }
-            measurements.append(measurement)
-            
-            print(f"  Iteration {i+1}: {execution_time_ms:.2f}ms, "
-                  f"success={success}, tokens={tokens}")
-        
-        # Aggregate measurements
-        success_count = sum(1 for m in measurements if m["success"])
-        
-        avg_metrics = PerformanceMetrics(
-            execution_time_ms=statistics.mean(m["execution_time_ms"] for m in measurements),
-            latency_p50_ms=statistics.median(m["execution_time_ms"] for m in measurements),
-            latency_p95_ms=self._percentile([m["execution_time_ms"] for m in measurements], 0.95),
-            latency_p99_ms=self._percentile([m["execution_time_ms"] for m in measurements], 0.99),
-            tokens_used=int(statistics.mean(m["tokens_used"] for m in measurements)),
-            success_rate=success_count / iterations,
-            context_efficiency_score=0.90,  # Estimated
-            code_quality_score=0.85,
-            test_coverage=0.85
+    avg_time = sum(r["execution_time_ms"] for r in results) / len(results)
+    print(f"\n  Average execution time: {avg_time:.2f}ms\n")
+    
+    return results
+
+
+def measure_workflow_operations():
+    """Measure baseline workflow performance"""
+    print("=" * 70)
+    print("Measuring Workflow Operations Baseline")
+    print("=" * 70)
+    
+    # Scout-Plan-Build workflow
+    workflow = ScoutPlanBuild(
+        workflow_id="baseline_spb",
+        task_description="Baseline measurement task",
+        codebase_path=Path("./"),
+        constraints={}
+    )
+    
+    start = time.time()
+    result = workflow.execute()
+    total_time = (time.time() - start) * 1000
+    
+    print(f"✓ Scout-Plan-Build workflow: {total_time:.2f}ms")
+    print(f"  - Phases: {result.get('phases_completed', 0)}")
+    
+    phases = result.get('results', [])
+    for phase_result in phases:
+        phase = phase_result.get('phase', 'unknown')
+        duration = phase_result.get('duration_seconds', 0) * 1000
+        tokens = phase_result.get('tokens_used', 0)
+        print(f"    • {phase}: {duration:.2f}ms, {tokens:,} tokens")
+    
+    print()
+    
+    return {
+        "total_time_ms": total_time,
+        "phases": len(phases),
+        "total_tokens": sum(p.get('tokens_used', 0) for p in phases)
+    }
+
+
+def measure_delegation_operations():
+    """Measure baseline delegation performance"""
+    print("=" * 70)
+    print("Measuring Delegation Operations Baseline")
+    print("=" * 70)
+    
+    delegator = AgentDelegator(max_parallel_agents=3)
+    
+    # Test background delegation
+    tasks = [
+        ("refactor", "Refactor module A"),
+        ("test", "Test module B"),
+        ("document", "Document module C"),
+    ]
+    
+    start = time.time()
+    agent_ids = []
+    for agent_type, description in tasks:
+        agent_id = delegator.delegate_task(
+            agent_type=agent_type,
+            description=description,
+            context={},
+            strategy=DelegationStrategy.BACKGROUND,
+            priority=5
         )
-        
-        print(f"\n✅ Agent Execution Baseline:")
-        print(f"   Latency (p95): {avg_metrics.latency_p95_ms:.2f}ms")
-        print(f"   Success Rate: {avg_metrics.success_rate:.2%}")
-        print(f"   Utility Score: {avg_metrics.utility_score():.3f}")
-        
-        return avg_metrics
+        agent_ids.append(agent_id)
+    delegation_time = (time.time() - start) * 1000
     
-    def measure_governance_verdict(self, iterations: int = 10) -> PerformanceMetrics:
-        """
-        Measure baseline performance of governance verdict processing
-        
-        Note: This measures the apply_verdict logic simulation
-        """
-        print(f"\n📊 Measuring Governance Verdict Baseline ({iterations} iterations)...")
-        
-        measurements = []
-        
-        # Import orchestrator logic
-        from orchestrator.app import apply_verdict, ExecState
-        
-        for i in range(iterations):
-            # Create test verdict
-            from pydantic import BaseModel
-            from typing import Optional
-            
-            class TestVerdict:
-                def __init__(self):
-                    self.verdict = "PASS" if i % 3 != 0 else "SOFT_FAIL"
-                    self.fix_confidence = 0.85
-            
-            verdict = TestVerdict()
-            state = ExecState()
-            
-            # Measure verdict application
-            start_time = time.time()
-            actions = apply_verdict(verdict, state)
-            execution_time_ms = (time.time() - start_time) * 1000
-            
-            measurement = {
-                "execution_time_ms": execution_time_ms,
-                "actions_count": len(actions),
-                "verdict_type": verdict.verdict
-            }
-            measurements.append(measurement)
-            
-            print(f"  Iteration {i+1}: {execution_time_ms:.2f}ms, "
-                  f"verdict={verdict.verdict}, actions={len(actions)}")
-        
-        # Aggregate measurements
-        avg_metrics = PerformanceMetrics(
-            execution_time_ms=statistics.mean(m["execution_time_ms"] for m in measurements),
-            latency_p50_ms=statistics.median(m["execution_time_ms"] for m in measurements),
-            latency_p95_ms=self._percentile([m["execution_time_ms"] for m in measurements], 0.95),
-            latency_p99_ms=self._percentile([m["execution_time_ms"] for m in measurements], 0.99),
-            success_rate=1.0,  # All succeeded
-            code_quality_score=0.90,  # High quality governance code
-            context_efficiency_score=0.95  # Very efficient
-        )
-        
-        print(f"\n✅ Governance Verdict Baseline:")
-        print(f"   Latency (p95): {avg_metrics.latency_p95_ms:.2f}ms")
-        print(f"   Utility Score: {avg_metrics.utility_score():.3f}")
-        
-        return avg_metrics
+    print(f"✓ Delegated {len(tasks)} tasks: {delegation_time:.2f}ms")
+    print(f"  - Average per task: {delegation_time/len(tasks):.2f}ms")
     
-    def _percentile(self, values: List[float], p: float) -> float:
-        """Calculate percentile"""
-        sorted_values = sorted(values)
-        index = int(len(sorted_values) * p)
-        return sorted_values[min(index, len(sorted_values) - 1)]
+    # Wait a bit for tasks to "complete"
+    time.sleep(0.5)
     
-    def establish_all_baselines(self, iterations: int = 10) -> Dict[str, PerformanceMetrics]:
-        """
-        Establish baselines for all optimization targets
-        """
-        print("=" * 80)
-        print("🎯 STOP Baseline Measurement")
-        print("=" * 80)
-        
-        baselines = {}
-        
-        # Measure context reduction
-        try:
-            baselines["context_reduction"] = self.measure_context_reduction(iterations)
-            self.metrics_collector.establish_baseline(
-                "context_reduction",
-                baselines["context_reduction"]
-            )
-        except Exception as e:
-            print(f"❌ Failed to measure context reduction: {e}")
-        
-        # Measure agent execution
-        try:
-            baselines["agent_execution"] = self.measure_agent_execution(iterations)
-            self.metrics_collector.establish_baseline(
-                "agent_execution",
-                baselines["agent_execution"]
-            )
-        except Exception as e:
-            print(f"❌ Failed to measure agent execution: {e}")
-        
-        # Measure governance verdict
-        try:
-            baselines["governance_verdict"] = self.measure_governance_verdict(iterations)
-            self.metrics_collector.establish_baseline(
-                "governance_verdict",
-                baselines["governance_verdict"]
-            )
-        except Exception as e:
-            print(f"❌ Failed to measure governance verdict: {e}")
-        
-        return baselines
+    # Check status
+    active = delegator.list_active_agents()
+    print(f"  - Active agents: {len(active)}\n")
     
-    def generate_report(self, baselines: Dict[str, PerformanceMetrics]) -> Dict[str, Any]:
-        """
-        Generate comprehensive baseline report
-        """
-        report = {
-            "measurement_timestamp": datetime.now().isoformat(),
-            "baselines": {},
-            "optimization_targets": [],
-            "recommendations": []
-        }
-        
-        # Add baseline details
-        for name, metrics in baselines.items():
-            report["baselines"][name] = {
-                "utility_score": metrics.utility_score(),
-                "latency_p95_ms": metrics.latency_p95_ms,
-                "success_rate": metrics.success_rate,
-                "context_efficiency": metrics.context_efficiency_score,
-                "metrics": metrics.to_dict()
-            }
-            
-            # Identify optimization opportunities
-            if metrics.latency_p95_ms > 50:
-                report["optimization_targets"].append({
-                    "target": name,
-                    "reason": f"Latency ({metrics.latency_p95_ms:.2f}ms) exceeds 50ms target",
-                    "priority": "high"
-                })
-            
-            if metrics.context_efficiency_score < 0.85:
-                report["optimization_targets"].append({
-                    "target": name,
-                    "reason": f"Context efficiency ({metrics.context_efficiency_score:.2f}) below 0.85 target",
-                    "priority": "medium"
-                })
-        
-        # Add recommendations
-        if report["optimization_targets"]:
-            report["recommendations"].append(
-                "Apply STOP optimization to targets listed above"
-            )
-            report["recommendations"].append(
-                "Focus on high-priority targets first"
-            )
-            report["recommendations"].append(
-                "Use utility_score as the optimization objective function"
-            )
-        else:
-            report["recommendations"].append(
-                "Current performance meets all targets - consider stretch goals"
-            )
-        
-        # Add utility function recommendations
-        report["utility_functions"] = {
-            "context_reduction": "UtilityFunction.context_reduction_utility",
-            "agent_execution": "UtilityFunction.agent_performance_utility",
-            "governance_verdict": "UtilityFunction.governance_utility"
-        }
-        
-        return report
+    return {
+        "delegation_time_ms": delegation_time,
+        "tasks_delegated": len(tasks),
+        "avg_per_task_ms": delegation_time / len(tasks)
+    }
+
+
+def generate_baseline_report(metrics_collector: MetricsCollector):
+    """Generate baseline performance report"""
+    print("=" * 70)
+    print("Baseline Performance Summary")
+    print("=" * 70)
     
-    def save_report(self, report: Dict[str, Any], filename: str = "baseline_report.json"):
-        """Save report to file"""
-        report_file = self.output_dir / filename
-        with report_file.open("w") as f:
-            json.dump(report, f, indent=2)
-        
-        print(f"\n💾 Baseline report saved to: {report_file}")
-        
-        # Also generate human-readable summary
-        summary_file = self.output_dir / "baseline_summary.txt"
-        with summary_file.open("w") as f:
-            f.write("=" * 80 + "\n")
-            f.write("STOP Baseline Measurement Summary\n")
-            f.write("=" * 80 + "\n\n")
-            f.write(f"Measured at: {report['measurement_timestamp']}\n\n")
-            
-            f.write("Baselines:\n")
-            f.write("-" * 80 + "\n")
-            for name, data in report["baselines"].items():
-                f.write(f"\n{name.upper()}:\n")
-                f.write(f"  Utility Score: {data['utility_score']:.3f}\n")
-                f.write(f"  Latency (p95): {data['latency_p95_ms']:.2f}ms\n")
-                f.write(f"  Success Rate: {data['success_rate']:.2%}\n")
-                f.write(f"  Context Efficiency: {data['context_efficiency']:.3f}\n")
-            
-            if report["optimization_targets"]:
-                f.write("\n\nOptimization Targets:\n")
-                f.write("-" * 80 + "\n")
-                for target in report["optimization_targets"]:
-                    f.write(f"\n[{target['priority'].upper()}] {target['target']}\n")
-                    f.write(f"  Reason: {target['reason']}\n")
-            
-            f.write("\n\nRecommendations:\n")
-            f.write("-" * 80 + "\n")
-            for i, rec in enumerate(report["recommendations"], 1):
-                f.write(f"{i}. {rec}\n")
-        
-        print(f"💾 Summary saved to: {summary_file}")
-        
-        return report_file
+    # Get all agent summaries
+    all_agents = list(metrics_collector.agent_stats.keys())
+    
+    if all_agents:
+        print("\nAgent Performance:")
+        for agent_id in all_agents[:5]:  # Top 5
+            summary = metrics_collector.get_agent_summary(agent_id)
+            if "error" not in summary:
+                utility = metrics_collector.calculate_utility_score(agent_id)
+                print(f"  {agent_id}:")
+                print(f"    Tasks: {summary['total_tasks']}")
+                print(f"    Success rate: {summary['success_rate']:.1%}")
+                print(f"    Avg time: {summary['avg_execution_time_ms']:.2f}ms")
+                print(f"    Utility score: {utility:.3f}" if utility else "    Utility score: N/A")
+    
+    # Context summaries
+    context_agents = list(metrics_collector.context_stats.keys())
+    if context_agents:
+        print("\nContext Engineering:")
+        for agent_id in context_agents[:3]:  # Top 3
+            summary = metrics_collector.get_context_summary(agent_id)
+            if "error" not in summary:
+                print(f"  {agent_id}:")
+                print(f"    Reduce ops: {summary['reduce_operations']}")
+                print(f"    Delegate ops: {summary['delegate_operations']}")
+                print(f"    Tokens freed: {summary['total_tokens_freed']:,}")
+                print(f"    Avg efficiency: {summary['avg_efficiency_score']:.1%}")
+    
+    # Top performers
+    print("\nTop Performers (by utility score):")
+    top = metrics_collector.get_top_performers(limit=3)
+    for i, agent in enumerate(top, 1):
+        print(f"  {i}. {agent['agent_id']}")
+        print(f"     Utility: {agent['utility_score']:.3f}")
+        print(f"     Success: {agent['success_rate']:.1%}")
+        print(f"     Avg time: {agent['avg_time_ms']:.2f}ms")
+    
+    # Generate full report
+    report_file = Path("./state/metrics/baseline_report.json")
+    report_file.parent.mkdir(parents=True, exist_ok=True)
+    report = metrics_collector.generate_report(output_file=report_file)
+    
+    print(f"\n✓ Full report saved to: {report_file}")
+    
+    return report
 
 
 def main():
-    """Main entry point"""
-    parser = argparse.ArgumentParser(
-        description="Establish baseline metrics for STOP optimization"
-    )
-    parser.add_argument(
-        "--output-dir",
-        type=Path,
-        default=Path("./state/baselines"),
-        help="Output directory for baseline reports"
-    )
-    parser.add_argument(
-        "--iterations",
-        type=int,
-        default=10,
-        help="Number of iterations per measurement"
-    )
-    parser.add_argument(
-        "--quick",
-        action="store_true",
-        help="Quick mode - only 3 iterations"
-    )
+    """Run baseline measurements"""
+    print("\n" + "=" * 70)
+    print("AGI Core - Baseline Performance Measurement")
+    print("=" * 70 + "\n")
     
-    args = parser.parse_args()
+    # Initialize metrics collector
+    metrics_collector = MetricsCollector()
     
-    iterations = 3 if args.quick else args.iterations
+    # Run measurements
+    context_results = measure_context_operations()
+    expert_results = measure_expert_operations()
+    workflow_results = measure_workflow_operations()
+    delegation_results = measure_delegation_operations()
     
-    # Create measurement system
-    measurement = BaselineMeasurement(output_dir=args.output_dir)
+    # Set baselines
+    print("=" * 70)
+    print("Setting Baselines")
+    print("=" * 70)
     
-    # Establish baselines
-    baselines = measurement.establish_all_baselines(iterations=iterations)
+    metrics_collector.set_baseline("context_reduction_ms", context_results["reduction_time_ms"])
+    print(f"✓ Context reduction: {context_results['reduction_time_ms']:.2f}ms")
+    
+    avg_expert_time = sum(r["execution_time_ms"] for r in expert_results) / len(expert_results)
+    metrics_collector.set_baseline("expert_execution_ms", avg_expert_time)
+    print(f"✓ Expert execution: {avg_expert_time:.2f}ms")
+    
+    metrics_collector.set_baseline("workflow_total_ms", workflow_results["total_time_ms"])
+    print(f"✓ Workflow execution: {workflow_results['total_time_ms']:.2f}ms")
+    
+    metrics_collector.set_baseline("delegation_per_task_ms", delegation_results["avg_per_task_ms"])
+    print(f"✓ Delegation per task: {delegation_results['avg_per_task_ms']:.2f}ms")
+    
+    print()
     
     # Generate report
-    print("\n" + "=" * 80)
-    print("📊 Generating Report...")
-    print("=" * 80)
+    generate_baseline_report(metrics_collector)
     
-    report = measurement.generate_report(baselines)
-    report_file = measurement.save_report(report)
-    
-    # Print summary
-    print("\n" + "=" * 80)
-    print("✅ BASELINE MEASUREMENT COMPLETE")
-    print("=" * 80)
-    print(f"\nMeasured {len(baselines)} optimization targets")
-    print(f"Identified {len(report['optimization_targets'])} targets needing optimization")
-    print(f"\nNext steps:")
-    print("  1. Review the baseline report")
-    print("  2. Implement STOP optimization for identified targets")
-    print("  3. Re-run measurements to validate improvements")
-    print("\n" + "=" * 80)
+    print("\n" + "=" * 70)
+    print("Baseline measurement complete!")
+    print("=" * 70)
+    print("\nNext steps:")
+    print("  1. Use these baselines to track performance improvements")
+    print("  2. Monitor metrics over time with metrics_collector")
+    print("  3. Compare future runs with: metrics_collector.compare_to_baseline()")
+    print("  4. Optimize based on utility scores")
+    print()
 
 
 if __name__ == "__main__":
     main()
-

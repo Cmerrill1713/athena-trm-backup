@@ -1,0 +1,18 @@
+{
+  "task_id": "task_1760571556829",
+  "agent_id": "bg_e686894a",
+  "success": true,
+  "output": {
+    "task_id": "task_1760571556829",
+    "agent_type": "document",
+    "description": "Document module C",
+    "result": "Task 'Document module C' completed successfully",
+    "context_processed": 2,
+    "operations_performed": 5
+  },
+  "duration_seconds": 0.5034849643707275,
+  "tokens_used": 5000,
+  "context_size": 8000,
+  "timestamp": 1760571557.333184,
+  "error": null
+}

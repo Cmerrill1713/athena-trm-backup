@@ -1,0 +1,18 @@
+{
+  "task_id": "task_1760571527784",
+  "agent_id": "bg_7a210e83",
+  "success": true,
+  "output": {
+    "task_id": "task_1760571527784",
+    "agent_type": "test",
+    "description": "Test module B",
+    "result": "Task 'Test module B' completed successfully",
+    "context_processed": 2,
+    "operations_performed": 5
+  },
+  "duration_seconds": 0.5009059906005859,
+  "tokens_used": 5000,
+  "context_size": 8000,
+  "timestamp": 1760571528.285849,
+  "error": null
+}

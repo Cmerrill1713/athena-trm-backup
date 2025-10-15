@@ -1,0 +1,18 @@
+{
+  "task_id": "task_1760571527784",
+  "agent_id": "bg_91da0b25",
+  "success": true,
+  "output": {
+    "task_id": "task_1760571527784",
+    "agent_type": "refactor",
+    "description": "Refactor module A",
+    "result": "Task 'Refactor module A' completed successfully",
+    "context_processed": 2,
+    "operations_performed": 5
+  },
+  "duration_seconds": 0.5050191879272461,
+  "tokens_used": 5000,
+  "context_size": 8000,
+  "timestamp": 1760571528.2898371,
+  "error": null
+}
