@@ -1,0 +1,8 @@
+{
+  "safe_version": "v1.9.0-canary",
+  "current_version": "v1.9.0-canary",
+  "promotions_frozen_until": 1760507485.581985,
+  "freeze_promotions": true,
+  "rollback_in_progress": false,
+  "last_updated": 1760503885.5819921
+}
