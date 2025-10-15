@@ -102,3 +102,12 @@ infra_snapshot/
 *.dylib
 *.tar
 *.tar.gz
+
+# Nested git repositories (not configured as submodules)
+A2A
+AI-Projects/universal-ai-tools
+TinyRecursiveModels
+external/SplattingAvatar
+fastvlm/ml-fastvlm
+kokoro
+pydantic-ai
