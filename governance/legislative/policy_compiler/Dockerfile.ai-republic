@@ -1,0 +1,73 @@
+# syntax=docker/dockerfile:1
+# AI Republic Development Container
+# ================================
+#
+# Lightweight container for burn-in testing
+# Focuses on core functionality without heavy ML dependencies
+#
+# Usage:
+#   docker build -f Dockerfile.ai-republic -t ai-republic:dev .
+#   docker run -it --rm ai-republic:dev
+
+FROM ubuntu:22.04
+
+# Install minimal system dependencies
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    python3-venv \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create user-space directory structure
+RUN mkdir -p /home/developer/.local/share/ai-republic/{src,spikes,logs,run}
+
+# Set up lightweight Python environment
+WORKDIR /app
+RUN python3 -m venv /app/venv && \
+    /app/venv/bin/pip install --upgrade pip
+
+# Install only core dependencies (no ML/heavy packages)
+RUN /app/venv/bin/pip install \
+    pytest \
+    pyyaml \
+    requests
+
+# Copy AI Republic backend files
+COPY ai_republic/ /app/ai_republic/
+COPY athena/ /app/athena/
+COPY burn_in_*.py spikes.py triggers.py /app/
+COPY setup_*.sh /app/
+
+# Copy user-space config and tests (create minimal versions for container)
+RUN mkdir -p /home/developer/.local/share/ai-republic/src && \
+    mkdir -p /home/developer/.local/share/ai-republic/spikes
+
+# Copy config files instead of embedding
+COPY docker/config_flags.py /home/developer/.local/share/ai-republic/src/config_flags.py
+
+# Copy spike scenario files
+COPY docker/spikes/ /home/developer/.local/share/ai-republic/spikes/
+
+# Copy test runner scripts
+COPY docker/scripts/ /home/developer/.local/share/ai-republic/
+
+RUN chmod +x /home/developer/.local/share/ai-republic/run_tests.sh /home/developer/.local/share/ai-republic/TEST_NOW.sh
+
+# Copy SwiftUI frontend
+COPY NeuroForgeApp/ /app/NeuroForgeApp/
+
+# Set up environment
+ENV PYTHONPATH="/home/developer/.local/share/ai-republic:/app"
+ENV AR_HOME="/home/developer/.local/share/ai-republic"
+ENV PATH="/app/venv/bin:${PATH}"
+
+# Create developer user
+RUN useradd -m -s /bin/bash developer && \
+    chown -R developer:developer /app /home/developer
+
+USER developer
+WORKDIR /app
+
+# Default command: run tests
+CMD ["bash", "-c", "echo '🧪 Running AI Republic tests...' && make test || bash ~/.local/share/ai-republic/TEST_NOW.sh"]

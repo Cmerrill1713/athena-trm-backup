@@ -1,0 +1,36 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install AI team specific deps
+RUN pip install --no-cache-dir \
+    httpx==0.24.1 \
+    fastapi==0.104.1 \
+    uvicorn==0.24.0
+
+# Copy application
+COPY orchestrator /app/orchestrator
+COPY agents /app/agents
+COPY common /app/common
+
+# Create directories
+RUN mkdir -p /app/state /app/logs
+
+EXPOSE 8200
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+    CMD curl -f http://localhost:8200/health || exit 1
+
+CMD ["uvicorn", "orchestrator.ai_team_api:app", "--host", "0.0.0.0", "--port", "8200"]
+

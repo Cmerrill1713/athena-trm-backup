@@ -1,0 +1,22 @@
+version: 1
+name: Full Program Validation
+description: Run preflight, evals, inventory, telemetry queries; compile report.
+
+steps:
+  - name: Preflight SLA
+    run: bash -lc "cd orchestrator && make preflight"
+
+  - name: Code Inventory
+    run: bash -lc "python3 tools/code_inventory.py"
+
+  - name: Telemetry Stats
+    run: bash -lc "python3 tools/telemetry_stats.py"
+
+  - name: Compose Full Report
+    run: bash -lc "python3 tools/generate_full_report.py"
+
+outputs:
+  - FULL_VALIDATION_REPORT.md
+  - CODE_INVENTORY.md
+  - state/code_inventory.json
+  - state/telemetry_stats.json

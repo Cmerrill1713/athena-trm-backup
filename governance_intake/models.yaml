@@ -1,0 +1,18 @@
+models:
+  judge_model: "local-7B"   # God-Judge - using local model for governance decisions
+  exec_model: "local-7B"    # Executive actions - local for speed
+  advocate_model: "local-7B" # Devil's Advocate - local for consistency
+
+reasoning:
+  tot_branches_max: 3        # Conservative for M2 Ultra
+  tot_depth_max: 2          # Keep it fast
+  got_nodes_max: 16         # Balanced for local inference
+  got_backedges_max: 4      # Reasonable complexity
+
+calibration:
+  ece_target: 0.06          # Target calibration error
+  disable_tot_if_ece_gt: true # Safety first
+
+traffic:
+  target_tasks_per_min: 25   # Conservative for local models
+  percent_tot: 20           # 20% of tasks get full reasoning

@@ -1,0 +1,48 @@
+{
+  "queue_run": "2025-10-12T21:14:16.155581",
+  "total_papers": 4,
+  "successful": 4,
+  "failed": 0,
+  "results": [
+    {
+      "paper_id": "adaptive_prompts",
+      "title": "Adaptive Prompt Optimization via Reinforcement Learning",
+      "status": "success",
+      "duration_seconds": 52.366201,
+      "tokens": 988,
+      "code_length": 4795,
+      "output_file": "orchestrator/providers/adaptive_prompts.py",
+      "timestamp": "2025-10-12T21:10:21.093835"
+    },
+    {
+      "paper_id": "statistical_rollout",
+      "title": "Statistical Planning via Monte Carlo Rollouts",
+      "status": "success",
+      "duration_seconds": 80.352951,
+      "tokens": 2214,
+      "code_length": 10323,
+      "output_file": "orchestrator/providers/statistical_rollout.py",
+      "timestamp": "2025-10-12T21:11:41.447165"
+    },
+    {
+      "paper_id": "meta_learning",
+      "title": "Meta-Learning for Few-Shot Task Adaptation",
+      "status": "success",
+      "duration_seconds": 113.871343,
+      "tokens": 1909,
+      "code_length": 8235,
+      "output_file": "orchestrator/providers/meta_learning.py",
+      "timestamp": "2025-10-12T21:13:35.318858"
+    },
+    {
+      "paper_id": "uncertainty_estimation",
+      "title": "Bayesian Uncertainty Estimation for Model Confidence",
+      "status": "success",
+      "duration_seconds": 40.835866,
+      "tokens": 2154,
+      "code_length": 10298,
+      "output_file": "orchestrator/providers/uncertainty_estimation.py",
+      "timestamp": "2025-10-12T21:14:16.155098"
+    }
+  ]
+}

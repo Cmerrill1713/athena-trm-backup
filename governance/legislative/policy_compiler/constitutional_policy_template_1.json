@@ -1,0 +1,272 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "2025-10-13",
+    "last_modified": "2025-10-13",
+    "author": "NeuroForge Constitutional AI Framework",
+    "description": "Complete governance framework for beneficial AI evolution",
+    "applicable_domains": ["search_optimization", "content_generation", "recommendation_systems"]
+  },
+
+  "ethical_boundaries": {
+    "enabled": true,
+    "enforcement_level": "blocking",
+    "forbidden_patterns": {
+      "discrimination": [
+        {
+          "pattern": "(?i)discriminat.*(race|gender|age|religion|ethnicity|nationality)",
+          "severity": "high",
+          "description": "Strategies must not discriminate based on protected characteristics"
+        }
+      ],
+      "manipulation": [
+        {
+          "pattern": "(?i)manipulat.*(user|behavior|decision|choice)",
+          "severity": "high",
+          "description": "Strategies must not manipulate or exploit users"
+        }
+      ],
+      "deception": [
+        {
+          "pattern": "(?i)mislead.*(user|information|results)",
+          "severity": "high",
+          "description": "Strategies must not deceive or mislead users"
+        }
+      ]
+    },
+    "parameter_constraints": {
+      "personalization_bias": {
+        "max_value": 0.3,
+        "description": "Personalization bias must not exceed 0.3 to prevent filter bubbles",
+        "enforcement": "warning"
+      }
+    }
+  },
+
+  "business_constraints": {
+    "enabled": true,
+    "enforcement_level": "warning",
+    "objectives": {
+      "user_satisfaction": {
+        "weight": 0.4,
+        "min_threshold": 0.7,
+        "description": "Maintain high user satisfaction scores",
+        "metrics": ["judge_helpfulness", "user_acceptance_rate"]
+      },
+      "business_value": {
+        "weight": 0.3,
+        "min_threshold": 0.6,
+        "description": "Contribute to business revenue and growth",
+        "metrics": ["conversion_impact", "engagement_lift"]
+      },
+      "operational_efficiency": {
+        "weight": 0.3,
+        "min_threshold": 0.8,
+        "description": "Maintain operational efficiency and cost-effectiveness",
+        "metrics": ["latency_p95", "resource_usage", "cost_efficiency"]
+      }
+    }
+  },
+
+  "safety_limits": {
+    "enabled": true,
+    "enforcement_level": "blocking",
+    "performance_limits": {
+      "variance_threshold": {
+        "max_value": 0.2,
+        "description": "Maximum allowed performance variance across queries",
+        "enforcement": "blocking"
+      },
+      "latency_regression": {
+        "max_value": 100,
+        "description": "Maximum allowed latency increase (p95)",
+        "enforcement": "blocking"
+      }
+    }
+  },
+
+  "compliance_rules": {
+    "enabled": true,
+    "enforcement_level": "blocking",
+    "gdpr": {
+      "enabled": true,
+      "rules": [
+        {
+          "name": "data_minimization",
+          "condition": "data_processing_ratio > 2.0",
+          "description": "Limit data processing to necessary minimum",
+          "enforcement": "warning"
+        },
+        {
+          "name": "consent_requirement",
+          "condition": "requires_user_consent = true AND consent_mechanism_missing = true",
+          "description": "Require explicit user consent for personalization",
+          "enforcement": "blocking"
+        }
+      ]
+    },
+    "ccpa": {
+      "enabled": true,
+      "rules": [
+        {
+          "name": "right_to_know",
+          "condition": "data_usage_transparency_missing = true",
+          "description": "Users must know what data is collected",
+          "enforcement": "blocking"
+        }
+      ]
+    }
+  },
+
+  "governance_policies": [
+    {
+      "policy_id": "ethical_no_harm",
+      "category": "ethical",
+      "name": "No Harm Principle",
+      "description": "Strategies must not cause harm, discrimination, or manipulation",
+      "enforcement_level": "blocking",
+      "conditions": [
+        {
+          "type": "ethical_check",
+          "max_severity": 0.0
+        }
+      ],
+      "actions": [
+        {
+          "type": "block_deployment",
+          "reason": "Ethical violation detected"
+        }
+      ]
+    },
+    {
+      "policy_id": "business_value_creation",
+      "category": "business",
+      "name": "Value Creation",
+      "description": "Strategies must create business value and user satisfaction",
+      "enforcement_level": "warning",
+      "conditions": [
+        {
+          "type": "business_alignment",
+          "min_score": 0.6
+        }
+      ],
+      "actions": [
+        {
+          "type": "flag_for_review",
+          "reason": "Low business alignment"
+        }
+      ]
+    },
+    {
+      "policy_id": "safety_system_stability",
+      "category": "safety",
+      "name": "System Stability",
+      "description": "Strategies must maintain system stability and performance",
+      "enforcement_level": "blocking",
+      "conditions": [
+        {
+          "type": "safety_check",
+          "min_safety_score": 0.8
+        }
+      ],
+      "actions": [
+        {
+          "type": "block_deployment",
+          "reason": "Safety violation - system instability risk"
+        }
+      ]
+    },
+    {
+      "policy_id": "compliance_legal_requirements",
+      "category": "compliance",
+      "name": "Legal Compliance",
+      "description": "Strategies must comply with all applicable laws and regulations",
+      "enforcement_level": "blocking",
+      "conditions": [
+        {
+          "type": "compliance_check",
+          "min_compliance_score": 0.9
+        }
+      ],
+      "actions": [
+        {
+          "type": "block_deployment",
+          "reason": "Regulatory compliance violation"
+        }
+      ]
+    }
+  ],
+
+  "strategic_objectives": {
+    "enabled": true,
+    "primary_objectives": {
+      "user_experience_excellence": {
+        "weight": 0.35,
+        "description": "Deliver exceptional user experiences",
+        "metrics": ["judge_helpfulness", "user_satisfaction", "response_quality"]
+      },
+      "business_growth": {
+        "weight": 0.30,
+        "description": "Drive business growth and revenue",
+        "metrics": ["conversion_rate", "engagement_metrics", "business_impact"]
+      },
+      "operational_excellence": {
+        "weight": 0.25,
+        "description": "Maintain operational efficiency and reliability",
+        "metrics": ["latency_p95", "error_rate", "resource_efficiency"]
+      },
+      "innovation_leadership": {
+        "weight": 0.10,
+        "description": "Lead in AI innovation and capability advancement",
+        "metrics": ["novel_strategy_deployment", "performance_improvements", "research_impact"]
+      }
+    }
+  },
+
+  "human_oversight": {
+    "enabled": true,
+    "escalation_triggers": [
+      {
+        "condition": "governance_score < 0.5",
+        "reason": "Critical governance violations",
+        "priority": "urgent"
+      },
+      {
+        "condition": "ethical_severity_score > 1.0",
+        "reason": "High ethical risk detected",
+        "priority": "high"
+      }
+    ],
+    "intervention_capabilities": [
+      {
+        "type": "approve_with_conditions",
+        "description": "Approve strategy with specific conditions",
+        "conditions_available": [
+          "reduce_personalization_bias",
+          "add_diversity_component",
+          "implement_transparency_measures"
+        ]
+      }
+    ]
+  },
+
+  "monitoring": {
+    "enabled": true,
+    "alerts": [
+      {
+        "metric": "governance_clearance_rate",
+        "threshold": 0.8,
+        "condition": "below",
+        "severity": "high",
+        "message": "Governance clearance rate below acceptable threshold"
+      },
+      {
+        "metric": "ethical_violation_rate",
+        "threshold": 0.05,
+        "condition": "above",
+        "severity": "critical",
+        "message": "Ethical violation rate exceeds acceptable threshold"
+      }
+    ]
+  }
+}

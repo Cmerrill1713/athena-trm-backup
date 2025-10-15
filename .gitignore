@@ -56,3 +56,49 @@ artifacts/*.zip
 # Temporary files
 *.tmp
 tmp/
+
+# Cache and temporary files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/.cache/
+.cursor/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Build artifacts
+.next/
+node_modules/
+
+# Governance backups
+governance_backup_*/
+docker_intake/
+infra_snapshot/
+*.zip
+
+# Large binary files
+*.dylib
+*.tar
+*.tar.gz

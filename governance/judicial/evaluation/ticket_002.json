@@ -1,0 +1,16 @@
+{
+  "record": {
+    "id": "EV-002",
+    "subject": "Feature request: Dark mode support",
+    "body": "Please add dark mode to the dashboard. Current bright theme causes eye strain during night shifts.",
+    "sla_mins_left": 1440,
+    "channel": "support_ticket",
+    "priority": "medium"
+  },
+  "expected": {
+    "next_action": "plan",
+    "min_facts": 3,
+    "max_latency_ms": 1500
+  }
+}
+

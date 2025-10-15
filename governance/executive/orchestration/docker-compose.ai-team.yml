@@ -1,0 +1,176 @@
+version: '3.8'
+
+services:
+  # ========================================================================
+  # ORCHESTRATOR - Routes tasks to specialist agents
+  # ========================================================================
+  orchestrator:
+    build:
+      context: .
+      dockerfile: Dockerfile.orchestrator
+    container_name: neuroforge-orchestrator
+    ports:
+      - "8181:8181"
+    environment:
+      - PYTHONPATH=/app
+      - UAT_TOKEN=${UAT_TOKEN:-supersecret}
+      - ARCHITECT_HOST=architect-llm
+      - CODE_GEN_HOST=code-machine-1
+      - TESTER_HOST=code-machine-2
+      - REVIEWER_HOST=reviewer-llm
+    volumes:
+      - ./orchestrator:/app/orchestrator
+      - ./state:/app/state
+    networks:
+      - ai-team-net
+    restart: unless-stopped
+    command: uvicorn api:app --host 0.0.0.0 --port 8181
+
+  # ========================================================================
+  # ARCHITECT LLM - System design and planning
+  # ========================================================================
+  architect-llm:
+    image: ollama/ollama:latest
+    container_name: ai-team-architect
+    ports:
+      - "11434:11434"
+    volumes:
+      - architect-models:/root/.ollama
+    networks:
+      - ai-team-net
+    restart: unless-stopped
+    environment:
+      - OLLAMA_MODELS=qwen2.5:14b
+    # Pull model on startup
+    entrypoint: >
+      sh -c "ollama serve & sleep 5 && ollama pull qwen2.5:14b && wait"
+
+  # ========================================================================
+  # CODE MACHINE 1 - Code generation (GPU-enabled)
+  # ========================================================================
+  code-machine-1:
+    image: ollama/ollama:latest
+    container_name: ai-team-code-gen
+    ports:
+      - "11435:11434"
+    volumes:
+      - code-gen-models:/root/.ollama
+    networks:
+      - ai-team-net
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment:
+      - OLLAMA_MODELS=qwen3-coder:30b
+    entrypoint: >
+      sh -c "ollama serve & sleep 5 && ollama pull qwen3-coder:30b && wait"
+
+  # ========================================================================
+  # CODE MACHINE 2 - Test generation (GPU-enabled)
+  # ========================================================================
+  code-machine-2:
+    image: ollama/ollama:latest
+    container_name: ai-team-tester
+    ports:
+      - "11436:11434"
+    volumes:
+      - tester-models:/root/.ollama
+    networks:
+      - ai-team-net
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment:
+      - OLLAMA_MODELS=qwen3-coder:30b
+    entrypoint: >
+      sh -c "ollama serve & sleep 5 && ollama pull qwen3-coder:30b && wait"
+
+  # ========================================================================
+  # REVIEWER LLM - Code review and quality
+  # ========================================================================
+  reviewer-llm:
+    image: ollama/ollama:latest
+    container_name: ai-team-reviewer
+    ports:
+      - "11437:11434"
+    volumes:
+      - reviewer-models:/root/.ollama
+    networks:
+      - ai-team-net
+    restart: unless-stopped
+    environment:
+      - OLLAMA_MODELS=qwen2.5:14b
+    entrypoint: >
+      sh -c "ollama serve & sleep 5 && ollama pull qwen2.5:14b && wait"
+
+  # ========================================================================
+  # RESEARCHER LLM - Research analysis
+  # ========================================================================
+  researcher-llm:
+    image: ollama/ollama:latest
+    container_name: ai-team-researcher
+    ports:
+      - "11438:11434"
+    volumes:
+      - researcher-models:/root/.ollama
+    networks:
+      - ai-team-net
+    restart: unless-stopped
+    environment:
+      - OLLAMA_MODELS=qwen2.5:14b
+    entrypoint: >
+      sh -c "ollama serve & sleep 5 && ollama pull qwen2.5:14b && wait"
+
+  # ========================================================================
+  # AI TEAM API - Exposes team collaboration endpoints
+  # ========================================================================
+  ai-team-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.ai-team
+    container_name: ai-team-api
+    ports:
+      - "8200:8200"
+    environment:
+      - PYTHONPATH=/app
+      - ARCHITECT_HOST=architect-llm
+      - CODE_GEN_HOST=code-machine-1
+      - TESTER_HOST=code-machine-2
+      - REVIEWER_HOST=reviewer-llm
+      - RESEARCHER_HOST=researcher-llm
+    volumes:
+      - ./orchestrator:/app/orchestrator
+      - ./agents:/app/agents
+      - ./state:/app/state
+    networks:
+      - ai-team-net
+    restart: unless-stopped
+    depends_on:
+      - architect-llm
+      - code-machine-1
+      - code-machine-2
+      - reviewer-llm
+      - researcher-llm
+    command: uvicorn orchestrator.ai_team_api:app --host 0.0.0.0 --port 8200
+
+volumes:
+  architect-models:
+  code-gen-models:
+  tester-models:
+  reviewer-models:
+  researcher-models:
+
+networks:
+  ai-team-net:
+    driver: bridge
+

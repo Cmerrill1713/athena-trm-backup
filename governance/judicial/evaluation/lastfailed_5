@@ -1,0 +1,8 @@
+{
+  "tests/test_api_health.py::TestHealthEndpoints::test_root_health": true,
+  "tests/test_api_health.py::TestHealthEndpoints::test_openapi_spec": true,
+  "tests/test_api_health.py::TestHealthEndpoints::test_service_health[/api/unified-chat/health]": true,
+  "tests/test_api_health.py::TestHealthEndpoints::test_service_health[/api/models]": true,
+  "tests/test_api_health.py::TestHealthEndpoints::test_service_health[/api/orchestration/status]": true,
+  "tests/test_api_health.py::TestHealthEndpoints::test_chat_endpoint_exists": true
+}

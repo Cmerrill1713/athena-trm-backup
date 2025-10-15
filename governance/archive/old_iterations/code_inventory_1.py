@@ -1,0 +1,225 @@
+#!/usr/bin/env python3
+"""
+Code Inventory Generator for NeuroForge
+Generates CODE_INVENTORY.md and code_inventory.json
+"""
+
+import json
+import os
+from collections import defaultdict
+from datetime import datetime
+from pathlib import Path
+
+# Directories to scan
+COMPONENTS = {
+    "NeuroForgeApp": "../../NeuroForgeApp/Sources",
+    "Backend Services": ".",
+    "Scripts": "../scripts",
+    "Tools": ".",
+    "Eval Fixtures": "../eval",
+}
+
+# File extensions to count
+EXTENSIONS = {
+    ".swift": "Swift",
+    ".py": "Python",
+    ".sh": "Shell",
+    ".yml": "YAML",
+    ".yaml": "YAML",
+    ".json": "JSON",
+    ".md": "Markdown",
+    ".txt": "Text",
+}
+
+# Exclusions
+EXCLUDE_PATTERNS = [
+    "node_modules", "build", "dist", "DerivedData", ".git",
+    "__pycache__", "venv", ".venv", "*.pyc", ".DS_Store",
+    "*.dmg", "*.zip", "*.tar.gz", "ml-fastvlm", "artifacts"
+]
+
+def should_exclude(path):
+    """Check if path should be excluded"""
+    path_str = str(path)
+    for pattern in EXCLUDE_PATTERNS:
+        if pattern in path_str:
+            return True
+    return False
+
+def count_lines(file_path):
+    """Count lines in a file"""
+    try:
+        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+            return len(f.readlines())
+    except:
+        return 0
+
+def scan_directory(base_path):
+    """Scan directory and count files/lines by type"""
+    stats = defaultdict(lambda: {"files": 0, "lines": 0})
+
+    for root, dirs, files in os.walk(base_path):
+        # Filter out excluded directories
+        dirs[:] = [d for d in dirs if not should_exclude(Path(root) / d)]
+
+        for file in files:
+            file_path = Path(root) / file
+
+            if should_exclude(file_path):
+                continue
+
+            ext = file_path.suffix.lower()
+            if ext in EXTENSIONS:
+                lang = EXTENSIONS[ext]
+                lines = count_lines(file_path)
+                stats[lang]["files"] += 1
+                stats[lang]["lines"] += lines
+
+    return dict(stats)
+
+def generate_inventory():
+    """Generate complete code inventory"""
+    print("📊 Generating code inventory...")
+
+    inventory = {
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "version": "v0.9.3-dev",
+        "components": {},
+        "totals": defaultdict(lambda: {"files": 0, "lines": 0})
+    }
+
+    for component, rel_path in COMPONENTS.items():
+        abs_path = Path(__file__).parent / rel_path
+        if abs_path.exists():
+            print(f"  Scanning {component}...")
+            stats = scan_directory(abs_path)
+            inventory["components"][component] = stats
+
+            # Update totals
+            for lang, counts in stats.items():
+                inventory["totals"][lang]["files"] += counts["files"]
+                inventory["totals"][lang]["lines"] += counts["lines"]
+
+    inventory["totals"] = dict(inventory["totals"])
+
+    return inventory
+
+def write_markdown(inventory, output_path):
+    """Write inventory as Markdown"""
+    md = [
+        "# Code Inventory Report",
+        "",
+        f"**Generated**: {inventory['timestamp']}  ",
+        f"**Version**: {inventory['version']}",
+        "",
+        "---",
+        "",
+        "## Summary",
+        "",
+        "| Language | Files | Lines |",
+        "|----------|-------|-------|",
+    ]
+
+    # Sort by lines descending
+    sorted_totals = sorted(
+        inventory["totals"].items(),
+        key=lambda x: x[1]["lines"],
+        reverse=True
+    )
+
+    total_files = 0
+    total_lines = 0
+
+    for lang, counts in sorted_totals:
+        md.append(f"| {lang} | {counts['files']:,} | {counts['lines']:,} |")
+        total_files += counts["files"]
+        total_lines += counts["lines"]
+
+    md.extend([
+        f"| **TOTAL** | **{total_files:,}** | **{total_lines:,}** |",
+        "",
+        "---",
+        "",
+        "## By Component",
+        ""
+    ])
+
+    for component, stats in inventory["components"].items():
+        if not stats:
+            continue
+
+        md.extend([
+            f"### {component}",
+            "",
+            "| Language | Files | Lines |",
+            "|----------|-------|-------|",
+        ])
+
+        sorted_stats = sorted(stats.items(), key=lambda x: x[1]["lines"], reverse=True)
+        comp_files = 0
+        comp_lines = 0
+
+        for lang, counts in sorted_stats:
+            md.append(f"| {lang} | {counts['files']:,} | {counts['lines']:,} |")
+            comp_files += counts["files"]
+            comp_lines += counts["lines"]
+
+        md.append(f"| **Subtotal** | **{comp_files:,}** | **{comp_lines:,}** |")
+        md.append("")
+
+    md.extend([
+        "---",
+        "",
+        "## Notes",
+        "",
+        "- Excludes: node_modules, build artifacts, vendored dependencies, .git",
+        "- Source code only (Swift, Python, Shell, YAML, JSON)",
+        "- Documentation included (Markdown)",
+        "",
+        "**Generated by**: `tools/code_inventory.py`  ",
+        f"**Date**: {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}",
+    ])
+
+    output_path.write_text('\n'.join(md))
+    print(f"✅ Markdown report: {output_path}")
+
+def write_json(inventory, output_path):
+    """Write inventory as JSON"""
+    output_path.write_text(json.dumps(inventory, indent=2))
+    print(f"✅ JSON report: {output_path}")
+
+def main():
+    """Main entry point"""
+    print("╔══════════════════════════════════════════════════════════════╗")
+    print("║         📊 CODE INVENTORY GENERATOR v0.9.3 📊                ║")
+    print("╚══════════════════════════════════════════════════════════════╝")
+    print()
+
+    # Generate inventory
+    inventory = generate_inventory()
+
+    # Output paths
+    output_dir = Path(__file__).parent.parent / "releases" / "v0.9.3"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    md_path = output_dir / "CODE_INVENTORY.md"
+    json_path = output_dir / "code_inventory.json"
+
+    # Write reports
+    write_markdown(inventory, md_path)
+    write_json(inventory, json_path)
+
+    # Summary
+    total_files = sum(c["files"] for c in inventory["totals"].values())
+    total_lines = sum(c["lines"] for c in inventory["totals"].values())
+
+    print()
+    print("╔══════════════════════════════════════════════════════════════╗")
+    print(f"║  ✅ INVENTORY COMPLETE: {total_files:,} files, {total_lines:,} lines       ")
+    print("╚══════════════════════════════════════════════════════════════╝")
+
+    return 0
+
+if __name__ == "__main__":
+    exit(main())
+

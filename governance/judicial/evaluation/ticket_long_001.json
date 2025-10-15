@@ -1,0 +1,16 @@
+{
+  "record": {
+    "id": "LONG-001",
+    "subject": "Re: Re: Re: Shipment thread - URGENT",
+    "body": "On Oct 11, 2025, at 3:45 PM, Bob wrote:\n> On Oct 10, 2025, at 2:30 PM, Alice wrote:\n> > On Oct 9, 2025, at 1:15 PM, Carol wrote:\n> > > On Oct 8, 2025, at 12:00 PM, Dave wrote:\n> > > > We need to discuss the shipment timeline.\n> > > I agree, let's set up a meeting.\n> > Meeting scheduled for tomorrow.\n> Can we postpone? I have a conflict.\n\nPlease extract the final ETA for PO#456 and confirm vendor contact. The shipment was originally scheduled for Oct 15th but vendor indicated possible delay to Oct 20th. Need confirmation ASAP as customer is waiting.",
+    "channel": "email",
+    "sla_mins_left": 120,
+    "priority": "urgent"
+  },
+  "expected": {
+    "next_action": "review",
+    "min_facts": 3,
+    "max_latency_ms": 2000
+  }
+}
+

@@ -1,0 +1,65 @@
+{
+  "buildCommand" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildAndRun"
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "baa58c941668c073157e5b31e1995de0c7d472f8060745bf823005134f464f72"
+    },
+    {
+      "guid" : "baa58c941668c073157e5b31e1995de04357ee772ffeb9a3473fa70b449d7dbf"
+    }
+  ],
+  "containerPath" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/NeuroForgeApp.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "dependencyScope" : "workspace",
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "arm64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "macosx",
+      "sdk" : "macosx26.0",
+      "sdkVariant" : "macos",
+      "supportedArchitectures" : [
+        "arm64e",
+        "arm64",
+        "x86_64"
+      ],
+      "targetArchitecture" : "arm64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Products",
+      "derivedDataPath" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Index.noindex/PrecompiledHeaders",
+      "pchPath" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO",
+          "ENABLE_XOJIT_PREVIEWS" : "YES"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "test",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

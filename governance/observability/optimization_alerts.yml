@@ -1,0 +1,227 @@
+# Advanced Optimization Alerts - SLOs and Quality Degradation
+# ===============================================================
+
+groups:
+  # Quality Degradation Alerts
+  - name: quality_degradation
+    rules:
+      # Judge helpfulness dipped <5 with reranker enabled
+      - alert: RAGRerankQualityDegradation
+        expr: |
+          avg_over_time(judge_helpfulness_avg[2h]) < 5
+          and on() rag_rerank_enabled == 1
+        for: 30m
+        labels:
+          severity: warning
+          component: rag_reranker
+        annotations:
+          summary: "RAG reranker quality degradation detected"
+          description: |
+            Judge helpfulness dropped below 5.0 with reranker enabled.
+            Current: {{ $value }} (threshold: 5.0)
+          runbook_url: https://docs.example.com/runbooks/rag-quality-degradation
+
+      # Over-filtering protection
+      - alert: RAGOverFiltering
+        expr: |
+          histogram_quantile(0.5, sum(rate(rag_docs_used_count_bucket[15m])) by (le)) < 3
+          and on() rag_rerank_enabled == 1
+        for: 20m
+        labels:
+          severity: warning
+          component: rag_reranker
+        annotations:
+          summary: "RAG over-filtering detected - too few docs used"
+          description: |
+            P50 docs used dropped below 3 with reranker enabled.
+            Current: {{ $value }} (threshold: 3)
+          runbook_url: https://docs.example.com/runbooks/rag-overfiltering
+
+      # Judge evaluation stalled
+      - alert: JudgeStalled
+        expr: increase(judge_evaluations_total[30m]) == 0
+        for: 30m
+        labels:
+          severity: warning
+          component: judge
+        annotations:
+          summary: "Judge evaluation pipeline stalled"
+          description: "No judge evaluations recorded in the last 30 minutes"
+          runbook_url: https://docs.example.com/runbooks/judge-stalled
+
+  # SLO Violation Alerts
+  - name: slo_violations
+    rules:
+      # Availability SLO breach (99.9% over 30d)
+      - alert: BridgeAvailabilitySLOBreach
+        expr: |
+          (1 - (sum(rate(http_requests_total{job="bridge", status=~"5.."}[30d])) by (job)
+                /
+                sum(rate(http_requests_total{job="bridge"}[30d])) by (job))) < 0.999
+        for: 5m
+        labels:
+          severity: critical
+          component: bridge
+          slo: availability
+        annotations:
+          summary: "Bridge availability SLO breached"
+          description: |
+            Bridge availability below 99.9% over 30 days.
+            Current: {{ $value | humanizePercentage }} (SLO: 99.9%)
+          runbook_url: https://docs.example.com/runbooks/bridge-availability-slo
+
+      # Latency budget breach (p95 ≤ 800ms, reranker +100ms)
+      - alert: ChatLatencyBudgetBreach
+        expr: |
+          histogram_quantile(0.95, sum(rate(bridge_chat_latency_ms_bucket[10m])) by (le)) > 900
+        for: 15m
+        labels:
+          severity: warning
+          component: bridge
+        annotations:
+          summary: "Chat latency exceeded budget"
+          description: |
+            P95 chat latency exceeded 900ms budget.
+            Current: {{ $value }}ms (budget: 900ms)
+          runbook_url: https://docs.example.com/runbooks/chat-latency-budget
+
+      # Judge helpfulness SLO (rolling 6h ≥ 6.5)
+      - alert: JudgeHelpfulnessSLOBreach
+        expr: |
+          avg_over_time(judge_helpfulness_avg[6h]) < 6.5
+        for: 30m
+        labels:
+          severity: warning
+          component: judge
+        annotations:
+          summary: "Judge helpfulness SLO breached"
+          description: |
+            Rolling 6h judge helpfulness below 6.5.
+            Current: {{ $value }} (SLO: 6.5)
+          runbook_url: https://docs.example.com/runbooks/judge-helpfulness-slo
+
+      # Docs used P50 SLO (≥ 3)
+      - alert: DocsUsedP50SLOBreach
+        expr: |
+          histogram_quantile(0.5, sum(rate(rag_docs_used_count_bucket[1h])) by (le)) < 3
+        for: 15m
+        labels:
+          severity: warning
+          component: rag
+        annotations:
+          summary: "Docs used P50 SLO breached"
+          description: |
+            P50 docs used below 3.
+            Current: {{ $value }} (SLO: 3)
+          runbook_url: https://docs.example.com/runbooks/docs-used-p50-slo
+
+  # Rollback Trigger Alerts
+  - name: rollback_triggers
+    rules:
+      # Quality degradation rollback trigger
+      - alert: QualityDegradationRollbackTrigger
+        expr: |
+          (avg_over_time(judge_helpfulness_avg[30m]) - avg_over_time(judge_helpfulness_avg[30m] offset 30m)) <= -0.5
+        for: 5m
+        labels:
+          severity: critical
+          component: optimization
+          action: rollback
+        annotations:
+          summary: "CRITICAL: Quality degradation rollback trigger"
+          description: |
+            Judge helpfulness dropped by ≥0.5 points in 30m vs previous 30m.
+            Delta: {{ $value }} (threshold: -0.5)
+          runbook_url: https://docs.example.com/runbooks/quality-degradation-rollback
+
+      # Latency regression rollback trigger
+      - alert: LatencyRegressionRollbackTrigger
+        expr: |
+          (histogram_quantile(0.95, sum(rate(bridge_chat_latency_ms_bucket[30m])) by (le))
+           -
+           histogram_quantile(0.95, sum(rate(bridge_chat_latency_ms_bucket[30m] offset 30m))) by (le)) > 200
+        for: 5m
+        labels:
+          severity: critical
+          component: optimization
+          action: rollback
+        annotations:
+          summary: "CRITICAL: Latency regression rollback trigger"
+          description: |
+            P95 latency increased by >200ms in 30m vs previous 30m.
+            Delta: +{{ $value }}ms (threshold: +200ms)
+          runbook_url: https://docs.example.com/runbooks/latency-regression-rollback
+
+      # Error rate rollback trigger
+      - alert: ErrorRateRollbackTrigger
+        expr: |
+          rate(http_requests_total{status=~"5.."}[15m]) / rate(http_requests_total[15m]) > 0.02
+        for: 5m
+        labels:
+          severity: critical
+          component: system
+          action: rollback
+        annotations:
+          summary: "CRITICAL: Error rate rollback trigger"
+          description: |
+            Error rate exceeded 2% in 15m window.
+            Current: {{ $value | humanizePercentage }} (threshold: 2%)
+          runbook_url: https://docs.example.com/runbooks/error-rate-rollback
+
+      # Docs used P50 rollback trigger
+      - alert: DocsUsedP50RollbackTrigger
+        expr: |
+          histogram_quantile(0.5, sum(rate(rag_docs_used_count_bucket[30m])) by (le)) < 2
+        for: 5m
+        labels:
+          severity: critical
+          component: rag
+          action: rollback
+        annotations:
+          summary: "CRITICAL: Docs used P50 rollback trigger"
+          description: |
+            P50 docs used dropped below 2 in 30m window.
+            Current: {{ $value }} (threshold: 2)
+          runbook_url: https://docs.example.com/runbooks/docs-used-p50-rollback
+
+  # Optimization Health Checks
+  - name: optimization_health
+    rules:
+      # Bandit algorithm health
+      - alert: BanditAlgorithmUnhealthy
+        expr: |
+          increase(bandit_selections_total[1h]) < 10
+        for: 30m
+        labels:
+          severity: warning
+          component: bandit
+        annotations:
+          summary: "Bandit algorithm low activity"
+          description: "Bandit selections < 10 in 1h - possible algorithm issue"
+          runbook_url: https://docs.example.com/runbooks/bandit-health
+
+      # Reranker threshold tuning stalled
+      - alert: RerankerTuningStalled
+        expr: |
+          (time() - reranker_last_tuning_timestamp) > 86400  # 24 hours
+        for: 5m
+        labels:
+          severity: info
+          component: rag_reranker
+        annotations:
+          summary: "Reranker tuning hasn't run in 24+ hours"
+          description: "Automatic threshold tuning cycle is overdue"
+          runbook_url: https://docs.example.com/runbooks/reranker-tuning-stalled
+
+      # Reward shaper drift correction
+      - alert: RewardDriftCorrectionHighVariance
+        expr: |
+          reward_shaper_drift_std > 0.5
+        for: 15m
+        labels:
+          severity: info
+          component: reward_shaper
+        annotations:
+          summary: "High variance in reward drift correction"
+          description: "Judge scores showing high variance - drift correction active"
+          runbook_url: https://docs.example.com/runbooks/reward-drift-high-variance

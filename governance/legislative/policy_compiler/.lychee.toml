@@ -1,0 +1,27 @@
+# Link checker configuration
+cache = true
+max_redirects = 5
+max_retries = 3
+
+# Exclude patterns
+exclude = [
+    "localhost",
+    "127.0.0.1",
+    "file://",
+    ".*\\.local",
+]
+
+# Accept status codes
+accept = [200, 204, 206, 301, 302, 307, 308, 429]
+
+# Headers
+headers = [
+    "Accept=text/html,application/xhtml+xml"
+]
+
+# Timeout
+timeout = 20
+
+# User agent
+user_agent = "Mozilla/5.0 (compatible; LinkChecker/1.0)"
+

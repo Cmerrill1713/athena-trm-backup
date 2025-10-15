@@ -1,0 +1,73 @@
+FROM python:3.11-slim AS python-base
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    ffmpeg \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /mcp
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+    # Copy Python MCP servers
+    COPY python_servers/ /mcp/python_servers/
+    COPY mcp_ecosystem_server.py /mcp/
+    COPY pydantic_orchestrator.py /mcp/
+    COPY start_all_servers.py /mcp/
+
+# ============================================================================
+# Node.js stage for JavaScript MCP servers
+# ============================================================================
+FROM node:20-slim AS node-base
+
+WORKDIR /mcp/node
+
+# Install Node MCP dependencies
+COPY package.json package-lock.json* ./
+RUN npm install --production
+
+COPY node_servers/ /mcp/node_servers/
+
+# ============================================================================
+# Final multi-language ecosystem
+# ============================================================================
+FROM python:3.11-slim
+
+# Install both Python and Node.js
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    ffmpeg \
+    nodejs \
+    npm \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /mcp
+
+# Copy from Python stage
+COPY --from=python-base /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=python-base /mcp /mcp
+
+# Copy from Node stage  
+COPY --from=node-base /mcp/node /mcp/node
+
+# Create non-root user
+RUN useradd -m -u 1000 mcpuser && \
+    chown -R mcpuser:mcpuser /mcp
+
+USER mcpuser
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
+  CMD python -c "import sys; print('healthy'); sys.exit(0)"
+
+EXPOSE 8412
+
+# Keep container alive for exec commands
+CMD ["tail", "-f", "/dev/null"]

@@ -1,0 +1,153 @@
+version: '3.8'
+
+services:
+  # UAT Service
+  uat:
+    build:
+      context: ../AI-Projects/universal-ai-tools
+      dockerfile: Dockerfile.uat
+    image: stack/uat:latest
+    container_name: stack-uat
+    ports:
+      - "8181:8181"
+    environment:
+      - UAT_TOKEN=${UAT_TOKEN:-supersecret}
+      - UAT_AUTO_SEED=1
+      - SERVICE_NAME=uat
+      - GIT_COMMIT=${GIT_COMMIT:-dev}
+      - USE_MOCK=0
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8181/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - stack-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Athena Service
+  athena:
+    build:
+      context: ../AI-Projects/universal-ai-tools
+      dockerfile: Dockerfile.athena
+    image: stack/athena:latest
+    container_name: stack-athena
+    ports:
+      - "8090:8090"
+    environment:
+      - ATH_TOKEN=${ATH_TOKEN:-supersecret}
+      - SERVICE_NAME=athena
+      - GIT_COMMIT=${GIT_COMMIT:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - stack-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Bridge Adapter
+  bridge:
+    build:
+      context: ../bridge
+      dockerfile: Dockerfile
+    image: stack/bridge:latest
+    container_name: stack-bridge
+    ports:
+      - "8014:8014"
+    environment:
+      - UAT_BASE=http://uat:8181
+      - ATHENA_BASE=http://athena:8090
+      - UAT_TOKEN=${UAT_TOKEN:-supersecret}
+      - ATH_TOKEN=${ATH_TOKEN:-supersecret}
+      - BRIDGE_TOKEN=${BRIDGE_TOKEN:-}
+      - USE_MOCK=0
+      - ENV=production
+      - SERVICE_NAME=bridge
+      - GIT_COMMIT=${GIT_COMMIT:-dev}
+    depends_on:
+      - uat
+      - athena
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8014/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+    networks:
+      - stack-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: stack-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../prometheus/prometheus.prod.yml:/etc/prometheus/prometheus.yml
+      - ../prometheus/alerts:/etc/prometheus/alerts
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - stack-network
+
+  # Grafana
+  grafana:
+    image: grafana/grafana:latest
+    container_name: stack-grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=http://localhost:3001
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ../dashboards:/etc/grafana/provisioning/dashboards
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    networks:
+      - stack-network
+
+  # Pushgateway (for watchdog metrics)
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: stack-pushgateway
+    ports:
+      - "9091:9091"
+    restart: unless-stopped
+    networks:
+      - stack-network
+
+networks:
+  stack-network:
+    driver: bridge
+
+volumes:
+  prometheus-data:
+  grafana-data:

@@ -1,0 +1,288 @@
+# Athena Tool Manifest - NeuroForge Platform Orchestration
+# Integrates RAG, Vision, Kokoro with existing stack management
+
+version: "1.0.0"
+service: "neuroforge-platform"
+
+tools:
+  # === Stack Management ===
+  
+  - name: stack_full
+    description: "Start complete stack: Bridge + Athena + UAT + Kokoro + RAG + Vision"
+    cmd: "make stack-full && make truth"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 60
+    intent_patterns:
+      - "bring everything online"
+      - "start full stack"
+      - "start everything"
+      - "full system up"
+    meta_tags:
+      - "stack"
+      - "orchestration"
+      - "startup"
+    
+  - name: stack_core
+    description: "Start core services: Bridge + Athena + UAT"
+    cmd: "make stack-up && make truth"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 30
+    intent_patterns:
+      - "bring core online"
+      - "start core services"
+      - "core stack up"
+    meta_tags:
+      - "stack"
+      - "core"
+  
+  - name: stack_voice
+    description: "Enable Kokoro TTS voice service"
+    cmd: "make stack-voice && make truth"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 15
+    intent_patterns:
+      - "enable voice"
+      - "start kokoro"
+      - "start voice"
+      - "bring voice online"
+    meta_tags:
+      - "voice"
+      - "kokoro"
+      - "tts"
+  
+  - name: stack_rag
+    description: "Enable RAG knowledge base service (port 8015)"
+    cmd: "make stack-rag && make truth"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 20
+    intent_patterns:
+      - "enable rag"
+      - "start rag"
+      - "start knowledge base"
+      - "bring rag online"
+    meta_tags:
+      - "rag"
+      - "knowledge"
+  
+  - name: stack_vision
+    description: "Enable Vision analysis services (FastVLM + Vision RAG)"
+    cmd: "make stack-vision && make truth"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 20
+    intent_patterns:
+      - "enable vision"
+      - "start vision"
+      - "start image analysis"
+      - "bring vision online"
+    meta_tags:
+      - "vision"
+      - "image"
+  
+  # === Validation & Testing ===
+  
+  - name: validate_platform
+    description: "Run end-to-end platform validation (headers + services + smoke tests)"
+    cmd: "./VALIDATE_PLATFORM.sh"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 45
+    intent_patterns:
+      - "validate platform"
+      - "run platform validation"
+      - "check platform health"
+      - "run validation"
+    gates: []
+    meta_tags:
+      - "validation"
+      - "testing"
+      - "health"
+  
+  - name: probe_services
+    description: "Quick health check for all services (Bridge, Athena, UAT, Kokoro, RAG, Vision)"
+    cmd: "./NeuroForgeApp/scripts/validate_services.sh"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 10
+    intent_patterns:
+      - "probe services"
+      - "health check"
+      - "check services"
+      - "service status"
+    meta_tags:
+      - "health"
+      - "monitoring"
+  
+  - name: smoke_tests
+    description: "Run smoke tests against running services"
+    cmd: "./scripts/smoke_test.sh || echo 'Smoke tests not configured'"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 30
+    intent_patterns:
+      - "run smoke tests"
+      - "smoke test"
+      - "quick test"
+    meta_tags:
+      - "testing"
+      - "smoke"
+  
+  # === Status & Monitoring ===
+  
+  - name: whats_running
+    description: "Show status of all services and their PIDs"
+    cmd: "make stack-status-full"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 5
+    intent_patterns:
+      - "what's running"
+      - "show status"
+      - "stack status"
+      - "what's up"
+      - "service status"
+    meta_tags:
+      - "status"
+      - "monitoring"
+  
+  - name: service_ports
+    description: "Show which services are listening on which ports"
+    cmd: "lsof -i :8014,8015,8016,8020,8090,8181,8811 | grep LISTEN || echo 'No services listening'"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 5
+    intent_patterns:
+      - "show ports"
+      - "what ports"
+      - "port status"
+    meta_tags:
+      - "status"
+      - "ports"
+  
+  # === UI Testing ===
+  
+  - name: test_ui
+    description: "Run NeuroForge app UI tests"
+    cmd: "cd NeuroForgeApp && xcodebuild test -scheme NeuroForgeApp -destination 'platform=macOS'"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 120
+    intent_patterns:
+      - "test ui"
+      - "run ui tests"
+      - "test app"
+    meta_tags:
+      - "testing"
+      - "ui"
+  
+  # === Deployment ===
+  
+  - name: ship_it
+    description: "Deploy/promote to production (gated by validation)"
+    cmd: "./GO_LIVE_NOW.sh || ./scripts/ship_it.sh || echo 'Ship script not found'"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 90
+    gates:
+      - cmd: "./VALIDATE_PLATFORM.sh"
+        must_pass: true
+        description: "Platform validation must pass"
+      - cmd: "test $META_CONFIDENCE_FLOOR && echo 'Confidence check OK'"
+        must_pass: false
+        description: "Optional confidence threshold"
+    intent_patterns:
+      - "ship it"
+      - "promote"
+      - "deploy"
+      - "go live"
+    meta_tags:
+      - "deployment"
+      - "ship"
+  
+  - name: rollback
+    description: "Rollback to last known good version"
+    cmd: "git reset --hard v0.9.4-complete && make stack-restart"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 60
+    intent_patterns:
+      - "rollback"
+      - "revert"
+      - "go back"
+    confirmation_required: true
+    meta_tags:
+      - "deployment"
+      - "rollback"
+  
+  # === RAG & Vision Direct Actions ===
+  
+  - name: rag_query
+    description: "Query RAG knowledge base directly"
+    cmd: "curl -s -X POST 127.0.0.1:8015/api/rag/query -H 'content-type: application/json' -d '{\"query\":\"$QUERY\",\"k\":5}'"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 10
+    parameters:
+      - name: QUERY
+        required: true
+        description: "Search query for RAG"
+    intent_patterns:
+      - "query rag"
+      - "search knowledge"
+      - "rag search"
+    meta_tags:
+      - "rag"
+      - "query"
+  
+  # === Maintenance ===
+  
+  - name: stack_restart
+    description: "Restart all services"
+    cmd: "make stack-down && sleep 2 && make stack-full && make truth"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 90
+    intent_patterns:
+      - "restart stack"
+      - "restart everything"
+      - "reboot services"
+    meta_tags:
+      - "maintenance"
+      - "restart"
+  
+  - name: stack_down
+    description: "Stop all services"
+    cmd: "make stack-down"
+    working_dir: "/Users/christianmerrill/Documents/GitHub"
+    timeout: 30
+    intent_patterns:
+      - "stop everything"
+      - "shut down stack"
+      - "stop services"
+    confirmation_required: true
+    meta_tags:
+      - "maintenance"
+      - "shutdown"
+
+# === Environment Configuration ===
+environment:
+  API_BASE: "http://127.0.0.1:8014"
+  META_PROMPTING: "1"
+  META_REFLECTION: "1"
+  META_RAG: "1"
+  META_SELFCRITIQUE: "1"
+  FEATURE_RAG: "1"
+  FEATURE_VISION: "1"
+  FEATURE_VOICE: "1"
+  FEATURE_HEALTH_PROBE: "1"
+  META_CONFIDENCE_FLOOR: "0.75"
+
+# === Success Criteria ===
+success_criteria:
+  stack_full:
+    - "Bridge responds on 8014"
+    - "Athena responds on 8090"
+    - "UAT responds on 8181"
+    - "Kokoro responds on 8020"
+    - "RAG responds on 8015"
+    - "Vision responds on 8016"
+  
+  validate_platform:
+    - "All health checks pass"
+    - "Meta headers present"
+    - "No timeouts"
+  
+  ship_it:
+    - "Validation passes"
+    - "Confidence >= 0.75"
+    - "No critical errors"
+

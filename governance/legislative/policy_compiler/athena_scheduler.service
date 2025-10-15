@@ -1,0 +1,19 @@
+[Unit]
+Description=Athena Ops Co-Pilot Scheduler
+After=ai-republic-constitutional.service ai-republic-judicial.service
+Wants=ai-republic-constitutional.service ai-republic-judicial.service
+
+[Service]
+Type=simple
+User=ai-republic
+Group=ai-republic
+WorkingDirectory=/opt/ai-republic
+ExecStart=/usr/bin/env python3 athena_copilot_scheduler.py --mode start
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-republic-athena
+
+[Install]
+WantedBy=multi-user.target

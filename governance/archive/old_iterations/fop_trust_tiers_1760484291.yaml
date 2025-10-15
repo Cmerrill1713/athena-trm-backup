@@ -1,0 +1,212 @@
+tiers:
+  SOVEREIGN:
+    min_rep: 0.60
+    rights:
+      - treaty_vote
+      - evidence_publish
+      - evidence_consume
+      - propose_amendment
+      - tribunal_participation
+      - federation_coordination
+    description: "Full federation citizenship with governance rights"
+
+  TRUSTED:
+    min_rep: 0.30
+    rights:
+      - evidence_publish
+      - evidence_consume
+      - limited_treaty_consultation
+      - reputation_weighted_governance
+      - standard_federation_coordination
+    description: "Standard federation participation with publishing rights"
+
+  PROVISIONAL:
+    min_rep: -0.10
+    rights:
+      - evidence_consume_limited
+      - read_only_federation_activity
+      - probationary_monitoring
+      - promotion_path_available
+    description: "Limited access during evaluation and recovery"
+
+  QUARANTINED:
+    max_rep: -0.50
+    rights:
+      - archival_read_only_access
+      - isolation_from_federation
+      - automatic_review_eligible
+    description: "Isolated status with path to recovery"
+
+transitions:
+  # Automatic promotion events
+  promote_on:
+    - event: "clean_audit_window"
+      days: 14
+      delta: +0.10
+      description: "14 consecutive days of clean audits"
+      max_applications: 5
+
+    - event: "evidence_publish_quality"
+      delta: +0.01
+      description: "High-quality evidence contribution"
+      cooldown_hours: 24
+      max_daily: 10
+
+    - event: "timely_disclosure"
+      delta: +0.02
+      description: "Rapid incident disclosure"
+      cooldown_hours: 1
+
+    - event: "peer_endorse"
+      delta: +0.03
+      description: "Positive assessment from peer jurisdiction"
+      cooldown_hours: 168  # 1 week
+      max_weekly: 3
+
+    - event: "tribunal_positive_outcome"
+      delta: +0.05
+      description: "Favorable tribunal resolution"
+      cooldown_hours: 720  # 30 days
+
+  # Automatic demotion events
+  demote_on:
+    - event: "critical_unreported_incident"
+      delta: -0.30
+      description: "Major incident not disclosed"
+      immediate_quarantine: true
+
+    - event: "policy_violation"
+      delta: -0.20
+      description: "Treaty or protocol violation"
+      warning_threshold: 3  # Third violation triggers review
+
+    - event: "tribunal_overturn"
+      delta: -0.03
+      description: "Adverse tribunal outcome"
+      cooldown_hours: 168
+
+    - event: "evidence_publish_violation"
+      delta: -0.05
+      description: "Evidence quality or privacy violation"
+      warning_threshold: 2
+
+    - event: "peer_flag"
+      delta: -0.05
+      description: "Negative assessment from peer jurisdiction"
+      cooldown_hours: 24
+      max_daily: 5
+
+    - event: "slo_violation_persistent"
+      delta: -0.10
+      description: "Sustained SLO performance failure"
+      grace_period_days: 7
+
+  # Recovery mechanisms
+  recovery:
+    - event: "remediation_completion"
+      delta: +0.15
+      description: "Successful completion of remediation plan"
+      requires_audit: true
+
+    - event: "independent_security_audit"
+      delta: +0.20
+      description: "Clean independent security audit"
+      cooldown_days: 90
+
+    - event: "extended_clean_operation"
+      delta: +0.25
+      description: "90 days of clean operation post-incident"
+      requires_monitoring: true
+
+# Tier maintenance requirements
+maintenance:
+  sovereign:
+    required_clean_days: 30
+    max_warnings_per_month: 2
+    evidence_contribution_minimum: 5
+    tribunal_participation_required: true
+
+  trusted:
+    required_clean_days: 14
+    max_warnings_per_month: 5
+    evidence_contribution_minimum: 2
+    peer_review_participation: true
+
+  provisional:
+    required_clean_days: 7
+    max_warnings_per_month: 10
+    evidence_contribution_encouraged: true
+    enhanced_monitoring: true
+
+  quarantined:
+    recovery_assessment_days: 30
+    remediation_plan_required: true
+    independent_audit_required: true
+    tribunal_approval_required: true
+
+# Emergency tier adjustments
+emergency:
+  compromise_detected:
+    immediate_tier: "QUARANTINED"
+    reputation_penalty: -0.50
+    federation_alert: "CRITICAL"
+    recovery_requires: ["security_audit", "key_rotation", "tribunal_review"]
+
+  systemic_threat:
+    affected_tier: "TRUSTED"
+    reputation_penalty: -0.10
+    coordination_required: true
+    recovery_automatic: true
+
+  federation_crisis:
+    all_tiers_affected: true
+    emergency_coordination: true
+    reputation_freeze: true
+    tribunal_supremacy: true
+
+# Reputation calculation parameters
+calculation:
+  base_score: 0.0
+  max_score: 1.0
+  min_score: -1.0
+  decay_rate: 0.001  # Daily reputation normalization
+  event_weight_cap: 0.50  # Maximum single event impact
+  temporal_weight: 0.8  # Recent events weighted higher
+  peer_weight: 0.3  # Peer assessments influence
+
+# Monitoring and alerting
+monitoring:
+  reputation_threshold_alerts:
+    - threshold: 0.90
+      direction: "above"
+      alert_level: "INFO"
+      message: "High reputation jurisdiction detected"
+
+    - threshold: 0.60
+      direction: "below"
+      alert_level: "WARNING"
+      message: "Jurisdiction approaching demotion"
+
+    - threshold: 0.30
+      direction: "below"
+      alert_level: "ERROR"
+      message: "Jurisdiction at risk of quarantine"
+
+    - threshold: -0.50
+      direction: "below"
+      alert_level: "CRITICAL"
+      message: "Jurisdiction quarantined"
+
+  tier_transition_alerts:
+    enabled: true
+    channels: ["internal_log", "federation_broadcast", "affected_jurisdiction"]
+    include_reputation_history: true
+    tribunal_notification: true
+
+# Audit and compliance
+audit:
+  reputation_changes_logged: true
+  tier_transitions_audited: true
+  manual_adjustments_reviewed: true
+  annual_reputation_review: true
+  compliance_report_generated: "monthly"

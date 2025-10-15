@@ -132,3 +132,4 @@ echo "🎯 Avatar system: FULLY DEPLOYED" | tee -a "$LOG"
 
 # Success metrics
 make avatar-rollout-success 2>/dev/null || true
+

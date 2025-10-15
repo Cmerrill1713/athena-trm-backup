@@ -1,3 +1,0 @@
-module X509 {
-    header "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/X509.build/include/X509-Swift.h"
-}

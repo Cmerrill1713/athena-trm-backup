@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+RUN pip install --no-cache-dir requests
+
+# Copy governance scripts
+COPY scripts/gov_slack_bot.py /app/
+COPY scripts/gov_promote.sh /app/
+COPY scripts/gov_rollback.sh /app/
+COPY scripts/gov_notify_slack.sh /app/
+
+# Create logs and state directories
+RUN mkdir -p /app/logs /app/state
+
+# Run as non-root user
+RUN useradd -m -u 1001 governance
+USER governance
+
+EXPOSE 8082
+
+CMD ["python3", "gov_slack_bot.py"]

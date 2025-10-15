@@ -1,7 +1,0 @@
---swiftversion 5.9
---conflictmarkers ignore
---stripunusedargs closure-only
---self insert
---header ignore
---commas inline
---ifdef no-indent

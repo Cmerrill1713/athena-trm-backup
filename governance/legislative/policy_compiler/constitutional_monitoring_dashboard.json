@@ -1,0 +1,150 @@
+{
+  "dashboard": {
+    "title": "Constitutional Auto-Evolution Monitoring",
+    "tags": ["constitutional", "governance", "federation"],
+    "timezone": "UTC",
+    "panels": [
+      {
+        "title": "Constitutional Compliance Rate",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(rate(constitutional_validations_total[1h])) / sum(rate(constitutional_validations_total[1h])) * 100",
+            "legendFormat": "Compliance Rate"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "red", "value": null },
+                { "color": "orange", "value": 95 },
+                { "color": "green", "value": 98 }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "Governance Quality (FP/FN Rates)",
+        "type": "bargauge",
+        "targets": [
+          {
+            "expr": "governance_false_positive_rate",
+            "legendFormat": "False Positive Rate"
+          },
+          {
+            "expr": "governance_false_negative_rate",
+            "legendFormat": "False Negative Rate"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "max": 0.15,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": null },
+                { "color": "yellow", "value": 0.05 },
+                { "color": "red", "value": 0.10 }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "Privacy Budget Consumption",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "max_over_time(privacy_epsilon_30d[30d])",
+            "legendFormat": "Max ε 30d"
+          },
+          {
+            "expr": "avg(privacy_epsilon_30d)",
+            "legendFormat": "Avg ε 30d"
+          }
+        ],
+        "thresholds": [
+          { "value": 2.0, "color": "red", "fill": true, "line": true }
+        ]
+      },
+      {
+        "title": "Federation Health",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "federation_contributions_total",
+            "legendFormat": "Contributions"
+          },
+          {
+            "expr": "federation_sync_success_total / (federation_sync_success_total + federation_sync_failure_total)",
+            "legendFormat": "Sync Success Rate"
+          }
+        ]
+      },
+      {
+        "title": "Strategy Quarantine Events",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(strategy_quarantine_triggered_total[5m])",
+            "legendFormat": "Quarantine Events"
+          }
+        ]
+      },
+      {
+        "title": "Constitutional Invariants",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "max(strategy_traffic_pct)",
+            "legendFormat": "Max Strategy Traffic %"
+          },
+          {
+            "expr": "quantile(0.5, docs_used)",
+            "legendFormat": "Median Docs Used"
+          },
+          {
+            "expr": "histogram_quantile(0.95, rate(router_latency_bucket[5m]))",
+            "legendFormat": "P95 Latency"
+          }
+        ]
+      },
+      {
+        "title": "Alert Status",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "ALERTS{alertname=~\"Constitutional.*\"}",
+            "legendFormat": "{{ alertname }}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": null },
+                { "color": "red", "value": 1 }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "time": {
+      "from": "now-24h",
+      "to": "now"
+    },
+    "refresh": "5m"
+  }
+}

@@ -1,0 +1,93 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - alerts.yml
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+scrape_configs:
+  # Governance Metrics Exporter
+  - job_name: 'governance-metrics'
+    static_configs:
+      - targets: ['governance-metrics-exporter:8000']
+    scrape_interval: 10s
+    metrics_path: '/metrics'
+
+  # Governance Orchestrator
+  - job_name: 'governance-orchestrator'
+    static_configs:
+      - targets: ['governance-orchestrator:8000']
+    scrape_interval: 15s
+    metrics_path: '/metrics'
+
+  # Governance Canary Monitor
+  - job_name: 'governance-canary'
+    static_configs:
+      - targets: ['governance-canary-monitor:8000']
+    scrape_interval: 15s
+    metrics_path: '/metrics'
+
+  # Governance Node Exporter
+  - job_name: 'governance-node'
+    static_configs:
+      - targets: ['governance-exporter:9100']
+    scrape_interval: 30s
+
+  # Core Athena Services
+  - job_name: 'athena-api'
+    static_configs:
+      - targets: ['athena-api:8000']
+    scrape_interval: 30s
+    metrics_path: '/metrics'
+
+  - job_name: 'athena-evolutionary'
+    static_configs:
+      - targets: ['athena-evolutionary:8004']
+    scrape_interval: 30s
+    metrics_path: '/metrics'
+
+  - job_name: 'athena-knowledge-gateway'
+    static_configs:
+      - targets: ['athena-knowledge-gateway:8080']
+    scrape_interval: 30s
+    metrics_path: '/metrics'
+
+  - job_name: 'athena-knowledge-context'
+    static_configs:
+      - targets: ['athena-knowledge-context:8080']
+    scrape_interval: 30s
+    metrics_path: '/metrics'
+
+  - job_name: 'athena-knowledge-sync'
+    static_configs:
+      - targets: ['athena-knowledge-sync:8080']
+    scrape_interval: 30s
+    metrics_path: '/metrics'
+
+  # Infrastructure Exporters
+  - job_name: 'athena-node'
+    static_configs:
+      - targets: ['athena-node-exporter:9100']
+    scrape_interval: 30s
+
+  - job_name: 'athena-postgres'
+    static_configs:
+      - targets: ['athena-postgres-exporter:9187']
+    scrape_interval: 30s
+
+  - job_name: 'athena-redis'
+    static_configs:
+      - targets: ['athena-redis-exporter:9121']
+    scrape_interval: 30s
+
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    scrape_interval: 30s

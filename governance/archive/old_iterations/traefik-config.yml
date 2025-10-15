@@ -1,0 +1,21 @@
+http:
+  middlewares:
+    nf-cors:
+      headers:
+        accessControlAllowMethods: ["GET","POST","OPTIONS"]
+        accessControlAllowHeaders: ["Authorization","Content-Type"]
+        accessControlAllowOriginList: ["https://your.app"]
+        accessControlMaxAge: 600
+        addVaryHeader: true
+    nf-ratelimit:
+      rateLimit:
+        average: 120
+        burst: 60
+
+  routers:
+    bridge:
+      rule: "PathPrefix(`/api/`)"
+      entryPoints: ["websecure"]
+      service: bridge-svc
+      middlewares: ["nf-cors","nf-ratelimit"]
+

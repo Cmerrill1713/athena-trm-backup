@@ -1,3 +1,0 @@
-module NIOSOCKS {
-    header "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOSOCKS.build/include/NIOSOCKS-Swift.h"
-}

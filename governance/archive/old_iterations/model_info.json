@@ -1,0 +1,11 @@
+{
+  "identity": "yael_shelbia",
+  "training_images": 1147,
+  "epochs": 5,
+  "device": "mps",
+  "batch_size": 16,
+  "learning_rate": 0.0002,
+  "final_loss": 0.0342697628463308,
+  "model_path": "output/yael_shelbia/avatar_model.pt",
+  "status": "trained"
+}

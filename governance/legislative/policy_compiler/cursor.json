@@ -1,0 +1,16 @@
+{
+  "tasks": [
+    { "label": "Frontend: Build (macOS)", "command": "make frontside-build" },
+    { "label": "Frontend: Run (Dashboard)", "command": "make frontside-run" },
+    { "label": "Frontend: E2E (headless)", "command": "make frontside-e2e" },
+    { "label": "Frontend: Show Critical", "command": "make show-critical" },
+    { "label": "Frontend: Show Tribunal", "command": "make show-tribunal" },
+    { "label": "Frontend: Show Emergency", "command": "make show-emergency" },
+    { "label": "Athena: Build Debug", "command": "bash", "args": ["scripts/xcode_build_debug.sh"] },
+    { "label": "Athena: UI Focus Tests", "command": "make", "args": ["ui-test-focus"] },
+    { "label": "Athena: Run App", "command": "bash", "args": ["scripts/xcode_run_app.sh"] },
+    { "label": "Athena: Demo Pop-outs", "command": "bash", "args": ["scripts/athena_demo_events.sh"] },
+    { "label": "Athena: Build • Run • Demo", "command": "bash", "args": ["-lc", "bash scripts/xcode_build_debug.sh && bash scripts/xcode_run_app.sh & sleep 4 && bash scripts/athena_demo_events.sh"], "problemMatcher": [] },
+    { "label": "Athena: Full Stack Test", "command": "make backend-dev & sleep 3 && bash scripts/xcode_run_app.sh && bash scripts/athena_demo_events.sh" }
+  ]
+}

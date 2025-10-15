@@ -1,0 +1,73 @@
+# Canary Deployment and Circuit Breaker Alerts
+
+groups:
+  - name: canary_rules
+    rules:
+      # Alert: Canary has low success rate
+      - alert: CanaryFailureExcess
+        expr: |
+          (sum(increase(routing_success_total{bucket="canary"}[10m]))
+          / sum(increase(routing_decisions_total{bucket="canary"}[10m]))) < 0.9
+        for: 5m
+        labels:
+          severity: warning
+          component: canary
+          runbook: make canary-rollback
+        annotations:
+          summary: "Canary success rate below 90%"
+          description: "Canary success rate is {{ $value | humanizePercentage }}. Consider rollback."
+
+      # Alert: Canary worse than control (regression)
+      - alert: CanaryVsControlRegress
+        expr: |
+          (
+            (sum(increase(routing_success_total{bucket="canary"}[15m]))
+            / sum(increase(routing_decisions_total{bucket="canary"}[15m])))
+            <
+            (sum(increase(routing_success_total{bucket="control"}[15m]))
+            / sum(increase(routing_decisions_total{bucket="control"}[15m])))
+            - 0.05
+          )
+        for: 10m
+        labels:
+          severity: warning
+          component: canary
+          runbook: make canary-rollback
+        annotations:
+          summary: "Canary ≥5% worse than control"
+          description: "Canary is underperforming control by {{ $value | humanizePercentage }}. Rollback recommended."
+
+      # Alert: Circuit breaker open too long
+      - alert: CircuitBreakerOpenTooLong
+        expr: circuit_breaker_open{env=~".+"} == 1
+        for: 15m
+        labels:
+          severity: warning
+          component: circuit_breaker
+        annotations:
+          summary: "Circuit breaker open >15m ({{ $labels.model }})"
+          description: "Circuit has been open for {{ $labels.model }} for >15 minutes. Investigate root cause."
+
+      # Alert: Circuit breaker flapping (opening/closing repeatedly)
+      - alert: CircuitBreakerFlapping
+        expr: changes(circuit_breaker_open[30m]) > 3
+        for: 5m
+        labels:
+          severity: critical
+          component: circuit_breaker
+        annotations:
+          summary: "Circuit breaker flapping for {{ $labels.model }}"
+          description: "Circuit has opened/closed {{ $value }} times in 30min. System unstable."
+
+      # Alert: High failure rate across all models
+      - alert: HighGlobalFailureRate
+        expr: |
+          (sum(increase(routing_success_total[10m]))
+          / sum(increase(routing_decisions_total[10m]))) < 0.85
+        for: 5m
+        labels:
+          severity: critical
+          component: routing
+        annotations:
+          summary: "Global success rate below 85%"
+          description: "Overall routing success rate is {{ $value | humanizePercentage }}. System-wide issue."

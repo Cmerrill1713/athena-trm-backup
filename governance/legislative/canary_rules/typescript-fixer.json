@@ -1,0 +1,44 @@
+{
+  "version": "v1.6",
+  "timestamp": "2025-10-14T18:30:00-05:00",
+  "config": {
+    "CONFIDENCE_THRESHOLD": 0.80,
+    "TRIAGE_ON_BELOW_THRESHOLD": true,
+    "AUTO_PROMOTE_ABOVE_THRESHOLD": true,
+    "HUMAN_REVIEW_FOR_MEDIUM_CONFIDENCE": true
+  },
+  "rules": {
+    "typescript_syntax_errors": {
+      "pattern": "TS\\d+",
+      "auto_fix": true,
+      "confidence_required": 0.85
+    },
+    "missing_imports": {
+      "pattern": "Cannot find name '.*'",
+      "auto_fix": true,
+      "confidence_required": 0.75
+    },
+    "type_mismatches": {
+      "pattern": "Type '.*' is not assignable",
+      "auto_fix": false,
+      "confidence_required": 0.90
+    }
+  },
+  "metrics": {
+    "total_fix_attempts": 0,
+    "successful_fixes": 0,
+    "fix_confidence_avg": 0.0,
+    "human_reviews_required": 0
+  },
+  "governance_integration": {
+    "judicial_verdict_rules": {
+      "soft_fail": "0.6 <= fix_confidence < 0.8",
+      "pass": "fix_confidence >= 0.8 AND tests_pass >= class_min",
+      "hard_fail": "fix_confidence < 0.6 AND critical_errors > 0"
+    },
+    "legislative_promotion_gates": {
+      "fix_success_rate_target": 0.85,
+      "canary_window_days": 7
+    }
+  }
+}

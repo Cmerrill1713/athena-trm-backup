@@ -1,0 +1,6 @@
+DATE: 2025-10-13 17:10:18
+PWD:  /Users/christianmerrill/Documents/GitHub
+ROOT: /Users/christianmerrill/Documents/GitHub
+PY:   /usr/bin/python3
+XCODE: Xcode 26.0.1
+SCHEME: NeuroForgeApp

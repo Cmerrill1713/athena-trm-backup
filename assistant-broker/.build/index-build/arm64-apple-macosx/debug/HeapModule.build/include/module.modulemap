@@ -1,3 +1,0 @@
-module HeapModule {
-    header "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/arm64-apple-macosx/debug/HeapModule.build/include/HeapModule-Swift.h"
-}

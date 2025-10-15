@@ -1,3 +1,0 @@
-module RealModule {
-    header "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/RealModule.build/include/RealModule-Swift.h"
-}

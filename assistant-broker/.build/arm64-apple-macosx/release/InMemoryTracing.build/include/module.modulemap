@@ -1,3 +1,0 @@
-module InMemoryTracing {
-    header "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/InMemoryTracing.build/include/InMemoryTracing-Swift.h"
-}

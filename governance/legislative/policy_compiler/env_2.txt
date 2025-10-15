@@ -1,0 +1,6 @@
+DATE:
+PWD:  /Users/christianmerrill/Documents/GitHub
+ROOT: /Users/christianmerrill/Documents/GitHub
+PY:   /usr/bin/python3
+XCODE: Xcode 26.0.1
+Build version 17A400

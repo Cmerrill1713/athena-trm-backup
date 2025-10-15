@@ -1,0 +1,6 @@
+{"id": "canary-001", "task": "What is 2+2?", "expected": "4", "max_latency_ms": 500, "critical": true}
+{"id": "canary-002", "task": "List the core services", "expected_contains": ["Bridge", "Athena", "UAT"], "max_latency_ms": 1000, "critical": true}
+{"id": "canary-003", "task": "Check Bridge health", "expected_status": 200, "endpoint": "http://127.0.0.1:8014/ready", "max_latency_ms": 500, "critical": true}
+{"id": "canary-004", "task": "Query RAG: test", "expected_status": 200, "endpoint": "http://127.0.0.1:8015/api/rag/query", "max_latency_ms": 2000, "critical": false}
+{"id": "canary-005", "task": "Execute safe grep command", "command": "echo test | grep test", "expected_output": "test", "max_latency_ms": 100, "critical": true}
+

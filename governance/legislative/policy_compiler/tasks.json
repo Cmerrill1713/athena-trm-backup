@@ -1,0 +1,53 @@
+{
+  "version": "1",
+  "tasks": [
+    {
+      "label": "🚀 Athena: Full Setup, Build, Launch, Demo",
+      "detail": "Complete pipeline - setup environment, build SwiftUI app, launch with pop-outs, run smoke test",
+      "command": "./setup_athena_frontend.sh",
+      "group": "build"
+    },
+    {
+      "label": "🏗️ Athena: Build Only",
+      "detail": "Build the SwiftUI app without launching",
+      "command": "make build",
+      "group": "build"
+    },
+    {
+      "label": "▶️ Athena: Run + Demo",
+      "detail": "Launch built app and run pop-out window demo",
+      "command": "make run && make demo",
+      "group": "test"
+    },
+    {
+      "label": "🧪 Athena: Pop-out Tests",
+      "detail": "Run comprehensive pop-out window test suite",
+      "command": "source .venv/bin/activate && python demo_athena_popouts.py --smoke",
+      "group": "test"
+    },
+    {
+      "label": "🔍 Athena: Acceptance Checklist",
+      "detail": "Show detailed acceptance criteria checklist",
+      "command": "source .venv/bin/activate && python demo_athena_popouts.py --checklist",
+      "group": "test"
+    },
+    {
+      "label": "🔄 Athena: Regression Tests",
+      "detail": "Run mini regression test suite",
+      "command": "source .venv/bin/activate && python demo_athena_popouts.py --regression",
+      "group": "test"
+    },
+    {
+      "label": "🧹 Clean All",
+      "detail": "Clean build artifacts, Python cache, stop services",
+      "command": "make clean",
+      "group": "build"
+    },
+    {
+      "label": "📊 Status Check",
+      "detail": "Show current development environment status",
+      "command": "make status",
+      "group": "build"
+    }
+  ]
+}

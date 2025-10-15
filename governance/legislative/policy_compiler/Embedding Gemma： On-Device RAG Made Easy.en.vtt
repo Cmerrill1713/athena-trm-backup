@@ -1,0 +1,2063 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.640 --> 00:00:02.790 align:start position:0%
+
+Okay,<00:00:00.960><c> so</c><00:00:01.199><c> Google</c><00:00:01.600><c> just</c><00:00:01.760><c> made</c><00:00:02.080><c> ondevice</c>
+
+00:00:02.790 --> 00:00:02.800 align:start position:0%
+Okay, so Google just made ondevice
+
+
+00:00:02.800 --> 00:00:05.190 align:start position:0%
+Okay, so Google just made ondevice
+retrieval<00:00:03.280><c> augmented</c><00:00:03.760><c> generation</c><00:00:04.319><c> or</c><00:00:04.560><c> rag</c><00:00:04.960><c> a</c>
+
+00:00:05.190 --> 00:00:05.200 align:start position:0%
+retrieval augmented generation or rag a
+
+
+00:00:05.200 --> 00:00:07.430 align:start position:0%
+retrieval augmented generation or rag a
+lot<00:00:05.279><c> easier</c><00:00:06.080><c> with</c><00:00:06.319><c> this</c><00:00:06.560><c> new</c><00:00:06.960><c> lightweight</c>
+
+00:00:07.430 --> 00:00:07.440 align:start position:0%
+lot easier with this new lightweight
+
+
+00:00:07.440 --> 00:00:08.950 align:start position:0%
+lot easier with this new lightweight
+embedding<00:00:07.839><c> model</c><00:00:08.160><c> they're</c><00:00:08.480><c> calling</c>
+
+00:00:08.950 --> 00:00:08.960 align:start position:0%
+embedding model they're calling
+
+
+00:00:08.960 --> 00:00:12.150 align:start position:0%
+embedding model they're calling
+embedding<00:00:09.599><c> Gemma.</c><00:00:10.559><c> It's</c><00:00:11.040><c> trained</c><00:00:11.440><c> on</c><00:00:11.679><c> top</c><00:00:11.920><c> of</c>
+
+00:00:12.150 --> 00:00:12.160 align:start position:0%
+embedding Gemma. It's trained on top of
+
+
+00:00:12.160 --> 00:00:15.110 align:start position:0%
+embedding Gemma. It's trained on top of
+their<00:00:13.360><c> Gemma</c><00:00:13.840><c> 3.</c><00:00:14.320><c> It's</c><00:00:14.559><c> extremely</c>
+
+00:00:15.110 --> 00:00:15.120 align:start position:0%
+their Gemma 3. It's extremely
+
+
+00:00:15.120 --> 00:00:18.230 align:start position:0%
+their Gemma 3. It's extremely
+lightweight<00:00:15.759><c> which</c><00:00:16.240><c> makes</c><00:00:16.800><c> it</c><00:00:17.600><c> very</c><00:00:17.920><c> useful</c>
+
+00:00:18.230 --> 00:00:18.240 align:start position:0%
+lightweight which makes it very useful
+
+
+00:00:18.240 --> 00:00:20.790 align:start position:0%
+lightweight which makes it very useful
+for<00:00:18.560><c> running</c><00:00:18.880><c> on</c><00:00:19.119><c> device</c><00:00:19.920><c> especially</c><00:00:20.560><c> you</c>
+
+00:00:20.790 --> 00:00:20.800 align:start position:0%
+for running on device especially you
+
+
+00:00:20.800 --> 00:00:25.830 align:start position:0%
+for running on device especially you
+need<00:00:21.039><c> around</c><00:00:21.680><c> 200</c><00:00:22.800><c> mgabytes</c><00:00:23.680><c> of</c><00:00:24.080><c> VRAM</c>
+
+00:00:25.830 --> 00:00:25.840 align:start position:0%
+need around 200 mgabytes of VRAM
+
+
+00:00:25.840 --> 00:00:29.029 align:start position:0%
+need around 200 mgabytes of VRAM
+but<00:00:26.240><c> it</c><00:00:26.560><c> goes</c><00:00:26.880><c> beyond</c><00:00:27.519><c> simple</c><00:00:27.920><c> search.</c><00:00:28.800><c> You</c>
+
+00:00:29.029 --> 00:00:29.039 align:start position:0%
+but it goes beyond simple search. You
+
+
+00:00:29.039 --> 00:00:31.669 align:start position:0%
+but it goes beyond simple search. You
+can<00:00:29.119><c> use</c><00:00:29.279><c> the</c><00:00:29.519><c> same</c><00:00:29.760><c> model</c><00:00:30.080><c> for</c><00:00:30.400><c> other</c><00:00:31.279><c> natural</c>
+
+00:00:31.669 --> 00:00:31.679 align:start position:0%
+can use the same model for other natural
+
+
+00:00:31.679 --> 00:00:34.549 align:start position:0%
+can use the same model for other natural
+language<00:00:32.079><c> processing</c><00:00:32.640><c> tasks</c><00:00:33.600><c> such</c><00:00:33.920><c> as</c>
+
+00:00:34.549 --> 00:00:34.559 align:start position:0%
+language processing tasks such as
+
+
+00:00:34.559 --> 00:00:38.790 align:start position:0%
+language processing tasks such as
+classification<00:00:36.000><c> or</c><00:00:36.880><c> a</c><00:00:37.120><c> topic</c><00:00:37.520><c> modeling.</c><00:00:38.320><c> So</c>
+
+00:00:38.790 --> 00:00:38.800 align:start position:0%
+classification or a topic modeling. So
+
+
+00:00:38.800 --> 00:00:40.709 align:start position:0%
+classification or a topic modeling. So
+later<00:00:39.040><c> in</c><00:00:39.280><c> the</c><00:00:39.360><c> video,</c><00:00:39.600><c> I'll</c><00:00:39.920><c> show</c><00:00:40.079><c> you</c><00:00:40.239><c> how</c><00:00:40.480><c> to</c>
+
+00:00:40.709 --> 00:00:40.719 align:start position:0%
+later in the video, I'll show you how to
+
+
+00:00:40.719 --> 00:00:42.229 align:start position:0%
+later in the video, I'll show you how to
+effectively
+
+00:00:42.229 --> 00:00:42.239 align:start position:0%
+effectively
+
+
+00:00:42.239 --> 00:00:45.350 align:start position:0%
+effectively
+set<00:00:42.559><c> this</c><00:00:42.960><c> for</c><00:00:43.280><c> different</c><00:00:43.520><c> tasks</c><00:00:44.719><c> because</c>
+
+00:00:45.350 --> 00:00:45.360 align:start position:0%
+set this for different tasks because
+
+
+00:00:45.360 --> 00:00:48.389 align:start position:0%
+set this for different tasks because
+setting<00:00:45.680><c> this</c><00:00:45.840><c> up</c><00:00:46.160><c> can</c><00:00:46.399><c> be</c><00:00:46.480><c> a</c><00:00:46.719><c> bit</c><00:00:47.039><c> tricky.</c><00:00:48.079><c> Now</c>
+
+00:00:48.389 --> 00:00:48.399 align:start position:0%
+setting this up can be a bit tricky. Now
+
+
+00:00:48.399 --> 00:00:51.670 align:start position:0%
+setting this up can be a bit tricky. Now
+the<00:00:48.559><c> model</c><00:00:48.800><c> itself</c><00:00:49.200><c> is</c><00:00:49.520><c> about</c><00:00:50.160><c> 300</c><00:00:51.360><c> million</c>
+
+00:00:51.670 --> 00:00:51.680 align:start position:0%
+the model itself is about 300 million
+
+
+00:00:51.680 --> 00:00:55.029 align:start position:0%
+the model itself is about 300 million
+parameters<00:00:52.640><c> which</c><00:00:52.960><c> makes</c><00:00:53.199><c> it</c><00:00:53.680><c> a</c><00:00:54.000><c> very</c><00:00:54.719><c> small</c>
+
+00:00:55.029 --> 00:00:55.039 align:start position:0%
+parameters which makes it a very small
+
+
+00:00:55.039 --> 00:00:57.670 align:start position:0%
+parameters which makes it a very small
+and<00:00:55.280><c> lightweight</c><00:00:55.760><c> model</c><00:00:56.559><c> but</c><00:00:56.879><c> it's</c><00:00:57.199><c> best</c><00:00:57.520><c> in</c>
+
+00:00:57.670 --> 00:00:57.680 align:start position:0%
+and lightweight model but it's best in
+
+
+00:00:57.680 --> 00:01:00.229 align:start position:0%
+and lightweight model but it's best in
+class<00:00:58.000><c> for</c><00:00:58.239><c> its</c><00:00:58.559><c> weight.</c><00:00:59.520><c> Later</c><00:00:59.760><c> in</c><00:01:00.000><c> the</c><00:01:00.079><c> video</c>
+
+00:01:00.229 --> 00:01:00.239 align:start position:0%
+class for its weight. Later in the video
+
+
+00:01:00.239 --> 00:01:02.389 align:start position:0%
+class for its weight. Later in the video
+I'll<00:01:00.559><c> show</c><00:01:00.640><c> you</c><00:01:00.879><c> how</c><00:01:01.120><c> to</c><00:01:01.280><c> use</c><00:01:01.520><c> this</c><00:01:02.000><c> and</c><00:01:02.239><c> a</c>
+
+00:01:02.389 --> 00:01:02.399 align:start position:0%
+I'll show you how to use this and a
+
+
+00:01:02.399 --> 00:01:04.789 align:start position:0%
+I'll show you how to use this and a
+simple<00:01:02.879><c> rag</c><00:01:03.440><c> setup</c><00:01:04.080><c> as</c><00:01:04.320><c> well</c><00:01:04.479><c> as</c><00:01:04.640><c> some</c>
+
+00:01:04.789 --> 00:01:04.799 align:start position:0%
+simple rag setup as well as some
+
+
+00:01:04.799 --> 00:01:07.109 align:start position:0%
+simple rag setup as well as some
+classification<00:01:05.600><c> examples</c><00:01:06.560><c> using</c><00:01:06.880><c> this</c>
+
+00:01:07.109 --> 00:01:07.119 align:start position:0%
+classification examples using this
+
+
+00:01:07.119 --> 00:01:09.670 align:start position:0%
+classification examples using this
+model.<00:01:08.159><c> But</c><00:01:08.400><c> before</c><00:01:08.720><c> that</c><00:01:09.040><c> let's</c><00:01:09.280><c> look</c><00:01:09.439><c> at</c>
+
+00:01:09.670 --> 00:01:09.680 align:start position:0%
+model. But before that let's look at
+
+
+00:01:09.680 --> 00:01:12.310 align:start position:0%
+model. But before that let's look at
+some<00:01:10.240><c> quick</c><00:01:10.560><c> technical</c><00:01:10.960><c> details.</c><00:01:11.760><c> So</c><00:01:12.000><c> this</c><00:01:12.159><c> is</c>
+
+00:01:12.310 --> 00:01:12.320 align:start position:0%
+some quick technical details. So this is
+
+
+00:01:12.320 --> 00:01:14.230 align:start position:0%
+some quick technical details. So this is
+trained<00:01:12.799><c> on</c><00:01:13.119><c> top</c><00:01:13.280><c> of</c><00:01:13.360><c> the</c><00:01:13.600><c> Gemma</c><00:01:14.000><c> 3</c>
+
+00:01:14.230 --> 00:01:14.240 align:start position:0%
+trained on top of the Gemma 3
+
+
+00:01:14.240 --> 00:01:17.190 align:start position:0%
+trained on top of the Gemma 3
+architecture.<00:01:15.439><c> It</c><00:01:15.760><c> supports</c><00:01:16.400><c> more</c><00:01:16.640><c> than</c><00:01:16.880><c> 100</c>
+
+00:01:17.190 --> 00:01:17.200 align:start position:0%
+architecture. It supports more than 100
+
+
+00:01:17.200 --> 00:01:19.590 align:start position:0%
+architecture. It supports more than 100
+languages<00:01:18.000><c> which</c><00:01:18.240><c> makes</c><00:01:18.479><c> it</c><00:01:19.040><c> extremely</c>
+
+00:01:19.590 --> 00:01:19.600 align:start position:0%
+languages which makes it extremely
+
+
+00:01:19.600 --> 00:01:22.310 align:start position:0%
+languages which makes it extremely
+excellent<00:01:20.080><c> for</c><00:01:20.560><c> multilingual</c><00:01:21.280><c> tasks.</c><00:01:22.080><c> The</c>
+
+00:01:22.310 --> 00:01:22.320 align:start position:0%
+excellent for multilingual tasks. The
+
+
+00:01:22.320 --> 00:01:24.230 align:start position:0%
+excellent for multilingual tasks. The
+output<00:01:22.799><c> dimensions</c><00:01:23.280><c> of</c><00:01:23.520><c> this</c><00:01:23.680><c> model</c><00:01:24.000><c> are</c>
+
+00:01:24.230 --> 00:01:24.240 align:start position:0%
+output dimensions of this model are
+
+
+00:01:24.240 --> 00:01:26.230 align:start position:0%
+output dimensions of this model are
+customizable.<00:01:25.280><c> So</c><00:01:25.360><c> the</c><00:01:25.600><c> biggest</c><00:01:25.840><c> dimension</c>
+
+00:01:26.230 --> 00:01:26.240 align:start position:0%
+customizable. So the biggest dimension
+
+
+00:01:26.240 --> 00:01:30.149 align:start position:0%
+customizable. So the biggest dimension
+you<00:01:26.479><c> can</c><00:01:26.560><c> get</c><00:01:26.799><c> is</c><00:01:27.439><c> 768</c><00:01:28.560><c> and</c><00:01:28.799><c> the</c><00:01:28.960><c> lowest</c><00:01:29.360><c> is</c>
+
+00:01:30.149 --> 00:01:30.159 align:start position:0%
+you can get is 768 and the lowest is
+
+
+00:01:30.159 --> 00:01:31.990 align:start position:0%
+you can get is 768 and the lowest is
+128.
+
+00:01:31.990 --> 00:01:32.000 align:start position:0%
+128.
+
+
+00:01:32.000 --> 00:01:36.550 align:start position:0%
+128.
+So<00:01:32.320><c> it</c><00:01:32.640><c> uses</c><00:01:33.600><c> matrica</c><00:01:34.560><c> representation</c><00:01:36.000><c> which</c>
+
+00:01:36.550 --> 00:01:36.560 align:start position:0%
+So it uses matrica representation which
+
+
+00:01:36.560 --> 00:01:38.469 align:start position:0%
+So it uses matrica representation which
+essentially<00:01:36.960><c> is</c><00:01:37.280><c> a</c><00:01:37.520><c> dimensionality</c>
+
+00:01:38.469 --> 00:01:38.479 align:start position:0%
+essentially is a dimensionality
+
+
+00:01:38.479 --> 00:01:40.149 align:start position:0%
+essentially is a dimensionality
+reduction<00:01:38.960><c> technique</c><00:01:39.360><c> for</c><00:01:39.600><c> embedding</c>
+
+00:01:40.149 --> 00:01:40.159 align:start position:0%
+reduction technique for embedding
+
+
+00:01:40.159 --> 00:01:43.350 align:start position:0%
+reduction technique for embedding
+models.<00:01:40.880><c> So</c><00:01:41.200><c> you</c><00:01:41.439><c> can</c><00:01:41.759><c> basically</c><00:01:42.400><c> truncate</c>
+
+00:01:43.350 --> 00:01:43.360 align:start position:0%
+models. So you can basically truncate
+
+
+00:01:43.360 --> 00:01:46.789 align:start position:0%
+models. So you can basically truncate
+the<00:01:43.680><c> models</c><00:01:44.320><c> at</c><00:01:44.880><c> different</c><00:01:45.600><c> dimensions.</c><00:01:46.479><c> Now</c>
+
+00:01:46.789 --> 00:01:46.799 align:start position:0%
+the models at different dimensions. Now
+
+
+00:01:46.799 --> 00:01:49.670 align:start position:0%
+the models at different dimensions. Now
+keep<00:01:46.960><c> in</c><00:01:47.119><c> mind</c><00:01:47.600><c> that</c><00:01:47.840><c> this</c><00:01:48.159><c> also</c><00:01:48.640><c> is</c><00:01:48.960><c> going</c><00:01:49.200><c> to</c>
+
+00:01:49.670 --> 00:01:49.680 align:start position:0%
+keep in mind that this also is going to
+
+
+00:01:49.680 --> 00:01:52.469 align:start position:0%
+keep in mind that this also is going to
+result<00:01:50.000><c> in</c><00:01:50.320><c> loss</c><00:01:50.560><c> of</c><00:01:50.799><c> accuracy.</c><00:01:52.079><c> So</c><00:01:52.240><c> as</c>
+
+00:01:52.469 --> 00:01:52.479 align:start position:0%
+result in loss of accuracy. So as
+
+
+00:01:52.479 --> 00:01:54.950 align:start position:0%
+result in loss of accuracy. So as
+expected<00:01:53.360><c> more</c><00:01:53.759><c> dimensions</c><00:01:54.240><c> in</c><00:01:54.399><c> the</c><00:01:54.560><c> output</c>
+
+00:01:54.950 --> 00:01:54.960 align:start position:0%
+expected more dimensions in the output
+
+
+00:01:54.960 --> 00:01:58.069 align:start position:0%
+expected more dimensions in the output
+will<00:01:55.200><c> preserve</c><00:01:56.399><c> more</c><00:01:56.720><c> accuracy.</c><00:01:57.680><c> As</c><00:01:57.840><c> you</c>
+
+00:01:58.069 --> 00:01:58.079 align:start position:0%
+will preserve more accuracy. As you
+
+
+00:01:58.079 --> 00:02:00.469 align:start position:0%
+will preserve more accuracy. As you
+reduce<00:01:58.479><c> the</c><00:01:58.880><c> number</c><00:01:59.119><c> of</c><00:01:59.360><c> dimensions</c><00:02:00.000><c> in</c><00:02:00.320><c> the</c>
+
+00:02:00.469 --> 00:02:00.479 align:start position:0%
+reduce the number of dimensions in the
+
+
+00:02:00.479 --> 00:02:02.630 align:start position:0%
+reduce the number of dimensions in the
+output<00:02:00.880><c> of</c><00:02:01.040><c> the</c><00:02:01.119><c> embedding</c><00:02:01.600><c> model,</c><00:02:02.320><c> the</c>
+
+00:02:02.630 --> 00:02:02.640 align:start position:0%
+output of the embedding model, the
+
+
+00:02:02.640 --> 00:02:05.190 align:start position:0%
+output of the embedding model, the
+accuracy<00:02:03.280><c> also</c><00:02:03.600><c> decreases.</c>
+
+00:02:05.190 --> 00:02:05.200 align:start position:0%
+accuracy also decreases.
+
+
+00:02:05.200 --> 00:02:09.270 align:start position:0%
+accuracy also decreases.
+But<00:02:05.439><c> you</c><00:02:05.680><c> save</c><00:02:06.159><c> both</c><00:02:06.799><c> on</c><00:02:07.439><c> speed</c><00:02:08.160><c> as</c><00:02:08.479><c> well</c><00:02:08.640><c> as</c><00:02:08.959><c> on</c>
+
+00:02:09.270 --> 00:02:09.280 align:start position:0%
+But you save both on speed as well as on
+
+
+00:02:09.280 --> 00:02:11.910 align:start position:0%
+But you save both on speed as well as on
+compute<00:02:09.679><c> cost.</c><00:02:10.640><c> So</c><00:02:10.800><c> if</c><00:02:11.039><c> you're</c><00:02:11.200><c> looking</c><00:02:11.440><c> for</c><00:02:11.680><c> a</c>
+
+00:02:11.910 --> 00:02:11.920 align:start position:0%
+compute cost. So if you're looking for a
+
+
+00:02:11.920 --> 00:02:13.830 align:start position:0%
+compute cost. So if you're looking for a
+lightweight<00:02:12.560><c> embedding</c><00:02:13.040><c> model,</c><00:02:13.440><c> this</c><00:02:13.680><c> could</c>
+
+00:02:13.830 --> 00:02:13.840 align:start position:0%
+lightweight embedding model, this could
+
+
+00:02:13.840 --> 00:02:16.710 align:start position:0%
+lightweight embedding model, this could
+be<00:02:14.000><c> an</c><00:02:14.319><c> excellent</c><00:02:14.720><c> candidate.</c><00:02:15.680><c> So</c><00:02:15.920><c> here</c><00:02:16.400><c> a</c>
+
+00:02:16.710 --> 00:02:16.720 align:start position:0%
+be an excellent candidate. So here a
+
+
+00:02:16.720 --> 00:02:20.470 align:start position:0%
+be an excellent candidate. So here a
+quick<00:02:17.040><c> comparison</c><00:02:17.520><c> on</c><00:02:17.920><c> MTB</c><00:02:18.959><c> benchmark.</c><00:02:20.080><c> The</c>
+
+00:02:20.470 --> 00:02:20.480 align:start position:0%
+quick comparison on MTB benchmark. The
+
+
+00:02:20.480 --> 00:02:22.869 align:start position:0%
+quick comparison on MTB benchmark. The
+best<00:02:20.800><c> embedding</c><00:02:21.280><c> model</c><00:02:21.840><c> sub</c><00:02:22.319><c> 1</c><00:02:22.560><c> billion</c>
+
+00:02:22.869 --> 00:02:22.879 align:start position:0%
+best embedding model sub 1 billion
+
+
+00:02:22.879 --> 00:02:24.710 align:start position:0%
+best embedding model sub 1 billion
+parameter<00:02:23.360><c> right</c><00:02:23.599><c> now</c><00:02:23.840><c> is</c><00:02:24.080><c> the</c><00:02:24.400><c> quen</c>
+
+00:02:24.710 --> 00:02:24.720 align:start position:0%
+parameter right now is the quen
+
+
+00:02:24.720 --> 00:02:28.470 align:start position:0%
+parameter right now is the quen
+embedding<00:02:25.920><c> 600</c><00:02:26.640><c> million</c><00:02:27.040><c> parameters.</c><00:02:28.239><c> But</c>
+
+00:02:28.470 --> 00:02:28.480 align:start position:0%
+embedding 600 million parameters. But
+
+
+00:02:28.480 --> 00:02:31.350 align:start position:0%
+embedding 600 million parameters. But
+this<00:02:28.959><c> is</c><00:02:29.280><c> almost</c><00:02:29.680><c> half</c><00:02:29.920><c> the</c><00:02:30.160><c> size</c><00:02:30.800><c> and</c><00:02:31.040><c> I</c><00:02:31.280><c> think</c>
+
+00:02:31.350 --> 00:02:31.360 align:start position:0%
+this is almost half the size and I think
+
+
+00:02:31.360 --> 00:02:34.949 align:start position:0%
+this is almost half the size and I think
+it<00:02:31.680><c> still</c><00:02:32.000><c> preserves</c><00:02:33.360><c> the</c><00:02:34.000><c> performance</c>
+
+00:02:34.949 --> 00:02:34.959 align:start position:0%
+it still preserves the performance
+
+
+00:02:34.959 --> 00:02:37.430 align:start position:0%
+it still preserves the performance
+relative<00:02:35.360><c> to</c><00:02:35.519><c> the</c><00:02:35.680><c> other</c><00:02:35.840><c> embedding</c><00:02:36.400><c> models.</c>
+
+00:02:37.430 --> 00:02:37.440 align:start position:0%
+relative to the other embedding models.
+
+
+00:02:37.440 --> 00:02:38.790 align:start position:0%
+relative to the other embedding models.
+So<00:02:37.680><c> this</c><00:02:37.840><c> is</c><00:02:38.000><c> going</c><00:02:38.080><c> to</c><00:02:38.160><c> be</c><00:02:38.239><c> an</c><00:02:38.480><c> excellent</c>
+
+00:02:38.790 --> 00:02:38.800 align:start position:0%
+So this is going to be an excellent
+
+
+00:02:38.800 --> 00:02:41.750 align:start position:0%
+So this is going to be an excellent
+choice<00:02:39.040><c> for</c><00:02:39.360><c> lightweight</c><00:02:40.000><c> retrieval.</c><00:02:41.360><c> Of</c><00:02:41.599><c> all</c>
+
+00:02:41.750 --> 00:02:41.760 align:start position:0%
+choice for lightweight retrieval. Of all
+
+
+00:02:41.760 --> 00:02:43.830 align:start position:0%
+choice for lightweight retrieval. Of all
+the<00:02:41.920><c> Frontier</c><00:02:42.400><c> Labs,</c><00:02:42.800><c> Google</c><00:02:43.120><c> is</c><00:02:43.280><c> in</c><00:02:43.519><c> a</c><00:02:43.680><c> very</c>
+
+00:02:43.830 --> 00:02:43.840 align:start position:0%
+the Frontier Labs, Google is in a very
+
+
+00:02:43.840 --> 00:02:45.990 align:start position:0%
+the Frontier Labs, Google is in a very
+interesting<00:02:44.480><c> position</c><00:02:44.879><c> right</c><00:02:45.120><c> now.</c><00:02:45.599><c> So</c><00:02:45.760><c> they</c>
+
+00:02:45.990 --> 00:02:46.000 align:start position:0%
+interesting position right now. So they
+
+
+00:02:46.000 --> 00:02:48.949 align:start position:0%
+interesting position right now. So they
+have<00:02:46.319><c> openweight</c><00:02:46.879><c> models</c><00:02:47.200><c> like</c><00:02:47.440><c> Gemma</c><00:02:47.920><c> 3</c><00:02:48.560><c> or</c>
+
+00:02:48.949 --> 00:02:48.959 align:start position:0%
+have openweight models like Gemma 3 or
+
+
+00:02:48.959 --> 00:02:52.390 align:start position:0%
+have openweight models like Gemma 3 or
+more<00:02:49.440><c> lightweight</c><00:02:50.080><c> Gemma</c><00:02:50.640><c> 3N</c><00:02:51.440><c> for</c><00:02:51.920><c> developers</c>
+
+00:02:52.390 --> 00:02:52.400 align:start position:0%
+more lightweight Gemma 3N for developers
+
+
+00:02:52.400 --> 00:02:54.390 align:start position:0%
+more lightweight Gemma 3N for developers
+who<00:02:52.640><c> are</c><00:02:52.879><c> interested</c><00:02:53.280><c> in</c><00:02:53.680><c> openw</c><00:02:54.160><c> weight</c>
+
+00:02:54.390 --> 00:02:54.400 align:start position:0%
+who are interested in openw weight
+
+
+00:02:54.400 --> 00:02:56.869 align:start position:0%
+who are interested in openw weight
+models.<00:02:55.519><c> On</c><00:02:55.680><c> the</c><00:02:55.840><c> other</c><00:02:56.000><c> hand,</c><00:02:56.160><c> if</c><00:02:56.400><c> you're</c>
+
+00:02:56.869 --> 00:02:56.879 align:start position:0%
+models. On the other hand, if you're
+
+
+00:02:56.879 --> 00:02:58.790 align:start position:0%
+models. On the other hand, if you're
+trying<00:02:57.040><c> to</c><00:02:57.280><c> use</c><00:02:57.519><c> Frontier</c><00:02:58.000><c> models,</c><00:02:58.319><c> then</c><00:02:58.560><c> you</c>
+
+00:02:58.790 --> 00:02:58.800 align:start position:0%
+trying to use Frontier models, then you
+
+
+00:02:58.800 --> 00:03:02.390 align:start position:0%
+trying to use Frontier models, then you
+have<00:02:59.120><c> Gemini</c><00:02:59.680><c> 2.5</c><00:03:00.400><c> Pro</c><00:03:01.200><c> and</c><00:03:01.440><c> even</c><00:03:01.760><c> for</c>
+
+00:03:02.390 --> 00:03:02.400 align:start position:0%
+have Gemini 2.5 Pro and even for
+
+
+00:03:02.400 --> 00:03:03.910 align:start position:0%
+have Gemini 2.5 Pro and even for
+embeddings,
+
+00:03:03.910 --> 00:03:03.920 align:start position:0%
+embeddings,
+
+
+00:03:03.920 --> 00:03:05.670 align:start position:0%
+embeddings,
+you<00:03:04.080><c> have</c><00:03:04.239><c> the</c><00:03:04.400><c> state-of-the-art</c><00:03:05.120><c> Gemini</c>
+
+00:03:05.670 --> 00:03:05.680 align:start position:0%
+you have the state-of-the-art Gemini
+
+
+00:03:05.680 --> 00:03:07.670 align:start position:0%
+you have the state-of-the-art Gemini
+embeddings,<00:03:06.319><c> which</c><00:03:06.480><c> are</c><00:03:06.800><c> multimodal</c><00:03:07.440><c> in</c>
+
+00:03:07.670 --> 00:03:07.680 align:start position:0%
+embeddings, which are multimodal in
+
+
+00:03:07.680 --> 00:03:09.910 align:start position:0%
+embeddings, which are multimodal in
+nature.<00:03:08.400><c> So,</c><00:03:08.560><c> they</c><00:03:08.959><c> really</c><00:03:09.280><c> are</c><00:03:09.519><c> trying</c><00:03:09.760><c> to</c>
+
+00:03:09.910 --> 00:03:09.920 align:start position:0%
+nature. So, they really are trying to
+
+
+00:03:09.920 --> 00:03:12.710 align:start position:0%
+nature. So, they really are trying to
+meet<00:03:10.319><c> developers</c><00:03:11.040><c> where</c><00:03:11.280><c> they</c><00:03:11.519><c> are.</c><00:03:12.400><c> So,</c><00:03:12.560><c> I'm</c>
+
+00:03:12.710 --> 00:03:12.720 align:start position:0%
+meet developers where they are. So, I'm
+
+
+00:03:12.720 --> 00:03:14.550 align:start position:0%
+meet developers where they are. So, I'm
+going<00:03:12.879><c> to</c><00:03:12.959><c> show</c><00:03:13.120><c> you</c><00:03:13.519><c> some</c><00:03:13.760><c> quick</c><00:03:14.239><c> code</c>
+
+00:03:14.550 --> 00:03:14.560 align:start position:0%
+going to show you some quick code
+
+
+00:03:14.560 --> 00:03:16.390 align:start position:0%
+going to show you some quick code
+examples,<00:03:15.120><c> but</c><00:03:15.440><c> before</c><00:03:15.680><c> that,</c><00:03:15.920><c> I</c><00:03:16.159><c> want</c><00:03:16.239><c> to</c>
+
+00:03:16.390 --> 00:03:16.400 align:start position:0%
+examples, but before that, I want to
+
+
+00:03:16.400 --> 00:03:18.869 align:start position:0%
+examples, but before that, I want to
+highlight<00:03:16.879><c> a</c><00:03:17.200><c> very</c><00:03:17.440><c> interesting</c><00:03:18.080><c> research</c>
+
+00:03:18.869 --> 00:03:18.879 align:start position:0%
+highlight a very interesting research
+
+
+00:03:18.879 --> 00:03:22.149 align:start position:0%
+highlight a very interesting research
+out<00:03:19.120><c> of</c><00:03:19.599><c> the</c><00:03:20.000><c> Deepmind</c><00:03:20.640><c> team.</c><00:03:21.519><c> So</c><00:03:21.920><c> I'll</c>
+
+00:03:22.149 --> 00:03:22.159 align:start position:0%
+out of the Deepmind team. So I'll
+
+
+00:03:22.159 --> 00:03:24.309 align:start position:0%
+out of the Deepmind team. So I'll
+probably<00:03:22.480><c> create</c><00:03:22.879><c> another</c><00:03:23.760><c> detailed</c><00:03:24.159><c> video</c>
+
+00:03:24.309 --> 00:03:24.319 align:start position:0%
+probably create another detailed video
+
+
+00:03:24.319 --> 00:03:26.229 align:start position:0%
+probably create another detailed video
+on<00:03:24.560><c> this</c><00:03:24.720><c> but</c><00:03:24.959><c> there</c><00:03:25.120><c> was</c><00:03:25.280><c> an</c><00:03:25.680><c> interesting</c>
+
+00:03:26.229 --> 00:03:26.239 align:start position:0%
+on this but there was an interesting
+
+
+00:03:26.239 --> 00:03:28.070 align:start position:0%
+on this but there was an interesting
+paper<00:03:26.640><c> on</c><00:03:26.800><c> the</c><00:03:26.959><c> theoretical</c><00:03:27.519><c> limits</c><00:03:27.920><c> of</c>
+
+00:03:28.070 --> 00:03:28.080 align:start position:0%
+paper on the theoretical limits of
+
+
+00:03:28.080 --> 00:03:31.270 align:start position:0%
+paper on the theoretical limits of
+embedding<00:03:28.560><c> based</c><00:03:28.959><c> retrieval</c><00:03:30.239><c> which</c><00:03:30.879><c> shows</c>
+
+00:03:31.270 --> 00:03:31.280 align:start position:0%
+embedding based retrieval which shows
+
+
+00:03:31.280 --> 00:03:34.630 align:start position:0%
+embedding based retrieval which shows
+that<00:03:32.480><c> dense</c><00:03:32.799><c> embedding</c><00:03:33.280><c> based</c><00:03:33.760><c> retrieval</c><00:03:34.319><c> in</c>
+
+00:03:34.630 --> 00:03:34.640 align:start position:0%
+that dense embedding based retrieval in
+
+
+00:03:34.640 --> 00:03:37.750 align:start position:0%
+that dense embedding based retrieval in
+rag<00:03:35.040><c> systems</c><00:03:35.680><c> have</c><00:03:36.000><c> their</c><00:03:36.319><c> inherent</c><00:03:36.879><c> flaws</c>
+
+00:03:37.750 --> 00:03:37.760 align:start position:0%
+rag systems have their inherent flaws
+
+
+00:03:37.760 --> 00:03:40.070 align:start position:0%
+rag systems have their inherent flaws
+and<00:03:38.000><c> they</c><00:03:38.239><c> have</c><00:03:38.560><c> theoretical</c><00:03:39.280><c> limits</c><00:03:39.680><c> when</c><00:03:39.920><c> it</c>
+
+00:03:40.070 --> 00:03:40.080 align:start position:0%
+and they have theoretical limits when it
+
+
+00:03:40.080 --> 00:03:43.670 align:start position:0%
+and they have theoretical limits when it
+comes<00:03:40.319><c> to</c><00:03:40.879><c> retrieving</c><00:03:41.840><c> correct</c><00:03:42.560><c> documents.</c>
+
+00:03:43.670 --> 00:03:43.680 align:start position:0%
+comes to retrieving correct documents.
+
+
+00:03:43.680 --> 00:03:46.789 align:start position:0%
+comes to retrieving correct documents.
+So<00:03:44.159><c> irrespective</c><00:03:44.879><c> of</c><00:03:45.040><c> the</c><00:03:45.599><c> size</c><00:03:46.319><c> of</c><00:03:46.560><c> the</c>
+
+00:03:46.789 --> 00:03:46.799 align:start position:0%
+So irrespective of the size of the
+
+
+00:03:46.799 --> 00:03:49.190 align:start position:0%
+So irrespective of the size of the
+embedding<00:03:47.280><c> model</c><00:03:47.680><c> and</c><00:03:48.000><c> the</c><00:03:48.720><c> power</c><00:03:48.959><c> of</c><00:03:49.040><c> the</c>
+
+00:03:49.190 --> 00:03:49.200 align:start position:0%
+embedding model and the power of the
+
+
+00:03:49.200 --> 00:03:50.789 align:start position:0%
+embedding model and the power of the
+embedding<00:03:49.599><c> model</c><00:03:49.760><c> that</c><00:03:49.920><c> you're</c><00:03:50.159><c> using</c><00:03:50.560><c> there</c>
+
+00:03:50.789 --> 00:03:50.799 align:start position:0%
+embedding model that you're using there
+
+
+00:03:50.799 --> 00:03:52.789 align:start position:0%
+embedding model that you're using there
+are<00:03:50.959><c> theoretical</c><00:03:51.519><c> limits</c><00:03:52.000><c> when</c><00:03:52.239><c> it</c><00:03:52.400><c> comes</c><00:03:52.560><c> to</c>
+
+00:03:52.789 --> 00:03:52.799 align:start position:0%
+are theoretical limits when it comes to
+
+
+00:03:52.799 --> 00:03:55.430 align:start position:0%
+are theoretical limits when it comes to
+retrieval<00:03:54.000><c> which</c><00:03:54.319><c> means</c><00:03:54.720><c> we</c><00:03:54.959><c> might</c><00:03:55.200><c> be</c>
+
+00:03:55.430 --> 00:03:55.440 align:start position:0%
+retrieval which means we might be
+
+
+00:03:55.440 --> 00:03:57.750 align:start position:0%
+retrieval which means we might be
+leaving<00:03:55.840><c> a</c><00:03:56.159><c> lot</c><00:03:56.319><c> on</c><00:03:56.480><c> the</c><00:03:56.640><c> table</c><00:03:57.040><c> if</c><00:03:57.360><c> just</c>
+
+00:03:57.750 --> 00:03:57.760 align:start position:0%
+leaving a lot on the table if just
+
+
+00:03:57.760 --> 00:04:01.429 align:start position:0%
+leaving a lot on the table if just
+relying<00:03:58.400><c> on</c><00:03:59.360><c> dense</c><00:03:59.680><c> embedding</c><00:04:00.080><c> models.</c><00:04:01.120><c> Now</c>
+
+00:04:01.429 --> 00:04:01.439 align:start position:0%
+relying on dense embedding models. Now
+
+
+00:04:01.439 --> 00:04:03.589 align:start position:0%
+relying on dense embedding models. Now
+the<00:04:01.680><c> embedding</c><00:04:02.159><c> Gemma</c><00:04:02.640><c> are</c><00:04:02.879><c> also</c><00:04:03.280><c> dense</c>
+
+00:04:03.589 --> 00:04:03.599 align:start position:0%
+the embedding Gemma are also dense
+
+
+00:04:03.599 --> 00:04:05.750 align:start position:0%
+the embedding Gemma are also dense
+embedding<00:04:04.000><c> models</c><00:04:04.560><c> so</c><00:04:04.959><c> they</c><00:04:05.200><c> will</c><00:04:05.439><c> also</c>
+
+00:04:05.750 --> 00:04:05.760 align:start position:0%
+embedding models so they will also
+
+
+00:04:05.760 --> 00:04:08.229 align:start position:0%
+embedding models so they will also
+suffer<00:04:06.080><c> from</c><00:04:06.239><c> that</c><00:04:06.480><c> theoretical</c><00:04:07.040><c> limit.</c><00:04:08.000><c> In</c>
+
+00:04:08.229 --> 00:04:08.239 align:start position:0%
+suffer from that theoretical limit. In
+
+
+00:04:08.239 --> 00:04:10.070 align:start position:0%
+suffer from that theoretical limit. In
+the<00:04:08.400><c> rest</c><00:04:08.480><c> of</c><00:04:08.640><c> the</c><00:04:08.799><c> video,</c><00:04:09.040><c> I'll</c><00:04:09.280><c> show</c><00:04:09.439><c> you</c><00:04:09.760><c> an</c>
+
+00:04:10.070 --> 00:04:10.080 align:start position:0%
+the rest of the video, I'll show you an
+
+
+00:04:10.080 --> 00:04:11.670 align:start position:0%
+the rest of the video, I'll show you an
+example<00:04:10.319><c> of</c><00:04:10.560><c> how</c><00:04:10.720><c> to</c><00:04:10.879><c> use</c><00:04:11.040><c> this</c><00:04:11.280><c> in</c><00:04:11.519><c> a</c>
+
+00:04:11.670 --> 00:04:11.680 align:start position:0%
+example of how to use this in a
+
+
+00:04:11.680 --> 00:04:13.910 align:start position:0%
+example of how to use this in a
+retrieval<00:04:12.159><c> augmented</c><00:04:12.640><c> generation</c><00:04:13.120><c> system.</c>
+
+00:04:13.910 --> 00:04:13.920 align:start position:0%
+retrieval augmented generation system.
+
+
+00:04:13.920 --> 00:04:16.150 align:start position:0%
+retrieval augmented generation system.
+But<00:04:14.159><c> first,</c><00:04:14.480><c> I</c><00:04:14.720><c> want</c><00:04:14.879><c> to</c><00:04:15.360><c> show</c><00:04:15.599><c> you</c><00:04:15.760><c> how</c><00:04:15.920><c> to</c>
+
+00:04:16.150 --> 00:04:16.160 align:start position:0%
+But first, I want to show you how to
+
+
+00:04:16.160 --> 00:04:19.749 align:start position:0%
+But first, I want to show you how to
+effectively<00:04:17.120><c> use</c><00:04:17.359><c> them</c><00:04:18.160><c> since</c><00:04:18.720><c> they</c><00:04:19.040><c> support</c>
+
+00:04:19.749 --> 00:04:19.759 align:start position:0%
+effectively use them since they support
+
+
+00:04:19.759 --> 00:04:22.469 align:start position:0%
+effectively use them since they support
+retrieval<00:04:20.400><c> classification</c><00:04:21.680><c> and</c><00:04:22.079><c> topic</c>
+
+00:04:22.469 --> 00:04:22.479 align:start position:0%
+retrieval classification and topic
+
+
+00:04:22.479 --> 00:04:25.830 align:start position:0%
+retrieval classification and topic
+modeling<00:04:23.040><c> like</c><00:04:23.199><c> tasks.</c><00:04:24.639><c> But</c><00:04:24.960><c> before</c><00:04:25.280><c> that</c>
+
+00:04:25.830 --> 00:04:25.840 align:start position:0%
+modeling like tasks. But before that
+
+
+00:04:25.840 --> 00:04:28.150 align:start position:0%
+modeling like tasks. But before that
+supports<00:04:26.240><c> multiple</c><00:04:26.639><c> different</c><00:04:26.960><c> dimensions</c>
+
+00:04:28.150 --> 00:04:28.160 align:start position:0%
+supports multiple different dimensions
+
+
+00:04:28.160 --> 00:04:30.710 align:start position:0%
+supports multiple different dimensions
+and<00:04:28.560><c> the</c><00:04:28.880><c> accuracy</c><00:04:29.360><c> of</c><00:04:29.600><c> retrieval</c><00:04:30.320><c> is</c><00:04:30.560><c> going</c>
+
+00:04:30.710 --> 00:04:30.720 align:start position:0%
+and the accuracy of retrieval is going
+
+
+00:04:30.720 --> 00:04:33.189 align:start position:0%
+and the accuracy of retrieval is going
+to<00:04:30.880><c> be</c><00:04:31.199><c> dependent</c><00:04:31.680><c> on</c><00:04:31.919><c> the</c><00:04:32.639><c> length</c><00:04:32.880><c> of</c><00:04:33.040><c> the</c>
+
+00:04:33.189 --> 00:04:33.199 align:start position:0%
+to be dependent on the length of the
+
+
+00:04:33.199 --> 00:04:35.909 align:start position:0%
+to be dependent on the length of the
+output<00:04:33.680><c> vector.</c><00:04:34.720><c> On</c><00:04:34.960><c> average,</c><00:04:35.440><c> you</c><00:04:35.759><c> can</c>
+
+00:04:35.909 --> 00:04:35.919 align:start position:0%
+output vector. On average, you can
+
+
+00:04:35.919 --> 00:04:40.710 align:start position:0%
+output vector. On average, you can
+expect<00:04:36.400><c> about</c><00:04:37.120><c> 3%</c><00:04:38.479><c> drop</c><00:04:39.440><c> from</c><00:04:39.680><c> the</c><00:04:40.320><c> highest</c>
+
+00:04:40.710 --> 00:04:40.720 align:start position:0%
+expect about 3% drop from the highest
+
+
+00:04:40.720 --> 00:04:43.590 align:start position:0%
+expect about 3% drop from the highest
+dimension<00:04:41.199><c> to</c><00:04:41.440><c> the</c><00:04:41.600><c> lowest</c><00:04:41.919><c> dimensions.</c><00:04:43.120><c> For</c>
+
+00:04:43.590 --> 00:04:43.600 align:start position:0%
+dimension to the lowest dimensions. For
+
+
+00:04:43.600 --> 00:04:46.150 align:start position:0%
+dimension to the lowest dimensions. For
+code<00:04:43.919><c> related</c><00:04:44.320><c> tasks,</c><00:04:44.960><c> it's</c><00:04:45.360><c> I</c><00:04:45.520><c> think</c><00:04:45.759><c> a</c><00:04:46.000><c> lot</c>
+
+00:04:46.150 --> 00:04:46.160 align:start position:0%
+code related tasks, it's I think a lot
+
+
+00:04:46.160 --> 00:04:48.790 align:start position:0%
+code related tasks, it's I think a lot
+more<00:04:46.400><c> significant.</c><00:04:47.199><c> We</c><00:04:47.440><c> are</c><00:04:47.520><c> seeing</c><00:04:47.759><c> about</c><00:04:48.240><c> 6%</c>
+
+00:04:48.790 --> 00:04:48.800 align:start position:0%
+more significant. We are seeing about 6%
+
+
+00:04:48.800 --> 00:04:51.030 align:start position:0%
+more significant. We are seeing about 6%
+drop.<00:04:49.520><c> Also</c><00:04:50.000><c> you</c><00:04:50.240><c> can</c><00:04:50.400><c> run</c><00:04:50.560><c> these</c><00:04:50.880><c> in</c>
+
+00:04:51.030 --> 00:04:51.040 align:start position:0%
+drop. Also you can run these in
+
+
+00:04:51.040 --> 00:04:54.710 align:start position:0%
+drop. Also you can run these in
+different<00:04:51.440><c> precisions</c><00:04:52.560><c> because</c><00:04:53.440><c> they</c><00:04:53.840><c> have</c>
+
+00:04:54.710 --> 00:04:54.720 align:start position:0%
+different precisions because they have
+
+
+00:04:54.720 --> 00:04:57.350 align:start position:0%
+different precisions because they have
+quantization<00:04:55.520><c> availing</c>
+
+00:04:57.350 --> 00:04:57.360 align:start position:0%
+quantization availing
+
+
+00:04:57.360 --> 00:05:00.070 align:start position:0%
+quantization availing
+but<00:04:57.680><c> the</c><00:04:57.919><c> effect</c><00:04:58.160><c> of</c><00:04:58.400><c> quantization</c><00:04:59.120><c> is</c><00:04:59.360><c> not</c><00:04:59.680><c> as</c>
+
+00:05:00.070 --> 00:05:00.080 align:start position:0%
+but the effect of quantization is not as
+
+
+00:05:00.080 --> 00:05:03.590 align:start position:0%
+but the effect of quantization is not as
+pronounced<00:05:01.040><c> as</c><00:05:01.360><c> the</c><00:05:02.080><c> dimensions</c><00:05:03.199><c> or</c><00:05:03.440><c> the</c>
+
+00:05:03.590 --> 00:05:03.600 align:start position:0%
+pronounced as the dimensions or the
+
+
+00:05:03.600 --> 00:05:06.629 align:start position:0%
+pronounced as the dimensions or the
+output<00:05:04.000><c> size.</c><00:05:05.199><c> Next</c><00:05:05.759><c> based</c><00:05:06.000><c> on</c><00:05:06.080><c> the</c><00:05:06.320><c> task</c><00:05:06.479><c> that</c>
+
+00:05:06.629 --> 00:05:06.639 align:start position:0%
+output size. Next based on the task that
+
+
+00:05:06.639 --> 00:05:09.110 align:start position:0%
+output size. Next based on the task that
+you're<00:05:06.960><c> performing</c><00:05:07.600><c> you</c><00:05:08.000><c> will</c><00:05:08.240><c> have</c><00:05:08.479><c> to</c><00:05:08.639><c> set</c>
+
+00:05:09.110 --> 00:05:09.120 align:start position:0%
+you're performing you will have to set
+
+
+00:05:09.120 --> 00:05:11.110 align:start position:0%
+you're performing you will have to set
+your<00:05:09.520><c> prompt</c><00:05:09.840><c> instructions</c><00:05:10.479><c> in</c><00:05:10.720><c> a</c><00:05:10.880><c> different</c>
+
+00:05:11.110 --> 00:05:11.120 align:start position:0%
+your prompt instructions in a different
+
+
+00:05:11.120 --> 00:05:14.390 align:start position:0%
+your prompt instructions in a different
+way.<00:05:12.320><c> The</c><00:05:12.800><c> form</c><00:05:13.120><c> that</c><00:05:13.280><c> it</c><00:05:13.520><c> follows</c><00:05:13.759><c> is</c><00:05:14.160><c> nature</c>
+
+00:05:14.390 --> 00:05:14.400 align:start position:0%
+way. The form that it follows is nature
+
+
+00:05:14.400 --> 00:05:16.310 align:start position:0%
+way. The form that it follows is nature
+of<00:05:14.560><c> the</c><00:05:14.800><c> task.</c><00:05:15.280><c> So</c><00:05:15.440><c> that</c><00:05:15.680><c> is</c><00:05:15.840><c> whether</c>
+
+00:05:16.310 --> 00:05:16.320 align:start position:0%
+of the task. So that is whether
+
+
+00:05:16.320 --> 00:05:18.070 align:start position:0%
+of the task. So that is whether
+retrieval,<00:05:16.800><c> classification,</c><00:05:17.600><c> question,</c>
+
+00:05:18.070 --> 00:05:18.080 align:start position:0%
+retrieval, classification, question,
+
+
+00:05:18.080 --> 00:05:21.350 align:start position:0%
+retrieval, classification, question,
+answer<00:05:19.039><c> and</c><00:05:19.360><c> then</c><00:05:19.840><c> the</c><00:05:20.560><c> query</c><00:05:20.880><c> or</c><00:05:21.120><c> the</c>
+
+00:05:21.350 --> 00:05:21.360 align:start position:0%
+answer and then the query or the
+
+
+00:05:21.360 --> 00:05:23.830 align:start position:0%
+answer and then the query or the
+document<00:05:21.680><c> that</c><00:05:21.919><c> is</c><00:05:22.080><c> going</c><00:05:22.240><c> to</c><00:05:22.320><c> be</c><00:05:22.639><c> provided</c><00:05:23.520><c> by</c>
+
+00:05:23.830 --> 00:05:23.840 align:start position:0%
+document that is going to be provided by
+
+
+00:05:23.840 --> 00:05:26.550 align:start position:0%
+document that is going to be provided by
+the<00:05:24.000><c> user.</c><00:05:25.120><c> So</c><00:05:25.520><c> for</c><00:05:25.680><c> example,</c><00:05:26.080><c> if</c><00:05:26.320><c> you're</c>
+
+00:05:26.550 --> 00:05:26.560 align:start position:0%
+the user. So for example, if you're
+
+
+00:05:26.560 --> 00:05:29.029 align:start position:0%
+the user. So for example, if you're
+doing<00:05:27.120><c> a</c><00:05:27.520><c> retrieval</c><00:05:28.080><c> and</c><00:05:28.320><c> you</c><00:05:28.560><c> are</c><00:05:28.720><c> providing</c>
+
+00:05:29.029 --> 00:05:29.039 align:start position:0%
+doing a retrieval and you are providing
+
+
+00:05:29.039 --> 00:05:31.430 align:start position:0%
+doing a retrieval and you are providing
+the<00:05:29.199><c> user</c><00:05:29.520><c> query,</c><00:05:30.400><c> then</c><00:05:30.639><c> the</c><00:05:30.880><c> task</c><00:05:31.120><c> is</c><00:05:31.360><c> going</c>
+
+00:05:31.430 --> 00:05:31.440 align:start position:0%
+the user query, then the task is going
+
+
+00:05:31.440 --> 00:05:34.070 align:start position:0%
+the user query, then the task is going
+to<00:05:31.520><c> be</c><00:05:31.680><c> search</c><00:05:32.080><c> result</c><00:05:32.960><c> and</c><00:05:33.360><c> the</c><00:05:33.680><c> query</c>
+
+00:05:34.070 --> 00:05:34.080 align:start position:0%
+to be search result and the query
+
+
+00:05:34.080 --> 00:05:36.390 align:start position:0%
+to be search result and the query
+content.<00:05:35.120><c> If</c><00:05:35.360><c> you</c><00:05:35.600><c> are</c><00:05:35.680><c> embedding</c><00:05:36.160><c> the</c>
+
+00:05:36.390 --> 00:05:36.400 align:start position:0%
+content. If you are embedding the
+
+
+00:05:36.400 --> 00:05:38.070 align:start position:0%
+content. If you are embedding the
+documents,<00:05:37.039><c> then</c><00:05:37.440><c> you're</c><00:05:37.680><c> going</c><00:05:37.759><c> to</c><00:05:37.919><c> have</c>
+
+00:05:38.070 --> 00:05:38.080 align:start position:0%
+documents, then you're going to have
+
+
+00:05:38.080 --> 00:05:40.710 align:start position:0%
+documents, then you're going to have
+title<00:05:38.880><c> of</c><00:05:39.120><c> the</c><00:05:39.280><c> document.</c><00:05:39.840><c> It</c><00:05:40.000><c> can</c><00:05:40.160><c> be</c><00:05:40.320><c> set</c><00:05:40.560><c> to</c>
+
+00:05:40.710 --> 00:05:40.720 align:start position:0%
+title of the document. It can be set to
+
+
+00:05:40.720 --> 00:05:44.390 align:start position:0%
+title of the document. It can be set to
+none<00:05:41.280><c> and</c><00:05:41.520><c> then</c><00:05:41.759><c> the</c><00:05:42.000><c> actual</c><00:05:42.479><c> text.</c><00:05:43.360><c> So</c><00:05:43.759><c> this</c>
+
+00:05:44.390 --> 00:05:44.400 align:start position:0%
+none and then the actual text. So this
+
+
+00:05:44.400 --> 00:05:47.430 align:start position:0%
+none and then the actual text. So this
+metadata<00:05:45.360><c> helps</c><00:05:45.680><c> the</c><00:05:45.919><c> embedding</c><00:05:46.400><c> model</c><00:05:47.199><c> do</c>
+
+00:05:47.430 --> 00:05:47.440 align:start position:0%
+metadata helps the embedding model do
+
+
+00:05:47.440 --> 00:05:50.070 align:start position:0%
+metadata helps the embedding model do
+better<00:05:47.840><c> retrieval.</c><00:05:48.800><c> Then</c><00:05:49.039><c> you</c><00:05:49.280><c> also</c><00:05:49.520><c> have</c>
+
+00:05:50.070 --> 00:05:50.080 align:start position:0%
+better retrieval. Then you also have
+
+
+00:05:50.080 --> 00:05:52.150 align:start position:0%
+better retrieval. Then you also have
+support<00:05:50.400><c> for</c><00:05:50.639><c> question</c><00:05:51.120><c> answering.</c><00:05:51.759><c> In</c><00:05:52.000><c> this</c>
+
+00:05:52.150 --> 00:05:52.160 align:start position:0%
+support for question answering. In this
+
+
+00:05:52.160 --> 00:05:55.350 align:start position:0%
+support for question answering. In this
+case<00:05:52.720><c> the</c><00:05:52.960><c> task</c><00:05:53.199><c> is</c><00:05:53.440><c> question</c><00:05:53.840><c> answering</c><00:05:54.880><c> and</c>
+
+00:05:55.350 --> 00:05:55.360 align:start position:0%
+case the task is question answering and
+
+
+00:05:55.360 --> 00:05:58.150 align:start position:0%
+case the task is question answering and
+the<00:05:55.600><c> query</c><00:05:55.919><c> is</c><00:05:56.160><c> going</c><00:05:56.240><c> to</c><00:05:56.400><c> be</c><00:05:56.560><c> the</c><00:05:56.800><c> user</c><00:05:57.120><c> query.</c>
+
+00:05:58.150 --> 00:05:58.160 align:start position:0%
+the query is going to be the user query.
+
+
+00:05:58.160 --> 00:06:01.189 align:start position:0%
+the query is going to be the user query.
+Also<00:05:58.479><c> they</c><00:05:58.880><c> support</c><00:05:59.680><c> factchecking,</c>
+
+00:06:01.189 --> 00:06:01.199 align:start position:0%
+Also they support factchecking,
+
+
+00:06:01.199 --> 00:06:02.710 align:start position:0%
+Also they support factchecking,
+classification,
+
+00:06:02.710 --> 00:06:02.720 align:start position:0%
+classification,
+
+
+00:06:02.720 --> 00:06:05.350 align:start position:0%
+classification,
+topic<00:06:03.360><c> modeling</c><00:06:03.759><c> or</c><00:06:04.080><c> clustering</c><00:06:04.960><c> center</c>
+
+00:06:05.350 --> 00:06:05.360 align:start position:0%
+topic modeling or clustering center
+
+
+00:06:05.360 --> 00:06:07.990 align:start position:0%
+topic modeling or clustering center
+similarity<00:06:06.080><c> and</c><00:06:06.400><c> code</c><00:06:06.720><c> retrieval.</c><00:06:07.520><c> So</c><00:06:07.680><c> these</c>
+
+00:06:07.990 --> 00:06:08.000 align:start position:0%
+similarity and code retrieval. So these
+
+
+00:06:08.000 --> 00:06:10.710 align:start position:0%
+similarity and code retrieval. So these
+are<00:06:08.240><c> different</c><00:06:08.800><c> distinct</c><00:06:09.440><c> tasks</c><00:06:10.240><c> for</c><00:06:10.479><c> which</c>
+
+00:06:10.710 --> 00:06:10.720 align:start position:0%
+are different distinct tasks for which
+
+
+00:06:10.720 --> 00:06:13.270 align:start position:0%
+are different distinct tasks for which
+you<00:06:10.880><c> can</c><00:06:11.039><c> use</c><00:06:11.199><c> this</c><00:06:11.440><c> embedding</c><00:06:11.919><c> model.</c><00:06:12.880><c> Okay,</c>
+
+00:06:13.270 --> 00:06:13.280 align:start position:0%
+you can use this embedding model. Okay,
+
+
+00:06:13.280 --> 00:06:16.469 align:start position:0%
+you can use this embedding model. Okay,
+so<00:06:13.440><c> this</c><00:06:13.600><c> is</c><00:06:13.680><c> a</c><00:06:13.919><c> quick</c><00:06:14.240><c> notebook</c><00:06:15.199><c> provided</c><00:06:15.680><c> by</c>
+
+00:06:16.469 --> 00:06:16.479 align:start position:0%
+so this is a quick notebook provided by
+
+
+00:06:16.479 --> 00:06:20.870 align:start position:0%
+so this is a quick notebook provided by
+the<00:06:17.840><c> Gemma</c><00:06:18.400><c> team</c><00:06:19.199><c> for</c><00:06:19.680><c> setting</c><00:06:20.000><c> up</c><00:06:20.319><c> rag</c><00:06:20.720><c> or</c>
+
+00:06:20.870 --> 00:06:20.880 align:start position:0%
+the Gemma team for setting up rag or
+
+
+00:06:20.880 --> 00:06:23.110 align:start position:0%
+the Gemma team for setting up rag or
+retrieval<00:06:21.280><c> augmented</c><00:06:21.759><c> generation.</c><00:06:22.720><c> So</c><00:06:22.960><c> in</c>
+
+00:06:23.110 --> 00:06:23.120 align:start position:0%
+retrieval augmented generation. So in
+
+
+00:06:23.120 --> 00:06:25.110 align:start position:0%
+retrieval augmented generation. So in
+this<00:06:23.280><c> case</c><00:06:23.520><c> they're</c><00:06:23.840><c> using</c><00:06:24.240><c> the</c><00:06:24.560><c> transformer</c>
+
+00:06:25.110 --> 00:06:25.120 align:start position:0%
+this case they're using the transformer
+
+
+00:06:25.120 --> 00:06:28.710 align:start position:0%
+this case they're using the transformer
+package.<00:06:25.919><c> So</c><00:06:26.080><c> we</c><00:06:26.319><c> set</c><00:06:26.479><c> up</c><00:06:26.800><c> our</c><00:06:27.280><c> pipeline.</c><00:06:28.240><c> The</c>
+
+00:06:28.710 --> 00:06:28.720 align:start position:0%
+package. So we set up our pipeline. The
+
+
+00:06:28.720 --> 00:06:30.790 align:start position:0%
+package. So we set up our pipeline. The
+model<00:06:28.960><c> that</c><00:06:29.199><c> is</c><00:06:29.360><c> being</c><00:06:29.600><c> used</c><00:06:29.919><c> for</c><00:06:30.479><c> text</c>
+
+00:06:30.790 --> 00:06:30.800 align:start position:0%
+model that is being used for text
+
+
+00:06:30.800 --> 00:06:35.590 align:start position:0%
+model that is being used for text
+generation<00:06:31.280><c> in</c><00:06:31.520><c> rag</c><00:06:32.240><c> is</c><00:06:32.560><c> Gemma</c><00:06:33.360><c> 3</c><00:06:34.080><c> 4bit</c><00:06:35.199><c> the</c>
+
+00:06:35.590 --> 00:06:35.600 align:start position:0%
+generation in rag is Gemma 3 4bit the
+
+
+00:06:35.600 --> 00:06:38.469 align:start position:0%
+generation in rag is Gemma 3 4bit the
+instruct<00:06:36.160><c> fine-tune</c><00:06:36.639><c> version.</c><00:06:37.759><c> Then</c><00:06:38.080><c> for</c>
+
+00:06:38.469 --> 00:06:38.479 align:start position:0%
+instruct fine-tune version. Then for
+
+
+00:06:38.479 --> 00:06:40.790 align:start position:0%
+instruct fine-tune version. Then for
+embedding<00:06:39.199><c> we're</c><00:06:39.520><c> using</c><00:06:39.759><c> the</c><00:06:40.319><c> embedding</c>
+
+00:06:40.790 --> 00:06:40.800 align:start position:0%
+embedding we're using the embedding
+
+
+00:06:40.800 --> 00:06:44.070 align:start position:0%
+embedding we're using the embedding
+gemma<00:06:41.440><c> 300</c><00:06:41.919><c> million</c><00:06:42.240><c> parameters.</c><00:06:43.520><c> And</c><00:06:43.759><c> if</c><00:06:43.919><c> you</c>
+
+00:06:44.070 --> 00:06:44.080 align:start position:0%
+gemma 300 million parameters. And if you
+
+
+00:06:44.080 --> 00:06:46.070 align:start position:0%
+gemma 300 million parameters. And if you
+look<00:06:44.160><c> at</c><00:06:44.319><c> the</c><00:06:44.560><c> architecture</c><00:06:45.199><c> so</c><00:06:45.440><c> the</c><00:06:45.680><c> maximum</c>
+
+00:06:46.070 --> 00:06:46.080 align:start position:0%
+look at the architecture so the maximum
+
+
+00:06:46.080 --> 00:06:48.309 align:start position:0%
+look at the architecture so the maximum
+sequence<00:06:46.560><c> length</c><00:06:46.960><c> that</c><00:06:47.280><c> you</c><00:06:47.520><c> can</c><00:06:47.680><c> feed</c><00:06:48.000><c> into</c>
+
+00:06:48.309 --> 00:06:48.319 align:start position:0%
+sequence length that you can feed into
+
+
+00:06:48.319 --> 00:06:50.390 align:start position:0%
+sequence length that you can feed into
+the<00:06:48.479><c> model</c><00:06:48.800><c> is48</c>
+
+00:06:50.390 --> 00:06:50.400 align:start position:0%
+the model is48
+
+
+00:06:50.400 --> 00:06:53.110 align:start position:0%
+the model is48
+tokens.<00:06:51.360><c> That</c><00:06:51.600><c> means</c><00:06:51.919><c> your</c><00:06:52.240><c> chunk</c><00:06:52.560><c> size</c><00:06:52.880><c> can</c>
+
+00:06:53.110 --> 00:06:53.120 align:start position:0%
+tokens. That means your chunk size can
+
+
+00:06:53.120 --> 00:06:57.510 align:start position:0%
+tokens. That means your chunk size can
+be<00:06:53.280><c> this</c><00:06:53.600><c> large.</c><00:06:54.720><c> The</c><00:06:55.039><c> output</c><00:06:56.160><c> dimension</c><00:06:57.199><c> by</c>
+
+00:06:57.510 --> 00:06:57.520 align:start position:0%
+be this large. The output dimension by
+
+
+00:06:57.520 --> 00:07:01.510 align:start position:0%
+be this large. The output dimension by
+default<00:06:57.840><c> is</c><00:06:58.160><c> 768</c><00:06:59.280><c> but</c><00:06:59.759><c> you</c><00:07:00.080><c> can</c><00:07:00.880><c> truncate</c><00:07:01.360><c> it</c>
+
+00:07:01.510 --> 00:07:01.520 align:start position:0%
+default is 768 but you can truncate it
+
+
+00:07:01.520 --> 00:07:04.150 align:start position:0%
+default is 768 but you can truncate it
+to<00:07:01.759><c> different</c><00:07:02.080><c> sizes</c><00:07:02.800><c> based</c><00:07:03.120><c> on</c><00:07:03.280><c> your</c><00:07:03.520><c> needs</c>
+
+00:07:04.150 --> 00:07:04.160 align:start position:0%
+to different sizes based on your needs
+
+
+00:07:04.160 --> 00:07:06.870 align:start position:0%
+to different sizes based on your needs
+as<00:07:04.400><c> I</c><00:07:04.720><c> showed</c><00:07:04.960><c> you</c><00:07:05.199><c> before.</c><00:07:06.160><c> Now</c><00:07:06.400><c> if</c><00:07:06.639><c> you're</c>
+
+00:07:06.870 --> 00:07:06.880 align:start position:0%
+as I showed you before. Now if you're
+
+
+00:07:06.880 --> 00:07:09.990 align:start position:0%
+as I showed you before. Now if you're
+using<00:07:07.360><c> the</c><00:07:07.919><c> transformer</c><00:07:08.479><c> package</c><00:07:09.120><c> then</c><00:07:09.759><c> the</c>
+
+00:07:09.990 --> 00:07:10.000 align:start position:0%
+using the transformer package then the
+
+
+00:07:10.000 --> 00:07:11.670 align:start position:0%
+using the transformer package then the
+nature<00:07:10.319><c> of</c><00:07:10.400><c> the</c><00:07:10.639><c> task</c><00:07:10.960><c> definition</c><00:07:11.360><c> is</c><00:07:11.599><c> going</c>
+
+00:07:11.670 --> 00:07:11.680 align:start position:0%
+nature of the task definition is going
+
+
+00:07:11.680 --> 00:07:13.749 align:start position:0%
+nature of the task definition is going
+to<00:07:11.840><c> be</c><00:07:12.000><c> a</c><00:07:12.240><c> little</c><00:07:12.479><c> different.</c><00:07:13.199><c> So</c><00:07:13.520><c> you're</c>
+
+00:07:13.749 --> 00:07:13.759 align:start position:0%
+to be a little different. So you're
+
+
+00:07:13.759 --> 00:07:15.909 align:start position:0%
+to be a little different. So you're
+going<00:07:13.840><c> to</c><00:07:14.000><c> provide</c><00:07:14.479><c> either</c><00:07:14.800><c> your</c><00:07:15.039><c> document</c><00:07:15.599><c> or</c>
+
+00:07:15.909 --> 00:07:15.919 align:start position:0%
+going to provide either your document or
+
+
+00:07:15.919 --> 00:07:19.110 align:start position:0%
+going to provide either your document or
+your<00:07:16.240><c> query.</c><00:07:17.440><c> Then</c><00:07:18.080><c> the</c><00:07:18.319><c> prompt</c><00:07:18.639><c> instruction</c>
+
+00:07:19.110 --> 00:07:19.120 align:start position:0%
+your query. Then the prompt instruction
+
+
+00:07:19.120 --> 00:07:20.790 align:start position:0%
+your query. Then the prompt instruction
+is<00:07:19.280><c> going</c><00:07:19.360><c> to</c><00:07:19.520><c> be</c><00:07:19.680><c> prompt</c><00:07:20.000><c> name</c><00:07:20.319><c> and</c><00:07:20.479><c> then</c><00:07:20.639><c> the</c>
+
+00:07:20.790 --> 00:07:20.800 align:start position:0%
+is going to be prompt name and then the
+
+
+00:07:20.800 --> 00:07:22.950 align:start position:0%
+is going to be prompt name and then the
+nature<00:07:21.039><c> of</c><00:07:21.199><c> the</c><00:07:21.360><c> task.</c><00:07:21.919><c> So</c><00:07:22.080><c> in</c><00:07:22.240><c> this</c><00:07:22.479><c> case</c><00:07:22.720><c> we</c>
+
+00:07:22.950 --> 00:07:22.960 align:start position:0%
+nature of the task. So in this case we
+
+
+00:07:22.960 --> 00:07:26.390 align:start position:0%
+nature of the task. So in this case we
+are<00:07:23.199><c> embedding</c><00:07:23.680><c> the</c><00:07:23.919><c> user</c><00:07:24.319><c> query</c><00:07:25.120><c> and</c><00:07:25.840><c> the</c>
+
+00:07:26.390 --> 00:07:26.400 align:start position:0%
+are embedding the user query and the
+
+
+00:07:26.400 --> 00:07:28.309 align:start position:0%
+are embedding the user query and the
+nature<00:07:26.639><c> of</c><00:07:26.800><c> the</c><00:07:26.880><c> task</c><00:07:27.199><c> is</c><00:07:27.360><c> going</c><00:07:27.520><c> to</c><00:07:27.599><c> be</c>
+
+00:07:28.309 --> 00:07:28.319 align:start position:0%
+nature of the task is going to be
+
+
+00:07:28.319 --> 00:07:31.589 align:start position:0%
+nature of the task is going to be
+retrieval<00:07:28.800><c> query.</c><00:07:29.759><c> If</c><00:07:30.000><c> you</c><00:07:30.160><c> are</c><00:07:31.039><c> embedding</c>
+
+00:07:31.589 --> 00:07:31.599 align:start position:0%
+retrieval query. If you are embedding
+
+
+00:07:31.599 --> 00:07:34.309 align:start position:0%
+retrieval query. If you are embedding
+documents<00:07:32.720><c> then</c><00:07:32.960><c> you</c><00:07:33.199><c> just</c><00:07:33.360><c> need</c><00:07:33.520><c> to</c><00:07:33.840><c> set</c><00:07:34.080><c> them</c>
+
+00:07:34.309 --> 00:07:34.319 align:start position:0%
+documents then you just need to set them
+
+
+00:07:34.319 --> 00:07:35.990 align:start position:0%
+documents then you just need to set them
+up<00:07:34.639><c> like</c><00:07:34.880><c> this.</c>
+
+00:07:35.990 --> 00:07:36.000 align:start position:0%
+up like this.
+
+
+00:07:36.000 --> 00:07:37.430 align:start position:0%
+up like this.
+So<00:07:36.160><c> it's</c><00:07:36.400><c> going</c><00:07:36.479><c> to</c><00:07:36.560><c> be</c><00:07:36.639><c> the</c><00:07:36.880><c> title</c><00:07:37.120><c> of</c><00:07:37.280><c> the</c>
+
+00:07:37.430 --> 00:07:37.440 align:start position:0%
+So it's going to be the title of the
+
+
+00:07:37.440 --> 00:07:40.309 align:start position:0%
+So it's going to be the title of the
+document<00:07:37.919><c> and</c><00:07:38.160><c> then</c><00:07:38.400><c> the</c><00:07:38.639><c> actual</c><00:07:39.039><c> text.</c><00:07:39.840><c> And</c>
+
+00:07:40.309 --> 00:07:40.319 align:start position:0%
+document and then the actual text. And
+
+
+00:07:40.319 --> 00:07:42.309 align:start position:0%
+document and then the actual text. And
+if<00:07:40.560><c> you</c><00:07:40.800><c> don't</c><00:07:41.039><c> have</c><00:07:41.440><c> a</c><00:07:41.759><c> title</c><00:07:42.000><c> of</c><00:07:42.160><c> the</c>
+
+00:07:42.309 --> 00:07:42.319 align:start position:0%
+if you don't have a title of the
+
+
+00:07:42.319 --> 00:07:44.710 align:start position:0%
+if you don't have a title of the
+document,<00:07:42.800><c> then</c><00:07:43.039><c> you</c><00:07:43.280><c> set</c><00:07:43.520><c> the</c><00:07:43.680><c> title</c><00:07:43.919><c> to</c><00:07:44.080><c> none</c>
+
+00:07:44.710 --> 00:07:44.720 align:start position:0%
+document, then you set the title to none
+
+
+00:07:44.720 --> 00:07:47.510 align:start position:0%
+document, then you set the title to none
+and<00:07:44.960><c> just</c><00:07:45.280><c> provide</c><00:07:45.680><c> the</c><00:07:45.919><c> actual</c><00:07:46.240><c> text.</c><00:07:47.360><c> So</c>
+
+00:07:47.510 --> 00:07:47.520 align:start position:0%
+and just provide the actual text. So
+
+
+00:07:47.520 --> 00:07:49.749 align:start position:0%
+and just provide the actual text. So
+this<00:07:47.759><c> is</c><00:07:47.919><c> how</c><00:07:48.080><c> you</c><00:07:48.240><c> do</c><00:07:48.560><c> document</c><00:07:49.039><c> embedding.</c>
+
+00:07:49.749 --> 00:07:49.759 align:start position:0%
+this is how you do document embedding.
+
+
+00:07:49.759 --> 00:07:52.150 align:start position:0%
+this is how you do document embedding.
+And<00:07:50.000><c> the</c><00:07:50.160><c> first</c><00:07:50.400><c> part</c><00:07:50.639><c> was</c><00:07:51.039><c> related</c><00:07:51.440><c> to</c><00:07:51.840><c> query</c>
+
+00:07:52.150 --> 00:07:52.160 align:start position:0%
+And the first part was related to query
+
+
+00:07:52.160 --> 00:07:54.869 align:start position:0%
+And the first part was related to query
+embedding.<00:07:53.280><c> And</c><00:07:53.440><c> here</c><00:07:53.680><c> are</c><00:07:54.000><c> again</c><00:07:54.319><c> a</c><00:07:54.560><c> list</c><00:07:54.720><c> of</c>
+
+00:07:54.869 --> 00:07:54.879 align:start position:0%
+embedding. And here are again a list of
+
+
+00:07:54.879 --> 00:07:57.029 align:start position:0%
+embedding. And here are again a list of
+different<00:07:55.120><c> available</c><00:07:55.680><c> tasks.</c><00:07:56.240><c> So</c><00:07:56.560><c> in</c><00:07:56.800><c> fact</c>
+
+00:07:57.029 --> 00:07:57.039 align:start position:0%
+different available tasks. So in fact
+
+
+00:07:57.039 --> 00:07:59.430 align:start position:0%
+different available tasks. So in fact
+actually<00:07:57.280><c> you</c><00:07:57.520><c> can</c><00:07:57.599><c> do</c><00:07:57.759><c> a</c><00:07:58.000><c> lot</c><00:07:58.160><c> more.</c><00:07:58.960><c> You</c><00:07:59.199><c> can</c>
+
+00:07:59.430 --> 00:07:59.440 align:start position:0%
+actually you can do a lot more. You can
+
+
+00:07:59.440 --> 00:08:01.670 align:start position:0%
+actually you can do a lot more. You can
+use<00:07:59.599><c> the</c><00:07:59.840><c> same</c><00:08:00.000><c> model</c><00:08:00.319><c> for</c><00:08:00.720><c> reranking</c>
+
+00:08:01.670 --> 00:08:01.680 align:start position:0%
+use the same model for reranking
+
+
+00:08:01.680 --> 00:08:03.990 align:start position:0%
+use the same model for reranking
+summarization<00:08:02.400><c> as</c><00:08:02.639><c> well.</c><00:08:03.280><c> multilel</c>
+
+00:08:03.990 --> 00:08:04.000 align:start position:0%
+summarization as well. multilel
+
+
+00:08:04.000 --> 00:08:06.390 align:start position:0%
+summarization as well. multilel
+classification,<00:08:05.120><c> instruction</c><00:08:05.680><c> retrieval,</c>
+
+00:08:06.390 --> 00:08:06.400 align:start position:0%
+classification, instruction retrieval,
+
+
+00:08:06.400 --> 00:08:08.869 align:start position:0%
+classification, instruction retrieval,
+classification,<00:08:07.199><c> clustering</c><00:08:08.240><c> and</c><00:08:08.560><c> I</c><00:08:08.800><c> think</c>
+
+00:08:08.869 --> 00:08:08.879 align:start position:0%
+classification, clustering and I think
+
+
+00:08:08.879 --> 00:08:11.189 align:start position:0%
+classification, clustering and I think
+there<00:08:09.120><c> are</c><00:08:09.360><c> some</c><00:08:09.599><c> other</c><00:08:09.759><c> options</c><00:08:10.160><c> as</c><00:08:10.400><c> well.</c>
+
+00:08:11.189 --> 00:08:11.199 align:start position:0%
+there are some other options as well.
+
+
+00:08:11.199 --> 00:08:13.430 align:start position:0%
+there are some other options as well.
+Okay,<00:08:11.440><c> so</c><00:08:11.599><c> for</c><00:08:11.840><c> this</c><00:08:12.080><c> simple</c><00:08:12.400><c> rack</c><00:08:12.720><c> setup,</c><00:08:13.199><c> our</c>
+
+00:08:13.430 --> 00:08:13.440 align:start position:0%
+Okay, so for this simple rack setup, our
+
+
+00:08:13.440 --> 00:08:16.869 align:start position:0%
+Okay, so for this simple rack setup, our
+corpus<00:08:14.560><c> consists</c><00:08:15.120><c> of</c><00:08:15.599><c> HR</c><00:08:16.080><c> and</c><00:08:16.479><c> leave</c>
+
+00:08:16.869 --> 00:08:16.879 align:start position:0%
+corpus consists of HR and leave
+
+
+00:08:16.879 --> 00:08:19.189 align:start position:0%
+corpus consists of HR and leave
+policies.<00:08:17.840><c> There</c><00:08:18.080><c> are</c><00:08:18.240><c> different</c><00:08:18.639><c> document</c>
+
+00:08:19.189 --> 00:08:19.199 align:start position:0%
+policies. There are different document
+
+
+00:08:19.199 --> 00:08:21.110 align:start position:0%
+policies. There are different document
+categories<00:08:20.080><c> for</c><00:08:20.319><c> each</c><00:08:20.479><c> one</c><00:08:20.560><c> of</c><00:08:20.720><c> them.</c><00:08:20.879><c> You</c>
+
+00:08:21.110 --> 00:08:21.120 align:start position:0%
+categories for each one of them. You
+
+
+00:08:21.120 --> 00:08:22.869 align:start position:0%
+categories for each one of them. You
+have<00:08:21.199><c> the</c><00:08:21.360><c> document</c><00:08:21.759><c> title,</c><00:08:22.240><c> the</c><00:08:22.479><c> actual</c>
+
+00:08:22.869 --> 00:08:22.879 align:start position:0%
+have the document title, the actual
+
+
+00:08:22.879 --> 00:08:26.309 align:start position:0%
+have the document title, the actual
+contents.<00:08:23.919><c> So</c><00:08:24.479><c> this</c><00:08:24.720><c> is</c><00:08:24.960><c> just</c><00:08:25.440><c> a</c><00:08:25.759><c> dictionary</c>
+
+00:08:26.309 --> 00:08:26.319 align:start position:0%
+contents. So this is just a dictionary
+
+
+00:08:26.319 --> 00:08:29.350 align:start position:0%
+contents. So this is just a dictionary
+of<00:08:26.639><c> different</c><00:08:27.199><c> policy</c><00:08:27.680><c> documents.</c><00:08:28.879><c> The</c><00:08:29.120><c> user</c>
+
+00:08:29.350 --> 00:08:29.360 align:start position:0%
+of different policy documents. The user
+
+
+00:08:29.360 --> 00:08:32.230 align:start position:0%
+of different policy documents. The user
+query<00:08:29.520><c> is</c><00:08:29.759><c> how</c><00:08:29.919><c> do</c><00:08:30.080><c> I</c><00:08:30.479><c> reset</c><00:08:30.800><c> my</c><00:08:31.039><c> password?</c><00:08:32.000><c> We</c>
+
+00:08:32.230 --> 00:08:32.240 align:start position:0%
+query is how do I reset my password? We
+
+
+00:08:32.240 --> 00:08:34.790 align:start position:0%
+query is how do I reset my password? We
+set<00:08:32.399><c> the</c><00:08:32.640><c> similarity</c><00:08:33.200><c> threshold</c><00:08:34.399><c> and</c><00:08:34.560><c> then</c>
+
+00:08:34.790 --> 00:08:34.800 align:start position:0%
+set the similarity threshold and then
+
+
+00:08:34.800 --> 00:08:37.269 align:start position:0%
+set the similarity threshold and then
+there<00:08:34.959><c> are</c><00:08:35.120><c> a</c><00:08:35.360><c> couple</c><00:08:35.519><c> of</c><00:08:35.680><c> helpful</c><00:08:36.479><c> functions</c>
+
+00:08:37.269 --> 00:08:37.279 align:start position:0%
+there are a couple of helpful functions
+
+
+00:08:37.279 --> 00:08:39.430 align:start position:0%
+there are a couple of helpful functions
+to<00:08:37.599><c> calculate</c><00:08:38.000><c> the</c><00:08:38.240><c> best</c><00:08:38.479><c> match.</c><00:08:39.200><c> So</c>
+
+00:08:39.430 --> 00:08:39.440 align:start position:0%
+to calculate the best match. So
+
+
+00:08:39.440 --> 00:08:41.350 align:start position:0%
+to calculate the best match. So
+basically<00:08:39.839><c> it</c><00:08:40.080><c> computes</c><00:08:40.479><c> the</c><00:08:40.800><c> similarity</c>
+
+00:08:41.350 --> 00:08:41.360 align:start position:0%
+basically it computes the similarity
+
+
+00:08:41.360 --> 00:08:44.149 align:start position:0%
+basically it computes the similarity
+across<00:08:41.760><c> all</c><00:08:41.919><c> the</c><00:08:42.080><c> documents</c><00:08:42.560><c> and</c><00:08:42.800><c> then</c><00:08:43.440><c> picks</c>
+
+00:08:44.149 --> 00:08:44.159 align:start position:0%
+across all the documents and then picks
+
+
+00:08:44.159 --> 00:08:46.790 align:start position:0%
+across all the documents and then picks
+the<00:08:44.640><c> document</c><00:08:45.040><c> with</c><00:08:45.200><c> the</c><00:08:45.360><c> best</c><00:08:45.600><c> similarity.</c>
+
+00:08:46.790 --> 00:08:46.800 align:start position:0%
+the document with the best similarity.
+
+
+00:08:46.800 --> 00:08:49.269 align:start position:0%
+the document with the best similarity.
+And<00:08:47.040><c> first</c><00:08:47.279><c> we're</c><00:08:47.600><c> looking</c><00:08:47.920><c> at</c><00:08:48.480><c> the</c><00:08:48.880><c> category</c>
+
+00:08:49.269 --> 00:08:49.279 align:start position:0%
+And first we're looking at the category
+
+
+00:08:49.279 --> 00:08:51.350 align:start position:0%
+And first we're looking at the category
+of<00:08:49.519><c> documents.</c><00:08:50.160><c> So</c><00:08:50.320><c> we</c><00:08:50.480><c> have</c><00:08:50.560><c> the</c><00:08:50.800><c> HR</c><00:08:51.120><c> and</c>
+
+00:08:51.350 --> 00:08:51.360 align:start position:0%
+of documents. So we have the HR and
+
+
+00:08:51.360 --> 00:08:53.590 align:start position:0%
+of documents. So we have the HR and
+leave<00:08:51.600><c> policies,</c><00:08:52.160><c> IT</c><00:08:52.480><c> and</c><00:08:52.720><c> security,</c><00:08:53.279><c> finance</c>
+
+00:08:53.590 --> 00:08:53.600 align:start position:0%
+leave policies, IT and security, finance
+
+
+00:08:53.600 --> 00:08:57.190 align:start position:0%
+leave policies, IT and security, finance
+and<00:08:53.839><c> expenses,</c><00:08:54.880><c> office</c><00:08:55.279><c> and</c><00:08:55.600><c> facilities.</c><00:08:56.959><c> And</c>
+
+00:08:57.190 --> 00:08:57.200 align:start position:0%
+and expenses, office and facilities. And
+
+
+00:08:57.200 --> 00:09:00.070 align:start position:0%
+and expenses, office and facilities. And
+then<00:08:57.600><c> within</c><00:08:58.080><c> those</c><00:08:58.640><c> we</c><00:08:58.880><c> are</c><00:08:59.120><c> looking</c><00:08:59.360><c> at</c><00:08:59.839><c> the</c>
+
+00:09:00.070 --> 00:09:00.080 align:start position:0%
+then within those we are looking at the
+
+
+00:09:00.080 --> 00:09:03.509 align:start position:0%
+then within those we are looking at the
+best<00:09:00.640><c> document.</c><00:09:01.920><c> So</c><00:09:02.240><c> this</c><00:09:02.480><c> is</c><00:09:02.640><c> basically</c><00:09:03.200><c> the</c>
+
+00:09:03.509 --> 00:09:03.519 align:start position:0%
+best document. So this is basically the
+
+
+00:09:03.519 --> 00:09:05.590 align:start position:0%
+best document. So this is basically the
+retrieval<00:09:04.000><c> part</c><00:09:04.240><c> for</c><00:09:04.480><c> generation.</c><00:09:05.120><c> We</c><00:09:05.360><c> need</c>
+
+00:09:05.590 --> 00:09:05.600 align:start position:0%
+retrieval part for generation. We need
+
+
+00:09:05.600 --> 00:09:08.630 align:start position:0%
+retrieval part for generation. We need
+the<00:09:05.920><c> Gemma</c><00:09:06.560><c> 3N</c><00:09:07.040><c> model.</c><00:09:07.760><c> So</c><00:09:08.000><c> here</c><00:09:08.160><c> is</c><00:09:08.240><c> a</c><00:09:08.399><c> simple</c>
+
+00:09:08.630 --> 00:09:08.640 align:start position:0%
+the Gemma 3N model. So here is a simple
+
+
+00:09:08.640 --> 00:09:11.030 align:start position:0%
+the Gemma 3N model. So here is a simple
+prompt<00:09:08.959><c> template</c><00:09:09.440><c> which</c><00:09:09.680><c> tells</c><00:09:09.920><c> the</c><00:09:10.160><c> model</c><00:09:10.640><c> to</c>
+
+00:09:11.030 --> 00:09:11.040 align:start position:0%
+prompt template which tells the model to
+
+
+00:09:11.040 --> 00:09:12.949 align:start position:0%
+prompt template which tells the model to
+answer<00:09:11.680><c> the</c><00:09:12.000><c> question</c><00:09:12.320><c> based</c><00:09:12.640><c> on</c><00:09:12.800><c> the</c>
+
+00:09:12.949 --> 00:09:12.959 align:start position:0%
+answer the question based on the
+
+
+00:09:12.959 --> 00:09:15.030 align:start position:0%
+answer the question based on the
+provided<00:09:13.440><c> context.</c><00:09:14.160><c> The</c><00:09:14.399><c> context</c><00:09:14.720><c> is</c><00:09:14.959><c> going</c>
+
+00:09:15.030 --> 00:09:15.040 align:start position:0%
+provided context. The context is going
+
+
+00:09:15.040 --> 00:09:16.710 align:start position:0%
+provided context. The context is going
+to<00:09:15.120><c> be</c><00:09:15.279><c> the</c><00:09:15.440><c> retrieve</c><00:09:15.839><c> documents</c><00:09:16.320><c> and</c><00:09:16.560><c> the</c>
+
+00:09:16.710 --> 00:09:16.720 align:start position:0%
+to be the retrieve documents and the
+
+
+00:09:16.720 --> 00:09:18.470 align:start position:0%
+to be the retrieve documents and the
+question<00:09:17.120><c> is</c><00:09:17.360><c> going</c><00:09:17.440><c> to</c><00:09:17.600><c> be</c><00:09:17.760><c> coming</c><00:09:18.080><c> from</c><00:09:18.320><c> the</c>
+
+00:09:18.470 --> 00:09:18.480 align:start position:0%
+question is going to be coming from the
+
+
+00:09:18.480 --> 00:09:20.550 align:start position:0%
+question is going to be coming from the
+user<00:09:18.800><c> query.</c><00:09:19.440><c> Again</c><00:09:19.760><c> we're</c><00:09:20.080><c> using</c>
+
+00:09:20.550 --> 00:09:20.560 align:start position:0%
+user query. Again we're using
+
+
+00:09:20.560 --> 00:09:23.110 align:start position:0%
+user query. Again we're using
+transformance<00:09:21.279><c> package</c><00:09:21.600><c> here.</c><00:09:22.399><c> So</c><00:09:22.640><c> when</c><00:09:22.880><c> the</c>
+
+00:09:23.110 --> 00:09:23.120 align:start position:0%
+transformance package here. So when the
+
+
+00:09:23.120 --> 00:09:25.190 align:start position:0%
+transformance package here. So when the
+user<00:09:23.600><c> query</c><00:09:24.000><c> is</c><00:09:24.240><c> how</c><00:09:24.399><c> do</c><00:09:24.480><c> I</c><00:09:24.640><c> reset</c><00:09:24.959><c> my</c>
+
+00:09:25.190 --> 00:09:25.200 align:start position:0%
+user query is how do I reset my
+
+
+00:09:25.200 --> 00:09:28.389 align:start position:0%
+user query is how do I reset my
+password?<00:09:25.920><c> It</c><00:09:26.240><c> looked</c><00:09:26.560><c> at</c><00:09:27.279><c> the</c><00:09:28.000><c> document</c>
+
+00:09:28.389 --> 00:09:28.399 align:start position:0%
+password? It looked at the document
+
+
+00:09:28.399 --> 00:09:30.949 align:start position:0%
+password? It looked at the document
+category.<00:09:29.040><c> It</c><00:09:29.279><c> found</c><00:09:30.000><c> account</c><00:09:30.560><c> password</c>
+
+00:09:30.949 --> 00:09:30.959 align:start position:0%
+category. It found account password
+
+
+00:09:30.959 --> 00:09:33.829 align:start position:0%
+category. It found account password
+management<00:09:31.440><c> to</c><00:09:31.600><c> be</c><00:09:31.760><c> the</c><00:09:32.000><c> best</c><00:09:32.800><c> category</c><00:09:33.600><c> and</c>
+
+00:09:33.829 --> 00:09:33.839 align:start position:0%
+management to be the best category and
+
+
+00:09:33.839 --> 00:09:36.470 align:start position:0%
+management to be the best category and
+then<00:09:34.320><c> it</c><00:09:34.560><c> did</c><00:09:34.880><c> the</c><00:09:35.279><c> retrieval</c><00:09:35.839><c> for</c><00:09:36.080><c> that</c>
+
+00:09:36.470 --> 00:09:36.480 align:start position:0%
+then it did the retrieval for that
+
+
+00:09:36.480 --> 00:09:39.269 align:start position:0%
+then it did the retrieval for that
+specific<00:09:36.959><c> question.</c><00:09:38.160><c> You</c><00:09:38.399><c> can</c><00:09:38.720><c> also</c>
+
+00:09:39.269 --> 00:09:39.279 align:start position:0%
+specific question. You can also
+
+
+00:09:39.279 --> 00:09:41.430 align:start position:0%
+specific question. You can also
+fine-tune<00:09:39.839><c> this</c><00:09:40.000><c> model</c><00:09:40.320><c> for</c><00:09:40.640><c> your</c><00:09:41.040><c> specific</c>
+
+00:09:41.430 --> 00:09:41.440 align:start position:0%
+fine-tune this model for your specific
+
+
+00:09:41.440 --> 00:09:44.630 align:start position:0%
+fine-tune this model for your specific
+task.<00:09:42.160><c> You</c><00:09:42.399><c> need</c><00:09:42.480><c> to</c><00:09:42.640><c> curate</c><00:09:43.040><c> a</c><00:09:43.360><c> data</c><00:09:43.600><c> set.</c><00:09:44.320><c> The</c>
+
+00:09:44.630 --> 00:09:44.640 align:start position:0%
+task. You need to curate a data set. The
+
+
+00:09:44.640 --> 00:09:47.990 align:start position:0%
+task. You need to curate a data set. The
+data<00:09:44.880><c> set</c><00:09:45.200><c> is</c><00:09:45.440><c> supposed</c><00:09:45.839><c> to</c><00:09:46.720><c> have</c><00:09:46.959><c> triplets.</c>
+
+00:09:47.990 --> 00:09:48.000 align:start position:0%
+data set is supposed to have triplets.
+
+
+00:09:48.000 --> 00:09:49.910 align:start position:0%
+data set is supposed to have triplets.
+In<00:09:48.240><c> this</c><00:09:48.399><c> case,</c><00:09:48.800><c> each</c><00:09:49.040><c> example</c><00:09:49.440><c> is</c><00:09:49.600><c> going</c><00:09:49.760><c> to</c>
+
+00:09:49.910 --> 00:09:49.920 align:start position:0%
+In this case, each example is going to
+
+
+00:09:49.920 --> 00:09:52.310 align:start position:0%
+In this case, each example is going to
+contain<00:09:50.800><c> three</c><00:09:51.120><c> different</c><00:09:51.360><c> samples.</c><00:09:52.000><c> Two</c><00:09:52.240><c> of</c>
+
+00:09:52.310 --> 00:09:52.320 align:start position:0%
+contain three different samples. Two of
+
+
+00:09:52.320 --> 00:09:53.910 align:start position:0%
+contain three different samples. Two of
+them<00:09:52.480><c> are</c><00:09:52.640><c> going</c><00:09:52.720><c> to</c><00:09:52.800><c> be</c><00:09:52.959><c> relevant</c><00:09:53.360><c> and</c><00:09:53.600><c> one</c><00:09:53.839><c> of</c>
+
+00:09:53.910 --> 00:09:53.920 align:start position:0%
+them are going to be relevant and one of
+
+
+00:09:53.920 --> 00:09:56.470 align:start position:0%
+them are going to be relevant and one of
+them<00:09:54.160><c> is</c><00:09:54.399><c> completely</c><00:09:54.880><c> irrelevant.</c>
+
+00:09:56.470 --> 00:09:56.480 align:start position:0%
+them is completely irrelevant.
+
+
+00:09:56.480 --> 00:09:59.190 align:start position:0%
+them is completely irrelevant.
+So<00:09:57.279><c> the</c><00:09:57.519><c> examples</c><00:09:57.920><c> are</c><00:09:58.080><c> going</c><00:09:58.240><c> to</c><00:09:58.320><c> be</c><00:09:58.880><c> your</c>
+
+00:09:59.190 --> 00:09:59.200 align:start position:0%
+So the examples are going to be your
+
+
+00:09:59.200 --> 00:10:01.430 align:start position:0%
+So the examples are going to be your
+anchor<00:09:59.839><c> positive</c><00:10:00.320><c> example</c><00:10:00.720><c> and</c><00:10:01.040><c> negative</c>
+
+00:10:01.430 --> 00:10:01.440 align:start position:0%
+anchor positive example and negative
+
+
+00:10:01.440 --> 00:10:05.350 align:start position:0%
+anchor positive example and negative
+example.<00:10:02.640><c> Then</c><00:10:03.120><c> you</c><00:10:03.440><c> select</c><00:10:04.080><c> the</c><00:10:04.320><c> loss</c><00:10:05.040><c> that</c>
+
+00:10:05.350 --> 00:10:05.360 align:start position:0%
+example. Then you select the loss that
+
+
+00:10:05.360 --> 00:10:07.350 align:start position:0%
+example. Then you select the loss that
+you<00:10:05.519><c> want</c><00:10:05.600><c> to</c><00:10:05.680><c> use</c><00:10:05.839><c> for</c><00:10:06.080><c> training.</c><00:10:06.959><c> Here</c>
+
+00:10:07.350 --> 00:10:07.360 align:start position:0%
+you want to use for training. Here
+
+
+00:10:07.360 --> 00:10:09.110 align:start position:0%
+you want to use for training. Here
+they're<00:10:07.680><c> using</c><00:10:07.920><c> the</c><00:10:08.160><c> sentence</c><00:10:08.560><c> transformer</c>
+
+00:10:09.110 --> 00:10:09.120 align:start position:0%
+they're using the sentence transformer
+
+
+00:10:09.120 --> 00:10:11.269 align:start position:0%
+they're using the sentence transformer
+training<00:10:09.600><c> package.</c><00:10:10.560><c> You're</c><00:10:10.880><c> going</c><00:10:10.959><c> to</c>
+
+00:10:11.269 --> 00:10:11.279 align:start position:0%
+training package. You're going to
+
+
+00:10:11.279 --> 00:10:13.430 align:start position:0%
+training package. You're going to
+provide<00:10:11.920><c> the</c><00:10:12.160><c> output</c><00:10:12.560><c> directory</c><00:10:13.040><c> where</c><00:10:13.279><c> you</c>
+
+00:10:13.430 --> 00:10:13.440 align:start position:0%
+provide the output directory where you
+
+
+00:10:13.440 --> 00:10:15.990 align:start position:0%
+provide the output directory where you
+want<00:10:13.519><c> to</c><00:10:13.680><c> place</c><00:10:13.920><c> your</c><00:10:14.160><c> model,</c><00:10:14.800><c> number</c><00:10:15.120><c> of</c><00:10:15.279><c> epex</c>
+
+00:10:15.990 --> 00:10:16.000 align:start position:0%
+want to place your model, number of epex
+
+
+00:10:16.000 --> 00:10:18.230 align:start position:0%
+want to place your model, number of epex
+and<00:10:16.399><c> batch</c><00:10:16.720><c> size</c><00:10:17.040><c> along</c><00:10:17.279><c> with</c><00:10:17.519><c> the</c><00:10:17.839><c> learning</c>
+
+00:10:18.230 --> 00:10:18.240 align:start position:0%
+and batch size along with the learning
+
+
+00:10:18.240 --> 00:10:20.710 align:start position:0%
+and batch size along with the learning
+rate.<00:10:18.959><c> Right?</c><00:10:19.279><c> So</c><00:10:19.600><c> the</c><00:10:19.920><c> rest</c><00:10:20.160><c> of</c><00:10:20.240><c> the</c><00:10:20.399><c> training</c>
+
+00:10:20.710 --> 00:10:20.720 align:start position:0%
+rate. Right? So the rest of the training
+
+
+00:10:20.720 --> 00:10:23.350 align:start position:0%
+rate. Right? So the rest of the training
+is<00:10:20.880><c> very</c><00:10:21.120><c> similar</c><00:10:21.440><c> to</c><00:10:21.680><c> how</c><00:10:21.920><c> you</c><00:10:22.160><c> would</c><00:10:22.560><c> train</c><00:10:23.120><c> a</c>
+
+00:10:23.350 --> 00:10:23.360 align:start position:0%
+is very similar to how you would train a
+
+
+00:10:23.360 --> 00:10:26.069 align:start position:0%
+is very similar to how you would train a
+neural<00:10:23.760><c> network.</c><00:10:24.880><c> Now</c><00:10:25.200><c> here</c><00:10:25.440><c> are</c><00:10:25.680><c> just</c><00:10:25.839><c> a</c>
+
+00:10:26.069 --> 00:10:26.079 align:start position:0%
+neural network. Now here are just a
+
+
+00:10:26.079 --> 00:10:29.350 align:start position:0%
+neural network. Now here are just a
+quick<00:10:26.320><c> examples</c><00:10:26.800><c> of</c><00:10:27.360><c> before</c><00:10:28.160><c> fine-tuning</c>
+
+00:10:29.350 --> 00:10:29.360 align:start position:0%
+quick examples of before fine-tuning
+
+
+00:10:29.360 --> 00:10:30.949 align:start position:0%
+quick examples of before fine-tuning
+what<00:10:29.600><c> the</c><00:10:29.760><c> similarity</c><00:10:30.320><c> score</c><00:10:30.720><c> could</c>
+
+00:10:30.949 --> 00:10:30.959 align:start position:0%
+what the similarity score could
+
+
+00:10:30.959 --> 00:10:33.269 align:start position:0%
+what the similarity score could
+potentially<00:10:31.360><c> look</c><00:10:31.600><c> like</c><00:10:31.760><c> if</c><00:10:32.000><c> you</c><00:10:32.720><c> do</c><00:10:33.040><c> search</c>
+
+00:10:33.269 --> 00:10:33.279 align:start position:0%
+potentially look like if you do search
+
+
+00:10:33.279 --> 00:10:37.590 align:start position:0%
+potentially look like if you do search
+on<00:10:33.519><c> the</c><00:10:33.680><c> same</c><00:10:33.920><c> corpus</c><00:10:35.120><c> versus</c><00:10:36.079><c> when</c><00:10:36.399><c> you</c><00:10:37.120><c> have</c>
+
+00:10:37.590 --> 00:10:37.600 align:start position:0%
+on the same corpus versus when you have
+
+
+00:10:37.600 --> 00:10:40.310 align:start position:0%
+on the same corpus versus when you have
+fine-tuned<00:10:38.160><c> the</c><00:10:38.399><c> model.</c><00:10:39.440><c> So</c><00:10:39.760><c> let</c><00:10:39.920><c> me</c><00:10:40.079><c> know</c><00:10:40.160><c> if</c>
+
+00:10:40.310 --> 00:10:40.320 align:start position:0%
+fine-tuned the model. So let me know if
+
+
+00:10:40.320 --> 00:10:41.750 align:start position:0%
+fine-tuned the model. So let me know if
+you<00:10:40.480><c> are</c><00:10:40.560><c> interested</c><00:10:40.959><c> in</c><00:10:41.200><c> more</c><00:10:41.440><c> detailed</c>
+
+00:10:41.750 --> 00:10:41.760 align:start position:0%
+you are interested in more detailed
+
+
+00:10:41.760 --> 00:10:43.590 align:start position:0%
+you are interested in more detailed
+tutorial<00:10:42.240><c> on</c><00:10:42.399><c> how</c><00:10:42.560><c> to</c><00:10:42.720><c> fine-tune</c><00:10:43.120><c> embedding</c>
+
+00:10:43.590 --> 00:10:43.600 align:start position:0%
+tutorial on how to fine-tune embedding
+
+
+00:10:43.600 --> 00:10:46.310 align:start position:0%
+tutorial on how to fine-tune embedding
+models.<00:10:44.640><c> But</c><00:10:44.959><c> overall,</c><00:10:45.360><c> I</c><00:10:45.600><c> think</c><00:10:45.680><c> this</c><00:10:45.920><c> is</c><00:10:46.079><c> an</c>
+
+00:10:46.310 --> 00:10:46.320 align:start position:0%
+models. But overall, I think this is an
+
+
+00:10:46.320 --> 00:10:47.670 align:start position:0%
+models. But overall, I think this is an
+excellent<00:10:46.720><c> embedding</c><00:10:47.040><c> model</c><00:10:47.360><c> for</c>
+
+00:10:47.670 --> 00:10:47.680 align:start position:0%
+excellent embedding model for
+
+
+00:10:47.680 --> 00:10:50.470 align:start position:0%
+excellent embedding model for
+lightweight<00:10:48.560><c> retrieval</c><00:10:49.440><c> when</c><00:10:49.680><c> you</c><00:10:49.839><c> have</c><00:10:50.160><c> a</c>
+
+00:10:50.470 --> 00:10:50.480 align:start position:0%
+lightweight retrieval when you have a
+
+
+00:10:50.480 --> 00:10:53.110 align:start position:0%
+lightweight retrieval when you have a
+relatively<00:10:51.040><c> small</c><00:10:51.360><c> number</c><00:10:51.600><c> of</c><00:10:51.760><c> documents</c><00:10:52.800><c> and</c>
+
+00:10:53.110 --> 00:10:53.120 align:start position:0%
+relatively small number of documents and
+
+
+00:10:53.120 --> 00:10:56.069 align:start position:0%
+relatively small number of documents and
+you<00:10:53.360><c> want</c><00:10:53.839><c> quick</c><00:10:54.160><c> retrieval.</c><00:10:55.279><c> Do</c><00:10:55.680><c> check</c><00:10:55.839><c> it</c>
+
+00:10:56.069 --> 00:10:56.079 align:start position:0%
+you want quick retrieval. Do check it
+
+
+00:10:56.079 --> 00:10:58.870 align:start position:0%
+you want quick retrieval. Do check it
+out.<00:10:56.399><c> Let</c><00:10:56.560><c> me</c><00:10:56.720><c> know</c><00:10:56.880><c> how</c><00:10:57.120><c> your</c><00:10:57.360><c> experience</c><00:10:57.920><c> is</c>
+
+00:10:58.870 --> 00:10:58.880 align:start position:0%
+out. Let me know how your experience is
+
+
+00:10:58.880 --> 00:11:00.790 align:start position:0%
+out. Let me know how your experience is
+and<00:10:59.279><c> also</c><00:10:59.760><c> let</c><00:10:59.920><c> me</c><00:11:00.079><c> know</c><00:11:00.240><c> if</c><00:11:00.399><c> you</c><00:11:00.560><c> are</c>
+
+00:11:00.790 --> 00:11:00.800 align:start position:0%
+and also let me know if you are
+
+
+00:11:00.800 --> 00:11:02.949 align:start position:0%
+and also let me know if you are
+interested<00:11:01.279><c> in</c><00:11:01.519><c> a</c><00:11:01.680><c> fine-tuning</c><00:11:02.320><c> of</c><00:11:02.480><c> embedding</c>
+
+00:11:02.949 --> 00:11:02.959 align:start position:0%
+interested in a fine-tuning of embedding
+
+
+00:11:02.959 --> 00:11:05.430 align:start position:0%
+interested in a fine-tuning of embedding
+models.<00:11:04.160><c> Anyways,</c><00:11:04.560><c> I</c><00:11:04.800><c> hope</c><00:11:04.880><c> you</c><00:11:05.040><c> found</c><00:11:05.279><c> this</c>
+
+00:11:05.430 --> 00:11:05.440 align:start position:0%
+models. Anyways, I hope you found this
+
+
+00:11:05.440 --> 00:11:07.269 align:start position:0%
+models. Anyways, I hope you found this
+video<00:11:05.760><c> useful.</c><00:11:06.240><c> Thanks</c><00:11:06.399><c> for</c><00:11:06.640><c> watching</c><00:11:06.800><c> and</c><00:11:07.040><c> as</c>
+
+00:11:07.269 --> 00:11:07.279 align:start position:0%
+video useful. Thanks for watching and as
+
+
+00:11:07.279 --> 00:11:10.720 align:start position:0%
+video useful. Thanks for watching and as
+always,<00:11:07.680><c> see</c><00:11:07.839><c> you</c><00:11:07.920><c> in</c><00:11:08.079><c> the</c><00:11:08.240><c> next</c><00:11:08.399><c> one.</c>

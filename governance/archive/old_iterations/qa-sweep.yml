@@ -1,0 +1,67 @@
+name: QA Sweep
+
+on:
+  pull_request:
+    branches: [main, tier4-foundation]
+  push:
+    branches: [main, tier4-foundation]
+  workflow_dispatch:
+
+jobs:
+  qa-sweep:
+    name: QA Sweep (Linters & Static Analysis)
+    runs-on: macos-14
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16.0'
+
+      - name: Cache Homebrew
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/Library/Caches/Homebrew
+            /opt/homebrew/Cellar
+          key: ${{ runner.os }}-brew-${{ hashFiles('.swiftlint.yml', '.swiftformat') }}
+          restore-keys: |
+            ${{ runner.os }}-brew-
+
+      - name: Install QA Tools
+        run: |
+          brew install swiftlint swiftformat jq yq shellcheck yamllint sqlfluff hadolint || true
+          pipx install ruff || true
+          pipx install mypy || true
+          pipx install bandit || true
+          pipx ensurepath || true
+
+      - name: Run QA Sweep
+        run: make qa
+
+      - name: Upload QA Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-logs-${{ github.sha }}
+          path: |
+            .swiftlint.yml
+            .swiftformat
+            .sqlfluff
+          retention-days: 7
+
+      - name: Comment PR with QA Results
+        if: github.event_name == 'pull_request' && failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '⚠️ QA Sweep found issues. Check the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.'
+            })

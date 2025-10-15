@@ -1,0 +1,11 @@
+# NeuroForge Agent System Dependencies
+# Python 3.9+
+
+# Core (minimal)
+# No heavy dependencies - runs on stdlib!
+
+# Optional: For advanced features
+requests>=2.31.0           # API tool calls
+numpy>=1.24.0              # Vector operations (future)
+# sentence-transformers    # Embeddings (future)
+# chromadb                 # Vector DB (future alternative to SQLite)

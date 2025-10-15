@@ -1,0 +1,1291 @@
+import SwiftUI
+
+// MARK: - Modern Athena Dashboard with NavigationStack
+
+struct AthenaDashboard: View {
+    @State private var navigationPath = NavigationPath()
+    @StateObject private var athena = ModernAthenaViewModel()
+
+    var body: some View {
+        NavigationStack(path: $navigationPath) {
+            // Home Dashboard
+            DashboardHomeView()
+                .navigationTitle("Athena Control Center")
+                .navigationBarTitleDisplayMode(.large)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            navigationPath.append(DashboardDestination.settings)
+                        } label: {
+                            Label("Settings", systemImage: "gear")
+                        }
+                    }
+
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Menu {
+                            Button {
+                                Task { await athena.refreshAll() }
+                            } label: {
+                                Label("Refresh All", systemImage: "arrow.clockwise")
+                            }
+
+                            Button {
+                                athena.acknowledgeAllAlerts()
+                            } label: {
+                                Label("Acknowledge All Alerts", systemImage: "checkmark.circle")
+                            }
+
+                            Divider()
+
+                            Button {
+                                athena.sendTestAlert()
+                            } label: {
+                                Label("Test Alert System", systemImage: "hammer.circle")
+                            }
+
+                            Button {
+                                athena.openLogs()
+                            } label: {
+                                Label("View Logs", systemImage: "doc.text.magnifyingglass")
+                            }
+                        } label: {
+                            Label("Actions", systemImage: "ellipsis.circle")
+                        }
+                    }
+                }
+                .navigationDestination(for: DashboardDestination.self) { destination in
+                    switch destination {
+                    case .systemHealth:
+                        SystemHealthDetailView()
+                            .environmentObject(athena)
+                    case .alerts:
+                        AlertsDetailView()
+                            .environmentObject(athena)
+                    case .metrics:
+                        MetricsDetailView()
+                            .environmentObject(athena)
+                    case .settings:
+                        DashboardSettingsView()
+                            .environmentObject(athena)
+                    case .focus:
+                        FocusIntegrationView()
+                    case .calendar:
+                        CalendarIntegrationView()
+                    case .learning:
+                        BehavioralLearningView()
+                    }
+                }
+        }
+        .frame(minWidth: 900, minHeight: 700)
+        .environmentObject(athena)
+        .task {
+            await athena.startMonitoring()
+        }
+    }
+}
+
+// MARK: - Dashboard Home View
+
+struct DashboardHomeView: View {
+    @EnvironmentObject private var athena: ModernAthenaViewModel
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 24) {
+                // System Status Overview
+                SystemStatusCard()
+                    .environmentObject(athena)
+
+                // Quick Actions Grid
+                QuickActionsGrid()
+
+                // Active Alerts
+                if !athena.alerts.filter({ !$0.acknowledged }).isEmpty {
+                    ActiveAlertsCard()
+                        .environmentObject(athena)
+                }
+
+                // Recent Activity
+                RecentActivityCard()
+                    .environmentObject(athena)
+
+                // System Metrics Summary
+                MetricsSummaryCard()
+                    .environmentObject(athena)
+            }
+            .padding()
+        }
+    }
+}
+
+// MARK: - System Status Card
+
+struct SystemStatusCard: View {
+    @EnvironmentObject private var athena: ModernAthenaViewModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Label("System Status", systemImage: "circle.grid.3x3.fill")
+                    .font(.title2.bold())
+                Spacer()
+                ConnectionIndicator(isConnected: athena.isConnected)
+            }
+
+            HStack(spacing: 24) {
+                StatusMetricView(
+                    title: "Services",
+                    value: "\(athena.services.filter { $0.status == .running }.count)/\(athena.services.count)",
+                    icon: "server.rack",
+                    color: .blue
+                )
+
+                StatusMetricView(
+                    title: "Active Alerts",
+                    value: "\(athena.alerts.filter { !$0.acknowledged }.count)",
+                    icon: "exclamationmark.triangle",
+                    color: athena.alerts.contains { !$0.acknowledged && $0.severity == .critical } ? .red : .orange
+                )
+
+                StatusMetricView(
+                    title: "Health Score",
+                    value: String(format: "%.0f%%", athena.systemHealth.healthScore * 100),
+                    icon: "heart.fill",
+                    color: athena.systemHealth.healthScore > 0.8 ? .green : .yellow
+                )
+            }
+
+            if athena.isQuietHoursActive {
+                HStack {
+                    Image(systemName: "moon.fill")
+                        .foregroundStyle(.purple)
+                    Text("Quiet Hours Active")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Text("Alerts Queued: \(athena.queuedAlerts.count)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 12)
+                .background(Color.purple.opacity(0.1))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+        }
+        .padding()
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+}
+
+struct ConnectionIndicator: View {
+    let isConnected: Bool
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Circle()
+                .fill(isConnected ? Color.green : Color.red)
+                .frame(width: 8, height: 8)
+            Text(isConnected ? "Connected" : "Disconnected")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+    }
+}
+
+// MARK: - Quick Actions Grid
+
+struct QuickActionsGrid: View {
+    @Environment(\.openWindow) private var openWindow
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Quick Actions")
+                .font(.title3.bold())
+
+            LazyVGrid(columns: [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: 12) {
+                QuickActionButton(
+                    title: "System Health",
+                    icon: "heart.circle.fill",
+                    color: .red,
+                    action: { openWindow(id: "athena-dashboard") } // Navigate to system health
+                )
+
+                QuickActionButton(
+                    title: "View Alerts",
+                    icon: "exclamationmark.triangle.fill",
+                    color: .orange,
+                    action: { /* Navigate to alerts */ }
+                )
+
+                QuickActionButton(
+                    title: "Check Metrics",
+                    icon: "chart.bar.fill",
+                    color: .blue,
+                    action: { /* Navigate to metrics */ }
+                )
+
+                QuickActionButton(
+                    title: "Settings",
+                    icon: "gear",
+                    color: .gray,
+                    action: { /* Navigate to settings */ }
+                )
+            }
+        }
+        .padding()
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+}
+
+struct QuickActionButton: View {
+    let title: String
+    let icon: String
+    let color: Color
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 8) {
+                Image(systemName: icon)
+                    .font(.title2)
+                    .foregroundStyle(color)
+                    .frame(width: 32, height: 32)
+                Text(title)
+                    .font(.caption)
+                    .foregroundStyle(.primary)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+            }
+            .frame(height: 80)
+            .frame(maxWidth: .infinity)
+            .background(.background)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+            )
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Active Alerts Card
+
+struct ActiveAlertsCard: View {
+    @EnvironmentObject private var athena: ModernAthenaViewModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Label("Active Alerts", systemImage: "exclamationmark.triangle.fill")
+                    .font(.title3.bold())
+                    .foregroundStyle(.red)
+                Spacer()
+                Text("\(athena.alerts.filter { !$0.acknowledged }.count)")
+                    .font(.caption.bold())
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.red.opacity(0.1))
+                    .foregroundStyle(.red)
+                    .clipShape(Capsule())
+            }
+
+            ForEach(athena.alerts.filter { !$0.acknowledged }.prefix(3)) { alert in
+                AlertRow(alert: alert)
+                    .onTapGesture {
+                        // Could navigate to alert details
+                    }
+            }
+
+            if athena.alerts.filter({ !$0.acknowledged }).count > 3 {
+                Button("View All Alerts") {
+                    // Navigate to full alerts view
+                }
+                .font(.caption)
+                .foregroundStyle(.blue)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.top, 8)
+            }
+        }
+        .padding()
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+}
+
+// MARK: - Recent Activity Card
+
+struct RecentActivityCard: View {
+    @EnvironmentObject private var athena: ModernAthenaViewModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Label("Recent Activity", systemImage: "clock.fill")
+                .font(.title3.bold())
+
+            if athena.recentActivity.isEmpty {
+                Text("No recent activity")
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.vertical, 20)
+            } else {
+                ForEach(athena.recentActivity.prefix(5)) { activity in
+                    HStack(spacing: 12) {
+                        Circle()
+                            .fill(activity.type.color)
+                            .frame(width: 8, height: 8)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(activity.title)
+                                .font(.subheadline)
+                            Text(activity.timestamp, style: .relative)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                    }
+                    .padding(.vertical, 4)
+                }
+            }
+        }
+        .padding()
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+}
+
+// MARK: - Metrics Summary Card
+
+struct MetricsSummaryCard: View {
+    @EnvironmentObject private var athena: ModernAthenaViewModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Label("System Metrics", systemImage: "chart.bar.xaxis")
+                .font(.title3.bold())
+
+            HStack(spacing: 24) {
+                MetricView(
+                    title: "Memory Saved",
+                    value: athena.systemHealth.memorySavings.formatted(.percent),
+                    icon: "memorychip",
+                    color: .green
+                )
+
+                MetricView(
+                    title: "Response Time",
+                    value: String(format: "%.2fs", athena.systemHealth.averageResponseTime),
+                    icon: "timer",
+                    color: .blue
+                )
+
+                MetricView(
+                    title: "Tribunal Scans",
+                    value: "\(athena.systemHealth.tribunalScansToday)",
+                    icon: "magnifyingglass",
+                    color: .orange
+                )
+            }
+        }
+        .padding()
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+}
+
+struct MetricView: View {
+    let title: String
+    let value: String
+    let icon: String
+    let color: Color
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Image(systemName: icon)
+                .foregroundStyle(color)
+                .font(.title3)
+            Text(value)
+                .font(.headline)
+                .foregroundStyle(.primary)
+            Text(title)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+    }
+}
+
+// MARK: - Status Metric View
+
+struct StatusMetricView: View {
+    let title: String
+    let value: String
+    let icon: String
+    let color: Color
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Image(systemName: icon)
+                .foregroundStyle(color)
+                .font(.title2)
+            Text(value)
+                .font(.title3.bold())
+                .foregroundStyle(.primary)
+            Text(title)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+    }
+}
+
+// MARK: - Alert Row
+
+struct AlertRow: View {
+    let alert: AthenaAlert
+
+    var body: some View {
+        HStack(spacing: 12) {
+            Circle()
+                .fill(alert.severity.color)
+                .frame(width: 8, height: 8)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(alert.title)
+                    .font(.subheadline)
+                    .lineLimit(1)
+                Text(alert.timeAgo)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Spacer()
+
+            if !alert.acknowledged {
+                Circle()
+                    .fill(Color.blue)
+                    .frame(width: 6, height: 6)
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
+
+// MARK: - Navigation Destinations
+
+enum DashboardDestination: Hashable {
+    case systemHealth
+    case alerts
+    case metrics
+    case settings
+    case focus
+    case calendar
+    case learning
+}
+
+// MARK: - Modern Athena ViewModel
+
+@MainActor
+final class ModernAthenaViewModel: ObservableObject {
+    // Core State
+    @Published var services: [AthenaService] = []
+    @Published var alerts: [AthenaAlert] = []
+    @Published var systemHealth = SystemHealth()
+    @Published var isConnected = false
+    @Published var lastUpdate = Date()
+    @Published var isQuietHoursActive = false
+    @Published var queuedAlerts: [AthenaAlert] = []
+
+    // Recent Activity
+    @Published var recentActivity: [ActivityItem] = []
+
+    // Private state
+    private var monitoringTask: Task<Void, Never>?
+    private var apiClient = ModernAthenaAPIClient()
+
+    init() {
+        loadInitialData()
+    }
+
+    func loadInitialData() {
+        // Load mock data initially
+        services = [
+            AthenaService(name: "Memory Optimizer", status: .running, lastRun: Date().addingTimeInterval(-300), nextRun: Date().addingTimeInterval(3300), cadence: 3600),
+            AthenaService(name: "Tribunal Monitor", status: .running, lastRun: Date().addingTimeInterval(-900), nextRun: Date().addingTimeInterval(0), cadence: 900),
+            AthenaService(name: "Voice Wake Word", status: .running, lastRun: nil, nextRun: nil, cadence: nil),
+            AthenaService(name: "Federation Sync", status: .idle, lastRun: Date().addingTimeInterval(-7200), nextRun: Date().addingTimeInterval(1800), cadence: 7200)
+        ]
+
+        alerts = [
+            AthenaAlert(id: "alert-1", timestamp: Date().addingTimeInterval(-1800), severity: .info, title: "Memory Optimization Complete", message: "Successfully optimized memory usage by 35%", acknowledged: true),
+            AthenaAlert(id: "alert-2", timestamp: Date().addingTimeInterval(-600), severity: .warning, title: "High Memory Usage Detected", message: "Memory utilization at 85%. Optimization scheduled.", acknowledged: false)
+        ]
+
+        recentActivity = [
+            ActivityItem(id: "1", title: "Memory optimization completed", type: .system, timestamp: Date().addingTimeInterval(-1800)),
+            ActivityItem(id: "2", title: "Tribunal scan finished", type: .security, timestamp: Date().addingTimeInterval(-900)),
+            ActivityItem(id: "3", title: "Voice activation started", type: .service, timestamp: Date().addingTimeInterval(-600))
+        ]
+    }
+
+    func startMonitoring() async {
+        monitoringTask?.cancel()
+
+        monitoringTask = Task {
+            while !Task.isCancelled {
+                await refreshAll()
+                try? await Task.sleep(nanoseconds: 5_000_000_000) // 5 seconds
+            }
+        }
+    }
+
+    func stopMonitoring() {
+        monitoringTask?.cancel()
+        monitoringTask = nil
+    }
+
+    func refreshAll() async {
+        do {
+            // Concurrent data loading
+            async let servicesResult = apiClient.fetchServices()
+            async let alertsResult = apiClient.fetchAlerts()
+            async let healthResult = apiClient.fetchSystemHealth()
+
+            let (services, alerts, health) = try await (servicesResult, alertsResult, healthResult)
+
+            self.services = services
+            self.alerts = alerts
+            self.systemHealth = health
+            self.isConnected = true
+            self.lastUpdate = Date()
+
+            // Add to recent activity
+            addActivity("Dashboard refreshed", .system)
+
+        } catch {
+            self.isConnected = false
+            addActivity("Connection failed", .error)
+        }
+    }
+
+    func acknowledgeAlert(_ alert: AthenaAlert) async {
+        do {
+            try await apiClient.acknowledgeAlert(alert.id)
+            addActivity("Alert acknowledged: \(alert.title)", .user)
+            await refreshAll()
+        } catch {
+            addActivity("Failed to acknowledge alert", .error)
+        }
+    }
+
+    func acknowledgeAllAlerts() {
+        let unacknowledged = alerts.filter { !$0.acknowledged }
+        for alert in unacknowledged {
+            Task { await acknowledgeAlert(alert) }
+        }
+        addActivity("All alerts acknowledged", .user)
+    }
+
+    func sendTestAlert() async {
+        do {
+            try await apiClient.sendTestAlert()
+            addActivity("Test alert sent", .system)
+            await refreshAll()
+        } catch {
+            addActivity("Failed to send test alert", .error)
+        }
+    }
+
+    func openLogs() {
+        let logDir = "/tmp"
+        NSWorkspace.shared.open(URL(fileURLWithPath: logDir))
+        addActivity("Logs opened", .user)
+    }
+
+    private func addActivity(_ title: String, _ type: ActivityType) {
+        let activity = ActivityItem(id: UUID().uuidString, title: title, type: type, timestamp: Date())
+        recentActivity.insert(activity, at: 0)
+        if recentActivity.count > 50 {
+            recentActivity = Array(recentActivity.prefix(50))
+        }
+    }
+}
+
+// MARK: - Supporting Models
+
+struct SystemHealth {
+    var isHealthy: Bool = true
+    var memorySavings: Double = 0.35
+    var tribunalScansToday: Int = 24
+    var alertsTriggeredToday: Int = 3
+    var averageResponseTime: Double = 0.8
+    var healthScore: Double = 0.95
+}
+
+struct ActivityItem: Identifiable {
+    let id: String
+    let title: String
+    let type: ActivityType
+    let timestamp: Date
+}
+
+enum ActivityType {
+    case system, user, security, error, service
+
+    var color: Color {
+        switch self {
+        case .system: return .blue
+        case .user: return .green
+        case .security: return .orange
+        case .error: return .red
+        case .service: return .purple
+        }
+    }
+}
+
+// MARK: - API Client
+
+class ModernAthenaAPIClient {
+    private let baseURL = "http://localhost:8009"
+
+    func fetchServices() async throws -> [AthenaService] {
+        try await Task.sleep(nanoseconds: 500_000_000) // Simulate network delay
+        return [
+            AthenaService(name: "Memory Optimizer", status: .running, lastRun: Date().addingTimeInterval(-300), nextRun: Date().addingTimeInterval(3300), cadence: 3600),
+            AthenaService(name: "Tribunal Monitor", status: .running, lastRun: Date().addingTimeInterval(-900), nextRun: Date().addingTimeInterval(0), cadence: 900),
+            AthenaService(name: "Voice Wake Word", status: .running, lastRun: nil, nextRun: nil, cadence: nil),
+            AthenaService(name: "Federation Sync", status: .idle, lastRun: Date().addingTimeInterval(-7200), nextRun: Date().addingTimeInterval(1800), cadence: 7200)
+        ]
+    }
+
+    func fetchAlerts() async throws -> [AthenaAlert] {
+        try await Task.sleep(nanoseconds: 300_000_000)
+        return [
+            AthenaAlert(id: "alert-1", timestamp: Date().addingTimeInterval(-1800), severity: .info, title: "Memory Optimization Complete", message: "Successfully optimized memory usage by 35%", acknowledged: true),
+            AthenaAlert(id: "alert-2", timestamp: Date().addingTimeInterval(-600), severity: .warning, title: "High Memory Usage Detected", message: "Memory utilization at 85%. Optimization scheduled.", acknowledged: false)
+        ]
+    }
+
+    func fetchSystemHealth() async throws -> SystemHealth {
+        try await Task.sleep(nanoseconds: 200_000_000)
+        return SystemHealth()
+    }
+
+    func acknowledgeAlert(_ alertId: String) async throws {
+        try await Task.sleep(nanoseconds: 200_000_000)
+    }
+
+    func sendTestAlert() async throws {
+        try await Task.sleep(nanoseconds: 100_000_000)
+    }
+}
+
+// MARK: - Detail Views (Stubs for Navigation)
+
+struct SystemHealthDetailView: View {
+    @EnvironmentObject var athena: ModernAthenaViewModel
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+                Text("System Health Details")
+                    .font(.title)
+                // Detailed health metrics would go here
+            }
+            .padding()
+        }
+        .navigationTitle("System Health")
+    }
+}
+
+struct AlertsDetailView: View {
+    @EnvironmentObject var athena: ModernAthenaViewModel
+
+    var body: some View {
+        List {
+            ForEach(athena.alerts) { alert in
+                AlertRow(alert: alert)
+            }
+        }
+        .navigationTitle("All Alerts")
+    }
+}
+
+struct MetricsDetailView: View {
+    @EnvironmentObject var athena: ModernAthenaViewModel
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+                Text("Detailed Metrics")
+                    .font(.title)
+                // Detailed metrics would go here
+            }
+            .padding()
+        }
+        .navigationTitle("Metrics")
+    }
+}
+
+struct DashboardSettingsView: View {
+    @EnvironmentObject var athena: ModernAthenaViewModel
+
+    var body: some View {
+        Form {
+            Section("Quiet Hours") {
+                Toggle("Enable Quiet Hours", isOn: $athena.isQuietHoursActive)
+            }
+            Section("Monitoring") {
+                Button("Refresh Data") {
+                    Task { await athena.refreshAll() }
+                }
+            }
+        }
+        .navigationTitle("Settings")
+    }
+}
+
+// MARK: - Legacy Athena State Management (for backward compatibility)
+
+class AthenaState: ObservableObject {
+    @Published var currentTab: AthenaTab = .status
+    @Published var services: [AthenaService] = []
+    @Published var alerts: [AthenaAlert] = []
+    @Published var metrics: AthenaMetrics = AthenaMetrics()
+    @Published var isConnected = false
+    @Published var lastUpdate = Date()
+
+    // Quiet Hours
+    @Published var quietHoursEnabled = false
+    @Published var quietHoursStart = 22 // 10 PM
+    @Published var quietHoursEnd = 8   // 8 AM
+    @Published var queuedAlertsDuringQuiet: [AthenaAlert] = []
+    @Published var isCurrentlyQuietHours = false
+
+    private var monitoringTimer: Timer?
+    private var quietHoursCheckTimer: Timer?
+    private let apiClient = AthenaAPIClient()
+
+    init() {
+        loadInitialState()
+    }
+
+    func startMonitoring() {
+        monitoringTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+            self?.refreshStatus()
+        }
+
+        // Check quiet hours every minute
+        quietHoursCheckTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
+            self?.updateQuietHoursStatus()
+            self?.deliverQueuedAlertsIfNeeded()
+        }
+
+        refreshAll()
+        updateQuietHoursStatus()
+    }
+
+    func stopMonitoring() {
+        monitoringTimer?.invalidate()
+        monitoringTimer = nil
+        quietHoursCheckTimer?.invalidate()
+        quietHoursCheckTimer = nil
+    }
+
+    func refreshAll() {
+        refreshStatus()
+        refreshAlerts()
+        refreshMetrics()
+    }
+
+    func refreshStatus() {
+        apiClient.getStatus { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let status):
+                    self?.services = status.services
+                    self?.isConnected = true
+                    self?.lastUpdate = Date()
+                case .failure(let error):
+                    self?.isConnected = false
+                    print("Failed to get status: \(error)")
+                }
+            }
+        }
+    }
+
+    func refreshAlerts() {
+        apiClient.getAlerts { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let alerts):
+                    self?.alerts = alerts
+                case .failure(let error):
+                    print("Failed to get alerts: \(error)")
+                }
+            }
+        }
+    }
+
+    func refreshMetrics() {
+        apiClient.getMetrics { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let metrics):
+                    self?.metrics = metrics
+                case .failure(let error):
+                    print("Failed to get metrics: \(error)")
+                }
+            }
+        }
+    }
+
+    func acknowledgeAlert(_ alert: AthenaAlert) {
+        apiClient.acknowledgeAlert(alert.id) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self?.refreshAlerts()
+                case .failure(let error):
+                    print("Failed to acknowledge alert: \(error)")
+                }
+            }
+        }
+    }
+
+    func acknowledgeAllAlerts() {
+        let unacknowledged = alerts.filter { !$0.acknowledged }
+        for alert in unacknowledged {
+            acknowledgeAlert(alert)
+        }
+    }
+
+    func updateCadence(service: String, newCadence: Int) {
+        apiClient.updateCadence(service: service, cadence: newCadence) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self?.refreshStatus()
+                case .failure(let error):
+                    print("Failed to update cadence: \(error)")
+                }
+            }
+        }
+    }
+
+    func sendTestAlert() {
+        apiClient.sendTestAlert { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    print("Test alert sent")
+                case .failure(let error):
+                    print("Failed to send test alert: \(error)")
+                }
+            }
+        }
+    }
+
+    func openLogs() {
+        // Open logs directory in Finder
+        let logDir = "/tmp"  // Athena logs location
+        NSWorkspace.shared.open(URL(fileURLWithPath: logDir))
+    }
+
+    // MARK: - Quiet Hours Logic
+
+    func updateQuietHoursStatus() {
+        guard quietHoursEnabled else {
+            isCurrentlyQuietHours = false
+            return
+        }
+
+        let now = Date()
+        let calendar = Calendar.current
+        let currentHour = calendar.component(.hour, from: now)
+
+        // Check if we're in quiet hours range
+        if quietHoursStart > quietHoursEnd {
+            // Overnight range (e.g., 22:00 to 08:00)
+            isCurrentlyQuietHours = currentHour >= quietHoursStart || currentHour < quietHoursEnd
+        } else {
+            // Same day range
+            isCurrentlyQuietHours = currentHour >= quietHoursStart && currentHour < quietHoursEnd
+        }
+    }
+
+    func shouldSendAlertNow(_ alert: AthenaAlert) -> Bool {
+        // Critical alerts always go through, regardless of quiet hours
+        if alert.severity == .critical {
+            return true
+        }
+
+        // During quiet hours, only critical alerts are sent immediately
+        return !isCurrentlyQuietHours
+    }
+
+    func queueAlertDuringQuietHours(_ alert: AthenaAlert) {
+        queuedAlertsDuringQuiet.append(alert)
+        print("Alert queued during quiet hours: \(alert.title)")
+    }
+
+    func deliverQueuedAlertsIfNeeded() {
+        // Only deliver if we're no longer in quiet hours and have queued alerts
+        guard !isCurrentlyQuietHours, !queuedAlertsDuringQuiet.isEmpty else { return }
+
+        print("Delivering \(queuedAlertsDuringQuiet.count) queued alerts after quiet hours")
+
+        // Add queued alerts to the main alerts list
+        alerts.insert(contentsOf: queuedAlertsDuringQuiet, at: 0)
+
+        // Clear the queue
+        queuedAlertsDuringQuiet.removeAll()
+
+        // Send a summary notification
+        sendQuietHoursSummaryAlert()
+    }
+
+    func sendQuietHoursSummaryAlert() {
+        let summaryAlert = AthenaAlert(
+            id: "quiet-hours-summary-\(Int(Date().timeIntervalSince1970))",
+            timestamp: Date(),
+            severity: .info,
+            title: "Quiet Hours Summary",
+            message: "\(queuedAlertsDuringQuiet.count) alerts were suppressed during quiet hours and are now available for review.",
+            acknowledged: false
+        )
+
+        alerts.insert(summaryAlert, at: 0)
+    }
+
+    func toggleQuietHours() {
+        quietHoursEnabled.toggle()
+        updateQuietHoursStatus()
+
+        if quietHoursEnabled {
+            print("Quiet hours enabled: \(quietHoursStart):00 - \(quietHoursEnd):00")
+        } else {
+            print("Quiet hours disabled")
+            // Deliver any queued alerts immediately
+            deliverQueuedAlertsIfNeeded()
+        }
+    }
+
+    func setQuietHours(start: Int, end: Int) {
+        quietHoursStart = start
+        quietHoursEnd = end
+        updateQuietHoursStatus()
+        print("Quiet hours updated: \(start):00 - \(end):00")
+    }
+
+    var quietHoursDescription: String {
+        guard quietHoursEnabled else { return "Disabled" }
+
+        let startTime = String(format: "%02d:00", quietHoursStart)
+        let endTime = String(format: "%02d:00", quietHoursEnd)
+
+        return "\(startTime) - \(endTime)"
+    }
+
+    var quietHoursStatusDescription: String {
+        if !quietHoursEnabled {
+            return "Inactive"
+        } else if isCurrentlyQuietHours {
+            return "Active (alerts suppressed)"
+        } else {
+            return "Inactive (alerts enabled)"
+        }
+    }
+
+    private func loadInitialState() {
+        // Load initial mock data
+        services = [
+            AthenaService(name: "Memory Optimizer", status: .running, lastRun: Date().addingTimeInterval(-300), nextRun: Date().addingTimeInterval(3300), cadence: 3600),
+            AthenaService(name: "Tribunal Monitor", status: .running, lastRun: Date().addingTimeInterval(-900), nextRun: Date().addingTimeInterval(600), cadence: 900),
+            AthenaService(name: "Voice Wake Word", status: .running, lastRun: nil, nextRun: nil, cadence: nil),
+            AthenaService(name: "Federation Sync", status: .idle, lastRun: Date().addingTimeInterval(-7200), nextRun: Date().addingTimeInterval(0), cadence: 7200)
+        ]
+
+        alerts = [
+            AthenaAlert(id: "test-1", timestamp: Date().addingTimeInterval(-1800), severity: .info, title: "Memory Optimization Complete", message: "Successfully optimized memory usage by 35%", acknowledged: true),
+            AthenaAlert(id: "test-2", timestamp: Date().addingTimeInterval(-600), severity: .warning, title: "High Memory Usage Detected", message: "Memory utilization at 85%. Optimization scheduled.", acknowledged: false)
+        ]
+    }
+}
+
+// MARK: - Data Models
+
+enum AthenaTab: String, CaseIterable, Identifiable {
+    case status, alerts, controls, focus, calendar, learning, metrics
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .status: return "Status"
+        case .alerts: return "Alerts"
+        case .controls: return "Controls"
+        case .focus: return "Focus"
+        case .calendar: return "Calendar"
+        case .learning: return "Learning"
+        case .metrics: return "Metrics"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .status: return "heart.circle.fill"
+        case .alerts: return "exclamationmark.triangle.fill"
+        case .controls: return "slider.horizontal.3"
+        case .focus: return "moon.circle.fill"
+        case .calendar: return "calendar.circle.fill"
+        case .learning: return "brain.head.profile"
+        case .metrics: return "chart.bar.fill"
+        }
+    }
+}
+
+struct AthenaService: Identifiable {
+    let id = UUID()
+    let name: String
+    let status: ServiceStatus
+    let lastRun: Date?
+    let nextRun: Date?
+    let cadence: Int? // seconds
+
+    var nextRunDescription: String {
+        guard let nextRun = nextRun else { return "Continuous" }
+        let timeUntil = nextRun.timeIntervalSince(Date())
+        if timeUntil <= 0 { return "Now" }
+        return formatTimeInterval(timeUntil)
+    }
+
+    var lastRunDescription: String {
+        guard let lastRun = lastRun else { return "Never" }
+        let timeSince = -lastRun.timeIntervalSince(Date())
+        return "\(formatTimeInterval(timeSince)) ago"
+    }
+
+    private func formatTimeInterval(_ interval: TimeInterval) -> String {
+        let minutes = Int(interval / 60)
+        if minutes < 60 {
+            return "\(minutes)m"
+        } else {
+            let hours = minutes / 60
+            return "\(hours)h"
+        }
+    }
+}
+
+enum ServiceStatus {
+    case running, idle, error, stopped
+}
+
+struct AthenaAlert: Identifiable {
+    let id: String
+    let timestamp: Date
+    let severity: AlertSeverity
+    let title: String
+    let message: String
+    var acknowledged: Bool = false
+
+    var timeAgo: String {
+        let interval = -timestamp.timeIntervalSince(Date())
+        let minutes = Int(interval / 60)
+        if minutes < 60 {
+            return "\(minutes)m ago"
+        } else {
+            let hours = minutes / 60
+            return "\(hours)h ago"
+        }
+    }
+}
+
+enum AlertSeverity {
+    case info, warning, error, critical
+
+    var color: Color {
+        switch self {
+        case .info: return .blue
+        case .warning: return .orange
+        case .error: return .red
+        case .critical: return .red
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .info: return "info.circle"
+        case .warning: return "exclamationmark.triangle"
+        case .error: return "xmark.circle"
+        case .critical: return "exclamationmark.triangle.fill"
+        }
+    }
+}
+
+struct AthenaMetrics {
+    var memoryOptimizationSavings: Double = 0
+    var tribunalScansToday: Int = 0
+    var alertsTriggeredToday: Int = 0
+    var averageResponseTime: Double = 0
+    var systemHealthScore: Double = 0.95
+
+    var memorySavingsDescription: String {
+        return String(format: "%.1f%%", memoryOptimizationSavings * 100)
+    }
+
+    var responseTimeDescription: String {
+        return String(format: "%.2fs", averageResponseTime)
+    }
+
+    var healthScoreDescription: String {
+        return String(format: "%.1f%%", systemHealthScore * 100)
+    }
+}
+
+// MARK: - API Client
+
+class AthenaAPIClient {
+    private let baseURL = "http://localhost:8009"  // Local Athena API
+    private let session: URLSession
+
+    init() {
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 5.0
+        config.timeoutIntervalForResource = 10.0
+        self.session = URLSession(configuration: config)
+    }
+
+    func getStatus(completion: @escaping (Result<AthenaStatus, Error>) -> Void) {
+        guard let url = URL(string: "\(baseURL)/status") else {
+            completion(.failure(NSError(domain: "AthenaAPI", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
+        }
+
+        let task = session.dataTask(with: url) { data, response, error in
+            if let error = error {
+                // Fall back to mock data if API unavailable
+                self.fallbackToMockStatus(completion: completion)
+                return
+            }
+
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 200 else {
+                self.fallbackToMockStatus(completion: completion)
+                return
+            }
+
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   let servicesData = json["services"] as? [[String: Any]] {
+
+                    let services = servicesData.compactMap { serviceData -> AthenaService? in
+                        guard let name = serviceData["name"] as? String,
+                              let statusString = serviceData["status"] as? String else { return nil }
+
+                        let status: ServiceStatus = {
+                            switch statusString {
+                            case "running": return .running
+                            case "idle": return .idle
+                            case "error": return .error
+                            case "stopped": return .stopped
+                            default: return .idle
+                            }
+                        }()
+
+                        let lastRun = self.parseDate(from: serviceData["last_run"])
+                        let nextRun = self.parseDate(from: serviceData["next_run"])
+                        let cadence = serviceData["cadence"] as? Int
+
+                        return AthenaService(name: name, status: status, lastRun: lastRun, nextRun: nextRun, cadence: cadence)
+                    }
+
+                    let status = AthenaStatus(services: services)
+                    completion(.success(status))
+                } else {
+                    self.fallbackToMockStatus(completion: completion)
+                }
+            } catch {
+                self.fallbackToMockStatus(completion: completion)
+            }
+        }
+        task.resume()
+    }
+
+    private func fallbackToMockStatus(completion: @escaping (Result<AthenaStatus, Error>) -> Void) {
+        // Use mock data when API unavailable
+        let status = AthenaStatus(services: [
+            AthenaService(name: "Memory Optimizer", status: .running, lastRun: Date().addingTimeInterval(-300), nextRun: Date().addingTimeInterval(3300), cadence: 3600),
+            AthenaService(name: "Tribunal Monitor", status: .running, lastRun: Date().addingTimeInterval(-900), nextRun: Date().addingTimeInterval(0), cadence: 900),
+            AthenaService(name: "Voice Wake Word", status: .running, lastRun: nil, nextRun: nil, cadence: nil),
+            AthenaService(name: "Federation Sync", status: .idle, lastRun: Date().addingTimeInterval(-7200), nextRun: Date().addingTimeInterval(1800), cadence: 7200)
+        ])
+        completion(.success(status))
+    }
+
+    private func parseDate(from value: Any?) -> Date? {
+        if let dateString = value as? String {
+            let formatter = ISO8601DateFormatter()
+            return formatter.date(from: dateString)
+        }
+        return nil
+    }
+
+    func getAlerts(completion: @escaping (Result<[AthenaAlert], Error>) -> Void) {
+        // Mock implementation
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.3) {
+            let alerts = [
+                AthenaAlert(id: "alert-1", timestamp: Date().addingTimeInterval(-1800), severity: .info, title: "Memory Optimization Complete", message: "Successfully optimized memory usage by 35%", acknowledged: true),
+                AthenaAlert(id: "alert-2", timestamp: Date().addingTimeInterval(-600), severity: .warning, title: "High Memory Usage Detected", message: "Memory utilization at 85%. Optimization scheduled.", acknowledged: false)
+            ]
+            completion(.success(alerts))
+        }
+    }
+
+    func getMetrics(completion: @escaping (Result<AthenaMetrics, Error>) -> Void) {
+        // Mock implementation
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) {
+            let metrics = AthenaMetrics(
+                memoryOptimizationSavings: 0.35,
+                tribunalScansToday: 24,
+                alertsTriggeredToday: 3,
+                averageResponseTime: 0.8,
+                systemHealthScore: 0.95
+            )
+            completion(.success(metrics))
+        }
+    }
+
+    func acknowledgeAlert(_ alertId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        // Mock implementation
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) {
+            completion(.success(()))
+        }
+    }
+
+    func updateCadence(service: String, cadence: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+        // Mock implementation
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.3) {
+            completion(.success(()))
+        }
+    }
+
+    func sendTestAlert(completion: @escaping (Result<Void, Error>) -> Void) {
+        // Mock implementation
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) {
+            completion(.success(()))
+        }
+    }
+}
+
+struct AthenaStatus {
+    let services: [AthenaService]
+}

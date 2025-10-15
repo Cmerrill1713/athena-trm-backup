@@ -1,4 +1,0 @@
-module CNIOExtrasZlib {
-    umbrella header "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/swift-nio-extras/Sources/CNIOExtrasZlib/include/CNIOExtrasZlib.h"
-    export *
-}

@@ -1,3 +1,0 @@
-module NIOCore {
-    header "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOCore.build/include/NIOCore-Swift.h"
-}

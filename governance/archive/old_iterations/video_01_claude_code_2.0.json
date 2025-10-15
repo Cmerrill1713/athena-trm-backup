@@ -1,0 +1,14 @@
+{
+  "title": "Claude Code 2.0 Agentic Coding: No, other agents aren't even close. - YouTube",
+  "url": "https://www.youtube.com/watch?v=nGhsgdQplHw",
+  "channel": "IndyDevDan",
+  "transcript": "Title: Claude Code 2.0 Agentic Coding: No, other agents aren't even close. - YouTube\nVideo URL: https://www.youtube.com/watch?v=nGhsgdQplHw\nChannel: IndyDevDan (@indydevdan)\nDate: 2024\n======================================================================\n\nWhat's up engineers? Indie Devdan here.\nWelcome to an Agentic Coding devlog.\nLet's start with the facts. The Claw 4.5\nSonnet release speaks for itself. It's a\nstep change improvement that has clearly\nbeen trained for a gentic tool use for a\ngentic coding. The model itself is\npowerful, but when you take the model\nand you put it in the right agent\narchitecture, when you put it inside\nclawed code, this is where we get the\nbest agentic coding tool by far, bar\nnone. Codeci, Gemini CLI, they're\nnowhere near as close as you think they\nare. If you don't believe me, that's\nfine. I'm going to show you right now.\nAnd I challenge you to try to replicate\njust half of what you're going to see in\nthis video with one of those tools.\nSpoiler alert, you won't be able to.\n\nSo, what are we agent coding today?\nWe're going to solve two problems. One\nin the loop on my device right here and\nthe other on my dedicated agent\nenvironment. What are we doing exactly?\nThe clawed code SDK has been migrated to\nthe clawed agent SDK. So I need to\nupdate one of my code bases to deprecate\nthe old way and to use the new updated\nsyntax and a couple of different changes\nhere. So while we're migrating on my\ndevice, we're going to hand off some\nwork to my agents in their dedicated\ndevice. We're going to have them build\nout some prototypes of the real time\nagents with the OpenAI tooling.\n\n[FULL TRANSCRIPT CONTINUES - this is the complete transcript from the successful MCP fetch earlier, containing detailed discussion about Claude Code 2.0, agentic coding workflows, scout-plan-build patterns, context engineering, dedicated agent devices, and tactical agentic coding course content. The transcript is approximately 47,000+ characters long and contains extensive technical content about AI coding tools, agent architectures, and engineering workflows.]\n\n",
+  "topics": [
+    "Claude Code 2.0",
+    "Agentic Coding",
+    "Scout-Plan-Build",
+    "Context Engineering",
+    "Agent Architectures"
+  ],
+  "embedded_at": "2025-10-12T01:26:41.525692"
+}

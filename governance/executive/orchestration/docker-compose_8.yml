@@ -1,0 +1,6 @@
+services:
+  kokoro:
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8020/health"]
+      interval: 10s
+      retries: 6

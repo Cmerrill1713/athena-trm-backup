@@ -1,0 +1,38 @@
+{
+  "version": "v1.6",
+  "timestamp": "2025-10-14T18:28:09-05:00",
+  "structure": {
+    "legislative": {
+      "purpose": "Policy compilation and rule enforcement",
+      "subsystems": ["policy_compiler", "canary_rules"],
+      "file_count":    26051
+    },
+    "judicial": {
+      "purpose": "Evaluation, entropy monitoring, and calibration",
+      "subsystems": ["entropy_service.py", "evaluation", "calibration"],
+      "file_count":    13525
+    },
+    "executive": {
+      "purpose": "Service orchestration and operations",
+      "subsystems": ["start_server.sh", "docker", "orchestration"],
+      "file_count":      732
+    },
+    "devil_advocate": {
+      "purpose": "Testing, stress scenarios, and red teaming",
+      "subsystems": ["stress_tests", "red_team_sets"],
+      "file_count":     9749
+    },
+    "observability": {
+      "purpose": "Monitoring, metrics, and alerting",
+      "subsystems": [],
+      "file_count":      843
+    },
+    "archive": {
+      "purpose": "Retired iterations and historical code",
+      "subsystems": ["old_iterations"],
+      "file_count":    63356
+    }
+  },
+  "total_files":   114261,
+  "backup_location": "/Users/christianmerrill/Documents/GitHub/governance_backup_20251014_182158"
+}

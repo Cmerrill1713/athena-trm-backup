@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v2.10
+    command:
+      - "--providers.file.directory=/config"
+      - "--providers.file.watch=true"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik-config.yml:/config/traefik-config.yml:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.localhost`)"
+      - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.entrypoints=web"
+
+  bridge-svc:
+    build: ./bridge
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bridge.rule=PathPrefix(`/api/`)"
+      - "traefik.http.routers.bridge.entrypoints=websecure"
+      - "traefik.http.services.bridge.loadbalancer.server.port=8000"
+      - "traefik.http.middlewares.bridge-cors.headers.accessControlAllowMethods=GET,POST,OPTIONS"
+      - "traefik.http.middlewares.bridge-cors.headers.accessControlAllowHeaders=Authorization,Content-Type"
+      - "traefik.http.middlewares.bridge-cors.headers.accessControlAllowOriginList=https://your.app"
+      - "traefik.http.middlewares.bridge-cors.headers.accessControlMaxAge=600"
+      - "traefik.http.middlewares.bridge-cors.headers.addVaryHeader=true"
+      - "traefik.http.middlewares.bridge-ratelimit.ratelimit.average=120"
+      - "traefik.http.middlewares.bridge-ratelimit.ratelimit.burst=60"
+      - "traefik.http.routers.bridge.middlewares=bridge-cors@docker,bridge-ratelimit@docker"

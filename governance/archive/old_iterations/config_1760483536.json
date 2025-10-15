@@ -1,0 +1,17 @@
+{
+  "model_type": "fastvlm",
+  "vocab_size": 32000,
+  "hidden_size": 4096,
+  "num_layers": 32,
+  "num_heads": 32,
+  "intermediate_size": 11008,
+  "max_position_embeddings": 4096,
+  "vision_config": {
+    "hidden_size": 1152,
+    "num_hidden_layers": 27,
+    "num_attention_heads": 16,
+    "image_size": 448,
+    "patch_size": 14
+  },
+  "description": "Apple FastVLM - High-performance Vision Language Model optimized for Apple Silicon"
+}

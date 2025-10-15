@@ -1,0 +1,16 @@
+{
+  "record": {
+    "id": "CN-001",
+    "subject": "供应延迟",
+    "body": "请确认采购单 PO#789 与最新到货时间。客户急需此批货物，原定10月18日交付，现在供应商表示可能延迟至10月25日。请尽快与供应商确认并更新系统。",
+    "channel": "email",
+    "priority": "high",
+    "language": "zh-CN"
+  },
+  "expected": {
+    "next_action": "review",
+    "min_facts": 2,
+    "max_latency_ms": 2000
+  }
+}
+

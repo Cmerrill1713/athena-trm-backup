@@ -1,0 +1,4 @@
+Ignoring --strip-bitcode because --sign was not passed
+2025-10-11 14:58:22.554 appintentsmetadataprocessor[26821:3157701] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+Ignoring --strip-bitcode because --sign was not passed
+2025-10-11 14:58:22.793 appintentsmetadataprocessor[26830:3157758] warning: Metadata extraction skipped. No AppIntents.framework dependency found.

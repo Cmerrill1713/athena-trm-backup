@@ -1,0 +1,97 @@
+# NeuroForge Code Inventory Configuration
+# What to count, what to exclude
+
+# Directories inside this repo to treat as components
+components:
+  NeuroForgeApp: ./NeuroForgeApp
+  Orchestrator: ./orchestrator
+  Agents: ./agents
+  FastVLM: ./fastvlm
+  Kokoro: ./kokoro
+  Scripts: ./scripts
+  Monitoring: ./monitoring
+  Dashboards: ./dashboards
+  Database: ./db
+  Examples: ./examples
+  Config: ./config
+
+# Optional: external paths (sibling repos / checked-out services)
+external_components: {}
+  # Example:
+  # WeaviateSchemas: ../weaviate-schemas
+  # InfraScripts: ../infra-scripts
+
+# Count submodules? (reads .gitmodules and dives in)
+include_submodules: true
+
+# Exclude patterns (globs, folder names)
+exclude_dirs:
+  - .git
+  - .venv
+  - venv
+  - kokoro-venv
+  - node_modules
+  - build
+  - dist
+  - DerivedData
+  - .build
+  - .dart_tool
+  - .next
+  - .pytest_cache
+  - __pycache__
+  - .swiftpm
+  - .idea
+  - .vscode
+  - logs
+  - backups
+  - artifacts
+  - .xcresult
+  - bin
+  - obj
+
+exclude_ext:
+  - .png
+  - .jpg
+  - .jpeg
+  - .gif
+  - .pdf
+  - .zip
+  - .dmg
+  - .xcarchive
+  - .xcworkspace
+  - .xcodeproj
+  - .bin
+  - .dat
+  - .db
+  - .sqlite
+  - .log
+
+# Map extensions to languages
+lang_map:
+  .swift: Swift
+  .py: Python
+  .sh: Shell
+  .bash: Shell
+  .zsh: Shell
+  .yml: YAML
+  .yaml: YAML
+  .json: JSON
+  .md: Markdown
+  .ts: TypeScript
+  .tsx: TypeScript
+  .js: JavaScript
+  .mjs: JavaScript
+  .jsx: JavaScript
+  .css: CSS
+  .scss: SCSS
+  .html: HTML
+  .go: Go
+  .rs: Rust
+  .c: C
+  .cpp: C++
+  .h: C
+  .hpp: C++
+  .java: Java
+  .kt: Kotlin
+  .rb: Ruby
+  .sql: SQL

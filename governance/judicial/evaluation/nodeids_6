@@ -1,0 +1,17 @@
+[
+  "tests/test_api_health.py::TestHealthEndpoints::test_chat_endpoint_exists",
+  "tests/test_api_health.py::TestHealthEndpoints::test_openapi_spec",
+  "tests/test_api_health.py::TestHealthEndpoints::test_root_health",
+  "tests/test_api_health.py::TestHealthEndpoints::test_service_health[/api/models]",
+  "tests/test_api_health.py::TestHealthEndpoints::test_service_health[/api/orchestration/status]",
+  "tests/test_api_health.py::TestHealthEndpoints::test_service_health[/api/unified-chat/health]",
+  "tests/test_imports.py::TestImports::test_fastapi_app_exists",
+  "tests/test_imports.py::TestImports::test_import_module[api.app]",
+  "tests/test_imports.py::TestImports::test_import_module[api.routers.health]",
+  "tests/test_imports.py::TestImports::test_import_module[api]",
+  "tests/test_imports.py::TestImports::test_import_module[src.config]",
+  "tests/test_imports.py::TestImports::test_import_module[src.utils]",
+  "tests/test_imports.py::TestImports::test_import_module[src]",
+  "tests/test_imports.py::TestImports::test_middleware_loaded",
+  "tests/test_imports.py::TestImports::test_routers_registered"
+]

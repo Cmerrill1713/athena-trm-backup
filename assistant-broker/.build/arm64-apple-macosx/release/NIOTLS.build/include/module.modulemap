@@ -1,3 +1,0 @@
-module NIOTLS {
-    header "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTLS.build/include/NIOTLS-Swift.h"
-}

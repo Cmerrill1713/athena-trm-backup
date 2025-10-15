@@ -1,3 +1,0 @@
-module NIOEmbedded {
-    header "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOEmbedded.build/include/NIOEmbedded-Swift.h"
-}

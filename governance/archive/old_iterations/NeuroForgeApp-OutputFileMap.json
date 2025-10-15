@@ -1,0 +1,239 @@
+{
+  "" : {
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NeuroForgeApp-primary.dia",
+    "emit-module-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NeuroForgeApp-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NeuroForgeApp-primary-emit-module.dia",
+    "pch" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NeuroForgeApp-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NeuroForgeApp-primary.swiftdeps"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/ChatService.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatService.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatService.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatService.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatService.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatService.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatService.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatService.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatService~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Components/ChatComposer.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatComposer.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatComposer.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatComposer.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatComposer.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatComposer.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatComposer.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatComposer.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ChatComposer~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Components/KeyCatchingTextEditor.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/KeyCatchingTextEditor.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/KeyCatchingTextEditor.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/KeyCatchingTextEditor.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/KeyCatchingTextEditor.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/KeyCatchingTextEditor.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/KeyCatchingTextEditor.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/KeyCatchingTextEditor.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/KeyCatchingTextEditor~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Config/APIBase.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIBase.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIBase.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIBase.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIBase.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIBase.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIBase.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIBase.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIBase~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/ContentView.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Diagnostics/DiagnosticsOverlay.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/DiagnosticsOverlay.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/DiagnosticsOverlay.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/DiagnosticsOverlay.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/DiagnosticsOverlay.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/DiagnosticsOverlay.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/DiagnosticsOverlay.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/DiagnosticsOverlay.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/DiagnosticsOverlay~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Diagnostics/ErrorCenter.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ErrorCenter.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ErrorCenter.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ErrorCenter.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ErrorCenter.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ErrorCenter.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ErrorCenter.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ErrorCenter.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ErrorCenter~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Features/HealthBanner.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/HealthBanner.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/HealthBanner.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/HealthBanner.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/HealthBanner.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/HealthBanner.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/HealthBanner.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/HealthBanner.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/HealthBanner~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Features/SimpleChatView.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleChatView.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleChatView.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleChatView.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleChatView.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleChatView.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleChatView.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleChatView.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleChatView~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Features/SimpleDebugView.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleDebugView.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleDebugView.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleDebugView.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleDebugView.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleDebugView.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleDebugView.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleDebugView.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleDebugView~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Features/SimpleSettingsView.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleSettingsView.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleSettingsView.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleSettingsView.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleSettingsView.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleSettingsView.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleSettingsView.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleSettingsView.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/SimpleSettingsView~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/ImagePicker.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ImagePicker.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ImagePicker.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ImagePicker.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ImagePicker.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ImagePicker.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ImagePicker.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ImagePicker.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ImagePicker~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/LayoutManager.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LayoutManager.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LayoutManager.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LayoutManager.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LayoutManager.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LayoutManager.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LayoutManager.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LayoutManager.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LayoutManager~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/LoginView.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LoginView.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LoginView.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LoginView.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LoginView.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LoginView.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LoginView.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LoginView.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/LoginView~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Network/APIClient.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIClient.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIClient.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIClient.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIClient.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIClient.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIClient.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIClient.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIClient~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Network/APIError.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIError.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIError.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIError.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIError.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIError.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIError.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIError.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/APIError~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Network/NetworkInterceptor.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NetworkInterceptor.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NetworkInterceptor.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NetworkInterceptor.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NetworkInterceptor.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NetworkInterceptor.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NetworkInterceptor.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NetworkInterceptor.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/NetworkInterceptor~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/ProfileManager.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ProfileManager.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ProfileManager.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ProfileManager.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ProfileManager.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ProfileManager.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ProfileManager.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ProfileManager.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ProfileManager~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/ToggleButton.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ToggleButton.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ToggleButton.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ToggleButton.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ToggleButton.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ToggleButton.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ToggleButton.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ToggleButton.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/ToggleButton~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/Utils/FocusHelper.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/FocusHelper.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/FocusHelper.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/FocusHelper.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/FocusHelper.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/FocusHelper.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/FocusHelper.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/FocusHelper.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/FocusHelper~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/VoiceRecorder.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/VoiceRecorder.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/VoiceRecorder.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/VoiceRecorder.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/VoiceRecorder.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/VoiceRecorder.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/VoiceRecorder.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/VoiceRecorder.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/VoiceRecorder~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/WakeWordDetector.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/WakeWordDetector.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/WakeWordDetector.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/WakeWordDetector.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/WakeWordDetector.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/WakeWordDetector.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/WakeWordDetector.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/WakeWordDetector.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/WakeWordDetector~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/Sources/NeuroForgeApp/main.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/main.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/main.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/main.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/main.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/main.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/main.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/main.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeApp.build/Objects-normal/arm64/main~partial.swiftmodule"
+  }
+}

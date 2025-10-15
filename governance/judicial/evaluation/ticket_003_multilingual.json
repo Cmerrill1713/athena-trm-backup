@@ -1,0 +1,17 @@
+{
+  "record": {
+    "id": "EV-003",
+    "subject": "問い合わせ: システムエラー",
+    "body": "サーバーが応答しません。至急確認をお願いします。\n\nError code: ERR_CONNECTION_REFUSED\nTimestamp: 2025-10-12 02:00:00",
+    "sla_mins_left": 60,
+    "channel": "email",
+    "priority": "urgent",
+    "language": "ja"
+  },
+  "expected": {
+    "next_action": "escalate",
+    "min_facts": 2,
+    "max_latency_ms": 2000
+  }
+}
+

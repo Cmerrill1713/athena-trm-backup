@@ -1,0 +1,45 @@
+# Cursor Ignore File - Exclude heavy directories from indexing
+# This dramatically improves performance for large monorepos
+
+# Large AI Projects (Archive candidates)
+AI-Projects/
+fastvlm/
+external/
+
+# Build artifacts
+**/node_modules/
+**/__pycache__/
+**/build/
+**/dist/
+**/.next/
+
+# Cache directories
+**/.pytest_cache/
+**/.mypy_cache/
+**/*.egg-info/
+
+# IDE
+.vscode/.cache/
+.cursor/
+
+# Git internals
+.git/objects/
+.git/subtree-cache/
+
+# Governance backups
+governance_backup_*/
+infra_snapshot/
+docker_intake/
+
+# Logs and temp
+**/*.log
+**/.DS_Store
+**/Thumbs.db
+
+# Docker artifacts (if not actively working on them)
+# Uncomment to exclude:
+# **/Dockerfile*
+# **/docker-compose*.yml
+
+
+

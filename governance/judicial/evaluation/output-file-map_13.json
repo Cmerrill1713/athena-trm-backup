@@ -1,0 +1,31 @@
+{
+  "": {
+    "dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/NIOTestUtils.d",
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/NIOTestUtils.o",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/master.swiftdeps"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/NIOTestUtils/ByteToMessageDecoderVerifier.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/ByteToMessageDecoderVerifier.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/ByteToMessageDecoderVerifier~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/ByteToMessageDecoderVerifier.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/ByteToMessageDecoderVerifier.dia"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/NIOTestUtils/EventCounterHandler.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/EventCounterHandler.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/EventCounterHandler~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/EventCounterHandler.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/EventCounterHandler.dia"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/NIOTestUtils/ManualTaskExecutor.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/ManualTaskExecutor.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/ManualTaskExecutor~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/ManualTaskExecutor.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/ManualTaskExecutor.dia"
+  },
+  "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/checkouts/swift-nio/Sources/NIOTestUtils/NIOHTTP1TestServer.swift": {
+    "object": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/NIOHTTP1TestServer.swift.o",
+    "swiftmodule": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/NIOHTTP1TestServer~partial.swiftmodule",
+    "swift-dependencies": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/NIOHTTP1TestServer.swiftdeps",
+    "diagnostics": "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTestUtils.build/NIOHTTP1TestServer.dia"
+  }
+}

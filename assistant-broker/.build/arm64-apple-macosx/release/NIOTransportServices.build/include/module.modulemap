@@ -1,3 +1,0 @@
-module NIOTransportServices {
-    header "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/arm64-apple-macosx/release/NIOTransportServices.build/include/NIOTransportServices-Swift.h"
-}

@@ -1,4 +1,0 @@
-module CAsyncHTTPClient {
-    umbrella header "/Users/christianmerrill/Documents/GitHub/assistant-broker/.build/index-build/checkouts/async-http-client/Sources/CAsyncHTTPClient/include/CAsyncHTTPClient.h"
-    export *
-}

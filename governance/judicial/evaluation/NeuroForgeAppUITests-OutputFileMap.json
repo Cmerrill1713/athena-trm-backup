@@ -1,0 +1,39 @@
+{
+  "" : {
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/NeuroForgeAppUITests-primary.dia",
+    "emit-module-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/NeuroForgeAppUITests-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/NeuroForgeAppUITests-primary-emit-module.dia",
+    "pch" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/NeuroForgeAppUITests-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/NeuroForgeAppUITests-primary.swiftdeps"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/UITests/BootAndHealthTests.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/BootAndHealthTests.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/BootAndHealthTests.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/BootAndHealthTests.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/BootAndHealthTests.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/BootAndHealthTests.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/BootAndHealthTests.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/BootAndHealthTests.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/BootAndHealthTests~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/UITests/ChatBehaviorTests.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/ChatBehaviorTests.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/ChatBehaviorTests.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/ChatBehaviorTests.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/ChatBehaviorTests.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/ChatBehaviorTests.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/ChatBehaviorTests.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/ChatBehaviorTests.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/ChatBehaviorTests~partial.swiftmodule"
+  },
+  "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/UITests/RAGTests.swift" : {
+    "const-values" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/RAGTests.swiftconstvalues",
+    "dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/RAGTests.d",
+    "diagnostics" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/RAGTests.dia",
+    "index-unit-output-path" : "/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/RAGTests.o",
+    "llvm-bc" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/RAGTests.bc",
+    "object" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/RAGTests.o",
+    "swift-dependencies" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/RAGTests.swiftdeps",
+    "swiftmodule" : "/Users/christianmerrill/Documents/GitHub/AI-Projects/universal-ai-tools/NeuroForgeApp/DerivedData/Build/Intermediates.noindex/NeuroForgeApp.build/Debug/NeuroForgeAppUITests.build/Objects-normal/arm64/RAGTests~partial.swiftmodule"
+  }
+}
