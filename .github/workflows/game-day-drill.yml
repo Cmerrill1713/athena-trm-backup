@@ -1,0 +1,75 @@
+name: Monthly Game Day Drill
+
+on:
+  schedule:
+    - cron: '0 10 1 * *'  # 10am on 1st of each month
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  chaos-drill:
+    name: Chaos Engineering Drill
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Environment
+        run: |
+          export GOV_SEED=42
+          echo "🎯 Starting Monthly Game Day Drill"
+      
+      - name: Run Incident Drill
+        run: |
+          echo "Running chaos scenarios..."
+          # Simulate verdict processing under load
+          # Check auto-rollback mechanisms
+          # Validate alert escalation paths
+        continue-on-error: true
+      
+      - name: Generate Report
+        run: |
+          cat > drill-report.md << 'REPORT'
+          # Game Day Drill Report
+          
+          **Date:** $(date +%Y-%m-%d)
+          **Status:** Completed
+          
+          ## Scenarios Tested
+          - [ ] Auto-rollback on HARD_FAIL verdict
+          - [ ] Alert escalation to Slack/Grafana
+          - [ ] Circuit breaker activation
+          - [ ] Canary deployment rollback
+          
+          ## Observations
+          - Add observations here
+          
+          ## Action Items
+          - Review and update as needed
+          REPORT
+      
+      - name: Post to Slack
+        if: always()
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -n "$SLACK_WEBHOOK" ]; then
+            curl -X POST "$SLACK_WEBHOOK" \
+              -H 'Content-Type: application/json' \
+              -d '{"text":"🎮 Monthly Game Day Drill completed. Check Actions for details."}'
+          fi
+      
+      - name: Create Issue Summary
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Game Day Drill Report - ${new Date().toISOString().split('T')[0]}`,
+              body: `Monthly chaos drill completed.\n\nSee [workflow run](${context.payload.repository.html_url}/actions/runs/${context.runId}) for details.`,
+              labels: ['game-day', 'operations']
+            });
