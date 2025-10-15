@@ -1,0 +1,8 @@
+# Governance System - Requires review for critical changes
+/governance/**                    @Cmerrill1713
+/.github/workflows/governance-*   @Cmerrill1713
+/scripts/gov_*                    @Cmerrill1713
+
+# Security & Policy
+/.github/workflows/**             @Cmerrill1713
+/scripts/audit_*                  @Cmerrill1713
