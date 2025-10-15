@@ -1,0 +1,42 @@
+name: Generate SBOM
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sbom:
+    name: Generate & Attach SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Generate SBOM with Syft
+        uses: anchore/sbom-action@v0
+        with:
+          format: spdx-json
+          output-file: sbom.spdx.json
+      
+      - name: Scan SBOM with Grype
+        uses: anchore/scan-action@v4
+        with:
+          sbom: sbom.spdx.json
+          fail-build: false
+      
+      - name: Upload SBOM to Release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload ${{ github.event.release.tag_name }} sbom.spdx.json
+      
+      - name: Upload SBOM Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+          path: sbom.spdx.json
+          retention-days: 90

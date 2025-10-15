@@ -1,0 +1,8 @@
+[workspace]
+# Root workspace for Rust security patches
+
+[patch.crates-io]
+# Fix CVE-2025-53605: protobuf OOM vulnerability
+protobuf = "3.6.0"
+prost = "0.13.3"
+prost-types = "0.13.3"
