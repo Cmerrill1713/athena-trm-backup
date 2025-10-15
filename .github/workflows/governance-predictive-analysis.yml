@@ -1,0 +1,85 @@
+name: governance-predictive-analysis
+on:
+  schedule:
+    # Run every 4 hours to update predictions
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+    inputs:
+      lookback_days: { description: "Days of history to analyze", default: "30", required: true }
+
+jobs:
+  analyze-and-predict:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    env:
+      LOOKBACK_DAYS: ${{ github.event.inputs.lookback_days || 30 }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      - name: Run predictive analysis
+        run: |
+          echo "🔮 Running governance predictive analysis..."
+
+          # Get insights
+          python3 scripts/gov_predictor.py --get-insights --lookback-days="$LOOKBACK_DAYS" > insights.json
+
+          # Generate predictions for different scenarios
+          python3 scripts/gov_predictor.py --predict-rollback-probability --traffic-rate 50 --deployment-type hotfix > prediction_low.json
+          python3 scripts/gov_predictor.py --predict-rollback-probability --traffic-rate 150 --deployment-type feature > prediction_medium.json
+          python3 scripts/gov_predictor.py --predict-rollback-probability --traffic-rate 300 --deployment-type major > prediction_high.json
+
+          echo "✅ Predictive analysis completed"
+
+      - name: Update Prometheus metrics
+        run: |
+          # Extract metrics and push to Prometheus
+          # This would integrate with Prometheus pushgateway
+
+          if command -v curl >/dev/null 2>&1; then
+            # Push prediction metrics (example structure)
+            PREDICTION=$(cat prediction_medium.json | python3 -c "import sys, json; data=json.load(sys.stdin); print(data['rollback_probability'])")
+            CONFIDENCE=$(cat prediction_medium.json | python3 -c "import sys, json; data=json.load(sys.stdin); print(data['confidence'])")
+
+            echo "Would push metrics: governance_predicted_rollback_probability $PREDICTION"
+            echo "Would push metrics: governance_prediction_confidence $CONFIDENCE"
+          fi
+
+      - name: Generate insights report
+        run: |
+          echo "## Governance Predictive Insights Report" > insights_report.md
+          echo "" >> insights_report.md
+          echo "**Generated:** $(date)" >> insights_report.md
+          echo "" >> insights_report.md
+          echo "\`\`\`json" >> insights_report.md
+          cat insights.json >> insights_report.md
+          echo "" >> insights_report.md
+          echo "\`\`\`" >> insights_report.md
+
+      - name: Notify Slack of insights
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          INSIGHTS=$(cat insights.json | python3 -c "
+          import sys, json, statistics
+          try:
+              data = json.load(sys.stdin)
+              rollback_rate = data.get('rollback_rate', 0)
+              risky_hours = data.get('risky_hours', [])
+              recommendations = data.get('recommendations', [])
+
+              msg = f'Governance Predictive Analysis Complete\\n'
+              msg += f'• Rollback Rate: {rollback_rate:.1%}\\n'
+              if risky_hours:
+                  msg += f'• Risky Hours: {risky_hours}\\n'
+              if recommendations:
+                  msg += f'• Key Insights: {len(recommendations)} recommendations available'
+              print(msg)
+          except:
+              print('Governance predictive analysis completed')
+          " 2>/dev/null || echo "Governance predictive analysis completed")
+
+          ./scripts/gov_notify_slack.sh "Predictive Analysis Complete" "$INSIGHTS"

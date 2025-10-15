@@ -1,0 +1,37 @@
+name: governance-nightly-probe
+on:
+  schedule:
+    # Run nightly at 2 AM UTC (off-peak)
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  synthetic-probe:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    env:
+      PROM_URL: ${{ secrets.PROM_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Devil's Advocate synthetic probe
+        run: |
+          echo "Running nightly synthetic governance probe..."
+          python3 scripts/devil_advocate_probe.py --all-scenarios --shadow-slice --canary-trigger
+
+      - name: Verify probe results
+        run: |
+          echo "Checking that synthetic scenarios triggered decisions..."
+          recent_decisions=$(tail -20 logs/canary_decisions.log | grep -c "DECISION:")
+          if [ "$recent_decisions" -lt 3 ]; then
+            echo "Warning: Only $recent_decisions decisions found, expected more from synthetic probe"
+            exit 1
+          fi
+          echo "✅ Synthetic probe completed successfully"

@@ -1,0 +1,43 @@
+name: governance-adaptive-learning
+on:
+  schedule:
+    # Run weekly on Sunday at 3 AM UTC (off-peak, after weekend testing)
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+    inputs:
+      analysis_days: { description: "Days of history to analyze", default: "30", required: true }
+
+jobs:
+  learn-thresholds:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    env:
+      ANALYSIS_DAYS: ${{ github.event.inputs.analysis_days || 30 }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Analyze governance history
+        run: |
+          echo "🔍 Analyzing governance decisions from last $ANALYSIS_DAYS days..."
+          python3 scripts/gov_adaptive_thresholds.py --analyze-last-days="$ANALYSIS_DAYS" --update-thresholds
+
+      - name: Show learned thresholds
+        run: |
+          echo "🎯 New adaptive thresholds:"
+          python3 scripts/gov_adaptive_thresholds.py --show-current
+
+      - name: Notify Slack of threshold updates
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          THRESHOLDS=$(python3 scripts/gov_adaptive_thresholds.py --show-current 2>/dev/null | head -10)
+          if [ $? -eq 0 ]; then
+            ./scripts/gov_notify_slack.sh "Adaptive Thresholds Updated" "Weekly threshold learning completed:\n\`\`\`\n$THRESHOLDS\n\`\`\`"
+          fi

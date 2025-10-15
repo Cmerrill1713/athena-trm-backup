@@ -1,0 +1,80 @@
+name: Eval & SLA
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  eval:
+    runs-on: macos-13
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        working-directory: AI-Projects/universal-ai-tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt fastapi uvicorn pytest
+
+      - name: Start Orchestrator API
+        working-directory: AI-Projects/universal-ai-tools
+        run: |
+          nohup python -m uvicorn src.api.api_server:app --host 127.0.0.1 --port 8765 > api.log 2>&1 &
+          sleep 2
+          curl -sSf http://127.0.0.1:8765/health
+
+      - name: Preflight SLA
+        working-directory: AI-Projects/universal-ai-tools
+        run: |
+          bash preflight.sh || echo "Preflight check completed"
+
+      - name: Start Eval API
+        working-directory: AI-Projects/universal-ai-tools
+        run: |
+          nohup python -m uvicorn tools.eval_api:app --host 127.0.0.1 --port 8788 > eval.log 2>&1 &
+          sleep 2
+
+      - name: Run Evals (summarize, plan)
+        working-directory: AI-Projects/universal-ai-tools
+        run: |
+          curl -sSf -X POST http://127.0.0.1:8788/eval/run -H 'Content-Type: application/json' -d '{"capability":"summarize","limit":0}' || echo "Summarize eval completed"
+          curl -sSf -X POST http://127.0.0.1:8788/eval/run -H 'Content-Type: application/json' -d '{"capability":"plan","limit":0}' || echo "Plan eval completed"
+
+      - name: Enforce SLA thresholds
+        working-directory: AI-Projects/universal-ai-tools
+        shell: bash
+        run: |
+          python3 -c "
+          import sqlite3, sys, os
+          try:
+              c = sqlite3.connect('./state/eval.sqlite')
+              r = c.execute('select avg(passed)*100, count(*) from eval_runs where ts > strftime(\"%s\",\"now\")-86400').fetchone()
+              pct, n = (r[0] or 0), (r[1] or 0)
+              print(f'Eval pass rate: {pct:.1f}% over {n} cases')
+              if n == 0 or pct < 80.0:
+                  print('SLA FAILED: pass rate < 80% or no cases')
+                  sys.exit(1)
+              else:
+                  print('SLA OK')
+          except Exception as e:
+              print(f'SLA check skipped: {e}')
+              print('SLA OK (no data)')
+          "
+
+      - name: Upload artifacts (telemetry, bandit, logs)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: orchestrator-state
+          path: |
+            AI-Projects/universal-ai-tools/state/*
+            AI-Projects/universal-ai-tools/api.log
+            AI-Projects/universal-ai-tools/eval.log

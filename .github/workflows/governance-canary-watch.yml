@@ -1,0 +1,130 @@
+name: governance-canary-watch
+on:
+  workflow_dispatch:
+    inputs:
+      window_minutes: { description: "Observe minutes", default: "15", required: true }
+      min_samples: { description: "Min tasks in window", default: "200", required: true }
+
+jobs:
+  watch:
+    runs-on: ubuntu-22.04
+    env:
+      PROM_URL: ${{ secrets.PROM_URL }}
+      WINDOW_MINUTES: ${{ github.event.inputs.window_minutes }}
+      MIN_SAMPLES: ${{ github.event.inputs.min_samples }}
+      REQ_SOLVE_DELTA_GE: "0.02"
+      REQ_VIOL_DELTA_LE: "0.005"
+      REQ_P95_DELTA_LE: "0.25"
+      REQ_ECE_POST_LE: "0.06"
+      REQ_EDGE_SCORE_GE: "0.80"
+      REQ_CONSIST_IDX_GE: "0.90"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      - name: Decide canary outcome
+        id: decide
+        run: |
+          # Capture decision output and metrics
+          python3 scripts/gov_canary_decider.py 2>&1 | tee decision_output.log
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+
+          # Extract rollback reason if applicable
+          if [ $? -eq 20 ]; then
+            echo "ROLLBACK" > decision_type.txt
+            grep "ROLLBACK:" decision_output.log | sed 's/.*ROLLBACK: //' > rollback_reason.txt || echo "Hard breakers triggered" > rollback_reason.txt
+          elif [ $? -eq 0 ]; then
+            echo "PROMOTE" > decision_type.txt
+          else
+            echo "HOLD" > decision_type.txt
+          fi
+        continue-on-error: true
+
+      - name: Capture metrics for incident report
+        if: ${{ steps.decide.outputs.exit_code == '20' }}
+        run: |
+          # Extract metrics from decision output and save as JSON
+          python3 -c "
+          import json, re
+          with open('decision_output.log', 'r') as f:
+              content = f.read()
+
+          # Extract JSON metrics
+          json_match = re.search(r'(\{[^{}]*\{[^{}]*\}[^{}]*\})', content.replace('\n', ' '))
+          if json_match:
+              try:
+                  metrics = json.loads(json_match.group(1))
+                  with open('rollback_metrics.json', 'w') as f:
+                      json.dump(metrics, f, indent=2)
+                  print('Metrics captured for incident report')
+              except:
+                  print('Could not parse metrics JSON')
+          else:
+              print('No metrics found in output')
+          "
+
+      - name: Create incident report on rollback
+        if: ${{ steps.decide.outputs.exit_code == '20' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.repository }}
+          GRAFANA_URL: ${{ secrets.GRAFANA_URL }}
+        run: |
+          ROLLBACK_REASON=$(cat rollback_reason.txt)
+          ROLLBACK_TIME=$(date +%s)
+
+          echo "Creating incident report for rollback: $ROLLBACK_REASON"
+
+          # Create incident report (dry run by default, can be enabled)
+          python3 scripts/gov_incident_reporter.py \
+            --rollback-reason "$ROLLBACK_REASON" \
+            --metrics-file rollback_metrics.json \
+            --rollback-time "$ROLLBACK_TIME" \
+            --create-issue
+
+          echo "Incident report created for rollback investigation"
+
+      - name: Notify Slack + Grafana on PROMOTE
+        if: ${{ steps.decide.outputs.exit_code == '0' }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GRAFANA_URL: ${{ secrets.GRAFANA_URL }}
+          GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
+        run: |
+          ./scripts/gov_notify_slack.sh PROMOTE "All KPIs passed. Canary promoted."
+          ./scripts/gov_notify_grafana.sh PROMOTE "Canary promoted - KPIs green" || true
+
+      - name: Branch on decision
+        if: ${{ steps.decide.outputs.exit_code == '0' }}
+        run: bash scripts/gov_promote.sh
+
+      - name: Notify Slack + Grafana on ROLLBACK
+        if: ${{ steps.decide.outputs.exit_code == '20' }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GRAFANA_URL: ${{ secrets.GRAFANA_URL }}
+          GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
+        run: |
+          ./scripts/gov_notify_slack.sh ROLLBACK "Hard breakers triggered. Canary rolled back."
+          ./scripts/gov_notify_grafana.sh ROLLBACK "Canary rolled back - hard breakers" || true
+
+      - name: Rollback on failure
+        if: ${{ steps.decide.outputs.exit_code == '20' }}
+        run: bash scripts/gov_rollback.sh
+
+      - name: Notify Slack + Grafana on HOLD
+        if: ${{ steps.decide.outputs.exit_code == '10' }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GRAFANA_URL: ${{ secrets.GRAFANA_URL }}
+          GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
+        run: |
+          ./scripts/gov_notify_slack.sh HOLD "Waiting for sufficient signal."
+          ./scripts/gov_notify_grafana.sh HOLD "Canary on hold - insufficient signal" || true
+
+      - name: Hold (insufficient data)
+        if: ${{ steps.decide.outputs.exit_code == '10' }}
+        run: echo "HOLD: Not enough signal yet; rerun later."
