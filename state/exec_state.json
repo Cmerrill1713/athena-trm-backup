@@ -1,8 +1,11 @@
 {
   "safe_version": "v1.9.0-canary",
   "current_version": "v1.9.0-canary",
-  "promotions_frozen_until": 1760507485.581985,
+  "promotions_frozen_until": 1760574863.8113487,
   "freeze_promotions": true,
   "rollback_in_progress": false,
-  "last_updated": 1760503885.5819921
+  "quarantine_active": true,
+  "quarantine_percentage": 0.1,
+  "require_human_review": true,
+  "last_updated": 1760571267.4518712
 }

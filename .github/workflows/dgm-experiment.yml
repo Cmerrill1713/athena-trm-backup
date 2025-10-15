@@ -1,0 +1,143 @@
+name: DGM Self-Improvement Experiment
+
+on:
+  workflow_dispatch:
+    inputs:
+      experiment_config:
+        description: 'Path to experiment config YAML'
+        required: true
+        default: 'governance/research/dgm/experiments/pilot_experiment.yaml'
+      max_generations:
+        description: 'Maximum generations to evolve'
+        required: false
+        default: '10'
+  schedule:
+    - cron: '0 3 * * 0'  # Weekly on Sunday at 3am
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  dgm-evolution:
+    name: Run DGM Evolution Cycle
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pyyaml anthropic openai datasets pytest
+          pip install -r governance/research/dgm-upstream/requirements.txt
+      
+      - name: Set up Docker
+        run: |
+          docker --version
+          docker pull python:3.11-slim
+      
+      - name: Run DGM Experiment
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python governance/research/dgm/experiments/experiment_runner.py \
+            ${{ github.event.inputs.experiment_config || 'governance/research/dgm/experiments/pilot_experiment.yaml' }}
+      
+      - name: Upload Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dgm-results-${{ github.run_id }}
+          path: governance/research/dgm/results/
+          retention-days: 90
+      
+      - name: Parse Results
+        id: results
+        run: |
+          EXPERIMENT_ID=$(date +%Y%m%d_%H%M%S)
+          REPORT_PATH="governance/research/dgm/results/${EXPERIMENT_ID}/experiment_report.json"
+          
+          if [ -f "$REPORT_PATH" ]; then
+            APPROVAL_RATE=$(jq -r '.analysis.verdicts.approval_rate' "$REPORT_PATH")
+            MAX_PERF=$(jq -r '.analysis.performance.max' "$REPORT_PATH")
+            echo "approval_rate=$APPROVAL_RATE" >> $GITHUB_OUTPUT
+            echo "max_performance=$MAX_PERF" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create Summary Issue
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const fs = require('fs');
+            const approvalRate = '${{ steps.results.outputs.approval_rate }}';
+            const maxPerf = '${{ steps.results.outputs.max_performance }}';
+            
+            const body = `## 🧬 DGM Evolution Experiment Complete
+            
+            **Run ID:** ${context.runId}
+            **Config:** \`${{ github.event.inputs.experiment_config }}\`
+            
+            ### Results
+            - **Approval Rate:** ${approvalRate || 'N/A'}
+            - **Max Performance:** ${maxPerf || 'N/A'}
+            
+            ### Artifacts
+            - [Download Results](${context.payload.repository.html_url}/actions/runs/${context.runId})
+            
+            ### Next Steps
+            ${approvalRate > 0.5 ? '✅ High approval rate - consider production deployment' : '⚠️ Low approval rate - review governance constraints'}
+            `;
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `DGM Experiment Results - ${new Date().toISOString().split('T')[0]}`,
+              body: body,
+              labels: ['dgm', 'research', 'self-improvement']
+            });
+      
+      - name: Notify on Failure
+        if: failure()
+        run: |
+          echo "❌ DGM experiment failed. Check logs for details."
+          # In production, this would send Slack/PagerDuty alerts
+
+  safety-check:
+    name: Safety Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Validate Constitutional Policy
+        run: |
+          python -c "
+          import yaml
+          with open('governance/legislative/self_modification_policy.yaml') as f:
+              policy = yaml.safe_load(f)
+          
+          # Verify mandatory constraints
+          mandatory_count = sum(
+              1 for c in policy['constraints']['execution']
+              if c['enforcement'] == 'MANDATORY'
+          )
+          
+          print(f'✓ {mandatory_count} mandatory safety constraints verified')
+          assert mandatory_count >= 4, 'Insufficient mandatory constraints'
+          "
+      
+      - name: Check Sandbox Configuration  
+        run: |
+          docker run --rm python:3.11-slim python -c "print('✓ Sandbox ready')"
+

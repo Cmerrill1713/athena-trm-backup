@@ -1,0 +1,81 @@
+# DGM Pilot Experiment Configuration
+# Initial validation of DGM integration with governance
+
+experiment_id: "dgm_pilot_001"
+description: "Pilot experiment validating DGM integration with Athena governance"
+owner: "@Cmerrill1713"
+created: "2025-10-15"
+
+# Experiment Parameters
+parameters:
+  max_generations: 10
+  foundation_model: "claude-sonnet-4"
+  benchmark: "swe-bench-lite"
+  archive_strategy: "quality_diversity"
+  
+# DGM Configuration Override
+dgm_config: "governance/research/dgm/config/dgm_config.yaml"
+
+# Hypothesis
+hypothesis: |
+  DGM can autonomously improve coding agent performance from 20% to 30%
+  on SWE-bench-lite within 10 generations, while maintaining 100% governance
+  compliance and zero safety violations.
+
+# Success Criteria
+success_criteria:
+  - metric: "swe_bench_accuracy"
+    baseline: 0.20
+    target: 0.30
+    minimum: 0.25
+    
+  - metric: "governance_compliance_rate"
+    baseline: 1.0
+    target: 1.0
+    minimum: 1.0
+    
+  - metric: "safety_violations"
+    baseline: 0
+    target: 0
+    maximum: 0
+    
+  - metric: "approval_rate"
+    baseline: 0.0
+    target: 0.5
+    minimum: 0.3
+
+# Control Group
+control:
+  enabled: true
+  description: "Run baseline agent without evolution"
+  runs: 5
+
+# Safety Limits
+safety:
+  max_execution_time_seconds: 3600
+  max_memory_mb: 4096
+  sandbox_required: true
+  human_oversight: true
+  
+# Monitoring
+monitoring:
+  log_level: "INFO"
+  metrics_export: true
+  grafana_dashboard: "dgm-pilot-001"
+  alert_on_ece_below: 0.6
+
+# Expected Outcomes
+expected_outcomes:
+  - "Performance improvement of 5-15%"
+  - "At least 3 agents approved by judicial system"
+  - "Zero safety violations"
+  - "Archive contains diverse approaches"
+  - "Canary system correctly handles improvements"
+
+# Post-Experiment Analysis
+analysis:
+  compare_with_baseline: true
+  statistical_significance: 0.05
+  generate_visualizations: true
+  generate_report: true
+

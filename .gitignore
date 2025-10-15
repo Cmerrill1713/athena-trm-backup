@@ -111,3 +111,9 @@ external/SplattingAvatar
 fastvlm/ml-fastvlm
 kokoro
 pydantic-ai
+
+# DGM Integration
+governance/research/dgm/agents/*.json
+governance/research/dgm/results/*
+!governance/research/dgm/results/.gitkeep
+governance/research/dgm-upstream/output_dgm/

@@ -10,6 +10,16 @@ from pydantic import BaseModel, Field, validator
 from prometheus_client import Counter, Gauge, generate_latest, CONTENT_TYPE_LATEST
 from fastapi.responses import Response
 
+# Import AGI Core metrics if available
+try:
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    from agi_core.evaluation_metrics import get_metrics_collector
+    METRICS_AVAILABLE = True
+except ImportError:
+    METRICS_AVAILABLE = False
+    get_metrics_collector = None
+
 APP_PORT = int(os.getenv("ORCH_PORT", "8000"))
 STATE_PATH = Path(os.getenv("EXEC_STATE_PATH", "/app/state/exec_state.json"))
 LEDGER_PATH = Path(os.getenv("ACTION_LEDGER_PATH", "/app/artifacts/ledger/actions.log"))
@@ -36,6 +46,9 @@ class ExecState(BaseModel):
     promotions_frozen_until: Optional[float] = None
     freeze_promotions: bool = False
     rollback_in_progress: bool = False
+    quarantine_active: bool = False
+    quarantine_percentage: float = 0.0
+    require_human_review: bool = False
     last_updated: float = 0.0
 
 class VerdictRequest(BaseModel):
@@ -48,6 +61,7 @@ class VerdictRequest(BaseModel):
     actions: Optional[List[str]] = None
     autoheal: Optional[Dict[str, Any]] = None
     fix_confidence: Optional[float] = None
+    calibrated_conf: Optional[float] = None  # For SOFT_FAIL verdicts
     meta: Optional[Dict[str, Any]] = None
     
     @validator('verdict')
@@ -114,11 +128,17 @@ def apply_verdict(verdict: VerdictRequest, state: ExecState) -> List[str]:
     
     elif verdict.verdict == "SOFT_FAIL":
         # Quarantine - don't promote but don't rollback
+        state.quarantine_active = True
+        state.quarantine_percentage = 0.10  # Quarantine 10% of traffic
         actions_taken.append("QUARANTINE")
         
         # If high fix confidence, attempt autoheal
         if verdict.fix_confidence and verdict.fix_confidence > 0.8:
             actions_taken.append("AUTOHEAL_ATTEMPT")
+        else:
+            # Low confidence - require human review
+            state.require_human_review = True
+            actions_taken.append("RETRY_OR_HUMAN")
     
     elif verdict.verdict == "PASS":
         # Check if promotions are frozen
@@ -211,6 +231,28 @@ def post_verdict(payload: Dict[str, Any] = Body(...)):
     # Update action metrics
     for action in actions_taken:
         ACTIONS.labels(action=action).inc()
+    
+    # Record governance metrics to AGI Core
+    if METRICS_AVAILABLE:
+        try:
+            metrics_collector = get_metrics_collector()
+            metrics_collector.record_governance_metrics(
+                verdict=req.verdict,
+                metrics={
+                    "task_id": req.task_id,
+                    "ece_estimate": req.ece_estimate,
+                    "entropy_drift": req.entropy_drift,
+                    "violation_rate_delta": req.violation_rate_delta,
+                    "latency_p95_delta": req.latency_p95_delta,
+                    "actions_taken": actions_taken,
+                    "fix_confidence": req.fix_confidence,
+                    "calibrated_conf": req.calibrated_conf,
+                    "current_version": state.current_version,
+                    "safe_version": state.safe_version
+                }
+            )
+        except Exception as e:
+            print(f"Warning: Failed to record governance metrics: {e}")
     
     # Emit event to bus
     emit_event("exec.verdict_applied", {

@@ -1,0 +1,68 @@
+# Darwin Gödel Machine Integration Configuration
+# Integrates DGM self-improvement with Athena Governance System
+
+dgm:
+  # Core Settings
+  enabled: true
+  version: "1.0.0"
+  upstream_repo: "https://github.com/jennyzzt/dgm"
+  
+  # Safety & Sandboxing
+  safety:
+    require_judicial_verdict: true
+    sandbox_execution: true
+    max_archive_size: 1000
+    max_evolution_depth: 10
+    human_oversight_threshold: 0.7  # ECE < 0.7 requires human review
+    
+  # Governance Integration
+  governance:
+    legislative_policy: "self_modification_policy.yaml"
+    judicial_validator: "dgm_verdict_validator.py"
+    executive_orchestrator: true
+    constitutional_constraints: true
+    
+  # Evolution Parameters
+  evolution:
+    foundation_model: "claude-sonnet-4"
+    temperature: 0.7
+    archive_selection_strategy: "quality_diversity"
+    mutation_rate: 0.3
+    crossover_enabled: false
+    
+  # Benchmarks
+  benchmarks:
+    - name: "swe-bench-lite"
+      enabled: true
+      min_performance_threshold: 0.25
+      
+    - name: "polyglot"
+      enabled: true
+      min_performance_threshold: 0.15
+      
+    - name: "governance-integration"
+      enabled: true
+      custom_eval: "governance/judicial/evaluation/dgm_governance_eval.py"
+      
+  # Canary Integration
+  canary:
+    enabled: true
+    traffic_percentage: 0.05
+    rollback_threshold: 0.15  # If performance drops >15%, rollback
+    promotion_threshold: 1.10  # If performance improves >10%, promote
+    
+  # Monitoring & Alerts
+  monitoring:
+    log_directory: "governance/research/dgm/results"
+    metrics_endpoint: "http://localhost:9090"
+    alert_on_ece_below: 0.5
+    slack_notifications: true
+    grafana_dashboard: "dgm-evolution"
+    
+  # Archive Management
+  archive:
+    storage_path: "governance/research/dgm/agents"
+    checkpoint_frequency: 10  # Save every 10 generations
+    prune_threshold: 0.1  # Remove bottom 10% performers
+    diversity_weight: 0.3  # 30% weight on diversity vs performance
+

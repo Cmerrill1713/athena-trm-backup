@@ -1,0 +1,144 @@
+# Constitutional Policy for Self-Modifying Agents
+# Darwin Gödel Machine Safety Constraints
+
+policy_id: "SELF_MOD_001"
+version: "1.0.0"
+effective_date: "2025-10-15"
+owner: "governance_legislative"
+
+description: |
+  Constitutional constraints for self-improving AI agents.
+  Ensures DGM evolution remains safe, beneficial, and aligned with system goals.
+
+# Core Principles
+principles:
+  - name: "Empirical Validation"
+    description: "All modifications must be empirically validated on benchmarks"
+    mandatory: true
+    
+  - name: "Incremental Change"
+    description: "Modifications must be incremental, not revolutionary"
+    mandatory: true
+    
+  - name: "Transparency"
+    description: "All changes must be logged and auditable"
+    mandatory: true
+    
+  - name: "Reversibility"
+    description: "All changes must be reversible via rollback"
+    mandatory: true
+
+# Safety Constraints
+constraints:
+  execution:
+    - rule: "All agent code must execute in sandbox"
+      enforcement: "MANDATORY"
+      violation_action: "HARD_BLOCK"
+      
+    - rule: "No direct system calls (os.system, subprocess without approval)"
+      enforcement: "MANDATORY"
+      violation_action: "REJECT_MODIFICATION"
+      
+    - rule: "No arbitrary code execution (eval, exec, compile)"
+      enforcement: "MANDATORY"
+      violation_action: "REJECT_MODIFICATION"
+      
+    - rule: "File access limited to designated workspace"
+      enforcement: "MANDATORY"
+      violation_action: "REJECT_MODIFICATION"
+  
+  performance:
+    - rule: "Performance regression >5% requires human review"
+      enforcement: "ADVISORY"
+      violation_action: "ALERT_HUMAN"
+      
+    - rule: "ECE below 0.7 requires human oversight"
+      enforcement: "MANDATORY"
+      violation_action: "PAUSE_EVOLUTION"
+      
+    - rule: "Code size increase >10KB requires justification"
+      enforcement: "ADVISORY"
+      violation_action: "LOG_WARNING"
+  
+  governance:
+    - rule: "All modifications require judicial verdict"
+      enforcement: "MANDATORY"
+      violation_action: "HARD_BLOCK"
+      
+    - rule: "Archive must maintain diversity (min 20% unique approaches)"
+      enforcement: "ADVISORY"
+      violation_action: "LOG_WARNING"
+      
+    - rule: "Canary deployment for changes with 2-10% improvement"
+      enforcement: "MANDATORY"
+      violation_action: "ROUTE_TO_CANARY"
+
+# Guardrails
+guardrails:
+  archive_limits:
+    max_size: 1000
+    max_depth: 10
+    prune_strategy: "diversity_preserving"
+    
+  evolution_limits:
+    max_generations: 100
+    max_iterations_per_day: 50
+    circuit_breaker_failures: 5  # Stop if 5 consecutive failures
+    
+  resource_limits:
+    max_memory_mb: 4096
+    max_cpu_seconds: 300
+    max_docker_containers: 10
+
+# Escalation Rules
+escalation:
+  - condition: "ECE < 0.5"
+    action: "IMMEDIATE_HUMAN_REVIEW"
+    notification: ["SLACK", "EMAIL", "GRAFANA"]
+    
+  - condition: "Performance regression > 10%"
+    action: "AUTO_ROLLBACK"
+    notification: ["SLACK", "GRAFANA"]
+    
+  - condition: "Safety violation detected"
+    action: "HARD_STOP"
+    notification: ["SLACK", "EMAIL", "GRAFANA", "PAGERDUTY"]
+    
+  - condition: "Archive quality declining"
+    action: "PAUSE_AND_ANALYZE"
+    notification: ["SLACK"]
+
+# Audit Requirements
+audit:
+  log_all_modifications: true
+  log_all_verdicts: true
+  log_all_benchmark_results: true
+  retention_days: 90
+  immutable_logs: true
+  
+  required_fields:
+    - agent_id
+    - timestamp
+    - code_diff
+    - verdict
+    - ece_estimate
+    - benchmark_results
+    - safety_check_result
+
+# Review Cadence
+review:
+  human_review_frequency: "weekly"
+  policy_update_frequency: "monthly"
+  emergency_review_triggers:
+    - "safety_violation"
+    - "sustained_performance_decline"
+    - "unusual_archive_patterns"
+
+# Integration with Existing Systems
+integrations:
+  judicial: "governance/judicial/evaluation/dgm_verdict_validator.py"
+  executive: "governance/executive/orchestration/dgm_orchestrator.py"
+  canary: "scripts/gov_canary_decider.py"
+  monitoring: "governance/observability/dgm_metrics.py"
+  alerts: "scripts/gov_incident_reporter.py"
+
