@@ -205,3 +205,36 @@ governance-playbooks-list:
 
 governance-playbooks-validate:
 	python3 exec/playbook_executor.py --validate-all
+
+# =============================================================================
+# ATHENA STARTUP & MANAGEMENT
+# =============================================================================
+
+.PHONY: start
+start:  ## Start all Athena services (one-command startup)
+	@./scripts/start_athena.sh
+
+.PHONY: stop
+stop:  ## Stop all Athena services
+	@echo "🛑 Stopping Athena services..."
+	@docker compose -f docker-compose.athena-governance.yml down 2>/dev/null || true
+	@[ -f .orchestrator.pid ] && kill $$(cat .orchestrator.pid) 2>/dev/null || true
+	@[ -f .athena_api.pid ] && kill $$(cat .athena_api.pid) 2>/dev/null || true
+	@rm -f .orchestrator.pid .athena_api.pid
+	@echo "✅ All services stopped"
+
+.PHONY: status
+status:  ## Show Athena status and health
+	@echo "📊 Athena Platform Status"
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@curl -sf http://localhost:9110/health >/dev/null && echo "✅ Orchestrator (9110)" || echo "❌ Orchestrator (9110)"
+	@curl -sf http://localhost:9109/metrics >/dev/null && echo "✅ Metrics (9109)" || echo "❌ Metrics (9109)"
+	@curl -sf http://localhost:9111/health >/dev/null && echo "✅ Canary (9111)" || echo "❌ Canary (9111)"
+	@curl -sf http://localhost:9090/-/ready >/dev/null && echo "✅ Prometheus (9090)" || echo "❌ Prometheus (9090)"
+	@curl -sf http://localhost:3001/api/health >/dev/null && echo "✅ Grafana (3001)" || echo "❌ Grafana (3001)"
+	@curl -sf http://localhost:8000/health >/dev/null && echo "✅ Master API (8000)" || echo "❌ Master API (8000)"
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+.PHONY: restart
+restart: stop start  ## Restart all Athena services
+
