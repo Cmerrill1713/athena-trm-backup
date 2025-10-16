@@ -1,4 +1,5 @@
 # Directory Cleanup Plan
+
 **Comprehensive audit: Which directories are used vs unused**
 
 ---
@@ -9,13 +10,14 @@
 **Actively Used:** 52  
 **Potentially Unused:** 12  
 **Should Delete:** 6  
-**Should Archive:** 4  
+**Should Archive:** 4
 
 ---
 
 ## ✅ **KEEP - Actively Used in Build (52 directories)**
 
 ### Core System (8)
+
 - ✅ **governance/** - Complete governance (99k files) - IMPORTED
 - ✅ **orchestrator/** - Orchestration service - RUNNING
 - ✅ **agi_core/** - AGI multi-agent - IMPORTED
@@ -26,6 +28,7 @@
 - ✅ **config/** - Configuration - LOADED
 
 ### Supporting (10)
+
 - ✅ **common/** - Shared utils - IMPORTED
 - ✅ **policy/** - Constitutional policy - LOADED
 - ✅ **infra/** - Infrastructure (NEW) - READY
@@ -38,6 +41,7 @@
 - ✅ **experts/** - AGI experts - LOADED
 
 ### Data & State (6)
+
 - ✅ **state/** - Runtime state - MOUNTED
 - ✅ **logs/** - Application logs - ACTIVE
 - ✅ **manifests/** - Deployment manifests - ACTIVE
@@ -46,6 +50,7 @@
 - ✅ **sandbox/** - Safe testing - ACTIVE
 
 ### Apps (5)
+
 - ✅ **NeuroForgeApp/** - Primary macOS app - ACTIVE
 - ✅ **AthenaReporter/** - Reporter app - ACTIVE
 - ✅ **AthenaPopoutDemo/** - Demo - ACTIVE
@@ -53,6 +58,7 @@
 - ✅ **Athena_Desktop_Launcher/** - Launcher - ACTIVE
 
 ### Backend (5)
+
 - ✅ **backend/** - Backend services - RUNNING
 - ✅ **athena/** - Athena core - ACTIVE
 - ✅ **src/** - Source code - ACTIVE
@@ -60,6 +66,7 @@
 - ✅ **athena-voice-control/** - Voice - ACTIVE
 
 ### Monitoring Stack (8)
+
 - ✅ **prometheus/** - Prom configs - ACTIVE
 - ✅ **grafana/** - Dashboards - ACTIVE
 - ✅ **otel/** - OpenTelemetry - ACTIVE
@@ -70,17 +77,20 @@
 - ✅ **grafana_panels/** - Panel configs - ACTIVE
 
 ### Deployment (3)
+
 - ✅ **docker/** - Docker configs - ACTIVE
 - ✅ **deploy/** - Deployment - ACTIVE
 - ✅ **launchd/** - macOS daemons - ACTIVE
 
 ### Quick Actions (4)
+
 - ✅ **QuickAction_Restart_Athena.workflow/** - ACTIVE
 - ✅ **QuickAction_Start_Backend.workflow/** - ACTIVE
 - ✅ **QuickAction_Start_Frontend.workflow/** - ACTIVE
 - ✅ **QuickAction_Stop_Athena.workflow/** - ACTIVE
 
 ### IDE & Build (3)
+
 - ✅ **.github/** - CI/CD workflows - ACTIVE
 - ✅ **.vscode/** - IDE config (NEW) - ACTIVE
 - ✅ **.venv/** - Python env - ACTIVE
@@ -90,68 +100,80 @@
 ## ⚠️ **REVIEW - Potentially Redundant (12 directories)**
 
 ### 1. **judicial/** ⚠️ SMALL (1 file)
+
 **Contents:** `ece_gate.py` (325 bytes)
 **Issue:** Redundant with `governance/judicial/`
 **Used:** NO imports found
 **Action:** ✅ **CONSOLIDATE into governance/judicial/ or DELETE**
 
 ### 2. **legislative/** ⚠️ SMALL (1 file)
+
 **Contents:** `policy_compiler.py` (763 bytes)
 **Issue:** Redundant with `governance/legislative/`
 **Used:** NO imports found
 **Action:** ✅ **CONSOLIDATE into governance/legislative/ or DELETE**
 
 ### 3. **cursor_intake/** ⚠️ OLD INTAKE
+
 **Contents:** 70 files (JSON, YML, TXT)
 **Issue:** Likely old intake data
 **Used:** NO references found
 **Action:** ✅ **ARCHIVE or DELETE** (verify first)
 
 ### 4. **governance_intake/** ⚠️ OLD INTAKE
+
 **Contents:** 14 files (JSON, PY, SH)
 **Issue:** Likely superseded
 **Used:** Has `governance_intake_manifest.yaml` at root
 **Action:** ✅ **ARCHIVE** (may have historical value)
 
 ### 5. **infra_snapshot/** ⚠️ SNAPSHOT
+
 **Issue:** Old infrastructure snapshot
 **In .gitignore:** ✅ YES
 **Action:** ✅ **DELETE** (already ignored)
 
 ### 6. **indydevdan_transcripts/** ⚠️ TRANSCRIPTS
+
 **Contents:** 8 video transcript files
 **Purpose:** Reference material only
 **Action:** 🟡 **KEEP** (reference) or **MOVE to docs/**
 
 ### 7. **Desktop-Projects/** ⚠️ UNCLEAR
+
 **Contents:** "agi agents" subdirectory
 **Used:** Unknown
 **Action:** ✅ **CHECK contents, likely DELETE or ARCHIVE**
 
 ### 8. **AI-Projects/** ⚠️ PARTIAL IN .gitignore
+
 **Contents:** Multiple subdirectories
 **In .gitignore:** Only `universal-ai-tools` excluded
 **Used:** Unknown
 **Action:** ✅ **CHECK if needed, add to .gitignore or DELETE**
 
 ### 9. **NeuroForgeApp_Clean/** ⚠️ DUPLICATE?
+
 **Contents:** 10 Swift files
 **Issue:** May be redundant with NeuroForgeApp/
 **Action:** ✅ **COMPARE with NeuroForgeApp, DELETE if same**
 
 ### 10. **SwiftUI_MCP_Modernization/** ⚠️ PROJECT
+
 **Contents:** 8 files
 **Purpose:** Modernization project
 **Used:** Unknown if still active
 **Action:** 🟡 **CHECK if completed, ARCHIVE if done**
 
 ### 11. **ai_republic/** ⚠️ OLD PROJECT
+
 **Contents:** phase2/, phase3/, federation/
 **Purpose:** Old AI Republic project
 **Used:** NO imports found
 **Action:** ✅ **ARCHIVE or DELETE**
 
 ### 12. **fastvlm/** ⚠️ EXTERNAL
+
 **Contents:** Vision language model
 **Used:** Has requirements.txt (dependency fixed)
 **Action:** 🟡 **KEEP if needed for vision**, else DELETE
@@ -161,31 +183,37 @@
 ## 🗑️ **DELETE - Unused/Legacy (6 directories)**
 
 ### 1. **neuroforge_all_legacy/** ❌ DELETE
+
 **Contents:** Empty or old backup
 **Size:** Small
 **Action:** ✅ **DELETE** (legacy backup)
 
 ### 2. **neuroforge_restore_backup_20251013_173812/** ❌ DELETE
+
 **Contents:** Old restore backup
 **Date:** Oct 13 (2 days old)
 **Action:** ✅ **DELETE** (current system is newer)
 
 ### 3. **kokoro-venv/** ❌ DELETE
+
 **Contents:** Virtual environment
 **In .gitignore:** ✅ YES
 **Action:** ✅ **DELETE** (regenerate when needed)
 
 ### 4. **.ruff_cache/** ❌ DELETE (if in git)
+
 **Contents:** Linter cache
 **Purpose:** Build artifact
 **Action:** ✅ **Ensure in .gitignore, DELETE from git**
 
 ### 5. **.logs/** ❌ DELETE (if in git)
+
 **Contents:** Log files
 **Purpose:** Runtime logs
 **Action:** ✅ **Ensure in .gitignore, DELETE from git**
 
 ### 6. **.playwright-mcp/** ❌ CHECK
+
 **Contents:** Playwright cache?
 **Purpose:** Testing cache
 **Action:** ✅ **Ensure in .gitignore**
@@ -195,21 +223,25 @@
 ## 📦 **ARCHIVE - Keep for History (4 directories)**
 
 ### 1. **archive/** 📦 ARCHIVE
+
 **Contents:** Historical code (~20k files)
 **Purpose:** Code history
 **Action:** ✅ **KEEP** (excluded from hot workspace)
 
 ### 2. **backups/** 📦 BACKUPS
+
 **Contents:** 5 database backups (.sql.zst)
 **Purpose:** Recovery
 **Action:** ✅ **KEEP** but ensure in .gitignore
 
 ### 3. **external/** 📦 EXTERNAL
+
 **Contents:** External dependencies
 **Purpose:** Third-party code
 **Action:** 🟡 **KEEP** (check if still needed)
 
 ### 4. **cursor_intake.zip / governance_intake.zip** 📦 ARCHIVES
+
 **Purpose:** Compressed intake data
 **Action:** ✅ **KEEP** as backups, DELETE unzipped versions
 
@@ -229,6 +261,7 @@
 ## 🔧 **CLEANUP COMMANDS**
 
 ### Safe to Delete Now
+
 ```bash
 cd /Users/christianmerrill/Documents/GitHub
 
@@ -246,6 +279,7 @@ rmdir judicial/ legislative/
 ```
 
 ### Review First, Then Delete
+
 ```bash
 # Check these directories first
 ls -lh Desktop-Projects/
@@ -263,6 +297,7 @@ rm -rf governance_intake/
 ```
 
 ### Update .gitignore
+
 ```bash
 cat >> .gitignore << 'IGNORE'
 
@@ -291,22 +326,26 @@ IGNORE
 ### If We Clean Up Suggested Directories
 
 **Before:**
+
 - Total directories: 80+
 - Git-tracked: ~75
 - Size: Large
 
 **After:**
+
 - Total directories: ~65
 - Git-tracked: ~60
 - Size: Reduced by ~20%
 
 **Benefits:**
+
 - ✅ Faster git operations
 - ✅ Clearer project structure
 - ✅ Less confusion about what's active
 - ✅ Smaller repository size
 
 **Risks:**
+
 - ⚠️ May delete something needed
 - ⚠️ Should review each directory first
 
@@ -315,6 +354,7 @@ IGNORE
 ## ✅ **SAFE TO PROCEED**
 
 ### Definite Deletes (No Risk)
+
 1. `neuroforge_all_legacy/` - Empty/old
 2. `neuroforge_restore_backup_20251013_173812/` - Old backup
 3. `kokoro-venv/` - Regenerable venv
@@ -322,10 +362,12 @@ IGNORE
 5. `.logs/` - Runtime logs
 
 ### Consolidate (Low Risk)
+
 1. `judicial/ece_gate.py` → `governance/judicial/evaluation/`
 2. `legislative/policy_compiler.py` → `governance/legislative/`
 
 ### Review First (Medium Risk)
+
 1. `cursor_intake/` - Check if has useful data
 2. `governance_intake/` - May have historical value
 3. `Desktop-Projects/` - Check contents
@@ -337,6 +379,7 @@ IGNORE
 ## 🎯 **Recommended Action Plan**
 
 ### Phase 1: Safe Deletes (Do Now)
+
 ```bash
 # Navigate to repo
 cd /Users/christianmerrill/Documents/GitHub
@@ -362,6 +405,7 @@ EOF
 ```
 
 ### Phase 2: Review & Archive (Next)
+
 ```bash
 # Archive old intake data
 mkdir -p archive/intake_data
@@ -375,6 +419,7 @@ diff -r NeuroForgeApp/ NeuroForgeApp_Clean/
 ```
 
 ### Phase 3: Update .gitignore (Final)
+
 ```bash
 # Add everything that shouldn't be tracked
 cat >> .gitignore << 'EOF'
@@ -410,6 +455,7 @@ Before deleting any directory, verify:
 ## 🎯 **Expected Outcome**
 
 ### Directory Count Reduction
+
 ```
 Before: 80+ directories
 After: ~65 directories
@@ -417,6 +463,7 @@ Reduction: ~18%
 ```
 
 ### Build Impact
+
 ```
 Active directories: 52 (no change)
 Unused removed: 12
@@ -425,6 +472,7 @@ Git size: Reduced
 ```
 
 ### No Breaking Changes
+
 - ✅ All imports still work
 - ✅ All services still run
 - ✅ All tests still pass
@@ -463,36 +511,47 @@ echo "✅ Safe cleanup complete!"
 ## 📊 **Final Directory Map (After Cleanup)**
 
 ### Core (8)
+
 governance/, orchestrator/, agi_core/, workflows/, monitoring/, scripts/, tests/, config/
 
 ### Support (10)
+
 common/, policy/, infra/, tools/, artifacts/, RUNBOOKS/, schemas/, docs/, examples/, experts/
 
 ### Apps (4)
+
 NeuroForgeApp/, AthenaReporter/, AthenaPopoutDemo/, assistant-broker/, Athena_Desktop_Launcher/
 
 ### Backend (5)
+
 backend/, athena/, src/, bridge/, athena-voice-control/
 
 ### Monitoring (8)
+
 prometheus/, grafana/, otel/, promtail/, tempo/, traefik/, dashboards/, grafana_panels/
 
 ### Data (6)
+
 state/, logs/, manifests/, releases/, db/, sandbox/
 
 ### Deployment (3)
+
 docker/, deploy/, launchd/
 
 ### Quick Actions (4)
-QuickAction_*.workflow/
+
+QuickAction\_\*.workflow/
 
 ### IDE (3)
+
 .github/, .vscode/, .venv/
 
 ### Submodules (4)
+
 kokoro/, pydantic-ai/, A2A/, TinyRecursiveModels/
 
 ### Archive (2)
+
 archive/, backups/
 
 **Total: ~60 directories (all actively used)**
@@ -502,4 +561,3 @@ archive/, backups/
 **Want me to run the safe cleanup now?**
 EOF
 cat DIRECTORY_CLEANUP_PLAN.md
-

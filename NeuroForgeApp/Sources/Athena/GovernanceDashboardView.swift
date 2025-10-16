@@ -3,7 +3,7 @@ import SwiftUI
 /// Governance Dashboard - Shows KPIs, Mode Control, Alerts
 struct GovernanceDashboardView: View {
     @EnvironmentObject var state: AthenaState
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             // Header with health status
@@ -13,35 +13,35 @@ struct GovernanceDashboardView: View {
                     .frame(width: 12, height: 12)
                 Text("Governance Orchestrator")
                     .font(.title2.bold())
-                
+
                 Spacer()
-                
+
                 Button(action: {
                     Task { await state.refreshGovernance() }
                 }) {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
             }
-            
+
             // Mode Switcher
             ModeSwitcherView()
-            
+
             Divider()
-            
+
             // KPI Grid
             KPIGridView()
-            
+
             Divider()
-            
+
             // Alerts
             if !state.governanceAlerts.isEmpty {
                 GovernanceAlertsView()
                 Divider()
             }
-            
+
             // Quick Actions
             QuickActionsView()
-            
+
             // Error Display
             if let error = state.lastError {
                 Text(error)
@@ -51,7 +51,7 @@ struct GovernanceDashboardView: View {
                     .background(Color.red.opacity(0.1))
                     .cornerRadius(6)
             }
-            
+
             Spacer()
         }
         .padding(24)
@@ -69,18 +69,21 @@ struct GovernanceDashboardView: View {
 
 private struct ModeSwitcherView: View {
     @EnvironmentObject var state: AthenaState
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Governance Mode")
                 .font(.headline)
-            
-            Picker("", selection: Binding(
-                get: { state.governanceMode },
-                set: { newMode in
-                    Task { await state.setGovernanceMode(newMode) }
-                }
-            )) {
+
+            Picker(
+                "",
+                selection: Binding(
+                    get: { state.governanceMode },
+                    set: { newMode in
+                        Task { await state.setGovernanceMode(newMode) }
+                    }
+                )
+            ) {
                 ForEach(GovernanceMode.allCases) { mode in
                     VStack(alignment: .leading, spacing: 2) {
                         Text(mode.displayName)
@@ -93,10 +96,10 @@ private struct ModeSwitcherView: View {
                 }
             }
             .pickerStyle(.segmented)
-            
+
             // Mode description
             HStack {
-                Image(systemImage: modeIcon)
+                Image(systemName: modeIcon)
                     .foregroundStyle(modeColor)
                 Text(state.governanceMode.description)
                     .font(.caption)
@@ -107,7 +110,7 @@ private struct ModeSwitcherView: View {
         .background(Color(.controlBackgroundColor))
         .cornerRadius(8)
     }
-    
+
     private var modeIcon: String {
         switch state.governanceMode {
         case .shadow: return "eye.fill"
@@ -115,7 +118,7 @@ private struct ModeSwitcherView: View {
         case .enforce: return "shield.fill"
         }
     }
-    
+
     private var modeColor: Color {
         switch state.governanceMode {
         case .shadow: return .blue
@@ -129,12 +132,12 @@ private struct ModeSwitcherView: View {
 
 private struct KPIGridView: View {
     @EnvironmentObject var state: AthenaState
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Key Performance Indicators")
                 .font(.headline)
-            
+
             Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 16) {
                 GridRow {
                     KPICard(
@@ -144,15 +147,16 @@ private struct KPIGridView: View {
                         status: eceStatus,
                         icon: "chart.line.uptrend.xyaxis"
                     )
-                    
+
                     KPICard(
                         title: "Entropy",
-                        value: state.kpis.entropy.isNaN ? "—" : String(format: "%.3f", state.kpis.entropy),
+                        value: state.kpis.entropy.isNaN
+                            ? "—" : String(format: "%.3f", state.kpis.entropy),
                         subtitle: "System Entropy Drift",
                         status: entropyStatus,
                         icon: "waveform.path.ecg"
                     )
-                    
+
                     KPICard(
                         title: "Verdicts",
                         value: "\(state.kpis.verdicts_5m)",
@@ -161,7 +165,7 @@ private struct KPIGridView: View {
                         icon: "checkmark.seal.fill"
                     )
                 }
-                
+
                 GridRow {
                     KPICard(
                         title: "Actions",
@@ -170,7 +174,7 @@ private struct KPIGridView: View {
                         status: .normal,
                         icon: "bolt.fill"
                     )
-                    
+
                     KPICard(
                         title: "Hard Fails",
                         value: "\(state.kpis.hard_fails_5m)",
@@ -178,7 +182,7 @@ private struct KPIGridView: View {
                         status: state.kpis.hard_fails_5m > 0 ? .warning : .normal,
                         icon: "exclamationmark.triangle.fill"
                     )
-                    
+
                     KPICard(
                         title: "Status",
                         value: state.lastVerdictStatus.isEmpty ? "Ready" : state.lastVerdictStatus,
@@ -190,13 +194,13 @@ private struct KPIGridView: View {
             }
         }
     }
-    
+
     private var eceStatus: KPIStatus {
         if state.kpis.ece > 0.08 { return .critical }
         if state.kpis.ece > 0.06 { return .warning }
         return .normal
     }
-    
+
     private var entropyStatus: KPIStatus {
         if state.kpis.entropy >= 0.25 { return .critical }
         return .normal
@@ -205,7 +209,7 @@ private struct KPIGridView: View {
 
 private enum KPIStatus {
     case normal, warning, critical
-    
+
     var color: Color {
         switch self {
         case .normal: return .green
@@ -221,21 +225,21 @@ private struct KPICard: View {
     let subtitle: String
     let status: KPIStatus
     let icon: String
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Image(systemImage: icon)
+                Image(systemName: icon)
                     .foregroundStyle(status.color)
                 Text(title)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
-            
+
             Text(value)
                 .font(.system(size: 28, weight: .bold, design: .rounded))
                 .foregroundStyle(status.color)
-            
+
             Text(subtitle)
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -255,17 +259,17 @@ private struct KPICard: View {
 
 private struct GovernanceAlertsView: View {
     @EnvironmentObject var state: AthenaState
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Active Alerts")
                 .font(.headline)
-            
+
             ForEach(state.governanceAlerts) { alert in
                 HStack(spacing: 12) {
-                    Image(systemImage: alertIcon(for: alert.severity))
+                    Image(systemName: alertIcon(for: alert.severity))
                         .foregroundStyle(alertColor(for: alert.severity))
-                    
+
                     VStack(alignment: .leading, spacing: 4) {
                         Text(alert.message)
                             .font(.body)
@@ -273,7 +277,7 @@ private struct GovernanceAlertsView: View {
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
-                    
+
                     Spacer()
                 }
                 .padding(12)
@@ -282,7 +286,7 @@ private struct GovernanceAlertsView: View {
             }
         }
     }
-    
+
     private func alertIcon(for severity: AlertSeverity) -> String {
         switch severity {
         case .info: return "info.circle.fill"
@@ -290,7 +294,7 @@ private struct GovernanceAlertsView: View {
         case .critical: return "exclamationmark.octagon.fill"
         }
     }
-    
+
     private func alertColor(for severity: AlertSeverity) -> Color {
         switch severity {
         case .info: return .blue
@@ -305,12 +309,12 @@ private struct GovernanceAlertsView: View {
 private struct QuickActionsView: View {
     @EnvironmentObject var state: AthenaState
     @State private var showingVerdictSheet = false
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Quick Actions")
                 .font(.headline)
-            
+
             HStack(spacing: 12) {
                 Button(action: {
                     Task {
@@ -326,7 +330,7 @@ private struct QuickActionsView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
-                
+
                 Button(action: {
                     Task {
                         await state.sendTestVerdict(
@@ -341,7 +345,7 @@ private struct QuickActionsView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.orange)
-                
+
                 Button(action: {
                     Task {
                         await state.sendTestVerdict(
@@ -356,9 +360,9 @@ private struct QuickActionsView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
-                
+
                 Divider()
-                
+
                 Button(action: {
                     showingVerdictSheet = true
                 }) {
@@ -379,15 +383,15 @@ private struct QuickActionsView: View {
 private struct CustomVerdictSheet: View {
     @EnvironmentObject var state: AthenaState
     @Environment(\.dismiss) var dismiss
-    
+
     @State private var verdict: String = "PASS"
     @State private var ecePost: Double = 0.03
     @State private var entropy: Double = 0.05
     @State private var selectedActions: Set<String> = ["PROMOTE"]
-    
+
     private let verdictOptions = ["PASS", "SOFT_FAIL", "HARD_FAIL"]
     private let actionOptions = ["PROMOTE", "HOLD", "ROLLBACK", "QUARANTINE", "FREEZE_PROMOTIONS"]
-    
+
     var body: some View {
         NavigationStack {
             Form {
@@ -399,7 +403,7 @@ private struct CustomVerdictSheet: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                
+
                 Section("Metrics") {
                     HStack {
                         Text("ECE Post:")
@@ -407,7 +411,7 @@ private struct CustomVerdictSheet: View {
                         TextField("0.03", value: $ecePost, format: .number)
                             .frame(width: 100)
                     }
-                    
+
                     HStack {
                         Text("Entropy:")
                         Spacer()
@@ -415,19 +419,21 @@ private struct CustomVerdictSheet: View {
                             .frame(width: 100)
                     }
                 }
-                
+
                 Section("Actions") {
                     ForEach(actionOptions, id: \.self) { action in
-                        Toggle(action, isOn: Binding(
-                            get: { selectedActions.contains(action) },
-                            set: { isOn in
-                                if isOn {
-                                    selectedActions.insert(action)
-                                } else {
-                                    selectedActions.remove(action)
+                        Toggle(
+                            action,
+                            isOn: Binding(
+                                get: { selectedActions.contains(action) },
+                                set: { isOn in
+                                    if isOn {
+                                        selectedActions.insert(action)
+                                    } else {
+                                        selectedActions.remove(action)
+                                    }
                                 }
-                            }
-                        ))
+                            ))
                     }
                 }
             }
@@ -438,7 +444,7 @@ private struct CustomVerdictSheet: View {
                         dismiss()
                     }
                 }
-                
+
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Send") {
                         Task {
@@ -462,11 +468,10 @@ private struct CustomVerdictSheet: View {
 // MARK: - Preview
 
 #if DEBUG
-struct GovernanceDashboardView_Previews: PreviewProvider {
-    static var previews: some View {
-        GovernanceDashboardView()
-            .environmentObject(AthenaState())
+    struct GovernanceDashboardView_Previews: PreviewProvider {
+        static var previews: some View {
+            GovernanceDashboardView()
+                .environmentObject(AthenaState())
+        }
     }
-}
 #endif
-

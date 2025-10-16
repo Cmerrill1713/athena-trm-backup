@@ -10,7 +10,8 @@ struct AthenaDashboardView: View {
         ScrollView {
             VStack(spacing: 20) {
                 Text("Athena Dashboard").font(.largeTitle.bold())
-                Text("AI Operations Center with UAT & Prompt Engineering").foregroundStyle(.secondary)
+                Text("AI Operations Center with UAT & Prompt Engineering").foregroundStyle(
+                    .secondary)
 
                 // Governance Dashboard
                 GovernanceDashboardView()
@@ -72,32 +73,41 @@ struct AthenaDashboardView: View {
 
                     HStack(spacing: 12) {
                         Button("Demo Critical Alert") {
-                            self.state.trigger(CriticalAlert(
-                                title: "DB p95 latency breach",
-                                message: "Read pool saturated in us-east-1",
-                                severity: .critical,
-                                affectedSystems: ["db-read-replica-a", "api-gateway"],
-                                recommendations: ["Scale read replicas", "Enable query cache", "Switch traffic to us-west-2"]
-                            ))
+                            self.state.trigger(
+                                CriticalAlert(
+                                    title: "DB p95 latency breach",
+                                    message: "Read pool saturated in us-east-1",
+                                    severity: .critical,
+                                    affectedSystems: ["db-read-replica-a", "api-gateway"],
+                                    recommendations: [
+                                        "Scale read replicas", "Enable query cache",
+                                        "Switch traffic to us-west-2",
+                                    ]
+                                ))
                         }
 
                         Button("Demo Tribunal Decision") {
-                            self.state.trigger(TribunalCase(
-                                caseID: "CASE-RAG-CE-001",
-                                summary: "Rollback CE router? Uplift dipped by 0.3pts",
-                                aiRecommendation: .modify,
-                                confidence: 0.78
-                            ))
+                            self.state.trigger(
+                                TribunalCase(
+                                    caseID: "CASE-RAG-CE-001",
+                                    summary: "Rollback CE router? Uplift dipped by 0.3pts",
+                                    aiRecommendation: .modify,
+                                    confidence: 0.78
+                                ))
                         }
 
                         Button("Demo System Emergency") {
-                            self.state.trigger(SystemEmergency(
-                                title: "Cluster Instability Detected",
-                                analysis: "Pod churn > 20% / 5min; suspected node pressure.",
-                                countdownSeconds: 20,
-                                risk: .high,
-                                actions: ["Drain suspect nodes", "Throttle deploys", "Scale control plane"]
-                            ))
+                            self.state.trigger(
+                                SystemEmergency(
+                                    title: "Cluster Instability Detected",
+                                    analysis: "Pod churn > 20% / 5min; suspected node pressure.",
+                                    countdownSeconds: 20,
+                                    risk: .high,
+                                    actions: [
+                                        "Drain suspect nodes", "Throttle deploys",
+                                        "Scale control plane",
+                                    ]
+                                ))
                         }
                     }
                     .buttonStyle(.borderedProminent)
@@ -117,7 +127,9 @@ struct AthenaDashboardView: View {
                 let request = PromptEngineeringRequest(
                     task: "Write a Python service to monitor Redis memory and alert at 80% usage",
                     context: ["language": "python", "monitoring": "redis"],
-                    constraints: ["Use redis-py library", "Send alerts via email", "Log to stdout"],
+                    constraints: [
+                        "Use redis-py library", "Send alerts via email", "Log to stdout",
+                    ],
                     examples: ["Monitor CPU usage", "Check disk space"]
                 )
 
@@ -126,17 +138,17 @@ struct AthenaDashboardView: View {
                 // let response = try await promptEngineer.engineerPrompt(payload: request)
 
                 promptResult = """
-                🧠 **AI Team Engineering (v1.0.2: Stub)**
+                    🧠 **AI Team Engineering (v1.0.2: Stub)**
 
-                **Status:** Feature temporarily disabled for v1.0.2
-                **Note:** Will be restored in v1.0.3 with proper ObservableObject conformance
+                    **Status:** Feature temporarily disabled for v1.0.2
+                    **Note:** Will be restored in v1.0.3 with proper ObservableObject conformance
 
-                **Planned Restoration:**
-                • PromptEngineerService with ObservableObject
-                • Full AI team orchestration
-                • Real-time team contributions
-                • Full reviewer feedback system
-                """
+                    **Planned Restoration:**
+                    • PromptEngineerService with ObservableObject
+                    • Full AI team orchestration
+                    • Real-time team contributions
+                    • Full reviewer feedback system
+                    """
 
             } catch {
                 promptResult = "❌ Prompt engineering failed: \(error.localizedDescription)"

@@ -7,10 +7,12 @@
 ## ✅ **What Was Added**
 
 ### New Files
+
 1. **Sources/Athena/GovernanceAPIClient.swift** - API client for orchestrator (9110) and Prometheus (9090)
 2. **Sources/Athena/GovernanceDashboardView.swift** - Main governance dashboard UI
 
 ### Updated Files
+
 1. **Sources/AthenaModels.swift** - Added governance models (GovernanceMode, KPIs, VerdictPayload, etc.)
 2. **Sources/AthenaState.swift** - Added governance state management & monitoring
 3. **Sources/AthenaDashboardView.swift** - Integrated governance dashboard
@@ -20,6 +22,7 @@
 ## 🎯 **Features**
 
 ### 1. Real-Time KPI Monitoring
+
 - **ECE** (Expected Calibration Error) - with color-coded thresholds
 - **Entropy Drift** - system entropy tracking
 - **Verdicts** - rendered verdicts (5min window)
@@ -27,7 +30,9 @@
 - **Hard Fails** - critical verdicts count
 
 ### 2. Mode Control
+
 **Three Modes:**
+
 - 🔵 **Shadow** (0% impact) - Observe only
 - 🟡 **Canary** (1-5% impact) - Partial enforcement
 - 🟢 **Enforce** (100% impact) - Full governance
@@ -35,13 +40,16 @@
 **Switch with one tap** - calls orchestrator `/mode` endpoint
 
 ### 3. Quick Test Verdicts
+
 - ✅ **Send PASS** - Test successful verdict
 - ⚠️ **Send SOFT_FAIL** - Test warning verdict
 - ❌ **Send HARD_FAIL** - Test critical verdict
 - 🎛️ **Custom Verdict** - Full control (sheet)
 
 ### 4. Live Alerts
+
 Auto-generated alerts based on KPIs:
+
 - 🔴 ECE >0.08 (Critical) - Rollback recommended
 - 🟠 ECE >0.06 (Warning) - Monitor closely
 - 🔴 Entropy ≥0.25 (Critical) - Rollback required
@@ -49,6 +57,7 @@ Auto-generated alerts based on KPIs:
 - 🔴 Orchestrator DOWN
 
 ### 5. Auto-Refresh
+
 - Polls every 5 seconds
 - Updates KPIs from Prometheus
 - Checks orchestrator health
@@ -88,12 +97,14 @@ AthenaState.refreshGovernance()
 ## 🚀 **Usage**
 
 ### In Xcode
+
 1. Open `NeuroForgeApp.xcodeproj`
 2. Build and run (⌘R)
 3. Navigate to "Athena Dashboard"
 4. Governance controls appear at the top
 
 ### Requirements
+
 - macOS 14+ or iOS 17+
 - Governance services running:
   - Port 9110 (orchestrator)
@@ -101,6 +112,7 @@ AthenaState.refreshGovernance()
   - Port 9090 (Prometheus)
 
 ### Start Services
+
 ```bash
 # Before running the app
 cd /path/to/athena
@@ -113,6 +125,7 @@ docker start athena-prometheus
 ## 📊 **UI Components**
 
 ### Mode Switcher
+
 ```
 ┌─────────────────────────────────────┐
 │ Governance Mode                     │
@@ -124,6 +137,7 @@ docker start athena-prometheus
 ```
 
 ### KPI Grid (6 cards)
+
 ```
 ┌──────────┐ ┌──────────┐ ┌──────────┐
 │ ECE      │ │ Entropy  │ │ Verdicts │
@@ -136,6 +150,7 @@ docker start athena-prometheus
 ```
 
 ### Alerts (dynamic)
+
 ```
 ┌────────────────────────────────────────┐
 │ 🟠 ECE Warning (>0.06) - Monitor       │
@@ -147,6 +162,7 @@ docker start athena-prometheus
 ```
 
 ### Quick Actions
+
 ```
 ┌───────────────────────────────────────────┐
 │ [✅ Send PASS] [⚠️ Send SOFT_FAIL]        │
@@ -159,18 +175,22 @@ docker start athena-prometheus
 ## 🔧 **Configuration**
 
 ### Endpoint URLs
+
 Hardcoded defaults (can be made configurable):
+
 ```swift
 orchestratorURL: http://localhost:9110
 prometheusURL: http://localhost:9090
 ```
 
 ### Refresh Interval
+
 ```swift
 Timer interval: 5 seconds  // KPI refresh rate
 ```
 
 ### To Change
+
 Edit `GovernanceAPIClient.swift` init method.
 
 ---
@@ -178,6 +198,7 @@ Edit `GovernanceAPIClient.swift` init method.
 ## 📋 **Models Added**
 
 ### GovernanceMode
+
 ```swift
 enum GovernanceMode: String {
     case shadow, canary, enforce
@@ -185,6 +206,7 @@ enum GovernanceMode: String {
 ```
 
 ### GovernanceKPIs
+
 ```swift
 struct GovernanceKPIs {
     var ece: Double
@@ -196,6 +218,7 @@ struct GovernanceKPIs {
 ```
 
 ### VerdictPayload
+
 ```swift
 struct VerdictPayload {
     let task_id: String
@@ -208,6 +231,7 @@ struct VerdictPayload {
 ```
 
 ### GovernanceAlert
+
 ```swift
 struct GovernanceAlert {
     let message: String
@@ -221,11 +245,13 @@ struct GovernanceAlert {
 ## 🎨 **UI Design**
 
 ### Color Coding
+
 - 🟢 **Green** - Normal (ECE <0.06, Entropy <0.25)
 - 🟠 **Orange** - Warning (ECE 0.06-0.08, Hard Fails present)
 - 🔴 **Red** - Critical (ECE >0.08, Entropy ≥0.25, Orchestrator down)
 
 ### Icons
+
 - `eye.fill` - Shadow mode
 - `bird.fill` - Canary mode
 - `shield.fill` - Enforce mode
@@ -240,6 +266,7 @@ struct GovernanceAlert {
 ## 🧪 **Testing**
 
 ### Manual Test
+
 1. Start governance services: `make governance-up`
 2. Run NeuroForgeApp in Xcode
 3. Go to Athena Dashboard
@@ -247,6 +274,7 @@ struct GovernanceAlert {
 5. Watch KPI cards update in ~5 seconds
 
 ### Expected Behavior
+
 - ✅ Green circle appears (orchestrator healthy)
 - ✅ KPIs show real values (not "—")
 - ✅ Mode switcher works
@@ -260,12 +288,14 @@ struct GovernanceAlert {
 ### Required Endpoints
 
 **Orchestrator (9110):**
+
 - `GET /health` → `{"status":"healthy"}`
 - `POST /verdict` → `{"status":"applied"}`
 - `POST /mode` → `{"status":"ok"}` (optional)
 - `GET /metrics` → Prometheus format
 
 **Prometheus (9090):**
+
 - `/api/v1/query?query=governance_ece_post`
 - `/api/v1/query?query=governance_entropy_drift`
 - `/api/v1/query?query=sum(increase(governance_verdicts_total[5m]))`
@@ -279,12 +309,14 @@ struct GovernanceAlert {
 ## 🎯 **Next Steps**
 
 ### Phase 1: Basic Integration ✅
+
 - ✅ Models added
 - ✅ API client created
 - ✅ Dashboard view built
 - ✅ Integrated into existing app
 
 ### Phase 2: Enhanced Features (Optional)
+
 - [ ] WebSocket live events (`/events` endpoint)
 - [ ] Receipt history view (recent traffic)
 - [ ] Grafana panel embedding (WKWebView)
@@ -292,6 +324,7 @@ struct GovernanceAlert {
 - [ ] Rollback wizard (one-tap emergency rollback)
 
 ### Phase 3: Polish (Optional)
+
 - [ ] Chart visualizations (SwiftUI Charts)
 - [ ] Historical trends (ECE/Entropy over time)
 - [ ] Export reports (PDF/CSV)
@@ -317,6 +350,7 @@ NeuroForgeApp/Sources/
 ## 🎊 **Result**
 
 You now have a **native macOS/iOS app** to:
+
 - ✅ Monitor governance KPIs in real-time
 - ✅ Switch modes (shadow/canary/enforce)
 - ✅ Send test verdicts for drills
@@ -328,10 +362,10 @@ You now have a **native macOS/iOS app** to:
 ---
 
 **Build and run:**
+
 ```bash
 cd NeuroForgeApp
 xcodebuild -scheme NeuroForgeApp -configuration Debug
 ```
 
 Or open in Xcode and press ⌘R
-

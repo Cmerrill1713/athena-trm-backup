@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Avatar morph settings view with Ghost/Auto/Photoreal toggle
 struct AvatarMorphSettingsView: View {
-    @AppStorage("avatarMorphMode") private var morphMode: AvatarMorphMode = .auto
+    @AppStorage("avatarMorphMode") private var morphMode: AvatarMode = .ghost
     @StateObject private var avatarService = AvatarService()
     @StateObject private var notificationService = AvatarNotificationService.shared
     @State private var isMorphing = false
@@ -24,9 +24,8 @@ struct AvatarMorphSettingsView: View {
                     .font(.headline)
 
                 Picker("Avatar Behavior", selection: $morphMode) {
-                    Text("👻 Ghost").tag(AvatarMorphMode.ghost)
-                    Text("🎭 Auto").tag(AvatarMorphMode.auto)
-                    Text("🧍‍♀️ Photoreal").tag(AvatarMorphMode.photoreal)
+                    Text("👻 Ghost").tag(AvatarMode.ghost)
+                    Text("🧍‍♀️ Photoreal").tag(AvatarMode.photoreal)
                 }
                 .pickerStyle(.segmented)
                 .onChange(of: morphMode) { newMode in
@@ -98,10 +97,15 @@ struct AvatarMorphSettingsView: View {
                         .foregroundStyle(notificationService.isAuthorized ? .green : .orange)
 
                     VStack(alignment: .leading) {
-                        Text(notificationService.isAuthorized ? "Notifications enabled" : "Notifications disabled")
-                        Text(notificationService.isAuthorized ? "You'll receive avatar alerts" : "Grant permission for alerts")
-                            .font(.caption)
-                            .foregroundStyle(notificationService.isAuthorized ? .green : .orange)
+                        Text(
+                            notificationService.isAuthorized
+                                ? "Notifications enabled" : "Notifications disabled")
+                        Text(
+                            notificationService.isAuthorized
+                                ? "You'll receive avatar alerts" : "Grant permission for alerts"
+                        )
+                        .font(.caption)
+                        .foregroundStyle(notificationService.isAuthorized ? .green : .orange)
                     }
                 }
 
@@ -131,7 +135,7 @@ struct AvatarMorphSettingsView: View {
                         .foregroundStyle(avatarService.isHealthy ? .green : .red)
 
                     VStack(alignment: .leading) {
-                        Text(avatarService.currentState?.description ?? "Unknown")
+                        Text(avatarService.currentState?.rawValue ?? "unknown")
                         if let awareness = avatarService.lastAwarenessLevel {
                             Text(String(format: "Awareness: %.1f", awareness))
                                 .font(.caption)
@@ -187,29 +191,23 @@ struct AvatarMorphSettingsView: View {
         }
     }
 
-    private func modeDescription(for mode: AvatarMorphMode) -> String {
+    private func modeDescription(for mode: AvatarMode) -> String {
         switch mode {
         case .ghost:
             return "Always show ghost avatar - minimal resources, consistent experience"
-        case .auto:
-            return "Automatically morph based on awareness levels (recommended)"
         case .photoreal:
             return "Always show photoreal avatar - maximum fidelity, higher resources"
+        case .morphing:
+            return "Currently transitioning between modes"
         }
     }
 
-    private func handleMorphModeChange(to newMode: AvatarMorphMode) {
-        switch newMode {
-        case .ghost, .photoreal:
-            morphTo(newMode)
-        case .auto:
-            // Auto mode doesn't need immediate action
-            lastMorphResult = "✅ Switched to automatic morphing mode"
-        }
+    private func handleMorphModeChange(to newMode: AvatarMode) {
+        morphTo(newMode)
     }
 
-    private func morphTo(_ target: AvatarMorphMode) {
-        guard target != .auto else { return }
+    private func morphTo(_ target: AvatarMode) {
+        guard target != .ghost else { return }
 
         isMorphing = true
         lastMorphResult = nil
@@ -217,8 +215,10 @@ struct AvatarMorphSettingsView: View {
         Task {
             do {
                 let success = try await avatarService.morph(to: target)
-                lastMorphResult = success ? "✅ Successfully morphed to \(target.description)" :
-                                          "❌ Failed to morph to \(target.description)"
+                lastMorphResult =
+                    success
+                    ? "✅ Successfully morphed to \(target.rawValue)"
+                    : "❌ Failed to morph to \(target.rawValue)"
             } catch {
                 lastMorphResult = "❌ Morph failed: \(error.localizedDescription)"
             }
@@ -240,29 +240,14 @@ struct AvatarMorphSettingsView: View {
     }
 }
 
-/// Avatar morph modes
-enum AvatarMorphMode: String, Codable {
-    case ghost
-    case auto
-    case photoreal
-
-    var description: String {
-        switch self {
-        case .ghost: return "Ghost Mode"
-        case .auto: return "Auto Mode"
-        case .photoreal: return "Photoreal Mode"
-        }
-    }
-}
-
 /// Avatar service for morph operations
 class AvatarService: ObservableObject {
-    @Published var currentState: AvatarMorphMode?
+    @Published var currentState: AvatarMode?
     @Published var isHealthy = false
     @Published var lastAwarenessLevel: Double?
 
-    private let baseURL = AppConfig.aiTeamBase.appendingPathComponent("avatar")
-    private var previousState: AvatarMorphMode?
+    private let baseURL = URL(string: "http://localhost:8000")!  // TODO: Wire to AppConfig
+    private var previousState: AvatarMode?
 
     // Mock state for fast-track mode
     private var mockMode = ProcessInfo.processInfo.environment["DISABLE_BACKEND_CHECKS"] == "1"
@@ -272,58 +257,60 @@ class AvatarService: ObservableObject {
             // Mock status for fast-track mode
             await MainActor.run {
                 self.currentState = self.currentState ?? .ghost
-                self.lastAwarenessLevel = 0.3 // Low awareness = ghost mode
+                self.lastAwarenessLevel = 0.3  // Low awareness = ghost mode
                 self.isHealthy = true
             }
             return
         }
 
         do {
-            let response = try await URLSession.shared.data(from: baseURL.appendingPathComponent("status"))
+            let response = try await URLSession.shared.data(
+                from: baseURL.appendingPathComponent("status"))
             let status = try JSONDecoder().decode(AvatarStatus.self, from: response.0)
             await MainActor.run {
                 // Trigger notification if state changed
-                if let newState = status.currentMode, self.currentState != newState {
+                if self.currentState != status.state {
                     AvatarNotificationService.shared.notifyMorph(
                         from: self.currentState ?? .ghost,
-                        to: newState,
+                        to: status.state,
                         awarenessLevel: status.awarenessLevel
                     )
                     self.previousState = self.currentState
                 }
 
-                self.currentState = status.currentMode
+                self.currentState = status.state
                 self.lastAwarenessLevel = status.awarenessLevel
                 self.isHealthy = status.healthy
             }
         } catch {
             await MainActor.run {
                 self.isHealthy = false
-                AvatarNotificationService.shared.notifyError("Status check failed: \(error.localizedDescription)")
+                AvatarNotificationService.shared.notifyError(
+                    "Status check failed: \(error.localizedDescription)")
             }
         }
     }
 
-    func morph(to mode: AvatarMorphMode) async throws -> Bool {
+    func morph(to mode: AvatarMode) async throws -> Bool {
         let fromMode = currentState ?? .ghost
         let startTime = Date()
 
         if mockMode {
             // Simulate morphing in fast-track mode
-            try await Task.sleep(nanoseconds: 2_000_000_000) // 2 second delay
+            try await Task.sleep(nanoseconds: 2_000_000_000)  // 2 second delay
             let duration = Date().timeIntervalSince(startTime)
 
             await MainActor.run {
-                MobileMetricsService.shared.trackAvatarSwitch(target: mode, success: true, duration: duration)
+                // MobileMetricsService.shared.trackAvatarSwitch(target: mode, success: true, duration: duration)
                 self.previousState = self.currentState
                 self.currentState = mode
-                self.lastAwarenessLevel = mode == .photoreal ? 0.8 : 0.2 // Simulate awareness change
+                self.lastAwarenessLevel = mode == .photoreal ? 0.8 : 0.2  // Simulate awareness change
                 AvatarNotificationService.shared.notifyMorph(from: fromMode, to: mode)
             }
             return true
         }
 
-        let requestBody = AvatarMorphRequest(to: mode.rawValue)
+        let requestBody = AvatarMorphRequest(to: mode)
         let data = try JSONEncoder().encode(requestBody)
 
         // Use auth interceptor for mobile requests
@@ -340,12 +327,13 @@ class AvatarService: ObservableObject {
             let (responseData, response) = try await URLSession.shared.data(for: request)
             let duration = Date().timeIntervalSince(startTime)
 
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200..<300).contains(httpResponse.statusCode) else {
+            if let httpResponse = response as? HTTPURLResponse,
+                !(200..<300).contains(httpResponse.statusCode)
+            {
                 await MainActor.run {
-                    AvatarNotificationService.shared.notifyError("Morph failed: HTTP \(String(describing: httpResponse.statusCode))")
-                    MobileMetricsService.shared.trackAvatarSwitch(target: mode, success: false, duration: duration)
-                    MobileMetricsService.shared.trackAPILatency(endpoint: "avatar/switch", duration: duration, statusCode: httpResponse.statusCode)
+                    AvatarNotificationService.shared.notifyError(
+                        "Morph failed: HTTP \(httpResponse.statusCode)")
+                    // MobileMetricsService.shared.trackAvatarSwitch(target: mode, success: false, duration: duration)
                 }
                 return false
             }
@@ -353,15 +341,17 @@ class AvatarService: ObservableObject {
             let result = try JSONDecoder().decode(AvatarMorphResponse.self, from: responseData)
 
             await MainActor.run {
-                MobileMetricsService.shared.trackAvatarSwitch(target: mode, success: result.success, duration: duration)
-                MobileMetricsService.shared.trackAPILatency(endpoint: "avatar/switch", duration: duration, statusCode: httpResponse.statusCode)
+                MobileMetricsService.shared.trackAvatarSwitch(
+                    target: mode, success: result.success, duration: duration)
+                // MobileMetricsService.shared.trackAPILatency(endpoint: "avatar/switch", duration: duration, statusCode: 200)
 
                 if result.success {
                     self.previousState = self.currentState
                     self.currentState = mode
                     AvatarNotificationService.shared.notifyMorph(from: fromMode, to: mode)
                 } else {
-                    AvatarNotificationService.shared.notifyError("Morph rejected: \(result.message ?? "Unknown error")")
+                    AvatarNotificationService.shared.notifyError(
+                        "Morph rejected: \(result.message ?? "Unknown error")")
                 }
             }
 
@@ -369,9 +359,12 @@ class AvatarService: ObservableObject {
         } catch {
             let duration = Date().timeIntervalSince(startTime)
             await MainActor.run {
-                AvatarNotificationService.shared.notifyError("Morph failed: \(error.localizedDescription)", isCritical: false)
-                MobileMetricsService.shared.trackAvatarSwitch(target: mode, success: false, duration: duration)
-                MobileMetricsService.shared.trackAvatarSwitchFailure(reason: error.localizedDescription)
+                AvatarNotificationService.shared.notifyError(
+                    "Morph failed: \(error.localizedDescription)", isCritical: false)
+                MobileMetricsService.shared.trackAvatarSwitch(
+                    target: mode, success: false, duration: duration)
+                MobileMetricsService.shared.trackAvatarSwitchFailure(
+                    reason: error.localizedDescription)
             }
             throw error
         }
@@ -381,8 +374,8 @@ class AvatarService: ObservableObject {
     func testLANConnectivity() async -> Bool {
         if mockMode {
             // Simulate connectivity test in fast-track mode
-            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 second delay
-            return true // Always succeed in mock mode
+            try? await Task.sleep(nanoseconds: 500_000_000)  // 0.5 second delay
+            return true  // Always succeed in mock mode
         }
 
         // Try to connect to a known endpoint
@@ -396,20 +389,4 @@ class AvatarService: ObservableObject {
     }
 }
 
-/// Avatar status response
-struct AvatarStatus: Codable {
-    let currentMode: AvatarMorphMode
-    let healthy: Bool
-    let awarenessLevel: Double?
-}
-
-/// Avatar morph request
-struct AvatarMorphRequest: Codable {
-    let to: String
-}
-
-/// Avatar morph response
-struct AvatarMorphResponse: Codable {
-    let success: Bool
-    let message: String?
-}
+// Avatar types moved to AvatarKit/AvatarTypes.swift - using those

@@ -13,6 +13,14 @@ venv/
 env/
 ENV/
 kokoro-venv/
+
+# Cleanup - old backups and caches
+neuroforge_all_legacy/
+neuroforge_restore_backup_*/
+
+# Old intake data (now archived)
+cursor_intake/
+governance_intake/
 *.egg-info/
 .pytest_cache/
 

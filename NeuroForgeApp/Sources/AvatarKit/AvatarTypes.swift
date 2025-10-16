@@ -7,9 +7,9 @@ import Foundation
 
 /// Avatar morph modes - shared across platforms
 public enum AvatarMode: String, Codable, Equatable {
-    case ghost      // Default ghost avatar
+    case ghost  // Default ghost avatar
     case photoreal  // Photoreal avatar (iOS only)
-    case morphing   // Currently morphing between states
+    case morphing  // Currently morphing between states
 }
 
 /// Avatar status - shared data structure
@@ -42,6 +42,10 @@ public struct AvatarMorphRequest: Codable {
     public init(to: AvatarMode) {
         self.to = to.rawValue
     }
+
+    enum CodingKeys: String, CodingKey {
+        case to
+    }
 }
 
 /// Avatar morph response - API contract
@@ -67,9 +71,9 @@ public enum MorphFeature {
     /// Compile-time check for morph availability on platform
     public static var available: Bool {
         #if os(iOS)
-        return true  // iOS supports full morphing
+            return true  // iOS supports full morphing
         #else
-        return false // macOS only supports ghost
+            return false  // macOS only supports ghost
         #endif
     }
 
@@ -82,7 +86,7 @@ public enum MorphFeature {
 /// Hysteresis configuration - prevents oscillation
 public struct MorphHysteresis {
     public static let morphAbove: Double = 0.65  // Start morphing above this awareness
-    public static let revertBelow: Double = 0.45 // Revert to ghost below this awareness
+    public static let revertBelow: Double = 0.45  // Revert to ghost below this awareness
 
     /// Determine if should morph based on awareness level with hysteresis
     public static func shouldMorph(from currentMode: AvatarMode, awarenessLevel: Double) -> Bool {
@@ -94,4 +98,3 @@ public struct MorphHysteresis {
         }
     }
 }
-

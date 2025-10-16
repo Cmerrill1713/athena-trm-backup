@@ -1,4 +1,5 @@
 import Foundation
+import IOKit
 
 /// Authentication interceptor for mobile avatar API requests
 final class AuthInterceptor: NSObject, URLSessionDelegate {
@@ -10,8 +11,10 @@ final class AuthInterceptor: NSObject, URLSessionDelegate {
         var interceptedRequest = request
 
         // Only intercept avatar endpoints
-        guard request.url?.path.hasPrefix("/v1/avatar") == true ||
-              request.url?.path.contains("avatar") == true else {
+        guard
+            request.url?.path.hasPrefix("/v1/avatar") == true
+                || request.url?.path.contains("avatar") == true
+        else {
             return request
         }
 
@@ -21,9 +24,11 @@ final class AuthInterceptor: NSObject, URLSessionDelegate {
         // Add authorization header
         interceptedRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
-        // Add mobile platform identifier
-        interceptedRequest.setValue("ios", forHTTPHeaderField: "X-Platform")
-        interceptedRequest.setValue(UIDevice.current.systemVersion, forHTTPHeaderField: "X-Platform-Version")
+        // Add platform identifier
+        interceptedRequest.setValue("macos", forHTTPHeaderField: "X-Platform")
+        interceptedRequest.setValue(
+            ProcessInfo.processInfo.operatingSystemVersionString,
+            forHTTPHeaderField: "X-Platform-Version")
 
         // Add device ID for rollout cohort tracking
         if let deviceId = await getDeviceId() {
@@ -33,10 +38,22 @@ final class AuthInterceptor: NSObject, URLSessionDelegate {
         return interceptedRequest
     }
 
-    private func getDeviceId() async -> String? {
-        // Use identifierForVendor for consistent device ID
-        return await UIDevice.current.identifierForVendor?.uuidString
+}
+
+/// Helper to get device ID on macOS
+func getDeviceId() async -> String? {
+    // Use host UUID for consistent device ID on macOS
+    let platformExpert = IOServiceGetMatchingService(
+        kIOMainPortDefault, IOServiceMatching("IOPlatformExpertDevice"))
+    defer { IOObjectRelease(platformExpert) }
+
+    if let serialNumber = IORegistryEntryCreateCFProperty(
+        platformExpert, "IOPlatformUUID" as CFString, kCFAllocatorDefault, 0)?.takeRetainedValue()
+        as? String
+    {
+        return serialNumber
     }
+    return nil
 }
 
 /// Token manager for mobile authentication
@@ -60,8 +77,9 @@ final class TokenManager {
             queue.async {
                 // Check if we have a valid cached token
                 if let token = self.currentToken,
-                   let expiry = self.tokenExpiry,
-                   expiry > Date().addingTimeInterval(300) { // 5 min buffer
+                    let expiry = self.tokenExpiry,
+                    expiry > Date().addingTimeInterval(300)
+                {  // 5 min buffer
                     continuation.resume(returning: token)
                     return
                 }
@@ -107,8 +125,8 @@ final class TokenManager {
         // For example: using device certificates, biometric auth, etc.
         let authPayload = [
             "grant_type": "device_auth",
-            "device_id": UIDevice.current.identifierForVendor?.uuidString ?? "unknown",
-            "scope": "avatar:read avatar:write"
+            "device_id": await getDeviceId() ?? "unknown",
+            "scope": "avatar:read avatar:write",
         ]
 
         request.httpBody = try JSONSerialization.data(withJSONObject: authPayload)
@@ -116,16 +134,18 @@ final class TokenManager {
         let (data, response) = try await URLSession.shared.data(for: request)
 
         guard let httpResponse = response as? HTTPURLResponse,
-              (200..<300).contains(httpResponse.statusCode) else {
+            (200..<300).contains(httpResponse.statusCode)
+        else {
             throw AuthError.invalidResponse
         }
 
         let tokenResponse = try JSONDecoder().decode(TokenResponse.self, from: data)
 
         // Store tokens
-        storeTokens(accessToken: tokenResponse.accessToken,
-                   refreshToken: tokenResponse.refreshToken,
-                   expiry: Date().addingTimeInterval(TimeInterval(tokenResponse.expiresIn)))
+        storeTokens(
+            accessToken: tokenResponse.accessToken,
+            refreshToken: tokenResponse.refreshToken,
+            expiry: Date().addingTimeInterval(TimeInterval(tokenResponse.expiresIn)))
 
         return tokenResponse.accessToken
     }
@@ -138,7 +158,7 @@ final class TokenManager {
 
         let refreshPayload = [
             "grant_type": "refresh_token",
-            "refresh_token": refreshToken
+            "refresh_token": refreshToken,
         ]
 
         request.httpBody = try JSONSerialization.data(withJSONObject: refreshPayload)
@@ -146,16 +166,18 @@ final class TokenManager {
         let (data, response) = try await URLSession.shared.data(for: request)
 
         guard let httpResponse = response as? HTTPURLResponse,
-              (200..<300).contains(httpResponse.statusCode) else {
+            (200..<300).contains(httpResponse.statusCode)
+        else {
             throw AuthError.refreshFailed
         }
 
         let tokenResponse = try JSONDecoder().decode(TokenResponse.self, from: data)
 
         // Store new tokens
-        storeTokens(accessToken: tokenResponse.accessToken,
-                   refreshToken: tokenResponse.refreshToken,
-                   expiry: Date().addingTimeInterval(TimeInterval(tokenResponse.expiresIn)))
+        storeTokens(
+            accessToken: tokenResponse.accessToken,
+            refreshToken: tokenResponse.refreshToken,
+            expiry: Date().addingTimeInterval(TimeInterval(tokenResponse.expiresIn)))
 
         return tokenResponse.accessToken
     }
@@ -218,4 +240,3 @@ enum AuthError: LocalizedError {
         }
     }
 }
-

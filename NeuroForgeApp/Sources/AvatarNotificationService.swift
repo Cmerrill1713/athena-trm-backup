@@ -1,5 +1,5 @@
-import UserNotifications
 import Foundation
+import UserNotifications
 
 /// Service for handling avatar-related notifications on iOS
 final class AvatarNotificationService: NSObject, ObservableObject {
@@ -15,7 +15,8 @@ final class AvatarNotificationService: NSObject, ObservableObject {
 
     /// Request notification permissions
     func requestAuthorization() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
+            granted, error in
             DispatchQueue.main.async {
                 self.isAuthorized = granted
                 if let error = error {
@@ -27,19 +28,19 @@ final class AvatarNotificationService: NSObject, ObservableObject {
     }
 
     /// Trigger avatar morph notification
-    func notifyMorph(from: AvatarMorphMode, to: AvatarMorphMode, awarenessLevel: Double? = nil) {
+    func notifyMorph(from: AvatarMode, to: AvatarMode, awarenessLevel: Double? = nil) {
         guard isAuthorized else { return }
 
         let content = UNMutableNotificationContent()
         content.title = "Avatar Morph"
-        content.body = "Morphed from \(from.description) to \(to.description)"
+        content.body = "Morphed from \(from.rawValue) to \(to.rawValue)"
         content.sound = .default
         content.categoryIdentifier = "AVATAR_MORPH"
         content.userInfo = [
             "type": "morph",
             "from": from.rawValue,
             "to": to.rawValue,
-            "awarenessLevel": awarenessLevel ?? 0
+            "awarenessLevel": awarenessLevel ?? 0,
         ]
 
         let request = UNNotificationRequest(
@@ -64,7 +65,7 @@ final class AvatarNotificationService: NSObject, ObservableObject {
         content.userInfo = [
             "type": "error",
             "message": error,
-            "critical": isCritical
+            "critical": isCritical,
         ]
 
         let request = UNNotificationRequest(
@@ -74,21 +75,22 @@ final class AvatarNotificationService: NSObject, ObservableObject {
         )
 
         UNUserNotificationCenter.current().add(request)
-        lastNotification = AvatarNotification(type: .error, message: content.body, isCritical: isCritical)
+        lastNotification = AvatarNotification(
+            type: .error, message: content.body, isCritical: isCritical)
     }
 
     /// Trigger rollback notification
-    func notifyRollback(to: AvatarMorphMode) {
+    func notifyRollback(to: AvatarMode) {
         guard isAuthorized else { return }
 
         let content = UNMutableNotificationContent()
         content.title = "🔄 Avatar Rollback"
-        content.body = "Automatically rolled back to \(to.description)"
+        content.body = "Automatically rolled back to \(to.rawValue)"
         content.sound = .default
         content.categoryIdentifier = "AVATAR_ROLLBACK"
         content.userInfo = [
             "type": "rollback",
-            "target": to.rawValue
+            "target": to.rawValue,
         ]
 
         let request = UNNotificationRequest(
@@ -113,7 +115,7 @@ final class AvatarNotificationService: NSObject, ObservableObject {
         content.userInfo = [
             "type": "rollout",
             "phase": phase,
-            "percentage": percentage
+            "percentage": percentage,
         ]
 
         let request = UNNotificationRequest(
@@ -138,7 +140,8 @@ extension AvatarNotificationService: UNUserNotificationCenterDelegate {
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,
-        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+        withCompletionHandler completionHandler:
+            @escaping (UNNotificationPresentationOptions) -> Void
     ) {
         // Show notification even when app is in foreground
         completionHandler([.banner, .sound])
@@ -174,4 +177,3 @@ struct AvatarNotification {
         self.isCritical = isCritical
     }
 }
-

@@ -28,6 +28,12 @@ struct NeuroForgeApp: App {
                     }
                 }
         }
+        
+        // Remediation Monitor Window
+        Window("Remediation Monitor", id: "remediation-monitor") {
+            RemediationMonitorWindow()
+        }
+        .defaultSize(width: 700, height: 600)
 
         Window("🚨 Critical Alert", id: "critical-alert") {
             if let a = state.lastAlert {

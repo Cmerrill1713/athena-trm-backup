@@ -1,312 +1,73 @@
-# Athena System - Cursor Rules
-
-## What to Index
-
-**INCLUDE (Active Code - ~3k files):**
-
-- `governance/**` - Governance system (legislative, judicial, executive)
-- `orchestrator/**` - Master orchestration layer
-- `agi_core/**` - AGI Core multi-agent system
-- `workflows/**` - End-to-end integration workflows
-- `monitoring/**` - Prometheus, Grafana, observability
-- `scripts/gov_*.sh`, `scripts/dgm_*.sh` - Key automation scripts
-- `tests/**` - Test suites
-- `config/**` - Configuration files
-- `athena_master_orchestrator.py` - Master orchestrator
-- `athena_api.py` - Master API
-- Root-level docs: `SYSTEM_*.md`, `WIRING_*.md`, `GOVERNANCE_*.md`, `DGM_*.md`
-
-**EXCLUDE (Reduces 96k → 3k files):**
-
-- `archive/**` - Historical code, not active
-- `**/build/**`, `**/dist/**`, `**/target/**` - Build artifacts
-- `**/.venv/**`, `**/node_modules/**` - Dependencies
-- `**/backups/**` - Database backups
-- `**/__pycache__/**`, `**/*.pyc` - Python cache
-- `kokoro/**`, `pydantic-ai/**`, `external/**` - Large submodules (use hot workspace)
-
-**For performance: Use `athena-hot.code-workspace` (3k files) for daily work, `athena.code-workspace` (full) for deep dives.**
-
----
-
-## Project Map (Mental Model)
-
-### Core Systems
-
-- **Master Orchestrator**: `athena_master_orchestrator.py`
-- **Governance**: `governance/*`
-  - Legislative: `governance/legislative/`
-  - Judicial: `governance/judicial/`
-  - Executive: `governance/executive/`
-- **DGM Integration**: `governance/research/dgm/*`
-- **AGI Core**: `agi_core/*` (multi-agent workflows)
-- **Workflows**: `workflows/end_to_end_integration.py`
-
-### Monitoring & Observability
-
-- **Metrics**: `governance/observability/dgm_metrics.py`
-- **Prometheus**: `monitoring/prometheus/prometheus.yml`
-- **Grafana**: `monitoring/grafana/dashboards/*`
-- **Canary**: `governance/canary/*`
-
-### Infrastructure
-
-- **Docker**: `docker-compose.athena-governance.yml`
-- **Scripts**: `scripts/gov_*.sh`, `scripts/dgm_*.sh`
-- **Config**: `config/athena_master_config.yaml`
-
----
-
-## Key Entrypoints
-
-### Main Systems
-
-1. `athena_master_orchestrator.py` - Master orchestrator connecting all subsystems
-2. `athena_api.py` - Master control API
-3. `governance/executive/orchestration/dgm_orchestrator.py` - DGM executive
-4. `governance/judicial/evaluation/dgm_verdict_validator.py` - Verdict system
-5. `governance/research/dgm/dgm_governance_adapter.py` - DGM adapter
-6. `governance/research/dgm/dgm_agi_bridge.py` - DGM-AGI bridge
-7. `workflows/end_to_end_integration.py` - Complete workflows
-
-### Services
-
-- **Orchestrator Service**: Port 9110 - `/health`, `/verdict`, `/metrics`
-- **Canary Monitor**: Port 9111 - `/health`, `/metrics`
-- **Metrics Exporter**: Port 9109 - `/metrics`
-- **Prometheus**: Port 9090 - Metrics aggregation
-- **Main API**: Port 8888 - Existing API
-
----
-
-## How to Run
-
-### Verification
-
-```bash
-make wire-check          # Complete wiring verification
-make prom-verify         # Check Prometheus targets
-make prom-query          # Query governance metrics
-```
-
-### Testing
-
-```bash
-pytest tests/test_dgm_integration.py -v
-pytest tests/test_full_system_integration.py -v
-python athena_master_orchestrator.py status
-```
-
-### Services
-
-```bash
-docker compose -f docker-compose.athena-governance.yml up -d
-make governance-gate     # Run governance gate check
-```
-
-### DGM Operations
-
-```bash
-export ANTHROPIC_API_KEY='your-key'
-./scripts/dgm_quickstart.sh
-python governance/judicial/evaluation/dgm_verdict_validator.py
-```
-
----
-
-## Code Style & Patterns
-
-### Python
-
-- Use type hints everywhere
-- Async functions for I/O operations
-- Dataclasses for structured data
-- Pydantic for validation
-- Comprehensive docstrings
-
-### Error Handling
-
-- Try/except with specific exceptions
-- Log errors with context
-- Return structured error responses
-- Use governance verdicts for validation
-
-### Metrics
-
-- Export Prometheus metrics for all actions
-- Use counters for verdicts/actions
-- Use gauges for state (ECE, entropy, etc.)
-- Label metrics appropriately
-
-### Testing
-
-- Unit tests for business logic
-- Integration tests for workflows
-- Mock external services
-- Test both success and failure paths
-
----
-
-## What Good Answers Should Include
-
-### For Code Changes
-
-1. **File paths** - Exact files to modify
-2. **Function names** - Specific functions to change
-3. **Minimal diffs** - Show before/after code blocks
-4. **Test updates** - Update tests when behavior changes
-5. **Metric updates** - Add/update Prometheus metrics
-6. **Documentation** - Update relevant docs
-
-### For System Questions
-
-1. **Data flows** - Show how data moves through system
-2. **Integration points** - Explain connections between subsystems
-3. **Configuration** - Point to relevant config files
-4. **Verification** - How to test/verify the answer
-
----
-
-## Integration Points
-
-### DGM → Governance
-
-```python
-from governance.research.dgm.dgm_governance_adapter import DGMGovernanceAdapter
-adapter = DGMGovernanceAdapter()
-verdict = await adapter.request_judicial_verdict(code, metrics)
-```
-
-### DGM → AGI Core
-
-```python
-from governance.research.dgm.dgm_agi_bridge import DGMAGIBridge
-bridge = DGMAGIBridge()
-review = await bridge.review_dgm_agent(code, metadata)
-```
-
-### Verdict → Actions
-
-```python
-POST /verdict (9110)
-{
-  "task_id": "T-001",
-  "verdict": "HARD_FAIL",
-  "ece_post": 0.09,
-  "entropy": 0.3,
-  "actions": ["ROLLBACK"]
-}
-```
-
-### Metrics → Prometheus
-
-```python
-from governance.observability.dgm_metrics import (
-    dgm_generations_total,
-    dgm_verdicts_total
-)
-dgm_verdicts_total.labels(verdict_type="pass").inc()
-```
-
----
-
-## Common Tasks
-
-### Add New Verdict Type
-
-1. Update `governance/judicial/evaluation/dgm_verdict_validator.py`
-2. Add metric label to `governance/observability/dgm_metrics.py`
-3. Update Grafana dashboard `monitoring/grafana/dashboards/dgm-evolution.json`
-4. Add test case to `tests/test_dgm_integration.py`
-
-### Add New Workflow Stage
-
-1. Add stage to `workflows/end_to_end_integration.py`
-2. Implement stage handler
-3. Update `athena_master_orchestrator.py` to call it
-4. Add integration test
-5. Update `SYSTEM_ARCHITECTURE.md`
-
-### Add New Metric
-
-1. Define in `governance/observability/dgm_metrics.py`
-2. Export in service's `/metrics` endpoint
-3. Add to Prometheus scrape config
-4. Create Grafana panel
-5. Add alert rules if needed
-
----
-
-## Architecture Principles
-
-1. **Governance First** - All actions go through governance validation
-2. **Idempotent Operations** - Use hash-based deduplication
-3. **Audit Everything** - Log to `exec_action_ledger.jsonl`
-4. **Metrics Always** - Export Prometheus metrics for all actions
-5. **State Persistence** - Save state to `exec_state.json`
-6. **Constitutional Compliance** - Check against `self_modification_policy.yaml`
-7. **Canary Deployments** - Use gradual rollouts for changes
-8. **Error Recovery** - Handle failures gracefully, log for debugging
-
----
-
-## File Organization
-
-```
-.
-├── athena_master_orchestrator.py  # Master control
-├── athena_api.py                  # Master API
-├── governance/                     # Governance system
-│   ├── executive/                 # Orchestration
-│   ├── judicial/                  # Verdicts
-│   ├── legislative/               # Policy
-│   └── research/dgm/              # DGM integration
-├── workflows/                      # End-to-end flows
-├── monitoring/                     # Observability
-├── scripts/                        # Automation
-├── tests/                         # Test suites
-├── config/                        # Configuration
-└── docs/                          # Documentation
-```
-
----
-
-## Quick Reference
-
-### Ports
-
-- 8888 - Main API
-- 9090 - Prometheus
-- 9109 - Governance metrics
-- 9110 - Governance orchestrator
-- 9111 - Governance canary
-- 9187 - PostgreSQL exporter
-- 3000 - Grafana
-
-### Key Files
-
-- `exec_state.json` - Current system state
-- `exec_action_ledger.jsonl` - Immutable audit log
-- `config/athena_master_config.yaml` - Master config
-- `governance/legislative/self_modification_policy.yaml` - Constitutional policy
-
-### Commands
-
-- `make wire-check` - Verify all wiring
-- `make prom-verify` - Check Prometheus
-- `python athena_master_orchestrator.py status` - System status
-
----
-
-## When Answering Questions
-
-1. **Be specific** - Reference exact files and line numbers
-2. **Show data flows** - Explain how data moves through system
-3. **Provide verification** - Show how to test the answer
-4. **Consider governance** - Think about policy compliance
-5. **Update metrics** - Add/update Prometheus metrics
-6. **Think holistically** - Consider all affected subsystems
-
----
-
-This system is designed for self-improvement, governance-first decision-making, and complete observability. Every change should be validated, metered, and auditable.
+# .cursorrules - Athena Swift UI Development
+
+project_goals:
+
+- Build a SwiftUI frontend ("Athena") that surfaces governance status and controls
+- Show health, verdicts, actions, canary state, and key KPIs (ECE, entropy, violations)
+- Integrate safely with local services: 9110 (orchestrator), 9111 (canary), 9090 (prometheus), 9112 (remediator)
+- Ship small, testable increments; every change must compile and unit tests must pass
+
+non_goals:
+
+- No server-side changes unless strictly necessary
+- No experimental UI libraries beyond SwiftUI + Swift Charts
+- No auth/SSO in v1 (use a simple token header if needed)
+
+apis:
+remediator:
+base_url: "http://localhost:9112"
+endpoints: - GET /health - GET /metrics
+orchestrator:
+base_url: "http://localhost:9110"
+endpoints: - GET /health - GET /metrics - POST /verdict - GET /state - POST /mode # optional; use if enabled
+canary:
+base_url: "http://localhost:9111"
+endpoints: - GET /health - GET /metrics
+prometheus:
+base_url: "http://localhost:9090"
+endpoints: - GET /api/v1/query # query=<promql> - GET /api/v1/query_range
+
+ui_scope:
+
+- Dashboard: health, ECE gauge, verdict counters, last actions, remediation metrics
+- Verdict form (PASS/SOFT_FAIL/HARD_FAIL) with idempotence feedback
+- Canary monitor panel (window, decision, sample count)
+- Remediation monitor (requests, success rate, recent events)
+- Mode switch (Shadow/Canary/Enforce) with confirmation
+- Metrics charts (Swift Charts) for ECE/violations over time
+
+architecture:
+
+- MVVM + SwiftUI
+- Networking: async/await, URLSession, decodable models
+- Config via .xcconfig / Info.plist (ATHENA*BASE_URL*\*)
+- Feature flags via @AppStorage & compile-time flags
+
+quality_bars:
+
+- Build must succeed: `xcodebuild -scheme Athena build` or `swift build`
+- Tests must pass: `xcodebuild -scheme AthenaTests test` or `swift test`
+- SwiftLint + SwiftFormat clean (if present)
+- Each PR ≤ 500 LOC changed; add tests for new logic
+- If an endpoint is unavailable, auto-fallback to mock response (no crashes)
+
+iteration_rules:
+
+- One feature per iteration
+- Write/Update tests before UI polish
+- Update CHANGELOG.md each iteration
+- Keep diffs surgical; no global refactors mid-iteration
+
+security:
+
+- Never hardcode secrets
+- If a control endpoint exists (/mode, /verdict), require token header if ATHENA_CONTROL_TOKEN is set
+- All network calls have timeouts (3s default)
+- Graceful degradation when services unavailable
+
+existing_app:
+
+- AthenaReporter (~40,000 lines) is the comprehensive production app
+- Already has voice integration, vision processing, report management
+- Now enhanced with RemediationMonitor.swift for auto-remediation monitoring
+- Use this as the base; don't create new demo apps

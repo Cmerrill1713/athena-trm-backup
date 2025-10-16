@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AthenaDashboardView: View {
     @EnvironmentObject var state: AthenaState
+    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         VStack(spacing: 16) {
@@ -27,6 +28,11 @@ struct AthenaDashboardView: View {
                         confidence: 0.78
                     ))
                 }
+                
+                Button("Open Remediation Monitor") {
+                    openWindow(id: "remediation-monitor")
+                }
+                .buttonStyle(.borderedProminent)
 
                 Button("Demo System Emergency") {
                     state.trigger(SystemEmergency(

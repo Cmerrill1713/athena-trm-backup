@@ -43,7 +43,7 @@ public struct SystemEmergency: Identifiable, Codable {
 public enum GovernanceMode: String, Codable, CaseIterable, Identifiable {
     case shadow, canary, enforce
     public var id: String { rawValue }
-    
+
     public var displayName: String {
         switch self {
         case .shadow: return "Shadow"
@@ -51,7 +51,7 @@ public enum GovernanceMode: String, Codable, CaseIterable, Identifiable {
         case .enforce: return "Enforce"
         }
     }
-    
+
     public var description: String {
         switch self {
         case .shadow: return "0% impact - Observe only"
@@ -73,7 +73,7 @@ public struct GovernanceKPIs: Codable {
     public var verdicts_5m: Int
     public var actions_5m: Int
     public var hard_fails_5m: Int
-    
+
     public static let empty = GovernanceKPIs(
         ece: .nan,
         entropy: .nan,
@@ -90,8 +90,11 @@ public struct VerdictPayload: Codable {
     public let entropy: Double?
     public let actions: [String]?
     public let ts: String
-    
-    public init(task_id: String, verdict: String, ece_post: Double?, entropy: Double?, actions: [String]?, ts: String) {
+
+    public init(
+        task_id: String, verdict: String, ece_post: Double?, entropy: Double?, actions: [String]?,
+        ts: String
+    ) {
         self.task_id = task_id
         self.verdict = verdict
         self.ece_post = ece_post
@@ -112,7 +115,7 @@ public struct GovernanceAlert: Identifiable {
     public let message: String
     public let severity: AlertSeverity
     public let timestamp: Date
-    
+
     public init(message: String, severity: AlertSeverity) {
         self.message = message
         self.severity = severity

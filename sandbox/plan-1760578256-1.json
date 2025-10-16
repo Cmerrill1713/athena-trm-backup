@@ -1,0 +1,27 @@
+{
+  "plan_id": "plan-1760578256-1",
+  "timestamp": "2025-10-15T20:30:56.117057",
+  "target": "gen-unknown",
+  "failure_reason": "Unknown failure",
+  "actions": [
+    {
+      "type": "patch",
+      "target": "service://governance-orchestrator",
+      "description": "Tighten ECE gate threshold to reduce false positives",
+      "risk": "low",
+      "patch_content": "# ECE threshold tightened to 0.08\nECE_THRESHOLD = 0.08"
+    },
+    {
+      "type": "config_update",
+      "target": "dgm_config.yaml",
+      "description": "Add conservative mutation rate",
+      "risk": "low",
+      "config_changes": {
+        "mutation_rate": 0.05
+      }
+    }
+  ],
+  "risk_level": "low",
+  "confidence": 0.74,
+  "estimated_success_rate": 0.82
+}

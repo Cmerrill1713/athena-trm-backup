@@ -1,6 +1,6 @@
-import SwiftUI
 import AVFoundation
 import AppKit
+import SwiftUI
 
 // Global flag to prevent duplicate processing
 private var isProcessingURL = false
@@ -14,10 +14,15 @@ struct AthenaReporterApp: App {
         WindowGroup("Athena Report") {
             ReportView(selectedId: $selectedId)
                 .environmentObject(store)
-                .onReceive(NotificationCenter.default.publisher(for: .init("athena.present"), object: nil)) { _ in
+                .onReceive(
+                    NotificationCenter.default.publisher(for: .init("athena.present"), object: nil)
+                ) { _ in
                     // legacy path, ignore
                 }
-                .onReceive(NotificationCenter.default.publisher(for: .init("athena.focus.\(selectedId ?? "")"))) { _ in
+                .onReceive(
+                    NotificationCenter.default.publisher(
+                        for: .init("athena.focus.\(selectedId ?? "")"))
+                ) { _ in
                     NSApp.activate(ignoringOtherApps: true)
                 }
                 .onOpenURL { url in
@@ -29,23 +34,24 @@ struct AthenaReporterApp: App {
         .windowToolbarStyle(.automatic)
         .commands {
             CommandMenu("Athena") {
-                Button("Stop Speaking") { 
+                Button("Stop Speaking") {
                     AthenaSpeaker.shared.stop()
                 }
-                    .keyboardShortcut(".", modifiers: [.command])
-                
-                Button("Speak Again") { 
+                .keyboardShortcut(".", modifiers: [.command])
+
+                Button("Speak Again") {
                     if let report = store.getLatestReport() {
                         AthenaSpeaker.shared.speak(report.summary)
                     }
                 }
-                    .keyboardShortcut("s", modifiers: [.command])
-                
-                Button("Test Voice") { 
-                    AthenaSpeaker.shared.speak("Hi, I am Athena. This is a voice test using your pinned voice settings.")
+                .keyboardShortcut("s", modifiers: [.command])
+
+                Button("Test Voice") {
+                    AthenaSpeaker.shared.speak(
+                        "Hi, I am Athena. This is a voice test using your pinned voice settings.")
                 }
-                    .keyboardShortcut("t", modifiers: [.command])
-                
+                .keyboardShortcut("t", modifiers: [.command])
+
                 Button("Say More") {
                     if let report = store.getLatestReport() {
                         if let concerns = extractConcernsSection(from: report.body) {
@@ -57,15 +63,15 @@ struct AthenaReporterApp: App {
                         }
                     }
                 }
-                    .keyboardShortcut("l", modifiers: [.command])
-                
+                .keyboardShortcut("l", modifiers: [.command])
+
                 Divider()
-                
+
                 Button("Use System Voice") {
                     AthenaSpeaker.shared.backend = .system
                     print("🎤 Switched to system voice (AVSpeech)")
                 }
-                
+
                 Button("Use Kokoro (localhost:8020)") {
                     if let url = URL(string: "http://127.0.0.1:8020/tts") {
                         if AthenaSpeaker.isKokoroAvailable(url: url.deletingLastPathComponent()) {
@@ -76,22 +82,37 @@ struct AthenaReporterApp: App {
                         }
                     }
                 }
+
+                Divider()
+
+                Button("Open Remediation Monitor") {
+                    NSWorkspace.shared.open(URL(string: "athena://monitor")!)
+                }
+                .keyboardShortcut("r", modifiers: [.command, .shift])
             }
         }
-        .handlesExternalEvents(matching: ["report"]) // for URL scheme deep link
+        .handlesExternalEvents(matching: ["report"])  // for URL scheme deep link
+
+        // Remediation Monitor Window
+        Window("Auto-Remediation Monitor", id: "remediation-monitor") {
+            RemediationMonitorView()
+        }
+        .defaultSize(width: 800, height: 700)
+        .windowStyle(.titleBar)
     }
-    
+
     func handleAthenaURL(_ url: URL) {
         guard let comps = URLComponents(url: url, resolvingAgainstBaseURL: false),
-              comps.host == "report" else { return }
+            comps.host == "report"
+        else { return }
 
         print("🔗 Received URL: \(url.absoluteString)")
 
         let q = queryParams(from: url)
-        let reportId = q["report_id"] ?? UUID().uuidString    // still unique if missing
-        let title    = q["title"]    ?? "Athena Report"
-        let summary  = q["summary"]  ?? ""
-        let tsInt    = Int(q["ts"] ?? "") ?? Int(Date().timeIntervalSince1970)
+        let reportId = q["report_id"] ?? UUID().uuidString  // still unique if missing
+        let title = q["title"] ?? "Athena Report"
+        let summary = q["summary"] ?? ""
+        let tsInt = Int(q["ts"] ?? "") ?? Int(Date().timeIntervalSince1970)
 
         var body = "(empty)"
         if let mdPath = q["md_path"], !mdPath.isEmpty {
@@ -111,7 +132,9 @@ struct AthenaReporterApp: App {
         }
 
         // Update or insert model
-        let model = ReportModel(id: reportId, title: title, summary: summary, body: body, ts: Date(timeIntervalSince1970: TimeInterval(tsInt)))
+        let model = ReportModel(
+            id: reportId, title: title, summary: summary, body: body,
+            ts: Date(timeIntervalSince1970: TimeInterval(tsInt)))
         store.addOrUpdateReport(model)
 
         // Show or update window (one per report_id)
@@ -150,24 +173,23 @@ struct AthenaReporterMain {
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Register custom URL scheme: athena:// (done in Info.plist)
-        
+
         print("🚀 Athena Reporter launched")
         print(String(repeating: "=", count: 60))
-        
+
         // Initialize Voice Sentinel (hard-lock + mismatch detection)
         _ = VoiceSentinel.shared
-        
+
         // Run voice doctor diagnostics
         VoiceDoctor.run()
         print(String(repeating: "=", count: 60))
-        
+
         // Initialize speaker backend
         _ = AthenaSpeaker.shared
         print("🎤 Voice backend: Voice Sentinel (hard-locked with mismatch detection)")
         print(String(repeating: "=", count: 60))
     }
 }
-
 
 struct ReportView: View {
     @EnvironmentObject var store: ReportStore
@@ -194,7 +216,7 @@ struct ReportView: View {
                     }
                     .help("Stop speaking (⌘.)")
                     .buttonStyle(.plain)
-                    
+
                     Button {
                         AthenaSpeaker.shared.speak(model.summary)
                     } label: {
@@ -205,9 +227,9 @@ struct ReportView: View {
                 }
                 .padding()
                 .background(Color(NSColor.controlBackgroundColor))
-                
+
                 Divider()
-                
+
                 // Content area
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
@@ -225,9 +247,9 @@ struct ReportView: View {
                                 .background(Color(NSColor.controlBackgroundColor))
                                 .cornerRadius(8)
                         }
-                        
+
                         Divider()
-                        
+
                         // Full report section
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
@@ -236,7 +258,7 @@ struct ReportView: View {
                                 Text("Full Report")
                                     .font(.headline)
                             }
-                            
+
                             // Render markdown as attributed string
                             if let attributed = try? AttributedString(markdown: model.body) {
                                 Text(attributed)
@@ -252,7 +274,8 @@ struct ReportView: View {
                 }
             }
             .frame(minWidth: 700, minHeight: 520)
-            .onReceive(NotificationCenter.default.publisher(for: .init("athena.present.\(id)"))) { notif in
+            .onReceive(NotificationCenter.default.publisher(for: .init("athena.present.\(id)"))) {
+                notif in
                 if let nm = notif.object as? ReportModel {
                     store.addOrUpdateReport(nm)
                     NSApp.activate(ignoringOtherApps: true)
@@ -273,10 +296,10 @@ struct ReportView: View {
     }
 }
 
-private extension String {
-    var nonEmpty: String? { isEmpty ? nil : self }
-    
-    var urlQueryDecoded: String {
+extension String {
+    fileprivate var nonEmpty: String? { isEmpty ? nil : self }
+
+    fileprivate var urlQueryDecoded: String {
         // In URL query strings, '+' often means a space
         let plusFixed = self.replacingOccurrences(of: "+", with: " ")
         return plusFixed.removingPercentEncoding ?? plusFixed
@@ -297,13 +320,15 @@ func extractConcernsSection(from markdown: String) -> String? {
     // Look for "## ⚠️  Concerns" or "## Concerns" section
     let patterns = [
         "## ⚠️\\s*Concerns\\s*\\n([\\s\\S]*?)(?=\\n##|$)",
-        "## Concerns\\s*\\n([\\s\\S]*?)(?=\\n##|$)"
+        "## Concerns\\s*\\n([\\s\\S]*?)(?=\\n##|$)",
     ]
-    
+
     for pattern in patterns {
         if let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive]),
-           let match = regex.firstMatch(in: markdown, range: NSRange(markdown.startIndex..., in: markdown)),
-           match.numberOfRanges > 1 {
+            let match = regex.firstMatch(
+                in: markdown, range: NSRange(markdown.startIndex..., in: markdown)),
+            match.numberOfRanges > 1
+        {
             let range = match.range(at: 1)
             if let swiftRange = Range(range, in: markdown) {
                 let concerns = String(markdown[swiftRange])
@@ -316,4 +341,3 @@ func extractConcernsSection(from markdown: String) -> String? {
     }
     return nil
 }
-
