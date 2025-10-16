@@ -43,11 +43,13 @@ A complete **Verdict → Auto-Remediation → Validate → Promote/Rollback** sy
 ## Components Implemented
 
 ### 1. Event Bus (`infra/`)
+
 - **`event_bus.py`** - Local in-process pub/sub
 - **`event_bus_redis.py`** - Redis-backed distributed pub/sub
 - Toggle via `EVENT_BUS=local|redis` environment variable
 
 **Topics:**
+
 - `exec.verdict.applied` - Verdict executed
 - `exec.remediation.requested` - Remediation needed
 - `exec.remediation.started` - Remediation in progress
@@ -55,11 +57,13 @@ A complete **Verdict → Auto-Remediation → Validate → Promote/Rollback** sy
 - `release.canary.window_result` - Canary validation result
 
 ### 2. Orchestrator Enhancement
+
 - **Modified:** `governance/executive/orchestration/dgm_orchestrator.py`
 - Publishes verdict events after execution
 - Triggers remediation for HARD_FAIL/REJECT/ROLLBACK cases
 
 ### 3. Remediator Service
+
 - **New:** `agi_core/remediator.py`
 - HTTP service on port **9112** (`/health`, `/metrics`)
 - Subscribes to `exec.remediation.requested`
@@ -69,6 +73,7 @@ A complete **Verdict → Auto-Remediation → Validate → Promote/Rollback** sy
   - Publishes decision to canary consumer
 
 ### 4. Canary Consumer
+
 - **New:** `governance/canary/canary_consumer.py`
 - Subscribes to `release.canary.window_result`
 - Executes promote/rollback/hold actions
@@ -76,8 +81,10 @@ A complete **Verdict → Auto-Remediation → Validate → Promote/Rollback** sy
 - Logs all actions to audit trail
 
 ### 5. Metrics & Observability
+
 - **Modified:** `governance/observability/dgm_metrics.py`
 - **New metrics:**
+
   - `governance_remediations_requested_total`
   - `governance_remediations_started_total`
   - `governance_remediations_completed_total{decision}`
@@ -90,6 +97,7 @@ A complete **Verdict → Auto-Remediation → Validate → Promote/Rollback** sy
   - Added remediator scrape target (9112)
 
 ### 6. Alerts
+
 - **Modified:** `monitoring/prometheus/alerts.yml`
 - **New alert group:** `governance.remediation`
 - Alerts:
@@ -101,6 +109,7 @@ A complete **Verdict → Auto-Remediation → Validate → Promote/Rollback** sy
   - `NoRemediationActivity` - Event bus disconnected
 
 ### 7. Docker Integration
+
 - **Modified:** `docker-compose.athena-governance.yml`
 - **New service:** `agi-remediator`
   - Port 9112
@@ -108,6 +117,7 @@ A complete **Verdict → Auto-Remediation → Validate → Promote/Rollback** sy
   - Volumes: agi_core, infra, governance, state, sandbox
 
 ### 8. Testing
+
 - **New:** `tests/e2e/test_auto_remediation.py`
 - Tests full flow:
   1. Service health checks
@@ -118,6 +128,7 @@ A complete **Verdict → Auto-Remediation → Validate → Promote/Rollback** sy
   6. Decision execution
 
 ### 9. Documentation & Tools
+
 - **New:** `AUTO_REMEDIATION_GUIDE.md` - Complete usage guide
 - **New:** `scripts/remediation_quickstart.sh` - Quick start demo
 - **Modified:** `Makefile.governance` - Added convenience targets
@@ -170,14 +181,14 @@ curl http://localhost:9111/health  # Canary monitor
 
 ## Ports
 
-| Service | Port | Endpoints |
-|---------|------|-----------|
-| Orchestrator | 9110 | `/health`, `/verdict`, `/metrics` |
-| Canary Monitor | 9111 | `/health`, `/metrics` |
-| **Remediator** | **9112** | `/health`, `/metrics` |
-| Prometheus | 9090 | Standard Prometheus |
-| Grafana | 3001 | Dashboards |
-| Redis | 6379 | Event bus (optional) |
+| Service        | Port     | Endpoints                         |
+| -------------- | -------- | --------------------------------- |
+| Orchestrator   | 9110     | `/health`, `/verdict`, `/metrics` |
+| Canary Monitor | 9111     | `/health`, `/metrics`             |
+| **Remediator** | **9112** | `/health`, `/metrics`             |
+| Prometheus     | 9090     | Standard Prometheus               |
+| Grafana        | 3001     | Dashboards                        |
+| Redis          | 6379     | Event bus (optional)              |
 
 ---
 
@@ -190,8 +201,8 @@ Query at `http://localhost:9090`:
 rate(governance_remediations_requested_total[5m])
 
 # Success rate
-rate(governance_remediations_promoted_total[1h]) 
-/ 
+rate(governance_remediations_promoted_total[1h])
+/
 rate(governance_remediations_completed_total[1h])
 
 # Decision breakdown
@@ -205,18 +216,22 @@ sum(increase(governance_remediations_completed_total[1h])) by (decision)
 ### Event Bus Mode
 
 **Local (Development)**
+
 ```bash
 EVENT_BUS=local
 ```
+
 - In-process pub/sub
 - Single process only
 - Fast, no dependencies
 
 **Redis (Production)**
+
 ```bash
 EVENT_BUS=redis
 REDIS_URL=redis://localhost:6379/0
 ```
+
 - Distributed pub/sub
 - Multi-process safe
 - Durable across restarts
@@ -245,7 +260,7 @@ class RemediationPlanner:
     def __init__(self):
         from governance.research.dgm.dgm_agi_bridge import DGMAGIBridge
         self.bridge = DGMAGIBridge()
-    
+
     def generate_plan(self, verdict: Dict[str, Any]) -> Dict[str, Any]:
         # Real AGI Core analysis
         return self.bridge.generate_improvement_plan(verdict)
@@ -267,6 +282,7 @@ def run_canary(self, plan: Dict[str, Any]) -> Dict[str, Any]:
 ## Files Created/Modified
 
 ### Created (9 files)
+
 ```
 infra/event_bus.py
 infra/event_bus_redis.py
@@ -280,6 +296,7 @@ AUTO_REMEDIATION_GUIDE.md
 ```
 
 ### Modified (5 files)
+
 ```
 governance/executive/orchestration/dgm_orchestrator.py
 governance/observability/dgm_metrics.py
@@ -323,7 +340,7 @@ Makefile.governance
 ✅ Docker Compose includes remediator  
 ✅ E2E test passes  
 ✅ Quick start demo works  
-✅ Documentation complete  
+✅ Documentation complete
 
 ---
 
@@ -368,4 +385,3 @@ Makefile.governance
 ---
 
 **Phase Ω Complete. 🎯**
-

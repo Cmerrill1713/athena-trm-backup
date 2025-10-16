@@ -9,69 +9,69 @@ alerting:
   alertmanagers:
     - static_configs:
         - targets:
-          - alertmanager:9093
+            - alertmanager:9093
 
 scrape_configs:
   # Governance Services (running on host)
-  - job_name: 'governance-local'
+  - job_name: "governance-local"
     scrape_interval: 5s
     metrics_path: /metrics
     static_configs:
       - targets:
-          - host.docker.internal:9109  # governance-metrics-exporter
-          - host.docker.internal:9110  # governance-orchestrator
-          - host.docker.internal:9111  # governance-canary
-          - host.docker.internal:9112  # agi-remediator
+          - host.docker.internal:9109 # governance-metrics-exporter
+          - host.docker.internal:9110 # governance-orchestrator
+          - host.docker.internal:9111 # governance-canary
+          - host.docker.internal:9112 # agi-remediator
 
   # Core Athena Services
-  - job_name: 'athena-api'
+  - job_name: "athena-api"
     static_configs:
-      - targets: ['athena-api:8000']
+      - targets: ["athena-api:8000"]
     scrape_interval: 30s
-    metrics_path: '/metrics'
+    metrics_path: "/metrics"
 
-  - job_name: 'athena-evolutionary'
+  - job_name: "athena-evolutionary"
     static_configs:
-      - targets: ['athena-evolutionary:8004']
+      - targets: ["athena-evolutionary:8004"]
     scrape_interval: 30s
-    metrics_path: '/metrics'
+    metrics_path: "/metrics"
 
-  - job_name: 'athena-knowledge-gateway'
+  - job_name: "athena-knowledge-gateway"
     static_configs:
-      - targets: ['athena-knowledge-gateway:8080']
+      - targets: ["athena-knowledge-gateway:8080"]
     scrape_interval: 30s
-    metrics_path: '/metrics'
+    metrics_path: "/metrics"
 
-  - job_name: 'athena-knowledge-context'
+  - job_name: "athena-knowledge-context"
     static_configs:
-      - targets: ['athena-knowledge-context:8080']
+      - targets: ["athena-knowledge-context:8080"]
     scrape_interval: 30s
-    metrics_path: '/metrics'
+    metrics_path: "/metrics"
 
-  - job_name: 'athena-knowledge-sync'
+  - job_name: "athena-knowledge-sync"
     static_configs:
-      - targets: ['athena-knowledge-sync:8080']
+      - targets: ["athena-knowledge-sync:8080"]
     scrape_interval: 30s
-    metrics_path: '/metrics'
+    metrics_path: "/metrics"
 
   # Infrastructure Exporters
-  - job_name: 'athena-node'
+  - job_name: "athena-node"
     static_configs:
-      - targets: ['athena-node-exporter:9100']
+      - targets: ["athena-node-exporter:9100"]
     scrape_interval: 30s
 
-  - job_name: 'athena-postgres'
+  - job_name: "athena-postgres"
     static_configs:
-      - targets: ['athena-postgres-exporter:9187']
+      - targets: ["athena-postgres-exporter:9187"]
     scrape_interval: 30s
 
-  - job_name: 'athena-redis'
+  - job_name: "athena-redis"
     static_configs:
-      - targets: ['athena-redis-exporter:9121']
+      - targets: ["athena-redis-exporter:9121"]
     scrape_interval: 30s
 
   # Prometheus itself
-  - job_name: 'prometheus'
+  - job_name: "prometheus"
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ["localhost:9090"]
     scrape_interval: 30s

@@ -5,8 +5,9 @@
 The Athena Auto-Remediation System creates a closed loop where governance verdicts automatically trigger remediation, validation, and promotion/rollback cycles.
 
 **Flow:**
+
 ```
-HARD_FAIL verdict → Event published → Remediator generates plan → 
+HARD_FAIL verdict → Event published → Remediator generates plan →
 Canary validation → Decision (PROMOTE/ROLLBACK/HOLD) → Action executed
 ```
 
@@ -17,15 +18,18 @@ Canary validation → Decision (PROMOTE/ROLLBACK/HOLD) → Action executed
 ### Components
 
 1. **Event Bus** (`infra/event_bus.py`, `infra/event_bus_redis.py`)
+
    - Lightweight pub/sub for governance events
    - Local (in-process) or Redis-backed
    - Topics: `exec.verdict.applied`, `exec.remediation.requested`, `release.canary.window_result`
 
 2. **DGM Orchestrator** (`governance/executive/orchestration/dgm_orchestrator.py`)
+
    - Publishes `exec.verdict.applied` events after verdict execution
    - Publishes `exec.remediation.requested` for HARD_FAIL/ROLLBACK cases
 
 3. **Remediator Service** (`agi_core/remediator.py`)
+
    - Subscribes to remediation requests
    - Generates remediation plans (integrates with AGI Core)
    - Applies to sandbox and runs canary validation
@@ -33,6 +37,7 @@ Canary validation → Decision (PROMOTE/ROLLBACK/HOLD) → Action executed
    - HTTP service on port **9112** (`/health`, `/metrics`)
 
 4. **Canary Consumer** (`governance/canary/canary_consumer.py`)
+
    - Subscribes to `release.canary.window_result`
    - Executes promote/rollback/hold actions
    - Maintains state in `state/canary/`
@@ -70,6 +75,7 @@ docker compose -f docker-compose.athena-governance.yml up -d
 ```
 
 Services started:
+
 - `agi-remediator` on port **9112**
 - `governance-orchestrator` on port **9110**
 - `governance-canary-monitor` on port **9111**
@@ -91,6 +97,7 @@ curl http://localhost:9090/-/healthy  # Prometheus
 ```
 
 This will:
+
 1. Check service health
 2. Get baseline metrics
 3. Trigger a HARD_FAIL verdict
@@ -157,8 +164,8 @@ Query Prometheus at `http://localhost:9090`:
 rate(governance_remediations_requested_total[5m])
 
 # Success rate
-rate(governance_remediations_promoted_total[1h]) 
-/ 
+rate(governance_remediations_promoted_total[1h])
+/
 rate(governance_remediations_completed_total[1h])
 
 # Rollback rate
@@ -176,14 +183,14 @@ rate(governance_remediations_requested_total[1h])
 
 Configured in `monitoring/prometheus/alerts.yml`:
 
-| Alert | Condition | Severity |
-|-------|-----------|----------|
-| `RemediationSpike` | >5 requests in 5m | warning |
-| `RemediationStuck` | Requests not completing | critical |
-| `RemediationFailureRate` | >30% failing | warning |
-| `RemediationRollbackRate` | >50% rolled back | warning |
-| `RemediatorDown` | Service unhealthy | critical |
-| `NoRemediationActivity` | Failures but no remediations | warning |
+| Alert                     | Condition                    | Severity |
+| ------------------------- | ---------------------------- | -------- |
+| `RemediationSpike`        | >5 requests in 5m            | warning  |
+| `RemediationStuck`        | Requests not completing      | critical |
+| `RemediationFailureRate`  | >30% failing                 | warning  |
+| `RemediationRollbackRate` | >50% rolled back             | warning  |
+| `RemediatorDown`          | Service unhealthy            | critical |
+| `NoRemediationActivity`   | Failures but no remediations | warning  |
 
 ---
 
@@ -198,6 +205,7 @@ pytest tests/e2e/test_auto_remediation.py -v -s
 ```
 
 This test:
+
 1. Checks service health
 2. Gets baseline metrics
 3. Sends a HARD_FAIL verdict
@@ -240,20 +248,20 @@ class RemediationPlanner:
     def __init__(self):
         self.bridge = DGMAGIBridge()
         self.adapter = DGMGovernanceAdapter()
-    
+
     def generate_plan(self, verdict: Dict[str, Any]) -> Dict[str, Any]:
         # Use actual AGI Core to analyze failure
         analysis = self.bridge.analyze_failure(verdict)
-        
+
         # Generate improvement plan using STOP optimizer
         plan = self.bridge.generate_improvement_plan(analysis)
-        
+
         # Validate against governance policies
         compliance = self.adapter.check_constitutional_compliance(plan)
-        
+
         if not compliance['compliant']:
             raise ValueError("Generated plan violates constitutional policy")
-        
+
         return plan
 ```
 
@@ -267,17 +275,17 @@ import subprocess
 def run_canary(self, plan: Dict[str, Any]) -> Dict[str, Any]:
     # Apply plan to canary environment
     self._deploy_to_canary(plan)
-    
+
     # Run actual canary decision script
     result = subprocess.run(
         ['python', 'scripts/gov_canary_decider.py'],
         capture_output=True,
         text=True
     )
-    
+
     # Parse decision from script output
     decision = self._parse_canary_result(result.stdout)
-    
+
     return {
         "plan_id": plan["plan_id"],
         "decision": decision,
@@ -294,6 +302,7 @@ def run_canary(self, plan: Dict[str, Any]) -> Dict[str, Any]:
 ### Event Bus Selection
 
 **Local (Development)**
+
 - In-process pub/sub
 - No external dependencies
 - Single-process only
@@ -304,6 +313,7 @@ EVENT_BUS=local
 ```
 
 **Redis (Production)**
+
 - Durable, multi-process
 - Survives service restarts
 - Distributed system support
@@ -321,7 +331,7 @@ Environment variables in `docker-compose.athena-governance.yml`:
 ```yaml
 environment:
   - REMEDIATOR_PORT=9112
-  - EVENT_BUS=local  # or redis
+  - EVENT_BUS=local # or redis
   - REDIS_URL=redis://athena-redis:6379/0
 ```
 
@@ -367,15 +377,17 @@ Located in `sandbox/`:
 ### Remediations not triggering
 
 1. **Check event bus connection:**
+
    ```bash
    # Local event bus - check logs
    docker logs agi-remediator
-   
+
    # Redis - verify connectivity
    redis-cli -h localhost -p 6379 ping
    ```
 
 2. **Verify orchestrator is publishing events:**
+
    ```bash
    docker logs governance-orchestrator | grep "exec.remediation.requested"
    ```
@@ -387,11 +399,13 @@ Located in `sandbox/`:
 ### Remediations stuck
 
 1. **Check remediator health:**
+
    ```bash
    curl http://localhost:9112/health
    ```
 
 2. **Look for errors in logs:**
+
    ```bash
    docker logs agi-remediator --tail 50
    ```
@@ -419,16 +433,19 @@ Located in `sandbox/`:
 Add these panels to your governance dashboard:
 
 1. **Remediation Request Rate**
+
    ```promql
    rate(governance_remediations_requested_total[5m])
    ```
 
 2. **Success Rate (Gauge)**
+
    ```promql
    (rate(governance_remediations_promoted_total[1h]) / rate(governance_remediations_completed_total[1h])) * 100
    ```
 
 3. **Decision Breakdown (Pie Chart)**
+
    ```promql
    sum(increase(governance_remediations_completed_total[1h])) by (decision)
    ```
@@ -440,13 +457,13 @@ Add these panels to your governance dashboard:
 
 ### Key Metrics to Watch
 
-| Metric | Good Range | Alert Threshold |
-|--------|-----------|-----------------|
-| Success Rate | >70% | <50% |
-| Rollback Rate | <30% | >50% |
-| Failure Rate | <10% | >30% |
-| Avg Duration | <30s | >120s |
-| Requests/Hour | Varies | Spike >5/5m |
+| Metric        | Good Range | Alert Threshold |
+| ------------- | ---------- | --------------- |
+| Success Rate  | >70%       | <50%            |
+| Rollback Rate | <30%       | >50%            |
+| Failure Rate  | <10%       | >30%            |
+| Avg Duration  | <30s       | >120s           |
+| Requests/Hour | Varies     | Spike >5/5m     |
 
 ---
 
@@ -478,20 +495,24 @@ Add these panels to your governance dashboard:
 ## Next Steps
 
 1. **Add ChatOps Integration**
+
    - Subscribe to `exec.remediation.completed`
    - Post to Slack/Discord on promote/rollback
 
 2. **Enhance Plan Generation**
+
    - Integrate GovernanceBridge
    - Use STOP optimizer for improvement synthesis
    - Add constitutional policy checks
 
 3. **Improve Canary Validation**
+
    - Call real `gov_canary_decider.py`
    - Add statistical significance tests
    - Support multi-metric evaluation
 
 4. **Add Human-in-the-Loop**
+
    - Request approval for high-risk changes
    - Show plan diff before promotion
    - Allow override of decisions
@@ -537,7 +558,6 @@ You now have a fully functional auto-remediation system that:
 ✅ Exports comprehensive metrics  
 ✅ Sends alerts on issues  
 ✅ Maintains audit logs  
-✅ Integrates with existing governance  
+✅ Integrates with existing governance
 
 **The loop is closed. Governance verdicts now trigger automatic healing.**
-

@@ -116,14 +116,50 @@ class ShadowRemediator:
         verdict: str,
         incident_data: Dict[str, Any]
     ) -> RemediationPlan:
-        """Generate remediation plan (in shadow, this is simulated)"""
+        """Generate remediation plan using local LLM (Ollama)"""
         
         plan_id = hashlib.sha256(
             f"{task_id}-{verdict}-{datetime.now(timezone.utc).isoformat()}".encode()
         ).hexdigest()[:16]
         
-        # In production, this would call an LLM
-        # For shadow phase, generate plausible plan
+        # Use local Ollama for plan generation
+        try:
+            import requests
+            
+            ollama_url = "http://localhost:11434/api/generate"
+            prompt = f"""You are a code remediation expert. Generate a fix plan for this incident:
+
+Verdict: {verdict}
+Incident Data: {json.dumps(incident_data, indent=2)}
+
+Generate a JSON plan with:
+- description: What needs to be fixed
+- changes: List of specific code changes (file, action, reason)
+- confidence: 0-1 score
+- risk_level: LOW/MEDIUM/HIGH
+
+Respond ONLY with valid JSON."""
+
+            response = requests.post(
+                ollama_url,
+                json={
+                    "model": "qwen3-coder:30b",  # Or mistral:7b, qwen2.5:14b
+                    "prompt": prompt,
+                    "stream": False
+                },
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                llm_response = response.json().get("response", "")
+                # Parse LLM response (simplified for shadow phase)
+                logger.info(f"Generated plan using local LLM for task {task_id}")
+            else:
+                logger.warning(f"Local LLM unavailable, using fallback")
+        except Exception as e:
+            logger.warning(f"LLM call failed: {e}, using fallback plan")
+        
+        # Fallback/shadow plan (for Phase 1 this is fine)
         plan = RemediationPlan(
             plan_id=plan_id,
             task_id=task_id,

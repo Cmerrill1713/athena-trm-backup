@@ -1,75 +1,81 @@
 groups:
-- name: governance.rules
-  interval: 30s
-  rules:
-  - alert: ECEHigh
-    expr: governance_ece > 0.06
-    for: 5m
-    labels: { severity: warning }
-    annotations: { summary: "ECE exceeded target", description: "ECE={{ $value }}" }
-  - alert: EntropyDriftHigh
-    expr: governance_entropy_drift > 0.25
-    for: 2m
-    labels: { severity: critical }
-    annotations: { summary: "Entropy drift high", description: "Drift={{ $value }}" }
-  - alert: ViolationSpike
-    expr: rate(governance_violation_rate[5m]) > 0.02
-    for: 5m
-    labels: { severity: warning }
-    annotations: { summary: "Violation rate spiking", description: "Rate={{ $value }}" }
-  - alert: AutohealErrors
-    expr: increase(governance_autoheal_errors_total[10m]) > 0
-    for: 1m
-    labels: { severity: warning }
-    annotations: { summary: "Autoheal errors detected" }
+  - name: governance.rules
+    interval: 30s
+    rules:
+      - alert: ECEHigh
+        expr: governance_ece > 0.06
+        for: 5m
+        labels: { severity: warning }
+        annotations:
+          { summary: "ECE exceeded target", description: "ECE={{ $value }}" }
+      - alert: EntropyDriftHigh
+        expr: governance_entropy_drift > 0.25
+        for: 2m
+        labels: { severity: critical }
+        annotations:
+          { summary: "Entropy drift high", description: "Drift={{ $value }}" }
+      - alert: ViolationSpike
+        expr: rate(governance_violation_rate[5m]) > 0.02
+        for: 5m
+        labels: { severity: warning }
+        annotations:
+          {
+            summary: "Violation rate spiking",
+            description: "Rate={{ $value }}",
+          }
+      - alert: AutohealErrors
+        expr: increase(governance_autoheal_errors_total[10m]) > 0
+        for: 1m
+        labels: { severity: warning }
+        annotations: { summary: "Autoheal errors detected" }
 
-- name: governance.remediation
-  interval: 30s
-  rules:
-  - alert: RemediationSpike
-    expr: increase(governance_remediations_requested_total[5m]) > 5
-    for: 2m
-    labels: { severity: warning }
-    annotations:
-      summary: "Remediation spike detected"
-      description: "More than 5 remediations requested in 5 minutes. Current rate: {{ $value }}"
+  - name: governance.remediation
+    interval: 30s
+    rules:
+      - alert: RemediationSpike
+        expr: increase(governance_remediations_requested_total[5m]) > 5
+        for: 2m
+        labels: { severity: warning }
+        annotations:
+          summary: "Remediation spike detected"
+          description: "More than 5 remediations requested in 5 minutes. Current rate: {{ $value }}"
 
-  - alert: RemediationStuck
-    expr: (increase(governance_remediations_requested_total[10m]) - increase(governance_remediations_completed_total[10m])) > 3
-    for: 10m
-    labels: { severity: critical }
-    annotations:
-      summary: "Remediations not completing"
-      description: "{{ $value }} remediations requested but not completed in 10m window"
+      - alert: RemediationStuck
+        expr: (increase(governance_remediations_requested_total[10m]) - increase(governance_remediations_completed_total[10m])) > 3
+        for: 10m
+        labels: { severity: critical }
+        annotations:
+          summary: "Remediations not completing"
+          description: "{{ $value }} remediations requested but not completed in 10m window"
 
-  - alert: RemediationFailureRate
-    expr: rate(governance_remediations_failed_total[1h]) / rate(governance_remediations_requested_total[1h]) > 0.3
-    for: 5m
-    labels: { severity: warning }
-    annotations:
-      summary: "High remediation failure rate"
-      description: "{{ $value | humanizePercentage }} of remediations failing"
+      - alert: RemediationFailureRate
+        expr: rate(governance_remediations_failed_total[1h]) / rate(governance_remediations_requested_total[1h]) > 0.3
+        for: 5m
+        labels: { severity: warning }
+        annotations:
+          summary: "High remediation failure rate"
+          description: "{{ $value | humanizePercentage }} of remediations failing"
 
-  - alert: RemediationRollbackRate
-    expr: rate(governance_remediations_rolled_back_total[1h]) / rate(governance_remediations_completed_total[1h]) > 0.5
-    for: 5m
-    labels: { severity: warning }
-    annotations:
-      summary: "High remediation rollback rate"
-      description: "{{ $value | humanizePercentage }} of remediations being rolled back"
+      - alert: RemediationRollbackRate
+        expr: rate(governance_remediations_rolled_back_total[1h]) / rate(governance_remediations_completed_total[1h]) > 0.5
+        for: 5m
+        labels: { severity: warning }
+        annotations:
+          summary: "High remediation rollback rate"
+          description: "{{ $value | humanizePercentage }} of remediations being rolled back"
 
-  - alert: RemediatorDown
-    expr: up{job="governance-local", instance=~".*:9112"} == 0
-    for: 2m
-    labels: { severity: critical }
-    annotations:
-      summary: "Remediator service down"
-      description: "AGI remediator service is not responding on port 9112"
+      - alert: RemediatorDown
+        expr: up{job="governance-local", instance=~".*:9112"} == 0
+        for: 2m
+        labels: { severity: critical }
+        annotations:
+          summary: "Remediator service down"
+          description: "AGI remediator service is not responding on port 9112"
 
-  - alert: NoRemediationActivity
-    expr: increase(governance_remediations_requested_total[24h]) == 0 and increase(dgm_verdicts_total{verdict_type=~"REJECT|HARD_FAIL"}[24h]) > 0
-    for: 1h
-    labels: { severity: warning }
-    annotations:
-      summary: "No remediation activity despite failures"
-      description: "Failures detected but no remediation requests - event bus may be disconnected"
+      - alert: NoRemediationActivity
+        expr: increase(governance_remediations_requested_total[24h]) == 0 and increase(dgm_verdicts_total{verdict_type=~"REJECT|HARD_FAIL"}[24h]) > 0
+        for: 1h
+        labels: { severity: warning }
+        annotations:
+          summary: "No remediation activity despite failures"
+          description: "Failures detected but no remediation requests - event bus may be disconnected"

@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 # Athena Complete Stack with Integrated Governance
 # Unified production-ready compose file merging Athena + Governance services
@@ -194,7 +194,7 @@ services:
     container_name: governance-metrics-exporter
     restart: unless-stopped
     ports:
-      - "127.0.0.1:9109:8000"  # Prometheus metrics port
+      - "127.0.0.1:9109:8000" # Prometheus metrics port
     environment:
       - PYTHONUNBUFFERED=1
       - PROMETHEUS_MULTIPROC_DIR=/tmp
@@ -202,17 +202,17 @@ services:
       - ./governance:/app/governance:ro
       - ./state:/app/state:rw
     depends_on:
-      - athena-postgres  # Connect to existing Postgres
-      - athena-redis     # Connect to existing Redis
+      - athena-postgres # Connect to existing Postgres
+      - athena-redis # Connect to existing Redis
       - athena-prometheus # Register with existing Prometheus
     networks:
-      - athena-network   # Use existing network
+      - athena-network # Use existing network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-    user: "1001:1001"  # Match existing security practices
+    user: "1001:1001" # Match existing security practices
 
   governance-orchestrator:
     build:
@@ -221,7 +221,7 @@ services:
     container_name: governance-orchestrator
     restart: unless-stopped
     ports:
-      - "127.0.0.1:9110:8000"  # Orchestrator API port
+      - "127.0.0.1:9110:8000" # Orchestrator API port
     environment:
       - PYTHONUNBUFFERED=1
       - EXEC_STATE_PATH=/app/state/exec_state.json
@@ -239,7 +239,7 @@ services:
       - athena-postgres
       - athena-redis
       - athena-prometheus
-      - athena-api  # Monitor actual API traffic
+      - athena-api # Monitor actual API traffic
     networks:
       - athena-network
     healthcheck:
@@ -256,7 +256,7 @@ services:
     container_name: governance-canary-monitor
     restart: unless-stopped
     ports:
-      - "127.0.0.1:9111:8000"  # Canary metrics port
+      - "127.0.0.1:9111:8000" # Canary metrics port
     environment:
       - PYTHONUNBUFFERED=1
       - CANARY_WINDOW_SIZE=200
@@ -288,10 +288,10 @@ services:
     container_name: agi-remediator
     restart: unless-stopped
     ports:
-      - "127.0.0.1:9112:9112"  # Remediator metrics/health port
+      - "127.0.0.1:9112:9112" # Remediator metrics/health port
     environment:
       - PYTHONUNBUFFERED=1
-      - EVENT_BUS=${EVENT_BUS:-local}  # local or redis
+      - EVENT_BUS=${EVENT_BUS:-local} # local or redis
       - REDIS_URL=redis://athena-redis:6379/0
       - REMEDIATOR_PORT=9112
       - POSTGRES_HOST=athena-postgres
@@ -326,9 +326,9 @@ services:
     ports:
       - "127.0.0.1:9090:9090"
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.enable-lifecycle'
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-lifecycle"
     volumes:
       - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - ./monitoring/prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
@@ -338,7 +338,15 @@ services:
     networks:
       - athena-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:9090/-/healthy"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:9090/-/healthy",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -362,7 +370,15 @@ services:
     networks:
       - athena-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000/api/health",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -403,12 +419,20 @@ services:
     volumes:
       - ./monitoring/prometheus/alerts.yml:/etc/alertmanager/config.yml:ro
     command:
-      - '--config.file=/etc/alertmanager/config.yml'
-      - '--web.listen-address=0.0.0.0:9093'
+      - "--config.file=/etc/alertmanager/config.yml"
+      - "--web.listen-address=0.0.0.0:9093"
     networks:
       - athena-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:9093/-/healthy"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:9093/-/healthy",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -424,9 +448,9 @@ services:
     ports:
       - "127.0.0.1:9100:9100"
     command:
-      - '--path.procfs=/host/proc'
-      - '--path.sysfs=/host/sys'
-      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
+      - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
