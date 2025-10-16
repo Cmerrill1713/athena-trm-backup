@@ -1,0 +1,287 @@
+{
+  "services": {
+    "orchestrator_up": {
+      "exists": true,
+      "health": {
+        "code": 200,
+        "ok": true,
+        "expected": 200
+      },
+      "metrics": {
+        "code": 200,
+        "ok": true,
+        "must_contain": [
+          "governance_verdicts_total",
+          "governance_actions_total",
+          "governance_ece_post"
+        ]
+      },
+      "endpoints": [
+        {
+          "url": "http://localhost:9110/verdict",
+          "method": "POST",
+          "code": 200,
+          "ok": true
+        }
+      ],
+      "prometheus": {
+        "ok": true,
+        "queries": [
+          {
+            "name": "verdicts_exist",
+            "expr": "sum(governance_verdicts_total)",
+            "ok": true
+          },
+          {
+            "name": "orchestrator_up",
+            "expr": "governance_orchestrator_up",
+            "ok": true
+          }
+        ]
+      },
+      "errors": []
+    },
+    "metrics_exporter": {
+      "exists": true,
+      "health": {
+        "code": 200,
+        "ok": true,
+        "expected": 200
+      },
+      "metrics": {
+        "code": 200,
+        "ok": true,
+        "must_contain": [
+          "python_gc",
+          "process_"
+        ]
+      },
+      "endpoints": [],
+      "prometheus": null,
+      "errors": []
+    },
+    "canary": {
+      "exists": true,
+      "health": {
+        "code": 200,
+        "ok": true,
+        "expected": 200
+      },
+      "metrics": null,
+      "endpoints": [],
+      "prometheus": null,
+      "errors": []
+    },
+    "prometheus": {
+      "exists": true,
+      "health": {
+        "code": 200,
+        "ok": true,
+        "expected": 200
+      },
+      "metrics": null,
+      "endpoints": [],
+      "prometheus": null,
+      "errors": []
+    },
+    "grafana": {
+      "exists": true,
+      "health": {
+        "code": null,
+        "ok": false,
+        "expected": 200
+      },
+      "metrics": null,
+      "endpoints": [],
+      "prometheus": null,
+      "errors": [
+        "Health check failed: got None, expected 200"
+      ]
+    },
+    "athena_api": {
+      "exists": true,
+      "health": {
+        "code": 200,
+        "ok": true,
+        "expected": 200
+      },
+      "metrics": null,
+      "endpoints": [],
+      "prometheus": null,
+      "errors": []
+    }
+  },
+  "layers": {
+    "agi_core": {
+      "exists": true,
+      "imports_ok": true,
+      "swift_ok": null,
+      "errors": [],
+      "import_details": [
+        {
+          "import": "agi_core",
+          "ok": true
+        },
+        {
+          "import": "agi_core.integrations.governance_bridge",
+          "ok": true
+        },
+        {
+          "import": "agi_core.integrations.monitoring_bridge",
+          "ok": true
+        }
+      ]
+    },
+    "governance": {
+      "exists": true,
+      "imports_ok": true,
+      "swift_ok": null,
+      "errors": [],
+      "import_details": [
+        {
+          "import": "governance.executive.orchestration.dgm_orchestrator",
+          "ok": true
+        },
+        {
+          "import": "governance.judicial.evaluation.dgm_verdict_validator",
+          "ok": true
+        },
+        {
+          "import": "governance.research.dgm.dgm_governance_adapter",
+          "ok": true
+        },
+        {
+          "import": "governance.research.dgm.dgm_agi_bridge",
+          "ok": true
+        }
+      ]
+    },
+    "workflows": {
+      "exists": true,
+      "imports_ok": true,
+      "swift_ok": null,
+      "errors": [],
+      "import_details": [
+        {
+          "import": "workflows.end_to_end_integration",
+          "ok": true
+        }
+      ]
+    },
+    "common": {
+      "exists": true,
+      "imports_ok": false,
+      "swift_ok": null,
+      "errors": [
+        "Import failed: common.tracing"
+      ],
+      "import_details": [
+        {
+          "import": "common.logging",
+          "ok": true
+        },
+        {
+          "import": "common.ops",
+          "ok": true
+        },
+        {
+          "import": "common.tracing",
+          "ok": false
+        }
+      ]
+    },
+    "experimental": {
+      "exists": true,
+      "imports_ok": true,
+      "swift_ok": null,
+      "errors": [],
+      "import_details": [
+        {
+          "import": "governance.experimental.remediation_shadow",
+          "ok": true
+        },
+        {
+          "import": "governance.experimental.local_llm",
+          "ok": true
+        }
+      ]
+    },
+    "infra_sdk": {
+      "exists": true,
+      "imports_ok": true,
+      "swift_ok": null,
+      "errors": [],
+      "import_details": [
+        {
+          "import": "infra.sdk.python.athena_client",
+          "ok": true
+        }
+      ]
+    },
+    "swift_ui": {
+      "exists": true,
+      "imports_ok": null,
+      "swift_ok": false,
+      "errors": [
+        "Xcode project not found: /Users/christianmerrill/Documents/GitHub/NeuroForgeApp/NeuroForgeApp.xcodeproj"
+      ],
+      "swift_files": [
+        {
+          "file": "Sources/Athena/GovernanceAPIClient.swift",
+          "exists": false
+        },
+        {
+          "file": "Sources/Athena/GovernanceDashboardView.swift",
+          "exists": false
+        },
+        {
+          "file": "Sources/AthenaModels.swift",
+          "exists": false
+        },
+        {
+          "file": "Sources/AthenaState.swift",
+          "exists": false
+        }
+      ]
+    }
+  },
+  "orphans": {
+    "NeuroForgeApp_Clean": "unreferenced",
+    "archive": "referenced",
+    "backups": "unreferenced",
+    "infra_snapshot": "unreferenced",
+    "Desktop-Projects": "unreferenced",
+    "AI-Projects": "unreferenced",
+    "ai_republic": "unreferenced",
+    "neuroforge_all_legacy": "missing",
+    "neuroforge_restore_backup_20251013_173812": "missing"
+  },
+  "critical_files": {
+    "athena_master_orchestrator.py": {
+      "exists": true
+    },
+    "athena_api.py": {
+      "exists": true
+    },
+    "config/athena_master_config.yaml": {
+      "exists": true
+    },
+    "docker-compose.athena-governance.yml": {
+      "exists": true
+    },
+    "Makefile": {
+      "exists": true
+    },
+    ".cursorrules": {
+      "exists": true
+    },
+    "athena-hot.code-workspace": {
+      "exists": true
+    }
+  },
+  "score": {
+    "passes": 49,
+    "checks": 56,
+    "percent": 87
+  }
+}

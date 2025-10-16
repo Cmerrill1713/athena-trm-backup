@@ -1,4 +1,4 @@
-.PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch wire-check cursor-bootstrap repo-inventory exp-shadow exp-remediate exp-ab exp-devils-adv exp-cost exp-fasttrack exp-longrun ingress-up prom-up mode-shadow mode-canary mode-enforce gate verify
+.PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch wire-check cursor-bootstrap repo-inventory exp-shadow exp-remediate exp-ab exp-devils-adv exp-cost exp-fasttrack exp-longrun ingress-up prom-up mode-shadow mode-canary mode-enforce gate verify wire-setup wire-validate wire-report
 
 wire-check:  ## Verify complete system wiring (integration test)
 	@echo "🔌 Verifying complete system wiring..."
@@ -17,6 +17,25 @@ prom-query:  ## Query recent governance metrics
 	@echo "Recent governance series count:"; \
 	curl -s "http://localhost:9090/api/v1/series?match[]=governance_*&start=$$(date -u -v-10M +%FT%TZ)&end=$$(date -u +%FT%TZ)" \
 	| jq '.data|length'
+
+# =============================================================================
+# WIRING VALIDATION (Evidence-Based)
+# =============================================================================
+
+WIRE_MATRIX ?= config/wiring.matrix.yaml
+PY ?= python3
+
+wire-setup:  ## Setup wiring validation
+	@mkdir -p artifacts/wiring tools/wiring
+	@test -f $(WIRE_MATRIX) || (echo "❌ Missing $(WIRE_MATRIX)"; exit 1)
+
+wire-validate:  ## Validate wiring with concrete evidence
+	@$(MAKE) wire-setup
+	@$(PY) tools/wiring/validate_wiring.py
+
+wire-report:  ## Show wiring validation report
+	@test -f artifacts/wiring/wiring_report.json || (echo "Run 'make wire-validate' first"; exit 1)
+	@cat artifacts/wiring/wiring_report.json | jq
 
 cursor-bootstrap:  ## Initialize Cursor/IDE setup (run once)
 	@echo "🔧 Bootstrapping Cursor setup..."

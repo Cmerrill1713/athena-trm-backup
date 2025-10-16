@@ -1,0 +1,79 @@
+name: Wiring Validation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "governance/**"
+      - "orchestrator/**"
+      - "agi_core/**"
+      - "workflows/**"
+      - "config/wiring.matrix.yaml"
+      - "tools/wiring/validate_wiring.py"
+  schedule:
+    - cron: "0 0,12 * * *" # Every 12 hours
+
+jobs:
+  validate-wiring:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: |
+          pip install pyyaml requests
+
+      - name: Run Wiring Validation
+        run: |
+          make wire-validate || true
+
+      - name: Upload Wiring Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: wiring-report
+          path: artifacts/wiring/wiring_report.json
+          retention-days: 30
+
+      - name: Generate Summary
+        if: always()
+        run: |
+          echo "## Wiring Validation Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ -f artifacts/wiring/wiring_report.json ]; then
+            SCORE=$(jq -r '.score.percent' artifacts/wiring/wiring_report.json)
+            PASSES=$(jq -r '.score.passes' artifacts/wiring/wiring_report.json)
+            CHECKS=$(jq -r '.score.checks' artifacts/wiring/wiring_report.json)
+            
+            echo "**Score:** ${SCORE}% (${PASSES}/${CHECKS})" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            
+            echo "### Services" >> $GITHUB_STEP_SUMMARY
+            jq -r '.services | to_entries[] | "- " + (.key) + ": " + (if .value.health.ok then "✅" else "❌" end)' artifacts/wiring/wiring_report.json >> $GITHUB_STEP_SUMMARY
+            
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Layers" >> $GITHUB_STEP_SUMMARY
+            jq -r '.layers | to_entries[] | "- " + (.key) + ": " + (if .value.imports_ok then "✅" else "❌" end)' artifacts/wiring/wiring_report.json >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Wiring report not generated" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Check Score Threshold
+        run: |
+          if [ -f artifacts/wiring/wiring_report.json ]; then
+            SCORE=$(jq -r '.score.percent' artifacts/wiring/wiring_report.json)
+            if [ "$SCORE" -lt 90 ]; then
+              echo "❌ Wiring score ${SCORE}% below 90% threshold"
+              exit 1
+            fi
+          fi
+

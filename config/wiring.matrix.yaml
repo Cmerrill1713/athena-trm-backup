@@ -1,0 +1,179 @@
+# Wiring Matrix - Declares what SHOULD be wired up
+# The validator will verify each claim with real HTTP/import checks
+
+version: 1
+
+# HTTP Services (must respond to health checks)
+services:
+  orchestrator:
+    path: "orchestrator"
+    kind: "http"
+    required: true
+    health:
+      url: "http://localhost:9110/health"
+      expect: 200
+      timeout_s: 2.5
+    metrics:
+      url: "http://localhost:9110/metrics"
+      must_contain: ["governance_verdicts_total", "governance_actions_total", "governance_ece_post"]
+    endpoints:
+      - method: "POST"
+        url: "http://localhost:9110/verdict"
+        body:
+          task_id: "_probe_"
+          verdict: "PASS"
+          ece_post: 0.95
+          entropy: 0.05
+          actions: ["PROMOTE"]
+          ts: "2025-10-15T00:00:00Z"
+        expect_json_keys: ["status"]
+    prometheus:
+      scrape_expected: true
+      prom_url: "http://localhost:9090"
+      queries:
+        - name: "verdicts_exist"
+          expr: "sum(governance_verdicts_total)"
+          expect_gt: 0
+        - name: "orchestrator_up"
+          expr: "governance_orchestrator_up"
+          expect_gt: 0
+
+  metrics_exporter:
+    path: "governance/observability"
+    kind: "http"
+    required: true
+    health:
+      url: "http://localhost:9109/metrics"
+      expect: 200
+      timeout_s: 2.5
+    metrics:
+      url: "http://localhost:9109/metrics"
+      must_contain: ["python_gc", "process_"]
+
+  canary:
+    path: "governance/canary"
+    kind: "http"
+    required: true
+    health:
+      url: "http://localhost:9111/health"
+      expect: 200
+      timeout_s: 2.5
+
+  prometheus:
+    path: "monitoring/prometheus"
+    kind: "prometheus"
+    required: true
+    health:
+      url: "http://localhost:9090/-/healthy"
+      expect: 200
+      timeout_s: 2.5
+    checks:
+      - type: "targets"
+        url: "http://localhost:9090/api/v1/targets"
+        must_include_hosts: ["9110", "9109"]
+
+  grafana:
+    path: "monitoring/grafana"
+    kind: "grafana"
+    required: false
+    health:
+      url: "http://localhost:3000/api/health"
+      expect: 200
+      timeout_s: 2.5
+
+  athena_api:
+    path: "orchestrator"
+    kind: "http"
+    required: true
+    health:
+      url: "http://localhost:8888/health"
+      expect: 200
+      timeout_s: 2.5
+
+# Code layers (must import or compile)
+layers:
+  agi_core:
+    path: "agi_core"
+    python_imports:
+      - "agi_core"
+      - "agi_core.integrations.governance_bridge"
+      - "agi_core.integrations.monitoring_bridge"
+    required: true
+
+  governance:
+    path: "governance"
+    python_imports:
+      - "governance.executive.orchestration.dgm_orchestrator"
+      - "governance.judicial.evaluation.dgm_verdict_validator"
+      - "governance.research.dgm.dgm_governance_adapter"
+      - "governance.research.dgm.dgm_agi_bridge"
+    required: true
+
+  workflows:
+    path: "workflows"
+    python_imports:
+      - "workflows.end_to_end_integration"
+    required: true
+
+  common:
+    path: "common"
+    python_imports:
+      - "common.logging"
+      - "common.ops"
+      - "common.tracing"
+    required: true
+
+  experimental:
+    path: "governance/experimental"
+    python_imports:
+      - "governance.experimental.remediation_shadow"
+      - "governance.experimental.local_llm"
+    required: true
+
+  infra_sdk:
+    path: "infra/sdk/python"
+    python_imports:
+      - "infra.sdk.python.athena_client"
+    required: false
+
+  swift_ui:
+    path: "NeuroForgeApp"
+    xcodeproj: "NeuroForgeApp/NeuroForgeApp.xcodeproj"
+    scheme: "NeuroForgeApp"
+    required: true
+    swift_files:
+      - "Sources/Athena/GovernanceAPIClient.swift"
+      - "Sources/Athena/GovernanceDashboardView.swift"
+      - "Sources/AthenaModels.swift"
+      - "Sources/AthenaState.swift"
+
+# Directories suspected to be orphaned or redundant
+suspected_orphans:
+  - "NeuroForgeApp_Clean"
+  - "archive"
+  - "backups"
+  - "infra_snapshot"
+  - "Desktop-Projects"
+  - "ai_republic"
+  - "neuroforge_all_legacy"
+  - "neuroforge_restore_backup_20251013_173812"
+
+# Active projects (keep these)
+active_projects:
+  - "AI-Projects"  # Contains universal-ai-tools and other active projects
+  - "NeuroForgeApp"  # Primary macOS app
+  - "AthenaReporter"  # Reporter app
+  - "governance"  # Core governance system
+  - "agi_core"  # AGI Core multi-agent
+  - "workflows"  # Integration workflows
+
+# Key files that must exist
+critical_files:
+  - "athena_master_orchestrator.py"
+  - "athena_api.py"
+  - "config/athena_master_config.yaml"
+  - "docker-compose.athena-governance.yml"
+  - "Makefile"
+  - ".cursorrules"
+  - "athena-hot.code-workspace"
+
