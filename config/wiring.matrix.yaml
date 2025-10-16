@@ -125,7 +125,7 @@ layers:
     python_imports:
       - "common.logging"
       - "common.ops"
-      - "common.tracing"
+      # - "common.tracing"  # Requires opentelemetry (optional)
     required: true
 
   experimental:

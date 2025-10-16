@@ -126,3 +126,7 @@ governance/research/dgm/results/*
 !governance/research/dgm/results/.gitkeep
 governance/research/dgm-upstream/output_dgm/
 governance/research/dgm-upstream
+
+# Historical/archived directories
+ai_republic/
+infra_snapshot/

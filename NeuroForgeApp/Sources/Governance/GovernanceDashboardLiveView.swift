@@ -470,20 +470,24 @@ struct GovernanceSettingsView: View {
 }
 
 #Preview("Health Banner - Healthy") {
-    GovernanceHealthBanner(viewModel: {
-        let vm = GovernanceViewModel()
-        vm.healthStatus = .healthy
-        vm.statusMessage = "🟢 Orchestrator healthy"
-        return vm
-    }())
+    GovernanceHealthBanner(
+        viewModel: {
+            let vm = GovernanceViewModel()
+            vm.healthStatus = .healthy
+            vm.statusMessage = "🟢 Orchestrator healthy"
+            return vm
+        }()
+    )
     .padding()
 }
 
 #Preview("Verdict Counts") {
-    VerdictCountsCard(viewModel: {
-        let vm = GovernanceViewModel()
-        vm.verdictCounts = ["pass": 193, "soft_fail": 12, "hard_fail": 5]
-        return vm
-    }())
+    VerdictCountsCard(
+        viewModel: {
+            let vm = GovernanceViewModel()
+            vm.verdictCounts = ["pass": 193, "soft_fail": 12, "hard_fail": 5]
+            return vm
+        }()
+    )
     .padding()
 }

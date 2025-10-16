@@ -1,0 +1,45 @@
+{
+  "task_id": "shadow-test-20251016-024839",
+  "plan_id": "a0283fac2c934fe8",
+  "source": "shadow",
+  "plan": {
+    "plan_id": "a0283fac2c934fe8",
+    "task_id": "shadow-test-20251016-024839",
+    "verdict": "HARD_FAIL",
+    "description": "Shadow remediation plan for HARD_FAIL on shadow-test-20251016-024839",
+    "changes": [
+      {
+        "file": "governance/judicial/evaluation/dgm_verdict_validator.py",
+        "action": "adjust_threshold",
+        "parameter": "ece_threshold",
+        "old_value": 0.08,
+        "new_value": 0.06,
+        "reason": "Tighten ECE threshold based on recent drift"
+      }
+    ],
+    "confidence": 0.85,
+    "estimated_fix_time_minutes": 10,
+    "risk_level": "MEDIUM"
+  },
+  "simulation": {
+    "plan_id": "a0283fac2c934fe8",
+    "samples": 350,
+    "ece_post": 0.072,
+    "entropy_post": 0.27,
+    "solve_rate_delta": 0.03,
+    "violation_rate_delta": -0.002,
+    "latency_p95_delta": -0.15,
+    "decision": "HOLD",
+    "passed_all_gates": false,
+    "gate_results": {
+      "min_samples": true,
+      "ece_post": false,
+      "solve_delta": true,
+      "violation_delta": true,
+      "p95_delta": true,
+      "entropy": true
+    }
+  },
+  "would_promote": false,
+  "timestamp": "2025-10-16T02:48:50.041728+00:00"
+}

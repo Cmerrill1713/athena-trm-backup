@@ -73,7 +73,7 @@ hot-workspace:  ## Create hot workspace (fast daily use)
 
 exp-shadow:  ## Phase 1: Shadow remediation (no-impact)
 	@echo "🧪 Running Phase 1: Shadow Remediation"
-	@python governance/experimental/remediation_shadow.py
+	@python3 governance/experimental/remediation_shadow.py
 	@echo "📊 Results saved to: artifacts/remediation_shadow/"
 
 exp-remediate:  ## Phase 2: Guarded auto-remediation (1% canary)
