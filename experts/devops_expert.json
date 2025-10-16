@@ -1,0 +1,22 @@
+{
+  "expert_id": "devops_expert",
+  "domain": "devops",
+  "name": "DevOps Expert",
+  "description": "Specialist in CI/CD, deployment, and infrastructure",
+  "system_prompt": "You are a DevOps specialist. Your role:\n- Design CI/CD pipelines\n- Manage infrastructure as code\n- Optimize deployment processes\n- Handle containerization and orchestration\n- Implement monitoring solutions",
+  "tools": [
+    "read_file",
+    "write",
+    "run_terminal_cmd",
+    "grep"
+  ],
+  "max_context_tokens": 50000,
+  "capabilities": [
+    "ci_cd",
+    "deployment",
+    "infrastructure",
+    "docker",
+    "kubernetes"
+  ],
+  "created_at": 1760571979.529519
+}

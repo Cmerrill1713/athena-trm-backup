@@ -39,29 +39,67 @@ class ExpertDomain(Enum):
     TESTING = "testing"
     CODE_REVIEW = "code_review"
     OPTIMIZATION = "optimization"
+    CODE_GENERATION = "code_generation"
+    MIGRATION = "migration"
+    DEPENDENCY_MANAGEMENT = "dependency_management"
     
     # Architecture domains
     ARCHITECTURE = "architecture"
     API_DESIGN = "api_design"
     DATABASE_DESIGN = "database_design"
+    MICROSERVICES = "microservices"
+    SYSTEM_DESIGN = "system_design"
+    CLOUD_ARCHITECTURE = "cloud_architecture"
     
     # Operations domains
     DEPLOYMENT = "deployment"
     MONITORING = "monitoring"
     INCIDENT_RESPONSE = "incident_response"
+    DEVOPS = "devops"
+    CI_CD = "ci_cd"
+    INFRASTRUCTURE = "infrastructure"
     
     # Analysis domains
     SECURITY_AUDIT = "security_audit"
     PERFORMANCE_ANALYSIS = "performance_analysis"
     DATA_ANALYSIS = "data_analysis"
+    LOG_ANALYSIS = "log_analysis"
+    METRICS_ANALYSIS = "metrics_analysis"
     
     # Documentation
     DOCUMENTATION = "documentation"
     TECHNICAL_WRITING = "technical_writing"
+    API_DOCUMENTATION = "api_documentation"
     
     # Planning
     PROJECT_PLANNING = "project_planning"
     TASK_BREAKDOWN = "task_breakdown"
+    ESTIMATION = "estimation"
+    
+    # Quality & Compliance
+    QUALITY_ASSURANCE = "quality_assurance"
+    COMPLIANCE = "compliance"
+    ACCESSIBILITY = "accessibility"
+    
+    # AI/ML domains
+    ML_ENGINEERING = "ml_engineering"
+    DATA_ENGINEERING = "data_engineering"
+    MODEL_OPTIMIZATION = "model_optimization"
+    
+    # Frontend/UI
+    FRONTEND = "frontend"
+    UI_UX = "ui_ux"
+    RESPONSIVE_DESIGN = "responsive_design"
+    
+    # Backend/Data
+    BACKEND = "backend"
+    DATABASE_OPTIMIZATION = "database_optimization"
+    CACHING = "caching"
+    
+    # Integration
+    API_INTEGRATION = "api_integration"
+    THIRD_PARTY_SERVICES = "third_party_services"
+    WEBHOOK_MANAGEMENT = "webhook_management"
 
 
 @dataclass
@@ -242,6 +280,118 @@ class ExpertRegistry:
 - Improve efficiency""",
                 tools=["read_file", "grep", "run_terminal_cmd"],
                 capabilities=["optimization", "profiling", "performance_analysis"]
+            ))
+        
+        if "ml_expert" not in self.experts:
+            self.register_expert(AgentExpert(
+                expert_id="ml_expert",
+                domain=ExpertDomain.ML_ENGINEERING,
+                name="ML Engineering Expert",
+                description="Specialist in machine learning and model optimization",
+                system_prompt="""You are an ML engineering specialist. Your role:
+- Design and optimize ML models
+- Implement training pipelines
+- Handle data preprocessing
+- Optimize model performance
+- Deploy ML solutions""",
+                tools=["read_file", "write", "run_terminal_cmd"],
+                capabilities=["ml_engineering", "model_optimization", "data_pipeline"]
+            ))
+        
+        if "devops_expert" not in self.experts:
+            self.register_expert(AgentExpert(
+                expert_id="devops_expert",
+                domain=ExpertDomain.DEVOPS,
+                name="DevOps Expert",
+                description="Specialist in CI/CD, deployment, and infrastructure",
+                system_prompt="""You are a DevOps specialist. Your role:
+- Design CI/CD pipelines
+- Manage infrastructure as code
+- Optimize deployment processes
+- Handle containerization and orchestration
+- Implement monitoring solutions""",
+                tools=["read_file", "write", "run_terminal_cmd", "grep"],
+                capabilities=["ci_cd", "deployment", "infrastructure", "docker", "kubernetes"]
+            ))
+        
+        if "frontend_expert" not in self.experts:
+            self.register_expert(AgentExpert(
+                expert_id="frontend_expert",
+                domain=ExpertDomain.FRONTEND,
+                name="Frontend Expert",
+                description="Specialist in frontend development and UI/UX",
+                system_prompt="""You are a frontend specialist. Your role:
+- Develop responsive user interfaces
+- Optimize frontend performance
+- Implement accessibility standards
+- Handle state management
+- Create delightful user experiences""",
+                tools=["read_file", "write", "grep"],
+                capabilities=["frontend", "ui_ux", "react", "accessibility"]
+            ))
+        
+        if "backend_expert" not in self.experts:
+            self.register_expert(AgentExpert(
+                expert_id="backend_expert",
+                domain=ExpertDomain.BACKEND,
+                name="Backend Expert",
+                description="Specialist in backend systems and APIs",
+                system_prompt="""You are a backend specialist. Your role:
+- Design scalable backend architectures
+- Implement robust APIs
+- Optimize database queries
+- Handle caching strategies
+- Ensure data consistency""",
+                tools=["read_file", "write", "run_terminal_cmd", "grep"],
+                capabilities=["backend", "api_design", "database", "caching"]
+            ))
+        
+        if "data_expert" not in self.experts:
+            self.register_expert(AgentExpert(
+                expert_id="data_expert",
+                domain=ExpertDomain.DATA_ENGINEERING,
+                name="Data Engineering Expert",
+                description="Specialist in data pipelines and ETL",
+                system_prompt="""You are a data engineering specialist. Your role:
+- Design data pipelines
+- Implement ETL processes
+- Optimize data storage
+- Handle data quality
+- Enable analytics""",
+                tools=["read_file", "write", "run_terminal_cmd"],
+                capabilities=["data_engineering", "etl", "data_quality", "analytics"]
+            ))
+        
+        if "integration_expert" not in self.experts:
+            self.register_expert(AgentExpert(
+                expert_id="integration_expert",
+                domain=ExpertDomain.API_INTEGRATION,
+                name="Integration Expert",
+                description="Specialist in API integrations and third-party services",
+                system_prompt="""You are an integration specialist. Your role:
+- Integrate third-party APIs
+- Handle webhooks and events
+- Manage API authentication
+- Implement error handling
+- Ensure reliable communication""",
+                tools=["read_file", "write", "grep"],
+                capabilities=["api_integration", "webhooks", "third_party_services"]
+            ))
+        
+        if "qa_expert" not in self.experts:
+            self.register_expert(AgentExpert(
+                expert_id="qa_expert",
+                domain=ExpertDomain.QUALITY_ASSURANCE,
+                name="QA Expert",
+                description="Specialist in quality assurance and testing",
+                system_prompt="""You are a QA specialist. Your role:
+- Design comprehensive test strategies
+- Implement automated testing
+- Perform manual testing
+- Ensure code quality
+- Catch bugs early""",
+                tools=["read_file", "write", "run_terminal_cmd"],
+                capabilities=["quality_assurance", "testing", "test_automation"]
             ))
     
     def register_expert(self, expert: AgentExpert) -> None:

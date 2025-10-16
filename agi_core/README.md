@@ -2,7 +2,8 @@
 
 **Status**: ✅ Operational  
 **Version**: 1.0.0  
-**Test Coverage**: 100% (7/7 tests passing)
+**Test Coverage**: 100% (7/7 tests passing)  
+**Local LLM**: ✅ Supported (Ollama, LM Studio, vLLM)
 
 ## Overview
 
@@ -16,6 +17,22 @@ Based on IndyDevDan's R&D Framework (Reduce & Delegate) and Context Engineering 
 ```bash
 cd /Users/christianmerrill/Documents/GitHub
 python3 -c "import agi_core; print('✓ AGI Core ready')"
+```
+
+### Local Models Setup (for STOP Optimizer)
+```bash
+# One-command setup
+./agi_core/setup_local_models.sh
+
+# Or manual setup:
+# 1. Install Ollama
+curl https://ollama.ai/install.sh | sh
+
+# 2. Pull model
+ollama pull codellama:7b
+
+# 3. Ready to optimize!
+python3 agi_core/examples_stop.py
 ```
 
 ### Run Baseline Measurement

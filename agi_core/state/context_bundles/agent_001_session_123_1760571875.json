@@ -1,0 +1,52 @@
+{
+  "bundle_id": "agent_001_session_123_1760571875",
+  "agent_id": "agent_001",
+  "session_id": "session_123",
+  "started_at": 1760571875.5973299,
+  "initial_prompt": "Fix authentication bug in user service",
+  "operations": [
+    {
+      "type": "read_file",
+      "timestamp": 1760571875.597333,
+      "details": {
+        "file_path": "auth.py"
+      }
+    },
+    {
+      "type": "read_file",
+      "timestamp": 1760571875.702353,
+      "details": {
+        "file_path": "models.py"
+      }
+    },
+    {
+      "type": "use_tool",
+      "timestamp": 1760571875.8073971,
+      "details": {
+        "tool_name": "grep"
+      }
+    },
+    {
+      "type": "write_file",
+      "timestamp": 1760571875.912422,
+      "details": {
+        "file_path": "auth.py"
+      }
+    }
+  ],
+  "files_read": [
+    "auth.py",
+    "models.py"
+  ],
+  "files_written": [
+    "auth.py"
+  ],
+  "tools_used": [
+    "grep"
+  ],
+  "prompts": [
+    "Fix authentication bug in user service"
+  ],
+  "completed_at": 1760571875.912435,
+  "duration_seconds": 0.3151051998138428
+}

@@ -1,0 +1,311 @@
+{
+  "dashboard": {
+    "title": "Athena Unified System Dashboard",
+    "tags": ["athena", "governance", "dgm", "agi-core", "unified"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "System Overview",
+        "type": "stat",
+        "gridPos": {"x": 0, "y": 0, "w": 24, "h": 4},
+        "targets": [
+          {
+            "expr": "1",
+            "legendFormat": "Athena System Status"
+          }
+        ],
+        "options": {
+          "textMode": "name",
+          "text": {
+            "titleSize": 24
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Active Subsystems",
+        "type": "stat",
+        "gridPos": {"x": 0, "y": 4, "w": 6, "h": 4},
+        "targets": [
+          {
+            "expr": "count(up{job=~\"governance|dgm|agi.*\"})",
+            "legendFormat": "Active"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Tasks Processed (24h)",
+        "type": "stat",
+        "gridPos": {"x": 6, "y": 4, "w": 6, "h": 4},
+        "targets": [
+          {
+            "expr": "sum(increase(athena_tasks_total[24h]))",
+            "legendFormat": "Total Tasks"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Governance Verdicts (24h)",
+        "type": "stat",
+        "gridPos": {"x": 12, "y": 4, "w": 6, "h": 4},
+        "targets": [
+          {
+            "expr": "sum(increase(dgm_verdicts_total[24h]))",
+            "legendFormat": "Verdicts"
+          }
+        ],
+        "thresholds": [
+          {"value": 0, "color": "yellow"},
+          {"value": 10, "color": "green"}
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Safety Status",
+        "type": "stat",
+        "gridPos": {"x": 18, "y": 4, "w": 6, "h": 4},
+        "targets": [
+          {
+            "expr": "sum(dgm_safety_violations_total)",
+            "legendFormat": "Violations"
+          }
+        ],
+        "thresholds": [
+          {"value": 0, "color": "green"},
+          {"value": 1, "color": "red"}
+        ]
+      },
+      {
+        "id": 6,
+        "title": "DGM Evolution Progress",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 8, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "dgm_generations_total",
+            "legendFormat": "Generations"
+          },
+          {
+            "expr": "dgm_archive_size",
+            "legendFormat": "Archive Size"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Performance Evolution (All Benchmarks)",
+        "type": "graph",
+        "gridPos": {"x": 12, "y": 8, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "dgm_agent_performance",
+            "legendFormat": "{{benchmark}}"
+          }
+        ],
+        "yaxes": [{"format": "percentunit", "max": 0.6}]
+      },
+      {
+        "id": 8,
+        "title": "Governance Flow",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 16, "w": 8, "h": 6},
+        "targets": [
+          {
+            "expr": "rate(dgm_verdicts_total{verdict_type=\"APPROVE\"}[5m])",
+            "legendFormat": "Approved"
+          },
+          {
+            "expr": "rate(dgm_verdicts_total{verdict_type=\"REJECT\"}[5m])",
+            "legendFormat": "Rejected"
+          },
+          {
+            "expr": "rate(dgm_verdicts_total{verdict_type=\"CANARY_DEPLOY\"}[5m])",
+            "legendFormat": "Canary"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "AGI Core Activity",
+        "type": "graph",
+        "gridPos": {"x": 8, "y": 16, "w": 8, "h": 6},
+        "targets": [
+          {
+            "expr": "rate(agi_delegations_total[5m])",
+            "legendFormat": "Delegations"
+          },
+          {
+            "expr": "rate(agi_tasks_completed[5m])",
+            "legendFormat": "Completed"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "System Health Score",
+        "type": "gauge",
+        "gridPos": {"x": 16, "y": 16, "w": 8, "h": 6},
+        "targets": [
+          {
+            "expr": "(dgm_archive_diversity + (1 - dgm_consecutive_failures/5)) / 2",
+            "legendFormat": "Health"
+          }
+        ],
+        "thresholds": [
+          {"value": 0, "color": "red"},
+          {"value": 0.5, "color": "yellow"},
+          {"value": 0.8, "color": "green"}
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Integration Pipeline",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 22, "w": 24, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(dgm_generations_total[5m])",
+            "legendFormat": "DGM Generations"
+          },
+          {
+            "expr": "rate(agi_reviews_total[5m])",
+            "legendFormat": "AGI Reviews"
+          },
+          {
+            "expr": "rate(dgm_verdicts_total[5m])",
+            "legendFormat": "Governance Verdicts"
+          },
+          {
+            "expr": "rate(canary_deployments_total[5m])",
+            "legendFormat": "Canary Deployments"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "ECE Confidence Trend",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 30, "w": 12, "h": 6},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.5, rate(dgm_ece_estimate_bucket[5m]))",
+            "legendFormat": "Median ECE"
+          },
+          {
+            "expr": "histogram_quantile(0.9, rate(dgm_ece_estimate_bucket[5m]))",
+            "legendFormat": "P90 ECE"
+          }
+        ],
+        "alert": {
+          "name": "Low ECE Alert",
+          "conditions": [
+            {
+              "evaluator": {"type": "lt", "params": [0.5]},
+              "query": {"params": ["A", "5m", "now"]}
+            }
+          ],
+          "notifications": [
+            {"uid": "slack"}
+          ]
+        }
+      },
+      {
+        "id": 13,
+        "title": "Resource Utilization",
+        "type": "graph",
+        "gridPos": {"x": 12, "y": 30, "w": 12, "h": 6},
+        "targets": [
+          {
+            "expr": "process_resident_memory_bytes / 1024 / 1024",
+            "legendFormat": "Memory (MB)"
+          },
+          {
+            "expr": "rate(process_cpu_seconds_total[1m]) * 100",
+            "legendFormat": "CPU %"
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "Workflow Success Rate",
+        "type": "stat",
+        "gridPos": {"x": 0, "y": 36, "w": 8, "h": 4},
+        "targets": [
+          {
+            "expr": "sum(rate(athena_workflows_success[5m])) / sum(rate(athena_workflows_total[5m]))",
+            "legendFormat": "Success Rate"
+          }
+        ],
+        "thresholds": [
+          {"value": 0, "color": "red"},
+          {"value": 0.7, "color": "yellow"},
+          {"value": 0.9, "color": "green"}
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Archive Diversity",
+        "type": "gauge",
+        "gridPos": {"x": 8, "y": 36, "w": 8, "h": 4},
+        "targets": [
+          {
+            "expr": "dgm_archive_diversity",
+            "legendFormat": "Diversity"
+          }
+        ],
+        "thresholds": [
+          {"value": 0, "color": "red"},
+          {"value": 0.15, "color": "yellow"},
+          {"value": 0.2, "color": "green"}
+        ]
+      },
+      {
+        "id": 16,
+        "title": "Recent Activity Log",
+        "type": "logs",
+        "gridPos": {"x": 16, "y": 36, "w": 8, "h": 4},
+        "targets": [
+          {
+            "expr": "{job=\"athena\"} |= \"verdict\" or \"evolution\" or \"deployment\"",
+            "refId": "A"
+          }
+        ]
+      }
+    ],
+    "refresh": "30s",
+    "time": {"from": "now-6h", "to": "now"},
+    "templating": {
+      "list": [
+        {
+          "name": "subsystem",
+          "type": "query",
+          "query": "label_values(up, job)",
+          "multi": true
+        }
+      ]
+    },
+    "annotations": {
+      "list": [
+        {
+          "name": "Deployments",
+          "datasource": "Prometheus",
+          "expr": "changes(dgm_verdicts_total{verdict_type=\"APPROVE\"}[1m]) > 0",
+          "tagKeys": "verdict_type",
+          "textFormat": "Agent Approved",
+          "iconColor": "green"
+        },
+        {
+          "name": "Safety Violations",
+          "datasource": "Prometheus",
+          "expr": "changes(dgm_safety_violations_total[1m]) > 0",
+          "textFormat": "Safety Violation",
+          "iconColor": "red"
+        }
+      ]
+    }
+  }
+}
+

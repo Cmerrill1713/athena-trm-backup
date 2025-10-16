@@ -1,0 +1,24 @@
+{
+  "optimization_id": "stop_1760572274_982085dd",
+  "target_function": "optimized_function",
+  "strategy": "beam_search",
+  "iterations": 5,
+  "candidates_generated": 13,
+  "best_candidate": {
+    "candidate_id": "baseline",
+    "strategy": "beam_search",
+    "code": "\ndef calculate_sum(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    return total\n",
+    "utility_score": 0.9299999999999999,
+    "generation": 0,
+    "parent_id": null,
+    "metadata": {
+      "is_baseline": true
+    }
+  },
+  "baseline_utility": 0.9299999999999999,
+  "improved_utility": 0.9299999999999999,
+  "improvement_percent": 0.0,
+  "duration_seconds": 0.04180192947387695,
+  "confidence_score": 0.078,
+  "timestamp": 1760572274.400689
+}

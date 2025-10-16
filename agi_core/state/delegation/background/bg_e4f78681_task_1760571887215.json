@@ -1,0 +1,18 @@
+{
+  "task_id": "task_1760571887215",
+  "agent_id": "bg_e4f78681",
+  "success": true,
+  "output": {
+    "task_id": "task_1760571887215",
+    "agent_type": "documentation",
+    "description": "Update API documentation",
+    "result": "Task 'Update API documentation' completed successfully",
+    "context_processed": 44,
+    "operations_performed": 5
+  },
+  "duration_seconds": 0.5052468776702881,
+  "tokens_used": 5000,
+  "context_size": 8000,
+  "timestamp": 1760571887.7203789,
+  "error": null
+}

@@ -1,0 +1,24 @@
+{
+  "optimization_id": "stop_1760571932_63f00356",
+  "target_function": "optimized_function",
+  "strategy": "beam_search",
+  "iterations": 8,
+  "candidates_generated": 22,
+  "best_candidate": {
+    "candidate_id": "baseline",
+    "strategy": "beam_search",
+    "code": "\ndef process_data(items):\n    results = []\n    for item in items:\n        if item > 0:\n            results.append(item * 2)\n    return results\n",
+    "utility_score": 0.9,
+    "generation": 0,
+    "parent_id": null,
+    "metadata": {
+      "is_baseline": true
+    }
+  },
+  "baseline_utility": 0.9,
+  "improved_utility": 0.9,
+  "improvement_percent": 0.0,
+  "duration_seconds": 0.0005822181701660156,
+  "confidence_score": 0.132,
+  "timestamp": 1760571932.015151
+}

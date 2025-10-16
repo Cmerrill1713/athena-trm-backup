@@ -1,0 +1,18 @@
+{
+  "task_id": "task_1760571887215",
+  "agent_id": "bg_8fc5a9ca",
+  "success": true,
+  "output": {
+    "task_id": "task_1760571887215",
+    "agent_type": "optimization",
+    "description": "Optimize database queries",
+    "result": "Task 'Optimize database queries' completed successfully",
+    "context_processed": 37,
+    "operations_performed": 5
+  },
+  "duration_seconds": 0.5016000270843506,
+  "tokens_used": 5000,
+  "context_size": 8000,
+  "timestamp": 1760571888.224452,
+  "error": null
+}

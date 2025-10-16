@@ -1,0 +1,124 @@
+{
+  "workflow_id": "example_spb_001",
+  "purpose": "Scout-Plan-Build: Add rate limiting middleware to API endpoints",
+  "duration_seconds": 0.0,
+  "phases_completed": 3,
+  "results": [
+    {
+      "workflow_id": "example_spb_001",
+      "phase": "scout",
+      "success": true,
+      "output": {
+        "relevant_files": [
+          "agi_core/context_engineering.py",
+          "agi_core/agent_experts.py",
+          "orchestrator/app.py"
+        ],
+        "architecture_type": "microservices",
+        "key_patterns": [
+          "agent_orchestration",
+          "context_management"
+        ],
+        "dependencies": [
+          "fastapi",
+          "pydantic",
+          "sentry_sdk"
+        ],
+        "estimated_complexity": "medium",
+        "notes": "Codebase uses agent-based architecture with governance layer"
+      },
+      "duration_seconds": 9.5367431640625e-07,
+      "tokens_used": 3500,
+      "context_efficiency": 0.92,
+      "timestamp": 1760571881.816844
+    },
+    {
+      "workflow_id": "example_spb_001",
+      "phase": "plan",
+      "success": true,
+      "output": {
+        "objective": "Add rate limiting middleware to API endpoints",
+        "approach": "incremental_implementation",
+        "steps": [
+          {
+            "step": 1,
+            "action": "Create data models and schemas",
+            "files": [
+              "models.py"
+            ],
+            "estimated_time": "5min"
+          },
+          {
+            "step": 2,
+            "action": "Implement core business logic",
+            "files": [
+              "agi_core/context_engineering.py",
+              "agi_core/agent_experts.py"
+            ],
+            "estimated_time": "15min"
+          },
+          {
+            "step": 3,
+            "action": "Add API endpoints",
+            "files": [
+              "app.py"
+            ],
+            "estimated_time": "10min"
+          },
+          {
+            "step": 4,
+            "action": "Add tests and validation",
+            "files": [
+              "tests/test_feature.py"
+            ],
+            "estimated_time": "10min"
+          }
+        ],
+        "total_estimated_time": "40min",
+        "risks": [
+          "integration_complexity"
+        ],
+        "dependencies": [
+          "fastapi",
+          "pydantic",
+          "sentry_sdk"
+        ],
+        "success_criteria": [
+          "All tests pass",
+          "Code follows existing patterns",
+          "Documentation updated"
+        ]
+      },
+      "duration_seconds": 7.152557373046875e-07,
+      "tokens_used": 2800,
+      "context_efficiency": 0.88,
+      "timestamp": 1760571881.816849
+    },
+    {
+      "workflow_id": "example_spb_001",
+      "phase": "build",
+      "success": true,
+      "output": {
+        "steps_completed": 4,
+        "steps_failed": 0,
+        "files_created": 4,
+        "files_modified": 2,
+        "tests_added": 8,
+        "tests_passed": 8,
+        "tests_failed": 0,
+        "implementation_notes": [
+          "Followed existing code patterns",
+          "Added comprehensive error handling",
+          "Included inline documentation"
+        ],
+        "deviations_from_plan": [],
+        "status": "completed"
+      },
+      "duration_seconds": 9.5367431640625e-07,
+      "tokens_used": 12000,
+      "context_efficiency": 0.85,
+      "timestamp": 1760571881.8168519
+    }
+  ],
+  "timestamp": 1760571881.817027
+}

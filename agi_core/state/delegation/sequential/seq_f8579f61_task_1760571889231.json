@@ -1,0 +1,18 @@
+{
+  "task_id": "task_1760571889231",
+  "agent_id": "seq_f8579f61",
+  "success": true,
+  "output": {
+    "task_id": "task_1760571889231",
+    "agent_type": "build",
+    "description": "Implement v2 endpoints",
+    "result": "Task 'Implement v2 endpoints' completed successfully",
+    "context_processed": 30,
+    "operations_performed": 5
+  },
+  "duration_seconds": 0.5030360221862793,
+  "tokens_used": 5000,
+  "context_size": 8000,
+  "timestamp": 1760571889.734496,
+  "error": null
+}

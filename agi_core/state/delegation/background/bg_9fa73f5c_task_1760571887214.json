@@ -1,0 +1,18 @@
+{
+  "task_id": "task_1760571887214",
+  "agent_id": "bg_9fa73f5c",
+  "success": true,
+  "output": {
+    "task_id": "task_1760571887214",
+    "agent_type": "refactor",
+    "description": "Refactor payment service for better error handling",
+    "result": "Task 'Refactor payment service for better error handling' completed successfully",
+    "context_processed": 44,
+    "operations_performed": 5
+  },
+  "duration_seconds": 0.5051169395446777,
+  "tokens_used": 5000,
+  "context_size": 8000,
+  "timestamp": 1760571887.7200708,
+  "error": null
+}

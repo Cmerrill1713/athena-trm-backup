@@ -1,0 +1,24 @@
+{
+  "optimization_id": "stop_1760571932_b4007ccc",
+  "target_function": "optimized_function",
+  "strategy": "random_search",
+  "iterations": 5,
+  "candidates_generated": 13,
+  "best_candidate": {
+    "candidate_id": "baseline",
+    "strategy": "random_search",
+    "code": "\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)\n",
+    "utility_score": 0.95,
+    "generation": 0,
+    "parent_id": null,
+    "metadata": {
+      "is_baseline": true
+    }
+  },
+  "baseline_utility": 0.95,
+  "improved_utility": 0.95,
+  "improvement_percent": 0.0,
+  "duration_seconds": 0.0002808570861816406,
+  "confidence_score": 0.078,
+  "timestamp": 1760571932.014399
+}

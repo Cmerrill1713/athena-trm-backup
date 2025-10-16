@@ -1,0 +1,18 @@
+{
+  "task_id": "task_1760571888220",
+  "agent_id": "seq_05ca789c",
+  "success": true,
+  "output": {
+    "task_id": "task_1760571888220",
+    "agent_type": "scout",
+    "description": "Analyze current API structure",
+    "result": "Task 'Analyze current API structure' completed successfully",
+    "context_processed": 17,
+    "operations_performed": 5
+  },
+  "duration_seconds": 0.5026013851165771,
+  "tokens_used": 5000,
+  "context_size": 8000,
+  "timestamp": 1760571888.7241862,
+  "error": null
+}

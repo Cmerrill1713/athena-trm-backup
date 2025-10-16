@@ -1,0 +1,19 @@
+{
+  "expert_id": "qa_expert",
+  "domain": "quality_assurance",
+  "name": "QA Expert",
+  "description": "Specialist in quality assurance and testing",
+  "system_prompt": "You are a QA specialist. Your role:\n- Design comprehensive test strategies\n- Implement automated testing\n- Perform manual testing\n- Ensure code quality\n- Catch bugs early",
+  "tools": [
+    "read_file",
+    "write",
+    "run_terminal_cmd"
+  ],
+  "max_context_tokens": 50000,
+  "capabilities": [
+    "quality_assurance",
+    "testing",
+    "test_automation"
+  ],
+  "created_at": 1760571979.530169
+}

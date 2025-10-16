@@ -21,12 +21,26 @@ except ImportError:
     get_metrics_collector = None
 
 APP_PORT = int(os.getenv("ORCH_PORT", "8000"))
-STATE_PATH = Path(os.getenv("EXEC_STATE_PATH", "/app/state/exec_state.json"))
-LEDGER_PATH = Path(os.getenv("ACTION_LEDGER_PATH", "/app/artifacts/ledger/actions.log"))
 
-# Ensure directories exist
-STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
-LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
+# Use local paths by default, Docker paths when in container
+BASE_DIR = Path(__file__).parent.parent
+DEFAULT_STATE = str(BASE_DIR / "state" / "exec_state.json")
+DEFAULT_LEDGER = str(BASE_DIR / "state" / "ledger" / "actions.log")
+
+STATE_PATH = Path(os.getenv("EXEC_STATE_PATH", DEFAULT_STATE))
+LEDGER_PATH = Path(os.getenv("ACTION_LEDGER_PATH", DEFAULT_LEDGER))
+
+# Ensure directories exist (with error handling)
+try:
+    STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
+except (OSError, PermissionError) as e:
+    # If can't create (e.g., read-only filesystem), use temp dir
+    import tempfile
+    temp_dir = Path(tempfile.gettempdir()) / "orchestrator"
+    temp_dir.mkdir(parents=True, exist_ok=True)
+    STATE_PATH = temp_dir / "exec_state.json"
+    LEDGER_PATH = temp_dir / "actions.log"
 
 # ---- Metrics ----
 VERDICTS = Counter("governance_verdicts_total", "Count of judicial verdicts", ["verdict_type"])

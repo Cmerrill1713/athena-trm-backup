@@ -1,0 +1,18 @@
+{
+  "task_id": "task_1760571979530",
+  "agent_id": "bg_bfccaf96",
+  "success": true,
+  "output": {
+    "task_id": "task_1760571979530",
+    "agent_type": "performance",
+    "description": "Optimize user-api latency",
+    "result": "Task 'Optimize user-api latency' completed successfully",
+    "context_processed": 62,
+    "operations_performed": 5
+  },
+  "duration_seconds": 0.5028150081634521,
+  "tokens_used": 5000,
+  "context_size": 8000,
+  "timestamp": 1760571980.033414,
+  "error": null
+}

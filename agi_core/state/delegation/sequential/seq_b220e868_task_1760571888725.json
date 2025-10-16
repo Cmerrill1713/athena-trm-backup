@@ -1,0 +1,18 @@
+{
+  "task_id": "task_1760571888725",
+  "agent_id": "seq_b220e868",
+  "success": true,
+  "output": {
+    "task_id": "task_1760571888725",
+    "agent_type": "plan",
+    "description": "Create v2 migration strategy",
+    "result": "Task 'Create v2 migration strategy' completed successfully",
+    "context_processed": 26,
+    "operations_performed": 5
+  },
+  "duration_seconds": 0.5031991004943848,
+  "tokens_used": 5000,
+  "context_size": 8000,
+  "timestamp": 1760571889.229104,
+  "error": null
+}

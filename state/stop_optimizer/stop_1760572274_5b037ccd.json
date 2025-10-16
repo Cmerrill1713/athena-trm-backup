@@ -1,0 +1,24 @@
+{
+  "optimization_id": "stop_1760572274_5b037ccd",
+  "target_function": "optimized_function",
+  "strategy": "beam_search",
+  "iterations": 10,
+  "candidates_generated": 43,
+  "best_candidate": {
+    "candidate_id": "baseline",
+    "strategy": "beam_search",
+    "code": "\ndef reduce_context(tokens):\n    # Simple reduction: keep 50%\n    return int(tokens * 0.5)\n",
+    "utility_score": 0.895,
+    "generation": 0,
+    "parent_id": null,
+    "metadata": {
+      "is_baseline": true
+    }
+  },
+  "baseline_utility": 0.895,
+  "improved_utility": 0.895,
+  "improvement_percent": 0.0,
+  "duration_seconds": 0.1166079044342041,
+  "confidence_score": 0.258,
+  "timestamp": 1760572274.517676
+}

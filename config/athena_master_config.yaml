@@ -1,0 +1,220 @@
+# Athena Master Configuration
+# Unified configuration for all integrated systems
+
+version: "1.0.0"
+mode: "full_integration"  # governance_only | dgm_evolution | agi_multi_agent | full_integration
+
+# Subsystems Configuration
+subsystems:
+  governance:
+    enabled: true
+    components:
+      legislative: true
+      judicial: true
+      executive: true
+    
+    legislative:
+      policies:
+        - governance/legislative/self_modification_policy.yaml
+        - policy/governance_policy.yaml
+      enforcement: "strict"
+    
+    judicial:
+      verdict_validators:
+        - governance/judicial/evaluation/dgm_verdict_validator.py
+      ece_threshold: 0.7
+      auto_approve_threshold: 0.9
+    
+    executive:
+      orchestrators:
+        - governance/executive/orchestration/dgm_orchestrator.py
+        - orchestrator/app.py
+      circuit_breakers:
+        enabled: true
+        failure_threshold: 5
+  
+  dgm:
+    enabled: true
+    config_file: "governance/research/dgm/config/dgm_config.yaml"
+    
+    evolution:
+      max_generations_per_run: 50
+      archive_size_limit: 1000
+      diversity_threshold: 0.2
+    
+    integration:
+      agi_core_review: true  # Have AGI Core review DGM agents
+      governance_approval_required: true
+      canary_deployment: true
+    
+    benchmarks:
+      - swe-bench-lite
+      - polyglot
+      - governance-integration
+  
+  agi_core:
+    enabled: true
+    
+    agents:
+      scout:
+        enabled: true
+        config: "experts/scout_expert.json"
+      
+      plan:
+        enabled: true
+        config: "experts/plan_expert.json"
+      
+      build:
+        enabled: true
+        config: "experts/build_expert.json"
+      
+      debug:
+        enabled: true
+        config: "experts/debug_expert.json"
+      
+      performance:
+        enabled: true
+        config: "experts/performance_expert.json"
+      
+      security:
+        enabled: true
+        config: "experts/security_expert.json"
+    
+    workflows:
+      scout_plan_build: true
+      delegation_system: true
+      context_engineering: true
+  
+  monitoring:
+    enabled: true
+    
+    prometheus:
+      enabled: true
+      port: 9090
+      scrape_interval: "15s"
+      retention: "30d"
+    
+    grafana:
+      enabled: true
+      port: 3000
+      dashboards:
+        - monitoring/grafana/dashboards/dgm-evolution.json
+        - monitoring/grafana/dashboards/governance-predictive.json
+        - dashboards/universal-ai-tools-dashboard.json
+    
+    alerts:
+      slack_webhook: "${SLACK_WEBHOOK_URL}"
+      pagerduty_key: "${PAGERDUTY_KEY}"
+      email_recipients:
+        - "governance-team@example.com"
+  
+  research:
+    enabled: true
+    
+    experiments_directory: "governance/research/dgm/experiments"
+    results_directory: "governance/research/dgm/results"
+    
+    automatic_experiments:
+      enabled: true
+      schedule: "0 3 * * 0"  # Weekly Sunday 3am
+      default_config: "governance/research/dgm/experiments/pilot_experiment.yaml"
+
+# Integration Points
+integrations:
+  dgm_to_agi:
+    enabled: true
+    bridge: "governance/research/dgm/dgm_agi_bridge.py"
+    review_all_agents: true
+  
+  governance_to_canary:
+    enabled: true
+    canary_script: "scripts/gov_canary_decider.py"
+    rollback_script: "scripts/gov_rollback.sh"
+  
+  monitoring_to_alerts:
+    enabled: true
+    incident_reporter: "scripts/gov_incident_reporter.py"
+    slack_notifier: "scripts/gov_notify_slack.sh"
+  
+  research_to_production:
+    enabled: true
+    validation_required: true
+    approval_workflow: "judicial_verdict"
+
+# System-Wide Settings
+system:
+  log_level: "INFO"
+  log_directory: "logs/"
+  state_directory: "state/"
+  
+  resources:
+    max_memory_mb: 8192
+    max_cpu_cores: 4
+    max_concurrent_tasks: 10
+  
+  safety:
+    sandbox_all_executions: true
+    require_human_oversight_for_critical: true
+    audit_trail_immutable: true
+    
+# Workflows
+workflows:
+  full_evolution:
+    enabled: true
+    description: "DGM evolution → AGI review → Governance → Canary deploy"
+    steps:
+      - dgm_generate
+      - agi_review
+      - governance_validate
+      - canary_deploy
+      - monitor_promote
+  
+  research_to_production:
+    enabled: true
+    description: "Research experiment → Validation → Production deployment"
+    steps:
+      - run_experiment
+      - statistical_analysis
+      - governance_approval
+      - staged_rollout
+  
+  multi_agent_complex:
+    enabled: true
+    description: "Complex task via AGI Core → Governance approval"
+    steps:
+      - scout_analysis
+      - plan_strategy
+      - build_solution
+      - governance_validate
+      - deploy
+
+# API Configuration
+api:
+  enabled: true
+  host: "0.0.0.0"
+  port: 8000
+  cors_enabled: true
+  
+  endpoints:
+    - path: "/health"
+      method: "GET"
+    - path: "/status"
+      method: "GET"
+    - path: "/task"
+      method: "POST"
+    - path: "/workflow/{workflow_type}"
+      method: "POST"
+    - path: "/metrics"
+      method: "GET"
+
+# Feature Flags
+features:
+  auto_evolution: false  # Disable until pilot validated
+  continuous_learning: false
+  adaptive_thresholds: true
+  predictive_scaling: true
+  self_healing: true
+
+# Environment
+environment: "production"  # development | staging | production
+
