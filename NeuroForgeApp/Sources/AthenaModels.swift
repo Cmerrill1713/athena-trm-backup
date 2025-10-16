@@ -104,11 +104,7 @@ public struct VerdictPayload: Codable {
     }
 }
 
-public struct VerdictResponse: Codable {
-    public let status: String
-    public let task_id: String?
-    public let message: String?
-}
+// Note: VerdictResponse is defined in Governance/GovernanceClient.swift
 
 public struct GovernanceAlert: Identifiable {
     public let id = UUID()

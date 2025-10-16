@@ -1,5 +1,7 @@
 import Foundation
 
+// Note: Using VerdictResponse from Governance/GovernanceClient.swift
+
 /// API Client for Athena Governance Orchestrator
 /// Connects to local governance services (9109, 9110, 9111, 9090)
 final class GovernanceAPIClient {

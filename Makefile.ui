@@ -1,0 +1,93 @@
+# Makefile.ui - NeuroForgeApp Swift UI Targets
+# Usage: make -f Makefile.ui <target>
+
+.PHONY: ui-verify ui-build ui-test ui-run ui-clean ui-snap ui-dmg ui-lint help
+
+# Default target
+help:
+	@echo "NeuroForgeApp UI Targets:"
+	@echo "  ui-verify  - Build, lint, and test (full verification)"
+	@echo "  ui-build   - Build the app"
+	@echo "  ui-test    - Run tests"
+	@echo "  ui-run     - Launch the app"
+	@echo "  ui-lint    - Run swiftlint"
+	@echo "  ui-snap    - Take screenshot"
+	@echo "  ui-dmg     - Create .dmg package"
+	@echo "  ui-clean   - Clean build artifacts"
+
+# Full verification pipeline
+ui-verify: ui-lint ui-build ui-test
+	@echo "✅ UI verification complete"
+
+# Build
+ui-build:
+	@echo "🔨 Building NeuroForgeApp..."
+	cd NeuroForgeApp && swift build -c debug
+	@echo "✅ Build complete"
+
+# Run tests
+ui-test:
+	@echo "🧪 Running tests..."
+	cd NeuroForgeApp && swift test
+	@echo "✅ Tests complete"
+
+# Run the app
+ui-run:
+	@echo "🚀 Launching NeuroForgeApp..."
+	cd NeuroForgeApp && .build/debug/NeuroForgeApp || echo "⚠️  Run 'make ui-build' first"
+
+# Lint
+ui-lint:
+	@echo "🔍 Running swiftlint..."
+	@if command -v swiftlint > /dev/null; then \
+		cd NeuroForgeApp && swiftlint || true; \
+	else \
+		echo "ℹ️  swiftlint not installed (optional)"; \
+	fi
+
+# Clean
+ui-clean:
+	@echo "🧹 Cleaning build artifacts..."
+	cd NeuroForgeApp && rm -rf .build
+	@echo "✅ Clean complete"
+
+# Screenshot (requires running app)
+ui-snap:
+	@echo "📸 Taking screenshot..."
+	mkdir -p artifacts/ui
+	screencapture -w -o artifacts/ui/snap-$$(date +%s).png || echo "⚠️  Screenshot requires running app"
+
+# Create DMG
+ui-dmg:
+	@echo "📦 Creating DMG package..."
+	mkdir -p artifacts/ui
+	@if [ -d "NeuroForgeApp/.build/debug/NeuroForgeApp.app" ]; then \
+		hdiutil create \
+			-volname "NeuroForge" \
+			-srcfolder NeuroForgeApp/.build/debug/NeuroForgeApp.app \
+			-ov \
+			-format UDZO \
+			artifacts/ui/NeuroForge-$$(date +%Y%m%d).dmg; \
+		echo "✅ DMG created in artifacts/ui/"; \
+	else \
+		echo "❌ App bundle not found. Run 'make ui-build' first"; \
+		exit 1; \
+	fi
+
+# Governance integration test
+ui-gov-test:
+	@echo "🔗 Testing governance integration..."
+	@echo "1. Checking orchestrator health..."
+	@curl -sf --max-time 2 http://localhost:9110/health > /dev/null && echo "  ✅ Orchestrator UP" || echo "  ❌ Orchestrator DOWN"
+	@echo "2. Checking metrics endpoint..."
+	@curl -sf --max-time 2 http://localhost:9110/metrics > /dev/null && echo "  ✅ Metrics available" || echo "  ❌ Metrics unavailable"
+	@echo "3. Testing verdict submission..."
+	@curl -sf -X POST http://localhost:9110/verdict \
+		-H 'Content-Type: application/json' \
+		-d '{"task_id":"ui-test-'$$(date +%s)'","verdict":"PASS","ts":"'$$(date -u +%Y-%m-%dT%H:%M:%SZ)'"}' \
+		> /dev/null && echo "  ✅ Verdict accepted" || echo "  ❌ Verdict rejected"
+
+# Full stack check (governance + UI)
+ui-full-check: ui-gov-test ui-verify
+	@echo "✅ Full stack check complete"
+

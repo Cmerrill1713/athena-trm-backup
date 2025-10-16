@@ -15,7 +15,12 @@ services:
       timeout_s: 2.5
     metrics:
       url: "http://localhost:9110/metrics"
-      must_contain: ["governance_verdicts_total", "governance_actions_total", "governance_ece_post"]
+      must_contain:
+        [
+          "governance_verdicts_total",
+          "governance_actions_total",
+          "governance_ece_post",
+        ]
     endpoints:
       - method: "POST"
         url: "http://localhost:9110/verdict"
@@ -160,12 +165,12 @@ suspected_orphans:
 
 # Active projects (keep these)
 active_projects:
-  - "AI-Projects"  # Contains universal-ai-tools and other active projects
-  - "NeuroForgeApp"  # Primary macOS app
-  - "AthenaReporter"  # Reporter app
-  - "governance"  # Core governance system
-  - "agi_core"  # AGI Core multi-agent
-  - "workflows"  # Integration workflows
+  - "AI-Projects" # Contains universal-ai-tools and other active projects
+  - "NeuroForgeApp" # Primary macOS app
+  - "AthenaReporter" # Reporter app
+  - "governance" # Core governance system
+  - "agi_core" # AGI Core multi-agent
+  - "workflows" # Integration workflows
 
 # Key files that must exist
 critical_files:
@@ -176,4 +181,3 @@ critical_files:
   - "Makefile"
   - ".cursorrules"
   - "athena-hot.code-workspace"
-
