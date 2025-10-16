@@ -17,18 +17,40 @@ enum NFTheme {
         static let warn = AppleColors.systemOrange
         static let error = AppleColors.systemRed
         static let outline = AppleColors.systemGray4
-        static let bubbleUser = LinearGradient(colors: [AppleColors.systemBlue, AppleColors.systemGray.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
-        static let bubbleBot = LinearGradient(colors: [AppleColors.systemGray5, AppleColors.systemGray6], startPoint: .top, endPoint: .bottom)
+        static let bubbleUser = LinearGradient(
+            colors: [AppleColors.systemBlue, AppleColors.systemGray.opacity(0.8)],
+            startPoint: .topLeading, endPoint: .bottomTrailing)
+        static let bubbleBot = LinearGradient(
+            colors: [AppleColors.systemGray5, AppleColors.systemGray6], startPoint: .top,
+            endPoint: .bottom)
         static let inputBg = AppleColors.textBackground
     }
 
-    enum Spacing { static let xs: CGFloat = 6; static let sm: CGFloat = 10; static let md: CGFloat = 14; static let lg: CGFloat = 18; static let xl: CGFloat = 24 }
-    enum Radius { static let sm: CGFloat = 12; static let md: CGFloat = 16; static let xl: CGFloat = 24 }
+    enum Spacing {
+        static let xs: CGFloat = 6
+        static let sm: CGFloat = 10
+        static let md: CGFloat = 14
+        static let lg: CGFloat = 18
+        static let xl: CGFloat = 24
+    }
+    enum Radius {
+        static let sm: CGFloat = 12
+        static let md: CGFloat = 16
+        static let xl: CGFloat = 24
+    }
     enum Shadow { static let soft = ShadowStyle(radius: 8, y: 4, opacity: 0.1) }
 }
 
-struct ShadowStyle { let radius: CGFloat; let y: CGFloat; let opacity: Double }
-extension View { func nfShadow(_ s: ShadowStyle = NFTheme.Shadow.soft) -> some View { shadow(color: .black.opacity(s.opacity), radius: s.radius, x: 0, y: s.y) } }
+struct ShadowStyle {
+    let radius: CGFloat
+    let y: CGFloat
+    let opacity: Double
+}
+extension View {
+    func nfShadow(_ s: ShadowStyle = NFTheme.Shadow.soft) -> some View {
+        shadow(color: .black.opacity(s.opacity), radius: s.radius, x: 0, y: s.y)
+    }
+}
 
 // MARK: - Models (adapted for existing ChatMessage)
 
@@ -46,7 +68,8 @@ struct ConnectionPill: View {
     var connected: Bool
     var body: some View {
         HStack(spacing: 8) {
-            Circle().fill(self.connected ? AppleColors.systemGreen : AppleColors.systemRed).frame(width: 8, height: 8)
+            Circle().fill(self.connected ? AppleColors.systemGreen : AppleColors.systemRed).frame(
+                width: 8, height: 8)
             Text(self.connected ? "Connected" : "Disconnected")
                 .font(.system(size: 12, weight: .semibold))
                 .foregroundStyle(AppleColors.secondaryLabel)
@@ -65,7 +88,7 @@ struct ChatHeader: View {
             // Modern profile avatar with gradient (matching existing design)
             ZStack {
                 if let imageData = profile.profileImageData,
-                   let nsImage = NSImage(data: imageData)
+                    let nsImage = NSImage(data: imageData)
                 {
                     Image(nsImage: nsImage)
                         .resizable()
@@ -123,10 +146,14 @@ struct Bubble: View {
                     .padding(.horizontal, NFTheme.Spacing.md)
                     .padding(.vertical, NFTheme.Spacing.sm)
                     .background(self.bubbleBackground(isUser))
-                    .clipShape(RoundedRectangle(cornerRadius: NFTheme.Radius.xl, style: .continuous))
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: NFTheme.Radius.xl, style: .continuous)
+                    )
                     .overlay(
                         RoundedRectangle(cornerRadius: NFTheme.Radius.xl, style: .continuous)
-                            .stroke(AppleColors.systemGray4.opacity(isUser ? 0 : 0.3), lineWidth: isUser ? 0 : 1)
+                            .stroke(
+                                AppleColors.systemGray4.opacity(isUser ? 0 : 0.3),
+                                lineWidth: isUser ? 0 : 1)
                     )
                     .nfShadow()
                 Text(self.message.timestamp, style: .time)
@@ -162,13 +189,20 @@ struct TypingIndicator: View {
     @State private var phase: CGFloat = 0
     var body: some View {
         HStack(spacing: 6) {
-            Circle().fill(AppleColors.secondaryLabel).frame(width: 6, height: 6).opacity(Double(0.3 + 0.7 * sin(self.phase)))
-            Circle().fill(AppleColors.secondaryLabel).frame(width: 6, height: 6).opacity(Double(0.3 + 0.7 * sin(self.phase + .pi / 2)))
-            Circle().fill(AppleColors.secondaryLabel).frame(width: 6, height: 6).opacity(Double(0.3 + 0.7 * sin(self.phase + .pi)))
+            Circle().fill(AppleColors.secondaryLabel).frame(width: 6, height: 6).opacity(
+                Double(0.3 + 0.7 * sin(self.phase)))
+            Circle().fill(AppleColors.secondaryLabel).frame(width: 6, height: 6).opacity(
+                Double(0.3 + 0.7 * sin(self.phase + .pi / 2)))
+            Circle().fill(AppleColors.secondaryLabel).frame(width: 6, height: 6).opacity(
+                Double(0.3 + 0.7 * sin(self.phase + .pi)))
         }
         .padding(8)
         .background(.thinMaterial, in: Capsule())
-        .onAppear { withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: false)) { self.phase = 2 * .pi } }
+        .onAppear {
+            withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: false)) {
+                self.phase = 2 * .pi
+            }
+        }
         .accessibilityLabel("Assistant is typing")
     }
 }
@@ -184,7 +218,9 @@ struct NeuroForgeChatView: View {
     init(profile: UserProfile) {
         self.profile = profile
         // Initialize ChatService with profile ID
-        _chatService = StateObject(wrappedValue: ChatService(userID: profile.id, threadID: "thread_\(profile.id)_\(UUID().uuidString)"))
+        _chatService = StateObject(
+            wrappedValue: ChatService(
+                userID: profile.id, threadID: "thread_\(profile.id)_\(UUID().uuidString)"))
     }
 
     var body: some View {
@@ -193,7 +229,8 @@ struct NeuroForgeChatView: View {
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: NFTheme.Spacing.md, pinnedViews: []) {
-                        ForEach(Array(self.chatService.messages.enumerated()), id: \.1.id) { idx, msg in
+                        ForEach(Array(self.chatService.messages.enumerated()), id: \.1.id) {
+                            idx, msg in
                             Bubble(message: msg, isLastInGroup: self.groupBoundary(at: idx))
                                 .id(msg.id)
                         }
@@ -225,7 +262,8 @@ struct NeuroForgeChatView: View {
 
     private func groupBoundary(at index: Int) -> Bool {
         guard index + 1 < self.chatService.messages.count else { return true }
-        let a = self.chatService.messages[index], b = self.chatService.messages[index + 1]
+        let a = self.chatService.messages[index]
+        let b = self.chatService.messages[index + 1]
         return a.isUser != b.isUser
     }
 }

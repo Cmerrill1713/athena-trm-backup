@@ -44,7 +44,15 @@ public struct KeyCatchingTextEditor: NSViewRepresentable {
 
         if self.focusOnAppear {
             DispatchQueue.main.async {
-                scrollView.window?.makeFirstResponder(textView)
+                // Make sure window is ready
+                guard let window = scrollView.window ?? NSApp.mainWindow else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        scrollView.window?.makeFirstResponder(textView)
+                        NSApp.activate(ignoringOtherApps: true)
+                    }
+                    return
+                }
+                window.makeFirstResponder(textView)
                 NSApp.activate(ignoringOtherApps: true)
             }
         }

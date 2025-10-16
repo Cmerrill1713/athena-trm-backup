@@ -238,6 +238,10 @@ status:  ## Show Athena status and health
 .PHONY: restart
 restart: stop start  ## Restart all Athena services
 
+.PHONY: test-ui
+test-ui:  ## Test Swift UI and backend connectivity
+	@./scripts/test_athena_ui.sh
+
 
 .PHONY: start-ui
 start-ui:  ## Start Athena with Swift UI frontend

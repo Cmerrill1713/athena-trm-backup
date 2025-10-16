@@ -19,8 +19,11 @@ public struct CriticalAlert: Identifiable, Codable {
     public var severity: AlertSeverity
     public var affectedSystems: [String]
     public var recommendations: [String]
-    
-    public init(title: String, message: String, severity: AlertSeverity, affectedSystems: [String] = [], recommendations: [String] = []) {
+
+    public init(
+        title: String, message: String, severity: AlertSeverity, affectedSystems: [String] = [],
+        recommendations: [String] = []
+    ) {
         self.id = UUID()
         self.title = title
         self.message = message
@@ -36,8 +39,11 @@ public struct TribunalCase: Identifiable, Codable {
     public var summary: String
     public var aiRecommendation: TribunalDecisionOption
     public var confidence: Double
-    
-    public init(caseID: String, summary: String, aiRecommendation: TribunalDecisionOption, confidence: Double) {
+
+    public init(
+        caseID: String, summary: String, aiRecommendation: TribunalDecisionOption,
+        confidence: Double
+    ) {
         self.id = UUID()
         self.caseID = caseID
         self.summary = summary
@@ -53,8 +59,11 @@ public struct SystemEmergency: Identifiable, Codable {
     public var countdownSeconds: Int
     public var risk: RiskLevel
     public var actions: [String]
-    
-    public init(title: String, analysis: String, countdownSeconds: Int, risk: RiskLevel, actions: [String] = []) {
+
+    public init(
+        title: String, analysis: String, countdownSeconds: Int, risk: RiskLevel,
+        actions: [String] = []
+    ) {
         self.id = UUID()
         self.title = title
         self.analysis = analysis

@@ -21,7 +21,10 @@ struct ChatInputView: View {
                     // Defer one runloop so view is in window hierarchy
                     DispatchQueue.main.async { self.isFocused = true }
                 }
-                .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+                .onReceive(
+                    NotificationCenter.default.publisher(
+                        for: NSApplication.didBecomeActiveNotification)
+                ) { _ in
                     // If app regains focus, restore chat focus
                     if self.focus.chatInputFocused { self.isFocused = true }
                 }
@@ -37,7 +40,7 @@ struct ChatInputView: View {
         .onAppear { self.focus.beginTextEntry() }
         .onDisappear { self.focus.endTextEntry() }
         // Global "focus chat" shortcut
-        .onExitCommand {} // prevent accidental focus loss on ESC
+        .onExitCommand {}  // prevent accidental focus loss on ESC
         .onReceive(
             NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)
         ) { _ in
@@ -45,10 +48,11 @@ struct ChatInputView: View {
         }
         .background(
             // ⌘K focuses input from anywhere
-            FocusHotkey(isFocused: Binding(
-                get: { self.isFocused },
-                set: { self.isFocused = $0 }
-            ))
+            FocusHotkey(
+                isFocused: Binding(
+                    get: { self.isFocused },
+                    set: { self.isFocused = $0 }
+                ))
         )
     }
 
@@ -70,7 +74,7 @@ private struct FocusHotkey: NSViewRepresentable {
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { ev in
             if ev.modifierFlags.contains(cmdK), ev.charactersIgnoringModifiers == "k" {
                 DispatchQueue.main.async { self.isFocused = true }
-                return nil // don't bubble; we handled it
+                return nil  // don't bubble; we handled it
             }
             return ev
         }

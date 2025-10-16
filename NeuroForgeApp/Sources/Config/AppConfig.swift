@@ -3,7 +3,7 @@ import Foundation
 /// Single source of truth for app configuration
 enum AppConfig {
     static let apiBase: URL = {
-        let urlString = Bundle.main.object(forInfoDictionaryKey: "API_BASE") as? String ?? "http://127.0.0.1:8014"
+        let urlString = Bundle.main.object(forInfoDictionaryKey: "API_BASE") as? String ?? "http://127.0.0.1:8888"
         guard let url = URL(string: urlString) else {
             fatalError("Invalid API_BASE URL: \(urlString)")
         }

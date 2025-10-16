@@ -57,7 +57,8 @@ func getDeviceId() async -> String? {
 }
 
 /// Token manager for mobile authentication
-final class TokenManager: @unchecked Sendable {
+@MainActor
+final class TokenManager {
 
     static let shared = TokenManager()
 
@@ -69,32 +70,20 @@ final class TokenManager: @unchecked Sendable {
     private var refreshToken: String?
     private var tokenExpiry: Date?
 
-    private let queue = DispatchQueue(label: "com.athena.tokenmanager")
+    // Removed queue since we're now @MainActor
 
     /// Get a valid (non-expired) token, refreshing if needed
     func getValidToken() async throws -> String {
-        return try await withCheckedThrowingContinuation { continuation in
-            queue.async {
-                // Check if we have a valid cached token
-                if let token = self.currentToken,
-                    let expiry = self.tokenExpiry,
-                    expiry > Date().addingTimeInterval(300)
-                {  // 5 min buffer
-                    continuation.resume(returning: token)
-                    return
-                }
-
-                // Need to refresh or get new token
-                Task {
-                    do {
-                        let newToken = try await self.refreshOrGetNewToken()
-                        continuation.resume(returning: newToken)
-                    } catch {
-                        continuation.resume(throwing: error)
-                    }
-                }
-            }
+        // Check if we have a valid cached token
+        if let token = self.currentToken,
+            let expiry = self.tokenExpiry,
+            expiry > Date().addingTimeInterval(300)
+        {  // 5 min buffer
+            return token
         }
+
+        // Need to refresh or get new token
+        return try await self.refreshOrGetNewToken()
     }
 
     private func refreshOrGetNewToken() async throws -> String {

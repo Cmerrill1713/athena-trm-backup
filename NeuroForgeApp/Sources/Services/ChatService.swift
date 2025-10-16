@@ -80,7 +80,7 @@ final class ChatService: ObservableObject {
             request.setValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
         }
 
-        let payload: [String: Any] = ["kind": "chat", "text": text]
+        let payload: [String: Any] = ["kind": "chat", "message": text]
         request.httpBody = try JSONSerialization.data(withJSONObject: payload)
 
         let (data, response) = try await session.data(for: request)
@@ -95,7 +95,7 @@ final class ChatService: ObservableObject {
         }
 
         guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let reply = json["reply"] as? String
+              let reply = json["response"] as? String
         else {
             throw NSError(domain: "bridge", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid response format"])
         }

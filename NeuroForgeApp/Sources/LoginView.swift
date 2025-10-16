@@ -46,7 +46,8 @@ struct LoginView: View {
             HStack(spacing: 16) {
                 // Profile cards with vertical navigation
                 VStack(spacing: 12) {
-                    ForEach(Array(self.profileManager.profiles.enumerated()), id: \.element.id) { index, profile in
+                    ForEach(Array(self.profileManager.profiles.enumerated()), id: \.element.id) {
+                        index, profile in
                         ProfileCard(profile: profile) {
                             self.profileManager.selectProfile(profile)
                             self.selectedProfile = profile
@@ -55,7 +56,8 @@ struct LoginView: View {
                             if self.profileManager.profiles.count > 1 {
                                 self.profileManager.deleteProfile(profile)
                                 if self.selectedProfileIndex >= self.profileManager.profiles.count {
-                                    self.selectedProfileIndex = max(0, self.profileManager.profiles.count - 1)
+                                    self.selectedProfileIndex = max(
+                                        0, self.profileManager.profiles.count - 1)
                                 }
                             }
                         }
@@ -74,7 +76,9 @@ struct LoginView: View {
                                 withAnimation(.easeInOut(duration: 0.3)) {
                                     self.selectedProfileIndex -= 1
                                 }
-                            } else if value.translation.height < -50, self.selectedProfileIndex < self.profileManager.profiles.count - 1 {
+                            } else if value.translation.height < -50,
+                                self.selectedProfileIndex < self.profileManager.profiles.count - 1
+                            {
                                 withAnimation(.easeInOut(duration: 0.3)) {
                                     self.selectedProfileIndex += 1
                                 }
@@ -85,12 +89,17 @@ struct LoginView: View {
                 // Navigation dots (vertical, only show if more than 1 profile)
                 if self.profileManager.profiles.count > 1 {
                     VStack(spacing: 8) {
-                        ForEach(0 ..< self.profileManager.profiles.count, id: \.self) { index in
+                        ForEach(0..<self.profileManager.profiles.count, id: \.self) { index in
                             Circle()
-                                .fill(self.selectedProfileIndex == index ? AppleColors.systemBlue : AppleColors.systemGray4)
+                                .fill(
+                                    self.selectedProfileIndex == index
+                                        ? AppleColors.systemBlue : AppleColors.systemGray4
+                                )
                                 .frame(width: 8, height: 8)
                                 .scaleEffect(self.selectedProfileIndex == index ? 1.2 : 1.0)
-                                .animation(.easeInOut(duration: 0.2), value: self.selectedProfileIndex)
+                                .animation(
+                                    .easeInOut(duration: 0.2), value: self.selectedProfileIndex
+                                )
                                 .onTapGesture {
                                     withAnimation(.easeInOut(duration: 0.3)) {
                                         self.selectedProfileIndex = index
@@ -148,7 +157,7 @@ struct ProfileCard: View {
             // Avatar - show photo if available, otherwise SF Symbol
             Group {
                 if let imageData = profile.profileImageData,
-                   let nsImage = NSImage(data: imageData)
+                    let nsImage = NSImage(data: imageData)
                 {
                     Image(nsImage: nsImage)
                         .resizable()
@@ -169,7 +178,9 @@ struct ProfileCard: View {
                                         endPoint: .bottomTrailing
                                     )
                                 )
-                                .shadow(color: AppleColors.systemBlue.opacity(0.3), radius: 4, x: 0, y: 2)
+                                .shadow(
+                                    color: AppleColors.systemBlue.opacity(0.3), radius: 4, x: 0,
+                                    y: 2)
                         )
                 }
             }
@@ -205,7 +216,10 @@ struct ProfileCard: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(self.isHovering ? AppleColors.systemBlue.opacity(0.05) : AppleColors.controlBackground)
+                .fill(
+                    self.isHovering
+                        ? AppleColors.systemBlue.opacity(0.05) : AppleColors.controlBackground
+                )
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(AppleColors.systemGray4.opacity(0.3), lineWidth: 1)
@@ -251,7 +265,7 @@ struct AddProfileView: View {
         "flame.fill",
         "leaf.circle.fill",
         "pawprint.circle.fill",
-        "globe.americas.fill"
+        "globe.americas.fill",
     ]
 
     var body: some View {
@@ -263,7 +277,7 @@ struct AddProfileView: View {
             // Profile picture or avatar preview
             VStack(spacing: 12) {
                 if let imageData = profileImageData,
-                   let nsImage = NSImage(data: imageData)
+                    let nsImage = NSImage(data: imageData)
                 {
                     Image(nsImage: nsImage)
                         .resizable()
@@ -285,7 +299,9 @@ struct AddProfileView: View {
                                         endPoint: .bottomTrailing
                                     )
                                 )
-                                .shadow(color: AppleColors.systemBlue.opacity(0.3), radius: 6, x: 0, y: 3)
+                                .shadow(
+                                    color: AppleColors.systemBlue.opacity(0.3), radius: 6, x: 0,
+                                    y: 3)
                         )
                 }
 
@@ -311,23 +327,35 @@ struct AddProfileView: View {
                         Button(action: { self.selectedAvatar = avatar }) {
                             Image(systemName: avatar)
                                 .font(.system(size: 28))
-                                .foregroundColor(self.selectedAvatar == avatar ? .white : AppleColors.systemBlue)
+                                .foregroundColor(
+                                    self.selectedAvatar == avatar ? .white : AppleColors.systemBlue
+                                )
                                 .frame(width: 50, height: 50)
                                 .background(
                                     Circle()
-                                        .fill(self.selectedAvatar == avatar ?
-                                            LinearGradient(
-                                                colors: [AppleColors.systemBlue, AppleColors.systemGray],
-                                                startPoint: .topLeading,
-                                                endPoint: .bottomTrailing
-                                            ) :
-                                            LinearGradient(
-                                                colors: [AppleColors.systemGray5, AppleColors.systemGray6],
-                                                startPoint: .topLeading,
-                                                endPoint: .bottomTrailing
-                                            )
+                                        .fill(
+                                            self.selectedAvatar == avatar
+                                                ? LinearGradient(
+                                                    colors: [
+                                                        AppleColors.systemBlue,
+                                                        AppleColors.systemGray,
+                                                    ],
+                                                    startPoint: .topLeading,
+                                                    endPoint: .bottomTrailing
+                                                )
+                                                : LinearGradient(
+                                                    colors: [
+                                                        AppleColors.systemGray5,
+                                                        AppleColors.systemGray6,
+                                                    ],
+                                                    startPoint: .topLeading,
+                                                    endPoint: .bottomTrailing
+                                                )
                                         )
-                                        .shadow(color: self.selectedAvatar == avatar ? AppleColors.systemBlue.opacity(0.4) : Color.clear, radius: 3, x: 0, y: 1)
+                                        .shadow(
+                                            color: self.selectedAvatar == avatar
+                                                ? AppleColors.systemBlue.opacity(0.4) : Color.clear,
+                                            radius: 3, x: 0, y: 1)
                                 )
                         }
                         .buttonStyle(.plain)
@@ -357,7 +385,9 @@ struct AddProfileView: View {
 
                 Button("Create Profile") {
                     if !self.profileName.isEmpty {
-                        self.profileManager.createProfile(name: self.profileName, avatar: self.selectedAvatar, profileImageData: self.profileImageData)
+                        self.profileManager.createProfile(
+                            name: self.profileName, avatar: self.selectedAvatar,
+                            profileImageData: self.profileImageData)
                         self.dismiss()
                     }
                 }
@@ -419,11 +449,12 @@ struct ProfileImagePicker: NSViewRepresentable {
         let size = image.size
         let aspectRatio = size.width / size.height
 
-        let newSize = if size.width > size.height {
-            NSSize(width: maxSize, height: maxSize / aspectRatio)
-        } else {
-            NSSize(width: maxSize * aspectRatio, height: maxSize)
-        }
+        let newSize =
+            if size.width > size.height {
+                NSSize(width: maxSize, height: maxSize / aspectRatio)
+            } else {
+                NSSize(width: maxSize * aspectRatio, height: maxSize)
+            }
 
         let scaledImage = NSImage(size: newSize)
         scaledImage.lockFocus()
@@ -432,8 +463,9 @@ struct ProfileImagePicker: NSViewRepresentable {
 
         // Convert to JPEG data (compressed)
         if let tiffData = scaledImage.tiffRepresentation,
-           let bitmapImage = NSBitmapImageRep(data: tiffData),
-           let jpegData = bitmapImage.representation(using: .jpeg, properties: [.compressionFactor: 0.8])
+            let bitmapImage = NSBitmapImageRep(data: tiffData),
+            let jpegData = bitmapImage.representation(
+                using: .jpeg, properties: [.compressionFactor: 0.8])
         {
             return jpegData
         }
