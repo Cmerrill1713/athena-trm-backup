@@ -2,7 +2,7 @@
   "mcpServers": {
     "athena-mcp": {
       "transport": "http",
-      "url": "http://localhost:3333",
+      "url": "http://localhost:3335",
       "capabilities": ["tools", "resources", "prompts"]
     }
   }
