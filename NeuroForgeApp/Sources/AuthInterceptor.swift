@@ -57,7 +57,7 @@ func getDeviceId() async -> String? {
 }
 
 /// Token manager for mobile authentication
-final class TokenManager {
+final class TokenManager: @unchecked Sendable {
 
     static let shared = TokenManager()
 

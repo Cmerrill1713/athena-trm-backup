@@ -123,36 +123,21 @@ struct AthenaDashboardView: View {
         promptResult = ""
 
         Task {
-            do {
-                let request = PromptEngineeringRequest(
-                    task: "Write a Python service to monitor Redis memory and alert at 80% usage",
-                    context: ["language": "python", "monitoring": "redis"],
-                    constraints: [
-                        "Use redis-py library", "Send alerts via email", "Log to stdout",
-                    ],
-                    examples: ["Monitor CPU usage", "Check disk space"]
-                )
+            // Simulate processing time
+            try? await Task.sleep(nanoseconds: 2_000_000_000)  // 2 seconds
 
-                // v1.0.2: PromptEngineerService disabled (needs ObservableObject)
-                // v1.0.3: Restore with proper conformance
-                // let response = try await promptEngineer.engineerPrompt(payload: request)
+            promptResult = """
+                🧠 **AI Team Engineering (v1.0.2: Stub)**
 
-                promptResult = """
-                    🧠 **AI Team Engineering (v1.0.2: Stub)**
+                **Status:** Feature temporarily disabled for v1.0.2
+                **Note:** Will be restored in v1.0.3 with proper ObservableObject conformance
 
-                    **Status:** Feature temporarily disabled for v1.0.2
-                    **Note:** Will be restored in v1.0.3 with proper ObservableObject conformance
-
-                    **Planned Restoration:**
-                    • PromptEngineerService with ObservableObject
-                    • Full AI team orchestration
-                    • Real-time team contributions
-                    • Full reviewer feedback system
-                    """
-
-            } catch {
-                promptResult = "❌ Prompt engineering failed: \(error.localizedDescription)"
-            }
+                **Planned Restoration:**
+                • PromptEngineerService with ObservableObject
+                • Full AI team orchestration
+                • Real-time team contributions
+                • Full reviewer feedback system
+                """
 
             isEngineering = false
         }

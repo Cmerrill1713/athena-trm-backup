@@ -202,7 +202,7 @@ struct NeuroForgeChatView: View {
                     .padding(.top, NFTheme.Spacing.md)
                 }
                 .background(AppleColors.controlBackground.ignoresSafeArea())
-                .onChange(of: self.chatService.messages.count) { _ in
+                .onChange(of: self.chatService.messages.count) { _, _ in
                     withAnimation {
                         if let last = chatService.messages.last {
                             proxy.scrollTo(last.id, anchor: .bottom)

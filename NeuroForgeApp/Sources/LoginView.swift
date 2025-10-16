@@ -419,7 +419,7 @@ struct ProfileImagePicker: NSViewRepresentable {
         let size = image.size
         let aspectRatio = size.width / size.height
 
-        var newSize = if size.width > size.height {
+        let newSize = if size.width > size.height {
             NSSize(width: maxSize, height: maxSize / aspectRatio)
         } else {
             NSSize(width: maxSize * aspectRatio, height: maxSize)

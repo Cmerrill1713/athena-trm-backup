@@ -13,29 +13,55 @@ public enum TribunalDecisionOption: String, Codable, CaseIterable {
 }
 
 public struct CriticalAlert: Identifiable, Codable {
-    public let id = UUID()
+    public var id: UUID
     public var title: String
     public var message: String
     public var severity: AlertSeverity
     public var affectedSystems: [String]
     public var recommendations: [String]
+    
+    public init(title: String, message: String, severity: AlertSeverity, affectedSystems: [String] = [], recommendations: [String] = []) {
+        self.id = UUID()
+        self.title = title
+        self.message = message
+        self.severity = severity
+        self.affectedSystems = affectedSystems
+        self.recommendations = recommendations
+    }
 }
 
 public struct TribunalCase: Identifiable, Codable {
-    public let id = UUID()
+    public var id: UUID
     public var caseID: String
     public var summary: String
     public var aiRecommendation: TribunalDecisionOption
     public var confidence: Double
+    
+    public init(caseID: String, summary: String, aiRecommendation: TribunalDecisionOption, confidence: Double) {
+        self.id = UUID()
+        self.caseID = caseID
+        self.summary = summary
+        self.aiRecommendation = aiRecommendation
+        self.confidence = confidence
+    }
 }
 
 public struct SystemEmergency: Identifiable, Codable {
-    public let id = UUID()
+    public var id: UUID
     public var title: String
     public var analysis: String
     public var countdownSeconds: Int
     public var risk: RiskLevel
     public var actions: [String]
+    
+    public init(title: String, analysis: String, countdownSeconds: Int, risk: RiskLevel, actions: [String] = []) {
+        self.id = UUID()
+        self.title = title
+        self.analysis = analysis
+        self.countdownSeconds = countdownSeconds
+        self.risk = risk
+        self.actions = actions
+    }
 }
 
 // MARK: - Governance Models

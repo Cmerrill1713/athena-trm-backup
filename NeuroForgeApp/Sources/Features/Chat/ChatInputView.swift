@@ -14,7 +14,7 @@ struct ChatInputView: View {
                 .padding(10)
                 .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
                 .focused(self.$isFocused)
-                .onChange(of: self.isFocused) { now in
+                .onChange(of: self.isFocused) { _, now in
                     now ? self.focus.beginTextEntry() : self.focus.endTextEntry()
                 }
                 .onAppear {

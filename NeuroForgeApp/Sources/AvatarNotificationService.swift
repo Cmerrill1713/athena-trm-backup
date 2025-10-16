@@ -1,7 +1,9 @@
 import Foundation
+#if canImport(UserNotifications)
 import UserNotifications
+#endif
 
-/// Service for handling avatar-related notifications on iOS
+/// Service for handling avatar-related notifications
 final class AvatarNotificationService: NSObject, ObservableObject {
     static let shared = AvatarNotificationService()
 
@@ -10,11 +12,24 @@ final class AvatarNotificationService: NSObject, ObservableObject {
 
     private override init() {
         super.init()
+        #if canImport(UserNotifications)
         requestAuthorization()
+        #else
+        // For macOS or when UserNotifications not available
+        isAuthorized = false
+        #endif
     }
 
     /// Request notification permissions
     func requestAuthorization() {
+        #if canImport(UserNotifications)
+        // Check if we're in a proper app bundle context
+        guard Bundle.main.bundleIdentifier != nil else {
+            print("⚠️ Not in proper app bundle context, skipping notifications")
+            isAuthorized = false
+            return
+        }
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
             granted, error in
             DispatchQueue.main.async {
@@ -25,12 +40,16 @@ final class AvatarNotificationService: NSObject, ObservableObject {
             }
         }
         UNUserNotificationCenter.current().delegate = self
+        #else
+        isAuthorized = false
+        #endif
     }
 
     /// Trigger avatar morph notification
     func notifyMorph(from: AvatarMode, to: AvatarMode, awarenessLevel: Double? = nil) {
         guard isAuthorized else { return }
-
+        
+        #if canImport(UserNotifications)
         let content = UNMutableNotificationContent()
         content.title = "Avatar Morph"
         content.body = "Morphed from \(from.rawValue) to \(to.rawValue)"
@@ -50,13 +69,16 @@ final class AvatarNotificationService: NSObject, ObservableObject {
         )
 
         UNUserNotificationCenter.current().add(request)
-        lastNotification = AvatarNotification(type: .morph, message: content.body)
+        #endif
+        
+        lastNotification = AvatarNotification(type: .morph, message: "Morphed from \(from.rawValue) to \(to.rawValue)")
     }
 
     /// Trigger avatar error notification
     func notifyError(_ error: String, isCritical: Bool = false) {
         guard isAuthorized else { return }
-
+        
+        #if canImport(UserNotifications)
         let content = UNMutableNotificationContent()
         content.title = isCritical ? "🚨 Avatar Critical Error" : "⚠️ Avatar Warning"
         content.body = error
@@ -75,14 +97,17 @@ final class AvatarNotificationService: NSObject, ObservableObject {
         )
 
         UNUserNotificationCenter.current().add(request)
+        #endif
+        
         lastNotification = AvatarNotification(
-            type: .error, message: content.body, isCritical: isCritical)
+            type: .error, message: error, isCritical: isCritical)
     }
 
     /// Trigger rollback notification
     func notifyRollback(to: AvatarMode) {
         guard isAuthorized else { return }
-
+        
+        #if canImport(UserNotifications)
         let content = UNMutableNotificationContent()
         content.title = "🔄 Avatar Rollback"
         content.body = "Automatically rolled back to \(to.rawValue)"
@@ -100,13 +125,16 @@ final class AvatarNotificationService: NSObject, ObservableObject {
         )
 
         UNUserNotificationCenter.current().add(request)
-        lastNotification = AvatarNotification(type: .rollback, message: content.body)
+        #endif
+        
+        lastNotification = AvatarNotification(type: .rollback, message: "Automatically rolled back to \(to.rawValue)")
     }
 
     /// Trigger rollout phase change notification
     func notifyRolloutPhase(_ phase: String, percentage: Int) {
         guard isAuthorized else { return }
-
+        
+        #if canImport(UserNotifications)
         let content = UNMutableNotificationContent()
         content.title = "📈 Avatar Rollout"
         content.body = "Phase: \(phase) (\(percentage)% exposure)"
@@ -125,17 +153,22 @@ final class AvatarNotificationService: NSObject, ObservableObject {
         )
 
         UNUserNotificationCenter.current().add(request)
-        lastNotification = AvatarNotification(type: .rollout, message: content.body)
+        #endif
+        
+        lastNotification = AvatarNotification(type: .rollout, message: "Phase: \(phase) (\(percentage)% exposure)")
     }
 
     /// Clear all avatar notifications
     func clearNotifications() {
+        #if canImport(UserNotifications)
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        #endif
     }
 }
 
 // MARK: - UNUserNotificationCenterDelegate
+#if canImport(UserNotifications)
 extension AvatarNotificationService: UNUserNotificationCenterDelegate {
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
@@ -156,6 +189,7 @@ extension AvatarNotificationService: UNUserNotificationCenterDelegate {
         completionHandler()
     }
 }
+#endif
 
 // MARK: - Avatar Notification Model
 struct AvatarNotification {

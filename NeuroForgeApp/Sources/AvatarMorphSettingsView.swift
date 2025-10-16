@@ -28,7 +28,7 @@ struct AvatarMorphSettingsView: View {
                     Text("🧍‍♀️ Photoreal").tag(AvatarMode.photoreal)
                 }
                 .pickerStyle(.segmented)
-                .onChange(of: morphMode) { newMode in
+                .onChange(of: morphMode) { _, newMode in
                     handleMorphModeChange(to: newMode)
                 }
 
@@ -298,7 +298,7 @@ class AvatarService: ObservableObject {
         if mockMode {
             // Simulate morphing in fast-track mode
             try await Task.sleep(nanoseconds: 2_000_000_000)  // 2 second delay
-            let duration = Date().timeIntervalSince(startTime)
+            let _ = Date().timeIntervalSince(startTime)
 
             await MainActor.run {
                 // MobileMetricsService.shared.trackAvatarSwitch(target: mode, success: true, duration: duration)
@@ -325,7 +325,7 @@ class AvatarService: ObservableObject {
 
         do {
             let (responseData, response) = try await URLSession.shared.data(for: request)
-            let duration = Date().timeIntervalSince(startTime)
+            let _ = Date().timeIntervalSince(startTime)
 
             if let httpResponse = response as? HTTPURLResponse,
                 !(200..<300).contains(httpResponse.statusCode)
@@ -342,7 +342,7 @@ class AvatarService: ObservableObject {
 
             await MainActor.run {
                 MobileMetricsService.shared.trackAvatarSwitch(
-                    target: mode, success: result.success, duration: duration)
+                    target: mode, success: result.success, duration: 0.0)
                 // MobileMetricsService.shared.trackAPILatency(endpoint: "avatar/switch", duration: duration, statusCode: 200)
 
                 if result.success {
@@ -357,12 +357,12 @@ class AvatarService: ObservableObject {
 
             return result.success
         } catch {
-            let duration = Date().timeIntervalSince(startTime)
+            let _ = Date().timeIntervalSince(startTime)
             await MainActor.run {
                 AvatarNotificationService.shared.notifyError(
                     "Morph failed: \(error.localizedDescription)", isCritical: false)
                 MobileMetricsService.shared.trackAvatarSwitch(
-                    target: mode, success: false, duration: duration)
+                    target: mode, success: false, duration: 0.0)
                 MobileMetricsService.shared.trackAvatarSwitchFailure(
                     reason: error.localizedDescription)
             }
