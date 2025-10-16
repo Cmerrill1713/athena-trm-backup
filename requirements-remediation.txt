@@ -1,0 +1,11 @@
+# Auto-Remediation System Requirements
+# For agi_core/remediator.py and governance/canary/canary_consumer.py
+
+# Core dependencies
+redis>=5.0.0          # Event bus (optional, for distributed mode)
+requests>=2.31.0      # HTTP requests
+
+# Already available in main system (optional installs)
+# prometheus-client>=0.19.0  # Metrics export
+# pydantic>=2.0.0            # Data validation
+

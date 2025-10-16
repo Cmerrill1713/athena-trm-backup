@@ -22,6 +22,7 @@ help:
 	@echo "  smoke-test            - Quick smoke test of critical paths"
 	@echo "  inventory             - Generate inventory of endpoints, topics, and metrics"
 	@echo "  health-check          - Check health of all services"
+	@echo "  health-full           - Comprehensive health check (all services)"
 	@echo "  metrics-check         - Verify Prometheus metrics are being collected"
 	@echo "  start                 - Start all governance services"
 	@echo "  stop                  - Stop all governance services"
@@ -64,6 +65,10 @@ health-check:
 		echo -n "Port $$port: "; \
 		curl -fsS --max-time 2 http://localhost:$$port/health 2>/dev/null && echo "✓ healthy" || echo "✗ unhealthy"; \
 	done
+
+# Comprehensive health check
+health-full:
+	@bash scripts/health_check.sh
 
 # Check Prometheus metrics
 metrics-check:

@@ -39,6 +39,7 @@
 - Legislative policies define safety constraints
 - Judicial verdicts approve/reject modifications  
 - Executive orchestration with circuit breakers
+- **Auto-remediation** - Automatic healing of failures
 - 100% transparency and audit trail
 
 ### Multi-Agent System (AGI Core)
@@ -53,35 +54,38 @@
 - No eval/exec/arbitrary code
 - Circuit breakers on failures
 - ECE-based human oversight
+- Automatic canary validation
+- Closed-loop remediation
 
 ---
 
 ## 🚀 **Quick Start**
 
+**Get running in 5 minutes:**
+
+```bash
+# 1. Set API key
+export ANTHROPIC_API_KEY='your-key-here'
+
+# 2. Start all services
+./scripts/start_athena.sh
+
+# 3. Run demo
+./scripts/remediation_quickstart.sh
+```
+
+**Full instructions:** See [QUICKSTART.md](./QUICKSTART.md)
+
 ### Prerequisites
 ```bash
 # Required
 - Python 3.11+
-- Docker
-- API keys (Anthropic Claude)
+- Docker & Docker Compose
+- Anthropic API key
 
 # Optional
-- Prometheus (monitoring)
-- Grafana (dashboards)
-```
-
-### Installation
-```bash
-# Clone repository
-git clone https://github.com/Cmerrill1713/athena-trm-backup.git
-cd athena-trm-backup
-
-# Set API keys
-export ANTHROPIC_API_KEY='your-key-here'
-export OPENAI_API_KEY='your-key-here'  # optional
-
-# Run quick start
-./scripts/dgm_quickstart.sh
+- OpenAI API key
+- Redis (for distributed event bus)
 ```
 
 ### Run Your First Evolution
@@ -113,13 +117,19 @@ athena/
 │   ├── legislative/                   # Policies & constraints
 │   ├── judicial/                      # Verdicts & validation
 │   ├── executive/                     # Orchestration
+│   ├── canary/                        # Auto-remediation consumer
 │   ├── observability/                 # Metrics
 │   └── research/dgm/                  # DGM integration
 │
 ├── agi_core/                          # Multi-agent system
+│   ├── remediator.py                  # Auto-remediation service
 │   ├── workflows.py                   # Scout→Plan→Build
 │   ├── delegation.py                  # Coordination
 │   └── evaluation_metrics.py          # STOP metrics
+│
+├── infra/                             # Infrastructure
+│   ├── event_bus.py                   # Local pub/sub
+│   └── event_bus_redis.py             # Distributed pub/sub
 │
 ├── experts/                           # Specialized agents
 │   ├── scout_expert.json
@@ -136,10 +146,13 @@ athena/
 │
 ├── scripts/                           # Operational tools
 │   ├── dgm_quickstart.sh
+│   ├── remediation_quickstart.sh      # Auto-remediation demo
 │   ├── gov_canary_decider.py
 │   └── [100+ scripts]
 │
 └── tests/                             # Test suite
+    ├── e2e/
+    │   └── test_auto_remediation.py   # E2E remediation tests
     ├── test_dgm_integration.py
     └── test_full_system_integration.py
 ```
@@ -257,7 +270,8 @@ open http://localhost:3000/d/dgm-evolution
 ## 📖 **Documentation**
 
 ### For Users
-- [Quick Start Guide](./scripts/dgm_quickstart.sh) - Get started in 5 minutes
+- [**Quick Start Guide**](./QUICKSTART.md) - **Get started in 5 minutes**
+- [DGM Quick Start](./scripts/dgm_quickstart.sh) - DGM evolution demo
 - [DGM Integration Summary](./DGM_INTEGRATION_SUMMARY.md) - What DGM does
 - [AGI Core Guide](./agi_core/README.md) - Multi-agent system
 
@@ -265,6 +279,7 @@ open http://localhost:3000/d/dgm-evolution
 - [Operator Runbook](./RUNBOOKS/DGM_OPERATOR_RUNBOOK.md) - Day-to-day operations
 - [System Architecture](./SYSTEM_ARCHITECTURE.md) - Technical deep dive
 - [Governance Runbook](./GOVERNANCE_RUNBOOK.md) - Governance operations
+- [**Auto-Remediation Guide**](./AUTO_REMEDIATION_GUIDE.md) - **NEW: Automatic healing system**
 
 ### For Developers
 - [PRD: DGM Integration (ST-201)](./docs/prd/DGM_INTEGRATION_PRD.md) - Product requirements
@@ -284,6 +299,9 @@ pytest tests/test_dgm_integration.py -v
 
 # Full system integration
 pytest tests/test_full_system_integration.py -v
+
+# Auto-remediation E2E tests
+pytest tests/e2e/test_auto_remediation.py -v
 
 # With coverage
 pytest tests/ --cov=. --cov-report=html
@@ -335,6 +353,11 @@ dgm_safety_violations_total
 # AGI
 agi_delegations_total
 agi_reviews_total
+
+# Auto-Remediation
+governance_remediations_requested_total
+governance_remediations_completed_total{decision}
+governance_remediations_promoted_total
 ```
 
 ### Alerts

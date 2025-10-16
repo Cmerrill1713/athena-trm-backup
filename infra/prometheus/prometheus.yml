@@ -1,0 +1,49 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'athena-governance'
+
+rule_files:
+  - alerts-governance.yml
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+scrape_configs:
+  # Athena Governance Orchestrator
+  - job_name: 'athena-orchestrator'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['host.docker.internal:9110']
+    metrics_path: '/metrics'
+
+  # Athena Governance Metrics Exporter
+  - job_name: 'athena-metrics-exporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['host.docker.internal:9109']
+    metrics_path: '/metrics'
+
+  # Athena Governance Canary
+  - job_name: 'athena-canary'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['host.docker.internal:9111']
+    metrics_path: '/metrics'
+
+  # Application (for coverage calculation)
+  - job_name: 'app-ingress'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['app:8080']
+    metrics_path: '/metrics'
+
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+

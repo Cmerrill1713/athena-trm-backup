@@ -1,4 +1,4 @@
-.PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch wire-check cursor-bootstrap repo-inventory exp-shadow exp-remediate exp-ab exp-devils-adv exp-cost exp-fasttrack exp-longrun
+.PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch wire-check cursor-bootstrap repo-inventory exp-shadow exp-remediate exp-ab exp-devils-adv exp-cost exp-fasttrack exp-longrun ingress-up prom-up mode-shadow mode-canary mode-enforce gate verify
 
 wire-check:  ## Verify complete system wiring (integration test)
 	@echo "🔌 Verifying complete system wiring..."
@@ -81,6 +81,49 @@ exp-fasttrack:  ## Phase 6: Human fast-track approvals
 exp-longrun:  ## Phase 7: Long-run drift tracking
 	@echo "🧪 Running Phase 7: Long-Run Drift & Adaptation"
 	@echo "📚 See: governance/experimental/EXPERIMENTS.md"
+
+# =============================================================================
+# IN-PATH GOVERNANCE (Shadow → Canary → Enforce)
+# =============================================================================
+
+# Configuration
+ATHENA_MODE ?= shadow
+ATHENA_POLICY_VERSION := $(shell shasum -a 256 governance/legislative/self_modification_policy.yaml 2>/dev/null | cut -c1-12 || echo "unknown")
+
+export ATHENA_MODE
+export ATHENA_POLICY_VERSION
+
+ingress-up:  ## Start ingress with governance mirror
+	@echo "🚀 Starting ingress (mode=$(ATHENA_MODE))..."
+	@cd infra/ingress && docker compose up -d
+
+prom-up:  ## Start Prometheus with governance alerts
+	@echo "📊 Starting Prometheus..."
+	@docker run -d --name athena-prometheus-infra \
+	  -p 9090:9090 \
+	  -v $(PWD)/infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro \
+	  -v $(PWD)/infra/prometheus/alerts-governance.yml:/etc/prometheus/alerts-governance.yml:ro \
+	  --add-host host.docker.internal:host-gateway \
+	  prom/prometheus || echo "⚠️  Prometheus may already be running"
+
+mode-shadow:  ## Set mode to SHADOW (observe only)
+	@./scripts/flip_mode.sh shadow
+
+mode-canary:  ## Set mode to CANARY (1-5% enforcement)
+	@./scripts/flip_mode.sh canary
+
+mode-enforce:  ## Set mode to ENFORCE (100% enforcement)
+	@./scripts/flip_mode.sh enforce
+
+gate:  ## Check governance coverage gate
+	@MIN_COVERAGE=$(MIN_COVERAGE) PROM_URL=$(PROM_URL) bash scripts/coverage_gate.sh
+
+verify:  ## Verify governance is operational
+	@echo "🔍 Verifying governance..."
+	@curl -sS http://localhost:9110/metrics | grep governance_ | head -5 || echo "⚠️  No metrics"
+	@echo ""
+	@echo "📡 Prometheus targets:"
+	@curl -sS "http://localhost:9090/api/v1/targets" | jq -r '.data.activeTargets[].health' | sort | uniq -c
 
 .PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch
 governance-up:

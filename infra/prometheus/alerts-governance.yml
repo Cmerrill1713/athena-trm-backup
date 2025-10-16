@@ -1,0 +1,174 @@
+groups:
+  - name: governance
+    interval: 15s
+    rules:
+      # =========================================================================
+      # CRITICAL: Coverage & Availability
+      # =========================================================================
+      
+      - alert: GovernanceCoverageDrop
+        expr: |
+          (
+            sum(governance_receipts_total) - 
+            ignoring(instance) group_left sum(ingress_requests_total)
+          ) / sum(ingress_requests_total) < -0.02
+        for: 5m
+        labels:
+          severity: critical
+          component: governance
+        annotations:
+          summary: "Governance coverage below 98%"
+          description: "Receipts missing for >2% of ingress traffic. Check ingress mirror config."
+
+      - alert: NoVerdictsProduced
+        expr: |
+          increase(governance_receipts_total[5m]) > 0 and 
+          increase(governance_verdicts_total[5m]) == 0
+        for: 5m
+        labels:
+          severity: warning
+          component: governance
+        annotations:
+          summary: "Receipts flowing but no verdicts produced"
+          description: "Orchestrator may be stuck or disabled."
+
+      # =========================================================================
+      # CRITICAL: Safety Gates
+      # =========================================================================
+      
+      - alert: ECECritical
+        expr: governance_ece_post > 0.08
+        for: 2m
+        labels:
+          severity: critical
+          component: governance
+          action: rollback
+        annotations:
+          summary: "ECE > 0.08 - Trigger immediate rollback"
+          description: "Expected Calibration Error exceeded critical threshold."
+
+      - alert: EntropyDriftCritical
+        expr: governance_entropy_drift >= 0.25
+        for: 1m
+        labels:
+          severity: critical
+          component: governance
+          action: rollback
+        annotations:
+          summary: "Entropy drift ≥0.25 - Trigger rollback"
+          description: "System entropy has drifted beyond acceptable bounds."
+
+      - alert: ViolationRateSpike
+        expr: governance_violation_rate_delta > 0.005
+        for: 3m
+        labels:
+          severity: critical
+          component: governance
+          action: rollback
+        annotations:
+          summary: "Violation rate spiked >0.5%"
+          description: "Policy violations increased significantly."
+
+      # =========================================================================
+      # CRITICAL: Remediation
+      # =========================================================================
+      
+      - alert: RemediationStuck
+        expr: |
+          governance_remediations_requested_total - 
+          governance_remediations_completed_total > 0
+        for: 10m
+        labels:
+          severity: critical
+          component: remediation
+        annotations:
+          summary: "Remediation request stuck for >10min"
+          description: "Check orchestrator logs for errors."
+
+      - alert: RemediationFailureRate
+        expr: |
+          rate(governance_remediations_completed_total{decision="ROLLBACK"}[10m]) /
+          rate(governance_remediations_completed_total[10m]) > 0.50
+        for: 5m
+        labels:
+          severity: warning
+          component: remediation
+        annotations:
+          summary: "Remediation failure rate >50%"
+          description: "More than half of remediations are rolling back."
+
+      # =========================================================================
+      # WARNING: Performance
+      # =========================================================================
+      
+      - alert: GovernanceLatencyHigh
+        expr: governance_latency_p95_delta > 0.50
+        for: 5m
+        labels:
+          severity: warning
+          component: governance
+        annotations:
+          summary: "Governance latency p95 increased >50%"
+          description: "Governance checks may be slowing down requests."
+
+      - alert: EdgeCaseScoreLow
+        expr: governance_edge_case_score < 0.8
+        for: 5m
+        labels:
+          severity: warning
+          component: adversarial
+        annotations:
+          summary: "Edge case score <0.8"
+          description: "Remediation may be brittle. Review adversarial probe results."
+
+      # =========================================================================
+      # WARNING: Cost & Budget
+      # =========================================================================
+      
+      - alert: RemediationCostSpike
+        expr: |
+          governance_remediation_cost_usd > (
+            avg_over_time(governance_remediation_cost_usd[1h]) + 
+            3 * stddev_over_time(governance_remediation_cost_usd[1h])
+          )
+        for: 10m
+        labels:
+          severity: warning
+          component: cost
+        annotations:
+          summary: "Remediation cost spiked >3σ above mean"
+          description: "Check for expensive LLM calls or resource usage."
+
+      - alert: BudgetNearLimit
+        expr: governance_budget_utilization > 0.90
+        for: 5m
+        labels:
+          severity: warning
+          component: cost
+        annotations:
+          summary: "Remediation budget >90% utilized"
+          description: "Approaching budget limit for current period."
+
+      # =========================================================================
+      # INFO: Operational
+      # =========================================================================
+      
+      - alert: GovernanceOrchestratorDown
+        expr: governance_orchestrator_up == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: governance
+        annotations:
+          summary: "Governance orchestrator is down"
+          description: "Service health check failing."
+
+      - alert: ShadowExperimentsRunning
+        expr: governance_experiment_active{phase="1"} == 1
+        labels:
+          severity: info
+          component: experimental
+        annotations:
+          summary: "Shadow remediation experiment active"
+          description: "Phase 1 experiments are running (no production impact)."
+
