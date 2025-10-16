@@ -1,0 +1,20 @@
+NAMES                         PORTS
+governance-orchestrator       127.0.0.1:9110->8000/tcp
+governance-metrics-exporter   127.0.0.1:9109->8000/tcp
+athena-evolutionary           127.0.0.1:8014->8004/tcp
+governance-canary-monitor     127.0.0.1:9111->8000/tcp
+mcp-ecosystem                 0.0.0.0:8412->8412/tcp
+athena-searxng                127.0.0.1:8081->8080/tcp
+athena-api                    127.0.0.1:8888->8000/tcp
+athena-knowledge-sync         127.0.0.1:8089->8080/tcp
+athena-knowledge-gateway      127.0.0.1:8088->8080/tcp
+athena-knowledge-context      127.0.0.1:8091->8080/tcp
+grafana                       0.0.0.0:3001->3000/tcp
+prometheus                    0.0.0.0:9090->9090/tcp
+athena-redis-exporter         127.0.0.1:9121->9121/tcp
+athena-postgres-exporter      127.0.0.1:9187->9187/tcp
+athena-postgres               127.0.0.1:5432->5432/tcp
+athena-redis                  127.0.0.1:6379->6379/tcp
+alertmanager                  0.0.0.0:9093->9093/tcp
+athena-node-exporter          127.0.0.1:9100->9100/tcp
+athena-weaviate               127.0.0.1:50051->50051/tcp, 127.0.0.1:8090->8080/tcp

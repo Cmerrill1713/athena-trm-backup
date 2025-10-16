@@ -1,3 +1,9 @@
+.PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch wire-check
+
+wire-check:  ## Verify complete system wiring (integration test)
+	@echo "🔌 Verifying complete system wiring..."
+	@./scripts/verify_complete_wiring.sh
+
 .PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch
 governance-up:
 	COMPOSE_FILE=docker-compose.athena-governance.yml docker compose up -d

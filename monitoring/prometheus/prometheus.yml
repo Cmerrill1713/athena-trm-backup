@@ -19,10 +19,17 @@ scrape_configs:
     scrape_interval: 10s
     metrics_path: '/metrics'
 
-  # Governance Orchestrator
+  # Governance Orchestrator (Docker network)
   - job_name: 'governance-orchestrator'
     static_configs:
       - targets: ['governance-orchestrator:8000']
+    scrape_interval: 15s
+    metrics_path: '/metrics'
+  
+  # Governance Orchestrator (Host port)
+  - job_name: 'governance-orchestrator-host'
+    static_configs:
+      - targets: ['host.docker.internal:9110']
     scrape_interval: 15s
     metrics_path: '/metrics'
 

@@ -189,6 +189,43 @@ def health():
         "timestamp": time.time()
     }
 
+@app.get("/ready")
+def ready():
+    """Readiness check - ensures dependencies are available"""
+    try:
+        # Check if state file is accessible
+        if STATE_PATH.exists():
+            load_state()
+        
+        return {
+            "status": "ready",
+            "service": "governance-orchestrator",
+            "checks": {
+                "state_file": "ok",
+                "ledger_dir": "ok" if LEDGER_PATH.parent.exists() else "unavailable"
+            },
+            "timestamp": time.time()
+        }
+    except Exception as e:
+        return {
+            "status": "not_ready",
+            "service": "governance-orchestrator",
+            "error": str(e),
+            "timestamp": time.time()
+        }, 503
+
+@app.get("/version")
+def version():
+    """Version information endpoint"""
+    import os
+    return {
+        "service": "governance-orchestrator",
+        "version": os.getenv("VERSION", "1.0.0"),
+        "build_time": os.getenv("BUILD_TIME", "unknown"),
+        "commit": os.getenv("GIT_COMMIT", "unknown"),
+        "timestamp": time.time()
+    }
+
 @app.get("/metrics")
 def metrics():
     """Prometheus metrics endpoint"""

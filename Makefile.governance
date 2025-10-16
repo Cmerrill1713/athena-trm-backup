@@ -1,0 +1,92 @@
+# Governance System Makefile
+# Provides targets for deployment, testing, and validation
+
+.PHONY: help wire-check smoke-test inventory health-check metrics-check
+
+help:
+	@echo "Governance System Makefile"
+	@echo ""
+	@echo "Available targets:"
+	@echo "  wire-check      - Run complete wiring validation (endpoints, topics, metrics)"
+	@echo "  smoke-test      - Quick smoke test of critical paths"
+	@echo "  inventory       - Generate inventory of endpoints, topics, and metrics"
+	@echo "  health-check    - Check health of all services"
+	@echo "  metrics-check   - Verify Prometheus metrics are being collected"
+	@echo "  start           - Start all governance services"
+	@echo "  stop            - Stop all governance services"
+	@echo "  logs            - Tail logs from all services"
+	@echo "  clean           - Clean up generated files"
+	@echo ""
+
+# Run comprehensive wiring check
+wire-check:
+	@echo "Running comprehensive wiring validation..."
+	@bash scripts/wire_check.sh
+
+# Quick smoke test
+smoke-test:
+	@echo "Running smoke test..."
+	@bash scripts/smoke_integration.sh
+
+# Generate inventory
+inventory:
+	@echo "Generating system inventory..."
+	@mkdir -p docs/inventory
+	@echo "=== HTTP ENDPOINTS ===" > docs/inventory/endpoints.txt
+	@rg -n "app\.route|router\.([A-Z]+)|@app\.(get|post)" --glob '!**/archive/**' >> docs/inventory/endpoints.txt || true
+	@echo "" >> docs/inventory/endpoints.txt
+	@echo "=== EVENT TOPICS ===" >> docs/inventory/endpoints.txt
+	@rg -n "emit\(|publish\(|topic\s*=\s*" --hidden >> docs/inventory/endpoints.txt || true
+	@echo "" >> docs/inventory/endpoints.txt
+	@echo "=== METRICS ===" >> docs/inventory/endpoints.txt
+	@rg "governance_[a-zA-Z0-9_]+" --hidden | grep -oE 'governance_[a-zA-Z0-9_]+' | sort -u >> docs/inventory/endpoints.txt || true
+	@echo "Inventory saved to docs/inventory/endpoints.txt"
+
+# Health check all services
+health-check:
+	@echo "Checking service health..."
+	@for port in 9110 9111 9109 9090 3001; do \
+		echo -n "Port $$port: "; \
+		curl -fsS --max-time 2 http://localhost:$$port/health 2>/dev/null && echo "✓ healthy" || echo "✗ unhealthy"; \
+	done
+
+# Check Prometheus metrics
+metrics-check:
+	@echo "Checking Prometheus metrics..."
+	@curl -s "http://localhost:9090/api/v1/series?match[]=governance_*" | \
+		grep -oE 'governance_[a-zA-Z0-9_]+' | sort -u || echo "No governance metrics found"
+
+# Start services
+start:
+	@echo "Starting governance services..."
+	docker compose -f docker-compose.athena-governance.yml up -d
+
+# Stop services
+stop:
+	@echo "Stopping governance services..."
+	docker compose -f docker-compose.athena-governance.yml down
+
+# View logs
+logs:
+	docker compose -f docker-compose.athena-governance.yml logs -f
+
+# Clean generated files
+clean:
+	@echo "Cleaning up..."
+	rm -f wire_check_inventory.txt
+	rm -f docs/inventory/endpoints.txt
+	@echo "Cleaned"
+
+# Full system validation (comprehensive)
+validate: start
+	@echo "Waiting for services to start..."
+	@sleep 5
+	@make health-check
+	@make wire-check
+	@echo ""
+	@echo "✅ Full validation complete"
+
+# Quick development cycle
+dev-check: health-check metrics-check
+	@echo "✅ Quick dev check complete"
+
