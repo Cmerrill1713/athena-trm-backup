@@ -1,133 +1,103 @@
-#!/bin/bash
-# Polished Athena System Startup Script
-# Starts all services with health checks and validation
+#!/usr/bin/env bash
+set -euo pipefail
 
-set -e
+echo "🚀 Starting Athena Platform..."
+echo ""
 
 # Colors
 GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-YELLOW='\033[1;33m'
 RED='\033[0;31m'
-NC='\033[0m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
 
-echo -e "${BLUE}"
-cat << "EOF"
-   ___  __  __                    
-  / _ |/ /_/ /  ___ ___  ___ ___ _
- / __ / __/ _ \/ -_) _ \/ _ `/  ' \
-/_/ |_\__/_//_/\__/_//_/\_,_/_/_/_/
-
-Constitutional AI with Auto-Remediation
-EOF
-echo -e "${NC}"
-
-# Check for required tools
-echo -e "${BLUE}[1/5] Checking prerequisites...${NC}"
-MISSING=""
-for cmd in docker docker-compose jq curl; do
-    if ! command -v $cmd &> /dev/null; then
-        MISSING="$MISSING $cmd"
-    fi
-done
-
-if [ -n "$MISSING" ]; then
-    echo -e "${RED}✗ Missing required tools:$MISSING${NC}"
-    echo "  Install with: brew install docker docker-compose jq"
-    exit 1
-fi
-echo -e "${GREEN}✓ All prerequisites found${NC}"
-
-# Check for API keys
-echo -e "\n${BLUE}[2/5] Checking API configuration...${NC}"
-if [ -z "$ANTHROPIC_API_KEY" ]; then
-    echo -e "${YELLOW}⚠ ANTHROPIC_API_KEY not set${NC}"
-    echo "  Set with: export ANTHROPIC_API_KEY='your-key'"
-    echo "  Continuing anyway (some features will be limited)"
-else
-    echo -e "${GREEN}✓ ANTHROPIC_API_KEY configured${NC}"
-fi
-
-# Check for .env file
-if [ ! -f ".env" ] && [ -f ".env.example" ]; then
-    echo -e "${YELLOW}⚠ No .env file found${NC}"
-    echo "  Consider copying: cp .env.example .env"
-fi
-
-# Start Docker services
-echo -e "\n${BLUE}[3/5] Starting Docker services...${NC}"
-echo "  This may take a few minutes on first run..."
-
-if docker compose -f docker-compose.athena-governance.yml up -d; then
-    echo -e "${GREEN}✓ Docker services started${NC}"
-else
-    echo -e "${RED}✗ Failed to start Docker services${NC}"
-    echo "  Check: docker compose ps"
-    exit 1
-fi
-
-# Wait for services to be ready
-echo -e "\n${BLUE}[4/5] Waiting for services to be healthy...${NC}"
-
-wait_for_service() {
+check_service() {
     local name=$1
-    local url=$2
-    local max_wait=60
-    local waited=0
+    local port=$2
+    local endpoint=${3:-/health}
     
-    echo -n "  Waiting for $name..."
-    
-    while [ $waited -lt $max_wait ]; do
-        if curl -sf --max-time 2 "$url" > /dev/null 2>&1; then
-            echo -e " ${GREEN}✓${NC}"
-            return 0
-        fi
-        sleep 2
-        waited=$((waited + 2))
-        echo -n "."
-    done
-    
-    echo -e " ${YELLOW}⚠ (timeout)${NC}"
-    return 1
+    if curl -s --max-time 2 "http://localhost:${port}${endpoint}" > /dev/null 2>&1; then
+        echo -e "${GREEN}✅ ${name} (port ${port})${NC}"
+        return 0
+    else
+        echo -e "${RED}❌ ${name} (port ${port})${NC}"
+        return 1
+    fi
 }
 
-wait_for_service "Prometheus" "http://localhost:9090/-/healthy"
-wait_for_service "Orchestrator" "http://localhost:9110/health"
-wait_for_service "Remediator" "http://localhost:9112/health"
-wait_for_service "Grafana" "http://localhost:3001/api/health"
+echo "📡 Starting Docker services..."
+docker compose -f docker-compose.athena-governance.yml up -d 2>/dev/null || true
+sleep 3
 
-# Run health check
-echo -e "\n${BLUE}[5/5] Running health check...${NC}"
-if [ -f "scripts/health_check.sh" ]; then
-    bash scripts/health_check.sh
-else
-    echo -e "${YELLOW}⚠ Health check script not found, skipping${NC}"
+echo ""
+echo "🔍 Checking service health..."
+echo ""
+
+# Check each service
+check_service "Prometheus" 9090 "/-/ready" || echo "  → Starting Prometheus..."
+check_service "Grafana" 3001 "/api/health" || echo "  → Grafana may need manual start"
+check_service "Metrics Exporter" 9109 "/metrics" || echo "  → Check governance/observability/"
+check_service "Canary Monitor" 9111 "/health" || echo "  → Check release/canary service"
+
+echo ""
+echo "🎯 Starting core services..."
+echo ""
+
+# Start Orchestrator (port 9110)
+if ! check_service "Orchestrator" 9110 "/health" 2>/dev/null; then
+    echo "  → Starting Orchestrator on port 9110..."
+    cd governance/executive/orchestration
+    python3 orchestrator_service.py > ../../../artifacts/orchestrator.log 2>&1 &
+    echo $! > ../../../.orchestrator.pid
+    cd ../../..
+    sleep 2
+    check_service "Orchestrator" 9110 "/health" || echo "    ⚠️  May need more time to start"
 fi
 
-# Success message
-echo -e "\n${GREEN}╔════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${GREEN}║                  Athena is Ready!                               ║${NC}"
-echo -e "${GREEN}╚════════════════════════════════════════════════════════════════╝${NC}"
+# Start Master API (port 8000)
+if ! check_service "Master API" 8000 "/health" 2>/dev/null; then
+    echo "  → Starting Master API on port 8000..."
+    python3 athena_api.py > artifacts/athena_api.log 2>&1 &
+    echo $! > .athena_api.pid
+    sleep 2
+    check_service "Master API" 8000 "/health" || echo "    ⚠️  May need more time to start"
+fi
+
 echo ""
-echo "📊 Dashboards:"
-echo "   • Prometheus: http://localhost:9090"
-echo "   • Grafana:    http://localhost:3001 (admin/admin)"
+echo "🎊 Athena startup complete!"
 echo ""
-echo "🔧 Services:"
-echo "   • Orchestrator: http://localhost:9110/health"
-echo "   • Remediator:   http://localhost:9112/health"
-echo "   • Canary:       http://localhost:9111/health"
+echo "📊 Service Status:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+check_service "Orchestrator" 9110 "/health" || true
+check_service "Metrics Exporter" 9109 "/metrics" || true
+check_service "Canary Monitor" 9111 "/health" || true
+check_service "Prometheus" 9090 "/-/ready" || true
+check_service "Grafana" 3001 "/api/health" || true
+check_service "Master API" 8000 "/health" || true
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-echo "🎯 Next Steps:"
-echo "   • Run demo:  ./scripts/remediation_quickstart.sh"
-echo "   • Run tests: make auto-remediation-test"
-echo "   • View logs: docker compose logs -f agi-remediator"
+
+# Check current mode
+MODE=$(curl -s http://localhost:9110/state 2>/dev/null | jq -r '.mode // "unknown"' || echo "unknown")
+echo "🔍 Current Mode: ${MODE}"
 echo ""
-echo "📚 Documentation:"
-echo "   • Quick Start:  ./scripts/dgm_quickstart.sh"
-echo "   • Auto-Remediation: AUTO_REMEDIATION_GUIDE.md"
-echo "   • Architecture: AUTO_REMEDIATION_ARCHITECTURE.md"
+
+# Quick metrics check
+echo "📈 Quick Metrics Check:"
+VERDICTS=$(curl -s http://localhost:9110/metrics 2>/dev/null | grep "governance_verdicts_total" | tail -1 || echo "Not available")
+echo "   Verdicts: ${VERDICTS}"
 echo ""
-echo "To stop: docker compose -f docker-compose.athena-governance.yml down"
+
+echo "🌐 Access Points:"
+echo "   • Orchestrator:    http://localhost:9110"
+echo "   • Master API:      http://localhost:8000"
+echo "   • Prometheus:      http://localhost:9090"
+echo "   • Grafana:         http://localhost:3001 (admin/admin)"
+echo "   • Metrics:         http://localhost:9109/metrics"
+echo ""
+
+echo "📚 Next Steps:"
+echo "   make wire-validate    # Verify 100% wiring"
+echo "   make exp-shadow       # Run experiment"
+echo "   open http://localhost:3001  # View dashboards"
 echo ""
 
