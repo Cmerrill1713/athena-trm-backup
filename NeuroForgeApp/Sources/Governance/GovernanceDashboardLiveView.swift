@@ -51,7 +51,7 @@ struct GovernanceDashboardLiveView: View {
             // Main content
             VStack(spacing: 20) {
                 // Health indicator
-                HealthBanner(viewModel: viewModel)
+                GovernanceHealthBanner(viewModel: viewModel)
 
                 // Verdict counts
                 VerdictCountsCard(viewModel: viewModel)
@@ -140,7 +140,7 @@ struct PendingQueueRow: View {
 
 // MARK: - Health Banner
 
-struct HealthBanner: View {
+struct GovernanceHealthBanner: View {
     @ObservedObject var viewModel: GovernanceViewModel
 
     var body: some View {
@@ -470,16 +470,20 @@ struct GovernanceSettingsView: View {
 }
 
 #Preview("Health Banner - Healthy") {
-    let vm = GovernanceViewModel()
-    vm.healthStatus = .healthy
-    vm.statusMessage = "🟢 Orchestrator healthy"
-    return HealthBanner(viewModel: vm)
-        .padding()
+    GovernanceHealthBanner(viewModel: {
+        let vm = GovernanceViewModel()
+        vm.healthStatus = .healthy
+        vm.statusMessage = "🟢 Orchestrator healthy"
+        return vm
+    }())
+    .padding()
 }
 
 #Preview("Verdict Counts") {
-    let vm = GovernanceViewModel()
-    vm.verdictCounts = ["pass": 193, "soft_fail": 12, "hard_fail": 5]
-    return VerdictCountsCard(viewModel: vm)
-        .padding()
+    VerdictCountsCard(viewModel: {
+        let vm = GovernanceViewModel()
+        vm.verdictCounts = ["pass": 193, "soft_fail": 12, "hard_fail": 5]
+        return vm
+    }())
+    .padding()
 }

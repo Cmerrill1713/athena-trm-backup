@@ -78,7 +78,8 @@ final class GovernanceViewModel: ObservableObject {
     }
 
     deinit {
-        stopAutoRefresh()
+        // Timer will be cleaned up automatically
+        // Note: Can't call @MainActor methods from deinit
     }
 
     // MARK: - Health Check
@@ -263,13 +264,13 @@ final class GovernanceViewModel: ObservableObject {
     }
 
     private func flushPendingVerdicts() async {
-        guard !pendingVerdicts.isEmpty else { return }
+        guard !self.pendingVerdicts.isEmpty else { return }
 
-        logger.info("Flushing \(pendingVerdicts.count) pending verdicts")
-        statusMessage = "⏳ Flushing \(pendingVerdicts.count) queued verdicts..."
+        logger.info("Flushing \(self.pendingVerdicts.count) pending verdicts")
+        statusMessage = "⏳ Flushing \(self.pendingVerdicts.count) queued verdicts..."
 
-        let toFlush = pendingVerdicts
-        pendingVerdicts.removeAll()
+        let toFlush = self.pendingVerdicts
+        self.pendingVerdicts.removeAll()
         savePendingVerdicts()
 
         for verdict in toFlush {
@@ -296,12 +297,12 @@ final class GovernanceViewModel: ObservableObject {
     private func savePendingVerdicts() {
         do {
             let encoder = JSONEncoder()
-            let lines = try pendingVerdicts.map { verdict in
+            let lines = try self.pendingVerdicts.map { verdict in
                 try encoder.encode(verdict)
             }
             let jsonl = lines.map { String(data: $0, encoding: .utf8)! }.joined(separator: "\n")
             try jsonl.write(to: pendingQueuePath, atomically: true, encoding: .utf8)
-            logger.debug("Saved \(pendingVerdicts.count) pending verdicts")
+            logger.debug("Saved \(self.pendingVerdicts.count) pending verdicts")
         } catch {
             logger.error("Failed to save pending verdicts: \(error.localizedDescription)")
         }
@@ -315,11 +316,11 @@ final class GovernanceViewModel: ObservableObject {
         do {
             let jsonl = try String(contentsOf: pendingQueuePath, encoding: .utf8)
             let decoder = JSONDecoder()
-            pendingVerdicts = try jsonl.split(separator: "\n").compactMap { line in
+            self.pendingVerdicts = jsonl.split(separator: "\n").compactMap { line in
                 guard let data = String(line).data(using: .utf8) else { return nil }
                 return try? decoder.decode(VerdictRequest.self, from: data)
             }
-            logger.info("Loaded \(pendingVerdicts.count) pending verdicts")
+            logger.info("Loaded \(self.pendingVerdicts.count) pending verdicts")
         } catch {
             logger.error("Failed to load pending verdicts: \(error.localizedDescription)")
         }
@@ -330,7 +331,7 @@ final class GovernanceViewModel: ObservableObject {
     func startAutoRefresh() {
         stopAutoRefresh()
 
-        refreshTimer = Timer.scheduledTimer(withTimeInterval: refreshInterval, repeats: true) {
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: self.refreshInterval, repeats: true) {
             [weak self] _ in
             Task { @MainActor in
                 await self?.checkHealth()
@@ -338,7 +339,7 @@ final class GovernanceViewModel: ObservableObject {
             }
         }
 
-        logger.info("Auto-refresh started (interval: \(refreshInterval)s)")
+        logger.info("Auto-refresh started (interval: \(self.refreshInterval)s)")
     }
 
     func stopAutoRefresh() {

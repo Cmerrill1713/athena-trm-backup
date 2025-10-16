@@ -221,26 +221,36 @@
     "swift_ui": {
       "exists": true,
       "imports_ok": null,
-      "swift_ok": false,
-      "errors": [
-        "Xcode project not found: /Users/christianmerrill/Documents/GitHub/NeuroForgeApp/NeuroForgeApp.xcodeproj"
-      ],
+      "swift_ok": true,
+      "errors": [],
       "swift_files": [
         {
-          "file": "Sources/Athena/GovernanceAPIClient.swift",
-          "exists": false
+          "file": "NeuroForgeApp/Sources/Athena/GovernanceAPIClient.swift",
+          "exists": true
         },
         {
-          "file": "Sources/Athena/GovernanceDashboardView.swift",
-          "exists": false
+          "file": "NeuroForgeApp/Sources/Athena/GovernanceDashboardView.swift",
+          "exists": true
         },
         {
-          "file": "Sources/AthenaModels.swift",
-          "exists": false
+          "file": "NeuroForgeApp/Sources/AthenaModels.swift",
+          "exists": true
         },
         {
-          "file": "Sources/AthenaState.swift",
-          "exists": false
+          "file": "NeuroForgeApp/Sources/AthenaState.swift",
+          "exists": true
+        },
+        {
+          "file": "NeuroForgeApp/Sources/Governance/GovernanceClient.swift",
+          "exists": true
+        },
+        {
+          "file": "NeuroForgeApp/Sources/Governance/GovernanceViewModel.swift",
+          "exists": true
+        },
+        {
+          "file": "NeuroForgeApp/Sources/Governance/GovernanceDashboardLiveView.swift",
+          "exists": true
         }
       ]
     }
@@ -251,7 +261,6 @@
     "backups": "unreferenced",
     "infra_snapshot": "unreferenced",
     "Desktop-Projects": "unreferenced",
-    "AI-Projects": "unreferenced",
     "ai_republic": "unreferenced",
     "neuroforge_all_legacy": "missing",
     "neuroforge_restore_backup_20251013_173812": "missing"
@@ -280,8 +289,8 @@
     }
   },
   "score": {
-    "passes": 49,
-    "checks": 56,
-    "percent": 87
+    "passes": 57,
+    "checks": 60,
+    "percent": 95
   }
 }

@@ -290,7 +290,7 @@ def validate_layer(name: str, spec: Dict, results: Dict) -> Tuple[int, int]:
         layer_result["imports_ok"] = all_ok
         layer_result["import_details"] = import_results
     
-    # Check Swift project
+    # Check Swift project or package
     if spec.get("xcodeproj"):
         xproj = ROOT / spec["xcodeproj"]
         if xproj.exists():
@@ -306,6 +306,25 @@ def validate_layer(name: str, spec: Dict, results: Dict) -> Tuple[int, int]:
         else:
             layer_result["swift_ok"] = False
             layer_result["errors"].append(f"Xcode project not found: {xproj}")
+    
+    # Check Swift Package Manager
+    if spec.get("swift_package"):
+        pkg_path = ROOT / spec["swift_package"]
+        if pkg_path.exists():
+            # Try to build the package
+            pkg_dir = pkg_path.parent
+            build_cmd = spec.get("swift_build_cmd", ["swift", "build"])
+            rc, stdout, stderr = run_command(build_cmd, cwd=pkg_dir)
+            ok = rc == 0 and "Build complete" in stdout
+            layer_result["swift_ok"] = ok
+            checks += 1
+            if ok:
+                passes += 1
+            else:
+                layer_result["errors"].append(f"Swift package build failed")
+        else:
+            layer_result["swift_ok"] = False
+            layer_result["errors"].append(f"Swift package not found: {pkg_path}")
     
     # Check Swift files exist
     if spec.get("swift_files"):

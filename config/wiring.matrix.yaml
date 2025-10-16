@@ -143,14 +143,17 @@ layers:
 
   swift_ui:
     path: "NeuroForgeApp"
-    xcodeproj: "NeuroForgeApp/NeuroForgeApp.xcodeproj"
-    scheme: "NeuroForgeApp"
+    swift_package: "NeuroForgeApp/Package.swift"
     required: true
+    swift_build_cmd: ["swift", "build"]
     swift_files:
-      - "Sources/Athena/GovernanceAPIClient.swift"
-      - "Sources/Athena/GovernanceDashboardView.swift"
-      - "Sources/AthenaModels.swift"
-      - "Sources/AthenaState.swift"
+      - "NeuroForgeApp/Sources/Athena/GovernanceAPIClient.swift"
+      - "NeuroForgeApp/Sources/Athena/GovernanceDashboardView.swift"
+      - "NeuroForgeApp/Sources/AthenaModels.swift"
+      - "NeuroForgeApp/Sources/AthenaState.swift"
+      - "NeuroForgeApp/Sources/Governance/GovernanceClient.swift"
+      - "NeuroForgeApp/Sources/Governance/GovernanceViewModel.swift"
+      - "NeuroForgeApp/Sources/Governance/GovernanceDashboardLiveView.swift"
 
 # Directories suspected to be orphaned or redundant
 suspected_orphans:
