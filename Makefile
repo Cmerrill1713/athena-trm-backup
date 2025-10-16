@@ -39,6 +39,15 @@ cursor-bootstrap:  ## Initialize Cursor/IDE setup (run once)
 repo-inventory:  ## Generate repository file inventory
 	@bash tools/index/generate_repo_inventory.sh
 
+hotset:  ## Generate hot set (3k active files for fast Cursor)
+	@bash tools/index/generate_hotset.sh
+
+hot-workspace:  ## Create hot workspace (fast daily use)
+	@bash tools/index/generate_hotset.sh
+	@bash tools/index/make_hot_workspace.sh
+	@echo ""
+	@echo "🚀 Open workspace: code athena-hot.code-workspace"
+
 .PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch
 governance-up:
 	COMPOSE_FILE=docker-compose.athena-governance.yml docker compose up -d

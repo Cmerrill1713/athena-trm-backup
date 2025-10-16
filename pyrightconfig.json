@@ -1,0 +1,39 @@
+{
+  "include": [
+    "governance",
+    "orchestrator",
+    "agi_core",
+    "workflows",
+    "monitoring",
+    "scripts",
+    "tests",
+    "common",
+    "athena_master_orchestrator.py",
+    "athena_api.py"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/dist",
+    "**/build",
+    "**/target",
+    "**/.venv",
+    "archive",
+    "backups",
+    "kokoro",
+    "pydantic-ai",
+    "external"
+  ],
+  "ignore": [
+    "archive/**",
+    "backups/**",
+    "**/node_modules/**",
+    "**/.venv/**"
+  ],
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false,
+  "pythonVersion": "3.11",
+  "typeCheckingMode": "basic",
+  "useLibraryCodeForTypes": true
+}
+

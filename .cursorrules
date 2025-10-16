@@ -2,29 +2,37 @@
 
 ## What to Index
 
-**Include all code under:**
-- `governance/*` - Governance system (legislative, judicial, executive)
-- `orchestrator/*` - Master orchestration layer
-- `agi_core/*` - AGI Core multi-agent system
-- `workflows/*` - End-to-end integration workflows
-- `monitoring/*` - Prometheus, Grafana, observability
-- `scripts/*` - Automation and operational scripts
-- `tests/*` - Test suites
-- `config/*` - Configuration files
-- Submodules: `kokoro/*`, `pydantic-ai/*`, `A2A/*`
+**INCLUDE (Active Code - ~3k files):**
 
-**Ignore:**
-- `archive/**` (historical code, not active)
-- `**/build/**`, `**/dist/**`, `**/target/**` (build artifacts)
-- `**/.venv/**`, `**/node_modules/**` (dependencies)
-- `**/backups/**` (database backups)
-- `**/__pycache__/**`, `**/*.pyc` (Python cache)
+- `governance/**` - Governance system (legislative, judicial, executive)
+- `orchestrator/**` - Master orchestration layer
+- `agi_core/**` - AGI Core multi-agent system
+- `workflows/**` - End-to-end integration workflows
+- `monitoring/**` - Prometheus, Grafana, observability
+- `scripts/gov_*.sh`, `scripts/dgm_*.sh` - Key automation scripts
+- `tests/**` - Test suites
+- `config/**` - Configuration files
+- `athena_master_orchestrator.py` - Master orchestrator
+- `athena_api.py` - Master API
+- Root-level docs: `SYSTEM_*.md`, `WIRING_*.md`, `GOVERNANCE_*.md`, `DGM_*.md`
+
+**EXCLUDE (Reduces 96k → 3k files):**
+
+- `archive/**` - Historical code, not active
+- `**/build/**`, `**/dist/**`, `**/target/**` - Build artifacts
+- `**/.venv/**`, `**/node_modules/**` - Dependencies
+- `**/backups/**` - Database backups
+- `**/__pycache__/**`, `**/*.pyc` - Python cache
+- `kokoro/**`, `pydantic-ai/**`, `external/**` - Large submodules (use hot workspace)
+
+**For performance: Use `athena-hot.code-workspace` (3k files) for daily work, `athena.code-workspace` (full) for deep dives.**
 
 ---
 
 ## Project Map (Mental Model)
 
 ### Core Systems
+
 - **Master Orchestrator**: `athena_master_orchestrator.py`
 - **Governance**: `governance/*`
   - Legislative: `governance/legislative/`
@@ -35,12 +43,14 @@
 - **Workflows**: `workflows/end_to_end_integration.py`
 
 ### Monitoring & Observability
+
 - **Metrics**: `governance/observability/dgm_metrics.py`
 - **Prometheus**: `monitoring/prometheus/prometheus.yml`
 - **Grafana**: `monitoring/grafana/dashboards/*`
 - **Canary**: `governance/canary/*`
 
 ### Infrastructure
+
 - **Docker**: `docker-compose.athena-governance.yml`
 - **Scripts**: `scripts/gov_*.sh`, `scripts/dgm_*.sh`
 - **Config**: `config/athena_master_config.yaml`
@@ -50,6 +60,7 @@
 ## Key Entrypoints
 
 ### Main Systems
+
 1. `athena_master_orchestrator.py` - Master orchestrator connecting all subsystems
 2. `athena_api.py` - Master control API
 3. `governance/executive/orchestration/dgm_orchestrator.py` - DGM executive
@@ -59,6 +70,7 @@
 7. `workflows/end_to_end_integration.py` - Complete workflows
 
 ### Services
+
 - **Orchestrator Service**: Port 9110 - `/health`, `/verdict`, `/metrics`
 - **Canary Monitor**: Port 9111 - `/health`, `/metrics`
 - **Metrics Exporter**: Port 9109 - `/metrics`
@@ -70,6 +82,7 @@
 ## How to Run
 
 ### Verification
+
 ```bash
 make wire-check          # Complete wiring verification
 make prom-verify         # Check Prometheus targets
@@ -77,6 +90,7 @@ make prom-query          # Query governance metrics
 ```
 
 ### Testing
+
 ```bash
 pytest tests/test_dgm_integration.py -v
 pytest tests/test_full_system_integration.py -v
@@ -84,12 +98,14 @@ python athena_master_orchestrator.py status
 ```
 
 ### Services
+
 ```bash
 docker compose -f docker-compose.athena-governance.yml up -d
 make governance-gate     # Run governance gate check
 ```
 
 ### DGM Operations
+
 ```bash
 export ANTHROPIC_API_KEY='your-key'
 ./scripts/dgm_quickstart.sh
@@ -101,6 +117,7 @@ python governance/judicial/evaluation/dgm_verdict_validator.py
 ## Code Style & Patterns
 
 ### Python
+
 - Use type hints everywhere
 - Async functions for I/O operations
 - Dataclasses for structured data
@@ -108,18 +125,21 @@ python governance/judicial/evaluation/dgm_verdict_validator.py
 - Comprehensive docstrings
 
 ### Error Handling
+
 - Try/except with specific exceptions
 - Log errors with context
 - Return structured error responses
 - Use governance verdicts for validation
 
 ### Metrics
+
 - Export Prometheus metrics for all actions
 - Use counters for verdicts/actions
 - Use gauges for state (ECE, entropy, etc.)
 - Label metrics appropriately
 
 ### Testing
+
 - Unit tests for business logic
 - Integration tests for workflows
 - Mock external services
@@ -130,6 +150,7 @@ python governance/judicial/evaluation/dgm_verdict_validator.py
 ## What Good Answers Should Include
 
 ### For Code Changes
+
 1. **File paths** - Exact files to modify
 2. **Function names** - Specific functions to change
 3. **Minimal diffs** - Show before/after code blocks
@@ -138,6 +159,7 @@ python governance/judicial/evaluation/dgm_verdict_validator.py
 6. **Documentation** - Update relevant docs
 
 ### For System Questions
+
 1. **Data flows** - Show how data moves through system
 2. **Integration points** - Explain connections between subsystems
 3. **Configuration** - Point to relevant config files
@@ -148,6 +170,7 @@ python governance/judicial/evaluation/dgm_verdict_validator.py
 ## Integration Points
 
 ### DGM → Governance
+
 ```python
 from governance.research.dgm.dgm_governance_adapter import DGMGovernanceAdapter
 adapter = DGMGovernanceAdapter()
@@ -155,6 +178,7 @@ verdict = await adapter.request_judicial_verdict(code, metrics)
 ```
 
 ### DGM → AGI Core
+
 ```python
 from governance.research.dgm.dgm_agi_bridge import DGMAGIBridge
 bridge = DGMAGIBridge()
@@ -162,6 +186,7 @@ review = await bridge.review_dgm_agent(code, metadata)
 ```
 
 ### Verdict → Actions
+
 ```python
 POST /verdict (9110)
 {
@@ -174,6 +199,7 @@ POST /verdict (9110)
 ```
 
 ### Metrics → Prometheus
+
 ```python
 from governance.observability.dgm_metrics import (
     dgm_generations_total,
@@ -187,12 +213,14 @@ dgm_verdicts_total.labels(verdict_type="pass").inc()
 ## Common Tasks
 
 ### Add New Verdict Type
+
 1. Update `governance/judicial/evaluation/dgm_verdict_validator.py`
 2. Add metric label to `governance/observability/dgm_metrics.py`
 3. Update Grafana dashboard `monitoring/grafana/dashboards/dgm-evolution.json`
 4. Add test case to `tests/test_dgm_integration.py`
 
 ### Add New Workflow Stage
+
 1. Add stage to `workflows/end_to_end_integration.py`
 2. Implement stage handler
 3. Update `athena_master_orchestrator.py` to call it
@@ -200,6 +228,7 @@ dgm_verdicts_total.labels(verdict_type="pass").inc()
 5. Update `SYSTEM_ARCHITECTURE.md`
 
 ### Add New Metric
+
 1. Define in `governance/observability/dgm_metrics.py`
 2. Export in service's `/metrics` endpoint
 3. Add to Prometheus scrape config
@@ -245,6 +274,7 @@ dgm_verdicts_total.labels(verdict_type="pass").inc()
 ## Quick Reference
 
 ### Ports
+
 - 8888 - Main API
 - 9090 - Prometheus
 - 9109 - Governance metrics
@@ -254,12 +284,14 @@ dgm_verdicts_total.labels(verdict_type="pass").inc()
 - 3000 - Grafana
 
 ### Key Files
+
 - `exec_state.json` - Current system state
 - `exec_action_ledger.jsonl` - Immutable audit log
 - `config/athena_master_config.yaml` - Master config
 - `governance/legislative/self_modification_policy.yaml` - Constitutional policy
 
 ### Commands
+
 - `make wire-check` - Verify all wiring
 - `make prom-verify` - Check Prometheus
 - `python athena_master_orchestrator.py status` - System status
@@ -278,4 +310,3 @@ dgm_verdicts_total.labels(verdict_type="pass").inc()
 ---
 
 This system is designed for self-improvement, governance-first decision-making, and complete observability. Every change should be validated, metered, and auditable.
-
