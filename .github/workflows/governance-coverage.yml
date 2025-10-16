@@ -5,21 +5,21 @@ on:
   push:
     branches: [main]
     paths:
-      - 'governance/**'
-      - 'orchestrator/**'
-      - 'policy/**'
-      - 'scripts/coverage_gate.sh'
+      - "governance/**"
+      - "orchestrator/**"
+      - "policy/**"
+      - "scripts/coverage_gate.sh"
   schedule:
-    - cron: '0 */6 * * *'  # Every 6 hours
+    - cron: "0 */6 * * *" # Every 6 hours
 
 jobs:
   coverage-gate:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Check Governance Coverage
         env:
           PROM_URL: ${{ secrets.PROM_URL || 'http://localhost:9090' }}
@@ -27,7 +27,7 @@ jobs:
         run: |
           chmod +x scripts/coverage_gate.sh
           bash scripts/coverage_gate.sh
-      
+
       - name: Report Results
         if: always()
         run: |
@@ -37,4 +37,3 @@ jobs:
           echo "**Policy:** ${ATHENA_POLICY_VERSION:-unknown}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "See job logs for detailed metrics." >> $GITHUB_STEP_SUMMARY
-

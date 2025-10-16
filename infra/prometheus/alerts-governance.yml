@@ -5,7 +5,7 @@ groups:
       # =========================================================================
       # CRITICAL: Coverage & Availability
       # =========================================================================
-      
+
       - alert: GovernanceCoverageDrop
         expr: |
           (
@@ -35,7 +35,7 @@ groups:
       # =========================================================================
       # CRITICAL: Safety Gates
       # =========================================================================
-      
+
       - alert: ECECritical
         expr: governance_ece_post > 0.08
         for: 2m
@@ -72,7 +72,7 @@ groups:
       # =========================================================================
       # CRITICAL: Remediation
       # =========================================================================
-      
+
       - alert: RemediationStuck
         expr: |
           governance_remediations_requested_total - 
@@ -100,7 +100,7 @@ groups:
       # =========================================================================
       # WARNING: Performance
       # =========================================================================
-      
+
       - alert: GovernanceLatencyHigh
         expr: governance_latency_p95_delta > 0.50
         for: 5m
@@ -124,7 +124,7 @@ groups:
       # =========================================================================
       # WARNING: Cost & Budget
       # =========================================================================
-      
+
       - alert: RemediationCostSpike
         expr: |
           governance_remediation_cost_usd > (
@@ -152,7 +152,7 @@ groups:
       # =========================================================================
       # INFO: Operational
       # =========================================================================
-      
+
       - alert: GovernanceOrchestratorDown
         expr: governance_orchestrator_up == 0
         for: 1m
@@ -171,4 +171,3 @@ groups:
         annotations:
           summary: "Shadow remediation experiment active"
           description: "Phase 1 experiments are running (no production impact)."
-

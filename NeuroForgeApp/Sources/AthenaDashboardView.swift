@@ -12,6 +12,11 @@ struct AthenaDashboardView: View {
                 Text("Athena Dashboard").font(.largeTitle.bold())
                 Text("AI Operations Center with UAT & Prompt Engineering").foregroundStyle(.secondary)
 
+                // Governance Dashboard
+                GovernanceDashboardView()
+
+                Divider()
+
                 // Service Status
                 ServiceStatusView()
 

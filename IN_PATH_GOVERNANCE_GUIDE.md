@@ -9,6 +9,7 @@
 **In-Path Governance** = Every request goes through governance validation
 
 **Three Modes:**
+
 1. **Shadow** (0% impact) - Observe only, collect data
 2. **Canary** (1-5% impact) - Enforce on small traffic slice
 3. **Enforce** (100% impact) - Full governance enforcement
@@ -39,6 +40,7 @@ make verify
 ## 📦 **What Was Created**
 
 ### Infrastructure Files
+
 ```
 infra/
 ├── ingress/nginx.conf              # Traffic mirror config
@@ -49,6 +51,7 @@ infra/
 ```
 
 ### Scripts
+
 ```
 scripts/
 ├── coverage_gate.sh               # Coverage verification
@@ -56,12 +59,14 @@ scripts/
 ```
 
 ### CI/CD
+
 ```
 .github/workflows/
 └── governance-coverage.yml        # Continuous coverage check
 ```
 
 ### Makefile Targets
+
 ```
 make ingress-up      # Start ingress mirror
 make prom-up         # Start Prometheus
@@ -95,6 +100,7 @@ Nginx Ingress
 ```
 
 **Key Points:**
+
 - ✅ Mirror is async - doesn't slow down requests
 - ✅ App continues working normally
 - ✅ Governance sees 100% of traffic
@@ -102,13 +108,14 @@ Nginx Ingress
 
 ### 2. **Mode Controls Enforcement**
 
-| Mode | Mirror | Enforce | Impact |
-|------|--------|---------|--------|
-| **Shadow** | 100% | 0% | None |
-| **Canary** | 100% | 1-5% | Low |
-| **Enforce** | 100% | 100% | Full |
+| Mode        | Mirror | Enforce | Impact |
+| ----------- | ------ | ------- | ------ |
+| **Shadow**  | 100%   | 0%      | None   |
+| **Canary**  | 100%   | 1-5%    | Low    |
+| **Enforce** | 100%   | 100%    | Full   |
 
 **Transition:**
+
 ```bash
 make mode-shadow   # Start here (day 1-2)
 make mode-canary   # After verification (day 3-5)
@@ -120,6 +127,7 @@ make mode-enforce  # After canary success (day 7+)
 ## 📊 **Coverage Metrics**
 
 ### What Coverage Means
+
 ```
 Coverage = governance_receipts_total / ingress_requests_total
 ```
@@ -127,11 +135,13 @@ Coverage = governance_receipts_total / ingress_requests_total
 **Target:** ≥98% coverage
 
 **Why it matters:**
+
 - If coverage < 98%, governance isn't seeing all traffic
 - Indicates ingress mirror may be broken
 - Required before moving to canary/enforce
 
 ### Check Coverage
+
 ```bash
 make gate
 
@@ -145,6 +155,7 @@ curl -s "http://localhost:9090/api/v1/query?query=sum(ingress_requests_total)" |
 ## 🚦 **Rollout Ladder (Safe Progression)**
 
 ### Day 1-2: Shadow Mode ✅
+
 ```bash
 # A. Start services
 make governance-up
@@ -161,12 +172,14 @@ watch -n 5 'make gate'
 ```
 
 **Success Criteria:**
+
 - ✅ Coverage ≥98%
 - ✅ Verdicts being rendered
 - ✅ No orchestrator errors
 - ✅ Prometheus scraping
 
 ### Day 3-5: Canary Mode ⚠️
+
 ```bash
 # A. Flip to canary (1-5% enforcement)
 make mode-canary
@@ -179,17 +192,20 @@ watch -n 10 'make verify'
 ```
 
 **Success Criteria:**
+
 - ✅ No ECE regression (≤0.06)
 - ✅ No violation increase
 - ✅ No emergency rollbacks
 - ✅ Actions being taken on canary traffic
 
 **Auto-Rollback Triggers:**
+
 - ❌ ECE > 0.08 → immediate rollback
 - ❌ Violations +0.5% → rollback + freeze 30m
 - ❌ Entropy ≥0.25 → rollback
 
 ### Day 7+: Enforce Mode 🛡️
+
 ```bash
 # A. Review canary results (3-5 days of data)
 # Ensure: stable metrics, no regressions, team confident
@@ -205,6 +221,7 @@ watch -n 5 'make verify'
 ```
 
 **Success Criteria:**
+
 - ✅ All SLOs maintained
 - ✅ ECE stable
 - ✅ No violation spikes
@@ -236,6 +253,7 @@ except Exception as e:
 ```
 
 **Why use it:**
+
 - Extends governance coverage to background jobs
 - Consistent tracing across system
 - No ingress dependency
@@ -245,6 +263,7 @@ except Exception as e:
 ## 📈 **Metrics to Watch**
 
 ### Critical SLOs
+
 ```prometheus
 # Coverage
 sum(governance_receipts_total) / sum(ingress_requests_total) >= 0.98
@@ -260,6 +279,7 @@ increase(governance_verdicts_total[5m]) > 0
 ```
 
 ### Performance
+
 ```prometheus
 # Latency
 governance_latency_p95_delta < 0.50
@@ -269,6 +289,7 @@ rate(governance_verdicts_total[1m]) > 0
 ```
 
 ### Remediation (Experimental)
+
 ```prometheus
 # Phase 1
 governance_shadow_would_promote_total / governance_shadow_experiments_total >= 0.70
@@ -282,6 +303,7 @@ rate(governance_remediations_completed_total{decision="PROMOTE"}[1h])
 ## 🚨 **Alert Rules**
 
 ### Critical (Immediate Action)
+
 - **GovernanceCoverageDrop** - Coverage <98%
 - **ECECritical** - ECE >0.08 → auto-rollback
 - **EntropyDriftCritical** - Entropy ≥0.25 → rollback
@@ -289,6 +311,7 @@ rate(governance_remediations_completed_total{decision="PROMOTE"}[1h])
 - **GovernanceOrchestratorDown** - Service down
 
 ### Warning (Monitor Closely)
+
 - **NoVerdictsProduced** - Receipts flowing but no verdicts
 - **GovernanceLatencyHigh** - Latency p95 +50%
 - **EdgeCaseScoreLow** - Edge case score <0.8
@@ -299,6 +322,7 @@ rate(governance_remediations_completed_total{decision="PROMOTE"}[1h])
 ## 🛡️ **Safety Rails**
 
 ### Automatic Rollback Triggers
+
 ```bash
 # Hard gates (immediate rollback)
 ECE > 0.08                    → make mode-shadow + freeze 30m
@@ -310,11 +334,13 @@ HARD_FAIL verdict             → freeze promotions 10-15m
 ```
 
 ### Hysteresis
+
 - No flip-flop decisions per route <10m
 - Minimum cool-down: 15m after rollback
 - Mode changes require manual approval
 
 ### Fail-Safe
+
 - Missing metrics → HOLD (not PROMOTE)
 - Orchestrator down → fall back to app-only
 - Prometheus down → freeze decisions
@@ -343,6 +369,7 @@ jq '.would_promote' artifacts/remediation_shadow/*.json | grep true | wc -l
 ## 📋 **Sanity Checks**
 
 ### Before Going to Canary
+
 ```bash
 # 1. Coverage check
 make gate
@@ -366,6 +393,7 @@ curl http://localhost:9090/-/healthy
 ```
 
 ### After Each Mode Change
+
 ```bash
 # Wait 5 minutes, then check
 sleep 300
@@ -387,6 +415,7 @@ curl -s "http://localhost:9090/api/v1/query?query=governance_ece_post" | jq '.da
 ## 🔄 **Rollback Procedure**
 
 ### Manual Rollback
+
 ```bash
 # Immediate rollback to shadow
 make mode-shadow
@@ -401,12 +430,15 @@ curl -X POST http://localhost:9110/freeze \
 ```
 
 ### Automated Rollback
+
 The orchestrator will auto-rollback if:
+
 - ECE >0.08
 - Entropy ≥0.25
 - Violations +0.5%
 
 Monitor in Prometheus:
+
 ```bash
 watch -n 5 'curl -s http://localhost:9090/api/v1/alerts | jq ".data.alerts[] | select(.labels.action==\"rollback\")"'
 ```
@@ -416,6 +448,7 @@ watch -n 5 'curl -s http://localhost:9090/api/v1/alerts | jq ".data.alerts[] | s
 ## 📚 **Configuration Reference**
 
 ### Environment Variables
+
 ```bash
 # Required
 export ATHENA_MODE=shadow                    # shadow | canary | enforce
@@ -428,6 +461,7 @@ export MIN_COVERAGE=0.98                     # Coverage threshold
 ```
 
 ### Policy Bundle
+
 ```bash
 # Generate policy version hash
 shasum -a 256 governance/legislative/self_modification_policy.yaml | cut -c1-12
@@ -439,20 +473,21 @@ This hash is sent with every receipt to track policy compliance.
 
 ## 🎯 **SLOs (Service Level Objectives)**
 
-| Metric | Target | Rollback At |
-|--------|--------|-------------|
-| **Coverage** | ≥98% | <95% |
-| **ECE** | ≤0.06 | >0.08 |
-| **Entropy Drift** | <0.25 | ≥0.25 |
-| **Violations** | Stable | +0.5% |
-| **Verdict Latency p95** | <150ms (canary) | >500ms |
-| **Verdict Latency p95** | <50ms (enforce) | >200ms |
+| Metric                  | Target          | Rollback At |
+| ----------------------- | --------------- | ----------- |
+| **Coverage**            | ≥98%            | <95%        |
+| **ECE**                 | ≤0.06           | >0.08       |
+| **Entropy Drift**       | <0.25           | ≥0.25       |
+| **Violations**          | Stable          | +0.5%       |
+| **Verdict Latency p95** | <150ms (canary) | >500ms      |
+| **Verdict Latency p95** | <50ms (enforce) | >200ms      |
 
 ---
 
 ## 🔍 **Debugging**
 
 ### Coverage Is Low (<98%)
+
 ```bash
 # Check ingress is mirroring
 docker logs ingress | grep athena_mirror
@@ -467,6 +502,7 @@ curl http://localhost:9090/api/v1/targets | jq
 ```
 
 ### No Verdicts Rendered
+
 ```bash
 # Check orchestrator health
 curl http://localhost:9110/health | jq
@@ -479,6 +515,7 @@ docker logs governance-orchestrator --tail 50
 ```
 
 ### Metrics Not in Prometheus
+
 ```bash
 # Verify Prometheus targets
 make prom-verify
@@ -506,6 +543,7 @@ curl -X POST http://localhost:9090/-/reload
 Before deploying to production:
 
 ### Shadow Mode (Day 1)
+
 - [ ] All governance services running (9109, 9110, 9111)
 - [ ] Prometheus scraping targets
 - [ ] Nginx ingress mirror configured
@@ -515,6 +553,7 @@ Before deploying to production:
 - [ ] Runbook reviewed
 
 ### Canary Mode (Day 3)
+
 - [ ] Shadow ran for 24-48h successfully
 - [ ] No critical alerts
 - [ ] Coverage stable at ≥98%
@@ -523,6 +562,7 @@ Before deploying to production:
 - [ ] On-call engineer available
 
 ### Enforce Mode (Day 7)
+
 - [ ] Canary ran for 3-5 days successfully
 - [ ] All SLOs maintained
 - [ ] No regressions detected
@@ -535,6 +575,7 @@ Before deploying to production:
 ## 🎊 **Success Criteria**
 
 ### Shadow Mode
+
 - ✅ Coverage ≥98%
 - ✅ Verdicts rendering
 - ✅ Metrics in Prometheus
@@ -542,6 +583,7 @@ Before deploying to production:
 - ✅ Run for 24-48h
 
 ### Canary Mode
+
 - ✅ ECE ≤0.06
 - ✅ No violation increase
 - ✅ No rollbacks
@@ -549,6 +591,7 @@ Before deploying to production:
 - ✅ Run for 3-5 days
 
 ### Enforce Mode
+
 - ✅ All SLOs maintained
 - ✅ ECE stable
 - ✅ No regressions
@@ -560,6 +603,7 @@ Before deploying to production:
 ## 🚀 **Commands Reference**
 
 ### Setup
+
 ```bash
 make governance-up     # Start governance stack
 make prom-up           # Start Prometheus
@@ -567,6 +611,7 @@ make ingress-up        # Start ingress mirror
 ```
 
 ### Mode Switching
+
 ```bash
 make mode-shadow       # Observe only (0% impact)
 make mode-canary       # Enforce on 1-5%
@@ -574,6 +619,7 @@ make mode-enforce      # Full enforcement (100%)
 ```
 
 ### Verification
+
 ```bash
 make gate              # Check coverage ≥98%
 make verify            # Check services operational
@@ -582,6 +628,7 @@ make prom-verify       # Check Prometheus targets
 ```
 
 ### Monitoring
+
 ```bash
 make prom-query        # Query governance metrics
 curl http://localhost:9110/metrics | grep governance_
@@ -589,6 +636,7 @@ curl http://localhost:9090/api/v1/alerts
 ```
 
 ### Experiments
+
 ```bash
 make exp-shadow        # Phase 1 (shadow remediation)
 ```
@@ -641,27 +689,32 @@ make exp-shadow        # Phase 1 (shadow remediation)
 ## 🎯 **Next Steps**
 
 1. **Deploy to Shadow** (NOW - no risk)
+
    ```bash
    make mode-shadow
    make gate
    ```
 
 2. **Run Experiments** (while in shadow)
+
    ```bash
    make exp-shadow
    ```
 
 3. **Monitor for 24-48h**
+
    - Check coverage stays ≥98%
    - Verify metrics flowing
    - Review shadow experiment results
 
 4. **Graduate to Canary** (when ready)
+
    ```bash
    make mode-canary
    ```
 
 5. **Monitor canary closely**
+
    - Watch for 3-5 days
    - Check ECE, violations, rollbacks
 
@@ -673,10 +726,10 @@ make exp-shadow        # Phase 1 (shadow remediation)
 ---
 
 **Start now with zero risk:**
+
 ```bash
 make mode-shadow
 make gate
 ```
 
 🎉 **You now have complete in-path governance ready to deploy!**
-
