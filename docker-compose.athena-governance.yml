@@ -281,6 +281,40 @@ services:
       retries: 3
     user: "1001:1001"
 
+  agi-remediator:
+    build:
+      context: .
+      dockerfile: agi_core/Dockerfile
+    container_name: agi-remediator
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9112:9112"  # Remediator metrics/health port
+    environment:
+      - PYTHONUNBUFFERED=1
+      - EVENT_BUS=${EVENT_BUS:-local}  # local or redis
+      - REDIS_URL=redis://athena-redis:6379/0
+      - REMEDIATOR_PORT=9112
+      - POSTGRES_HOST=athena-postgres
+      - PROMETHEUS_URL=http://athena-prometheus:9090
+    volumes:
+      - ./agi_core:/app/agi_core:ro
+      - ./infra:/app/infra:ro
+      - ./governance:/app/governance:ro
+      - ./state:/app/state:rw
+      - ./sandbox:/app/sandbox:rw
+    depends_on:
+      - governance-orchestrator
+      - athena-redis
+      - athena-prometheus
+    networks:
+      - athena-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9112/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    user: "1001:1001"
+
   # =============================================================================
   # MONITORING & OBSERVABILITY
   # =============================================================================

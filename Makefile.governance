@@ -1,6 +1,17 @@
 # Governance System Makefile
 # Provides targets for deployment, testing, and validation
 
+.PHONY: help auto-remediation-demo auto-remediation-test
+
+# Auto-Remediation System
+auto-remediation-demo:
+	@echo "Running auto-remediation quick start demo..."
+	./scripts/remediation_quickstart.sh
+
+auto-remediation-test:
+	@echo "Running E2E auto-remediation tests..."
+	pytest tests/e2e/test_auto_remediation.py -v -s
+
 .PHONY: help wire-check smoke-test inventory health-check metrics-check
 
 help:

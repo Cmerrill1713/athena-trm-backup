@@ -1,4 +1,4 @@
-.PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch wire-check cursor-bootstrap repo-inventory
+.PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch wire-check cursor-bootstrap repo-inventory exp-shadow exp-remediate exp-ab exp-devils-adv exp-cost exp-fasttrack exp-longrun
 
 wire-check:  ## Verify complete system wiring (integration test)
 	@echo "🔌 Verifying complete system wiring..."
@@ -47,6 +47,40 @@ hot-workspace:  ## Create hot workspace (fast daily use)
 	@bash tools/index/make_hot_workspace.sh
 	@echo ""
 	@echo "🚀 Open workspace: code athena-hot.code-workspace"
+
+# =============================================================================
+# EXPERIMENTAL REMEDIATION (7 PHASES)
+# =============================================================================
+
+exp-shadow:  ## Phase 1: Shadow remediation (no-impact)
+	@echo "🧪 Running Phase 1: Shadow Remediation"
+	@python governance/experimental/remediation_shadow.py
+	@echo "📊 Results saved to: artifacts/remediation_shadow/"
+
+exp-remediate:  ## Phase 2: Guarded auto-remediation (1% canary)
+	@echo "🧪 Running Phase 2: Guarded Auto-Remediation"
+	@echo "⚠️  This runs on 1% canary traffic - use with caution"
+	@echo "📚 See: governance/experimental/EXPERIMENTS.md"
+
+exp-ab:  ## Phase 3: A/B policy testing
+	@echo "🧪 Running Phase 3: A/B Policy Testing"
+	@echo "📚 See: governance/experimental/EXPERIMENTS.md"
+
+exp-devils-adv:  ## Phase 4: Adversarial gates
+	@echo "🧪 Running Phase 4: Adversarial Gates"
+	@echo "📚 See: governance/experimental/EXPERIMENTS.md"
+
+exp-cost:  ## Phase 5: Cost-aware remediation
+	@echo "🧪 Running Phase 5: Cost-Aware Remediation"
+	@echo "📚 See: governance/experimental/EXPERIMENTS.md"
+
+exp-fasttrack:  ## Phase 6: Human fast-track approvals
+	@echo "🧪 Running Phase 6: Human Fast-Track"
+	@echo "📚 See: governance/experimental/EXPERIMENTS.md"
+
+exp-longrun:  ## Phase 7: Long-run drift tracking
+	@echo "🧪 Running Phase 7: Long-Run Drift & Adaptation"
+	@echo "📚 See: governance/experimental/EXPERIMENTS.md"
 
 .PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch
 governance-up:

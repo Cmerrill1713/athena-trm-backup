@@ -75,6 +75,43 @@ dgm_benchmark_duration = Summary(
     ['benchmark']
 )
 
+# Auto-Remediation Metrics
+governance_remediations_requested_total = Counter(
+    'governance_remediations_requested_total',
+    'Total remediation requests triggered'
+)
+
+governance_remediations_started_total = Counter(
+    'governance_remediations_started_total',
+    'Total remediations started'
+)
+
+governance_remediations_completed_total = Counter(
+    'governance_remediations_completed_total',
+    'Total remediations completed',
+    ['decision']  # PROMOTE, ROLLBACK, HOLD
+)
+
+governance_remediations_promoted_total = Counter(
+    'governance_remediations_promoted_total',
+    'Total remediations successfully promoted'
+)
+
+governance_remediations_rolled_back_total = Counter(
+    'governance_remediations_rolled_back_total',
+    'Total remediations rolled back'
+)
+
+governance_remediations_failed_total = Counter(
+    'governance_remediations_failed_total',
+    'Total remediation failures'
+)
+
+governance_remediation_duration = Summary(
+    'governance_remediation_duration_seconds',
+    'Time to complete remediation cycle'
+)
+
 
 class DGMMetricsCollector:
     """Collects and exports DGM metrics to Prometheus."""
@@ -133,6 +170,35 @@ class DGMMetricsCollector:
     def time_benchmark(benchmark: str, duration: float):
         """Record benchmark duration."""
         dgm_benchmark_duration.labels(benchmark=benchmark).observe(duration)
+    
+    @staticmethod
+    def record_remediation_requested():
+        """Record remediation request."""
+        governance_remediations_requested_total.inc()
+    
+    @staticmethod
+    def record_remediation_started():
+        """Record remediation start."""
+        governance_remediations_started_total.inc()
+    
+    @staticmethod
+    def record_remediation_completed(decision: str):
+        """Record remediation completion with decision."""
+        governance_remediations_completed_total.labels(decision=decision).inc()
+        if decision == "PROMOTE":
+            governance_remediations_promoted_total.inc()
+        elif decision == "ROLLBACK":
+            governance_remediations_rolled_back_total.inc()
+    
+    @staticmethod
+    def record_remediation_failed():
+        """Record remediation failure."""
+        governance_remediations_failed_total.inc()
+    
+    @staticmethod
+    def time_remediation(duration: float):
+        """Record remediation duration."""
+        governance_remediation_duration.observe(duration)
 
 
 # Example Grafana dashboard query snippets
@@ -159,6 +225,20 @@ GRAFANA_QUERIES = {
     
     "archive_health": """
         dgm_archive_diversity
+    """,
+    
+    "remediation_success_rate": """
+        rate(governance_remediations_promoted_total[1h])
+        /
+        rate(governance_remediations_completed_total[1h])
+    """,
+    
+    "remediation_volume": """
+        rate(governance_remediations_requested_total[5m])
+    """,
+    
+    "remediation_decision_breakdown": """
+        sum(rate(governance_remediations_completed_total[1h])) by (decision)
     """
 }
 

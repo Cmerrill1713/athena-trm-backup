@@ -7,6 +7,7 @@ Orchestrates Darwin Gödel Machine within Athena Governance System.
 import asyncio
 import json
 import logging
+import os
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -17,6 +18,12 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
 from governance.research.dgm.dgm_governance_adapter import DGMGovernanceAdapter
 from governance.judicial.evaluation.dgm_verdict_validator import DGMVerdictValidator
+
+# Event bus for auto-remediation
+if os.getenv("EVENT_BUS", "local") == "redis":
+    from infra.event_bus_redis import publish as event_publish
+else:
+    from infra.event_bus import publish as event_publish
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -223,6 +230,39 @@ class DGMOrchestrator:
                 logger.error("→ HARD BLOCK - Stopping evolution")
                 result['actions_executed'].append("hard_blocked")
                 break
+        
+        # Publish verdict-applied event for auto-remediation system
+        try:
+            event_publish("exec.verdict.applied", {
+                "topic": "exec.verdict.applied",
+                "task_id": verdict.get('agent_id', f"gen-{self.generation}"),
+                "verdict": verdict['verdict'],
+                "ece_estimate": benchmark_results.get('new_performance', 0.0),
+                "actions": actions,
+                "ts": result['timestamp']
+            })
+            
+            # Check if remediation is needed (HARD_FAIL cases or ROLLBACK actions)
+            needs_remediation = (
+                verdict['verdict'] in ['REJECT', 'HARD_FAIL'] or 
+                'ROLLBACK' in actions or
+                'HARD_BLOCK' in actions
+            )
+            
+            if needs_remediation:
+                logger.info("→ Requesting auto-remediation")
+                event_publish("exec.remediation.requested", {
+                    "topic": "exec.remediation.requested",
+                    "task_id": verdict.get('agent_id', f"gen-{self.generation}"),
+                    "reason": verdict['verdict'],
+                    "inputs": {
+                        "verdict": verdict,
+                        "benchmark_results": benchmark_results,
+                        "generation": self.generation
+                    }
+                })
+        except Exception as e:
+            logger.warning(f"Failed to publish event: {e}")
         
         return result
     
