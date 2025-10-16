@@ -1,4 +1,4 @@
-.PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch wire-check
+.PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch wire-check cursor-bootstrap repo-inventory
 
 wire-check:  ## Verify complete system wiring (integration test)
 	@echo "🔌 Verifying complete system wiring..."
@@ -17,6 +17,27 @@ prom-query:  ## Query recent governance metrics
 	@echo "Recent governance series count:"; \
 	curl -s "http://localhost:9090/api/v1/series?match[]=governance_*&start=$$(date -u -v-10M +%FT%TZ)&end=$$(date -u +%FT%TZ)" \
 	| jq '.data|length'
+
+cursor-bootstrap:  ## Initialize Cursor/IDE setup (run once)
+	@echo "🔧 Bootstrapping Cursor setup..."
+	@echo ">>> Initializing submodules"
+	@git submodule update --init --recursive || true
+	@echo ">>> Generating repo inventory"
+	@bash tools/index/generate_repo_inventory.sh
+	@echo ">>> Making scripts executable"
+	@chmod +x scripts/*.sh || true
+	@chmod +x tools/index/*.sh || true
+	@echo ""
+	@echo "✅ Bootstrap complete!"
+	@echo ""
+	@echo "📝 Next steps:"
+	@echo "  1. Open athena.code-workspace in Cursor"
+	@echo "  2. Install recommended extensions"
+	@echo "  3. Run: Tasks → 🔌 Wire Check (Complete)"
+	@echo "  4. Review: tools/index/repo_inventory.txt"
+
+repo-inventory:  ## Generate repository file inventory
+	@bash tools/index/generate_repo_inventory.sh
 
 .PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch
 governance-up:
