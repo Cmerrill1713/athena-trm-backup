@@ -3,6 +3,20 @@
 wire-check:  ## Verify complete system wiring (integration test)
 	@echo "🔌 Verifying complete system wiring..."
 	@./scripts/verify_complete_wiring.sh
+	@$(MAKE) prom-verify
+
+prom-reload:  ## Hot-reload Prometheus config
+	@curl -fsS -X POST http://localhost:9090/-/reload && echo "✓ Prometheus reloaded"
+
+prom-verify:  ## Check Prometheus targets health
+	@echo "Checking Prometheus targets..."; \
+	curl -s http://localhost:9090/api/v1/targets \
+	| jq '.data.activeTargets[]|{job:.labels.job,health:.health,endpoint:.labels.instance}'
+
+prom-query:  ## Query recent governance metrics
+	@echo "Recent governance series count:"; \
+	curl -s "http://localhost:9090/api/v1/series?match[]=governance_*&start=$$(date -u -v-10M +%FT%TZ)&end=$$(date -u +%FT%TZ)" \
+	| jq '.data|length'
 
 .PHONY: governance-up governance-deploy governance-promote governance-rollback governance-gate governance-canary-watch
 governance-up:

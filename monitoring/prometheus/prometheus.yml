@@ -12,39 +12,15 @@ alerting:
           - alertmanager:9093
 
 scrape_configs:
-  # Governance Metrics Exporter
-  - job_name: 'governance-metrics'
+  # Governance Services (running on host)
+  - job_name: 'governance-local'
+    scrape_interval: 5s
+    metrics_path: /metrics
     static_configs:
-      - targets: ['governance-metrics-exporter:8000']
-    scrape_interval: 10s
-    metrics_path: '/metrics'
-
-  # Governance Orchestrator (Docker network)
-  - job_name: 'governance-orchestrator'
-    static_configs:
-      - targets: ['governance-orchestrator:8000']
-    scrape_interval: 15s
-    metrics_path: '/metrics'
-  
-  # Governance Orchestrator (Host port)
-  - job_name: 'governance-orchestrator-host'
-    static_configs:
-      - targets: ['host.docker.internal:9110']
-    scrape_interval: 15s
-    metrics_path: '/metrics'
-
-  # Governance Canary Monitor
-  - job_name: 'governance-canary'
-    static_configs:
-      - targets: ['governance-canary-monitor:8000']
-    scrape_interval: 15s
-    metrics_path: '/metrics'
-
-  # Governance Node Exporter
-  - job_name: 'governance-node'
-    static_configs:
-      - targets: ['governance-exporter:9100']
-    scrape_interval: 30s
+      - targets:
+          - host.docker.internal:9109  # governance-metrics-exporter
+          - host.docker.internal:9110  # governance-orchestrator
+          - host.docker.internal:9111  # governance-canary
 
   # Core Athena Services
   - job_name: 'athena-api'
