@@ -83,7 +83,7 @@ struct ConnectionPill: View {
         .padding(.horizontal, 10).padding(.vertical, 6)
         .background(.thinMaterial, in: Capsule())
         .overlay(Capsule().stroke(AppleColors.systemGray4.opacity(0.3), lineWidth: 1))
-                    .allowsHitTesting(false)
+        .allowsHitTesting(false)
     }
 }
 
@@ -95,7 +95,8 @@ struct ChatHeader: View {
             // Modern profile avatar with gradient (matching existing design)
             ZStack {
                 if let imageData = profile.profileImageData,
-                   let nsImage = NSImage(data: imageData) {
+                    let nsImage = NSImage(data: imageData)
+                {
                     Image(nsImage: nsImage)
                         .resizable()
                         .scaledToFill()
@@ -296,7 +297,7 @@ struct NeuroForgeChatView: View {
             .onChange(of: navigationSelection) { _, newSelection in
                 // Re-focus input when navigating back to chat
                 if newSelection == "chat" {
-                    focusTrigger.toggle() // Trigger focus
+                    focusTrigger.toggle()  // Trigger focus
                 }
             }
             .modifier(HitTestProbe())  // Enable to visualize hit testing

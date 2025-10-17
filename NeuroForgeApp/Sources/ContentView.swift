@@ -13,10 +13,12 @@ struct TypingFocusTester: View {
                 .font(.title2)
                 .fontWeight(.bold)
 
-            Text("If you can type in this field, SwiftUI works. If not, something global is intercepting events.")
-                .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
-                .padding(.horizontal)
+            Text(
+                "If you can type in this field, SwiftUI works. If not, something global is intercepting events."
+            )
+            .multilineTextAlignment(.center)
+            .foregroundColor(.secondary)
+            .padding(.horizontal)
 
             TextField("Type here…", text: $text)
                 .focused($focused)
@@ -81,7 +83,7 @@ struct ContentView: View {
             }
         } else {
             // NORMAL MODE: Full app with navigation
-                NavigationSplitView {
+            NavigationSplitView {
                 // Sidebar with navigation
                 List {
                     Section("Diagnostic") {
@@ -94,7 +96,8 @@ struct ContentView: View {
 
                     Section("Chat") {
                         NavigationLink {
-                            NeuroForgeChatView(profile: profile, navigationSelection: navigationSelection)
+                            NeuroForgeChatView(
+                                profile: profile, navigationSelection: navigationSelection)
                         } label: {
                             Label("Athena Chat", systemImage: "message.fill")
                         }
