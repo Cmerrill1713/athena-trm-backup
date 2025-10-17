@@ -1,11 +1,45 @@
 import Combine
 import Foundation
 
+// MARK: - Chat Contract Models
+struct ContractChatMessage: Codable {
+    let role: String
+    let content: String
+}
+
+struct ContractChatRequest: Codable {
+    let session_id: String
+    let messages: [ContractChatMessage]
+    let stream: Bool
+    let metadata: [String: String]
+}
+
+struct ContractChatUsage: Codable {
+    let input_tokens: Int
+    let output_tokens: Int
+}
+
+struct ContractChatResponse: Codable {
+    let reply: String
+    let mode: String
+    let usage: ContractChatUsage
+    let latency_ms: Int
+    let trace_id: String
+    let router_route: String?
+    let router_backend: String?
+    let router_confidence: Double?
+}
+
 /// Minimal, correct ChatService using canonical config
 final class ChatService: ObservableObject {
     @Published var messages: [ChatMessage] = []
     @Published var isConnected = false
     @Published var inputText = ""
+    
+    // Router status for latency badge
+    @Published var currentRoute = "mlx"
+    @Published var currentLatency = 0
+    @Published var routerHealthy = true
 
     private let base = AppConfig.apiBase
     private let token = AppConfig.bridgeToken
@@ -77,13 +111,21 @@ final class ChatService: ObservableObject {
         var request = URLRequest(url: base.appendingPathComponent("api/chat"))
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.timeoutInterval = 30
 
         if !token.isEmpty {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
 
-        let payload: [String: Any] = ["kind": "chat", "message": text]
-        request.httpBody = try JSONSerialization.data(withJSONObject: payload)
+        // Use proper contract format
+        let payload = ContractChatRequest(
+            session_id: "ios-dev",
+            messages: [ContractChatMessage(role: "user", content: text)],
+            stream: false,
+            metadata: ["client": "NeuroForgeApp", "version": "1.0.0"]
+        )
+
+        request.httpBody = try JSONEncoder().encode(payload)
 
         let (data, response) = try await session.data(for: request)
 
@@ -99,15 +141,18 @@ final class ChatService: ObservableObject {
             )
         }
 
-        guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let reply = json["response"] as? String
-        else {
-            throw NSError(
-                domain: "bridge", code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Invalid response format"]
-            )
-        }
+        let chatResponse = try JSONDecoder().decode(ContractChatResponse.self, from: data)
 
-        return reply
+        // Update router status for latency badge
+        currentRoute = chatResponse.router_route ?? "unknown"
+        currentLatency = chatResponse.latency_ms
+        routerHealthy = chatResponse.mode == "prod"
+
+        // Log mode for debugging
+        print("🔧 Chat response mode: \(chatResponse.mode)")
+        print("🔧 Chat latency: \(chatResponse.latency_ms)ms")
+        print("🔧 Router route: \(currentRoute)")
+
+        return chatResponse.reply
     }
 }

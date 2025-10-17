@@ -90,6 +90,9 @@ struct ConnectionPill: View {
 struct ChatHeader: View {
     var connected: Bool
     var profile: UserProfile
+    var currentRoute: String
+    var currentLatency: Int
+    var routerHealthy: Bool
     var body: some View {
         HStack(alignment: .center, spacing: NFTheme.Spacing.md) {
             // Modern profile avatar with gradient (matching existing design)
@@ -128,6 +131,13 @@ struct ChatHeader: View {
                         .font(.system(size: 14, weight: .medium))
                         .foregroundStyle(AppleColors.secondaryLabel)
                     ConnectionPill(connected: connected)
+                    
+                    // Latency badge showing router status
+                    LatencyBadge(
+                        route: currentRoute,
+                        latencyMs: currentLatency,
+                        isHealthy: routerHealthy
+                    )
                 }
             }
             Spacer()
@@ -204,7 +214,7 @@ struct TypingIndicator: View {
             Circle().fill(AppleColors.secondaryLabel).frame(width: 6, height: 6).opacity(
                 Double(0.3 + 0.7 * sin(phase + .pi)))
         }
-        .padding(NFToken.Spacing.md)
+        .padding(NFTheme.Spacing.md)
         .background(.thinMaterial, in: Capsule())
         .onAppear {
             withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: false)) {
@@ -237,7 +247,13 @@ struct NeuroForgeChatView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            ChatHeader(connected: chatService.isConnected, profile: profile)
+            ChatHeader(
+                connected: chatService.isConnected,
+                profile: profile,
+                currentRoute: chatService.currentRoute,
+                currentLatency: chatService.currentLatency,
+                routerHealthy: chatService.routerHealthy
+            )
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: NFTheme.Spacing.md, pinnedViews: []) {
@@ -259,31 +275,7 @@ struct NeuroForgeChatView: View {
                     }
                 }
             }
-            // MARK: - Debug: Known-Good Input Test
-            // Uncomment ONE of these to debug:
-
-            // 1. Test basic input functionality:
-            // ChatInputBar.knownGoodInput()
-
-            // 2. Test UIKit fallback (guaranteed focus):
-            /*
-            FirstResponderField(text: $chatService.inputText) {
-                Task {
-                    await chatService.sendMessage(chatService.inputText)
-                    chatService.inputText = ""
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .padding(12)
-            .background(Color(NSColor.textBackgroundColor))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.accentColor, lineWidth: 1.5)
-            )
-            */
-
-            // 3. Production Input (with debugging enabled)
+            // Production Input with focus management
             ChatInputBar(
                 text: $chatService.inputText,
                 onSend: { text in
@@ -300,7 +292,6 @@ struct NeuroForgeChatView: View {
                     focusTrigger.toggle()  // Trigger focus
                 }
             }
-            .modifier(HitTestProbe())  // Enable to visualize hit testing
         }
         .background(AppleColors.controlBackground)
     }
