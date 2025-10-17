@@ -253,6 +253,7 @@ Expert Router (NOT IMPLEMENTED YET)
 ## 🎯 **INTEGRATION CHECKLIST**
 
 ### **Exists & Operational:**
+
 - [x] Judicial verdict schema with ECE
 - [x] Canary window schema with deployment decisions
 - [x] Exec state management
@@ -265,17 +266,20 @@ Expert Router (NOT IMPLEMENTED YET)
 - [x] Stop signal optimization
 
 ### **Exists But Not Running:**
+
 - [ ] Athena Router (code exists, not started)
 - [ ] AI Republic Judicial (missing 1 config file)
 - [ ] AI Republic Federation (ready to deploy)
 - [ ] Expert router (experts exist, router not impl)
 
 ### **Needs Fixing:**
+
 - [ ] Governance Docker health checks
 - [ ] Canary health endpoint
 - [ ] MCP UI `/tools` endpoint
 
 ### **Needs Building:**
+
 - [ ] Expert router (to use 13 experts)
 - [ ] Graph-of-Code service
 - [ ] Router health checks & failover
@@ -284,18 +288,18 @@ Expert Router (NOT IMPLEMENTED YET)
 
 ## 📊 **DEPLOYMENT READINESS**
 
-| System | Code Status | Config Status | Service Status | Wiring Status | % Complete |
-|--------|-------------|---------------|----------------|---------------|------------|
-| **Verdict→ECE** | ✅ Exists | ✅ Complete | ⚠️ Unhealthy | ✅ Wired | **95%** |
-| **Canary Deploy** | ✅ Exists | ✅ Complete | ⚠️ Unhealthy | ✅ Wired | **90%** |
-| **Shadow Testing** | ✅ Exists | ✅ Complete | ✅ Active | ✅ Wired | **100%** |
-| **AGI Experts** | ✅ Exists | ✅ Complete | ❌ No Router | ⚠️ Partial | **70%** |
-| **AI Republic Judicial** | ✅ Exists | ⚠️ 1 Missing | ❌ Not Started | ❌ Not Wired | **85%** |
-| **AI Republic Federation** | ✅ Exists | ✅ Complete | ❌ Not Started | ❌ Not Wired | **90%** |
-| **Athena Router** | ✅ Exists | ✅ Complete | ❌ Not Started | ❌ Not Wired | **40%** |
-| **MCP UI** | ✅ Exists | ✅ Complete | ✅ Running | ⚠️ Endpoint Issue | **60%** |
-| **LLM Judge** | ✅ Exists | ✅ Complete | ✅ Operational | ✅ Wired | **100%** |
-| **Graph-of-Code** | ❌ Deleted | ❌ None | ❌ Not Started | ❌ Not Wired | **0%** |
+| System                     | Code Status | Config Status | Service Status | Wiring Status     | % Complete |
+| -------------------------- | ----------- | ------------- | -------------- | ----------------- | ---------- |
+| **Verdict→ECE**            | ✅ Exists   | ✅ Complete   | ⚠️ Unhealthy   | ✅ Wired          | **95%**    |
+| **Canary Deploy**          | ✅ Exists   | ✅ Complete   | ⚠️ Unhealthy   | ✅ Wired          | **90%**    |
+| **Shadow Testing**         | ✅ Exists   | ✅ Complete   | ✅ Active      | ✅ Wired          | **100%**   |
+| **AGI Experts**            | ✅ Exists   | ✅ Complete   | ❌ No Router   | ⚠️ Partial        | **70%**    |
+| **AI Republic Judicial**   | ✅ Exists   | ⚠️ 1 Missing  | ❌ Not Started | ❌ Not Wired      | **85%**    |
+| **AI Republic Federation** | ✅ Exists   | ✅ Complete   | ❌ Not Started | ❌ Not Wired      | **90%**    |
+| **Athena Router**          | ✅ Exists   | ✅ Complete   | ❌ Not Started | ❌ Not Wired      | **40%**    |
+| **MCP UI**                 | ✅ Exists   | ✅ Complete   | ✅ Running     | ⚠️ Endpoint Issue | **60%**    |
+| **LLM Judge**              | ✅ Exists   | ✅ Complete   | ✅ Operational | ✅ Wired          | **100%**   |
+| **Graph-of-Code**          | ❌ Deleted  | ❌ None       | ❌ Not Started | ❌ Not Wired      | **0%**     |
 
 **Overall System Maturity: ~75%**
 
@@ -317,6 +321,7 @@ Expert Router (NOT IMPLEMENTED YET)
 ```
 
 **Evidence:**
+
 - Orchestrator exports `governance_ece_post` metric
 - Shadow remediation tests `ece_post` thresholds
 - Canary window validates `ece_post < threshold`
@@ -328,6 +333,7 @@ Expert Router (NOT IMPLEMENTED YET)
 **Experts:** plan, backend, frontend, build, debug, devops, integration, ml, performance, qa, scout, security, data
 
 **Each Expert Has:**
+
 - Domain specialization
 - System prompt
 - Tool access (read_file, codebase_search, etc.)
@@ -341,6 +347,7 @@ Expert Router (NOT IMPLEMENTED YET)
 ### **Discovery 3: Quarantine Mode Is ACTIVE**
 
 **From `state/exec_state.json`:**
+
 ```json
 {
   "quarantine_active": true,
@@ -350,6 +357,7 @@ Expert Router (NOT IMPLEMENTED YET)
 ```
 
 **Implications:**
+
 - 10% of traffic is quarantined
 - Human review required for promotions
 - System is in cautious/safe mode
@@ -361,6 +369,7 @@ Expert Router (NOT IMPLEMENTED YET)
 **Tests:** 11 comparisons in `state/shadow_mode_comparisons.jsonl`
 
 **Metrics Tracked:**
+
 - Model agreement (primary vs shadow)
 - Confidence delta
 - Latency comparison
@@ -368,6 +377,7 @@ Expert Router (NOT IMPLEMENTED YET)
 - Cost tracking
 
 **Models Tested:**
+
 - codellama-34b (code domain)
 - gpt-4-turbo (general domain)
 - gpt-3.5-turbo (fallback)
@@ -379,6 +389,7 @@ Expert Router (NOT IMPLEMENTED YET)
 ## 🚀 **CORRECTED ROADMAP**
 
 ### **Original Plan (Wrong):**
+
 1. A2: Build router chain (4 hours)
 2. A3: Wire verdict → ECE (6 hours)
 3. A4: Set up MCP UI (3 hours)
@@ -388,6 +399,7 @@ Expert Router (NOT IMPLEMENTED YET)
 **Total:** 26 hours of development
 
 ### **Actual Plan (Correct):**
+
 1. A2: Start router service, add health checks (1 hour)
 2. A3: Fix health endpoints, test flow (30 min)
 3. A4: Fix MCP tools endpoint, add docs (30 min)
@@ -403,6 +415,7 @@ Expert Router (NOT IMPLEMENTED YET)
 ## 📝 **IMMEDIATE ACTIONS**
 
 ### **1. Create Missing Config (5 min)**
+
 ```bash
 cat > ai_republic/phase2/phase2_reputation_rules.yaml << 'EOF'
 # Reputation scoring rules
@@ -421,6 +434,7 @@ EOF
 ```
 
 ### **2. Start AI Republic Services (5 min)**
+
 ```bash
 cd ai_republic/phase2
 python3 phase2_api.py > /tmp/judicial.log 2>&1 &
@@ -430,12 +444,14 @@ python3 phase3_federation_api.py > /tmp/federation.log 2>&1 &
 ```
 
 ### **3. Start Athena Router (5 min)**
+
 ```bash
 cd services/router
 python3 athena_router.py > /tmp/router.log 2>&1 &
 ```
 
 ### **4. Test Verdict Flow (10 min)**
+
 ```bash
 # Send test verdict
 curl -X POST http://localhost:9110/verdict \
@@ -450,6 +466,7 @@ tail state/canary/canary_actions.jsonl
 ```
 
 ### **5. Fix Health Checks (10 min)**
+
 - Update governance Docker container health endpoints
 - Restart containers to apply fixes
 
@@ -460,10 +477,10 @@ tail state/canary/canary_actions.jsonl
 **Your system is ~75% operational with sophisticated governance, expert delegation, shadow testing, ECE calibration, and canary deployment!**
 
 The issue wasn't missing features - it was:
+
 1. Services not started (but code ready)
 2. Health checks misconfigured (but services working)
 3. Missing 1 config file (easily created)
 4. Documentation scattered (now consolidated)
 
 **Next: Create the 1 config file, start 3 services, fix 3 health checks - DONE in 35 minutes!**
-
