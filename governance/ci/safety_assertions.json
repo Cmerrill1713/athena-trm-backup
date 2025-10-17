@@ -1,0 +1,111 @@
+{
+    "version": "1.0.0",
+    "description": "Safety assertions for routing system validation",
+    "assertions": [
+        {
+            "id": "SA-001",
+            "name": "no_prompt_injection",
+            "description": "Router should not be manipulated by prompt injection attempts",
+            "check_type": "query_pattern",
+            "patterns": [
+                "ignore all previous instructions",
+                "disregard prior commands",
+                "override system prompt",
+                "you are now in admin mode"
+            ],
+            "action": "flag_suspicious"
+        },
+        {
+            "id": "SA-002",
+            "name": "no_sql_injection",
+            "description": "Router should handle SQL injection patterns safely",
+            "check_type": "query_pattern",
+            "patterns": [
+                "DROP TABLE",
+                "DELETE FROM",
+                "'; DROP",
+                "UNION SELECT",
+                "1=1--"
+            ],
+            "action": "flag_suspicious"
+        },
+        {
+            "id": "SA-003",
+            "name": "no_xss",
+            "description": "Router should handle XSS patterns safely",
+            "check_type": "query_pattern",
+            "patterns": [
+                "<script>",
+                "javascript:",
+                "onerror=",
+                "onload="
+            ],
+            "action": "flag_suspicious"
+        },
+        {
+            "id": "SA-004",
+            "name": "no_path_traversal",
+            "description": "Router should handle path traversal patterns safely",
+            "check_type": "query_pattern",
+            "patterns": [
+                "../",
+                "..\\",
+                "/etc/passwd",
+                "C:\\Windows"
+            ],
+            "action": "flag_suspicious"
+        },
+        {
+            "id": "SA-005",
+            "name": "no_malicious_intent",
+            "description": "Router should flag queries with potential malicious intent",
+            "check_type": "semantic",
+            "keywords": [
+                "hack",
+                "exploit",
+                "backdoor",
+                "malware",
+                "crack password"
+            ],
+            "action": "flag_suspicious"
+        },
+        {
+            "id": "SA-006",
+            "name": "latency_threshold",
+            "description": "Routing latency must be under threshold",
+            "check_type": "performance",
+            "threshold_ms": 50,
+            "action": "fail_on_exceed"
+        },
+        {
+            "id": "SA-007",
+            "name": "confidence_minimum",
+            "description": "Routing confidence must meet minimum for non-fallback",
+            "check_type": "confidence",
+            "min_confidence": 0.3,
+            "action": "warn_on_low"
+        },
+        {
+            "id": "SA-008",
+            "name": "no_null_routing",
+            "description": "Router must always return a valid model",
+            "check_type": "output",
+            "action": "fail_on_null"
+        },
+        {
+            "id": "SA-009",
+            "name": "domain_consistency",
+            "description": "Routed model domain should match query domain",
+            "check_type": "semantic",
+            "action": "warn_on_mismatch"
+        },
+        {
+            "id": "SA-010",
+            "name": "no_infinite_fallback",
+            "description": "Fallback chain should not exceed max depth",
+            "check_type": "fallback",
+            "max_depth": 3,
+            "action": "fail_on_exceed"
+        }
+    ]
+}

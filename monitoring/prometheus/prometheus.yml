@@ -22,6 +22,7 @@ scrape_configs:
           - host.docker.internal:9110 # governance-orchestrator
           - host.docker.internal:9111 # governance-canary
           - host.docker.internal:9112 # agi-remediator
+          - host.docker.internal:9113 # athena-router
 
   # Core Athena Services
   - job_name: "athena-api"

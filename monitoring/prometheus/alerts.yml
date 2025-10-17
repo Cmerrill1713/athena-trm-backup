@@ -79,3 +79,30 @@ groups:
         annotations:
           summary: "No remediation activity despite failures"
           description: "Failures detected but no remediation requests - event bus may be disconnected"
+
+  - name: router.rules
+    interval: 30s
+    rules:
+      - alert: CloudAccessAttempt
+        expr: athena_router_cloud_attempts_total > 0
+        for: 1m
+        labels: { severity: critical }
+        annotations:
+          summary: "Cloud model access detected - SECURITY ALERT"
+          description: "Cloud attempts={{ $value }} - IMMEDIATE INVESTIGATION REQUIRED"
+
+      - alert: LocalStackDown
+        expr: athena_router_local_success_total == 0
+        for: 5m
+        labels: { severity: warning }
+        annotations:
+          summary: "Local model stack unavailable"
+          description: "No successful local inferences in 5 minutes - check MLX/Ollama"
+
+      - alert: RouterHighErrorRate
+        expr: rate(athena_router_requests_total{status=~"error_.*"}[5m]) > 0.1
+        for: 2m
+        labels: { severity: warning }
+        annotations:
+          summary: "High router error rate"
+          description: "Error rate={{ $value }}/s - investigate routing issues"

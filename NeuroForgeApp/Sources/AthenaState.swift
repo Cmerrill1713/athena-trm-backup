@@ -8,6 +8,7 @@ final class AthenaState: ObservableObject {
     @Published var lastEmergency: SystemEmergency?
 
     // MARK: - Governance State
+
     @Published var governanceMode: GovernanceMode = .shadow
     @Published var isOrchestratorHealthy = false
     @Published var kpis = GovernanceKPIs.empty
@@ -19,17 +20,17 @@ final class AthenaState: ObservableObject {
     private let apiClient = GovernanceAPIClient()
 
     func trigger(_ alert: CriticalAlert) {
-        self.lastAlert = alert
+        lastAlert = alert
         NotificationCenter.default.post(name: .ShowCriticalAlert, object: alert)
     }
 
     func trigger(_ tribunal: TribunalCase) {
-        self.lastCase = tribunal
+        lastCase = tribunal
         NotificationCenter.default.post(name: .ShowTribunalDecision, object: tribunal)
     }
 
     func trigger(_ emergency: SystemEmergency) {
-        self.lastEmergency = emergency
+        lastEmergency = emergency
         NotificationCenter.default.post(name: .ShowSystemEmergency, object: emergency)
     }
 
@@ -71,8 +72,7 @@ final class AthenaState: ObservableObject {
         }
     }
 
-    func sendTestVerdict(verdict: String, ecePost: Double, entropy: Double, actions: [String]) async
-    {
+    func sendTestVerdict(verdict: String, ecePost: Double, entropy: Double, actions: [String]) async {
         let taskId = "ui-test-\(Int(Date().timeIntervalSince1970))"
         let iso = ISO8601DateFormatter().string(from: Date())
 

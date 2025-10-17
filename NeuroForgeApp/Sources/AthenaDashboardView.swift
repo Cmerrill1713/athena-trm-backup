@@ -73,7 +73,7 @@ struct AthenaDashboardView: View {
 
                     HStack(spacing: 12) {
                         Button("Demo Critical Alert") {
-                            self.state.trigger(
+                            state.trigger(
                                 CriticalAlert(
                                     title: "DB p95 latency breach",
                                     message: "Read pool saturated in us-east-1",
@@ -81,13 +81,13 @@ struct AthenaDashboardView: View {
                                     affectedSystems: ["db-read-replica-a", "api-gateway"],
                                     recommendations: [
                                         "Scale read replicas", "Enable query cache",
-                                        "Switch traffic to us-west-2",
+                                        "Switch traffic to us-west-2"
                                     ]
                                 ))
                         }
 
                         Button("Demo Tribunal Decision") {
-                            self.state.trigger(
+                            state.trigger(
                                 TribunalCase(
                                     caseID: "CASE-RAG-CE-001",
                                     summary: "Rollback CE router? Uplift dipped by 0.3pts",
@@ -97,7 +97,7 @@ struct AthenaDashboardView: View {
                         }
 
                         Button("Demo System Emergency") {
-                            self.state.trigger(
+                            state.trigger(
                                 SystemEmergency(
                                     title: "Cluster Instability Detected",
                                     analysis: "Pod churn > 20% / 5min; suspected node pressure.",
@@ -105,7 +105,7 @@ struct AthenaDashboardView: View {
                                     risk: .high,
                                     actions: [
                                         "Drain suspect nodes", "Throttle deploys",
-                                        "Scale control plane",
+                                        "Scale control plane"
                                     ]
                                 ))
                         }
@@ -124,20 +124,20 @@ struct AthenaDashboardView: View {
 
         Task {
             // Simulate processing time
-            try? await Task.sleep(nanoseconds: 2_000_000_000)  // 2 seconds
+            try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
 
             promptResult = """
-                🧠 **AI Team Engineering (v1.0.2: Stub)**
+            🧠 **AI Team Engineering (v1.0.2: Stub)**
 
-                **Status:** Feature temporarily disabled for v1.0.2
-                **Note:** Will be restored in v1.0.3 with proper ObservableObject conformance
+            **Status:** Feature temporarily disabled for v1.0.2
+            **Note:** Will be restored in v1.0.3 with proper ObservableObject conformance
 
-                **Planned Restoration:**
-                • PromptEngineerService with ObservableObject
-                • Full AI team orchestration
-                • Real-time team contributions
-                • Full reviewer feedback system
-                """
+            **Planned Restoration:**
+            • PromptEngineerService with ObservableObject
+            • Full AI team orchestration
+            • Real-time team contributions
+            • Full reviewer feedback system
+            """
 
             isEngineering = false
         }

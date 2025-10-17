@@ -9,7 +9,7 @@ struct NeuroForgeApp: App {
     @State private var voice = VoiceManager()
 
     init() {
-        // Initialize avatar services
+        // Initialize avatar services (only if available - prevents CLI crashes)
         _ = AvatarNotificationService.shared
         // _ = MobileMetricsService.shared  // TODO: Add when metrics service available
     }
@@ -21,29 +21,27 @@ struct NeuroForgeApp: App {
             content: {
                 if let profile = profileManager.currentProfile {
                     ContentView(profile: profile)
-                        .environmentObject(self.athenaState)
-                        .environmentObject(self.profileManager)
+                        .environmentObject(athenaState)
+                        .environmentObject(profileManager)
                         .onReceive(NotificationCenter.default.publisher(for: .ShowCriticalAlert)) {
                             note in
                             if let a = note.object as? CriticalAlert {
-                                self.voice.speak("Critical alert: \(a.title)")
-                                self.openWindow(id: "critical-alert")
+                                voice.speak("Critical alert: \(a.title)")
+                                openWindow(id: "critical-alert")
                             }
                         }
-                        .onReceive(NotificationCenter.default.publisher(for: .ShowTribunalDecision))
-                    { note in
-                        if let c = note.object as? TribunalCase {
-                            self.voice.speak("Tribunal decision required for case \(c.caseID)")
-                            self.openWindow(id: "tribunal-decision")
+                        .onReceive(NotificationCenter.default.publisher(for: .ShowTribunalDecision)) { note in
+                            if let c = note.object as? TribunalCase {
+                                voice.speak("Tribunal decision required for case \(c.caseID)")
+                                openWindow(id: "tribunal-decision")
+                            }
                         }
-                    }
-                        .onReceive(NotificationCenter.default.publisher(for: .ShowSystemEmergency))
-                    { note in
-                        if let e = note.object as? SystemEmergency {
-                            self.voice.speak("System emergency: \(e.title)")
-                            self.openWindow(id: "system-emergency")
+                        .onReceive(NotificationCenter.default.publisher(for: .ShowSystemEmergency)) { note in
+                            if let e = note.object as? SystemEmergency {
+                                voice.speak("System emergency: \(e.title)")
+                                openWindow(id: "system-emergency")
+                            }
                         }
-                    }
                 } else {
                     // Profile creation view (simplified - profile manager creates default)
                     VStack {
@@ -64,7 +62,7 @@ struct NeuroForgeApp: App {
             // Athena focus commands
             CommandMenu("Athena") {
                 Button("Refocus Input") {
-                    self.focusCoordinator.requestFocus()
+                    focusCoordinator.requestFocus()
                     NSApp.windows
                         .first { $0.identifier?.rawValue == "main-window" }?
                         .makeKeyAndOrderFront(nil)
@@ -76,7 +74,7 @@ struct NeuroForgeApp: App {
         // Athena Dashboard window (Cmd+Shift+A)
         Window("Athena Dashboard", id: "athena-dashboard") {
             AthenaDashboardView()
-                .environmentObject(self.athenaState)
+                .environmentObject(athenaState)
                 .frame(minWidth: 800, minHeight: 500)
         }
         .keyboardShortcut("a", modifiers: [.command, .shift])

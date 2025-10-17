@@ -1,0 +1,117 @@
+import SwiftUI
+import AppKit
+
+/// NUCLEAR OPTION: Simplest possible text input using NSTextField
+/// If this doesn't work, the problem is at the window/app level, not our code
+struct NuclearTextInput: NSViewRepresentable {
+    @Binding var text: String
+    var onSubmit: () -> Void
+    
+    func makeNSView(context: Context) -> NSTextField {
+        let textField = ForceTypableTextField()
+        textField.stringValue = text
+        textField.delegate = context.coordinator
+        textField.placeholderString = "Type here... (NUCLEAR TEST)"
+        textField.font = .systemFont(ofSize: 15)
+        textField.isBordered = true
+        textField.bezelStyle = .roundedBezel
+        textField.focusRingType = .default
+        
+        // Make absolutely sure it's editable
+        textField.isEditable = true
+        textField.isSelectable = true
+        textField.isEnabled = true
+        
+        textField.onSubmit = onSubmit
+        
+        // Print debug info
+        print("🔧 NuclearTextInput created")
+        print("🔧 isEditable: \(textField.isEditable)")
+        print("🔧 isEnabled: \(textField.isEnabled)")
+        print("🔧 acceptsFirstResponder: \(textField.acceptsFirstResponder)")
+        
+        return textField
+    }
+    
+    func updateNSView(_ textField: NSTextField, context: Context) {
+        if textField.stringValue != text {
+            textField.stringValue = text
+        }
+        
+        // Try to make it first responder on EVERY update
+        if textField.window?.firstResponder != textField {
+            textField.window?.makeFirstResponder(textField)
+            print("🔧 Trying to make textField first responder")
+        }
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(text: $text, onSubmit: onSubmit)
+    }
+    
+    class Coordinator: NSObject, NSTextFieldDelegate {
+        @Binding var text: String
+        var onSubmit: () -> Void
+        
+        init(text: Binding<String>, onSubmit: @escaping () -> Void) {
+            _text = text
+            self.onSubmit = onSubmit
+        }
+        
+        func controlTextDidChange(_ notification: Notification) {
+            guard let textField = notification.object as? NSTextField else { return }
+            text = textField.stringValue
+            print("🔧 Text changed: \(text)")
+        }
+        
+        func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+            if commandSelector == #selector(NSResponder.insertNewline(_:)) {
+                print("🔧 Return pressed, submitting")
+                onSubmit()
+                return true
+            }
+            return false
+        }
+    }
+}
+
+/// Custom NSTextField that is GUARANTEED to accept typing
+class ForceTypableTextField: NSTextField {
+    var onSubmit: (() -> Void)?
+    
+    override var acceptsFirstResponder: Bool {
+        print("🔧 acceptsFirstResponder called, returning true")
+        return true
+    }
+    
+    override func becomeFirstResponder() -> Bool {
+        print("🔧 becomeFirstResponder called")
+        let result = super.becomeFirstResponder()
+        print("🔧 becomeFirstResponder result: \(result)")
+        
+        // Make window key
+        window?.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+        
+        return result
+    }
+    
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        print("🔧 viewDidMoveToWindow called")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            guard let self = self else { return }
+            print("🔧 Attempting to become first responder from viewDidMoveToWindow")
+            let success = self.window?.makeFirstResponder(self) ?? false
+            print("🔧 makeFirstResponder success: \(success)")
+            print("🔧 Current first responder: \(String(describing: self.window?.firstResponder))")
+        }
+    }
+    
+    override func keyDown(with event: NSEvent) {
+        print("🔧 keyDown called with key: \(event.characters ?? "nil")")
+        super.keyDown(with: event)
+    }
+}
+

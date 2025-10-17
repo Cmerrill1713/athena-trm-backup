@@ -19,10 +19,12 @@ enum NFTheme {
         static let outline = AppleColors.systemGray4
         static let bubbleUser = LinearGradient(
             colors: [AppleColors.systemBlue, AppleColors.systemGray.opacity(0.8)],
-            startPoint: .topLeading, endPoint: .bottomTrailing)
+            startPoint: .topLeading, endPoint: .bottomTrailing
+        )
         static let bubbleBot = LinearGradient(
             colors: [AppleColors.systemGray5, AppleColors.systemGray6], startPoint: .top,
-            endPoint: .bottom)
+            endPoint: .bottom
+        )
         static let inputBg = AppleColors.textBackground
     }
 
@@ -33,11 +35,13 @@ enum NFTheme {
         static let lg: CGFloat = 18
         static let xl: CGFloat = 24
     }
+
     enum Radius {
         static let sm: CGFloat = 12
         static let md: CGFloat = 16
         static let xl: CGFloat = 24
     }
+
     enum Shadow { static let soft = ShadowStyle(radius: 8, y: 4, opacity: 0.1) }
 }
 
@@ -46,6 +50,7 @@ struct ShadowStyle {
     let y: CGFloat
     let opacity: Double
 }
+
 extension View {
     func nfShadow(_ s: ShadowStyle = NFTheme.Shadow.soft) -> some View {
         shadow(color: .black.opacity(s.opacity), radius: s.radius, x: 0, y: s.y)
@@ -58,7 +63,7 @@ enum MessageSender { case user, assistant }
 
 extension ChatMessage {
     var senderType: MessageSender {
-        self.isUser ? .user : .assistant
+        isUser ? .user : .assistant
     }
 }
 
@@ -68,15 +73,17 @@ struct ConnectionPill: View {
     var connected: Bool
     var body: some View {
         HStack(spacing: 8) {
-            Circle().fill(self.connected ? AppleColors.systemGreen : AppleColors.systemRed).frame(
-                width: 8, height: 8)
-            Text(self.connected ? "Connected" : "Disconnected")
+            Circle().fill(connected ? AppleColors.systemGreen : AppleColors.systemRed).frame(
+                width: 8, height: 8
+            )
+            Text(connected ? "Connected" : "Disconnected")
                 .font(.system(size: 12, weight: .semibold))
                 .foregroundStyle(AppleColors.secondaryLabel)
         }
         .padding(.horizontal, 10).padding(.vertical, 6)
         .background(.thinMaterial, in: Capsule())
         .overlay(Capsule().stroke(AppleColors.systemGray4.opacity(0.3), lineWidth: 1))
+                    .allowsHitTesting(false)
     }
 }
 
@@ -88,15 +95,14 @@ struct ChatHeader: View {
             // Modern profile avatar with gradient (matching existing design)
             ZStack {
                 if let imageData = profile.profileImageData,
-                    let nsImage = NSImage(data: imageData)
-                {
+                   let nsImage = NSImage(data: imageData) {
                     Image(nsImage: nsImage)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 40, height: 40)
                         .clipShape(Circle())
                 } else {
-                    Image(systemName: self.profile.avatar)
+                    Image(systemName: profile.avatar)
                         .font(.system(size: 20, weight: .medium))
                         .foregroundColor(.white)
                         .frame(width: 40, height: 40)
@@ -120,7 +126,7 @@ struct ChatHeader: View {
                     Text("AI Assistant")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundStyle(AppleColors.secondaryLabel)
-                    ConnectionPill(connected: self.connected)
+                    ConnectionPill(connected: connected)
                 }
             }
             Spacer()
@@ -136,16 +142,16 @@ struct Bubble: View {
     var message: ChatMessage
     var isLastInGroup: Bool
     var body: some View {
-        let isUser = self.message.isUser
+        let isUser = message.isUser
         HStack(alignment: .bottom, spacing: NFTheme.Spacing.sm) {
-            if !isUser { self.avatar }
+            if !isUser { avatar }
             VStack(alignment: isUser ? .trailing : .leading, spacing: 4) {
-                Text(self.message.text)
+                Text(message.text)
                     .textSelection(.enabled)
                     .font(.system(size: 15, weight: .medium))
                     .padding(.horizontal, NFTheme.Spacing.md)
                     .padding(.vertical, NFTheme.Spacing.sm)
-                    .background(self.bubbleBackground(isUser))
+                    .background(bubbleBackground(isUser))
                     .clipShape(
                         RoundedRectangle(cornerRadius: NFTheme.Radius.xl, style: .continuous)
                     )
@@ -153,17 +159,18 @@ struct Bubble: View {
                         RoundedRectangle(cornerRadius: NFTheme.Radius.xl, style: .continuous)
                             .stroke(
                                 AppleColors.systemGray4.opacity(isUser ? 0 : 0.3),
-                                lineWidth: isUser ? 0 : 1)
+                                lineWidth: isUser ? 0 : 1
+                            )
                     )
                     .nfShadow()
-                Text(self.message.timestamp, style: .time)
+                Text(message.timestamp, style: .time)
                     .font(.system(size: 10, weight: .medium))
                     .foregroundStyle(AppleColors.secondaryLabel)
                     .padding(isUser ? .trailing : .leading, 8)
             }
             if isUser { Spacer(minLength: 24) }
         }
-        .frame(maxWidth: .infinity, alignment: self.message.isUser ? .trailing : .leading)
+        .frame(maxWidth: .infinity, alignment: message.isUser ? .trailing : .leading)
         .padding(.horizontal, NFTheme.Spacing.lg)
     }
 
@@ -172,7 +179,7 @@ struct Bubble: View {
             .font(.system(size: 22))
             .foregroundStyle(.white)
             .background(Circle().fill(AppleColors.systemBlue).frame(width: 28, height: 28))
-            .offset(y: self.isLastInGroup ? 0 : 12)
+            .offset(y: isLastInGroup ? 0 : 12)
             .accessibilityHidden(true)
     }
 
@@ -190,17 +197,17 @@ struct TypingIndicator: View {
     var body: some View {
         HStack(spacing: 6) {
             Circle().fill(AppleColors.secondaryLabel).frame(width: 6, height: 6).opacity(
-                Double(0.3 + 0.7 * sin(self.phase)))
+                Double(0.3 + 0.7 * sin(phase)))
             Circle().fill(AppleColors.secondaryLabel).frame(width: 6, height: 6).opacity(
-                Double(0.3 + 0.7 * sin(self.phase + .pi / 2)))
+                Double(0.3 + 0.7 * sin(phase + .pi / 2)))
             Circle().fill(AppleColors.secondaryLabel).frame(width: 6, height: 6).opacity(
-                Double(0.3 + 0.7 * sin(self.phase + .pi)))
+                Double(0.3 + 0.7 * sin(phase + .pi)))
         }
-        .padding(8)
+        .padding(NFToken.Spacing.md)
         .background(.thinMaterial, in: Capsule())
         .onAppear {
             withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: false)) {
-                self.phase = 2 * .pi
+                phase = 2 * .pi
             }
         }
         .accessibilityLabel("Assistant is typing")
@@ -213,25 +220,29 @@ struct TypingIndicator: View {
 
 struct NeuroForgeChatView: View {
     let profile: UserProfile
+    let navigationSelection: String?
     @StateObject private var chatService: ChatService
+    @State private var focusTrigger = false
 
-    init(profile: UserProfile) {
+    init(profile: UserProfile, navigationSelection: String? = nil) {
         self.profile = profile
+        self.navigationSelection = navigationSelection
         // Initialize ChatService with profile ID
         _chatService = StateObject(
             wrappedValue: ChatService(
-                userID: profile.id, threadID: "thread_\(profile.id)_\(UUID().uuidString)"))
+                userID: profile.id, threadID: "thread_\(profile.id)_\(UUID().uuidString)"
+            ))
     }
 
     var body: some View {
         VStack(spacing: 0) {
-            ChatHeader(connected: self.chatService.isConnected, profile: self.profile)
+            ChatHeader(connected: chatService.isConnected, profile: profile)
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: NFTheme.Spacing.md, pinnedViews: []) {
-                        ForEach(Array(self.chatService.messages.enumerated()), id: \.1.id) {
+                        ForEach(Array(chatService.messages.enumerated()), id: \.1.id) {
                             idx, msg in
-                            Bubble(message: msg, isLastInGroup: self.groupBoundary(at: idx))
+                            Bubble(message: msg, isLastInGroup: groupBoundary(at: idx))
                                 .id(msg.id)
                         }
                         Color.clear.frame(height: 8)
@@ -239,7 +250,7 @@ struct NeuroForgeChatView: View {
                     .padding(.top, NFTheme.Spacing.md)
                 }
                 .background(AppleColors.controlBackground.ignoresSafeArea())
-                .onChange(of: self.chatService.messages.count) { _, _ in
+                .onChange(of: chatService.messages.count) { _, _ in
                     withAnimation {
                         if let last = chatService.messages.last {
                             proxy.scrollTo(last.id, anchor: .bottom)
@@ -247,23 +258,56 @@ struct NeuroForgeChatView: View {
                     }
                 }
             }
-            ChatComposer(
-                text: self.$chatService.inputText,
-                placeholder: "Type your message...",
-                isEnabled: true,
-                activeFeature: .none,
-                onSend: { text in
-                    await self.chatService.sendMessage(text)
+            // MARK: - Debug: Known-Good Input Test
+            // Uncomment ONE of these to debug:
+
+            // 1. Test basic input functionality:
+            // ChatInputBar.knownGoodInput()
+
+            // 2. Test UIKit fallback (guaranteed focus):
+            /*
+            FirstResponderField(text: $chatService.inputText) {
+                Task {
+                    await chatService.sendMessage(chatService.inputText)
+                    chatService.inputText = ""
                 }
+            }
+            .frame(maxWidth: .infinity)
+            .padding(12)
+            .background(Color(NSColor.textBackgroundColor))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.accentColor, lineWidth: 1.5)
             )
+            */
+
+            // 3. Production Input (with debugging enabled)
+            ChatInputBar(
+                text: $chatService.inputText,
+                onSend: { text in
+                    Task {
+                        await chatService.sendMessage(text)
+                    }
+                },
+                isSending: false,
+                focusTrigger: focusTrigger
+            )
+            .onChange(of: navigationSelection) { _, newSelection in
+                // Re-focus input when navigating back to chat
+                if newSelection == "chat" {
+                    focusTrigger.toggle() // Trigger focus
+                }
+            }
+            .modifier(HitTestProbe())  // Enable to visualize hit testing
         }
         .background(AppleColors.controlBackground)
     }
 
     private func groupBoundary(at index: Int) -> Bool {
-        guard index + 1 < self.chatService.messages.count else { return true }
-        let a = self.chatService.messages[index]
-        let b = self.chatService.messages[index + 1]
+        guard index + 1 < chatService.messages.count else { return true }
+        let a = chatService.messages[index]
+        let b = chatService.messages[index + 1]
         return a.isUser != b.isUser
     }
 }

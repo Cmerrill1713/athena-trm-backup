@@ -12,38 +12,38 @@ public enum Platform {
     /// True if running on iOS (iPhone/iPad)
     public static let isIOS: Bool = {
         #if os(iOS)
-        return true
+            return true
         #else
-        return false
+            return false
         #endif
     }()
 
     /// True if running on macOS
     public static let isMacOS: Bool = {
         #if os(macOS)
-        return true
+            return true
         #else
-        return false
+            return false
         #endif
     }()
 
     /// True if running on iOS simulator
     public static let isSimulator: Bool = {
         #if targetEnvironment(simulator)
-        return true
+            return true
         #else
-        return false
+            return false
         #endif
     }()
 
     /// Human-readable platform name
     public static var name: String {
         if isIOS {
-            return isSimulator ? "iOS Simulator" : "iOS"
+            isSimulator ? "iOS Simulator" : "iOS"
         } else if isMacOS {
-            return "macOS"
+            "macOS"
         } else {
-            return "Unknown"
+            "Unknown"
         }
     }
 }
@@ -54,22 +54,22 @@ public enum Platform {
 public enum FeatureAvailability {
     /// Avatar morphing capabilities available on this platform
     public static var avatarMorphing: Bool {
-        Platform.isIOS  // Only iOS supports full morphing currently
+        Platform.isIOS // Only iOS supports full morphing currently
     }
 
     /// Mobile notifications available
     public static var notifications: Bool {
-        Platform.isIOS  // Only iOS has local notifications
+        Platform.isIOS // Only iOS has local notifications
     }
 
     /// Haptic feedback available
     public static var haptics: Bool {
-        Platform.isIOS  // Only iOS has Taptic Engine
+        Platform.isIOS // Only iOS has Taptic Engine
     }
 
     /// Authentication interceptor available
     public static var authInterceptor: Bool {
-        Platform.isIOS  // Only iOS needs mobile auth
+        Platform.isIOS // Only iOS needs mobile auth
     }
 }
 
@@ -96,7 +96,7 @@ public enum NetworkConfig {
 
     /// Timeout for avatar operations
     public static var avatarTimeout: TimeInterval {
-        Platform.isSimulator ? 30.0 : 10.0  // Longer timeout for simulator
+        Platform.isSimulator ? 30.0 : 10.0 // Longer timeout for simulator
     }
 }
 
@@ -106,7 +106,7 @@ public enum NetworkConfig {
 public enum AvatarLogger {
     public static func debug(_ message: String) {
         #if DEBUG
-        print("[AvatarKit] \(message)")
+            print("[AvatarKit] \(message)")
         #endif
     }
 
@@ -132,4 +132,3 @@ public typealias AvatarMorphMode = AvatarMode
 
 @available(*, deprecated, renamed: "AvatarStatus", message: "Use AvatarStatus directly")
 public typealias AvatarState = AvatarStatus
-

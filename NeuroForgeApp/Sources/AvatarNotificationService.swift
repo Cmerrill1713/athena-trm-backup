@@ -11,7 +11,7 @@ final class AvatarNotificationService: NSObject, ObservableObject {
     @Published var isAuthorized = false
     @Published var lastNotification: AvatarNotification?
 
-    private override init() {
+    override private init() {
         super.init()
         #if canImport(UserNotifications)
             requestAuthorization()
@@ -32,12 +32,12 @@ final class AvatarNotificationService: NSObject, ObservableObject {
             }
 
             UNUserNotificationCenter.current().requestAuthorization(options: [
-                .alert, .sound, .badge,
+                .alert, .sound, .badge
             ]) {
                 granted, error in
                 DispatchQueue.main.async {
                     self.isAuthorized = granted
-                    if let error = error {
+                    if let error {
                         print("Notification authorization error: \(error.localizedDescription)")
                     }
                 }
@@ -62,7 +62,7 @@ final class AvatarNotificationService: NSObject, ObservableObject {
                 "type": "morph",
                 "from": from.rawValue,
                 "to": to.rawValue,
-                "awarenessLevel": awarenessLevel ?? 0,
+                "awarenessLevel": awarenessLevel ?? 0
             ]
 
             let request = UNNotificationRequest(
@@ -75,7 +75,8 @@ final class AvatarNotificationService: NSObject, ObservableObject {
         #endif
 
         lastNotification = AvatarNotification(
-            type: .morph, message: "Morphed from \(from.rawValue) to \(to.rawValue)")
+            type: .morph, message: "Morphed from \(from.rawValue) to \(to.rawValue)"
+        )
     }
 
     /// Trigger avatar error notification
@@ -91,7 +92,7 @@ final class AvatarNotificationService: NSObject, ObservableObject {
             content.userInfo = [
                 "type": "error",
                 "message": error,
-                "critical": isCritical,
+                "critical": isCritical
             ]
 
             let request = UNNotificationRequest(
@@ -104,7 +105,8 @@ final class AvatarNotificationService: NSObject, ObservableObject {
         #endif
 
         lastNotification = AvatarNotification(
-            type: .error, message: error, isCritical: isCritical)
+            type: .error, message: error, isCritical: isCritical
+        )
     }
 
     /// Trigger rollback notification
@@ -119,7 +121,7 @@ final class AvatarNotificationService: NSObject, ObservableObject {
             content.categoryIdentifier = "AVATAR_ROLLBACK"
             content.userInfo = [
                 "type": "rollback",
-                "target": to.rawValue,
+                "target": to.rawValue
             ]
 
             let request = UNNotificationRequest(
@@ -132,7 +134,8 @@ final class AvatarNotificationService: NSObject, ObservableObject {
         #endif
 
         lastNotification = AvatarNotification(
-            type: .rollback, message: "Automatically rolled back to \(to.rawValue)")
+            type: .rollback, message: "Automatically rolled back to \(to.rawValue)"
+        )
     }
 
     /// Trigger rollout phase change notification
@@ -148,7 +151,7 @@ final class AvatarNotificationService: NSObject, ObservableObject {
             content.userInfo = [
                 "type": "rollout",
                 "phase": phase,
-                "percentage": percentage,
+                "percentage": percentage
             ]
 
             let request = UNNotificationRequest(
@@ -161,7 +164,8 @@ final class AvatarNotificationService: NSObject, ObservableObject {
         #endif
 
         lastNotification = AvatarNotification(
-            type: .rollout, message: "Phase: \(phase) (\(percentage)% exposure)")
+            type: .rollout, message: "Phase: \(phase) (\(percentage)% exposure)"
+        )
     }
 
     /// Clear all avatar notifications
@@ -174,21 +178,22 @@ final class AvatarNotificationService: NSObject, ObservableObject {
 }
 
 // MARK: - UNUserNotificationCenterDelegate
+
 #if canImport(UserNotifications)
     extension AvatarNotificationService: UNUserNotificationCenterDelegate {
         func userNotificationCenter(
-            _ center: UNUserNotificationCenter,
-            willPresent notification: UNNotification,
+            _: UNUserNotificationCenter,
+            willPresent _: UNNotification,
             withCompletionHandler completionHandler:
-                @escaping (UNNotificationPresentationOptions) -> Void
+            @escaping (UNNotificationPresentationOptions) -> Void
         ) {
             // Show notification even when app is in foreground
             completionHandler([.banner, .sound])
         }
 
         func userNotificationCenter(
-            _ center: UNUserNotificationCenter,
-            didReceive response: UNNotificationResponse,
+            _: UNUserNotificationCenter,
+            didReceive _: UNNotificationResponse,
             withCompletionHandler completionHandler: @escaping () -> Void
         ) {
             // Handle notification actions if needed
@@ -198,6 +203,7 @@ final class AvatarNotificationService: NSObject, ObservableObject {
 #endif
 
 // MARK: - Avatar Notification Model
+
 struct AvatarNotification {
     enum NotificationType {
         case morph
@@ -208,7 +214,7 @@ struct AvatarNotification {
 
     let type: NotificationType
     let message: String
-    let timestamp: Date = Date()
+    let timestamp: Date = .init()
     let isCritical: Bool
 
     init(type: NotificationType, message: String, isCritical: Bool = false) {

@@ -1,0 +1,123 @@
+# Prometheus Alert Rules for Athena Routing System
+
+groups:
+  - name: routing_quality
+    interval: 30s
+    rules:
+      - alert: HighRoutingLatency
+        expr: histogram_quantile(0.95, rate(athena_router_latency_ms_bucket[5m])) > 50
+        for: 5m
+        labels:
+          severity: warning
+          component: routing
+        annotations:
+          summary: "High routing latency detected"
+          description: "p95 latency is {{ $value }}ms (> 50ms threshold) for model {{ $labels.model }}"
+
+      - alert: LowRoutingConfidence
+        expr: avg_over_time(athena_routing_confidence[5m]) < 0.6
+        for: 5m
+        labels:
+          severity: warning
+          component: routing
+        annotations:
+          summary: "Low routing confidence (5min avg)"
+          description: "5-minute average routing confidence is {{ $value }} (< 0.6) for {{ $labels.model }} in {{ $labels.domain }}"
+
+      - alert: HighFallbackRate
+        expr: rate(athena_fallbacks_total[5m]) / rate(athena_router_requests_total[5m]) > 0.3
+        for: 5m
+        labels:
+          severity: warning
+          component: routing
+        annotations:
+          summary: "High fallback rate detected"
+          description: "{{ $value | humanizePercentage }} of routing requests are falling back"
+
+      - alert: RoutingErrorSpike
+        expr: avg_over_time(rate(athena_router_requests_total{status="error"}[5m])[5m:30s]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          component: routing
+        annotations:
+          summary: "Routing error spike (5min rolling avg)"
+          description: "5-minute rolling average error rate is {{ $value | humanize }} req/s (> 0.05 threshold)"
+
+  - name: routing_cache
+    interval: 30s
+    rules:
+      - alert: LowCacheHitRate
+        expr: |
+          (
+            rate(athena_embedding_cache_hits_total[5m]) /
+            (rate(athena_embedding_cache_hits_total[5m]) + rate(athena_embedding_cache_misses_total[5m]))
+          ) < 0.7
+        for: 10m
+        labels:
+          severity: info
+          component: routing
+        annotations:
+          summary: "Low cache hit rate"
+          description: "Cache hit rate is {{ $value | humanizePercentage }} (< 70%)"
+
+  - name: routing_model_health
+    interval: 30s
+    rules:
+      - alert: ModelProfileLoadFailure
+        expr: increase(athena_model_profile_loads_total{status="error"}[5m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+          component: routing
+        annotations:
+          summary: "Model profile load failure"
+          description: "Failed to load model profiles {{ $value }} times in last 5 minutes"
+
+      - alert: NoRoutingActivity
+        expr: rate(athena_router_requests_total[5m]) == 0
+        for: 10m
+        labels:
+          severity: warning
+          component: routing
+        annotations:
+          summary: "No routing activity detected"
+          description: "No routing requests in last 10 minutes - router may be down"
+
+  - name: routing_safety
+    interval: 30s
+    rules:
+      - alert: RefleAgentErrorSpike
+        expr: avg_over_time(rate(reflex_agent_errors_total[5m])[5m:30s]) > 0.2
+        for: 5m
+        labels:
+          severity: warning
+          component: routing
+        annotations:
+          summary: "Reflex agent error spike (5min rolling avg)"
+          description: "Agent {{ $labels.agent }} has {{ $value | humanize }} errors/s 5min avg (type: {{ $labels.error_type }})"
+
+  - name: shadow_mode
+    interval: 30s
+    rules:
+      - alert: LowShadowAgreement
+        expr: |
+          rate(athena_shadow_agreement_total[5m]) /
+          rate(athena_router_requests_total[5m]) < 0.8
+        for: 10m
+        labels:
+          severity: warning
+          component: routing
+        annotations:
+          summary: "Low shadow mode agreement"
+          description: "Shadow router agreement rate is {{ $value | humanizePercentage }} (< 80%)"
+
+      - alert: HighConfidenceDeltaVariance
+        expr: avg_over_time(stddev_over_time(athena_shadow_confidence_delta[10m])[5m:1m]) > 0.4
+        for: 10m
+        labels:
+          severity: info
+          component: routing
+        annotations:
+          summary: "High confidence delta variance (stable)"
+          description: "Rolling confidence delta std dev is {{ $value }} (> 0.4) - sustained variance detected"

@@ -3,7 +3,6 @@ import SwiftUI
 // MARK: - Live Governance Dashboard
 
 struct GovernanceDashboardLiveView: View {
-
     @StateObject private var viewModel = GovernanceViewModel()
 
     var body: some View {
@@ -202,7 +201,7 @@ struct VerdictCountsCard: View {
                     columns: [
                         GridItem(.flexible()),
                         GridItem(.flexible()),
-                        GridItem(.flexible()),
+                        GridItem(.flexible())
                     ], spacing: 16
                 ) {
                     ForEach(
@@ -226,10 +225,10 @@ struct VerdictCountBadge: View {
 
     var color: Color {
         switch type.lowercased() {
-        case "pass": return .green
-        case "soft_fail", "soft-fail": return .yellow
-        case "hard_fail", "hard-fail": return .red
-        default: return .gray
+        case "pass": .green
+        case "soft_fail", "soft-fail": .yellow
+        case "hard_fail", "hard-fail": .red
+        default: .gray
         }
     }
 
@@ -263,7 +262,7 @@ struct RemediationMetricsCard: View {
             LazyVGrid(
                 columns: [
                     GridItem(.flexible()),
-                    GridItem(.flexible()),
+                    GridItem(.flexible())
                 ], spacing: 12
             ) {
                 MetricBadge(label: "Requested", value: metrics.requested, color: .blue)
@@ -321,7 +320,8 @@ struct VerdictSubmissionView: View {
             Section("Verdict Details") {
                 TextField(
                     "Task ID", text: $taskId,
-                    prompt: Text("ui-custom-\(Int(Date().timeIntervalSince1970))"))
+                    prompt: Text("ui-custom-\(Int(Date().timeIntervalSince1970))")
+                )
 
                 Picker("Verdict Type", selection: $selectedVerdict) {
                     ForEach(verdictTypes, id: \.self) { type in
@@ -343,7 +343,8 @@ struct VerdictSubmissionView: View {
                                     selectedActions.remove(action)
                                 }
                             }
-                        ))
+                        )
+                    )
                 }
             }
 
@@ -352,7 +353,7 @@ struct VerdictSubmissionView: View {
                     Task {
                         let id =
                             taskId.isEmpty
-                            ? "ui-custom-\(Int(Date().timeIntervalSince1970))" : taskId
+                                ? "ui-custom-\(Int(Date().timeIntervalSince1970))" : taskId
                         await viewModel.sendCustomVerdict(
                             taskId: id,
                             verdict: selectedVerdict,
@@ -431,7 +432,7 @@ struct GovernanceSettingsView: View {
 
             Section("Auto-Refresh") {
                 Toggle("Enable Auto-Refresh", isOn: $viewModel.autoRefresh)
-                    .onChange(of: viewModel.autoRefresh) { oldValue, newValue in
+                    .onChange(of: viewModel.autoRefresh) { _, newValue in
                         if newValue {
                             viewModel.startAutoRefresh()
                         } else {

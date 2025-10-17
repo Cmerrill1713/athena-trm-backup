@@ -6,7 +6,7 @@ struct SystemEmergencyWindow: View {
 
     init(emergency: SystemEmergency) {
         self.emergency = emergency
-        self._remaining = State(initialValue: emergency.countdownSeconds)
+        _remaining = State(initialValue: emergency.countdownSeconds)
     }
 
     var body: some View {
@@ -14,23 +14,23 @@ struct SystemEmergencyWindow: View {
             Text("🚨 SYSTEM EMERGENCY").font(.title.bold()).foregroundColor(.red)
 
             HStack {
-                Text(self.emergency.title).font(.headline)
+                Text(emergency.title).font(.headline)
                 Spacer()
-                Text("Risk: \(self.emergency.risk.rawValue.uppercased())").bold()
+                Text("Risk: \(emergency.risk.rawValue.uppercased())").bold()
             }
 
-            Text(self.emergency.analysis).font(.body)
+            Text(emergency.analysis).font(.body)
 
-            if !self.emergency.actions.isEmpty {
+            if !emergency.actions.isEmpty {
                 Divider()
                 Text("Emergency Actions").font(.subheadline.bold())
-                ForEach(self.emergency.actions, id: \.self) { a in
+                ForEach(emergency.actions, id: \.self) { a in
                     Text("• \(a)")
                 }
             }
 
             HStack {
-                Text("Auto-execute in \(self.remaining)s")
+                Text("Auto-execute in \(remaining)s")
                     .monospacedDigit()
                 Spacer()
                 Button("Execute Now") { /* execute action */ }
@@ -41,9 +41,9 @@ struct SystemEmergencyWindow: View {
         .onAppear {
             // simple countdown (no timers retained after window closes)
             Task { @MainActor in
-                while self.remaining > 0 {
+                while remaining > 0 {
                     try? await Task.sleep(nanoseconds: 1_000_000_000)
-                    self.remaining -= 1
+                    remaining -= 1
                 }
                 // auto-execute hook here
             }

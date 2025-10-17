@@ -24,7 +24,7 @@ public struct CriticalAlert: Identifiable, Codable {
         title: String, message: String, severity: AlertSeverity, affectedSystems: [String] = [],
         recommendations: [String] = []
     ) {
-        self.id = UUID()
+        id = UUID()
         self.title = title
         self.message = message
         self.severity = severity
@@ -44,7 +44,7 @@ public struct TribunalCase: Identifiable, Codable {
         caseID: String, summary: String, aiRecommendation: TribunalDecisionOption,
         confidence: Double
     ) {
-        self.id = UUID()
+        id = UUID()
         self.caseID = caseID
         self.summary = summary
         self.aiRecommendation = aiRecommendation
@@ -64,7 +64,7 @@ public struct SystemEmergency: Identifiable, Codable {
         title: String, analysis: String, countdownSeconds: Int, risk: RiskLevel,
         actions: [String] = []
     ) {
-        self.id = UUID()
+        id = UUID()
         self.title = title
         self.analysis = analysis
         self.countdownSeconds = countdownSeconds
@@ -81,17 +81,17 @@ public enum GovernanceMode: String, Codable, CaseIterable, Identifiable {
 
     public var displayName: String {
         switch self {
-        case .shadow: return "Shadow"
-        case .canary: return "Canary"
-        case .enforce: return "Enforce"
+        case .shadow: "Shadow"
+        case .canary: "Canary"
+        case .enforce: "Enforce"
         }
     }
 
     public var description: String {
         switch self {
-        case .shadow: return "0% impact - Observe only"
-        case .canary: return "1-5% impact - Partial enforcement"
-        case .enforce: return "100% impact - Full governance"
+        case .shadow: "0% impact - Observe only"
+        case .canary: "1-5% impact - Partial enforcement"
+        case .enforce: "100% impact - Full governance"
         }
     }
 }
@@ -150,6 +150,6 @@ public struct GovernanceAlert: Identifiable {
     public init(message: String, severity: AlertSeverity) {
         self.message = message
         self.severity = severity
-        self.timestamp = Date()
+        timestamp = Date()
     }
 }

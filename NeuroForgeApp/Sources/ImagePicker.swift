@@ -11,7 +11,7 @@ struct ImagePicker: View {
                 .font(.headline)
 
             HStack(spacing: 20) {
-                Button(action: { self.selectFromFiles() }) {
+                Button(action: { selectFromFiles() }) {
                     VStack {
                         Image(systemName: "photo.on.rectangle")
                             .font(.system(size: 40))
@@ -20,7 +20,7 @@ struct ImagePicker: View {
                 }
                 .buttonStyle(.bordered)
 
-                Button(action: { self.takeScreenshot() }) {
+                Button(action: { takeScreenshot() }) {
                     VStack {
                         Image(systemName: "camera.viewfinder")
                             .font(.system(size: 40))
@@ -31,7 +31,7 @@ struct ImagePicker: View {
             }
 
             Button("Cancel") {
-                self.isPresented = false
+                isPresented = false
             }
             .buttonStyle(.plain)
         }
@@ -47,8 +47,8 @@ struct ImagePicker: View {
 
         if panel.runModal() == .OK, let url = panel.url {
             if let data = try? Data(contentsOf: url) {
-                self.onImageSelected(data)
-                self.isPresented = false
+                onImageSelected(data)
+                isPresented = false
             }
         }
     }
@@ -64,9 +64,9 @@ struct ImagePicker: View {
         task.waitUntilExit()
 
         if let data = try? Data(contentsOf: URL(fileURLWithPath: tempFile)) {
-            self.onImageSelected(data)
+            onImageSelected(data)
             try? FileManager.default.removeItem(atPath: tempFile)
-            self.isPresented = false
+            isPresented = false
         }
     }
 }

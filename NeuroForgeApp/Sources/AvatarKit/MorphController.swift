@@ -7,7 +7,6 @@ import Foundation
 
 /// Central controller for avatar morphing logic - shared across platforms
 public final class MorphController: ObservableObject {
-
     // MARK: - Public Properties
 
     @Published public private(set) var currentStatus: AvatarStatus
@@ -38,7 +37,7 @@ public final class MorphController: ObservableObject {
 
     public init(baseURL: URL = URL(string: "http://localhost:8035")!) {
         self.baseURL = baseURL
-        self.currentStatus = AvatarStatus()
+        currentStatus = AvatarStatus()
     }
 
     // MARK: - Public Methods
@@ -60,7 +59,7 @@ public final class MorphController: ObservableObject {
         guard targetMode != currentMode else { return true }
 
         // Check if morphing is available
-        if targetMode != .ghost && !MorphFeature.active {
+        if targetMode != .ghost, !MorphFeature.active {
             throw MorphError.featureDisabled
         }
 
@@ -95,7 +94,8 @@ public final class MorphController: ObservableObject {
         let (data, response) = try await URLSession.shared.data(from: statusURL)
 
         guard let httpResponse = response as? HTTPURLResponse,
-              (200..<300).contains(httpResponse.statusCode) else {
+              (200 ..< 300).contains(httpResponse.statusCode)
+        else {
             throw MorphError.networkError
         }
 
@@ -140,7 +140,7 @@ public final class MorphController: ObservableObject {
             throw MorphError.networkError
         }
 
-        if (200..<300).contains(httpResponse.statusCode) {
+        if (200 ..< 300).contains(httpResponse.statusCode) {
             let morphResponse = try JSONDecoder().decode(AvatarMorphResponse.self, from: data)
             return morphResponse.success
         } else if httpResponse.statusCode == 429 {
@@ -162,14 +162,13 @@ public enum MorphError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .featureDisabled:
-            return "Morphing feature is disabled"
+            "Morphing feature is disabled"
         case .networkError:
-            return "Network connection failed"
+            "Network connection failed"
         case .rateLimited:
-            return "Too many morph requests - please wait"
-        case .serverError(let code):
-            return "Server error: HTTP \(code)"
+            "Too many morph requests - please wait"
+        case let .serverError(code):
+            "Server error: HTTP \(code)"
         }
     }
 }
-

@@ -12,4 +12,3 @@ struct PromptEngineeringResponse {
     let code: String?
     let explanation: String?
 }
-

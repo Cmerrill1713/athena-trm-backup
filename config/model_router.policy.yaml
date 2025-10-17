@@ -1,0 +1,94 @@
+version: 1
+default_strategy: local_first
+fail_closed: true
+
+# Priority order: MLX primary, Ollama fallback, browser secondary, cloud last
+order:
+  - local_mlx        # Apple Silicon optimized (primary)
+  - local_ollama     # General purpose fallback
+  - browser_tools    # Local browser automation (if allowed)
+  - cloud_frontier   # External APIs (last resort, governance controlled)
+
+# Global allow/deny switches
+allow_cloud: false
+allow_browser: true
+fail_closed: true
+
+# Model backends configuration
+models:
+  local_mlx:
+    runner: "mlx_lm"
+    devices: ["metal"]  # Apple Silicon GPU
+    required: false     # Not required (may not be available on all systems)
+    timeout: 30
+    names:
+      - "codellama-34b": "mlx-community/CodeLlama-34b-Instruct-hf-4bit-MLX"
+      - "gpt-4-turbo": "mlx-community/OpenHermes-2.5-Mistral-7B"
+      - "gpt-3.5-turbo": "mlx-community/Phi-2-3B-4bit-mlx"
+      - "claude-3-opus": "mlx-community/Mistral-7B-Instruct-v0.2"
+
+  local_ollama:
+    endpoint: "http://127.0.0.1:11434"
+    required: true      # Must be available
+    timeout: 60
+    names:
+      - "codellama-34b": "qwen3-coder:30b"
+      - "gpt-4-turbo": "qwen2.5:14b"
+      - "gpt-3.5-turbo": "qwen2.5:7b"
+      - "claude-3-opus": "mistral:7b"
+      - "llama-3.2-3b": "llama3.2:3b"
+      - "gpt-oss-20b": "gpt-oss:20b"
+
+  browser_tools:
+    endpoint: "http://127.0.0.1:9222"  # Chrome DevTools Protocol
+    required: false
+    timeout: 120
+    capabilities: ["web_search", "web_scraping", "form_filling"]
+
+  cloud_frontier:
+    # Only used as absolute last resort under governance approval
+    required: false
+    timeout: 30
+    providers:
+      - openai
+      - anthropic
+      - google
+      - cohere
+
+# Governance guards (deny conditions)
+guards:
+  deny_when_env:
+    - key: ATHENA_NO_CLOUD
+      equals: "1"
+      deny_targets: ["cloud_frontier"]
+      action: "block"
+
+    - key: ATHENA_FAIL_CLOSED
+      equals: "1"
+      deny_targets: ["cloud_frontier", "browser_tools"]
+      action: "block"
+
+  deny_when_missing:
+    - check: "local_ollama_available"
+      deny_targets: ["cloud_frontier"]
+      action: "fallback_to_browser"
+
+# Monitoring and alerting
+monitoring:
+  metrics:
+    - athena_router_local_success_total
+    - athena_router_cloud_attempts_total
+    - athena_router_cloud_blocked_total
+    - athena_router_fallback_used_total
+
+  alerts:
+    cloud_attempt_detected:
+      condition: "athena_router_cloud_attempts_total > 0"
+      severity: "critical"
+      message: "Cloud model usage detected - immediate investigation required"
+
+    local_stack_down:
+      condition: "athena_router_local_success_total == 0"
+      duration: "5m"
+      severity: "warning"
+      message: "Local model stack unavailable - check MLX/Ollama"

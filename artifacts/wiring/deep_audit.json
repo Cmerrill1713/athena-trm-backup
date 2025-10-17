@@ -1,0 +1,422 @@
+{
+  "NeuroForgeApp_Clean": {
+    "status": "exists",
+    "file_count": 11,
+    "total_size": 11802,
+    "files": [
+      {
+        "path": "NeuroForgeApp_Clean/Sources/AthenaPopoutDemo/main.swift",
+        "size": 2672,
+        "referenced_by": [
+          "./governance/archive/old_iterations/PREFLIGHT_60SEC.sh",
+          "./infra_snapshot/scripts/bootstrap_broker.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/judicial/evaluation/test_02_unacceptable_errnos_1.sh",
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/archive/old_iterations/install_frontend_hooks.sh",
+          "./governance/archive/old_iterations/SHIP_IT_NOW_1760483750.sh"
+        ]
+      },
+      {
+        "path": "NeuroForgeApp_Clean/Sources/AthenaPopoutDemo/AthenaDashboardView.swift",
+        "size": 1813,
+        "referenced_by": [
+          "./NeuroForgeApp/.build/index-build/plugin-tools.yaml",
+          "./scripts/quick_add_to_xcode.sh",
+          "./governance/archive/old_iterations/quick_add_to_xcode.sh",
+          "./scripts/restore_neuroforge_frontend.sh",
+          "./AthenaPopoutDemo/.build/plugin-tools.yaml"
+        ]
+      },
+      {
+        "path": "NeuroForgeApp_Clean/Sources/AthenaPopoutDemo/SystemEmergencyWindow.swift",
+        "size": 1654,
+        "referenced_by": [
+          "./NeuroForgeApp/.build/index-build/plugin-tools.yaml",
+          "./scripts/quick_add_to_xcode.sh",
+          "./governance/archive/old_iterations/quick_add_to_xcode.sh",
+          "./scripts/restore_neuroforge_frontend.sh",
+          "./AthenaPopoutDemo/.build/plugin-tools.yaml"
+        ]
+      },
+      {
+        "path": "NeuroForgeApp_Clean/Sources/AthenaPopoutDemo/TribunalDecisionWindow.swift",
+        "size": 1455,
+        "referenced_by": [
+          "./NeuroForgeApp/.build/index-build/plugin-tools.yaml",
+          "./scripts/quick_add_to_xcode.sh",
+          "./governance/archive/old_iterations/quick_add_to_xcode.sh",
+          "./scripts/restore_neuroforge_frontend.sh",
+          "./AthenaPopoutDemo/.build/plugin-tools.yaml"
+        ]
+      },
+      {
+        "path": "NeuroForgeApp_Clean/Sources/AthenaPopoutDemo/CriticalAlertWindow.swift",
+        "size": 1289,
+        "referenced_by": [
+          "./NeuroForgeApp/.build/index-build/plugin-tools.yaml",
+          "./scripts/quick_add_to_xcode.sh",
+          "./governance/archive/old_iterations/quick_add_to_xcode.sh",
+          "./scripts/restore_neuroforge_frontend.sh",
+          "./AthenaPopoutDemo/.build/plugin-tools.yaml"
+        ]
+      },
+      {
+        "path": "NeuroForgeApp_Clean/Sources/AthenaPopoutDemo/AthenaModels.swift",
+        "size": 1066,
+        "referenced_by": [
+          "./NeuroForgeApp/.build/index-build/plugin-tools.yaml",
+          "./scripts/quick_add_to_xcode.sh",
+          "./governance/archive/old_iterations/quick_add_to_xcode.sh",
+          "./config/wiring.matrix.yaml",
+          "./scripts/restore_neuroforge_frontend.sh"
+        ]
+      },
+      {
+        "path": "NeuroForgeApp_Clean/Sources/AthenaPopoutDemo/AthenaState.swift",
+        "size": 731,
+        "referenced_by": [
+          "./NeuroForgeApp/.build/index-build/plugin-tools.yaml",
+          "./scripts/quick_add_to_xcode.sh",
+          "./governance/archive/old_iterations/quick_add_to_xcode.sh",
+          "./config/wiring.matrix.yaml",
+          "./scripts/restore_neuroforge_frontend.sh"
+        ]
+      },
+      {
+        "path": "NeuroForgeApp_Clean/Package.swift",
+        "size": 468,
+        "referenced_by": [
+          "./scripts/xcode_run_app.sh",
+          "./governance/judicial/evaluation/defines_3.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/legislative/policy_compiler/watch_dev.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/judicial/evaluation/defines_8.sh",
+          "./infra_snapshot/scripts/bootstrap_broker.sh"
+        ]
+      },
+      {
+        "path": "NeuroForgeApp_Clean/Sources/AthenaPopoutDemo/Notifications+App.swift",
+        "size": 290,
+        "referenced_by": [
+          "./NeuroForgeApp/.build/index-build/plugin-tools.yaml",
+          "./scripts/quick_add_to_xcode.sh",
+          "./governance/archive/old_iterations/quick_add_to_xcode.sh",
+          "./scripts/restore_neuroforge_frontend.sh",
+          "./AthenaPopoutDemo/.build/plugin-tools.yaml"
+        ]
+      },
+      {
+        "path": "NeuroForgeApp_Clean/Sources/AthenaPopoutDemo/VoiceManager.swift",
+        "size": 205,
+        "referenced_by": [
+          "./NeuroForgeApp/.build/index-build/plugin-tools.yaml",
+          "./scripts/quick_add_to_xcode.sh",
+          "./governance/archive/old_iterations/quick_add_to_xcode.sh",
+          "./scripts/restore_neuroforge_frontend.sh",
+          "./AthenaPopoutDemo/.build/plugin-tools.yaml"
+        ]
+      },
+      {
+        "path": "NeuroForgeApp_Clean/.gitignore",
+        "size": 159,
+        "referenced_by": [
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/scripts/backup-to-desktop.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/generate-production-secrets_1760484280.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/backup-to-desktop.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/backup-to-desktop_1760484280.sh",
+          "./governance/archive/old_iterations/generate-production-secrets_1760484280.sh"
+        ]
+      }
+    ]
+  },
+  "Desktop-Projects": {
+    "status": "exists",
+    "file_count": 0,
+    "total_size": 0,
+    "files": []
+  },
+  "ai_republic": {
+    "status": "exists",
+    "file_count": 25,
+    "total_size": 253967,
+    "files": [
+      {
+        "path": "ai_republic/phase3/phase3_federation_core.py",
+        "size": 36002,
+        "referenced_by": [
+          "./governance/executive/orchestration/phase3_deployment.sh",
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/executive/orchestration/phase3_deployment.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/executive/orchestration/phase3_deployment.sh"
+        ]
+      },
+      {
+        "path": "ai_republic/phase3/phase3_onboarding_protocol.py",
+        "size": 28739,
+        "referenced_by": [
+          "./governance/executive/orchestration/phase3_deployment.sh",
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/executive/orchestration/phase3_deployment.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/executive/orchestration/phase3_deployment.sh"
+        ]
+      },
+      {
+        "path": "ai_republic/phase3/phase3_evidence_exchange.py",
+        "size": 28663,
+        "referenced_by": [
+          "./governance/executive/orchestration/phase3_deployment.sh",
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/executive/orchestration/phase3_deployment.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/executive/orchestration/phase3_deployment.sh"
+        ]
+      },
+      {
+        "path": "ai_republic/federation/FOP_CHARTER.md",
+        "size": 17951,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/phase3/phase3_federation_api.py",
+        "size": 15569,
+        "referenced_by": [
+          "./governance/executive/orchestration/phase3_deployment.sh",
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/executive/orchestration/phase3_deployment.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/executive/orchestration/phase3_deployment.sh"
+        ]
+      },
+      {
+        "path": "ai_republic/phase2/phase2_judicial_runtime.py",
+        "size": 15027,
+        "referenced_by": [
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/executive/orchestration/phase2_deployment.sh",
+          "./governance/executive/orchestration/phase2_deployment.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/executive/orchestration/phase2_deployment.sh",
+          "./governance/archive/old_iterations/demo_ai_republic_cli.sh",
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/archive/old_iterations/demo_ai_republic_cli.sh"
+        ]
+      },
+      {
+        "path": "ai_republic/federation/fop_runbook.md",
+        "size": 14725,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/federation/fop_gateway_api.py",
+        "size": 12814,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/federation/fop_reputation_agg.py",
+        "size": 12220,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/federation/fop_crypto.md",
+        "size": 12138,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/phase3/phase3_runbook.md",
+        "size": 11368,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/phase3/PHASE3_README.md",
+        "size": 8795,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/federation/fop_evidence_schema.json",
+        "size": 7111,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/federation/fop_treaty_policies.yaml",
+        "size": 6528,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/phase2/phase2_judicial_engine.py",
+        "size": 6252,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/phase2/PHASE2_README.md",
+        "size": 5805,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/federation/fop_trust_tiers.yaml",
+        "size": 5687,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/phase2/phase2_runbook.md",
+        "size": 3413,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/phase2/phase2_api.py",
+        "size": 1072,
+        "referenced_by": []
+      },
+      {
+        "path": "ai_republic/federation/fop_config.json",
+        "size": 1029,
+        "referenced_by": [
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/executive/orchestration/fop_deployment.sh",
+          "./governance/executive/orchestration/fop_deployment.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/executive/orchestration/fop_deployment.sh"
+        ]
+      }
+    ]
+  },
+  "infra_snapshot": {
+    "status": "exists",
+    "file_count": 154,
+    "total_size": 859969,
+    "files": [
+      {
+        "path": "infra_snapshot/repo_tree.txt",
+        "size": 136234,
+        "referenced_by": []
+      },
+      {
+        "path": "infra_snapshot/scripts/production_validation_suite.sql",
+        "size": 42497,
+        "referenced_by": [
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/audit_smoke_1760484436.sh",
+          "./scripts/audit_smoke.sh",
+          "./governance/archive/old_iterations/audit_smoke_1760484436.sh",
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/archive/old_iterations/run_production_validation_1760484436.sh",
+          "./governance/observability/production_safety_alerts.yml"
+        ]
+      },
+      {
+        "path": "infra_snapshot/scripts/layered_amendment_protocol.py",
+        "size": 31336,
+        "referenced_by": []
+      },
+      {
+        "path": "infra_snapshot/scripts/incident_ledger.py",
+        "size": 25970,
+        "referenced_by": []
+      },
+      {
+        "path": "infra_snapshot/scripts/constitutional_peer_network.py",
+        "size": 20624,
+        "referenced_by": []
+      },
+      {
+        "path": "infra_snapshot/scripts/athena_report.py",
+        "size": 17928,
+        "referenced_by": [
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/judicial/evaluation/test_voice_with_logs.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/judicial/evaluation/final_voice_test.sh",
+          "./scripts/diagnose_voice.sh",
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/archive/old_iterations/diagnose_voice.sh",
+          "./governance/judicial/evaluation/test_voice_loading.sh"
+        ]
+      },
+      {
+        "path": "infra_snapshot/scripts/auto_promotion.py",
+        "size": 16743,
+        "referenced_by": []
+      },
+      {
+        "path": "infra_snapshot/scripts/promotion_manager.py",
+        "size": 14533,
+        "referenced_by": []
+      },
+      {
+        "path": "infra_snapshot/.github_workflows/neuroforge_validation.yml",
+        "size": 13180,
+        "referenced_by": [
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/archive/old_iterations/final_verification_1760484436.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/final_verification.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/final_verification_1760484436.sh",
+          "./scripts/final_verification.sh",
+          "./governance/archive/old_iterations/final_verification_1760484436.sh"
+        ]
+      },
+      {
+        "path": "infra_snapshot/.github_workflows/ai-republic-ci.yml",
+        "size": 11009,
+        "referenced_by": []
+      },
+      {
+        "path": "infra_snapshot/.github_workflows/optimization_ci.yml",
+        "size": 10928,
+        "referenced_by": []
+      },
+      {
+        "path": "infra_snapshot/scripts/implement_research_paper.py",
+        "size": 10287,
+        "referenced_by": []
+      },
+      {
+        "path": "infra_snapshot/scripts/stack_watchdog.sh",
+        "size": 9750,
+        "referenced_by": [
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/archive/old_iterations/setup_voice_control.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/setup_voice_control.sh",
+          "./governance/archive/old_iterations/setup_voice_control.sh"
+        ]
+      },
+      {
+        "path": "infra_snapshot/scripts/lineage/build_lineage.py",
+        "size": 9407,
+        "referenced_by": []
+      },
+      {
+        "path": "infra_snapshot/scripts/e2e_full_sweep.py",
+        "size": 9297,
+        "referenced_by": [
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/archive/old_iterations/validate_green.sh",
+          "./governance/archive/old_iterations/validate_green_1760484436.sh",
+          "./scripts/validate_green.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/validate_green_1760484436.sh",
+          "./governance/archive/old_iterations/validate_green.sh"
+        ]
+      },
+      {
+        "path": "infra_snapshot/scripts/app_wizard.py",
+        "size": 9239,
+        "referenced_by": [
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/archive/old_iterations/launch_checklist.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/launch_checklist.sh",
+          "./scripts/launch_checklist.sh",
+          "./governance/archive/old_iterations/launch_checklist_1760484436.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/launch_checklist_1760484436.sh"
+        ]
+      },
+      {
+        "path": "infra_snapshot/scripts/integrate_tracing.py",
+        "size": 9180,
+        "referenced_by": []
+      },
+      {
+        "path": "infra_snapshot/scripts/watchdog.sh",
+        "size": 8817,
+        "referenced_by": [
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/archive/old_iterations/setup_voice_control.sh",
+          "./governance/judicial/evaluation/fastvlm_crash_test.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/judicial/evaluation/fastvlm_crash_test.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/setup_voice_control.sh",
+          "./governance/archive/old_iterations/setup_voice_control.sh"
+        ]
+      },
+      {
+        "path": "infra_snapshot/scripts/bootstrap_broker.sh",
+        "size": 8533,
+        "referenced_by": [
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/CLEANUP_PHASE3.sh",
+          "./AI-Projects/universal-ai-tools/archive/pre-consolidation-20251014_223801/governance/archive/old_iterations/CLEANUP_PHASE3_1760484436.sh",
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/archive/old_iterations/CLEANUP_PHASE3.sh",
+          "./AI-Projects/universal-ai-tools/athena-complete/neuroforge/governance/archive/old_iterations/CLEANUP_PHASE3_1760484436.sh",
+          "./scripts/CLEANUP_PHASE3.sh"
+        ]
+      },
+      {
+        "path": "infra_snapshot/scripts/tune_rag_threshold.py",
+        "size": 8516,
+        "referenced_by": []
+      }
+    ]
+  }
+}

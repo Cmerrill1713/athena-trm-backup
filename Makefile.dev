@@ -1,0 +1,228 @@
+# Makefile.dev - Developer Mode Automation
+# Usage: make -f Makefile.dev dev-loop (or just `make dev-loop` if included in main Makefile)
+
+.PHONY: dev-loop dev-loop-once dev-status dev-trace dev-validate help
+
+SHELL := /bin/bash
+
+# Colors for output
+RED := \033[0;31m
+GREEN := \033[0;32m
+YELLOW := \033[1;33m
+BLUE := \033[0;34m
+NC := \033[0m # No Color
+
+help:
+	@echo "Developer Mode Targets:"
+	@echo "  dev-loop        - Continuous validation loop (10 min intervals)"
+	@echo "  dev-loop-once   - Run one dev cycle"
+	@echo "  dev-status      - Quick system status check"
+	@echo "  dev-trace       - Check trace propagation through system"
+	@echo "  dev-validate    - Full validation (wiring + endpoints + metrics)"
+	@echo ""
+	@echo "Usage: make -f Makefile.dev <target>"
+	@echo "  or: make dev-loop (if included in main Makefile)"
+
+# Run dev loop continuously (every 10 minutes)
+dev-loop:
+	@echo "$(GREEN)🔁 Starting Developer Mode Loop (Ctrl+C to stop)$(NC)"
+	@echo "$(BLUE)Validation runs every 10 minutes$(NC)"
+	@while true; do \
+		make -f Makefile.dev dev-loop-once; \
+		echo ""; \
+		echo "$(YELLOW)⏸️  Sleeping for 10 minutes... (next run at $$(date -v+10M '+%H:%M:%S'))$(NC)"; \
+		sleep 600; \
+	done
+
+# Run one dev cycle
+dev-loop-once:
+	@clear
+	@echo "$(GREEN)╔════════════════════════════════════════════════════════════════╗$(NC)"
+	@echo "$(GREEN)║         🔁 DEV LOOP: $$(date '+%Y-%m-%d %H:%M:%S')              ║$(NC)"
+	@echo "$(GREEN)╚════════════════════════════════════════════════════════════════╝$(NC)"
+	@echo ""
+	@make -f Makefile.dev dev-status
+	@echo ""
+	@make -f Makefile.dev dev-validate
+	@echo ""
+	@make -f Makefile.dev dev-trace
+
+# Quick system status
+dev-status:
+	@echo "$(BLUE)═══ System Status ═══$(NC)"
+	@echo -n "Orchestrator (9110): "
+	@if curl -sf --max-time 2 http://localhost:9110/health >/dev/null 2>&1; then \
+		echo "$(GREEN)✅ UP$(NC)"; \
+	else \
+		echo "$(RED)❌ DOWN$(NC)"; \
+	fi
+	@echo -n "Canary (9111):       "
+	@if curl -sf --max-time 2 http://localhost:9111/health >/dev/null 2>&1; then \
+		echo "$(GREEN)✅ UP$(NC)"; \
+	else \
+		echo "$(RED)❌ DOWN$(NC)"; \
+	fi
+	@echo -n "Remediator (9112):   "
+	@if curl -sf --max-time 2 http://localhost:9112/health >/dev/null 2>&1; then \
+		echo "$(GREEN)✅ UP$(NC)"; \
+	else \
+		echo "$(RED)❌ DOWN$(NC)"; \
+	fi
+	@echo -n "Prometheus (9090):   "
+	@if curl -sf --max-time 2 http://localhost:9090/-/healthy >/dev/null 2>&1; then \
+		echo "$(GREEN)✅ UP$(NC)"; \
+	else \
+		echo "$(RED)❌ DOWN$(NC)"; \
+	fi
+	@echo -n "Metrics Exporter (9109): "
+	@if curl -sf --max-time 2 http://localhost:9109/metrics >/dev/null 2>&1; then \
+		echo "$(GREEN)✅ UP$(NC)"; \
+	else \
+		echo "$(RED)❌ DOWN$(NC)"; \
+	fi
+
+# Full validation
+dev-validate:
+	@echo "$(BLUE)═══ Validation ═══$(NC)"
+	@echo -n "Wiring check: "
+	@if [ -f "config/wiring.matrix.yaml" ]; then \
+		if make wire-check >/dev/null 2>&1; then \
+			echo "$(GREEN)✅ PASS$(NC)"; \
+		else \
+			echo "$(YELLOW)⚠️  WARN (check artifacts/wiring/)$(NC)"; \
+		fi; \
+	else \
+		echo "$(YELLOW)ℹ️  SKIP (no wiring matrix)$(NC)"; \
+	fi
+	@echo -n "Metrics available: "
+	@if curl -sf --max-time 2 http://localhost:9110/metrics | grep -q governance_verdicts_total; then \
+		echo "$(GREEN)✅ PASS$(NC)"; \
+	else \
+		echo "$(RED)❌ FAIL (no verdicts metric)$(NC)"; \
+	fi
+	@echo -n "Event bus functional: "
+	@if [ -f "infra/event_bus.py" ]; then \
+		echo "$(GREEN)✅ READY$(NC)"; \
+	else \
+		echo "$(RED)❌ MISSING$(NC)"; \
+	fi
+	@echo -n "Swift frontend builds: "
+	@if [ -f "NeuroForgeApp/Sources/Governance/GovernanceClient.swift" ]; then \
+		if cd NeuroForgeApp && swift build >/dev/null 2>&1; then \
+			echo "$(GREEN)✅ PASS$(NC)"; \
+		else \
+			echo "$(RED)❌ FAIL (build error)$(NC)"; \
+		fi; \
+	else \
+		echo "$(YELLOW)ℹ️  SKIP (no Swift frontend)$(NC)"; \
+	fi
+
+# Check trace propagation
+dev-trace:
+	@echo "$(BLUE)═══ Trace Propagation ═══$(NC)"
+	@echo -n "Test verdict submission: "
+	@TRACE_ID="dev-trace-$$(date +%s)"; \
+	if curl -sf --max-time 3 -X POST http://localhost:9110/verdict \
+		-H 'Content-Type: application/json' \
+		-d "{\"task_id\":\"$$TRACE_ID\",\"verdict\":\"PASS\",\"ts\":\"$$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" \
+		>/dev/null 2>&1; then \
+		echo "$(GREEN)✅ ACCEPTED (trace_id: $$TRACE_ID)$(NC)"; \
+		echo "  └─ Check: curl 'http://localhost:9090/api/v1/query?query=governance_verdicts_total'"; \
+	else \
+		echo "$(RED)❌ REJECTED$(NC)"; \
+	fi
+
+# Advanced: Endpoint coverage check
+dev-endpoints:
+	@echo "$(BLUE)═══ Endpoint Coverage ═══$(NC)"
+	@echo "Testing all governance endpoints..."
+	@echo -n "GET /health:  "
+	@curl -sf -o /dev/null -w "%{http_code}" --max-time 2 http://localhost:9110/health 2>/dev/null | \
+		grep -q 200 && echo "$(GREEN)✅$(NC)" || echo "$(RED)❌$(NC)"
+	@echo -n "GET /metrics: "
+	@curl -sf -o /dev/null -w "%{http_code}" --max-time 2 http://localhost:9110/metrics 2>/dev/null | \
+		grep -q 200 && echo "$(GREEN)✅$(NC)" || echo "$(RED)❌$(NC)"
+	@echo -n "GET /state:   "
+	@curl -sf -o /dev/null -w "%{http_code}" --max-time 2 http://localhost:9110/state 2>/dev/null | \
+		grep -q 200 && echo "$(GREEN)✅$(NC)" || echo "$(RED)❌$(NC)"
+	@echo -n "POST /verdict:"
+	@curl -sf -o /dev/null -w "%{http_code}" --max-time 2 \
+		-X POST http://localhost:9110/verdict \
+		-H 'Content-Type: application/json' \
+		-d '{"task_id":"test","verdict":"PASS","ts":"'$$(date -u +%Y-%m-%dT%H:%M:%SZ)'"}' \
+		2>/dev/null | grep -qE '200|202' && echo "$(GREEN)✅$(NC)" || echo "$(RED)❌$(NC)"
+
+# Metrics snapshot
+dev-metrics:
+	@echo "$(BLUE)═══ Metrics Snapshot ═══$(NC)"
+	@if curl -sf http://localhost:9090/api/v1/query?query=governance_verdicts_total 2>/dev/null | \
+		jq -r '.data.result[] | "  \(.metric.verdict_type): \(.value[1])"' 2>/dev/null; then \
+		true; \
+	else \
+		echo "$(YELLOW)⚠️  Metrics not available$(NC)"; \
+	fi
+
+# Watch mode (refresh every 5 seconds)
+dev-watch:
+	@echo "$(GREEN)👁️  Watch Mode (updates every 5s, Ctrl+C to stop)$(NC)"
+	@while true; do \
+		clear; \
+		make -f Makefile.dev dev-status; \
+		echo ""; \
+		make -f Makefile.dev dev-metrics; \
+		echo ""; \
+		echo "$(BLUE)Last updated: $$(date '+%H:%M:%S')$(NC)"; \
+		sleep 5; \
+	done
+
+# Docker service check
+dev-docker:
+	@echo "$(BLUE)═══ Docker Services ═══$(NC)"
+	@docker ps --format "table {{.Names}}\t{{.Status}}" 2>/dev/null | \
+		grep -E "athena|governance|agi" || \
+		echo "$(YELLOW)No matching Docker services running$(NC)"
+
+# Full dev dashboard
+dev-dashboard: dev-status dev-metrics dev-docker
+	@echo ""
+	@echo "$(GREEN)Dashboard complete$(NC)"
+	@echo "Run '$(BLUE)make -f Makefile.dev dev-watch$(NC)' for live updates"
+
+# Integration test
+dev-test:
+	@echo "$(BLUE)═══ Integration Test ═══$(NC)"
+	@echo "Running end-to-end flow..."
+	@TASK_ID="dev-e2e-$$(date +%s)"; \
+	echo "  1. Submit PASS verdict (task_id: $$TASK_ID)"; \
+	RESPONSE=$$(curl -sf -X POST http://localhost:9110/verdict \
+		-H 'Content-Type: application/json' \
+		-d "{\"task_id\":\"$$TASK_ID\",\"verdict\":\"PASS\",\"ts\":\"$$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" \
+		2>/dev/null); \
+	if [ -n "$$RESPONSE" ]; then \
+		echo "$(GREEN)     ✅ Verdict accepted$(NC)"; \
+		echo "  2. Wait 2s for metrics update..."; \
+		sleep 2; \
+		echo "  3. Check metrics increment..."; \
+		if curl -sf "http://localhost:9090/api/v1/query?query=governance_verdicts_total" 2>/dev/null | \
+			grep -q "pass"; then \
+			echo "$(GREEN)     ✅ Metrics updated$(NC)"; \
+		else \
+			echo "$(YELLOW)     ⚠️  Metrics not yet updated$(NC)"; \
+		fi; \
+		echo "  4. Check state file..."; \
+		if [ -f "state/exec_state.json" ]; then \
+			echo "$(GREEN)     ✅ State file exists$(NC)"; \
+		else \
+			echo "$(YELLOW)     ⚠️  State file not found$(NC)"; \
+		fi; \
+	else \
+		echo "$(RED)     ❌ Verdict submission failed$(NC)"; \
+	fi
+
+# Clean dev artifacts
+dev-clean:
+	@echo "$(BLUE)Cleaning dev artifacts...$(NC)"
+	@rm -f artifacts/dev/*.log 2>/dev/null || true
+	@rm -f artifacts/dev/*.trace 2>/dev/null || true
+	@echo "$(GREEN)✅ Dev artifacts cleaned$(NC)"
+

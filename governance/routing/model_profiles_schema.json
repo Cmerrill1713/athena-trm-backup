@@ -1,0 +1,102 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Model Profiles",
+    "description": "Domain embeddings and metadata for Athena model router",
+    "type": "object",
+    "properties": {
+        "version": {
+            "type": "string",
+            "description": "Schema version"
+        },
+        "models": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/ModelProfile"
+            }
+        }
+    },
+    "required": [
+        "version",
+        "models"
+    ],
+    "definitions": {
+        "ModelProfile": {
+            "type": "object",
+            "properties": {
+                "model_id": {
+                    "type": "string",
+                    "description": "Unique model identifier"
+                },
+                "domain": {
+                    "type": "string",
+                    "description": "Primary domain (code, math, general, etc.)"
+                },
+                "domain_embedding": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "description": "Domain embedding vector (384-dim for MiniLM)"
+                },
+                "quality_score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Expected quality score (0-1)"
+                },
+                "cost": {
+                    "type": "number",
+                    "minimum": 0,
+                    "description": "Cost per 1K tokens (USD)"
+                },
+                "latency_p50_ms": {
+                    "type": "number",
+                    "minimum": 0,
+                    "description": "Median latency in milliseconds"
+                },
+                "latency_p95_ms": {
+                    "type": "number",
+                    "minimum": 0,
+                    "description": "95th percentile latency in milliseconds"
+                },
+                "is_approximate": {
+                    "type": "boolean",
+                    "description": "True if embedding is bootstrapped/approximate"
+                },
+                "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Confidence in this profile (1.0 = verified)"
+                },
+                "metadata": {
+                    "type": "object",
+                    "description": "Additional metadata",
+                    "properties": {
+                        "description": {
+                            "type": "string"
+                        },
+                        "provider": {
+                            "type": "string"
+                        },
+                        "context_window": {
+                            "type": "integer"
+                        },
+                        "max_output_tokens": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            },
+            "required": [
+                "model_id",
+                "domain",
+                "domain_embedding",
+                "quality_score",
+                "cost",
+                "is_approximate",
+                "confidence"
+            ]
+        }
+    }
+}

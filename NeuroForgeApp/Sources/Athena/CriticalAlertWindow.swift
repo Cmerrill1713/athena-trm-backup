@@ -9,21 +9,21 @@ struct CriticalAlertWindow: View {
                 .font(.title.bold())
                 .foregroundColor(.red)
 
-            Text(self.alert.title).font(.headline)
-            Text(self.alert.message).font(.body)
+            Text(alert.title).font(.headline)
+            Text(alert.message).font(.body)
 
-            if !self.alert.affectedSystems.isEmpty {
+            if !alert.affectedSystems.isEmpty {
                 Divider()
                 Text("Affected Systems").font(.subheadline.bold())
-                ForEach(self.alert.affectedSystems, id: \.self) { s in
+                ForEach(alert.affectedSystems, id: \.self) { s in
                     Text("• \(s)")
                 }
             }
 
-            if !self.alert.recommendations.isEmpty {
+            if !alert.recommendations.isEmpty {
                 Divider()
                 Text("Recommendations").font(.subheadline.bold())
-                ForEach(self.alert.recommendations, id: \.self) { r in
+                ForEach(alert.recommendations, id: \.self) { r in
                     Text("• \(r)")
                 }
             }

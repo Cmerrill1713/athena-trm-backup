@@ -1,0 +1,254 @@
+import SwiftUI
+
+/// A polished, focus-aware chat input bar - PURE SwiftUI workaround for macOS bug
+public struct ChatInputBar: View {
+    @Binding public var text: String
+    public var onSend: (String) -> Void
+    public var isSending: Bool = false
+    
+    @FocusState private var isFocused: Bool
+
+    public init(text: Binding<String>, onSend: @escaping (String) -> Void, isSending: Bool = false)
+    {
+        _text = text
+        self.onSend = onSend
+        self.isSending = isSending
+    }
+
+    public var body: some View {
+        HStack(spacing: 12) {
+            // PURE SwiftUI TextField - workaround for known macOS focus bug
+            TextField("Type a message...", text: $text, axis: .vertical)
+                .textFieldStyle(.plain)
+                .font(.body)
+                .padding(12)
+                .frame(minHeight: 44, maxHeight: 140)
+                .background(Color(NSColor.textBackgroundColor))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(isFocused ? Color.accentColor : Color.gray.opacity(0.3), lineWidth: 1.5)
+                )
+                .focused($isFocused)
+                .disabled(isSending)
+                .onAppear {
+                    // Aggressive focus on appear - workaround for macOS bug
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        isFocused = true
+                    }
+                }
+                .onSubmit {
+                    submit()
+                }
+
+            Button(action: submit) {
+                Image(systemName: isSending ? "hourglass" : "paperplane.fill")
+                    .imageScale(.medium)
+                    .foregroundColor(isSending ? .gray : .accentColor)
+            }
+            .buttonStyle(.plain)
+            .keyboardShortcut(.return, modifiers: [.command])  // ⌘↩ to send
+            .disabled(isSending || text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            .help(isSending ? "Sending..." : "Send (⌘↩)")
+        }
+        .padding(8)
+        .background(.thinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    private func submit() {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty, !isSending else { return }
+
+        onSend(trimmed)
+        text = ""
+        
+        // Restore focus after send - workaround for macOS bug
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            isFocused = true
+        }
+    }
+}
+
+// MARK: - Native macOS Text Input (NSTextView wrapper)
+
+struct MacOSTextInput: NSViewRepresentable {
+    @Binding var text: String
+    var onSubmit: () -> Void
+    var isEnabled: Bool
+
+    func makeNSView(context: Context) -> FocusableScrollView {
+        let scrollView = FocusableScrollView()
+        let textView = AlwaysTypableTextView()
+        
+        // Configure for chat input
+        textView.isRichText = false
+        textView.isAutomaticQuoteSubstitutionEnabled = false
+        textView.isAutomaticDashSubstitutionEnabled = false
+        textView.isAutomaticSpellingCorrectionEnabled = true
+        textView.allowsUndo = true
+        textView.font = .systemFont(ofSize: 15)
+        textView.textColor = .labelColor
+        textView.backgroundColor = .textBackgroundColor
+        textView.drawsBackground = true
+        textView.isVerticallyResizable = true
+        textView.isHorizontallyResizable = false
+        textView.textContainer?.widthTracksTextView = true
+        textView.textContainer?.heightTracksTextView = false
+        textView.textContainerInset = NSSize(width: 12, height: 10)
+        textView.delegate = context.coordinator
+        textView.onSubmit = onSubmit
+        
+        scrollView.documentView = textView
+        scrollView.hasVerticalScroller = true
+        scrollView.drawsBackground = true
+        scrollView.backgroundColor = .textBackgroundColor
+        scrollView.textView = textView
+        
+        context.coordinator.textView = textView
+        return scrollView
+    }
+
+    func updateNSView(_ scrollView: FocusableScrollView, context: Context) {
+        guard let textView = scrollView.textView else { return }
+        
+        // Update text if changed externally
+        if textView.string != text {
+            textView.string = text
+        }
+        
+        // Update enabled state
+        textView.isEditable = isEnabled
+        textView.isSelectable = true
+        
+        // Always try to claim first responder
+        scrollView.becomeFirstResponder()
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(text: $text, onSubmit: onSubmit)
+    }
+
+    class Coordinator: NSObject, NSTextViewDelegate {
+        @Binding var text: String
+        var onSubmit: () -> Void
+        weak var textView: NSTextView?
+
+        init(text: Binding<String>, onSubmit: @escaping () -> Void) {
+            _text = text
+            self.onSubmit = onSubmit
+        }
+
+        func textDidChange(_ notification: Notification) {
+            guard let textView = notification.object as? NSTextView else { return }
+            text = textView.string
+        }
+
+        // Handle Return key
+        func textView(_ textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+            if commandSelector == #selector(NSResponder.insertNewline(_:)) {
+                // Plain Return = send
+                onSubmit()
+                return true
+            } else if commandSelector == #selector(NSResponder.insertLineBreak(_:)) {
+                // Shift+Return = newline
+                return false
+            }
+            return false
+        }
+    }
+}
+
+// MARK: - Custom NSScrollView that aggressively claims focus
+
+class FocusableScrollView: NSScrollView {
+    weak var textView: AlwaysTypableTextView?
+    
+    override var acceptsFirstResponder: Bool { true }
+    
+    override func becomeFirstResponder() -> Bool {
+        // When we become first responder, pass it to the text view
+        if let textView = textView {
+            window?.makeFirstResponder(textView)
+            return true
+        }
+        return super.becomeFirstResponder()
+    }
+    
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        // Aggressively claim focus when added to window
+        DispatchQueue.main.async { [weak self] in
+            self?.becomeFirstResponder()
+        }
+    }
+}
+
+// MARK: - Custom NSTextView that ALWAYS accepts typing
+
+class AlwaysTypableTextView: NSTextView {
+    var onSubmit: (() -> Void)?
+    
+    // CRITICAL: Always accept first responder
+    override var acceptsFirstResponder: Bool { true }
+    
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        // Become first responder immediately
+        DispatchQueue.main.async { [weak self] in
+            self?.window?.makeFirstResponder(self)
+        }
+    }
+    
+    override func becomeFirstResponder() -> Bool {
+        let result = super.becomeFirstResponder()
+        // Ensure the window knows we accept key events
+        window?.makeKeyAndOrderFront(nil)
+        return result
+    }
+    
+    // Handle key events directly as fallback
+    override func keyDown(with event: NSEvent) {
+        // Let the text system handle it normally
+        super.keyDown(with: event)
+    }
+    
+    override func doCommand(by selector: Selector) {
+        if selector == #selector(insertNewline(_:)) {
+            onSubmit?()
+        } else {
+            super.doCommand(by: selector)
+        }
+    }
+}
+
+// MARK: - Preview
+
+#Preview("Chat Input Bar") {
+    VStack {
+        Spacer()
+
+        ChatInputBar(
+            text: .constant("Type a message..."),
+            onSend: { message in
+                print("Sent: \(message)")
+            }
+        )
+        .padding()
+    }
+    .frame(width: 600, height: 400)
+}
+
+#Preview("Chat Input Bar - Sending") {
+    VStack {
+        Spacer()
+
+        ChatInputBar(
+            text: .constant("Sending message..."),
+            onSend: { _ in },
+            isSending: true
+        )
+        .padding()
+    }
+    .frame(width: 600, height: 400)
+}

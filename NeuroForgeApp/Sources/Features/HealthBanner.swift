@@ -18,13 +18,13 @@ public struct HealthBanner: View {
         HStack(spacing: 8) {
             Circle()
                 .frame(width: 8, height: 8)
-                .foregroundStyle(self.color)
+                .foregroundStyle(color)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(self.text)
+                Text(text)
                     .font(.caption)
-                if !self.currentURL.isEmpty {
-                    Text(self.currentURL)
+                if !currentURL.isEmpty {
+                    Text(currentURL)
                         .font(.system(size: 9))
                         .foregroundColor(.secondary)
                 }
@@ -38,19 +38,19 @@ public struct HealthBanner: View {
         .padding(6)
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .fill(self.color.opacity(0.12))
+                .fill(color.opacity(0.12))
         )
         .accessibilityIdentifier("health_banner")
         .task { @MainActor in
-            await self.check()
+            await check()
         }
         .onReceive(Timer.publish(every: 30, on: .main, in: .common).autoconnect()) { _ in
-            Task { @MainActor in await self.check() }
+            Task { @MainActor in await check() }
         }
     }
 
     private var color: Color {
-        switch self.state {
+        switch state {
         case .ok: .green
         case .degraded503: .yellow
         case .checking, .reconnecting: .gray
@@ -62,22 +62,22 @@ public struct HealthBanner: View {
     private func check() async {
         struct Health: Decodable { let status: String? }
 
-        self.currentURL = apiBaseURL().absoluteString
+        currentURL = apiBaseURL().absoluteString
 
         do {
             let _: Health = try await client.get("/health")
-            self.state = .ok
-            self.text = "Connected"
+            state = .ok
+            text = "Connected"
         } catch APIError.service503 {
-            self.state = .degraded503
-            self.text = "Degraded (503)"
+            state = .degraded503
+            text = "Degraded (503)"
         } catch let APIError.transport(error) {
             state = .error
             text = "Disconnected"
             print("❌ Health check failed: \(error.localizedDescription)")
         } catch {
-            self.state = .error
-            self.text = "Disconnected"
+            state = .error
+            text = "Disconnected"
             print("❌ Health check failed: \(error.localizedDescription)")
         }
     }

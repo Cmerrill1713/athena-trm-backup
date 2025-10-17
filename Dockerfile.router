@@ -1,0 +1,28 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements-routing.txt .
+RUN pip install --no-cache-dir -r requirements-routing.txt
+
+# Copy routing module
+COPY governance/ /app/governance/
+COPY infra/ /app/infra/
+
+# Create non-root user
+RUN useradd -m -u 1001 router && \
+    chown -R router:router /app
+
+USER router
+
+# Expose port
+EXPOSE 9113
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:9113/health || exit 1
+
+# Run router API
+CMD ["python3", "/app/governance/routing/routing_api.py"]
+

@@ -15,13 +15,13 @@ struct TribunalDecisionWindow: View {
             Text("AI Recommendation: \(self.case.aiRecommendation.rawValue.uppercased()) (\(Int(self.case.confidence * 100))%)")
                 .font(.subheadline).foregroundStyle(.secondary)
 
-            Picker("Decision", selection: self.$selection) {
+            Picker("Decision", selection: $selection) {
                 ForEach(TribunalDecisionOption.allCases, id: \.self) { opt in
                     Text(opt.rawValue.capitalized).tag(opt)
                 }
             }
 
-            TextField("Decision notes (required for Modify/Overturn)", text: self.$notes)
+            TextField("Decision notes (required for Modify/Overturn)", text: $notes)
                 .textFieldStyle(.roundedBorder)
 
             HStack {

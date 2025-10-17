@@ -1,73 +1,59 @@
-# .cursorrules - Athena Swift UI Development
+# Athena Local-First Development Rules
 
-project_goals:
+## 🚫 ABSOLUTELY NO CLOUD MODEL USAGE
 
-- Build a SwiftUI frontend ("Athena") that surfaces governance status and controls
-- Show health, verdicts, actions, canary state, and key KPIs (ECE, entropy, violations)
-- Integrate safely with local services: 9110 (orchestrator), 9111 (canary), 9090 (prometheus), 9112 (remediator)
-- Ship small, testable increments; every change must compile and unit tests must pass
+**CRITICAL:** Do not propose, suggest, or implement any code that uses external cloud APIs for AI models (OpenAI, Anthropic, Google, etc.)
 
-non_goals:
+### Forbidden Actions:
 
-- No server-side changes unless strictly necessary
-- No experimental UI libraries beyond SwiftUI + Swift Charts
-- No auth/SSO in v1 (use a simple token header if needed)
+- ❌ `import openai` or any cloud SDK
+- ❌ Making HTTP requests to cloud LLM endpoints
+- ❌ Using cloud-hosted model APIs
+- ❌ Any code that sends data to external AI services
 
-apis:
-remediator:
-base_url: "http://localhost:9112"
-endpoints: - GET /health - GET /metrics
-orchestrator:
-base_url: "http://localhost:9110"
-endpoints: - GET /health - GET /metrics - POST /verdict - GET /state - POST /mode # optional; use if enabled
-canary:
-base_url: "http://localhost:9111"
-endpoints: - GET /health - GET /metrics
-prometheus:
-base_url: "http://localhost:9090"
-endpoints: - GET /api/v1/query # query=<promql> - GET /api/v1/query_range
+### Required Actions:
 
-ui_scope:
+- ✅ Route all AI requests through `http://127.0.0.1:8099/route`
+- ✅ Use local models via Ollama/MLX only
+- ✅ Implement proper error handling for local model failures
+- ✅ Add logging for routing decisions
 
-- Dashboard: health, ECE gauge, verdict counters, last actions, remediation metrics
-- Verdict form (PASS/SOFT_FAIL/HARD_FAIL) with idempotence feedback
-- Canary monitor panel (window, decision, sample count)
-- Remediation monitor (requests, success rate, recent events)
-- Mode switch (Shadow/Canary/Enforce) with confirmation
-- Metrics charts (Swift Charts) for ECE/violations over time
+### Code Patterns:
 
-architecture:
+**GOOD - Local routing:**
 
-- MVVM + SwiftUI
-- Networking: async/await, URLSession, decodable models
-- Config via .xcconfig / Info.plist (ATHENA*BASE_URL*\*)
-- Feature flags via @AppStorage & compile-time flags
+```python
+import requests
 
-quality_bars:
+# Always route through local router first
+response = requests.post("http://127.0.0.1:8099/route",
+                        json={"prompt": user_input})
+route = response.json()
 
-- Build must succeed: `xcodebuild -scheme Athena build` or `swift build`
-- Tests must pass: `xcodebuild -scheme AthenaTests test` or `swift test`
-- SwiftLint + SwiftFormat clean (if present)
-- Each PR ≤ 500 LOC changed; add tests for new logic
-- If an endpoint is unavailable, auto-fallback to mock response (no crashes)
+if route["route"] == "ollama":
+    # Use local Ollama
+    ollama_response = requests.post(f"{route['endpoint']}/api/generate",
+                                   json={"model": "qwen2.5-coder:7b", "prompt": user_input})
+```
 
-iteration_rules:
+**BAD - Direct cloud calls:**
 
-- One feature per iteration
-- Write/Update tests before UI polish
-- Update CHANGELOG.md each iteration
-- Keep diffs surgical; no global refactors mid-iteration
+```python
+# NEVER DO THIS
+import openai
+client = openai.OpenAI()
+response = client.chat.completions.create(...)  # BLOCKED
+```
 
-security:
+### Environment Variables:
 
-- Never hardcode secrets
-- If a control endpoint exists (/mode, /verdict), require token header if ATHENA_CONTROL_TOKEN is set
-- All network calls have timeouts (3s default)
-- Graceful degradation when services unavailable
+- `ATHENA_NO_CLOUD=1` - Hard block cloud access
+- `ATHENA_FAIL_CLOSED=1` - Fail if no local models available
+- `OLLAMA_ENDPOINT=http://127.0.0.1:11434` - Local Ollama endpoint
 
-existing_app:
+### Testing:
 
-- AthenaReporter (~40,000 lines) is the comprehensive production app
-- Already has voice integration, vision processing, report management
-- Now enhanced with RemediationMonitor.swift for auto-remediation monitoring
-- Use this as the base; don't create new demo apps
+- Run `pytest tests/router/test_no_cloud.py` to verify zero cloud calls
+- Check Prometheus metrics: `athena_router_cloud_attempts_total` should be 0
+
+**Remember: Local-first, cloud-last (governed only), zero leaks.**

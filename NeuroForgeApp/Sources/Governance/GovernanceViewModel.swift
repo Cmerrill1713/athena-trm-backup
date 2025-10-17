@@ -6,7 +6,6 @@ import SwiftUI
 
 @MainActor
 final class GovernanceViewModel: ObservableObject {
-
     // MARK: - Published State
 
     @Published var healthStatus: HealthStatus = .unknown
@@ -41,10 +40,10 @@ final class GovernanceViewModel: ObservableObject {
 
         var color: Color {
             switch self {
-            case .unknown: return .gray
-            case .healthy: return .green
-            case .degraded: return .yellow
-            case .down: return .red
+            case .unknown: .gray
+            case .healthy: .green
+            case .degraded: .yellow
+            case .down: .red
             }
         }
     }
@@ -61,7 +60,7 @@ final class GovernanceViewModel: ObservableObject {
         ).first!
         let athenaDir = appSupport.appendingPathComponent("Athena")
         try? FileManager.default.createDirectory(at: athenaDir, withIntermediateDirectories: true)
-        self.pendingQueuePath = athenaDir.appendingPathComponent("PendingVerdicts.jsonl")
+        pendingQueuePath = athenaDir.appendingPathComponent("PendingVerdicts.jsonl")
 
         // Load pending verdicts
         loadPendingVerdicts()
@@ -297,7 +296,7 @@ final class GovernanceViewModel: ObservableObject {
     private func savePendingVerdicts() {
         do {
             let encoder = JSONEncoder()
-            let lines = try self.pendingVerdicts.map { verdict in
+            let lines = try pendingVerdicts.map { verdict in
                 try encoder.encode(verdict)
             }
             let jsonl = lines.map { String(data: $0, encoding: .utf8)! }.joined(separator: "\n")
@@ -316,7 +315,7 @@ final class GovernanceViewModel: ObservableObject {
         do {
             let jsonl = try String(contentsOf: pendingQueuePath, encoding: .utf8)
             let decoder = JSONDecoder()
-            self.pendingVerdicts = jsonl.split(separator: "\n").compactMap { line in
+            pendingVerdicts = jsonl.split(separator: "\n").compactMap { line in
                 guard let data = String(line).data(using: .utf8) else { return nil }
                 return try? decoder.decode(VerdictRequest.self, from: data)
             }
@@ -331,7 +330,7 @@ final class GovernanceViewModel: ObservableObject {
     func startAutoRefresh() {
         stopAutoRefresh()
 
-        refreshTimer = Timer.scheduledTimer(withTimeInterval: self.refreshInterval, repeats: true) {
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: refreshInterval, repeats: true) {
             [weak self] _ in
             Task { @MainActor in
                 await self?.checkHealth()

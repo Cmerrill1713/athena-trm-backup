@@ -48,9 +48,9 @@ class WakeWordDetector: NSObject, ObservableObject {
         audioEngine.prepare()
         try audioEngine.start()
 
-        self.isListening = true
+        isListening = true
 
-        self.recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
+        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
             guard let self else { return }
 
             if let result {
@@ -58,7 +58,7 @@ class WakeWordDetector: NSObject, ObservableObject {
                 print("🎤 Heard: \(transcription)")
 
                 // Check for wake word
-                for wakeWord in self.wakeWords {
+                for wakeWord in wakeWords {
                     if transcription.contains(wakeWord) {
                         Task { @MainActor in
                             print("✨ Wake word detected: \(wakeWord)")
@@ -71,20 +71,20 @@ class WakeWordDetector: NSObject, ObservableObject {
             }
 
             if error != nil {
-                self.stopListening()
+                stopListening()
             }
         }
     }
 
     func stopListening() {
-        self.audioEngine?.stop()
-        self.audioEngine?.inputNode.removeTap(onBus: 0)
-        self.recognitionRequest?.endAudio()
-        self.recognitionTask?.cancel()
+        audioEngine?.stop()
+        audioEngine?.inputNode.removeTap(onBus: 0)
+        recognitionRequest?.endAudio()
+        recognitionTask?.cancel()
 
-        self.audioEngine = nil
-        self.recognitionRequest = nil
-        self.recognitionTask = nil
-        self.isListening = false
+        audioEngine = nil
+        recognitionRequest = nil
+        recognitionTask = nil
+        isListening = false
     }
 }

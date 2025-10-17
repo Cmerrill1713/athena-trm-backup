@@ -12,22 +12,25 @@ Features:
 - Async/await refactoring
 - Code analysis and suggestions
 - Athena system diagnostics
+- Website crawling for Swift resources
 """
 
 import asyncio
 import sys
-from typing import Any, Dict, List
+import json
+import aiohttp
+import re
+from typing import Any, Dict, List, Optional
 from dataclasses import dataclass
+from urllib.parse import urljoin, urlparse
+from bs4 import BeautifulSoup
 
 try:
-    from mcp import Tool, Server, types
-    from mcp.server import Server as MCPServer
-    from mcp.server.stdio import stdio_server
     from fastapi import FastAPI
     from fastapi.responses import StreamingResponse
     import uvicorn
 except ImportError:
-    print("MCP dependencies not installed. Install with: pip install mcp-server fastapi uvicorn")
+    print("Dependencies not installed. Install with: pip install fastapi uvicorn aiohttp beautifulsoup4")
     sys.exit(1)
 
 
@@ -37,10 +40,8 @@ class AthenaMCPServer:
 
     def __init__(self):
         self.app = FastAPI(title="Athena MCP Server", version="1.0.0")
-        self.server = MCPServer("athena-mcp")
 
         self._setup_routes()
-        self._setup_tools()
 
     def _setup_routes(self):
         """Set up FastAPI routes for HTTP transport"""
@@ -49,440 +50,300 @@ class AthenaMCPServer:
         async def health_check():
             return {"status": "healthy", "server": "athena-mcp"}
 
-        @self.app.post("/mcp")
-        async def mcp_endpoint(request: Dict[str, Any]):
-            """Handle MCP messages over HTTP"""
-            # This is a simplified implementation
-            # In production, you'd implement proper SSE or WebSocket transport
-            response = await self._handle_mcp_message(request)
-            return response
+        @self.app.post("/crawl")
+        async def crawl_website(request: Dict[str, Any]):
+            """Crawl a website and return structured content"""
+            url = request.get("url")
+            max_pages = request.get("max_pages", 10)
+            include_patterns = request.get("include_patterns", [])
+            exclude_patterns = request.get("exclude_patterns", [])
 
-    def _setup_tools(self):
-        """Set up MCP tools"""
+            if not url:
+                return {"error": "URL is required"}
 
-        @self.server.list_tools()
-        async def list_tools() -> List[Tool]:
-            return [
-                Tool(
-                    name="generate_navigation_stack",
-                    description="Generate modern SwiftUI NavigationStack code with proper routing",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "view_name": {"type": "string", "description": "Name of the main view"},
-                            "destinations": {
-                                "type": "array",
-                                "items": {"type": "string"},
-                                "description": "List of destination view names"
-                            }
-                        },
-                        "required": ["view_name", "destinations"]
-                    }
-                ),
-                Tool(
-                    name="create_viewmodel_async",
-                    description="Generate SwiftUI ViewModel with async/await patterns",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "model_name": {"type": "string", "description": "Name of the ViewModel class"},
-                            "api_endpoints": {
-                                "type": "array",
-                                "items": {"type": "string"},
-                                "description": "List of API endpoints to handle"
-                            }
-                        },
-                        "required": ["model_name"]
-                    }
-                ),
-                Tool(
-                    name="refactor_to_async",
-                    description="Refactor SwiftUI code to use async/await patterns",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "code": {"type": "string", "description": "SwiftUI code to refactor"},
-                            "completion_handler_blocks": {
-                                "type": "array",
-                                "items": {"type": "string"},
-                                "description": "Names of completion handler blocks to convert"
-                            }
-                        },
-                        "required": ["code"]
-                    }
-                ),
-                Tool(
-                    name="analyze_swiftui_performance",
-                    description="Analyze SwiftUI code for performance issues and provide optimization suggestions",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "code": {"type": "string", "description": "SwiftUI code to analyze"}
-                        },
-                        "required": ["code"]
-                    }
-                ),
-                Tool(
-                    name="athena_system_status",
-                    description="Get current status of Athena system components",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {}
-                    }
-                ),
-                Tool(
-                    name="generate_swiftui_component",
-                    description="Generate a complete SwiftUI component with modern patterns",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "component_type": {
-                                "type": "string",
-                                "enum": ["list", "form", "card", "modal", "navigation"],
-                                "description": "Type of component to generate"
-                            },
-                            "component_name": {"type": "string", "description": "Name of the component"},
-                            "features": {
-                                "type": "array",
-                                "items": {"type": "string"},
-                                "description": "Additional features to include"
-                            }
-                        },
-                        "required": ["component_type", "component_name"]
-                    }
-                )
-            ]
+            try:
+                crawled_data = await crawl_website_async(url, max_pages, include_patterns, exclude_patterns)
 
-        @self.server.call_tool()
-        async def call_tool(name: str, arguments: Dict[str, Any]) -> List[types.TextContent]:
-            """Handle tool calls"""
-
-            if name == "generate_navigation_stack":
-                return await self._generate_navigation_stack(arguments)
-
-            elif name == "create_viewmodel_async":
-                return await self._create_viewmodel_async(arguments)
-
-            elif name == "refactor_to_async":
-                return await self._refactor_to_async(arguments)
-
-            elif name == "analyze_swiftui_performance":
-                return await self._analyze_swiftui_performance(arguments)
-
-            elif name == "athena_system_status":
-                return await self._athena_system_status(arguments)
-
-            elif name == "generate_swiftui_component":
-                return await self._generate_swiftui_component(arguments)
-
-            else:
-                return [types.TextContent(type="text", text=f"Unknown tool: {name}")]
-
-    async def _generate_navigation_stack(self, args: Dict[str, Any]) -> List[types.TextContent]:
-        """Generate NavigationStack code"""
-        view_name = args.get("view_name", "MainView")
-        destinations = args.get("destinations", ["DetailView", "SettingsView"])
-
-        code = f'''import SwiftUI
-
-struct {view_name}: View {{
-    @State private var navigationPath = NavigationPath()
-
-    var body: some View {{
-        NavigationStack(path: $navigationPath) {{
-            HomeView()
-                .navigationTitle("{view_name}")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {{
-                    ToolbarItem(placement: .topBarTrailing) {{
-                        Button("Add") {{
-                            navigationPath.append(Destination.detail)
-                        }}
-                    }}
-                }}
-                .navigationDestination(for: Destination.self) {{ destination in
-                    switch destination {{
-'''
-
-        for dest in destinations:
-            dest_lower = dest.lower()
-            code += f'''                    case .{dest_lower}:
-                        {dest}()
-'''
-
-        code += '''                    }
+                # Format the crawled data for Swift development context
+                result = {
+                    "source": url,
+                    "pages_crawled": len(crawled_data),
+                    "total_content_length": sum(len(content) for content in crawled_data.values()),
+                    "content": {}
                 }
-        }
-    }
-}
 
-enum Destination: Hashable {
-'''
-        for dest in destinations:
-            dest_lower = dest.lower()
-            code += f'''    case {dest_lower}
-'''
+                # Add content from each page
+                for page_url, content in crawled_data.items():
+                    # Extract code examples and Swift-related content
+                    swift_content = _extract_swift_content(content)
+                    if swift_content:
+                        result["content"][page_url] = swift_content
 
-        code += "}\n"
+                return result
 
-        return [types.TextContent(type="text", text=code)]
+            except Exception as e:
+                return {"error": f"Error crawling website: {str(e)}"}
 
-    async def _create_viewmodel_async(self, args: Dict[str, Any]) -> List[types.TextContent]:
-        """Generate ViewModel with async/await"""
-        model_name = args.get("model_name", "MainViewModel")
-        api_endpoints = args.get("api_endpoints", ["fetchData", "saveData"])
 
-        code = f'''import SwiftUI
+async def crawl_website_async(url: str, max_pages: int = 10,
+                             include_patterns: List[str] = None,
+                             exclude_patterns: List[str] = None) -> Dict[str, str]:
+    """Crawl website and return content"""
+    if include_patterns is None:
+        include_patterns = []
+    if exclude_patterns is None:
+        exclude_patterns = []
 
-@MainActor
-final class {model_name}: ObservableObject {{
-    @Published var isLoading = false
-    @Published var error: Error?
+    async with aiohttp.ClientSession() as session:
+        return await _crawl_recursive_static(
+            session, url, max_pages, set(), include_patterns, exclude_patterns
+        )
 
-'''
 
-        for endpoint in api_endpoints:
-            code += f'''    @Published var {endpoint.lower()}Result: String?
+async def _crawl_recursive_static(session, url: str, max_pages: int, visited: set,
+                                 include_patterns: List[str], exclude_patterns: List[str]) -> Dict[str, str]:
+        """Recursively crawl website pages"""
+        if len(visited) >= max_pages or url in visited:
+            return {}
 
-'''
+        # Check include/exclude patterns
+        if not _should_crawl_url(url, include_patterns, exclude_patterns):
+            return {}
 
-        code += '''
-    private let apiClient = APIClient()
+        visited.add(url)
 
-'''
+        try:
+            async with session.get(url, timeout=10) as response:
+                if response.status != 200:
+                    return {}
 
-        for endpoint in api_endpoints:
-            code += f'''
-    func {endpoint}() async {{
-        isLoading = true
-        error = nil
+                html = await response.text()
+                soup = BeautifulSoup(html, 'html.parser')
 
-        do {{
-            let result = try await apiClient.{endpoint}()
-            {endpoint.lower()}Result = result
-        }} catch {{
-            error = $0
-        }}
+                # Extract text content
+                content = _extract_page_content(soup)
 
-        isLoading = false
-    }}
-'''
+                # Find links for recursive crawling
+                links = []
+                for link in soup.find_all('a', href=True):
+                    href = link['href']
+                    full_url = urljoin(url, href)
+                    if _is_same_domain(url, full_url) and full_url not in visited:
+                        links.append(full_url)
 
-        code += "}\n"
+                # Crawl linked pages
+                result = {url: content}
+                for link in links[:3]:  # Limit recursive crawling
+                    sub_results = await _crawl_recursive_static(
+                        session, link, max_pages - len(visited), visited,
+                        include_patterns, exclude_patterns
+                    )
+                    result.update(sub_results)
 
-        return [types.TextContent(type="text", text=code)]
+                return result
 
-    async def _refactor_to_async(self, args: Dict[str, Any]) -> List[types.TextContent]:
-        """Refactor completion handlers to async/await"""
-        code = args.get("code", "")
-        completion_blocks = args.get("completion_handler_blocks", [])
+        except Exception as e:
+            return {url: f"Error: {str(e)}"}
 
-        # Simple refactoring logic (in production, this would be more sophisticated)
-        refactored = code
+def _should_crawl_url(url: str, include_patterns: List[str], exclude_patterns: List[str]) -> bool:
+        """Check if URL should be crawled based on patterns"""
+        # Check exclude patterns first
+        for pattern in exclude_patterns:
+            if re.search(pattern, url):
+                return False
 
-        for block in completion_blocks:
-            # Replace completion handler patterns with async/await
-            refactored = refactored.replace(
-                f"{block} {{ result in",
-                f"let result = try await {block}();"
-            )
+        # If no include patterns, allow everything
+        if not include_patterns:
+            return True
 
-        suggestions = """
-Refactoring suggestions:
-1. Replace completion handler closures with async functions
-2. Use try/catch instead of completion handler error handling
-3. Update calling code to use async/await syntax
-4. Add @MainActor to ViewModels that update UI state
-"""
+        # Check include patterns
+        for pattern in include_patterns:
+            if re.search(pattern, url):
+                return True
 
-        return [
-            types.TextContent(type="text", text=f"Refactored code:\n{refactored}"),
-            types.TextContent(type="text", text=suggestions)
+        return False
+
+def _is_same_domain(url1: str, url2: str) -> bool:
+        """Check if URLs are on the same domain"""
+        try:
+            domain1 = urlparse(url1).netloc
+            domain2 = urlparse(url2).netloc
+            return domain1 == domain2
+        except:
+            return False
+
+def _extract_page_content(soup: BeautifulSoup) -> str:
+        """Extract readable content from HTML"""
+        # Remove script and style elements
+        for script in soup(["script", "style"]):
+            script.decompose()
+
+        # Get text content
+        text = soup.get_text()
+
+        # Clean up whitespace
+        lines = (line.strip() for line in text.splitlines())
+        chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+        text = ' '.join(chunk for chunk in chunks if chunk)
+
+        return text[:2000]  # Limit content length
+
+def _extract_swift_content(content: str) -> str:
+        """Extract Swift-related content from page"""
+        # Look for Swift code patterns, imports, or keywords
+        swift_patterns = [
+            r'import\s+SwiftUI',
+            r'@State\b',
+            r'@Published\b',
+            r'struct\s+\w+:\s*View',
+            r'func\s+\w+\([^)]*\)\s*->\s*some\s+View',
+            r'NavigationStack',
+            r'async\s+let',
+            r'await\s+\w+',
         ]
 
-    async def _analyze_swiftui_performance(self, args: Dict[str, Any]) -> List[types.TextContent]:
-        """Analyze SwiftUI code for performance issues"""
-        code = args.get("code", "")
+        lines = content.split('\n')
+        swift_lines = []
 
-        issues = []
+        for line in lines:
+            for pattern in swift_patterns:
+                if re.search(pattern, line, re.IGNORECASE):
+                    swift_lines.append(line)
+                    break
 
-        # Check for common performance issues
-        if "@State" in code and "@ObservedObject" in code:
-            issues.append("⚠️ Mixing @State and @ObservedObject - consider using @StateObject for complex state")
+        return '\n'.join(swift_lines) if swift_lines else ""
 
-        if ".onChange" in code and ".onReceive" in code:
-            issues.append("ℹ️ Multiple change observers - ensure they're necessary")
 
-        if "List" in code and ".id(" not in code:
-            issues.append("⚠️ List without stable IDs - may cause performance issues")
 
-        if len([line for line in code.split('\n') if line.strip()]) > 100:
-            issues.append("ℹ️ Large view - consider breaking into smaller components")
+async def crawl_website_async(url: str, max_pages: int = 10,
+                             include_patterns: List[str] = None,
+                             exclude_patterns: List[str] = None) -> Dict[str, str]:
+    """Crawl website and return content"""
+    if include_patterns is None:
+        include_patterns = []
+    if exclude_patterns is None:
+        exclude_patterns = []
 
-        if issues:
-            analysis = "Performance Analysis:\n" + "\n".join(issues)
-        else:
-            analysis = "✅ No obvious performance issues detected"
+    async with aiohttp.ClientSession() as session:
+        return await _crawl_recursive_static(
+            session, url, max_pages, set(), include_patterns, exclude_patterns
+        )
 
-        return [types.TextContent(type="text", text=analysis)]
 
-    async def _athena_system_status(self, args: Dict[str, Any]) -> List[types.TextContent]:
-        """Get Athena system status"""
-        status = {
-            "voice_activation": "active",
-            "memory_optimizer": "running",
-            "tribunal_monitor": "active",
-            "api_server": "healthy",
-            "federation_sync": "idle"
-        }
+async def _crawl_recursive_static(session, url: str, max_pages: int, visited: set,
+                                 include_patterns: List[str], exclude_patterns: List[str]) -> Dict[str, str]:
+        """Recursively crawl website pages"""
+        if len(visited) >= max_pages or url in visited:
+            return {}
 
-        status_text = "Athena System Status:\n"
-        for component, state in status.items():
-            status_text += f"• {component}: {state}\n"
+        # Check include/exclude patterns
+        if not _should_crawl_url(url, include_patterns, exclude_patterns):
+            return {}
 
-        return [types.TextContent(type="text", text=status_text)]
+        visited.add(url)
 
-    async def _generate_swiftui_component(self, args: Dict[str, Any]) -> List[types.TextContent]:
-        """Generate complete SwiftUI component"""
-        component_type = args.get("component_type", "card")
-        component_name = args.get("component_name", "CustomComponent")
-        features = args.get("features", [])
+        try:
+            async with session.get(url, timeout=10) as response:
+                if response.status != 200:
+                    return {}
 
-        if component_type == "card":
-            code = f'''import SwiftUI
+                html = await response.text()
+                soup = BeautifulSoup(html, 'html.parser')
 
-struct {component_name}: View {{
-    let title: String
-    let subtitle: String?
-    let systemImage: String
+                # Extract text content
+                content = _extract_page_content(soup)
 
-    var body: some View {{
-        HStack(spacing: 12) {{
-            Image(systemName: systemImage)
-                .font(.title2)
-                .foregroundStyle(.blue)
-                .frame(width: 40, height: 40)
-                .background(.blue.opacity(0.1))
-                .clipShape(Circle())
+                # Find links for recursive crawling
+                links = []
+                for link in soup.find_all('a', href=True):
+                    href = link['href']
+                    full_url = urljoin(url, href)
+                    if _is_same_domain(url, full_url) and full_url not in visited:
+                        links.append(full_url)
 
-            VStack(alignment: .leading, spacing: 4) {{
-                Text(title)
-                    .font(.headline)
-                if let subtitle {{
-                    Text(subtitle!)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }}
-            }}
+                # Crawl linked pages
+                result = {url: content}
+                for link in links[:3]:  # Limit recursive crawling
+                    sub_results = await _crawl_recursive_static(
+                        session, link, max_pages - len(visited), visited,
+                        include_patterns, exclude_patterns
+                    )
+                    result.update(sub_results)
 
-            Spacer()
+                return result
 
-            Image(systemName: "chevron.right")
-                .foregroundStyle(.tertiary)
-        }}
-        .padding()
-        .background(.background)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
-    }}
-}}
+        except Exception as e:
+            return {url: f"Error: {str(e)}"}
 
-#Preview {{
-    {component_name}(
-        title: "Sample Card",
-        subtitle: "This is a subtitle",
-        systemImage: "star.fill"
-    )
-    .padding()
-}}
-'''
-        elif component_type == "form":
-            code = f'''import SwiftUI
+def _should_crawl_url(url: str, include_patterns: List[str], exclude_patterns: List[str]) -> bool:
+        """Check if URL should be crawled based on patterns"""
+        # Check exclude patterns first
+        for pattern in exclude_patterns:
+            if re.search(pattern, url):
+                return False
 
-struct {component_name}: View {{
-    @State private var name = ""
-    @State private var email = ""
-    @State private var isSubscribed = false
+        # If no include patterns, allow everything
+        if not include_patterns:
+            return True
 
-    var body: some View {{
-        Form {{
-            Section("Personal Information") {{
-                TextField("Name", text: $name)
-                TextField("Email", text: $email)
-                    .keyboardType(.emailAddress)
-                    .autocapitalization(.none)
-            }}
+        # Check include patterns
+        for pattern in include_patterns:
+            if re.search(pattern, url):
+                return True
 
-            Section {{
-                Toggle("Subscribe to newsletter", isOn: $isSubscribed)
-            }}
+        return False
 
-            Section {{
-                Button("Submit") {{
-                    submitForm()
-                }}
-                .disabled(name.isEmpty || email.isEmpty)
-            }}
-        }}
-        .navigationTitle("Form")
-    }}
+def _is_same_domain(url1: str, url2: str) -> bool:
+        """Check if URLs are on the same domain"""
+        try:
+            domain1 = urlparse(url1).netloc
+            domain2 = urlparse(url2).netloc
+            return domain1 == domain2
+        except:
+            return False
 
-    private func submitForm() {{
-        print("Submitting: \\(name), \\(email), subscribed: \\(isSubscribed)")
-        // Handle form submission
-    }}
-}}
+def _extract_page_content(soup: BeautifulSoup) -> str:
+        """Extract readable content from HTML"""
+        # Remove script and style elements
+        for script in soup(["script", "style"]):
+            script.decompose()
 
-#Preview {{
-    NavigationStack {{
-        {component_name}()
-    }}
-}}
-'''
-        else:
-            code = f"// Generated {component_type} component: {component_name}"
+        # Get text content
+        text = soup.get_text()
 
-        return [types.TextContent(type="text", text=code)]
+        # Clean up whitespace
+        lines = (line.strip() for line in text.splitlines())
+        chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+        text = ' '.join(chunk for chunk in chunks if chunk)
 
-    async def _handle_mcp_message(self, message: Dict[str, Any]) -> Dict[str, Any]:
-        """Handle MCP messages over HTTP transport"""
-        # Simplified implementation - in production, this would handle
-        # proper MCP protocol messages
-        return {"result": "MCP message handled"}
+        return text[:2000]  # Limit content length
 
-    def run_stdio(self):
-        """Run MCP server with stdio transport"""
-        async def main():
-            async with stdio_server() as (read_stream, write_stream):
-                await self.server.run(
-                    read_stream,
-                    write_stream,
-                    self.server.create_initialization_options()
-                )
+def _extract_swift_content(content: str) -> str:
+        """Extract Swift-related content from page"""
+        # Look for Swift code patterns, imports, or keywords
+        swift_patterns = [
+            r'import\s+SwiftUI',
+            r'@State\b',
+            r'@Published\b',
+            r'struct\s+\w+:\s*View',
+            r'func\s+\w+\([^)]*\)\s*->\s*some\s+View',
+            r'NavigationStack',
+            r'async\s+let',
+            r'await\s+\w+',
+        ]
 
-        asyncio.run(main())
+        lines = content.split('\n')
+        swift_lines = []
 
-    def run_http(self, host: str = "0.0.0.0", port: int = 3333):
+        for line in lines:
+            for pattern in swift_patterns:
+                if re.search(pattern, line, re.IGNORECASE):
+                    swift_lines.append(line)
+                    break
+
+        return '\n'.join(swift_lines) if swift_lines else ""
+
+        def run_http(self, host: str = "0.0.0.0", port: int = 3333):
         """Run MCP server with HTTP transport"""
         uvicorn.run(self.app, host=host, port=port)
 
-
-if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(description="Athena MCP Server")
-    parser.add_argument("--transport", choices=["stdio", "http"], default="stdio",
-                       help="Transport type (default: stdio)")
-    parser.add_argument("--host", default="0.0.0.0", help="HTTP host (default: 0.0.0.0)")
-    parser.add_argument("--port", type=int, default=3333, help="HTTP port (default: 3333)")
-
-    args = parser.parse_args()
-
-    server = AthenaMCPServer()
-
-    if args.transport == "http":
-        print(f"Starting Athena MCP Server on {args.host}:{args.port}")
-        server.run_http(host=args.host, port=args.port)
-    else:
-        print("Starting Athena MCP Server with stdio transport")
-        server.run_stdio()

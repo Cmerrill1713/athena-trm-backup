@@ -8,7 +8,7 @@ public struct KeyCatchingTextEditor: NSViewRepresentable {
     var focusOnAppear: Bool = true
 
     public init(text: Binding<String>, onSubmit: @escaping () -> Void, focusOnAppear: Bool = true) {
-        self._text = text
+        _text = text
         self.onSubmit = onSubmit
         self.focusOnAppear = focusOnAppear
     }
@@ -26,8 +26,8 @@ public struct KeyCatchingTextEditor: NSViewRepresentable {
         textView.isAutomaticSpellingCorrectionEnabled = true
         textView.allowsUndo = true
         textView.font = .systemFont(ofSize: NSFont.systemFontSize)
-        textView.string = self.text
-        textView.onSubmit = self.onSubmit
+        textView.string = text
+        textView.onSubmit = onSubmit
 
         // ✅ CRITICAL: Apply safe colors immediately
         textView.applySafeColorsAndTypingAttributes()
@@ -42,7 +42,7 @@ public struct KeyCatchingTextEditor: NSViewRepresentable {
         scrollView.drawsBackground = true
         scrollView.backgroundColor = .textBackgroundColor
 
-        if self.focusOnAppear {
+        if focusOnAppear {
             DispatchQueue.main.async {
                 // Make sure window is ready
                 guard let window = scrollView.window ?? NSApp.mainWindow else {
@@ -61,10 +61,10 @@ public struct KeyCatchingTextEditor: NSViewRepresentable {
         return scrollView
     }
 
-    public func updateNSView(_ scrollView: NSScrollView, context: Context) {
+    public func updateNSView(_: NSScrollView, context: Context) {
         guard let textView = context.coordinator.textView else { return }
-        if textView.string != self.text {
-            textView.string = self.text
+        if textView.string != text {
+            textView.string = text
             textView.applySafeColorsAndTypingAttributes()
         }
     }
@@ -83,7 +83,7 @@ public struct KeyCatchingTextEditor: NSViewRepresentable {
 
         public func textDidChange(_ notification: Notification) {
             guard let tv = notification.object as? NSTextView else { return }
-            self.parent.text = tv.string
+            parent.text = tv.string
         }
     }
 }
@@ -109,7 +109,7 @@ final class KeyCatchingTextView: NSTextView {
         textColor = fg
 
         // ✅ Ensure the *typing* attributes are sane with high contrast
-        let font = self.font ?? .systemFont(ofSize: 15, weight: .regular)
+        let font = font ?? .systemFont(ofSize: 15, weight: .regular)
         let typing: [NSAttributedString.Key: Any] = [
             .foregroundColor: fg,
             .font: font,
@@ -130,18 +130,18 @@ final class KeyCatchingTextView: NSTextView {
 
     override var string: String {
         didSet {
-            self.applySafeColorsAndTypingAttributes()
+            applySafeColorsAndTypingAttributes()
         }
     }
 
     override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
-        self.applySafeColorsAndTypingAttributes()
+        applySafeColorsAndTypingAttributes()
     }
 
     override func viewDidChangeEffectiveAppearance() {
         super.viewDidChangeEffectiveAppearance()
-        self.applySafeColorsAndTypingAttributes()
+        applySafeColorsAndTypingAttributes()
     }
 
     override var acceptsFirstResponder: Bool { true }
@@ -157,8 +157,8 @@ final class KeyCatchingTextView: NSTextView {
         case #selector(insertNewline(_:)),
              #selector(NSResponder.insertNewlineIgnoringFieldEditor(_:)):
             // ENTER / Keypad Enter → submit (no newline)
-            self.onSubmit?()
-            // Don't call super (prevents newline insertion)
+            onSubmit?()
+        // Don't call super (prevents newline insertion)
 
         case #selector(insertLineBreak(_:)):
             // SHIFT+ENTER → actual newline

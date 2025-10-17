@@ -1,0 +1,77 @@
+version: 1
+name: "Model Access Control Policy"
+description: "Governance controls for model usage - enforce local-first architecture"
+
+rules:
+  - id: cloud-deny
+    name: "Deny Cloud Model Usage"
+    description: "Block all cloud model API calls when local-first mode is active"
+    when:
+      - env.ATHENA_NO_CLOUD == "1"
+      - env.ATHENA_MODEL_POLICY == "local_first"
+    forbid_targets:
+      - "cloud_frontier"
+      - "openai"
+      - "anthropic"
+      - "google"
+      - "cohere"
+      - "groq"
+      - "together"
+      - "replicate"
+    action_on_violation: "ROLLBACK"
+    severity: "critical"
+
+  - id: fail-closed-enforce
+    name: "Enforce Fail-Closed Mode"
+    description: "When fail-closed is enabled, only allow local models"
+    when:
+      - env.ATHENA_FAIL_CLOSED == "1"
+    forbid_targets:
+      - "cloud_frontier"
+      - "browser_tools"
+    action_on_violation: "BLOCK"
+    severity: "high"
+
+  - id: local-stack-health
+    name: "Require Local Stack Availability"
+    description: "Ensure at least one local backend is available"
+    when:
+      - metric.athena_router_local_success_total == 0
+      - duration > "5m"
+    require_targets:
+      - "local_ollama"
+      - "local_mlx"
+    action_on_violation: "ALERT"
+    severity: "warning"
+
+  - id: browser-fallback-only
+    name: "Browser Tools as Controlled Fallback"
+    description: "Allow browser tools only when explicitly permitted"
+    when:
+      - env.ATHENA_ALLOW_BROWSER != "1"
+    forbid_targets:
+      - "browser_tools"
+    action_on_violation: "BLOCK"
+    severity: "medium"
+
+violations:
+  log_level: "ERROR"
+  alert_channels:
+    - "slack"
+    - "email"
+  escalation:
+    after_attempts: 3
+    notify: "security_team"
+
+audit:
+  enabled: true
+  log_file: "logs/model_access_audit.log"
+  retention_days: 90
+  fields:
+    - timestamp
+    - rule_id
+    - target
+    - action
+    - user_id
+    - source_ip
+    - environment

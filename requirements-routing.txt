@@ -1,0 +1,14 @@
+# Athena Routing Service Dependencies
+
+# Core dependencies
+flask>=2.3.0
+prometheus-client>=0.17.0
+
+# Embedding generation (optional, for seed_embeddings.py)
+sentence-transformers>=2.2.0
+torch>=2.0.0
+
+# Utilities
+pyyaml>=6.0
+numpy>=1.24.0
+

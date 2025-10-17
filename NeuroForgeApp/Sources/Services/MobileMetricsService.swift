@@ -2,7 +2,7 @@ import Foundation
 
 /// Mobile Metrics Service - Stub for compatibility
 /// TODO: Integrate with Prometheus/governance metrics
-final class MobileMetricsService {
+final class MobileMetricsService: @unchecked Sendable {
     static let shared = MobileMetricsService()
 
     private init() {}

@@ -7,16 +7,16 @@ struct ToggleButton: View {
     var body: some View {
         Button(action: {
             withAnimation(.spring(response: 0.4, dampingFraction: 0.6, blendDuration: 0)) {
-                self.isOn.toggle()
+                isOn.toggle()
             }
         }) {
-            Image(systemName: self.icon)
+            Image(systemName: icon)
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundColor(.white)
                 .frame(width: 28, height: 28)
                 .background(
                     Circle()
-                        .fill(self.isOn ?
+                        .fill(isOn ?
                             LinearGradient(
                                 colors: [AppleColors.systemBlue, AppleColors.systemGray],
                                 startPoint: .topLeading,
@@ -28,14 +28,14 @@ struct ToggleButton: View {
                                 endPoint: .bottomTrailing
                             )
                         )
-                        .shadow(color: self.isOn ? AppleColors.systemBlue.opacity(0.4) : Color.clear, radius: 4, x: 0, y: 2)
+                        .shadow(color: isOn ? AppleColors.systemBlue.opacity(0.4) : Color.clear, radius: 4, x: 0, y: 2)
                 )
-                .scaleEffect(self.isOn ? 1.05 : 1.0)
-                .rotationEffect(.degrees(self.isOn ? 5 : 0))
+                .scaleEffect(isOn ? 1.05 : 1.0)
+                .rotationEffect(.degrees(isOn ? 5 : 0))
         }
         .buttonStyle(.plain)
-        .help(self.isOn ? "Disable" : "Enable")
-        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: self.isOn)
+        .help(isOn ? "Disable" : "Enable")
+        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isOn)
     }
 }
 

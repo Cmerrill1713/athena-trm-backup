@@ -1,0 +1,60 @@
+{
+  "metrics": {
+    "checks_performed": 8,
+    "issues_found": [
+      {
+        "check": "Swift Build",
+        "issue": "Expected 'No errors' not found",
+        "output": "[13/64] Compiling NeuroForgeApp ErrorCenter.swift\n[55/64] Compiling NeuroForgeApp APIError.swift\n"
+      },
+      {
+        "check": "build_errors",
+        "issue": "Swift compilation errors detected",
+        "details": "[13/64] Compiling NeuroForgeApp ErrorCenter.swift\n[55/64] Compiling NeuroForgeApp APIError.swift\n",
+        "remediation": "Fix compilation errors before testing typing"
+      },
+      {
+        "check": "nsview_representable",
+        "issue": "Found 5 NSViewRepresentable implementations",
+        "details": "NSViewRepresentable can cause keyboard focus issues on macOS",
+        "remediation": "Replace NSViewRepresentable with pure SwiftUI TextField"
+      },
+      {
+        "check": "navigation_split_view",
+        "issue": "NavigationSplitView has known focus issues on macOS",
+        "details": "SwiftUI bug: TextField in NavigationSplitView detail view may not receive keyboard input",
+        "remediation": "Use delayed focus (.onAppear with DispatchQueue.main.asyncAfter) or avoid NavigationSplitView"
+      }
+    ],
+    "remediations_suggested": []
+  },
+  "verdict": "HARD_FAIL",
+  "remediation_plan": {
+    "timestamp": "2025-10-15T23:22:21.495451",
+    "verdict": "HARD_FAIL",
+    "issues_found": 4,
+    "remediation_steps": [
+      {
+        "issue": "Swift compilation errors detected",
+        "action": "Fix compilation errors before testing typing",
+        "priority": "HIGH"
+      },
+      {
+        "issue": "Found 5 NSViewRepresentable implementations",
+        "action": "Replace NSViewRepresentable with pure SwiftUI TextField",
+        "priority": "MEDIUM"
+      },
+      {
+        "issue": "NavigationSplitView has known focus issues on macOS",
+        "action": "Use delayed focus (.onAppear with DispatchQueue.main.asyncAfter) or avoid NavigationSplitView",
+        "priority": "MEDIUM"
+      },
+      {
+        "issue": "Known SwiftUI focus bug",
+        "action": "Apply 0.3s delayed focus workaround with @FocusState",
+        "priority": "HIGH",
+        "code_example": "\n@FocusState private var isFocused: Bool\n\nTextField(\"...\", text: $text)\n    .focused($isFocused)\n    .onAppear {\n        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {\n            isFocused = true\n        }\n    }\n"
+      }
+    ]
+  }
+}

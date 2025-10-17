@@ -3,7 +3,7 @@ import SwiftUI
 /// Centralized error handling that provides user-friendly alerts without crashing
 @MainActor
 public final class ErrorCenter: ObservableObject {
-    @Published public var activeBanner: BannerData? = nil
+    @Published public var activeBanner: BannerData?
     @Published public var recentErrors: [String] = []
 
     private let maxRecentErrors = 50
@@ -12,14 +12,14 @@ public final class ErrorCenter: ObservableObject {
 
     /// Handle an API error with user-friendly messaging
     public func handle(_ error: Error, context: String = "") {
-        let bannerData = self.createBanner(for: error, context: context)
-        self.activeBanner = bannerData
+        let bannerData = createBanner(for: error, context: context)
+        activeBanner = bannerData
 
         // Log to recent errors
         let errorMsg = "\(Date().formatted(date: .omitted, time: .standard)) [\(context)] \(error.localizedDescription)"
-        self.recentErrors.insert(errorMsg, at: 0)
-        if self.recentErrors.count > self.maxRecentErrors {
-            self.recentErrors.removeLast()
+        recentErrors.insert(errorMsg, at: 0)
+        if recentErrors.count > maxRecentErrors {
+            recentErrors.removeLast()
         }
 
         // Auto-dismiss info banners after 5 seconds
@@ -83,7 +83,7 @@ public final class ErrorCenter: ObservableObject {
     }
 
     public func clearBanner() {
-        self.activeBanner = nil
+        activeBanner = nil
     }
 }
 

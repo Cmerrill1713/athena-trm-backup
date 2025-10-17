@@ -5,7 +5,6 @@ import Foundation
 /// API Client for Athena Governance Orchestrator
 /// Connects to local governance services (9109, 9110, 9111, 9090)
 final class GovernanceAPIClient {
-
     // MARK: - Configuration
 
     private let orchestratorURL: URL
@@ -18,7 +17,7 @@ final class GovernanceAPIClient {
     ) {
         self.orchestratorURL = orchestratorURL
         self.prometheusURL = prometheusURL
-        self.session = URLSession(configuration: .default)
+        session = URLSession(configuration: .default)
     }
 
     // MARK: - Health Checks
@@ -29,7 +28,7 @@ final class GovernanceAPIClient {
             let (data, response) = try await session.data(from: url)
 
             guard let httpResponse = response as? HTTPURLResponse,
-                httpResponse.statusCode == 200
+                  httpResponse.statusCode == 200
             else {
                 return false
             }
@@ -49,14 +48,14 @@ final class GovernanceAPIClient {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let body = [
-            "mode": mode.rawValue, "timestamp": ISO8601DateFormatter().string(from: Date()),
+            "mode": mode.rawValue, "timestamp": ISO8601DateFormatter().string(from: Date())
         ]
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
 
         let (_, response) = try await session.data(for: request)
 
         guard let httpResponse = response as? HTTPURLResponse,
-            (200..<300).contains(httpResponse.statusCode)
+              (200 ..< 300).contains(httpResponse.statusCode)
         else {
             throw URLError(.badServerResponse)
         }
@@ -73,7 +72,7 @@ final class GovernanceAPIClient {
         let (data, response) = try await session.data(for: request)
 
         guard let httpResponse = response as? HTTPURLResponse,
-            (200..<300).contains(httpResponse.statusCode)
+              (200 ..< 300).contains(httpResponse.statusCode)
         else {
             throw URLError(.badServerResponse)
         }
@@ -119,19 +118,19 @@ final class GovernanceAPIClient {
         let (data, response) = try await session.data(from: url)
 
         guard let httpResponse = response as? HTTPURLResponse,
-            httpResponse.statusCode == 200
+              httpResponse.statusCode == 200
         else {
             throw URLError(.badServerResponse)
         }
 
         // Parse Prometheus response
         guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-            let dataDict = json["data"] as? [String: Any],
-            let result = dataDict["result"] as? [[String: Any]],
-            let firstResult = result.first,
-            let value = firstResult["value"] as? [Any],
-            let stringValue = value.last as? String,
-            let doubleValue = Double(stringValue)
+              let dataDict = json["data"] as? [String: Any],
+              let result = dataDict["result"] as? [[String: Any]],
+              let firstResult = result.first,
+              let value = firstResult["value"] as? [Any],
+              let stringValue = value.last as? String,
+              let doubleValue = Double(stringValue)
         else {
             return 0
         }

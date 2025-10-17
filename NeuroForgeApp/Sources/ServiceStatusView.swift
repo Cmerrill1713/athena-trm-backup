@@ -21,4 +21,3 @@ struct ServiceStatusView: View {
         .cornerRadius(8)
     }
 }
-

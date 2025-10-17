@@ -12,18 +12,20 @@ final class ChatService: ObservableObject {
     private let session = URLSession(configuration: .default)
     private var cancellables = Set<AnyCancellable>()
 
-    init(userID: String = "default", threadID: String = "default-thread") {
-        print("🌐 ChatService initialized with base: \(self.base.absoluteString)")
-        print("🔐 Auth enabled: \(AppConfig.bridgeAuthEnabled), token present: \(!self.token.isEmpty)")
+    init(userID _: String = "default", threadID _: String = "default-thread") {
+        print("🌐 ChatService initialized with base: \(base.absoluteString)")
+        print(
+            "🔐 Auth enabled: \(AppConfig.bridgeAuthEnabled), token present: \(!token.isEmpty)")
 
         // Add welcome message
-        self.messages.append(ChatMessage(
-            text: "✨ Hi! I'm Athena, your AI assistant. How can I help you today?",
-            isUser: false
-        ))
+        messages.append(
+            ChatMessage(
+                text: "✨ Hi! I'm Athena, your AI assistant. How can I help you today?",
+                isUser: false
+            ))
 
         // Start connectivity monitoring
-        self.startConnectivityCheck()
+        startConnectivityCheck()
     }
 
     private func startConnectivityCheck() {
@@ -32,12 +34,12 @@ final class ChatService: ObservableObject {
             .sink { [weak self] _ in
                 self?.checkHealth()
             }
-            .store(in: &self.cancellables)
+            .store(in: &cancellables)
     }
 
     func checkHealth() {
-        let url = self.base.appendingPathComponent("health")
-        self.session.dataTask(with: url) { [weak self] _, response, _ in
+        let url = base.appendingPathComponent("health")
+        session.dataTask(with: url) { [weak self] _, response, _ in
             let connected = (response as? HTTPURLResponse)?.statusCode == 200
             DispatchQueue.main.async {
                 self?.isConnected = connected
@@ -46,28 +48,28 @@ final class ChatService: ObservableObject {
     }
 
     func sendCurrentMessage() async {
-        let text = self.inputText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { return }
 
-        self.inputText = ""
-        await self.sendMessage(text)
+        inputText = ""
+        await sendMessage(text)
     }
 
     func sendMessage(_ text: String) async {
         // Add user message
         let userMessage = ChatMessage(text: text, isUser: true)
-        self.messages.append(userMessage)
+        messages.append(userMessage)
 
         do {
             let reply = try await sendToBackend(text)
             let aiMessage = ChatMessage(text: reply, isUser: false)
-            self.messages.append(aiMessage)
+            messages.append(aiMessage)
         } catch {
             let errorMessage = ChatMessage(
                 text: "❌ Error: \(error.localizedDescription)",
                 isUser: false
             )
-            self.messages.append(errorMessage)
+            messages.append(errorMessage)
         }
     }
 
@@ -76,8 +78,8 @@ final class ChatService: ObservableObject {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        if !self.token.isEmpty {
-            request.setValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+        if !token.isEmpty {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
 
         let payload: [String: Any] = ["kind": "chat", "message": text]
@@ -91,13 +93,19 @@ final class ChatService: ObservableObject {
 
         guard httpResponse.statusCode == 200 else {
             let errorText = String(data: data, encoding: .utf8) ?? "HTTP \(httpResponse.statusCode)"
-            throw NSError(domain: "bridge", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: errorText])
+            throw NSError(
+                domain: "bridge", code: httpResponse.statusCode,
+                userInfo: [NSLocalizedDescriptionKey: errorText]
+            )
         }
 
         guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
               let reply = json["response"] as? String
         else {
-            throw NSError(domain: "bridge", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid response format"])
+            throw NSError(
+                domain: "bridge", code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Invalid response format"]
+            )
         }
 
         return reply

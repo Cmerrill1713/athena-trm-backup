@@ -9,24 +9,23 @@ final class InputFocusCoordinator: ObservableObject {
 
     /// Call when a text input gains focus.
     func beginTextEntry() {
-        self.chatInputFocused = true
-        self.suspendGlobalKeyStealers()
+        chatInputFocused = true
+        suspendGlobalKeyStealers()
     }
 
     /// Call when text input resigns.
     func endTextEntry() {
-        self.chatInputFocused = false
-        self.resumeGlobalKeyStealers()
+        chatInputFocused = false
+        resumeGlobalKeyStealers()
     }
 
     private func suspendGlobalKeyStealers() {
         // Remove any existing local monitors that might intercept keyDown
-        if let m = localMonitor { NSEvent.removeMonitor(m); self.localMonitor = nil }
+        if let m = localMonitor { NSEvent.removeMonitor(m); localMonitor = nil }
         // Install a pass-through monitor that *never* eats events while an NSTextView is first responder
-        self.localMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .flagsChanged]) { ev in
+        localMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .flagsChanged]) { ev in
             if let first = NSApp.keyWindow?.firstResponder,
-               first.isKind(of: NSTextView.self)
-            {
+               first.isKind(of: NSTextView.self) {
                 // Let the text system handle it
                 return ev
             }
@@ -36,11 +35,11 @@ final class InputFocusCoordinator: ObservableObject {
     }
 
     private func resumeGlobalKeyStealers() {
-        if let m = localMonitor { NSEvent.removeMonitor(m); self.localMonitor = nil }
+        if let m = localMonitor { NSEvent.removeMonitor(m); localMonitor = nil }
     }
 
     /// Request focus programmatically (e.g., from Cmd+Shift+L)
     func requestFocus() {
-        self.chatInputFocused = true
+        chatInputFocused = true
     }
 }

@@ -19,11 +19,10 @@ public struct APIClient {
             return nil
         case 422:
             // Try to extract validation message from response
-            var message: String? = nil
+            var message: String?
             if let data,
                let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-               let detail = json["detail"] as? String
-            {
+               let detail = json["detail"] as? String {
                 message = detail
             }
             return .validation422(message: message)
@@ -38,7 +37,7 @@ public struct APIClient {
 
     /// GET request with type-safe decoding
     public func get<T: Decodable>(_ path: String) async throws -> T {
-        let url = self.baseURL.appendingPathComponent(path.trimmingCharacters(in: CharacterSet(charactersIn: "/")))
+        let url = baseURL.appendingPathComponent(path.trimmingCharacters(in: CharacterSet(charactersIn: "/")))
         var request = URLRequest(url: url)
         request.timeoutInterval = 15
         request.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -69,7 +68,7 @@ public struct APIClient {
 
     /// POST request with type-safe encoding/decoding
     public func post<U: Decodable>(_ path: String, body: some Encodable) async throws -> U {
-        let url = self.baseURL.appendingPathComponent(path.trimmingCharacters(in: CharacterSet(charactersIn: "/")))
+        let url = baseURL.appendingPathComponent(path.trimmingCharacters(in: CharacterSet(charactersIn: "/")))
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.timeoutInterval = 30

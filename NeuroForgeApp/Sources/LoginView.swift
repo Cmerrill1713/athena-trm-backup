@@ -46,25 +46,26 @@ struct LoginView: View {
             HStack(spacing: 16) {
                 // Profile cards with vertical navigation
                 VStack(spacing: 12) {
-                    ForEach(Array(self.profileManager.profiles.enumerated()), id: \.element.id) {
+                    ForEach(Array(profileManager.profiles.enumerated()), id: \.element.id) {
                         index, profile in
                         ProfileCard(profile: profile) {
-                            self.profileManager.selectProfile(profile)
-                            self.selectedProfile = profile
-                            self.isLoggedIn = true
+                            profileManager.selectProfile(profile)
+                            selectedProfile = profile
+                            isLoggedIn = true
                         } onDelete: {
-                            if self.profileManager.profiles.count > 1 {
-                                self.profileManager.deleteProfile(profile)
-                                if self.selectedProfileIndex >= self.profileManager.profiles.count {
-                                    self.selectedProfileIndex = max(
-                                        0, self.profileManager.profiles.count - 1)
+                            if profileManager.profiles.count > 1 {
+                                profileManager.deleteProfile(profile)
+                                if selectedProfileIndex >= profileManager.profiles.count {
+                                    selectedProfileIndex = max(
+                                        0, profileManager.profiles.count - 1
+                                    )
                                 }
                             }
                         }
                         .frame(width: 420)
-                        .opacity(self.selectedProfileIndex == index ? 1.0 : 0.7)
-                        .scaleEffect(self.selectedProfileIndex == index ? 1.0 : 0.95)
-                        .animation(.easeInOut(duration: 0.3), value: self.selectedProfileIndex)
+                        .opacity(selectedProfileIndex == index ? 1.0 : 0.7)
+                        .scaleEffect(selectedProfileIndex == index ? 1.0 : 0.95)
+                        .animation(.easeInOut(duration: 0.3), value: selectedProfileIndex)
                     }
                 }
                 .frame(height: 300)
@@ -72,37 +73,36 @@ struct LoginView: View {
                 .gesture(
                     DragGesture()
                         .onEnded { value in
-                            if value.translation.height > 50, self.selectedProfileIndex > 0 {
+                            if value.translation.height > 50, selectedProfileIndex > 0 {
                                 withAnimation(.easeInOut(duration: 0.3)) {
-                                    self.selectedProfileIndex -= 1
+                                    selectedProfileIndex -= 1
                                 }
                             } else if value.translation.height < -50,
-                                self.selectedProfileIndex < self.profileManager.profiles.count - 1
-                            {
+                                      selectedProfileIndex < profileManager.profiles.count - 1 {
                                 withAnimation(.easeInOut(duration: 0.3)) {
-                                    self.selectedProfileIndex += 1
+                                    selectedProfileIndex += 1
                                 }
                             }
                         }
                 )
 
                 // Navigation dots (vertical, only show if more than 1 profile)
-                if self.profileManager.profiles.count > 1 {
+                if profileManager.profiles.count > 1 {
                     VStack(spacing: 8) {
-                        ForEach(0..<self.profileManager.profiles.count, id: \.self) { index in
+                        ForEach(0 ..< profileManager.profiles.count, id: \.self) { index in
                             Circle()
                                 .fill(
-                                    self.selectedProfileIndex == index
+                                    selectedProfileIndex == index
                                         ? AppleColors.systemBlue : AppleColors.systemGray4
                                 )
                                 .frame(width: 8, height: 8)
-                                .scaleEffect(self.selectedProfileIndex == index ? 1.2 : 1.0)
+                                .scaleEffect(selectedProfileIndex == index ? 1.2 : 1.0)
                                 .animation(
-                                    .easeInOut(duration: 0.2), value: self.selectedProfileIndex
+                                    .easeInOut(duration: 0.2), value: selectedProfileIndex
                                 )
                                 .onTapGesture {
                                     withAnimation(.easeInOut(duration: 0.3)) {
-                                        self.selectedProfileIndex = index
+                                        selectedProfileIndex = index
                                     }
                                 }
                         }
@@ -114,7 +114,7 @@ struct LoginView: View {
             Spacer()
 
             // Add profile button - modern design
-            Button(action: { self.showingAddProfile = true }) {
+            Button(action: { showingAddProfile = true }) {
                 HStack(spacing: 12) {
                     Image(systemName: "plus")
                         .font(.system(size: 16, weight: .semibold))
@@ -139,8 +139,8 @@ struct LoginView: View {
             .padding(.bottom, 40)
         }
         .frame(width: 500, height: 600)
-        .sheet(isPresented: self.$showingAddProfile) {
-            AddProfileView(profileManager: self.profileManager)
+        .sheet(isPresented: $showingAddProfile) {
+            AddProfileView(profileManager: profileManager)
         }
     }
 }
@@ -157,15 +157,14 @@ struct ProfileCard: View {
             // Avatar - show photo if available, otherwise SF Symbol
             Group {
                 if let imageData = profile.profileImageData,
-                    let nsImage = NSImage(data: imageData)
-                {
+                   let nsImage = NSImage(data: imageData) {
                     Image(nsImage: nsImage)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 60, height: 60)
                         .clipShape(Circle())
                 } else {
-                    Image(systemName: self.profile.avatar)
+                    Image(systemName: profile.avatar)
                         .font(.system(size: 40, weight: .medium))
                         .foregroundColor(.white)
                         .frame(width: 60, height: 60)
@@ -180,22 +179,23 @@ struct ProfileCard: View {
                                 )
                                 .shadow(
                                     color: AppleColors.systemBlue.opacity(0.3), radius: 4, x: 0,
-                                    y: 2)
+                                    y: 2
+                                )
                         )
                 }
             }
 
             // Profile info
             VStack(alignment: .leading, spacing: 4) {
-                Text(self.profile.name)
+                Text(profile.name)
                     .font(.headline)
 
                 HStack(spacing: 12) {
-                    Label("\(self.profile.messageCount)", systemImage: "message.fill")
+                    Label("\(profile.messageCount)", systemImage: "message.fill")
                         .font(.caption)
                         .foregroundColor(.secondary)
 
-                    Text("Last used: \(self.formatDate(self.profile.lastUsed))")
+                    Text("Last used: \(formatDate(profile.lastUsed))")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -204,8 +204,8 @@ struct ProfileCard: View {
             Spacer()
 
             // Delete button (only show on hover if more than 1 profile)
-            if self.isHovering {
-                Button(action: self.onDelete) {
+            if isHovering {
+                Button(action: onDelete) {
                     Image(systemName: "trash")
                         .foregroundColor(.red)
                 }
@@ -217,7 +217,7 @@ struct ProfileCard: View {
         .background(
             RoundedRectangle(cornerRadius: 12)
                 .fill(
-                    self.isHovering
+                    isHovering
                         ? AppleColors.systemBlue.opacity(0.05) : AppleColors.controlBackground
                 )
                 .overlay(
@@ -228,13 +228,13 @@ struct ProfileCard: View {
         )
         .onHover { hovering in
             withAnimation(.easeInOut(duration: 0.15)) {
-                self.isHovering = hovering
+                isHovering = hovering
             }
         }
         .onTapGesture {
-            self.onSelect()
+            onSelect()
         }
-        .help("Select \(self.profile.name)")
+        .help("Select \(profile.name)")
     }
 
     private func formatDate(_ date: Date) -> String {
@@ -265,7 +265,7 @@ struct AddProfileView: View {
         "flame.fill",
         "leaf.circle.fill",
         "pawprint.circle.fill",
-        "globe.americas.fill",
+        "globe.americas.fill"
     ]
 
     var body: some View {
@@ -277,8 +277,7 @@ struct AddProfileView: View {
             // Profile picture or avatar preview
             VStack(spacing: 12) {
                 if let imageData = profileImageData,
-                    let nsImage = NSImage(data: imageData)
-                {
+                   let nsImage = NSImage(data: imageData) {
                     Image(nsImage: nsImage)
                         .resizable()
                         .scaledToFill()
@@ -286,7 +285,7 @@ struct AddProfileView: View {
                         .clipShape(Circle())
                         .overlay(Circle().stroke(AppleColors.systemBlue, lineWidth: 3))
                 } else {
-                    Image(systemName: self.selectedAvatar)
+                    Image(systemName: selectedAvatar)
                         .font(.system(size: 50, weight: .medium))
                         .foregroundColor(.white)
                         .frame(width: 100, height: 100)
@@ -301,14 +300,15 @@ struct AddProfileView: View {
                                 )
                                 .shadow(
                                     color: AppleColors.systemBlue.opacity(0.3), radius: 6, x: 0,
-                                    y: 3)
+                                    y: 3
+                                )
                         )
                 }
 
-                Button(action: { self.showingImagePicker = true }) {
+                Button(action: { showingImagePicker = true }) {
                     HStack(spacing: 4) {
                         Image(systemName: "photo")
-                        Text(self.profileImageData == nil ? "Add Photo" : "Change Photo")
+                        Text(profileImageData == nil ? "Add Photo" : "Change Photo")
                     }
                     .font(.caption)
                     .foregroundColor(AppleColors.systemBlue)
@@ -323,22 +323,22 @@ struct AddProfileView: View {
                     .foregroundColor(.secondary)
 
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 12) {
-                    ForEach(self.avatarOptions, id: \.self) { avatar in
-                        Button(action: { self.selectedAvatar = avatar }) {
+                    ForEach(avatarOptions, id: \.self) { avatar in
+                        Button(action: { selectedAvatar = avatar }) {
                             Image(systemName: avatar)
                                 .font(.system(size: 28))
                                 .foregroundColor(
-                                    self.selectedAvatar == avatar ? .white : AppleColors.systemBlue
+                                    selectedAvatar == avatar ? .white : AppleColors.systemBlue
                                 )
                                 .frame(width: 50, height: 50)
                                 .background(
                                     Circle()
                                         .fill(
-                                            self.selectedAvatar == avatar
+                                            selectedAvatar == avatar
                                                 ? LinearGradient(
                                                     colors: [
                                                         AppleColors.systemBlue,
-                                                        AppleColors.systemGray,
+                                                        AppleColors.systemGray
                                                     ],
                                                     startPoint: .topLeading,
                                                     endPoint: .bottomTrailing
@@ -346,16 +346,17 @@ struct AddProfileView: View {
                                                 : LinearGradient(
                                                     colors: [
                                                         AppleColors.systemGray5,
-                                                        AppleColors.systemGray6,
+                                                        AppleColors.systemGray6
                                                     ],
                                                     startPoint: .topLeading,
                                                     endPoint: .bottomTrailing
                                                 )
                                         )
                                         .shadow(
-                                            color: self.selectedAvatar == avatar
+                                            color: selectedAvatar == avatar
                                                 ? AppleColors.systemBlue.opacity(0.4) : Color.clear,
-                                            radius: 3, x: 0, y: 1)
+                                            radius: 3, x: 0, y: 1
+                                        )
                                 )
                         }
                         .buttonStyle(.plain)
@@ -369,7 +370,7 @@ struct AddProfileView: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
 
-                TextField("Enter name...", text: self.$profileName)
+                TextField("Enter name...", text: $profileName)
                     .textFieldStyle(.roundedBorder)
                     .font(.body)
             }
@@ -379,28 +380,29 @@ struct AddProfileView: View {
             // Buttons
             HStack(spacing: 12) {
                 Button("Cancel") {
-                    self.dismiss()
+                    dismiss()
                 }
                 .keyboardShortcut(.escape)
 
                 Button("Create Profile") {
-                    if !self.profileName.isEmpty {
-                        self.profileManager.createProfile(
-                            name: self.profileName, avatar: self.selectedAvatar,
-                            profileImageData: self.profileImageData)
-                        self.dismiss()
+                    if !profileName.isEmpty {
+                        profileManager.createProfile(
+                            name: profileName, avatar: selectedAvatar,
+                            profileImageData: profileImageData
+                        )
+                        dismiss()
                     }
                 }
                 .buttonStyle(.borderedProminent)
-                .disabled(self.profileName.isEmpty)
+                .disabled(profileName.isEmpty)
                 .keyboardShortcut(.return)
             }
         }
         .padding(30)
         .frame(width: 400, height: 550)
-        .sheet(isPresented: self.$showingImagePicker) {
-            ProfileImagePicker(isPresented: self.$showingImagePicker) { imageData in
-                self.profileImageData = imageData
+        .sheet(isPresented: $showingImagePicker) {
+            ProfileImagePicker(isPresented: $showingImagePicker) { imageData in
+                profileImageData = imageData
             }
         }
     }
@@ -411,15 +413,15 @@ struct ProfileImagePicker: NSViewRepresentable {
     @Binding var isPresented: Bool
     var onImagePicked: (Data) -> Void
 
-    func makeNSView(context: Context) -> NSView {
+    func makeNSView(context _: Context) -> NSView {
         NSView()
     }
 
-    func updateNSView(_ nsView: NSView, context: Context) {
+    func updateNSView(_: NSView, context _: Context) {
         DispatchQueue.main.async {
-            if self.isPresented {
-                self.presentImagePicker()
-                self.isPresented = false
+            if isPresented {
+                presentImagePicker()
+                isPresented = false
             }
         }
     }
@@ -436,8 +438,8 @@ struct ProfileImagePicker: NSViewRepresentable {
                 let imageData = try Data(contentsOf: url)
                 if let nsImage = NSImage(data: imageData) {
                     // Scale image to 200x200 for profile use
-                    let scaledData = self.scaleImageData(nsImage, maxSize: 200)
-                    self.onImagePicked(scaledData)
+                    let scaledData = scaleImageData(nsImage, maxSize: 200)
+                    onImagePicked(scaledData)
                 }
             } catch {
                 print("Error loading image: \(error.localizedDescription)")
@@ -463,10 +465,10 @@ struct ProfileImagePicker: NSViewRepresentable {
 
         // Convert to JPEG data (compressed)
         if let tiffData = scaledImage.tiffRepresentation,
-            let bitmapImage = NSBitmapImageRep(data: tiffData),
-            let jpegData = bitmapImage.representation(
-                using: .jpeg, properties: [.compressionFactor: 0.8])
-        {
+           let bitmapImage = NSBitmapImageRep(data: tiffData),
+           let jpegData = bitmapImage.representation(
+               using: .jpeg, properties: [.compressionFactor: 0.8]
+           ) {
             return jpegData
         }
 

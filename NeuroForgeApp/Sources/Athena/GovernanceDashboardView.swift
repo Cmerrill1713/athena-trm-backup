@@ -113,17 +113,17 @@ private struct ModeSwitcherView: View {
 
     private var modeIcon: String {
         switch state.governanceMode {
-        case .shadow: return "eye.fill"
-        case .canary: return "bird.fill"
-        case .enforce: return "shield.fill"
+        case .shadow: "eye.fill"
+        case .canary: "bird.fill"
+        case .enforce: "shield.fill"
         }
     }
 
     private var modeColor: Color {
         switch state.governanceMode {
-        case .shadow: return .blue
-        case .canary: return .yellow
-        case .enforce: return .green
+        case .shadow: .blue
+        case .canary: .yellow
+        case .enforce: .green
         }
     }
 }
@@ -212,9 +212,9 @@ private enum KPIStatus {
 
     var color: Color {
         switch self {
-        case .normal: return .green
-        case .warning: return .orange
-        case .critical: return .red
+        case .normal: .green
+        case .warning: .orange
+        case .critical: .red
         }
     }
 }
@@ -289,17 +289,17 @@ private struct GovernanceAlertsView: View {
 
     private func alertIcon(for severity: AlertSeverity) -> String {
         switch severity {
-        case .info: return "info.circle.fill"
-        case .warning: return "exclamationmark.triangle.fill"
-        case .critical: return "exclamationmark.octagon.fill"
+        case .info: "info.circle.fill"
+        case .warning: "exclamationmark.triangle.fill"
+        case .critical: "exclamationmark.octagon.fill"
         }
     }
 
     private func alertColor(for severity: AlertSeverity) -> Color {
         switch severity {
-        case .info: return .blue
-        case .warning: return .orange
-        case .critical: return .red
+        case .info: .blue
+        case .warning: .orange
+        case .critical: .red
         }
     }
 }
@@ -433,7 +433,8 @@ private struct CustomVerdictSheet: View {
                                         selectedActions.remove(action)
                                     }
                                 }
-                            ))
+                            )
+                        )
                     }
                 }
             }

@@ -1,0 +1,39 @@
+{
+  "flags": [
+    {
+      "name": "contrastive_routing",
+      "enabled": true,
+      "value": null,
+      "description": "Use contrastive domain embeddings for routing",
+      "rollout_percentage": 100.0
+    },
+    {
+      "name": "ab_testing",
+      "enabled": false,
+      "value": null,
+      "description": "Enable A/B testing framework",
+      "rollout_percentage": 0.0
+    },
+    {
+      "name": "cost_optimization",
+      "enabled": true,
+      "value": null,
+      "description": "Optimize for cost-efficiency over pure quality",
+      "rollout_percentage": 100.0
+    },
+    {
+      "name": "latency_monitoring",
+      "enabled": true,
+      "value": null,
+      "description": "Enhanced latency tracking and alerting",
+      "rollout_percentage": 100.0
+    },
+    {
+      "name": "fallback_caching",
+      "enabled": true,
+      "value": null,
+      "description": "Cache fallback router results",
+      "rollout_percentage": 100.0
+    }
+  ]
+}

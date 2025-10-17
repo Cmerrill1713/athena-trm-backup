@@ -1,0 +1,334 @@
+{
+    "dashboard": {
+        "title": "Athena Routing Dashboard",
+        "tags": [
+            "athena",
+            "routing",
+            "governance"
+        ],
+        "timezone": "browser",
+        "schemaVersion": 16,
+        "version": 1,
+        "refresh": "5s",
+        "panels": [
+            {
+                "id": 1,
+                "title": "Routing Requests (Rate)",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 0
+                },
+                "targets": [
+                    {
+                        "expr": "rate(athena_router_requests_total[5m])",
+                        "legendFormat": "{{model}} - {{domain}}",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "reqps",
+                        "label": "Requests/sec"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "title": "Routing Distribution Over Time",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 0
+                },
+                "targets": [
+                    {
+                        "expr": "sum by (model) (rate(athena_router_requests_total[5m]))",
+                        "legendFormat": "{{model}}",
+                        "refId": "A"
+                    }
+                ],
+                "stack": true,
+                "yaxes": [
+                    {
+                        "format": "reqps"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "title": "Routing Latency (p50, p95, p99)",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 8
+                },
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.50, rate(athena_router_latency_ms_bucket[5m]))",
+                        "legendFormat": "p50",
+                        "refId": "A"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.95, rate(athena_router_latency_ms_bucket[5m]))",
+                        "legendFormat": "p95",
+                        "refId": "B"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.99, rate(athena_router_latency_ms_bucket[5m]))",
+                        "legendFormat": "p99",
+                        "refId": "C"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "ms",
+                        "label": "Latency"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ],
+                "alert": {
+                    "conditions": [
+                        {
+                            "evaluator": {
+                                "params": [
+                                    50
+                                ],
+                                "type": "gt"
+                            },
+                            "operator": {
+                                "type": "and"
+                            },
+                            "query": {
+                                "params": [
+                                    "B",
+                                    "5m",
+                                    "now"
+                                ]
+                            },
+                            "reducer": {
+                                "params": [],
+                                "type": "avg"
+                            },
+                            "type": "query"
+                        }
+                    ],
+                    "name": "High Routing Latency",
+                    "message": "p95 latency exceeds 50ms threshold"
+                }
+            },
+            {
+                "id": 4,
+                "title": "Fallback Rate",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 8
+                },
+                "targets": [
+                    {
+                        "expr": "rate(athena_fallbacks_total[5m])",
+                        "legendFormat": "{{reason}} ({{from_model}} -> {{to_model}})",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "reqps",
+                        "label": "Fallbacks/sec"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 5,
+                "title": "Routing Confidence",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 16
+                },
+                "targets": [
+                    {
+                        "expr": "athena_routing_confidence",
+                        "legendFormat": "{{model}} - {{domain}}",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "percentunit",
+                        "label": "Confidence",
+                        "min": 0,
+                        "max": 1
+                    },
+                    {
+                        "format": "short"
+                    }
+                ],
+                "thresholds": [
+                    {
+                        "value": 0.7,
+                        "colorMode": "critical",
+                        "op": "lt",
+                        "fill": true,
+                        "line": true
+                    }
+                ]
+            },
+            {
+                "id": 6,
+                "title": "Embedding Cache Hit Rate",
+                "type": "stat",
+                "gridPos": {
+                    "h": 8,
+                    "w": 6,
+                    "x": 12,
+                    "y": 16
+                },
+                "targets": [
+                    {
+                        "expr": "sum(rate(athena_embedding_cache_hits_total[5m])) / (sum(rate(athena_embedding_cache_hits_total[5m])) + sum(rate(athena_embedding_cache_misses_total[5m])))",
+                        "refId": "A"
+                    }
+                ],
+                "format": "percentunit",
+                "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                        {
+                            "value": 0,
+                            "color": "red"
+                        },
+                        {
+                            "value": 0.7,
+                            "color": "yellow"
+                        },
+                        {
+                            "value": 0.9,
+                            "color": "green"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": 7,
+                "title": "Reflex Agent Errors",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 6,
+                    "x": 18,
+                    "y": 16
+                },
+                "targets": [
+                    {
+                        "expr": "rate(reflex_agent_errors_total[5m])",
+                        "legendFormat": "{{agent}} - {{error_type}}",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "reqps",
+                        "label": "Errors/sec"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 8,
+                "title": "Model Profile Loads",
+                "type": "stat",
+                "gridPos": {
+                    "h": 4,
+                    "w": 8,
+                    "x": 0,
+                    "y": 24
+                },
+                "targets": [
+                    {
+                        "expr": "sum by (status) (athena_model_profile_loads_total)",
+                        "legendFormat": "{{status}}",
+                        "refId": "A"
+                    }
+                ]
+            },
+            {
+                "id": 9,
+                "title": "Routing Success Rate",
+                "type": "stat",
+                "gridPos": {
+                    "h": 4,
+                    "w": 8,
+                    "x": 8,
+                    "y": 24
+                },
+                "targets": [
+                    {
+                        "expr": "sum(rate(athena_router_requests_total{status=\"success\"}[5m])) / sum(rate(athena_router_requests_total[5m]))",
+                        "refId": "A"
+                    }
+                ],
+                "format": "percentunit",
+                "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                        {
+                            "value": 0,
+                            "color": "red"
+                        },
+                        {
+                            "value": 0.95,
+                            "color": "yellow"
+                        },
+                        {
+                            "value": 0.99,
+                            "color": "green"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": 10,
+                "title": "Total Routing Requests",
+                "type": "stat",
+                "gridPos": {
+                    "h": 4,
+                    "w": 8,
+                    "x": 16,
+                    "y": 24
+                },
+                "targets": [
+                    {
+                        "expr": "sum(athena_router_requests_total)",
+                        "refId": "A"
+                    }
+                ],
+                "format": "short"
+            }
+        ]
+    }
+}

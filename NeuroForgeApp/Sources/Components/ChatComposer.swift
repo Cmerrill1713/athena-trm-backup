@@ -25,7 +25,7 @@ public struct ChatComposer: View {
         activeFeature: ActiveFeature = .none,
         onSend: @escaping (String) async -> Void
     ) {
-        self._text = text
+        _text = text
         self.placeholder = placeholder
         self.isEnabled = isEnabled
         self.activeFeature = activeFeature
@@ -35,8 +35,8 @@ public struct ChatComposer: View {
     public var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
             // Input editor
-            KeyCatchingTextEditor(text: self.$text, onSubmit: {
-                Task { await self.send() }
+            KeyCatchingTextEditor(text: $text, onSubmit: {
+                Task { await send() }
             }, focusOnAppear: true)
                 .frame(minHeight: 40, maxHeight: 120)
                 .background(
@@ -65,15 +65,15 @@ public struct ChatComposer: View {
 
             // Send button - enhanced with gradient and dynamic icon
             Button {
-                Task { await self.send() }
+                Task { await send() }
             } label: {
-                Image(systemName: self.sendButtonIcon)
+                Image(systemName: sendButtonIcon)
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.white)
                     .frame(width: 36, height: 36)
                     .background(
                         Circle()
-                            .fill(self.canSend ?
+                            .fill(canSend ?
                                 LinearGradient(
                                     colors: [AppleColors.systemBlue, AppleColors.systemGray],
                                     startPoint: .topLeading,
@@ -85,30 +85,30 @@ public struct ChatComposer: View {
                                     endPoint: .bottomTrailing
                                 )
                             )
-                            .shadow(color: self.canSend ? AppleColors.systemBlue.opacity(0.4) : Color.clear, radius: 6, x: 0, y: 3)
+                            .shadow(color: canSend ? AppleColors.systemBlue.opacity(0.4) : Color.clear, radius: 6, x: 0, y: 3)
                     )
             }
             .buttonStyle(.plain)
-            .disabled(!self.canSend || self.isSending)
+            .disabled(!canSend || isSending)
             .keyboardShortcut(.return, modifiers: [])
             .accessibilityIdentifier("chat_send")
-            .scaleEffect(self.canSend ? 1.0 : 0.95)
-            .animation(.easeInOut(duration: 0.15), value: self.canSend)
+            .scaleEffect(canSend ? 1.0 : 0.95)
+            .animation(.easeInOut(duration: 0.15), value: canSend)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
     }
 
     private var canSend: Bool {
-        self.isEnabled && !self.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        isEnabled && !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     private var sendButtonIcon: String {
-        if self.isSending {
+        if isSending {
             return "stop.circle.fill"
         }
 
-        switch self.activeFeature {
+        switch activeFeature {
         case .camera:
             return "camera.fill"
         case .microphone:
@@ -121,14 +121,14 @@ public struct ChatComposer: View {
     }
 
     private func send() async {
-        let trimmed = self.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
 
-        self.isSending = true
-        self.text = "" // Clear immediately for better UX
+        isSending = true
+        text = "" // Clear immediately for better UX
 
-        await self.onSend(trimmed)
+        await onSend(trimmed)
 
-        self.isSending = false
+        isSending = false
     }
 }

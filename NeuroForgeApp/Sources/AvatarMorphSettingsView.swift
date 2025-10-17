@@ -194,11 +194,11 @@ struct AvatarMorphSettingsView: View {
     private func modeDescription(for mode: AvatarMode) -> String {
         switch mode {
         case .ghost:
-            return "Always show ghost avatar - minimal resources, consistent experience"
+            "Always show ghost avatar - minimal resources, consistent experience"
         case .photoreal:
-            return "Always show photoreal avatar - maximum fidelity, higher resources"
+            "Always show photoreal avatar - maximum fidelity, higher resources"
         case .morphing:
-            return "Currently transitioning between modes"
+            "Currently transitioning between modes"
         }
     }
 
@@ -217,8 +217,8 @@ struct AvatarMorphSettingsView: View {
                 let success = try await avatarService.morph(to: target)
                 lastMorphResult =
                     success
-                    ? "✅ Successfully morphed to \(target.rawValue)"
-                    : "❌ Failed to morph to \(target.rawValue)"
+                        ? "✅ Successfully morphed to \(target.rawValue)"
+                        : "❌ Failed to morph to \(target.rawValue)"
             } catch {
                 lastMorphResult = "❌ Morph failed: \(error.localizedDescription)"
             }
@@ -226,7 +226,7 @@ struct AvatarMorphSettingsView: View {
         }
     }
 
-    private func testConnectivity() {
+    func testConnectivity() {
         isTestingConnectivity = true
         connectivityStatus = false
 
@@ -246,7 +246,7 @@ class AvatarService: ObservableObject {
     @Published var isHealthy = false
     @Published var lastAwarenessLevel: Double?
 
-    private let baseURL = URL(string: "http://localhost:8000")!  // TODO: Wire to AppConfig
+    private let baseURL = URL(string: "http://localhost:8000")! // TODO: Wire to AppConfig
     private var previousState: AvatarMode?
 
     // Mock state for fast-track mode
@@ -257,7 +257,7 @@ class AvatarService: ObservableObject {
             // Mock status for fast-track mode
             await MainActor.run {
                 self.currentState = self.currentState ?? .ghost
-                self.lastAwarenessLevel = 0.3  // Low awareness = ghost mode
+                self.lastAwarenessLevel = 0.3 // Low awareness = ghost mode
                 self.isHealthy = true
             }
             return
@@ -297,14 +297,14 @@ class AvatarService: ObservableObject {
 
         if mockMode {
             // Simulate morphing in fast-track mode
-            try await Task.sleep(nanoseconds: 2_000_000_000)  // 2 second delay
-            let _ = Date().timeIntervalSince(startTime)
+            try await Task.sleep(nanoseconds: 2_000_000_000) // 2 second delay
+            _ = Date().timeIntervalSince(startTime)
 
             await MainActor.run {
                 // MobileMetricsService.shared.trackAvatarSwitch(target: mode, success: true, duration: duration)
                 self.previousState = self.currentState
                 self.currentState = mode
-                self.lastAwarenessLevel = mode == .photoreal ? 0.8 : 0.2  // Simulate awareness change
+                self.lastAwarenessLevel = mode == .photoreal ? 0.8 : 0.2 // Simulate awareness change
                 AvatarNotificationService.shared.notifyMorph(from: fromMode, to: mode)
             }
             return true
@@ -325,11 +325,10 @@ class AvatarService: ObservableObject {
 
         do {
             let (responseData, response) = try await URLSession.shared.data(for: request)
-            let _ = Date().timeIntervalSince(startTime)
+            _ = Date().timeIntervalSince(startTime)
 
             if let httpResponse = response as? HTTPURLResponse,
-                !(200..<300).contains(httpResponse.statusCode)
-            {
+               !(200 ..< 300).contains(httpResponse.statusCode) {
                 await MainActor.run {
                     AvatarNotificationService.shared.notifyError(
                         "Morph failed: HTTP \(httpResponse.statusCode)")
@@ -342,7 +341,8 @@ class AvatarService: ObservableObject {
 
             await MainActor.run {
                 MobileMetricsService.shared.trackAvatarSwitch(
-                    target: mode, success: result.success, duration: 0.0)
+                    target: mode, success: result.success, duration: 0.0
+                )
                 // MobileMetricsService.shared.trackAPILatency(endpoint: "avatar/switch", duration: duration, statusCode: 200)
 
                 if result.success {
@@ -357,12 +357,14 @@ class AvatarService: ObservableObject {
 
             return result.success
         } catch {
-            let _ = Date().timeIntervalSince(startTime)
+            _ = Date().timeIntervalSince(startTime)
             await MainActor.run {
                 AvatarNotificationService.shared.notifyError(
-                    "Morph failed: \(error.localizedDescription)", isCritical: false)
+                    "Morph failed: \(error.localizedDescription)", isCritical: false
+                )
                 MobileMetricsService.shared.trackAvatarSwitch(
-                    target: mode, success: false, duration: 0.0)
+                    target: mode, success: false, duration: 0.0
+                )
                 MobileMetricsService.shared.trackAvatarSwitchFailure(
                     reason: error.localizedDescription)
             }
@@ -374,8 +376,8 @@ class AvatarService: ObservableObject {
     func testLANConnectivity() async -> Bool {
         if mockMode {
             // Simulate connectivity test in fast-track mode
-            try? await Task.sleep(nanoseconds: 500_000_000)  // 0.5 second delay
-            return true  // Always succeed in mock mode
+            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 second delay
+            return true // Always succeed in mock mode
         }
 
         // Try to connect to a known endpoint

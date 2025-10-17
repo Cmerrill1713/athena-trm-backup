@@ -4,22 +4,22 @@ import Foundation
 
 struct VerdictRequest: Codable {
     let task_id: String
-    let verdict: String  // PASS | SOFT_FAIL | HARD_FAIL
+    let verdict: String // PASS | SOFT_FAIL | HARD_FAIL
     let ece_post: Double?
     let entropy: Double?
-    let actions: [String]?  // PROMOTE | QUARANTINE | ROLLBACK | HOLD | FREEZE
-    let ts: String  // ISO8601
+    let actions: [String]? // PROMOTE | QUARANTINE | ROLLBACK | HOLD | FREEZE
+    let ts: String // ISO8601
 
     init(
         taskId: String, verdict: String, ecePost: Double? = nil, entropy: Double? = nil,
         actions: [String]? = nil
     ) {
-        self.task_id = taskId
+        task_id = taskId
         self.verdict = verdict
-        self.ece_post = ecePost
+        ece_post = ecePost
         self.entropy = entropy
         self.actions = actions
-        self.ts = ISO8601DateFormatter().string(from: Date())
+        ts = ISO8601DateFormatter().string(from: Date())
     }
 }
 
@@ -48,18 +48,18 @@ enum GovernanceError: Error, LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .badStatus(let code):
-            return "HTTP \(code)"
-        case .decode(let msg):
-            return "Decode error: \(msg)"
-        case .transport(let error):
-            return "Transport: \(error.localizedDescription)"
+        case let .badStatus(code):
+            "HTTP \(code)"
+        case let .decode(msg):
+            "Decode error: \(msg)"
+        case let .transport(error):
+            "Transport: \(error.localizedDescription)"
         case .timeout:
-            return "Request timeout"
+            "Request timeout"
         case .invalidURL:
-            return "Invalid URL"
+            "Invalid URL"
         case .noData:
-            return "No data received"
+            "No data received"
         }
     }
 }
@@ -67,7 +67,6 @@ enum GovernanceError: Error, LocalizedError {
 // MARK: - Governance Client
 
 final class GovernanceClient: @unchecked Sendable {
-
     // MARK: - Configuration
 
     private let baseURL: URL
@@ -77,9 +76,9 @@ final class GovernanceClient: @unchecked Sendable {
     init(baseURL: String? = nil, timeout: TimeInterval = 4.0) {
         let urlString =
             baseURL
-            ?? ProcessInfo.processInfo.environment["GOV_URL"]
-            ?? ProcessInfo.processInfo.environment["ATHENA_ORCHESTRATOR_URL"]
-            ?? "http://localhost:9110"
+                ?? ProcessInfo.processInfo.environment["GOV_URL"]
+                ?? ProcessInfo.processInfo.environment["ATHENA_ORCHESTRATOR_URL"]
+                ?? "http://localhost:9110"
 
         self.baseURL = URL(string: urlString)!
         self.timeout = timeout
@@ -87,7 +86,7 @@ final class GovernanceClient: @unchecked Sendable {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = timeout
         config.timeoutIntervalForResource = timeout * 2
-        self.session = URLSession(configuration: config)
+        session = URLSession(configuration: config)
     }
 
     // MARK: - Health Check
@@ -100,7 +99,7 @@ final class GovernanceClient: @unchecked Sendable {
         do {
             let (_, response) = try await session.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse else { return false }
-            return (200..<300).contains(httpResponse.statusCode)
+            return (200 ..< 300).contains(httpResponse.statusCode)
         } catch {
             return false
         }
@@ -117,7 +116,7 @@ final class GovernanceClient: @unchecked Sendable {
             throw GovernanceError.badStatus(-1)
         }
 
-        guard (200..<300).contains(httpResponse.statusCode) else {
+        guard (200 ..< 300).contains(httpResponse.statusCode) else {
             throw GovernanceError.badStatus(httpResponse.statusCode)
         }
 
@@ -148,7 +147,7 @@ final class GovernanceClient: @unchecked Sendable {
             throw GovernanceError.badStatus(-1)
         }
 
-        guard (200..<300).contains(httpResponse.statusCode) else {
+        guard (200 ..< 300).contains(httpResponse.statusCode) else {
             throw GovernanceError.badStatus(httpResponse.statusCode)
         }
 
@@ -181,7 +180,7 @@ final class GovernanceClient: @unchecked Sendable {
             throw GovernanceError.badStatus(-1)
         }
 
-        guard (200..<300).contains(httpResponse.statusCode) else {
+        guard (200 ..< 300).contains(httpResponse.statusCode) else {
             throw GovernanceError.badStatus(httpResponse.statusCode)
         }
 
@@ -203,7 +202,7 @@ final class GovernanceClient: @unchecked Sendable {
             throw GovernanceError.badStatus(-1)
         }
 
-        guard (200..<300).contains(httpResponse.statusCode) else {
+        guard (200 ..< 300).contains(httpResponse.statusCode) else {
             throw GovernanceError.badStatus(httpResponse.statusCode)
         }
 
@@ -223,8 +222,7 @@ final class GovernanceClient: @unchecked Sendable {
             let verdictType = String(components[1])
 
             if let countStr = line.split(separator: " ").last,
-                let count = Int(countStr)
-            {
+               let count = Int(countStr) {
                 counts[verdictType] = count
             }
         }
@@ -236,7 +234,6 @@ final class GovernanceClient: @unchecked Sendable {
 // MARK: - Metrics Parser Extensions
 
 extension GovernanceClient {
-
     struct MetricsSummary: Codable {
         let verdicts: [String: Int]
         let remediations: RemediationMetrics
@@ -275,24 +272,19 @@ extension GovernanceClient {
 
         for line in text.split(separator: "\n") {
             if line.contains("governance_remediations_requested_total"),
-                let countStr = line.split(separator: " ").last
-            {
+               let countStr = line.split(separator: " ").last {
                 requested = Int(countStr) ?? 0
             } else if line.contains("governance_remediations_completed_total"),
-                let countStr = line.split(separator: " ").last
-            {
+                      let countStr = line.split(separator: " ").last {
                 completed = Int(countStr) ?? 0
             } else if line.contains("governance_remediations_promoted_total"),
-                let countStr = line.split(separator: " ").last
-            {
+                      let countStr = line.split(separator: " ").last {
                 promoted = Int(countStr) ?? 0
             } else if line.contains("governance_remediations_rolled_back_total"),
-                let countStr = line.split(separator: " ").last
-            {
+                      let countStr = line.split(separator: " ").last {
                 rolledBack = Int(countStr) ?? 0
             } else if line.contains("governance_remediations_failed_total"),
-                let countStr = line.split(separator: " ").last
-            {
+                      let countStr = line.split(separator: " ").last {
                 failed = Int(countStr) ?? 0
             }
         }

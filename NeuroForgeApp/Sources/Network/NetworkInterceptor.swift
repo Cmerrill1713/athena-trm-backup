@@ -10,14 +10,14 @@ public struct NetworkEvent {
     let timestamp: Date
 
     var isError: Bool {
-        self.statusCode >= 400
+        statusCode >= 400
     }
 
     var severityColor: String {
-        if self.statusCode >= 500 { return "red" }
-        if self.statusCode == 503 { return "yellow" }
-        if self.statusCode == 422 { return "blue" }
-        if self.statusCode >= 400 { return "orange" }
+        if statusCode >= 500 { return "red" }
+        if statusCode == 503 { return "yellow" }
+        if statusCode == 422 { return "blue" }
+        if statusCode >= 400 { return "orange" }
         return "green"
     }
 }
@@ -34,23 +34,23 @@ final class InterceptingURLProtocol: URLProtocol {
 
     // Count recent error codes
     static func recentErrorCounts() -> (e500: Int, e503: Int, e422: Int) {
-        self.lock.lock()
+        lock.lock()
         defer { lock.unlock() }
 
         let cutoff = Date().addingTimeInterval(-60) // Last 60 seconds
-        let recent = self.recentEvents.filter { $0.timestamp > cutoff }
+        let recent = recentEvents.filter { $0.timestamp > cutoff }
 
-        let e500 = recent.filter { $0.statusCode >= 500 && $0.statusCode != 503 }.count
-        let e503 = recent.filter { $0.statusCode == 503 }.count
-        let e422 = recent.filter { $0.statusCode == 422 }.count
+        let e500 = recent.count(where: { $0.statusCode >= 500 && $0.statusCode != 503 })
+        let e503 = recent.count(where: { $0.statusCode == 503 })
+        let e422 = recent.count(where: { $0.statusCode == 422 })
 
         return (e500, e503, e422)
     }
 
     static func getRecentEvents(limit: Int = 20) -> [NetworkEvent] {
-        self.lock.lock()
+        lock.lock()
         defer { lock.unlock() }
-        return Array(self.recentEvents.prefix(limit))
+        return Array(recentEvents.prefix(limit))
     }
 
     override class func canInit(with request: URLRequest) -> Bool {
@@ -63,20 +63,20 @@ final class InterceptingURLProtocol: URLProtocol {
     }
 
     override func startLoading() {
-        self.startTime = CFAbsoluteTimeGetCurrent()
+        startTime = CFAbsoluteTimeGetCurrent()
 
         let session = URLSession(configuration: .default)
-        self.dataTask = session.dataTask(with: request) { [weak self] data, response, error in
+        dataTask = session.dataTask(with: request) { [weak self] data, response, error in
             guard let self else { return }
 
-            let duration = (CFAbsoluteTimeGetCurrent() - self.startTime) * 1000 // Convert to ms
+            let duration = (CFAbsoluteTimeGetCurrent() - startTime) * 1000 // Convert to ms
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
             let bytes = data?.count ?? 0
 
             // Record event
             let event = NetworkEvent(
-                method: self.request.httpMethod ?? "GET",
-                url: self.request.url?.absoluteString ?? "",
+                method: request.httpMethod ?? "GET",
+                url: request.url?.absoluteString ?? "",
                 statusCode: statusCode,
                 duration: duration,
                 bytes: bytes,
@@ -105,23 +105,23 @@ final class InterceptingURLProtocol: URLProtocol {
 
             // Forward to client
             if let error {
-                self.client?.urlProtocol(self, didFailWithError: error)
+                client?.urlProtocol(self, didFailWithError: error)
             } else {
                 if let response {
-                    self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+                    client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
                 }
                 if let data {
-                    self.client?.urlProtocol(self, didLoad: data)
+                    client?.urlProtocol(self, didLoad: data)
                 }
-                self.client?.urlProtocolDidFinishLoading(self)
+                client?.urlProtocolDidFinishLoading(self)
             }
         }
 
-        self.dataTask?.resume()
+        dataTask?.resume()
     }
 
     override func stopLoading() {
-        self.dataTask?.cancel()
+        dataTask?.cancel()
     }
 }
 

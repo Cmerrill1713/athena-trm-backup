@@ -16,10 +16,10 @@ struct UserProfile: Identifiable, Codable {
         self.name = name
         self.avatar = avatar
         self.profileImageData = profileImageData
-        self.createdAt = Date()
-        self.lastUsed = Date()
-        self.messageCount = 0
-        self.preferences = [:]
+        createdAt = Date()
+        lastUsed = Date()
+        messageCount = 0
+        preferences = [:]
     }
 }
 
@@ -32,23 +32,23 @@ class ProfileManager: ObservableObject {
     private let currentProfileKey = "neuroforge_current_profile_id"
 
     init() {
-        self.loadProfiles()
-        self.loadCurrentProfile()
+        loadProfiles()
+        loadCurrentProfile()
 
         // Create default profile if none exist
-        if self.profiles.isEmpty {
+        if profiles.isEmpty {
             let defaultProfile = UserProfile(name: "Default User", avatar: "person.circle.fill")
-            self.profiles.append(defaultProfile)
-            self.currentProfile = defaultProfile
-            self.saveProfiles()
-            self.saveCurrentProfile()
+            profiles.append(defaultProfile)
+            currentProfile = defaultProfile
+            saveProfiles()
+            saveCurrentProfile()
         }
     }
 
     func createProfile(name: String, avatar: String, profileImageData: Data? = nil) {
         let profile = UserProfile(name: name, avatar: avatar, profileImageData: profileImageData)
-        self.profiles.append(profile)
-        self.saveProfiles()
+        profiles.append(profile)
+        saveProfiles()
     }
 
     func updateProfileImage(_ profile: UserProfile, imageData: Data) {
@@ -56,14 +56,14 @@ class ProfileManager: ObservableObject {
         updatedProfile.profileImageData = imageData
 
         if let index = profiles.firstIndex(where: { $0.id == profile.id }) {
-            self.profiles[index] = updatedProfile
+            profiles[index] = updatedProfile
         }
 
-        if self.currentProfile?.id == profile.id {
-            self.currentProfile = updatedProfile
+        if currentProfile?.id == profile.id {
+            currentProfile = updatedProfile
         }
 
-        self.saveProfiles()
+        saveProfiles()
     }
 
     func selectProfile(_ profile: UserProfile) {
@@ -71,23 +71,23 @@ class ProfileManager: ObservableObject {
         updatedProfile.lastUsed = Date()
 
         if let index = profiles.firstIndex(where: { $0.id == profile.id }) {
-            self.profiles[index] = updatedProfile
+            profiles[index] = updatedProfile
         }
 
-        self.currentProfile = updatedProfile
-        self.saveProfiles()
-        self.saveCurrentProfile()
+        currentProfile = updatedProfile
+        saveProfiles()
+        saveCurrentProfile()
     }
 
     func deleteProfile(_ profile: UserProfile) {
-        self.profiles.removeAll { $0.id == profile.id }
+        profiles.removeAll { $0.id == profile.id }
 
-        if self.currentProfile?.id == profile.id {
-            self.currentProfile = self.profiles.first
-            self.saveCurrentProfile()
+        if currentProfile?.id == profile.id {
+            currentProfile = profiles.first
+            saveCurrentProfile()
         }
 
-        self.saveProfiles()
+        saveProfiles()
     }
 
     func incrementMessageCount() {
@@ -95,40 +95,38 @@ class ProfileManager: ObservableObject {
         profile.messageCount += 1
 
         if let index = profiles.firstIndex(where: { $0.id == profile.id }) {
-            self.profiles[index] = profile
+            profiles[index] = profile
         }
 
-        self.currentProfile = profile
-        self.saveProfiles()
+        currentProfile = profile
+        saveProfiles()
     }
 
     private func loadProfiles() {
         if let data = UserDefaults.standard.data(forKey: profilesKey),
-           let decoded = try? JSONDecoder().decode([UserProfile].self, from: data)
-        {
-            self.profiles = decoded
+           let decoded = try? JSONDecoder().decode([UserProfile].self, from: data) {
+            profiles = decoded
         }
     }
 
     private func saveProfiles() {
         if let encoded = try? JSONEncoder().encode(profiles) {
-            UserDefaults.standard.set(encoded, forKey: self.profilesKey)
+            UserDefaults.standard.set(encoded, forKey: profilesKey)
         }
     }
 
     private func loadCurrentProfile() {
         if let profileId = UserDefaults.standard.string(forKey: currentProfileKey),
-           let profile = profiles.first(where: { $0.id == profileId })
-        {
-            self.currentProfile = profile
+           let profile = profiles.first(where: { $0.id == profileId }) {
+            currentProfile = profile
         } else {
-            self.currentProfile = self.profiles.first
+            currentProfile = profiles.first
         }
     }
 
     private func saveCurrentProfile() {
         if let profile = currentProfile {
-            UserDefaults.standard.set(profile.id, forKey: self.currentProfileKey)
+            UserDefaults.standard.set(profile.id, forKey: currentProfileKey)
         }
     }
 }

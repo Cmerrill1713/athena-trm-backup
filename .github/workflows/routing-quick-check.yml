@@ -1,0 +1,52 @@
+name: Routing Quick Check
+
+# Fast feedback loop for routing changes
+# Target: < 2 minutes
+
+on:
+  pull_request:
+    paths:
+      - "governance/routing/**"
+
+jobs:
+  quick-validation:
+    name: Quick Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install minimal dependencies
+        run: |
+          pip install pytest numpy
+
+      - name: Run fast unit tests
+        run: |
+          pytest tests/test_routing.py::test_router_loads_profiles -v
+          pytest tests/test_routing.py::test_router_domain_match -v
+          pytest tests/test_contrastive_routing.py::test_embedding_cache -v
+
+      - name: Syntax check
+        run: |
+          python -m py_compile governance/routing/*.py
+
+      - name: Quick smoke test
+        run: |
+          python -c "
+          from pathlib import Path
+          from governance.routing.basic_router import BasicRouter, RoutingRequest
+
+          router = BasicRouter(Path('governance/routing/model_profiles.json'))
+          result = router.route(RoutingRequest('test', 'code'))
+
+          assert result.model, 'Router returned null model'
+          assert result.confidence > 0, 'Invalid confidence'
+
+          print('✅ Smoke test passed')
+          "

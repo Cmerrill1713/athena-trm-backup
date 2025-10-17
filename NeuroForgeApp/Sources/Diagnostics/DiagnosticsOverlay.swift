@@ -13,7 +13,7 @@ public struct DiagnosticsOverlay: View {
                 Text("Network Diagnostics")
                     .font(.caption.bold())
                 Spacer()
-                Text("\(self.errorCounts.e500)×500 \(self.errorCounts.e503)×503 \(self.errorCounts.e422)×422")
+                Text("\(errorCounts.e500)×500 \(errorCounts.e503)×503 \(errorCounts.e422)×422")
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
@@ -22,7 +22,7 @@ public struct DiagnosticsOverlay: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 2) {
-                    ForEach(Array(self.recentEvents.prefix(5)), id: \.timestamp) { event in
+                    ForEach(Array(recentEvents.prefix(5)), id: \.timestamp) { event in
                         EventChip(event: event)
                     }
                 }
@@ -40,10 +40,10 @@ public struct DiagnosticsOverlay: View {
         .allowsHitTesting(false) // Don't steal clicks/typing
         .accessibilityHidden(true) // Hide from accessibility tree
         .onReceive(NotificationCenter.default.publisher(for: .networkEventRecorded)) { notification in
-            self.updateFromNotification(notification)
+            updateFromNotification(notification)
         }
         .onAppear {
-            self.updateEvents()
+            updateEvents()
         }
     }
 
@@ -67,17 +67,17 @@ public struct DiagnosticsOverlay: View {
             timestamp: Date()
         )
 
-        self.recentEvents.insert(event, at: 0)
-        if self.recentEvents.count > 20 {
-            self.recentEvents.removeLast()
+        recentEvents.insert(event, at: 0)
+        if recentEvents.count > 20 {
+            recentEvents.removeLast()
         }
 
-        self.errorCounts = InterceptingURLProtocol.recentErrorCounts()
+        errorCounts = InterceptingURLProtocol.recentErrorCounts()
     }
 
     private func updateEvents() {
-        self.recentEvents = InterceptingURLProtocol.getRecentEvents(limit: 20)
-        self.errorCounts = InterceptingURLProtocol.recentErrorCounts()
+        recentEvents = InterceptingURLProtocol.getRecentEvents(limit: 20)
+        errorCounts = InterceptingURLProtocol.recentErrorCounts()
     }
 }
 
@@ -88,24 +88,24 @@ private struct EventChip: View {
     var body: some View {
         HStack(spacing: 4) {
             Circle()
-                .fill(self.statusColor)
+                .fill(statusColor)
                 .frame(width: 6, height: 6)
 
-            Text("\(self.event.method)")
+            Text("\(event.method)")
                 .font(.system(size: 9, weight: .medium, design: .monospaced))
                 .frame(width: 35, alignment: .leading)
 
-            Text("\(self.event.statusCode)")
+            Text("\(event.statusCode)")
                 .font(.system(size: 9, weight: .semibold, design: .monospaced))
-                .foregroundColor(self.statusColor)
+                .foregroundColor(statusColor)
                 .frame(width: 30, alignment: .center)
 
-            Text("\(Int(self.event.duration))ms")
+            Text("\(Int(event.duration))ms")
                 .font(.system(size: 9, design: .monospaced))
                 .foregroundColor(.secondary)
                 .frame(width: 40, alignment: .trailing)
 
-            Text(self.shortURL)
+            Text(shortURL)
                 .font(.system(size: 9, design: .monospaced))
                 .lineLimit(1)
                 .truncationMode(.middle)
@@ -114,24 +114,24 @@ private struct EventChip: View {
         .padding(.horizontal, 4)
         .background(
             RoundedRectangle(cornerRadius: 4)
-                .fill(self.statusColor.opacity(0.1))
+                .fill(statusColor.opacity(0.1))
         )
     }
 
     private var statusColor: Color {
-        if self.event.statusCode >= 500, self.event.statusCode != 503 { return .red }
-        if self.event.statusCode == 503 { return .orange }
-        if self.event.statusCode == 422 { return .blue }
-        if self.event.statusCode >= 400 { return .yellow }
-        if self.event.statusCode >= 200, self.event.statusCode < 300 { return .green }
+        if event.statusCode >= 500, event.statusCode != 503 { return .red }
+        if event.statusCode == 503 { return .orange }
+        if event.statusCode == 422 { return .blue }
+        if event.statusCode >= 400 { return .yellow }
+        if event.statusCode >= 200, event.statusCode < 300 { return .green }
         return .gray
     }
 
     private var shortURL: String {
-        let components = self.event.url.components(separatedBy: "/")
+        let components = event.url.components(separatedBy: "/")
         if components.count > 2 {
             return "/" + components.suffix(2).joined(separator: "/")
         }
-        return self.event.url
+        return event.url
     }
 }

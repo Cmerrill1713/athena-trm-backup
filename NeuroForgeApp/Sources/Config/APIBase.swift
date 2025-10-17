@@ -15,16 +15,14 @@ public func apiBaseURL() -> URL {
 
     // Check environment variable
     if let s = ProcessInfo.processInfo.environment["API_BASE"],
-       let u = URL(string: s)
-    {
+       let u = URL(string: s) {
         cachedBase = u
         return u
     }
 
     // Check Info.plist
     if let s = Bundle.main.infoDictionary?["API_BASE"] as? String,
-       let u = URL(string: s)
-    {
+       let u = URL(string: s) {
         cachedBase = u
         return u
     }
