@@ -13,6 +13,9 @@ from pathlib import Path
 from typing import Dict, Any
 
 # Event bus setup
+import sys
+sys.path.append('/Users/christianmerrill/Documents/GitHub')
+
 if os.getenv("EVENT_BUS", "local") == "redis":
     from infra.event_bus_redis import subscribe, publish
 else:

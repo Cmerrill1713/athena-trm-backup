@@ -40,21 +40,6 @@ FEATURE_SEARCH = os.getenv("FEATURE_SEARCH", "1") == "1"
 # Import intent respond function
 from intent import respond
 
-# Add intent endpoint
-@app.post("/respond")
-async def respond_endpoint(request: dict):
-    """Deterministic intent-based responses."""
-    message = request.get("message", "")
-    if not message:
-        return {"error": "Message required"}
-    
-    response = respond(message)
-    return {
-        "response": response,
-        "intent": "deterministic",
-        "latency_ms": 0
-    }
-
 # Logging
 logging.basicConfig(
     level=logging.INFO,
@@ -839,6 +824,20 @@ def _check_policy_overrides():
     
     except Exception as e:
         logger.warning(f"Failed to read policy override: {e}")
+
+@app.post("/respond")
+async def respond_endpoint(request: dict):
+    """Deterministic intent-based responses."""
+    message = request.get("message", "")
+    if not message:
+        return {"error": "Message required"}
+    
+    response = respond(message)
+    return {
+        "response": response,
+        "intent": "deterministic",
+        "latency_ms": 0
+    }
 
 if __name__ == "__main__":
     import uvicorn

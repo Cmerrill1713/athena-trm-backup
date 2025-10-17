@@ -26,10 +26,10 @@ sys.path.append(str(Path(__file__).parent.parent))
 from common.ops import wire_tracing, attach_guardrails, add_health_endpoints
 
 # Import AGI core components
-from .context_engineering import ContextManager, ContextBundle, ContextMetrics, ContextStrategy
-from .agent_experts import ExpertRegistry, ExpertOrchestrator, ExpertTask
-from .workflows import ScoutPlanBuild, WorkflowOrchestrator, BackgroundWorkflow
-from .delegation import AgentDelegator, MultiAgentCoordinator, DelegationStrategy
+from agi_core.context_engineering import ContextManager, ContextBundle, ContextMetrics, ContextStrategy
+from agi_core.agent_experts import ExpertRegistry, ExpertOrchestrator, ExpertTask
+from agi_core.workflows import ScoutPlanBuild, WorkflowOrchestrator, BackgroundWorkflow
+from agi_core.delegation import AgentDelegator, MultiAgentCoordinator, DelegationStrategy
 
 import logging
 logger = logging.getLogger(__name__)
