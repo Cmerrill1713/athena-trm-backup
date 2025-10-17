@@ -35,7 +35,7 @@ final class ChatService: ObservableObject {
     @Published var messages: [ChatMessage] = []
     @Published var isConnected = false
     @Published var inputText = ""
-    
+
     // Router status for latency badge
     @Published var currentRoute = "mlx"
     @Published var currentLatency = 0

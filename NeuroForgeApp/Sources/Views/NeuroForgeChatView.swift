@@ -131,7 +131,7 @@ struct ChatHeader: View {
                         .font(.system(size: 14, weight: .medium))
                         .foregroundStyle(AppleColors.secondaryLabel)
                     ConnectionPill(connected: connected)
-                    
+
                     // Latency badge showing router status
                     LatencyBadge(
                         route: currentRoute,

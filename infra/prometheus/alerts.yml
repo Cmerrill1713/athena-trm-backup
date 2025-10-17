@@ -1,0 +1,83 @@
+groups:
+  - name: athena.rules
+    rules:
+      - alert: ServiceDown
+        expr: up{job=~"router|governance|mcp|fastvlm|kokoro"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service down: {{ $labels.job }}"
+          description: "Target {{ $labels.instance }} is down."
+
+      - alert: RouterHighLatency
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{service="router"}[5m])) by (le)) > 1.0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Router p95 > 1s"
+          description: "Router 95th percentile latency is {{ $value }}s"
+
+      - alert: RouterHighErrorRate
+        expr: rate(http_requests_total{service="router",status=~"5.."}[5m]) / rate(http_requests_total{service="router"}[5m]) > 0.1
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Router error rate > 10%"
+          description: "Router error rate is {{ $value | humanizePercentage }}"
+
+      - alert: ProviderUnavailable
+        expr: athena_provider_available == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Provider unavailable: {{ $labels.provider }}"
+          description: "Provider {{ $labels.provider }} has been unavailable for {{ $value }}s"
+
+      - alert: GovernanceDown
+        expr: up{job="governance"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Governance service down"
+          description: "Governance orchestrator is not responding"
+
+      - alert: MCPEcosystemDown
+        expr: up{job="mcp"} == 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "MCP Ecosystem down"
+          description: "MCP Ecosystem service is not responding"
+
+  - alert: MultimodalServiceDown
+    expr: up{job=~"fastvlm|kokoro"} == 0
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Multimodal service down: {{ $labels.job }}"
+      description: "{{ $labels.job }} service is not responding"
+
+  - alert: MCPToolFailures
+    expr: rate(router_mcp_tool_failures_total[10m]) > 0.05
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP tool failure rate > 5%"
+      description: "MCP tool {{ $labels.tool }} has {{ $value | humanizePercentage }} failure rate"
+
+  - alert: RouterBackpressure
+    expr: rate(router_errors_total{error_type="no_providers"}[5m]) > 0.1
+    for: 3m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Router has no available providers"
+      description: "Router is rejecting requests due to no available providers"

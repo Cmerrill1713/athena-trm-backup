@@ -1,0 +1,436 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.AthenaPopoutDemo-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/sources",
+      "importPath" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/AthenaDashboardView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/AthenaModels.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/AthenaState.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/CriticalAlertWindow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/Notifications+App.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/RemediationMonitorWindow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/SystemEmergencyWindow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/TribunalDecisionWindow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/VoiceManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/main.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "AthenaPopoutDemo",
+      "moduleOutputPath" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/Modules/AthenaPopoutDemo.swiftmodule",
+      "objects" : [
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/AthenaDashboardView.swift.o",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/AthenaModels.swift.o",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/AthenaState.swift.o",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/CriticalAlertWindow.swift.o",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/Notifications+App.swift.o",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/RemediationMonitorWindow.swift.o",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/SystemEmergencyWindow.swift.o",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/TribunalDecisionWindow.swift.o",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/VoiceManager.swift.o",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/main.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j24",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "AthenaPopoutDemo_main",
+        "-swift-version",
+        "5",
+        "-parse-as-library",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "athenapopoutdemo"
+      ],
+      "outputFileMapPath" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/AthenaDashboardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/AthenaModels.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/AthenaState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/CriticalAlertWindow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/Notifications+App.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/RemediationMonitorWindow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/SystemEmergencyWindow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/TribunalDecisionWindow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/VoiceManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/Modules/AthenaPopoutDemo.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/AthenaDashboardView.swift",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/AthenaModels.swift",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/AthenaState.swift",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/CriticalAlertWindow.swift",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/Notifications+App.swift",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/RemediationMonitorWindow.swift",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/SystemEmergencyWindow.swift",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/TribunalDecisionWindow.swift",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/VoiceManager.swift",
+        "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/main.swift"
+      ],
+      "tempsPath" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "AthenaPopoutDemo" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "AthenaPopoutDemo",
+      "-package-name",
+      "athenapopoutdemo",
+      "-c",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/AthenaDashboardView.swift",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/AthenaModels.swift",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/AthenaState.swift",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/CriticalAlertWindow.swift",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/Notifications+App.swift",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/RemediationMonitorWindow.swift",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/SystemEmergencyWindow.swift",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/TribunalDecisionWindow.swift",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/VoiceManager.swift",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/main.swift",
+      "-I",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j24",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "AthenaPopoutDemo_main",
+      "-swift-version",
+      "5",
+      "-parse-as-library",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "athenapopoutdemo",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "AthenaPopoutDemo" : [
+
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo-entitlement.plist"
+    },
+    "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/AthenaDashboardView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/AthenaModels.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/AthenaState.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/CriticalAlertWindow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/Notifications+App.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/RemediationMonitorWindow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/SystemEmergencyWindow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/TribunalDecisionWindow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/VoiceManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/Sources/AthenaPopoutDemo/main.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/sources"
+    },
+    "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/AthenaDashboardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/AthenaModels.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/AthenaState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/CriticalAlertWindow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/Notifications+App.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/RemediationMonitorWindow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/SystemEmergencyWindow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/TribunalDecisionWindow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/VoiceManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.build/main.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/AthenaPopoutDemo.product/Objects.LinkFileList"
+    },
+    "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/christianmerrill/Documents/GitHub/AthenaPopoutDemo/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

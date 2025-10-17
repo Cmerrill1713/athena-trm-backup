@@ -1,0 +1,59 @@
+# Athena Router Policy - Local-first with governance
+# MLX → Ollama → MCP-Browser → Cloud (governed only)
+
+# Provider priority order (1 = highest)
+order:
+  - mlx
+  - ollama
+  - mcp_browser
+  - cloud
+
+# Timeout budgets per provider (milliseconds)
+timeouts_ms:
+  mlx: 1500          # Apple Silicon, fast
+  ollama: 2000       # Local, reasonable
+  mcp_browser: 4000  # Network calls via browser
+  cloud: 5000        # Network + API latency
+
+# Maximum tokens per request
+max_tokens: 1024
+
+# Cloud access (disabled by default, governance can override)
+allow_cloud: false
+
+# Exponential backoff schedule on provider failures (seconds)
+failure_backoff_s:
+  - 1   # 1st failure: 1s backoff
+  - 2   # 2nd failure: 2s backoff
+  - 5   # 3rd failure: 5s backoff
+  - 15  # 4th failure: 15s backoff
+  - 60  # 5th+ failures: 60s backoff
+
+# Rate limiting (Quick win #3)
+rate_limits:
+  max_concurrent_mlx: 4      # Avoid saturating MLX
+  max_concurrent_ollama: 8   # Ollama can handle more
+  max_concurrent_total: 16
+
+# Caching
+cache:
+  enabled: true
+  ttl_seconds: 60
+  max_entries: 1000
+
+# Observability
+logging:
+  level: INFO
+  decision_log_path: state/router_decisions.jsonl
+  
+metrics:
+  enabled: true
+  port: 9113
+
+# Governance integration
+governance:
+  orchestrator_url: http://127.0.0.1:9110
+  policy_override_path: state/router_policy_overrides.json
+  check_override_interval_s: 30
+
+

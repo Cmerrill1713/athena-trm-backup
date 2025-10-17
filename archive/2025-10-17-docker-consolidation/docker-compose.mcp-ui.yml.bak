@@ -1,0 +1,229 @@
+version: "3.8"
+
+# Athena MCP-UI Ecosystem Integration
+# Replaces: governance/executive/orchestration/docker-compose.mcp.yml
+# Uses: Official mcp-ui SDK from https://github.com/idosal/mcp-ui
+#
+# Provides 3 MCP servers with visual UI capabilities:
+# - athena-governance: Metrics, ECE estimation, policy gates (with visual dashboards)
+# - athena-router: Model selection, routing, explanations (with interactive UIs)
+# - athena-reflex: Build, test, patch tools (with governance-gated actions)
+
+services:
+  # =============================================================================
+  # MCP-UI ECOSYSTEM WRAPPER (Wraps Existing Python Servers)
+  # =============================================================================
+
+  mcp-ecosystem-ui:
+    build:
+      context: ./services/mcp/ecosystem-wrapper
+      dockerfile: Dockerfile
+    container_name: athena-mcp-ecosystem-ui
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9250:9250" # HTTP transport
+    environment:
+      - NODE_ENV=production
+      - PYTHON_MCP_URL=http://mcp-ecosystem:8412
+      - MCP_TRANSPORT=stdio
+    volumes:
+      - ./services/mcp/ecosystem-wrapper:/app:ro
+      - mcp_ecosystem_ui_logs:/app/logs
+    # depends_on removed - mcp-ecosystem runs externally
+    # Wrapper will retry connection until ecosystem is available
+    networks:
+      - athena-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('healthy')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "mcp.server=athena-ecosystem-ui"
+      - "mcp.tools=14+"
+      - "mcp.ui=enabled"
+      - "mcp.wrapper=python-servers"
+
+  # =============================================================================
+  # EXISTING MCP ECOSYSTEM (Keep Running)
+  # =============================================================================
+
+  # Note: mcp-ecosystem container already running externally
+  # Started from: AI-Projects/universal-ai-tools/docker-compose.yml
+  # Port: 8412
+  # Contains: YouTube, arXiv, Wikipedia, Code Execution, Vision, etc.
+
+  # =============================================================================
+  # MCP-UI SERVERS (Visual AI Tools)
+  # =============================================================================
+
+  mcp-governance:
+    build:
+      context: ./services/mcp/governance
+      dockerfile: Dockerfile
+    container_name: athena-mcp-governance
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9200:9200" # HTTP transport
+    environment:
+      - NODE_ENV=production
+      - ATHENA_PROMETHEUS_URL=http://127.0.0.1:9090
+      - ATHENA_ORCHESTRATOR_URL=http://127.0.0.1:9110
+      - MCP_TRANSPORT=stdio
+      - MCP_PORT=9200
+    volumes:
+      - ./services/mcp/governance:/app:ro
+      - mcp_governance_logs:/app/logs
+    network_mode: host
+    # No depends_on - will connect to host services
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "mcp.server=athena-governance"
+      - "mcp.tools=metrics.query,ece.estimate,gate.status"
+      - "mcp.ui=enabled"
+
+  mcp-router:
+    build:
+      context: ./services/mcp/router
+      dockerfile: Dockerfile
+    container_name: athena-mcp-router
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9201:9201" # HTTP transport
+    environment:
+      - NODE_ENV=production
+      - ATHENA_ROUTER_URL=http://athena-router:8000
+      - MCP_TRANSPORT=http
+      - MCP_PORT=9201
+    volumes:
+      - ./services/mcp/router:/app:ro
+      - mcp_router_logs:/app/logs
+    depends_on:
+      - athena-router
+    networks:
+      - athena-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9201/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "mcp.server=athena-router"
+      - "mcp.tools=models.list,route.select,route.explain"
+      - "mcp.ui=enabled"
+
+  mcp-reflex:
+    build:
+      context: ./services/mcp/reflex
+      dockerfile: Dockerfile
+    container_name: athena-mcp-reflex
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9202:9202" # HTTP transport
+    environment:
+      - NODE_ENV=production
+      - ATHENA_WORKSPACE_ROOT=/workspace
+      - ATHENA_ORCHESTRATOR_URL=http://governance-orchestrator:8000
+      - MCP_TRANSPORT=http
+      - MCP_PORT=9202
+    volumes:
+      - ./services/mcp/reflex:/app:ro
+      - ./NeuroForgeApp:/workspace/NeuroForgeApp:rw # Swift workspace
+      - mcp_reflex_logs:/app/logs
+    depends_on:
+      - governance-orchestrator
+    networks:
+      - athena-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9202/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "mcp.server=athena-reflex"
+      - "mcp.tools=swift.build,swift.fix,patch.apply,test.run"
+      - "mcp.ui=enabled"
+      - "mcp.governance=write-gated"
+
+  # =============================================================================
+  # MCP-UI INSPECTOR (Development Tool)
+  # =============================================================================
+
+  mcp-ui-inspector:
+    image: node:20-alpine
+    container_name: athena-mcp-inspector
+    restart: unless-stopped
+    profiles: ["dev"] # Only start with --profile dev
+    ports:
+      - "127.0.0.1:9210:9210"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./services/mcp:/mcp:ro
+    working_dir: /mcp
+    command: >
+      sh -c "
+        npm install -g @mcp-ui/inspector &&
+        mcp-ui-inspector --port 9210 --servers governance,router,reflex
+      "
+    depends_on:
+      - mcp-governance
+      - mcp-router
+      - mcp-reflex
+    networks:
+      - athena-network
+
+  # =============================================================================
+  # SUPPORTING SERVICES (Referenced by MCP Servers)
+  # =============================================================================
+
+  athena-router:
+    build:
+      context: ./governance/routing
+      dockerfile: Dockerfile
+    container_name: athena-router
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9113:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - ATHENA_NO_CLOUD=1
+      - ATHENA_FAIL_CLOSED=1
+      - OLLAMA_ENDPOINT=http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - athena-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+# =============================================================================
+# VOLUMES
+# =============================================================================
+
+volumes:
+  mcp_ecosystem_ui_logs:
+    name: athena_mcp_ecosystem_ui_logs
+  mcp_governance_logs:
+    name: athena_mcp_governance_logs
+  mcp_router_logs:
+    name: athena_mcp_router_logs
+  mcp_reflex_logs:
+    name: athena_mcp_reflex_logs
+
+# =============================================================================
+# NETWORKS
+# =============================================================================
+
+networks:
+  athena-network:
+    name: athena-network
+    external: true # Use existing athena-network from main compose file
+

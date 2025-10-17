@@ -44,13 +44,13 @@
     "metrics_exporter": {
       "exists": true,
       "health": {
-        "code": 200,
-        "ok": true,
+        "code": null,
+        "ok": false,
         "expected": 200
       },
       "metrics": {
-        "code": 200,
-        "ok": true,
+        "code": null,
+        "ok": false,
         "must_contain": [
           "python_gc",
           "process_"
@@ -58,19 +58,24 @@
       },
       "endpoints": [],
       "prometheus": null,
-      "errors": []
+      "errors": [
+        "Health check failed: got None, expected 200",
+        "Metrics missing: ['python_gc', 'process_']"
+      ]
     },
     "canary": {
       "exists": true,
       "health": {
-        "code": 200,
-        "ok": true,
+        "code": null,
+        "ok": false,
         "expected": 200
       },
       "metrics": null,
       "endpoints": [],
       "prometheus": null,
-      "errors": []
+      "errors": [
+        "Health check failed: got None, expected 200"
+      ]
     },
     "prometheus": {
       "exists": true,
@@ -213,8 +218,10 @@
     "swift_ui": {
       "exists": true,
       "imports_ok": null,
-      "swift_ok": true,
-      "errors": [],
+      "swift_ok": false,
+      "errors": [
+        "Swift package build failed"
+      ],
       "swift_files": [
         {
           "file": "NeuroForgeApp/Sources/Athena/GovernanceAPIClient.swift",
@@ -251,7 +258,7 @@
     "NeuroForgeApp_Clean": "missing",
     "archive": "referenced",
     "backups": "unreferenced",
-    "infra_snapshot": "unreferenced",
+    "infra_snapshot": "missing",
     "Desktop-Projects": "missing",
     "ai_republic": "unreferenced",
     "neuroforge_all_legacy": "missing",
@@ -281,8 +288,8 @@
     }
   },
   "score": {
-    "passes": 59,
+    "passes": 55,
     "checks": 59,
-    "percent": 100
+    "percent": 93
   }
 }

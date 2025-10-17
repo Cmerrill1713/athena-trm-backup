@@ -1,0 +1,283 @@
+{
+  "dashboard": {
+    "title": "Athena Router - Local First",
+    "uid": "athena-router",
+    "tags": ["athena", "router", "local-first"],
+    "timezone": "browser",
+    "schemaVersion": 38,
+    "refresh": "10s",
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "title": "Route Share (%)",
+        "type": "piechart",
+        "gridPos": { "x": 0, "y": 0, "w": 8, "h": 8 },
+        "targets": [
+          {
+            "expr": "athena_router_route_share_percent",
+            "legendFormat": "{{ route }}",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "legend": {
+            "displayMode": "table",
+            "placement": "right"
+          },
+          "pieType": "pie"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent"
+          }
+        }
+      },
+      {
+        "title": "Cloud Access Status",
+        "type": "stat",
+        "gridPos": { "x": 8, "y": 0, "w": 4, "h": 4 },
+        "targets": [
+          {
+            "expr": "athena_router_allow_cloud",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "graphMode": "none",
+          "textMode": "value_and_name"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "type": "value",
+                "options": {
+                  "0": {
+                    "text": "DISABLED",
+                    "color": "green"
+                  },
+                  "1": {
+                    "text": "ENABLED",
+                    "color": "red"
+                  }
+                }
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": 0, "color": "green" },
+                { "value": 1, "color": "red" }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "Cloud Attempts (should be 0)",
+        "type": "stat",
+        "gridPos": { "x": 12, "y": 0, "w": 4, "h": 4 },
+        "targets": [
+          {
+            "expr": "sum(increase(athena_router_cloud_attempts_total[5m]))",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "graphMode": "area",
+          "textMode": "value"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": 0, "color": "green" },
+                { "value": 1, "color": "red" }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "Requests/min by Provider",
+        "type": "timeseries",
+        "gridPos": { "x": 16, "y": 0, "w": 8, "h": 8 },
+        "targets": [
+          {
+            "expr": "sum by (route) (rate(athena_router_requests_total[1m])) * 60",
+            "legendFormat": "{{ route }}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "reqpm"
+          }
+        }
+      },
+      {
+        "title": "Cache Hit Rate",
+        "type": "gauge",
+        "gridPos": { "x": 8, "y": 4, "w": 8, "h": 4 },
+        "targets": [
+          {
+            "expr": "athena_router_cache_hit_rate * 100",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": 0, "color": "red" },
+                { "value": 20, "color": "yellow" },
+                { "value": 50, "color": "green" }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "Latency p50 by Provider",
+        "type": "timeseries",
+        "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "athena_router_latency_p50_seconds",
+            "legendFormat": "{{ route }} p50",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s"
+          }
+        }
+      },
+      {
+        "title": "Latency p95 by Provider",
+        "type": "timeseries",
+        "gridPos": { "x": 12, "y": 8, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "athena_router_latency_p95_seconds",
+            "legendFormat": "{{ route }} p95",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "tooltip": {
+            "mode": "multi"
+          }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": 0, "color": "green" },
+                { "value": 1.0, "color": "yellow" },
+                { "value": 1.2, "color": "red" }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": { "id": "byName", "options": "mlx p95" },
+              "properties": [
+                { "id": "color", "value": { "mode": "fixed", "fixedColor": "blue" } }
+              ]
+            },
+            {
+              "matcher": { "id": "byName", "options": "ollama p95" },
+              "properties": [
+                { "id": "color", "value": { "mode": "fixed", "fixedColor": "green" } }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "title": "Failovers/min",
+        "type": "timeseries",
+        "gridPos": { "x": 0, "y": 16, "w": 12, "h": 6 },
+        "targets": [
+          {
+            "expr": "athena_router_failovers_per_minute",
+            "legendFormat": "{{ from_provider }} → {{ to_provider }}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short"
+          }
+        }
+      },
+      {
+        "title": "Error Rate by Provider",
+        "type": "timeseries",
+        "gridPos": { "x": 12, "y": 16, "w": 12, "h": 6 },
+        "targets": [
+          {
+            "expr": "athena_router_error_rate * 100",
+            "legendFormat": "{{ route }}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": 0, "color": "green" },
+                { "value": 5, "color": "yellow" },
+                { "value": 10, "color": "red" }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "Provider Health Status",
+        "type": "table",
+        "gridPos": { "x": 0, "y": 22, "w": 24, "h": 6 },
+        "targets": [
+          {
+            "expr": "athena_router_decisions_total",
+            "format": "table",
+            "instant": true,
+            "refId": "A"
+          }
+        ],
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true
+              },
+              "indexByName": {},
+              "renameByName": {
+                "route": "Provider",
+                "Value": "Total Requests"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+
+

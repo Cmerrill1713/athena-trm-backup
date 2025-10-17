@@ -1,0 +1,20 @@
+# Athena Canary Controller
+# Monitors router metrics and triggers auto-rollback on breach
+
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+RUN pip install --no-cache-dir \
+    requests>=2.31.0 \
+    prometheus-client>=0.19.0
+
+# Copy application
+COPY . /app/governance/executive/
+
+# No port exposure (background service)
+
+# Run canary controller
+CMD ["python", "/app/governance/executive/canary_controller.py"]
+

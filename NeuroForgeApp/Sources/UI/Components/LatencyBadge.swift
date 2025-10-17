@@ -5,18 +5,18 @@ public struct LatencyBadge: View {
     let route: String
     let latencyMs: Int
     let isHealthy: Bool
-    
+
     public init(route: String, latencyMs: Int, isHealthy: Bool = true) {
         self.route = route
         self.latencyMs = latencyMs
         self.isHealthy = isHealthy
     }
-    
+
     private var badgeColor: Color {
         if !isHealthy {
             return AppleColors.systemRed
         }
-        
+
         switch latencyMs {
         case 0..<50:
             return AppleColors.systemGreen
@@ -26,7 +26,7 @@ public struct LatencyBadge: View {
             return AppleColors.systemRed
         }
     }
-    
+
     private var routeIcon: String {
         switch route.lowercased() {
         case "mlx":
@@ -41,7 +41,7 @@ public struct LatencyBadge: View {
             return "questionmark.circle.fill"
         }
     }
-    
+
     private var latencyText: String {
         if latencyMs < 1000 {
             return "\(latencyMs)ms"
@@ -49,17 +49,17 @@ public struct LatencyBadge: View {
             return String(format: "%.1fs", Double(latencyMs) / 1000.0)
         }
     }
-    
+
     public var body: some View {
         HStack(spacing: 4) {
             Image(systemName: routeIcon)
                 .font(.system(size: 10, weight: .semibold))
                 .foregroundColor(.white)
-            
+
             Text(route.uppercased())
                 .font(.system(size: 9, weight: .bold, design: .monospaced))
                 .foregroundColor(.white)
-            
+
             Text(latencyText)
                 .font(.system(size: 9, weight: .medium, design: .monospaced))
                 .foregroundColor(.white.opacity(0.8))
@@ -77,17 +77,16 @@ public struct LatencyBadge: View {
 
 // MARK: - Preview
 #if DEBUG
-struct LatencyBadge_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack(spacing: 8) {
-            LatencyBadge(route: "mlx", latencyMs: 15, isHealthy: true)
-            LatencyBadge(route: "ollama", latencyMs: 150, isHealthy: true)
-            LatencyBadge(route: "cloud", latencyMs: 2500, isHealthy: true)
-            LatencyBadge(route: "mcp", latencyMs: 45, isHealthy: false)
+    struct LatencyBadge_Previews: PreviewProvider {
+        static var previews: some View {
+            VStack(spacing: 8) {
+                LatencyBadge(route: "mlx", latencyMs: 15, isHealthy: true)
+                LatencyBadge(route: "ollama", latencyMs: 150, isHealthy: true)
+                LatencyBadge(route: "cloud", latencyMs: 2500, isHealthy: true)
+                LatencyBadge(route: "mcp", latencyMs: 45, isHealthy: false)
+            }
+            .padding()
+            .background(AppleColors.controlBackground)
         }
-        .padding()
-        .background(AppleColors.controlBackground)
     }
-}
 #endif
-

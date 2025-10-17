@@ -1,0 +1,240 @@
+# Athena Router Prometheus Rules
+# Recording rules and alerts for model routing
+
+groups:
+  - name: router_metrics
+    interval: 30s
+    rules:
+      # Recording rule: Total routing decisions by provider
+      - record: athena_router_decisions_total
+        expr: sum by (route) (increase(athena_router_decisions_count[5m]))
+
+      # Recording rule: Route share percentage
+      - record: athena_router_route_share_percent
+        expr: |
+          (
+            sum by (route) (increase(athena_router_decisions_count[5m]))
+            / 
+            sum(increase(athena_router_decisions_count[5m]))
+          ) * 100
+
+      # Recording rule: Provider latency p50
+      - record: athena_router_latency_p50_seconds
+        expr: histogram_quantile(0.50, sum by (route, le) (rate(athena_router_latency_seconds_bucket[5m])))
+
+      # Recording rule: Provider latency p95
+      - record: athena_router_latency_p95_seconds
+        expr: histogram_quantile(0.95, sum by (route, le) (rate(athena_router_latency_seconds_bucket[5m])))
+
+      # Recording rule: Provider latency p99
+      - record: athena_router_latency_p99_seconds
+        expr: histogram_quantile(0.99, sum by (route, le) (rate(athena_router_latency_seconds_bucket[5m])))
+
+      # Recording rule: Failover rate (per minute)
+      - record: athena_router_failovers_per_minute
+        expr: sum by (from_provider, to_provider) (rate(athena_router_failovers_count[1m])) * 60
+
+      # Recording rule: Error rate by provider
+      - record: athena_router_error_rate
+        expr: |
+          sum by (route) (rate(athena_router_requests_total{status="error"}[5m]))
+          /
+          sum by (route) (rate(athena_router_requests_total[5m]))
+
+      # Recording rule: Cache hit rate
+      - record: athena_router_cache_hit_rate
+        expr: |
+          rate(athena_router_cache_hits_total[5m])
+          /
+          (rate(athena_router_cache_hits_total[5m]) + rate(athena_router_cache_misses_total[5m]))
+
+  - name: router_alerts
+    interval: 30s
+    rules:
+      # Alert: Elevated failover rate
+      - alert: RouterFailoverSpike
+        expr: increase(athena_router_failovers_count[5m]) > 20
+        for: 5m
+        labels:
+          severity: warning
+          component: router
+        annotations:
+          summary: "Router failover rate elevated"
+          description: "{{ $value }} failovers in the last 5 minutes (threshold: 20)"
+
+      # Alert: High p95 latency
+      - alert: RouterHighLatency
+        expr: athena_router_latency_p95_seconds > 1.2
+        for: 2m
+        labels:
+          severity: warning
+          component: router
+        annotations:
+          summary: "Router p95 latency high for {{ $labels.route }}"
+          description: "p95 latency is {{ $value }}s (threshold: 1.2s)"
+
+      # Alert: Cloud routing attempted (should be 0)
+      - alert: RouterCloudAttempt
+        expr: increase(athena_router_cloud_attempts_total{blocked="false"}[5m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+          component: router
+        annotations:
+          summary: "CLOUD ROUTING DETECTED"
+          description: "{{ $value }} cloud routing attempts in last 5m - local-first policy violation"
+
+      # Alert: No local providers available
+      - alert: RouterNoLocalProviders
+        expr: |
+          (
+            sum(athena_router_route_share_percent{route="mlx"}) or vector(0)
+            +
+            sum(athena_router_route_share_percent{route="ollama"}) or vector(0)
+          ) < 1
+        for: 3m
+        labels:
+          severity: critical
+          component: router
+        annotations:
+          summary: "No local model providers available"
+          description: "Router has no healthy local providers (MLX/Ollama)"
+
+      # Alert: High error rate
+      - alert: RouterHighErrorRate
+        expr: athena_router_error_rate > 0.10
+        for: 5m
+        labels:
+          severity: warning
+          component: router
+        annotations:
+          summary: "High error rate on {{ $labels.route }}"
+          description: "Error rate is {{ $value | humanizePercentage }} (threshold: 10%)"
+
+      # Alert: Cache performance degraded
+      - alert: RouterLowCacheHitRate
+        expr: athena_router_cache_hit_rate < 0.20
+        for: 10m
+        labels:
+          severity: info
+          component: router
+        annotations:
+          summary: "Router cache hit rate low"
+          description: "Cache hit rate is {{ $value | humanizePercentage }} (expected: >20%)"
+
+      # Alert: Cloud enabled (informational)
+      - alert: RouterCloudEnabled
+        expr: athena_router_allow_cloud == 1
+        for: 1m
+        labels:
+          severity: info
+          component: router
+        annotations:
+          summary: "Cloud routing enabled by governance"
+          description: "Cloud access has been enabled via governance override"
+
+  # A3: Canary metrics and alerts
+  - name: canary_metrics
+    interval: 30s
+    rules:
+      # Recording rule: ECE p95 by route
+      - record: athena_router_ece_p95
+        expr: max by (route) (athena_router_ece_estimate)
+
+      # Recording rule: Canary breach rate
+      - record: athena_governance_canary_breach_rate
+        expr: rate(athena_governance_canary_breaches_total[5m])
+
+      # Recording rule: Rollback rate
+      - record: athena_governance_rollback_rate
+        expr: rate(athena_governance_canary_rollbacks_total[5m])
+
+      # Modal metrics
+      - record: athena_vision_latency_p95_seconds
+        expr: histogram_quantile(0.95, sum by (route, le) (rate(athena_vision_latency_seconds_bucket[5m])))
+
+      - record: athena_voice_latency_p95_seconds
+        expr: histogram_quantile(0.95, sum by (route, le) (rate(athena_voice_latency_seconds_bucket[5m])))
+
+      - record: athena_modality_request_rate
+        expr: sum by (modality) (rate(athena_route_selection_total[1m])) * 60
+
+  - name: canary_alerts
+    interval: 30s
+    rules:
+      # Alert: Canary breach detected
+      - alert: CanaryBreachDetected
+        expr: athena_governance_canary_state == 2
+        for: 1m
+        labels:
+          severity: critical
+          component: governance
+        annotations:
+          summary: "🚨 Canary breach detected, rollback triggered"
+          description: "Governance canary controller detected breach and initiated rollback"
+
+      # Alert: Canary active (informational)
+      - alert: CanaryActive
+        expr: athena_governance_canary_state == 1
+        for: 1m
+        labels:
+          severity: info
+          component: governance
+        annotations:
+          summary: "Canary deployment active"
+          description: "Canary monitoring is active (cloud routing enabled)"
+
+      # Alert: High ECE on route
+      - alert: RouterHighECE
+        expr: athena_router_ece_estimate > 0.05
+        for: 2m
+        labels:
+          severity: warning
+          component: router
+        annotations:
+          summary: "High Expected Cost Error on {{ $labels.route }}"
+          description: "ECE is ${{ $value }} (threshold: $0.05 per request)"
+
+      # Alert: Frequent rollbacks
+      - alert: FrequentCanaryRollbacks
+        expr: increase(athena_governance_canary_rollbacks_total[15m]) > 5
+        for: 5m
+        labels:
+          severity: warning
+          component: governance
+        annotations:
+          summary: "Frequent canary rollbacks detected"
+          description: "{{ $value }} rollbacks in last 15m - investigate routing instability"
+
+      # Modal alerts
+      - alert: VisionHighLatency
+        expr: athena_vision_latency_p95_seconds > 1.5
+        for: 2m
+        labels:
+          severity: warning
+          component: router
+          modality: vision
+        annotations:
+          summary: "Vision p95 latency high: {{ $labels.route }}"
+          description: "Vision p95 is {{ $value }}s (threshold: 1.5s)"
+
+      - alert: VoiceHighLatency
+        expr: athena_voice_latency_p95_seconds > 0.35
+        for: 2m
+        labels:
+          severity: warning
+          component: router
+          modality: voice
+        annotations:
+          summary: "Voice p95 latency high: {{ $labels.route }}"
+          description: "Voice p95 is {{ $value }}s (threshold: 0.35s)"
+
+      - alert: ModalECEBreach
+        expr: athena_modality_ece_estimate > 0.06
+        for: 2m
+        labels:
+          severity: warning
+          component: router
+        annotations:
+          summary: "High modal ECE: {{ $labels.modality }}"
+          description: "Modal ECE is ${{ $value }} (threshold: $0.06)"
