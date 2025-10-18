@@ -41,12 +41,28 @@ while true; do
         break
     fi
     
-    # Call LLM Gateway
+    # Call LLM Gateway with Athena personality
     echo -ne "${BLUE}Athena:${NC} "
+    
+    # Escape input for JSON
+    escaped_input=$(echo "$input" | jq -Rs .)
     
     response=$(curl -s "$GATEWAY" \
         -H "Content-Type: application/json" \
-        -d "{\"messages\":[{\"role\":\"user\",\"content\":\"$input\"}],\"stream\":false}" \
+        -d "{
+            \"messages\": [
+                {
+                    \"role\": \"system\",
+                    \"content\": \"You are Athena, a helpful and knowledgeable AI assistant. You provide clear, accurate, and concise answers. You're friendly but professional.\"
+                },
+                {
+                    \"role\": \"user\",
+                    \"content\": $escaped_input
+                }
+            ],
+            \"stream\": false,
+            \"temperature\": 0.7
+        }" \
         | jq -r '.choices[0].message.content' 2>/dev/null)
     
     if [[ -z "$response" ]] || [[ "$response" == "null" ]]; then
