@@ -113,7 +113,6 @@ infra_snapshot/
 
 # Nested git repositories (not configured as submodules)
 A2A
-AI-Projects/universal-ai-tools
 TinyRecursiveModels
 external/SplattingAvatar
 fastvlm/ml-fastvlm

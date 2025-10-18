@@ -801,7 +801,7 @@ services:
       - PYTHONUNBUFFERED=1
       - PORT=8080
       - OLLAMA_URL=http://host.docker.internal:11434
-      - LLM_MODEL=qwen2.5-coder:7b
+      - LLM_MODEL=qwen2.5:7b
       - FEATURE_MOCK=0
       - BUILD_SHA=${BUILD_SHA:-dev}
     healthcheck:

@@ -6,12 +6,8 @@ import logging
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-
-# Import routers (these will be available due to sitecustomize.py)
-try:
-    from api.routers import health, tasks, tts, users
-except ImportError:
-    from routers import health, tasks, users
+from api.routers import health, tasks, tts, users
+from api import chat, metrics
 
 # Configure logging
 logging.basicConfig(
@@ -23,17 +19,9 @@ logger = logging.getLogger(__name__)
 # Create FastAPI app
 app = FastAPI(
     title="Universal AI Tools API",
-    description="Python API with path configuration demo",
+    description="UAI - Local-first AI with Ollama integration",
     version="1.0.0"
 )
-
-# Mount Prometheus metrics endpoint
-try:
-    from src.api.metrics_mount import mount_metrics
-    app = mount_metrics(app)
-    logger.info("✅ Prometheus /metrics endpoint mounted")
-except ImportError as e:
-    logger.warning(f"⚠️  Metrics endpoint not available: {e}")
 
 # Error handling middleware
 @app.middleware("http")
@@ -50,6 +38,8 @@ async def error_box(req: Request, call_next):
 
 # Include routers
 app.include_router(health.router, tags=["health"])
+app.include_router(chat.router, tags=["chat"])
+app.include_router(metrics.router, tags=["metrics"])
 app.include_router(users.router, prefix="/api/users", tags=["users"])
 app.include_router(tasks.router, prefix="/api/tasks", tags=["tasks"])
 app.include_router(tts.router, tags=["tts"])
@@ -61,7 +51,13 @@ async def root():
     return {
         "message": "Universal AI Tools API",
         "version": "1.0.0",
-        "status": "operational"
+        "status": "operational",
+        "endpoints": {
+            "health": "/health",
+            "chat": "/v1/chat/completions",
+            "metrics": "/metrics",
+            "docs": "/docs"
+        }
     }
 
 
@@ -78,4 +74,3 @@ async def global_exception_handler(request, exc):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
