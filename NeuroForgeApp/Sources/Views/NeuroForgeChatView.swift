@@ -232,7 +232,7 @@ struct TypingIndicator: View {
 struct NeuroForgeChatView: View {
     let profile: UserProfile
     let navigationSelection: String?
-    
+
     // Use LLM Gateway (working) instead of ChatService (broken chain)
     @StateObject private var llmService: LLMGatewayService
     @StateObject private var inputVM = ChatInputVM()
@@ -243,8 +243,7 @@ struct NeuroForgeChatView: View {
         self.navigationSelection = navigationSelection
         // Initialize LLM Gateway Service
         _llmService = StateObject(
-            wrappedValue: LLMGatewayService(
-            ))
+            wrappedValue: LLMGatewayService())
     }
 
     var body: some View {
