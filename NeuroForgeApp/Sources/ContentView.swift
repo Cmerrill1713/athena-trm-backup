@@ -81,6 +81,12 @@ struct ContentView: View {
 
                 MinimalTestApp()
             }
+            .onAppear {
+                #if os(macOS)
+                // Open floating chat window for testing
+                openFloatingChatWindow()
+                #endif
+            }
         } else {
             // NORMAL MODE: Full app with navigation
             NavigationSplitView {

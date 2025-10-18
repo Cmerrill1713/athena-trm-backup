@@ -7,6 +7,7 @@
 ## ✅ **WHAT'S WORKING (PROVEN)**
 
 ### **Backend Services (9/9)** ✅
+
 - ✅ LLM Gateway (8015) - **NEW, PROVEN WORKING**
 - ✅ Ollama (11434) - 11 models, tested and generating
 - ✅ AGI Core (8000) - Started, healthy
@@ -18,12 +19,14 @@
 - ✅ Graph-of-Code (8200) - Built and tested (6/6 tests passed)
 
 ### **Tests (21/21)** ✅
+
 - ✅ Backend contract tests: 9/9 passed
 - ✅ Swift Reflex: 6/6 tests passed
 - ✅ Graph-of-Code: 6/6 tests passed
 - ✅ **Total: 21/21 passing**
 
 ### **LLM Gateway** ✅
+
 ```bash
 # Proven working via:
 ./scripts/test-llm-gateway.sh
@@ -41,12 +44,14 @@ Results:
 ## ⚠️ **WHAT NEEDS VALIDATION**
 
 ### **Swift Frontend** ⚠️
+
 - ✅ Builds successfully
 - ✅ Launches (after removing NSApp.activate from init)
 - ⚠️ **NOT TESTED:** Typing/focus not manually validated yet
 - ⚠️ **NOT TESTED:** LLM calls from app not verified
 
 ### **LLM Wiring (Swift App → Gateway)** ⚠️
+
 - ✅ Gateway proven working (curl tests)
 - ✅ Swift code updated to call gateway
 - ⚠️ **Metrics show:** Only 1 call total (from test script)
@@ -58,35 +63,41 @@ Results:
 ## 🔧 **FIXES APPLIED**
 
 ### **1. LLM Gateway Service** ✅
+
 - Created minimal OpenAI-compatible API
 - Direct Ollama integration
 - Prometheus metrics
 - Proven working end-to-end
 
 ### **2. Swift App Rewiring** ✅
+
 - Created `LLMGatewayService.swift`
 - Updated `NeuroForgeChatView` to use it
 - Hardcoded gateway URL (http://127.0.0.1:8015)
 - Added loud logging at every step
 
 ### **3. ATS Exception** ✅
+
 - Added to `Info.plist`
 - Allows HTTP to localhost
 - Critical for macOS networking
 
 ### **4. Focus Hardening** ✅
+
 - AppKit-backed `StickyTextField`
 - `ChatInputVM` with stable state
 - Never `.disabled()` pattern
 - Visual busy state only
 
 ### **5. Complete Diagnostic Suite** ✅
+
 - `AppKeyboardProbe` - Logs every keyDown event
 - `ViewDiagnostics` - Lifecycle and hit-test logging
 - Loud print() statements everywhere
 - Emoji trail for easy tracking
 
 ### **6. Debug Tools** ✅
+
 - "Ping LLM Gateway" button (Cmd+Shift+P)
 - Test scripts for validation
 - Metrics monitoring commands
@@ -96,26 +107,33 @@ Results:
 ## 🔍 **DIAGNOSTIC TOOLS READY**
 
 ### **Keyboard Events:**
+
 ```
 🔑 keyDown in app: [key] mods:[flags]
 ```
+
 **Proves:** Keys reach the window
 
 ### **Lifecycle:**
+
 ```
 👶 APPEAR ChatInputBar
 💀 DISAPPEAR ChatInputBar
 ```
+
 **Detects:** View remounting (focus killer)
 
 ### **Hit Testing:**
+
 ```
 🧱 InputField tap
 🧱 RootChatView tap
 ```
+
 **Detects:** Event interception
 
 ### **Network Calls:**
+
 ```
 🚀🚀🚀 LLMGatewayService initialized
 📍 Gateway URL: http://127.0.0.1:8015
@@ -124,6 +142,7 @@ Results:
 📡 Making HTTP request...
 ✅ LLM reply received...
 ```
+
 **Tracks:** Complete request flow
 
 ---
@@ -131,12 +150,14 @@ Results:
 ## 📋 **VALIDATION CHECKLIST**
 
 ### **Backend (COMPLETE)** ✅
+
 - [x] LLM Gateway working
 - [x] Ollama responding
 - [x] Metrics tracking
 - [x] All services operational
 
 ### **Frontend (NEEDS MANUAL TEST)** ⚠️
+
 - [ ] App launches without crash
 - [ ] Can type in input field
 - [ ] Focus returns after send
@@ -148,12 +169,14 @@ Results:
 ## 🎯 **WHAT TO DO NOW**
 
 ### **Step 1: Launch App**
+
 ```bash
 cd /Users/christianmerrill/Documents/GitHub
 ./scripts/validate-everything.sh
 ```
 
 **Watch for:**
+
 ```
 🚀 Keyboard probe installed
 👶 APPEAR NeuroForgeChatView
@@ -163,6 +186,7 @@ cd /Users/christianmerrill/Documents/GitHub
 ```
 
 ### **Step 2: Type in App**
+
 1. Find input field
 2. Type a character
 3. **Watch for:** `🔑 keyDown in app: [char]`
@@ -171,7 +195,9 @@ cd /Users/christianmerrill/Documents/GitHub
 **If YES 🔑:** Keys reach window, continue...
 
 ### **Step 3: Press Enter**
+
 **Watch for:**
+
 ```
 📨 ChatInputVM.submit() called
 📤 SEND from inputVM
@@ -183,6 +209,7 @@ cd /Users/christianmerrill/Documents/GitHub
 **Each emoji proves another step in the chain works!**
 
 ### **Step 4: Watch Metrics**
+
 ```bash
 # In another terminal:
 watch -n 1 'curl -s localhost:8015/metrics | grep llm_gateway_calls_total'
@@ -195,6 +222,7 @@ watch -n 1 'curl -s localhost:8015/metrics | grep llm_gateway_calls_total'
 ## 🏆 **SUCCESS CRITERIA**
 
 **All of these must happen:**
+
 - ✅ 🔑 keyDown events appear
 - ✅ 📨 submit() called
 - ✅ 📤 SEND logged
@@ -209,16 +237,19 @@ watch -n 1 'curl -s localhost:8015/metrics | grep llm_gateway_calls_total'
 ## 🚨 **KNOWN ISSUES**
 
 ### **1. Router Still Crashed** ❌
+
 - Error: Line 44 decorator before app definition
 - Impact: Router not working
 - Status: Bypassed with direct gateway
 
 ### **2. UAT Service Zombie** ❌
+
 - Process: Running deleted code
 - Mode: Fallback only
 - Status: Bypassed with direct gateway
 
 ### **3. Swift App Not Calling Gateway** ⚠️
+
 - Metrics: Only 1 call (from test)
 - Expected: Should increment with each message
 - Status: **Needs manual validation**
@@ -228,21 +259,25 @@ watch -n 1 'curl -s localhost:8015/metrics | grep llm_gateway_calls_total'
 ## 📈 **OVERALL SYSTEM STATUS**
 
 ### **Backend Infrastructure:** 95% ✅
+
 - All core services operational
 - Monitoring fully configured
 - Deployment automation ready
 
 ### **LLM Inference:** 100% ✅
+
 - Gateway proven working
 - Ollama generating responses
 - End-to-end chain validated
 
 ### **Frontend:** 60% ⚠️
+
 - Builds successfully
 - Launches successfully
 - **Not validated:** Typing/focus/LLM calls
 
 ### **Diagnostics:** 100% ✅
+
 - Complete instrumentation
 - Emoji trail for tracking
 - Tools for every scenario
@@ -254,6 +289,7 @@ watch -n 1 'curl -s localhost:8015/metrics | grep llm_gateway_calls_total'
 **Run:** `./scripts/validate-everything.sh`
 
 **Then in app:**
+
 1. Type a character
 2. Press Enter
 3. Report back the emoji trail you see
@@ -262,7 +298,6 @@ watch -n 1 'curl -s localhost:8015/metrics | grep llm_gateway_calls_total'
 
 ---
 
-*Last Updated: 2025-10-17*  
-*Status: Backend operational, frontend needs manual validation*  
-*Critical: User to test typing and report emoji trail*
-
+_Last Updated: 2025-10-17_  
+_Status: Backend operational, frontend needs manual validation_  
+_Critical: User to test typing and report emoji trail_

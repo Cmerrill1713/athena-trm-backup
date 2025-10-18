@@ -90,6 +90,14 @@ struct NeuroForgeApp: App {
                 }
                 .keyboardShortcut(.return, modifiers: [.command])
             }
+            
+            // Debug menu
+            CommandMenu("Debug") {
+                Button("Floating LLM Console") {
+                    openFloatingChatWindow()
+                }
+                .keyboardShortcut("f", modifiers: [.command, .shift])
+            }
 
             // Athena focus commands
             CommandMenu("Athena") {
