@@ -1,8 +1,10 @@
 import AppKit
+import OSLog
 
 // MARK: - Floating Chat Window (pure AppKit, ~70 lines)
 
 final class FloatingChatWindow: NSWindow, NSTextFieldDelegate {
+    private let logger = Logger(subsystem: "com.neuroforge.athena", category: "FloatingChat")
     private let input = NSTextField()
     private let status = NSTextField(labelWithString: "Ready")
 
@@ -52,54 +54,52 @@ final class FloatingChatWindow: NSWindow, NSTextFieldDelegate {
         makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
 
-        // EXTREME DIAGNOSTICS
-        print("🪟 Window created:")
-        print("   - isKeyWindow: \(isKeyWindow)")
-        print("   - canBecomeKey: \(canBecomeKey)")
-        print("   - level: \(level.rawValue)")
+        // EXTREME DIAGNOSTICS with OSLog
+        logger.info("🪟 Window created")
+        logger.info("   - isKeyWindow: \(self.isKeyWindow)")
+        logger.info("   - canBecomeKey: \(self.canBecomeKey)")
+        logger.info("   - level: \(self.level.rawValue)")
 
         DispatchQueue.main.async {
             let didBecomeFirstResponder = self.input.window?.makeFirstResponder(self.input) ?? false
-            print("   - makeFirstResponder: \(didBecomeFirstResponder)")
-            print("   - firstResponder: \(self.input.window?.firstResponder?.description ?? "nil")")
-            print("   - input.acceptsFirstResponder: \(self.input.acceptsFirstResponder)")
+            self.logger.info("   - makeFirstResponder: \(didBecomeFirstResponder)")
+            self.logger.info("   - firstResponder exists: \(self.input.window?.firstResponder != nil)")
+            self.logger.info("   - input.acceptsFirstResponder: \(self.input.acceptsFirstResponder)")
 
             // Force it again
             self.makeKey()
             self.orderFront(nil)
             _ = self.makeFirstResponder(self.input)
 
-            print(
-                "   - After force: isKeyWindow=\(self.isKeyWindow), firstResponder=\(self.firstResponder?.description ?? "nil")"
-            )
+            self.logger.info("   - After force: isKeyWindow=\(self.isKeyWindow), firstResponder exists=\(self.firstResponder != nil)")
         }
     }
 
     // Click handler - verify events reach the field
     @objc private func fieldClicked() {
-        print("👆 Field clicked! Focus should be set now.")
-        print("   - firstResponder: \(self.firstResponder?.description ?? "nil")")
+        logger.info("👆 Field clicked! Focus should be set now.")
+        logger.info("   - firstResponder exists: \(self.firstResponder != nil)")
     }
-
+    
     // Return sends (Shift+Return is just Return in NSTextField — single-line by design)
     func control(_ control: NSControl, textView: NSTextView, doCommandBy sel: Selector) -> Bool {
-        print("⌨️ control:doCommandBy called - selector: \(sel)")
+        logger.info("⌨️ control:doCommandBy called - selector: \(String(describing: sel))")
         if sel == #selector(NSResponder.insertNewline(_:)) {
-            print("↩️ Enter key detected, sending...")
+            logger.info("↩️ Enter key detected, sending...")
             send(text: input.stringValue.trimmingCharacters(in: .whitespacesAndNewlines))
             return true  // swallow Enter
         }
         return false
     }
-
+    
     // Text did change - verify typing works
     func controlTextDidChange(_ obj: Notification) {
-        print("✏️ Text changed: \"\(input.stringValue)\"")
+        logger.info("✏️ Text changed: \"\(self.input.stringValue)\"")
     }
 
     private func send(text: String) {
         guard !text.isEmpty else { return }
-        print("📤 Sending to gateway: \(text)")
+        logger.info("📤 Sending to gateway: \(text)")
         setStatus("Sending...")
         let payload: [String: Any] = [
             "messages": [["role": "user", "content": text]],
@@ -114,7 +114,7 @@ final class FloatingChatWindow: NSWindow, NSTextFieldDelegate {
         // async on a background queue; hop to main for UI updates
         URLSession.shared.dataTask(with: req) { [weak self] data, resp, err in
             if let err = err {
-                print("❌ LLM error:", err.localizedDescription)
+                self?.logger.error("❌ LLM error: \(err.localizedDescription)")
                 self?.setStatus("Error")
                 return
             }
@@ -127,13 +127,13 @@ final class FloatingChatWindow: NSWindow, NSTextFieldDelegate {
                 let msg = choices.first?["message"] as? [String: Any],
                 let content = msg["content"] as? String
             else {
-                print(
-                    "❌ LLM bad response:", String(data: data ?? Data(), encoding: .utf8) ?? "<nil>")
+                let responseText = String(data: data ?? Data(), encoding: .utf8) ?? "<nil>"
+                self?.logger.error("❌ LLM bad response: \(responseText)")
                 self?.setStatus("Bad response")
                 return
             }
 
-            print("✅ LLM reply:\n\(content)\n")
+            self?.logger.info("✅ LLM reply: \(content.prefix(100))...")
             self?.setStatus("OK (\(content.prefix(20))...)")
         }.resume()
 
@@ -151,12 +151,15 @@ final class FloatingChatWindow: NSWindow, NSTextFieldDelegate {
 
 // MARK: - Public API: one-liner to open (singleton)
 private var _floatingChatWin: FloatingChatWindow?
+private let openLogger = Logger(subsystem: "com.neuroforge.athena", category: "FloatingChat")
+
 func openFloatingChatWindow() {
     if let w = _floatingChatWin {
         w.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+        openLogger.info("🪟 Floating chat window reopened (already exists)")
         return
     }
     _floatingChatWin = FloatingChatWindow()
-    print("🪟 Floating chat window opened")
+    openLogger.info("🪟 Floating chat window opened (NEW)")
 }

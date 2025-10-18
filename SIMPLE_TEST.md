@@ -18,6 +18,7 @@ Answer these questions:
 ## ❓ **QUESTION 2: Does the window LOOK right?**
 
 **Should have:**
+
 - Text field with placeholder "Type message… (Return sends) - Click me!"
 - Status line showing "Ready"
 
@@ -31,6 +32,7 @@ Answer these questions:
 **Click inside the text field**
 
 What happens?
+
 - [ ] Cursor appears / field becomes active
 - [ ] Nothing happens - no visual feedback
 
@@ -41,6 +43,7 @@ What happens?
 **Try typing "hello"**
 
 What happens?
+
 - [ ] Text appears as I type
 - [ ] Nothing appears - keystrokes disappear
 
@@ -49,6 +52,7 @@ What happens?
 ## ❓ **QUESTION 5: What other apps are running?**
 
 **Check for apps that might intercept keyboard:**
+
 - [ ] Screen recorder (OBS, QuickTime, etc.)
 - [ ] Keyboard remapper (Karabiner, BTT, etc.)
 - [ ] Security software
@@ -61,8 +65,9 @@ What happens?
 **System Preferences → Security & Privacy → Privacy → Accessibility**
 
 Is NeuroForgeApp listed there?
+
 - [ ] YES - and it's CHECKED (enabled)
-- [ ] YES - but it's UNCHECKED (disabled)  ← **ENABLE THIS!**
+- [ ] YES - but it's UNCHECKED (disabled) ← **ENABLE THIS!**
 - [ ] NO - not listed at all
 
 ---
@@ -72,6 +77,7 @@ Is NeuroForgeApp listed there?
 **Not the floating window - the regular NeuroForgeApp window**
 
 Can you type in the chat input there?
+
 - [ ] YES - main window typing works fine
 - [ ] NO - can't type in main window either
 - [ ] UNSURE - haven't tried
@@ -85,6 +91,7 @@ Can you type in the chat input there?
 This is a **global keyboard permission issue**.
 
 **Fix:**
+
 1. System Preferences → Security & Privacy → Privacy
 2. Click "Accessibility" in left sidebar
 3. Click lock icon (bottom left) to unlock
@@ -98,10 +105,10 @@ This is a **global keyboard permission issue**.
 ## 🎯 **QUICK ANSWER FORMAT**
 
 Just tell me:
+
 1. Can you see the window? (YES/NO)
 2. Can you click in it? (YES/NO)
 3. Can you type in it? (YES/NO)
 4. Is the app in Accessibility settings? (YES/NO/UNCHECKED)
 
 **That's all I need to know the fix!**
-
