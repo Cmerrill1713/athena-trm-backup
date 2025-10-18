@@ -9,11 +9,13 @@ All diagnostics now use Swift's OSLog - the proper way to log on macOS!
 **Open TWO terminal windows:**
 
 ### **Terminal 1: Stream Logs**
+
 ```bash
 log stream --predicate 'subsystem == "com.neuroforge.athena"' --level info
 ```
 
 ### **Terminal 2: Launch App**
+
 ```bash
 cd /Users/christianmerrill/Documents/GitHub
 /Users/christianmerrill/Library/Developer/Xcode/DerivedData/NeuroForgeApp-dylmcxgesfnrnxcdddijrrdsznam/Build/Products/Debug/NeuroForgeApp
@@ -34,6 +36,7 @@ cd /Users/christianmerrill/Documents/GitHub
 5. **Watch logs appear**
 
 **You'll see:**
+
 - 🪟 Window created
 - isKeyWindow: true/false
 - makeFirstResponder: true/false
@@ -47,6 +50,7 @@ cd /Users/christianmerrill/Documents/GitHub
 ## 🎯 **METHOD 3: Xcode Console**
 
 If you run from Xcode:
+
 1. Open project in Xcode
 2. Run (Cmd+R)
 3. Check the console pane (bottom)
@@ -57,6 +61,7 @@ If you run from Xcode:
 ## 🔍 **WHAT TO LOOK FOR**
 
 ### **When window opens:**
+
 ```
 🪟 Floating chat window opened (NEW)
 🪟 Window created
@@ -66,12 +71,14 @@ If you run from Xcode:
 ```
 
 ### **When you CLICK the field:**
+
 ```
 👆 Field clicked! Focus should be set now.
    - firstResponder exists: true  ← SHOULD BE TRUE
 ```
 
 ### **When you TYPE:**
+
 ```
 ✏️ Text changed: "h"
 ✏️ Text changed: "he"
@@ -79,6 +86,7 @@ If you run from Xcode:
 ```
 
 ### **When you press RETURN:**
+
 ```
 ⌨️ control:doCommandBy called - selector: insertNewline:
 ↩️ Enter key detected, sending...
@@ -91,14 +99,17 @@ If you run from Xcode:
 ## 🚨 **FAILURE MODES**
 
 ### **If you DON'T see "✏️ Text changed":**
+
 → Keyboard events not reaching the app
 → Check macOS Privacy settings (Accessibility)
 
 ### **If you see "isKeyWindow: false":**
+
 → Window can't become key
 → App not activating properly
 
 ### **If you see "makeFirstResponder: false":**
+
 → Field won't accept focus
 → Configuration issue
 
@@ -107,6 +118,7 @@ If you run from Xcode:
 ## 💡 **QUICK TEST COMMAND**
 
 Run this BEFORE launching the app:
+
 ```bash
 # In one terminal window:
 log stream --predicate 'subsystem == "com.neuroforge.athena"' --level info | grep -E "🪟|👆|✏️|📤|✅|isKeyWindow|makeFirstResponder"
@@ -140,4 +152,3 @@ cd /Users/christianmerrill/Documents/GitHub
 ---
 
 **This is the proper macOS way - no more fighting stdout!** 📱
-

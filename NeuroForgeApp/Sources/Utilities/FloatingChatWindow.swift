@@ -63,15 +63,19 @@ final class FloatingChatWindow: NSWindow, NSTextFieldDelegate {
         DispatchQueue.main.async {
             let didBecomeFirstResponder = self.input.window?.makeFirstResponder(self.input) ?? false
             self.logger.info("   - makeFirstResponder: \(didBecomeFirstResponder)")
-            self.logger.info("   - firstResponder exists: \(self.input.window?.firstResponder != nil)")
-            self.logger.info("   - input.acceptsFirstResponder: \(self.input.acceptsFirstResponder)")
+            self.logger.info(
+                "   - firstResponder exists: \(self.input.window?.firstResponder != nil)")
+            self.logger.info(
+                "   - input.acceptsFirstResponder: \(self.input.acceptsFirstResponder)")
 
             // Force it again
             self.makeKey()
             self.orderFront(nil)
             _ = self.makeFirstResponder(self.input)
 
-            self.logger.info("   - After force: isKeyWindow=\(self.isKeyWindow), firstResponder exists=\(self.firstResponder != nil)")
+            self.logger.info(
+                "   - After force: isKeyWindow=\(self.isKeyWindow), firstResponder exists=\(self.firstResponder != nil)"
+            )
         }
     }
 
@@ -80,7 +84,7 @@ final class FloatingChatWindow: NSWindow, NSTextFieldDelegate {
         logger.info("👆 Field clicked! Focus should be set now.")
         logger.info("   - firstResponder exists: \(self.firstResponder != nil)")
     }
-    
+
     // Return sends (Shift+Return is just Return in NSTextField — single-line by design)
     func control(_ control: NSControl, textView: NSTextView, doCommandBy sel: Selector) -> Bool {
         logger.info("⌨️ control:doCommandBy called - selector: \(String(describing: sel))")
@@ -91,7 +95,7 @@ final class FloatingChatWindow: NSWindow, NSTextFieldDelegate {
         }
         return false
     }
-    
+
     // Text did change - verify typing works
     func controlTextDidChange(_ obj: Notification) {
         logger.info("✏️ Text changed: \"\(self.input.stringValue)\"")
