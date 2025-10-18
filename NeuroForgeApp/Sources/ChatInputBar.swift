@@ -39,24 +39,24 @@ public struct ChatInputBar: View {
     public var body: some View {
         HStack(spacing: 8) {
             #if os(macOS)
-            // AppKit-backed field - bulletproof first responder
-            StickyTextField(vm: vm, placeholder: "Type a message…")
-                .frame(minHeight: 28)
+                // AppKit-backed field - bulletproof first responder
+                StickyTextField(vm: vm, placeholder: "Type a message…")
+                    .frame(minHeight: 28)
             #else
-            // iOS fallback
-            TextField("Type a message…", text: $vm.text)
-                .textFieldStyle(.roundedBorder)
-                .onSubmit { vm.submit() }
+                // iOS fallback
+                TextField("Type a message…", text: $vm.text)
+                    .textFieldStyle(.roundedBorder)
+                    .onSubmit { vm.submit() }
             #endif
 
             Button {
                 vm.submit()
             } label: {
-                if vm.isSending { 
+                if vm.isSending {
                     ProgressView()
-                        .controlSize(.small) 
-                } else { 
-                    Text("Send") 
+                        .controlSize(.small)
+                } else {
+                    Text("Send")
                 }
             }
             .keyboardShortcut(.return, modifiers: [.command])  // Cmd+Enter
@@ -129,7 +129,7 @@ struct HitTestProbe: ViewModifier {
 #Preview("Chat Input Bar") {
     struct PreviewWrapper: View {
         @StateObject private var vm = ChatInputVM()
-        
+
         var body: some View {
             VStack {
                 Spacer()
@@ -150,7 +150,7 @@ struct HitTestProbe: ViewModifier {
 #Preview("Chat Input Bar - Sending") {
     struct PreviewWrapper: View {
         @StateObject private var vm = ChatInputVM()
-        
+
         var body: some View {
             VStack {
                 Spacer()
