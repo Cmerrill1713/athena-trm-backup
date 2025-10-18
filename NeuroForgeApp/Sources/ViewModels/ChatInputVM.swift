@@ -17,8 +17,12 @@ public final class ChatInputVM: ObservableObject {
 
     public func submit() {
         let msg = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !msg.isEmpty, !isSending else { return }
+        guard !msg.isEmpty, !isSending else {
+            print("⚠️ Submit blocked: empty=\(msg.isEmpty) sending=\(isSending)")
+            return
+        }
 
+        print("📨 ChatInputVM.submit() called, len=\(msg.count)")
         uiLog.info("Send tapped; len=\(msg.count)")
         isSending = true
 
@@ -27,6 +31,7 @@ public final class ChatInputVM: ObservableObject {
             await MainActor.run {
                 self.text = ""
                 self.isSending = false
+                print("✅ ChatInputVM.submit() complete, field cleared")
                 self.uiLog.info("Send complete; field ready for next input")
             }
         }

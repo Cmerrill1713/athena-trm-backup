@@ -39,24 +39,26 @@ public struct ChatInputBar: View {
     public var body: some View {
         HStack(spacing: 8) {
             #if os(macOS)
-                // AppKit-backed field - bulletproof first responder
-                StickyTextField(vm: vm, placeholder: "Type a message…")
-                    .frame(minHeight: 28)
+            // AppKit-backed field - bulletproof first responder
+            StickyTextField(vm: vm, placeholder: "Type a message…")
+                .frame(minHeight: 28)
+                .zIndex(1000)  // Stay above overlays
+                .hitGuard("InputField")  // Log if something eats taps
             #else
-                // iOS fallback
-                TextField("Type a message…", text: $vm.text)
-                    .textFieldStyle(.roundedBorder)
-                    .onSubmit { vm.submit() }
+            // iOS fallback
+            TextField("Type a message…", text: $vm.text)
+                .textFieldStyle(.roundedBorder)
+                .onSubmit { vm.submit() }
             #endif
 
             Button {
                 vm.submit()
             } label: {
-                if vm.isSending {
+                if vm.isSending { 
                     ProgressView()
-                        .controlSize(.small)
-                } else {
-                    Text("Send")
+                        .controlSize(.small) 
+                } else { 
+                    Text("Send") 
                 }
             }
             .keyboardShortcut(.return, modifiers: [.command])  // Cmd+Enter
@@ -67,6 +69,7 @@ public struct ChatInputBar: View {
         .background(.thinMaterial)
         .animation(.easeInOut(duration: 0.15), value: vm.isSending)
         .allowsHitTesting(true)
+        .life("ChatInputBar")  // Log lifecycle
     }
 }
 

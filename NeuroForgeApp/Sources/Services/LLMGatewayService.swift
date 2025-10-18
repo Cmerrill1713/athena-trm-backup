@@ -17,7 +17,7 @@ final class LLMGatewayService: ObservableObject {
     private let gatewayURL = URL(string: "http://127.0.0.1:8015")!
     private let session = URLSession(configuration: .default)
     private let log = Logger(subsystem: "com.neuroforge.athena", category: "llm")
-    
+
     init() {
         // LOUD logging - must be visible in Console
         print("🚀🚀🚀 LLMGatewayService initialized")
@@ -48,14 +48,14 @@ final class LLMGatewayService: ObservableObject {
 
     func sendMessage(_ text: String) async {
         isSending = true
-        
+
         // LOUD logging
         print("📤 Sending message to LLM Gateway: \(text.prefix(50))...")
-        
+
         // Add user message
         let userMessage = ChatMessage(text: text, isUser: true)
         messages.append(userMessage)
-        
+
         do {
             let reply = try await callGateway(text)
             let aiMessage = ChatMessage(text: reply, isUser: false)
@@ -70,21 +70,21 @@ final class LLMGatewayService: ObservableObject {
             print("❌ LLM call FAILED: \(error)")
             log.error("Send failed: \(error.localizedDescription)")
         }
-        
+
         isSending = false
     }
 
     private func callGateway(_ text: String) async throws -> String {
         let url = gatewayURL.appendingPathComponent("v1/chat/completions")
-        
+
         // LOUD logging
         print("🌐 Calling gateway: \(url.absoluteString)")
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.timeoutInterval = 30
-        
+
         // OpenAI-style payload
         let payload: [String: Any] = [
             "messages": [
@@ -93,9 +93,9 @@ final class LLMGatewayService: ObservableObject {
             "model": "qwen2.5:0.5b",
             "stream": false,
         ]
-        
+
         request.httpBody = try JSONSerialization.data(withJSONObject: payload)
-        
+
         print("📡 Making HTTP request...")
 
         let startTime = Date()

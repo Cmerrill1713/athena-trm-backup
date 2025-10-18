@@ -14,6 +14,13 @@ struct NeuroForgeApp: App {
     @State private var voice = VoiceManager()
 
     init() {
+        #if os(macOS)
+        // Install keyboard event monitor (diagnostic)
+        AppKeyboardProbe.install()
+        NSApp.activate(ignoringOtherApps: true)
+        print("🚀 App activating, keyboard probe installed")
+        #endif
+        
         // Initialize avatar services (only if available - prevents CLI crashes)
         _ = AvatarNotificationService.shared
         // _ = MobileMetricsService.shared  // TODO: Add when metrics service available

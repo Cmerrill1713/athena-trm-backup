@@ -281,11 +281,14 @@ struct NeuroForgeChatView: View {
                 .onAppear {
                     // Wire up the send handler
                     inputVM.onSend = { [llmService] text in
+                        print("📤 SEND from inputVM: \(text.prefix(20))...")
                         await llmService.sendMessage(text)
                     }
                 }
         }
         .background(AppleColors.controlBackground)
+        .life("NeuroForgeChatView")  // Log lifecycle
+        .hitGuard("RootChatView")  // Log hit testing
     }
 
     private func groupBoundary(at index: Int) -> Bool {

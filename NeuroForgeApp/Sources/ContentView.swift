@@ -92,7 +92,7 @@ struct ContentView: View {
                         } label: {
                             Label("🔧 Test Input", systemImage: "wrench.fill")
                         }
-                        
+
                         Button {
                             Task {
                                 await pingLLM()
@@ -156,43 +156,44 @@ struct ContentView: View {
             }
         }
     }
-    
+
     // MARK: - Debug Functions
-    
+
     func pingLLM() async {
         print("🎯 PING LLM button pressed!")
-        
+
         do {
             let url = URL(string: "http://127.0.0.1:8015/v1/chat/completions")!
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            
+
             let payload: [String: Any] = [
                 "messages": [
                     ["role": "user", "content": "Say 'pong' in 3 words"]
                 ],
-                "stream": false
+                "stream": false,
             ]
-            
+
             request.httpBody = try JSONSerialization.data(withJSONObject: payload)
-            
+
             print("📡 Calling gateway at: \(url.absoluteString)")
-            
+
             let (data, response) = try await URLSession.shared.data(for: request)
-            
+
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("❌ Bad response type")
                 return
             }
-            
+
             print("📥 Response code: \(httpResponse.statusCode)")
-            
+
             if httpResponse.statusCode == 200 {
                 if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                   let choices = json["choices"] as? [[String: Any]],
-                   let message = choices.first?["message"] as? [String: Any],
-                   let content = message["content"] as? String {
+                    let choices = json["choices"] as? [[String: Any]],
+                    let message = choices.first?["message"] as? [String: Any],
+                    let content = message["content"] as? String
+                {
                     print("✅ Ping OK: \(content)")
                 } else {
                     print("⚠️ Response OK but couldn't parse")
@@ -202,7 +203,7 @@ struct ContentView: View {
                 print("❌ HTTP \(httpResponse.statusCode)")
                 print(String(data: data, encoding: .utf8) ?? "")
             }
-            
+
         } catch {
             print("❌ Ping FAIL: \(error)")
         }
