@@ -3,6 +3,7 @@
 ## ✅ **GOOD NEWS:**
 
 **The backend works PERFECTLY!** I just tested it:
+
 ```bash
 $ curl http://127.0.0.1:8015/v1/chat/completions ...
 Hello! How can I help you today?
@@ -17,6 +18,7 @@ Hello! How can I help you today?
 **macOS is blocking keyboard/mouse input to your app.**
 
 This is why you can't:
+
 - Type anywhere in the app
 - Use keyboard shortcuts (Cmd+Shift+F)
 - Interact with ANY UI elements
@@ -28,6 +30,7 @@ This is why you can't:
 ### **Step 1: Open System Preferences**
 
 **Run this command to open it directly:**
+
 ```bash
 open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"
 ```
@@ -46,11 +49,13 @@ open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibil
 ### **Step 3: Also Check Input Monitoring**
 
 **Run this to open Input Monitoring:**
+
 ```bash
 open "x-apple.systempreferences:com.apple.preference.security?Privacy_ListenEvent"
 ```
 
 **Do the same thing:**
+
 - Add NeuroForgeApp if not there
 - Enable it ✅
 
@@ -77,6 +82,7 @@ curl -s http://127.0.0.1:8015/v1/chat/completions \
 ```
 
 **This proves:**
+
 - ✅ Ollama is working
 - ✅ LLM Gateway is working
 - ✅ The AI backend is solid
@@ -117,4 +123,3 @@ curl -s http://127.0.0.1:8015/v1/chat/completions \
 **The 5-hour debugging was worth it - we proved the entire AI chain works!** 🎉
 
 Now just grant those permissions and you're done.
-
