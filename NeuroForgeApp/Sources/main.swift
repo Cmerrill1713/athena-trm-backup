@@ -17,8 +17,7 @@ struct NeuroForgeApp: App {
         #if os(macOS)
         // Install keyboard event monitor (diagnostic)
         AppKeyboardProbe.install()
-        NSApp.activate(ignoringOtherApps: true)
-        print("🚀 App activating, keyboard probe installed")
+        print("🚀 Keyboard probe installed")
         #endif
         
         // Initialize avatar services (only if available - prevents CLI crashes)
