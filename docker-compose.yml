@@ -784,6 +784,40 @@ services:
       - "athena.service=searxng"
       - "athena.port=8081"
 
+
+  # ===========================================================================
+  # UNIVERSAL AI TOOLS (Port 8080) - Additional AI Service Layer
+  # ===========================================================================
+
+  uai:
+    build:
+      context: ./AI-Projects/universal-ai-tools
+      dockerfile: Dockerfile
+    container_name: athena-uai
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PORT=8080
+      - OLLAMA_URL=http://host.docker.internal:11434
+      - LLM_MODEL=qwen2.5-coder:7b
+      - FEATURE_MOCK=0
+      - BUILD_SHA=${BUILD_SHA:-dev}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - athena-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    labels:
+      - "athena.service=uai"
+      - "athena.port=8080"
+
 # =============================================================================
 # VOLUMES
 # =============================================================================
@@ -827,3 +861,8 @@ networks:
     name: athena-network
     driver: bridge
     external: true
+
+  # ===========================================================================
+  # UNIVERSAL AI TOOLS (Port 8080) - Additional AI Service Layer
+  # ===========================================================================
+

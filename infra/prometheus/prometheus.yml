@@ -46,3 +46,10 @@ scrape_configs:
   - job_name: "prometheus"
     static_configs:
       - targets: ["localhost:9090"]
+
+  # Universal AI Tools
+  - job_name: "uai"
+    scrape_interval: 15s
+    static_configs:
+      - targets: ["uai:8080"]
+    metrics_path: "/metrics"
