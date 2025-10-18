@@ -27,11 +27,13 @@ cd /Users/christianmerrill/Documents/GitHub
 ## 🎯 **DURING THE 10 SECONDS:**
 
 **After you run the script, you'll see:**
+
 ```
 4. Waiting for app to initialize (10 seconds)...
 ```
 
 **During this time:**
+
 1. **Floating window should appear** (or press Cmd+Shift+F)
 2. **Click in the text field**
 3. **Type "hello"**
@@ -46,17 +48,20 @@ cd /Users/christianmerrill/Documents/GitHub
 The script will tell you:
 
 ✅ **If typing works:**
+
 ```
 🎉 SUCCESS! Typing is working!
 ```
 
 ⚠️ **If you didn't interact:**
+
 ```
 ⚠️  INCONCLUSIVE - No interaction detected
 (Tells you to try again)
 ```
 
 ❌ **If there's a problem:**
+
 ```
 ❌ PROBLEM IDENTIFIED: Can click but can't type
 
@@ -70,11 +75,13 @@ MOST LIKELY FIX:
 ## 🎯 **TL;DR**
 
 **One command:**
+
 ```bash
 ./scripts/diagnose-input-auto.sh
 ```
 
 **Then in the next 10 seconds:**
+
 - Click the text field
 - Type "hello"
 
@@ -83,4 +90,3 @@ MOST LIKELY FIX:
 ---
 
 **Ready when you are. Just run that one command.** 🚀
-
