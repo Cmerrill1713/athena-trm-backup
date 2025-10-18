@@ -283,7 +283,7 @@ struct NeuroForgeChatView: View {
                         await chatService.sendMessage(text)
                     }
                 },
-                isSending: false,
+                isSending: chatService.isSending,
                 focusTrigger: focusTrigger
             )
             .onChange(of: navigationSelection) { _, newSelection in

@@ -23,6 +23,13 @@ struct NeuroForgeApp: App {
                     ContentView(profile: profile)
                         .environmentObject(athenaState)
                         .environmentObject(profileManager)
+                        .onAppear {
+                            #if os(macOS)
+                            // Activate app and make window key on launch
+                            NSApp.activate(ignoringOtherApps: true)
+                            NSApp.windows.first?.makeKeyAndOrderFront(nil)
+                            #endif
+                        }
                         .onReceive(NotificationCenter.default.publisher(for: .ShowCriticalAlert)) {
                             note in
                             if let a = note.object as? CriticalAlert {

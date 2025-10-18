@@ -71,6 +71,8 @@ public struct LatencyBadge: View {
                 .fill(badgeColor)
                 .shadow(color: badgeColor.opacity(0.3), radius: 2, x: 0, y: 1)
         )
+        .animation(.easeInOut(duration: 0.2), value: latencyMs)
+        .animation(.easeInOut(duration: 0.2), value: route)
         .accessibilityLabel("Router: \(route), Latency: \(latencyText)")
     }
 }

@@ -31,10 +31,12 @@ struct ContractChatResponse: Codable {
 }
 
 /// Minimal, correct ChatService using canonical config
+@MainActor
 final class ChatService: ObservableObject {
     @Published var messages: [ChatMessage] = []
     @Published var isConnected = false
     @Published var inputText = ""
+    @Published var isSending = false
 
     // Router status for latency badge
     @Published var currentRoute = "mlx"
@@ -51,10 +53,10 @@ final class ChatService: ObservableObject {
         print(
             "🔐 Auth enabled: \(AppConfig.bridgeAuthEnabled), token present: \(!token.isEmpty)")
 
-        // Add welcome message
+        // Add welcome message with personality
         messages.append(
             ChatMessage(
-                text: "✨ Hi! I'm Athena, your AI assistant. How can I help you today?",
+                text: "Hello! I'm Athena ✨\n\nI'm your AI assistant, running locally on your machine with powerful models. I'm here to help you think through problems, write better code, and explore ideas together.\n\nWhat would you like to work on today?",
                 isUser: false
             ))
 
@@ -90,6 +92,9 @@ final class ChatService: ObservableObject {
     }
 
     func sendMessage(_ text: String) async {
+        // Set sending state (but don't disable input!)
+        isSending = true
+        
         // Add user message
         let userMessage = ChatMessage(text: text, isUser: true)
         messages.append(userMessage)
@@ -105,6 +110,9 @@ final class ChatService: ObservableObject {
             )
             messages.append(errorMessage)
         }
+        
+        // Clear sending state - this triggers focus restoration in ChatInputBar
+        isSending = false
     }
 
     private func sendToBackend(_ text: String) async throws -> String {
