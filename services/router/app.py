@@ -31,6 +31,9 @@ from providers.mlx_provider import MLXProvider
 from providers.ollama_provider import OllamaProvider
 from providers.mcp_browser_provider import MCPBrowserProvider
 from providers.cloud_provider import CloudProvider
+from providers.vision_fastvlm import FastVLMProvider
+from providers.tts_kokoro import KokoroTTSProvider
+from providers.uai_provider import UAIProvider
 
 # Build version tracking
 BUILD = os.getenv("BUILD_SHA", "dev")
@@ -383,6 +386,13 @@ async def startup():
         endpoint=os.getenv("KOKORO_ENDPOINT", "http://127.0.0.1:8091"),
         voice=os.getenv("KOKORO_VOICE", "en_US-female"),
         timeout_ms=350
+    )
+    
+    # UAI provider (Universal AI Tools)
+    providers['uai'] = UAIProvider(
+        endpoint=os.getenv("UAI_ENDPOINT", "http://uai:8080"),
+        model=os.getenv("UAI_MODEL", "qwen2.5:7b"),
+        timeout_ms=30000
     )
     
     # Initialize health monitor

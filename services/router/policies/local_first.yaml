@@ -4,6 +4,7 @@
 # Provider priority order (1 = highest)
 order:
   - mlx
+  - uai
   - ollama
   - mcp_browser
   - cloud
@@ -11,6 +12,7 @@ order:
 # Timeout budgets per provider (milliseconds)
 timeouts_ms:
   mlx: 1500          # Apple Silicon, fast
+  uai: 30000         # UAI → Ollama (allow time for LLM)
   ollama: 2000       # Local, reasonable
   mcp_browser: 4000  # Network calls via browser
   cloud: 5000        # Network + API latency
