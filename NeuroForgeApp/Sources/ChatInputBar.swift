@@ -1,8 +1,8 @@
-import SwiftUI
 import OSLog
+import SwiftUI
 
 #if canImport(UIKit)
-import UIKit
+    import UIKit
 #endif
 
 /// A polished, focus-aware chat input bar - PRODUCTION-READY with all fixes applied
@@ -14,7 +14,7 @@ public struct ChatInputBar: View {
 
     @FocusState private var isFocused: Bool
     @State private var stableId = UUID()  // Keep identity stable across rebuilds
-    
+
     // UI logging for debugging
     private let uiLog = Logger(subsystem: "com.neuroforge.athena", category: "ui")
 
@@ -27,7 +27,6 @@ public struct ChatInputBar: View {
         self.isSending = isSending
         self.focusTrigger = focusTrigger
     }
-
 
     // MARK: - Known-Good Input Test (for debugging)
     /// Drop this in your detail view to test if basic input works
@@ -59,17 +58,19 @@ public struct ChatInputBar: View {
     public var body: some View {
         HStack(spacing: 8) {
             // SwiftUI field - NEVER disabled (to keep focus)
-            TextField("Type a message…", text: $text, axis: .vertical)
+            TextField("Type a message…", text: $text)
                 .id(stableId)
                 .focused($isFocused)
                 .textFieldStyle(.roundedBorder)
+                .disableAutocorrection(true)
                 .onAppear { 
-                    DispatchQueue.main.async { 
-                        isFocused = true
-                        uiLog.info("ChatInput appeared, focus set")
-                    } 
+                    isFocused = true
+                    uiLog.info("ChatInput appeared, focus set")
                 }
-                .onSubmit { submit() }
+                .onReceive(NotificationCenter.default.publisher(for: .nf_sendMessage)) { _ in 
+                    submit() 
+                }
+                .onSubmit { submit() }  // Enter sends
                 .onChange(of: focusTrigger) { _, _ in
                     // External focus trigger (e.g., from NavigationSplitView)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -78,7 +79,7 @@ public struct ChatInputBar: View {
                     }
                 }
                 .onChange(of: isSending) { _, newValue in
-                    // Re-assert focus when sending state changes (critical!)
+                    // Re-assert focus when sending completes (critical!)
                     if !newValue {
                         DispatchQueue.main.async {
                             isFocused = true
@@ -86,25 +87,28 @@ public struct ChatInputBar: View {
                         }
                     }
                 }
-                // Visual busy state (don't use .disabled - that drops focus!)
-                .overlay(isSending ? Color.black.opacity(0.05) : Color.clear)
-                .allowsHitTesting(!isSending)
-
+            
             Button("Send") { submit() }
                 .buttonStyle(.borderedProminent)
-                .keyboardShortcut(.return, modifiers: [.command]) // Cmd+Enter also sends
+                .keyboardShortcut(.return, modifiers: [.command])
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 12)
         .padding(.vertical, 8)
+        .overlay(alignment: .trailing) {
+            if isSending { 
+                ProgressView()
+                    .padding(.trailing, 56) 
+            }
+        }
+        // Visual "disabled" without .disabled() - never drops focus!
+        .background(isSending ? Color.black.opacity(0.04) : Color.clear)
         .background(.ultraThinMaterial)
-        .ignoresSafeArea(.keyboard, edges: .bottom)
-        .safeAreaInset(edge: .bottom) { Color.clear.frame(height: 0) }
     }
 
     private func submit() {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
-        
+
         uiLog.info("Send tapped; length=\(trimmed.count)")
         onSend(trimmed)
         text.removeAll()

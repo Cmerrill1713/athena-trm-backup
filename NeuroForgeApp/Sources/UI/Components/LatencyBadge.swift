@@ -73,6 +73,7 @@ public struct LatencyBadge: View {
         )
         .animation(.easeInOut(duration: 0.2), value: latencyMs)
         .animation(.easeInOut(duration: 0.2), value: route)
+        .allowsHitTesting(false)  // Passive - never steals events or focus
         .accessibilityLabel("Router: \(route), Latency: \(latencyText)")
     }
 }

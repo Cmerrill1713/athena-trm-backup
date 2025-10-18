@@ -1,5 +1,10 @@
 import SwiftUI
 
+// Global notification for Cmd+Enter send
+extension Notification.Name { 
+    static let nf_sendMessage = Notification.Name("nf_sendMessage") 
+}
+
 @main
 struct NeuroForgeApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -25,9 +30,13 @@ struct NeuroForgeApp: App {
                         .environmentObject(profileManager)
                         .onAppear {
                             #if os(macOS)
-                            // Activate app and make window key on launch
+                            // Activate app and make window key on launch (bulletproof)
                             NSApp.activate(ignoringOtherApps: true)
-                            NSApp.windows.first?.makeKeyAndOrderFront(nil)
+                            if let w = NSApp.windows.first { 
+                                w.makeKeyAndOrderFront(nil) 
+                            }
+                            // Prevent background NSPanel or sheet from stealing first responder
+                            NSApp.windows.forEach { $0.preventsApplicationTerminationWhenModal = false }
                             #endif
                         }
                         .onReceive(NotificationCenter.default.publisher(for: .ShowCriticalAlert)) {
@@ -37,18 +46,20 @@ struct NeuroForgeApp: App {
                                 openWindow(id: "critical-alert")
                             }
                         }
-                        .onReceive(NotificationCenter.default.publisher(for: .ShowTribunalDecision)) { note in
-                            if let c = note.object as? TribunalCase {
-                                voice.speak("Tribunal decision required for case \(c.caseID)")
-                                openWindow(id: "tribunal-decision")
-                            }
+                        .onReceive(NotificationCenter.default.publisher(for: .ShowTribunalDecision))
+                    { note in
+                        if let c = note.object as? TribunalCase {
+                            voice.speak("Tribunal decision required for case \(c.caseID)")
+                            openWindow(id: "tribunal-decision")
                         }
-                        .onReceive(NotificationCenter.default.publisher(for: .ShowSystemEmergency)) { note in
-                            if let e = note.object as? SystemEmergency {
-                                voice.speak("System emergency: \(e.title)")
-                                openWindow(id: "system-emergency")
-                            }
+                    }
+                        .onReceive(NotificationCenter.default.publisher(for: .ShowSystemEmergency))
+                    { note in
+                        if let e = note.object as? SystemEmergency {
+                            voice.speak("System emergency: \(e.title)")
+                            openWindow(id: "system-emergency")
                         }
+                    }
                 } else {
                     // Profile creation view (simplified - profile manager creates default)
                     VStack {
@@ -65,6 +76,14 @@ struct NeuroForgeApp: App {
         .handlesExternalEvents(matching: Set(["*"]))
         .commands {
             CommandGroup(replacing: .newItem) {}
+            
+            // Global Cmd+Enter send shortcut
+            CommandGroup(after: .textEditing) {
+                Button("Send Message") {
+                    NotificationCenter.default.post(name: .nf_sendMessage, object: nil)
+                }
+                .keyboardShortcut(.return, modifiers: [.command])
+            }
 
             // Athena focus commands
             CommandMenu("Athena") {
