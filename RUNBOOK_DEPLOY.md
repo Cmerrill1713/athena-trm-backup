@@ -5,13 +5,14 @@
 **Release:** v0.1.0  
 **Git Tag:** v0.1.0  
 **Date:** 2025-10-17  
-**Status:** All validations passing, production-ready  
+**Status:** All validations passing, production-ready
 
 ---
 
 ## 📋 **PRE-DEPLOYMENT CHECKLIST**
 
 ### **Validation Status**
+
 - ✅ All 13 TODOs complete
 - ✅ 12/12 tests passing (Swift Reflex 6/6, Graph-of-Code 6/6)
 - ✅ 9/9 services operational
@@ -19,6 +20,7 @@
 - ✅ Documentation complete
 
 ### **Snapshots Captured**
+
 - ✅ `snapshots/docker-running-2025-10-17.txt` - Running containers
 - ✅ `snapshots/router-pip-2025-10-17.txt` - Python dependencies (678 packages)
 - ✅ Git tag: v0.1.0 pushed to origin
@@ -28,12 +30,14 @@
 ## 🚀 **GO-LIVE PLAYBOOK (90 seconds)**
 
 ### **1. Deploy New Version**
+
 ```bash
 cd /Users/christianmerrill/Documents/GitHub
 ./scripts/deploy.sh
 ```
 
 **What it does:**
+
 1. Backs up current deployment
 2. Stops existing services
 3. Builds fresh images with BUILD_SHA
@@ -42,6 +46,7 @@ cd /Users/christianmerrill/Documents/GitHub
 6. Runs contract tests
 
 **Expected output:**
+
 ```
 ✅ DEPLOYMENT SUCCESSFUL
 Release: v0.1.0
@@ -50,6 +55,7 @@ Services: 6 healthy
 ```
 
 ### **2. Manual Verification**
+
 ```bash
 # Test router routing
 curl -X POST http://localhost:9113/route \
@@ -72,18 +78,21 @@ done
 ## 🔄 **ROLLBACK PLAYBOOK (30 seconds)**
 
 ### **If Deployment Fails**
+
 ```bash
 cd /Users/christianmerrill/Documents/GitHub
 ./scripts/rollback.sh
 ```
 
 **What it does:**
+
 1. Stops current deployment
 2. Reverts to `docker-compose.prev.yml`
 3. Starts previous version
 4. Quick health check
 
 **Expected output:**
+
 ```
 ✅ ROLLBACK COMPLETE
 Reverted to previous deployment
@@ -94,17 +103,19 @@ Reverted to previous deployment
 ## 🛡️ **GUARDRAILS (PREVENT "SURPRISE TUESDAYS")**
 
 ### **1. Change Freeze**
+
 - **Rule:** No merges to main until after Monday stand-up
 - **Enforcement:** Branch protection on GitHub
 - **Override:** Requires approval from 2+ reviewers
 
 ### **2. Golden Tests as CI Gate**
+
 - **File:** `tests/test_contracts.sh`
 - **Runs:** On every PR and before deploy
 - **Gates:** Deploy only if all tests pass
 - **Tests:**
   - Router health
-  - AGI Core health  
+  - AGI Core health
   - Orchestrator health
   - MCP UI health
   - Router routing decision
@@ -113,10 +124,12 @@ Reverted to previous deployment
 ### **3. Alerts That Matter**
 
 **Critical (Page immediately):**
+
 - ⚠️ **RouterDown** - Router unreachable for 1+ minute
 - ⚠️ **OrchestratorDown** - Orchestrator unreachable for 2+ minutes
 
 **Warnings (Monitor):**
+
 - ⚠️ **MCPToolFailureRateHigh** - MCP tools failing >5% over 10min
 - ⚠️ **RouterTTFTHigh** - Time-to-first-token p95 > 1.0s over 5min
 - ⚠️ **HighErrorRate** - 5xx errors >10% over 5min
@@ -128,26 +141,30 @@ Reverted to previous deployment
 ## 📊 **POST-DEPLOY MONITORING (First 30 Minutes)**
 
 ### **1. Grafana Dashboards**
+
 **URL:** http://localhost:3001
 
 **Key Dashboards:**
+
 - **Platform Health Glance** - Overall system status
 - **Routing Dashboard** - Router latency, failovers, decisions
 - **Bridge Dashboard** - Swift app integration health
 - **Circuit Breaker Panel** - Service degradation tracking
 
 **What to watch:**
+
 - Router p95 latency < 1.0s
 - Upstream failure rate < 5%
 - MCP tool errors minimal
 - All services showing "healthy"
 
 ### **2. Log Monitoring**
+
 ```bash
 # Router logs
 tail -f /tmp/router.log | grep -E "ERROR|WARN"
 
-# AGI Core logs  
+# AGI Core logs
 tail -f /tmp/agi-core.log | grep -E "ERROR|WARN"
 
 # Canary Consumer logs
@@ -158,15 +175,18 @@ docker compose logs -f --tail=50 router
 ```
 
 **Red flags:**
+
 - Repeated timeout errors
 - 4xx errors from MCP /tool/web_search
 - Connection refused errors
 - Memory/CPU warnings
 
 ### **3. Prometheus Metrics**
+
 **URL:** http://localhost:9090
 
 **Key Queries:**
+
 ```promql
 # Router latency
 histogram_quantile(0.95, rate(athena_router_ttft_seconds_bucket[5m]))
@@ -186,6 +206,7 @@ up{job=~"athena-.*"}
 ## 🔧 **TROUBLESHOOTING**
 
 ### **Router Not Starting**
+
 ```bash
 # Check logs
 tail -50 /tmp/router.log
@@ -201,6 +222,7 @@ python3 services/router/app.py > /tmp/router.log 2>&1 &
 ```
 
 ### **Health Check Failing**
+
 ```bash
 # Check service status
 curl http://localhost:9113/health
@@ -215,6 +237,7 @@ curl http://localhost:9113/health
 ```
 
 ### **Contract Tests Failing**
+
 ```bash
 # Run tests manually to see details
 bash tests/test_contracts.sh
@@ -232,16 +255,19 @@ ps aux | grep -E "router|agi_core|canary"
 ## 🎯 **LOW-RISK "NICE NEXT WINS"**
 
 ### **1. vLLM Backend for UAT 7B**
+
 **Impact:** 2-3× throughput, same API  
 **Risk:** Low (drop-in replacement)  
 **Time:** 1 hour
 
 ### **2. Synthetic Canary**
+
 **What:** Cron tiny prompt every 5 min, alert on mismatch  
 **Risk:** Low (monitoring only)  
 **Time:** 30 minutes
 
 ### **3. Chaos Minute** (Off-hours)
+
 **What:** Kill MCP or UAT once, confirm graceful degrade  
 **Risk:** Medium (test failover)  
 **Time:** 15 minutes
@@ -251,22 +277,23 @@ ps aux | grep -E "router|agi_core|canary"
 
 ## 📋 **SERVICE ENDPOINTS**
 
-| Service | Port | Health | Purpose |
-|---------|------|--------|---------|
-| Router | 9113 | `/health` | Local-first model routing |
-| AGI Core | 8000 | `/health` | Multi-agent framework |
-| Orchestrator | 9110 | `/health` | Verdict processing |
-| MCP UI | 8412 | `/health` | Model control protocol |
-| Bridge | 8014 | `/health` | Swift integration |
-| Graph-of-Code | 8200 | `/health` | Symbol dependency analysis |
-| Prometheus | 9090 | `/-/healthy` | Metrics collection |
-| Grafana | 3001 | `/api/health` | Visualization |
+| Service       | Port | Health        | Purpose                    |
+| ------------- | ---- | ------------- | -------------------------- |
+| Router        | 9113 | `/health`     | Local-first model routing  |
+| AGI Core      | 8000 | `/health`     | Multi-agent framework      |
+| Orchestrator  | 9110 | `/health`     | Verdict processing         |
+| MCP UI        | 8412 | `/health`     | Model control protocol     |
+| Bridge        | 8014 | `/health`     | Swift integration          |
+| Graph-of-Code | 8200 | `/health`     | Symbol dependency analysis |
+| Prometheus    | 9090 | `/-/healthy`  | Metrics collection         |
+| Grafana       | 3001 | `/api/health` | Visualization              |
 
 ---
 
 ## 🏆 **SUCCESS CRITERIA**
 
 Deployment is successful when:
+
 - ✅ All contract tests pass (`bash tests/test_contracts.sh`)
 - ✅ All services respond to health checks
 - ✅ Router successfully routes test request
@@ -280,6 +307,7 @@ Deployment is successful when:
 ## 📞 **ESCALATION**
 
 If deployment fails and rollback doesn't resolve:
+
 1. Check `INTEGRATION_RUNBOOK.md` for service-specific troubleshooting
 2. Review `COMPLETE_MISSION_SUCCESS.md` for system architecture
 3. Check git history: `git log --oneline v0.1.0..HEAD`
@@ -290,4 +318,3 @@ If deployment fails and rollback doesn't resolve:
 **Last Updated:** 2025-10-17  
 **Version:** v0.1.0  
 **Status:** Production-ready, Monday-proof 🧊🚀
-

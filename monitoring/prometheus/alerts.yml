@@ -12,7 +12,7 @@ groups:
         annotations:
           summary: "Athena Router is DOWN"
           description: "Router on port 9113 has been unreachable for 1+ minute. All AI requests are failing."
-          
+
       # MCP Tool Failure Rate > 5%
       - alert: MCPToolFailureRateHigh
         expr: (rate(mcp_tool_errors_total[10m]) / rate(mcp_tool_calls_total[10m])) > 0.05
@@ -23,7 +23,7 @@ groups:
         annotations:
           summary: "MCP tool failure rate > 5%"
           description: "MCP tools failing at {{ $value | humanizePercentage }} over last 10 minutes"
-          
+
       # Router Latency (Time to First Token) > 1.0s
       - alert: RouterTTFTHigh
         expr: histogram_quantile(0.95, rate(athena_router_ttft_seconds_bucket[5m])) > 1.0
@@ -34,7 +34,7 @@ groups:
         annotations:
           summary: "Router TTFT p95 > 1.0s"
           description: "95th percentile time-to-first-token is {{ $value }}s (threshold: 1.0s)"
-          
+
       # Orchestrator Down
       - alert: OrchestratorDown
         expr: up{job="governance-orchestrator"} == 0
@@ -45,7 +45,7 @@ groups:
         annotations:
           summary: "Governance Orchestrator is DOWN"
           description: "Orchestrator unreachable for 2+ minutes. Verdict processing stopped."
-          
+
       # AGI Core Down
       - alert: AGICoreDown
         expr: up{job="agi-core"} == 0
@@ -56,7 +56,7 @@ groups:
         annotations:
           summary: "AGI Core is DOWN"
           description: "AGI Core service unreachable for 2+ minutes."
-          
+
       # High Error Rate (>10% of requests failing)
       - alert: HighErrorRate
         expr: (rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])) > 0.10
@@ -66,7 +66,7 @@ groups:
         annotations:
           summary: "High error rate detected"
           description: "{{ $labels.service }} error rate: {{ $value | humanizePercentage }}"
-          
+
       # Disk Space Low
       - alert: DiskSpaceLow
         expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.10
@@ -76,7 +76,7 @@ groups:
         annotations:
           summary: "Disk space running low"
           description: "Available disk space: {{ $value | humanizePercentage }}"
-          
+
       # Memory Usage High
       - alert: MemoryUsageHigh
         expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) < 0.10
@@ -100,7 +100,7 @@ groups:
         annotations:
           summary: "Router queue depth high"
           description: "Router queue has {{ $value }} pending requests"
-          
+
       # Canary Window Failures
       - alert: CanaryWindowFailing
         expr: rate(governance_canary_failures_total[15m]) > 0.1
@@ -111,7 +111,7 @@ groups:
         annotations:
           summary: "Canary windows failing"
           description: "Canary failure rate: {{ $value }} failures/min"
-          
+
       # Graph-of-Code Ingestion Slow
       - alert: GOCIngestionSlow
         expr: histogram_quantile(0.95, rate(goc_ingest_duration_seconds_bucket[5m])) > 60
