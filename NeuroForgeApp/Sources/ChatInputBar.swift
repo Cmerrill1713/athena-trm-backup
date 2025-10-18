@@ -1,31 +1,12 @@
-import OSLog
 import SwiftUI
 
-#if canImport(UIKit)
-    import UIKit
-#endif
-
-/// A polished, focus-aware chat input bar - PRODUCTION-READY with all fixes applied
+/// Bulletproof chat input using AppKit-backed field
+/// No focus loss, no keystroke drops, rock-solid on macOS
 public struct ChatInputBar: View {
-    @Binding public var text: String
-    public var onSend: (String) -> Void
-    public var isSending: Bool = false
-    public var focusTrigger: Bool = false  // For external focus control
+    @ObservedObject var vm: ChatInputVM
 
-    @FocusState private var isFocused: Bool
-    @State private var stableId = UUID()  // Keep identity stable across rebuilds
-
-    // UI logging for debugging
-    private let uiLog = Logger(subsystem: "com.neuroforge.athena", category: "ui")
-
-    public init(
-        text: Binding<String>, onSend: @escaping (String) -> Void, isSending: Bool = false,
-        focusTrigger: Bool = false
-    ) {
-        _text = text
-        self.onSend = onSend
-        self.isSending = isSending
-        self.focusTrigger = focusTrigger
+    public init(vm: ChatInputVM) {
+        self.vm = vm
     }
 
     // MARK: - Known-Good Input Test (for debugging)
@@ -57,70 +38,35 @@ public struct ChatInputBar: View {
 
     public var body: some View {
         HStack(spacing: 8) {
-            // SwiftUI field - NEVER disabled (to keep focus)
-            TextField("Type a message…", text: $text)
-                .id(stableId)
-                .focused($isFocused)
+            #if os(macOS)
+            // AppKit-backed field - bulletproof first responder
+            StickyTextField(vm: vm, placeholder: "Type a message…")
+                .frame(minHeight: 28)
+            #else
+            // iOS fallback
+            TextField("Type a message…", text: $vm.text)
                 .textFieldStyle(.roundedBorder)
-                .disableAutocorrection(true)
-                .onAppear { 
-                    isFocused = true
-                    uiLog.info("ChatInput appeared, focus set")
+                .onSubmit { vm.submit() }
+            #endif
+
+            Button {
+                vm.submit()
+            } label: {
+                if vm.isSending { 
+                    ProgressView()
+                        .controlSize(.small) 
+                } else { 
+                    Text("Send") 
                 }
-                .onReceive(NotificationCenter.default.publisher(for: .nf_sendMessage)) { _ in 
-                    submit() 
-                }
-                .onSubmit { submit() }  // Enter sends
-                .onChange(of: focusTrigger) { _, _ in
-                    // External focus trigger (e.g., from NavigationSplitView)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        isFocused = true
-                        uiLog.info("Focus triggered externally")
-                    }
-                }
-                .onChange(of: isSending) { _, newValue in
-                    // Re-assert focus when sending completes (critical!)
-                    if !newValue {
-                        DispatchQueue.main.async {
-                            isFocused = true
-                            uiLog.info("Send complete, refocusing input")
-                        }
-                    }
-                }
-            
-            Button("Send") { submit() }
-                .buttonStyle(.borderedProminent)
-                .keyboardShortcut(.return, modifiers: [.command])
+            }
+            .keyboardShortcut(.return, modifiers: [.command])  // Cmd+Enter
+            .disabled(false)  // Never disable!
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .overlay(alignment: .trailing) {
-            if isSending { 
-                ProgressView()
-                    .padding(.trailing, 56) 
-            }
-        }
-        // Visual "disabled" without .disabled() - never drops focus!
-        .background(isSending ? Color.black.opacity(0.04) : Color.clear)
-        .background(.ultraThinMaterial)
-    }
-
-    private func submit() {
-        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return }
-
-        uiLog.info("Send tapped; length=\(trimmed.count)")
-        onSend(trimmed)
-        text.removeAll()
-        reclaimFocus()
-    }
-
-    private func reclaimFocus() {
-        DispatchQueue.main.async {
-            // nudge focus without recreating the view
-            isFocused = true
-            uiLog.info("Send complete; refocusing input")
-        }
+        .background(.thinMaterial)
+        .animation(.easeInOut(duration: 0.15), value: vm.isSending)
+        .allowsHitTesting(true)
     }
 }
 
@@ -181,30 +127,42 @@ struct HitTestProbe: ViewModifier {
 // MARK: - Preview
 
 #Preview("Chat Input Bar") {
-    VStack {
-        Spacer()
-
-        ChatInputBar(
-            text: .constant("Type a message..."),
-            onSend: { message in
-                print("Sent: \(message)")
+    struct PreviewWrapper: View {
+        @StateObject private var vm = ChatInputVM()
+        
+        var body: some View {
+            VStack {
+                Spacer()
+                ChatInputBar(vm: vm)
+                    .onAppear {
+                        vm.onSend = { text in
+                            print("Sent: \(text)")
+                        }
+                    }
+                    .padding()
             }
-        )
-        .padding()
+            .frame(width: 600, height: 400)
+        }
     }
-    .frame(width: 600, height: 400)
+    return PreviewWrapper()
 }
 
 #Preview("Chat Input Bar - Sending") {
-    VStack {
-        Spacer()
-
-        ChatInputBar(
-            text: .constant("Sending message..."),
-            onSend: { _ in },
-            isSending: true
-        )
-        .padding()
+    struct PreviewWrapper: View {
+        @StateObject private var vm = ChatInputVM()
+        
+        var body: some View {
+            VStack {
+                Spacer()
+                ChatInputBar(vm: vm)
+                    .onAppear {
+                        vm.isSending = true
+                        vm.onSend = { _ in }
+                    }
+                    .padding()
+            }
+            .frame(width: 600, height: 400)
+        }
     }
-    .frame(width: 600, height: 400)
+    return PreviewWrapper()
 }

@@ -233,6 +233,7 @@ struct NeuroForgeChatView: View {
     let profile: UserProfile
     let navigationSelection: String?
     @StateObject private var chatService: ChatService
+    @StateObject private var inputVM = ChatInputVM()
     @State private var focusTrigger = false
 
     init(profile: UserProfile, navigationSelection: String? = nil) {
@@ -275,23 +276,14 @@ struct NeuroForgeChatView: View {
                     }
                 }
             }
-            // Production Input with focus management
-            ChatInputBar(
-                text: $chatService.inputText,
-                onSend: { text in
-                    Task {
+            // Production Input - AppKit-backed, bulletproof
+            ChatInputBar(vm: inputVM)
+                .onAppear {
+                    // Wire up the send handler
+                    inputVM.onSend = { [chatService] text in
                         await chatService.sendMessage(text)
                     }
-                },
-                isSending: chatService.isSending,
-                focusTrigger: focusTrigger
-            )
-            .onChange(of: navigationSelection) { _, newSelection in
-                // Re-focus input when navigating back to chat
-                if newSelection == "chat" {
-                    focusTrigger.toggle()  // Trigger focus
                 }
-            }
         }
         .background(AppleColors.controlBackground)
     }
