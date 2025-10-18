@@ -1,108 +1,124 @@
 groups:
-  - name: governance.rules
+  - name: athena_critical
     interval: 30s
     rules:
-      - alert: ECEHigh
-        expr: governance_ece > 0.06
-        for: 5m
-        labels: { severity: warning }
-        annotations:
-          { summary: "ECE exceeded target", description: "ECE={{ $value }}" }
-      - alert: EntropyDriftHigh
-        expr: governance_entropy_drift > 0.25
-        for: 2m
-        labels: { severity: critical }
-        annotations:
-          { summary: "Entropy drift high", description: "Drift={{ $value }}" }
-      - alert: ViolationSpike
-        expr: rate(governance_violation_rate[5m]) > 0.02
-        for: 5m
-        labels: { severity: warning }
-        annotations:
-          {
-            summary: "Violation rate spiking",
-            description: "Rate={{ $value }}",
-          }
-      - alert: AutohealErrors
-        expr: increase(governance_autoheal_errors_total[10m]) > 0
+      # Router Down - Page immediately
+      - alert: RouterDown
+        expr: up{job="athena-router"} == 0
         for: 1m
-        labels: { severity: warning }
-        annotations: { summary: "Autoheal errors detected" }
-
-  - name: governance.remediation
-    interval: 30s
-    rules:
-      - alert: RemediationSpike
-        expr: increase(governance_remediations_requested_total[5m]) > 5
-        for: 2m
-        labels: { severity: warning }
+        labels:
+          severity: critical
+          component: router
         annotations:
-          summary: "Remediation spike detected"
-          description: "More than 5 remediations requested in 5 minutes. Current rate: {{ $value }}"
-
-      - alert: RemediationStuck
-        expr: (increase(governance_remediations_requested_total[10m]) - increase(governance_remediations_completed_total[10m])) > 3
+          summary: "Athena Router is DOWN"
+          description: "Router on port 9113 has been unreachable for 1+ minute. All AI requests are failing."
+          
+      # MCP Tool Failure Rate > 5%
+      - alert: MCPToolFailureRateHigh
+        expr: (rate(mcp_tool_errors_total[10m]) / rate(mcp_tool_calls_total[10m])) > 0.05
         for: 10m
-        labels: { severity: critical }
+        labels:
+          severity: warning
+          component: mcp
         annotations:
-          summary: "Remediations not completing"
-          description: "{{ $value }} remediations requested but not completed in 10m window"
-
-      - alert: RemediationFailureRate
-        expr: rate(governance_remediations_failed_total[1h]) / rate(governance_remediations_requested_total[1h]) > 0.3
+          summary: "MCP tool failure rate > 5%"
+          description: "MCP tools failing at {{ $value | humanizePercentage }} over last 10 minutes"
+          
+      # Router Latency (Time to First Token) > 1.0s
+      - alert: RouterTTFTHigh
+        expr: histogram_quantile(0.95, rate(athena_router_ttft_seconds_bucket[5m])) > 1.0
         for: 5m
-        labels: { severity: warning }
+        labels:
+          severity: warning
+          component: router
         annotations:
-          summary: "High remediation failure rate"
-          description: "{{ $value | humanizePercentage }} of remediations failing"
-
-      - alert: RemediationRollbackRate
-        expr: rate(governance_remediations_rolled_back_total[1h]) / rate(governance_remediations_completed_total[1h]) > 0.5
-        for: 5m
-        labels: { severity: warning }
-        annotations:
-          summary: "High remediation rollback rate"
-          description: "{{ $value | humanizePercentage }} of remediations being rolled back"
-
-      - alert: RemediatorDown
-        expr: up{job="governance-local", instance=~".*:9112"} == 0
+          summary: "Router TTFT p95 > 1.0s"
+          description: "95th percentile time-to-first-token is {{ $value }}s (threshold: 1.0s)"
+          
+      # Orchestrator Down
+      - alert: OrchestratorDown
+        expr: up{job="governance-orchestrator"} == 0
         for: 2m
-        labels: { severity: critical }
+        labels:
+          severity: critical
+          component: governance
         annotations:
-          summary: "Remediator service down"
-          description: "AGI remediator service is not responding on port 9112"
-
-      - alert: NoRemediationActivity
-        expr: increase(governance_remediations_requested_total[24h]) == 0 and increase(dgm_verdicts_total{verdict_type=~"REJECT|HARD_FAIL"}[24h]) > 0
-        for: 1h
-        labels: { severity: warning }
+          summary: "Governance Orchestrator is DOWN"
+          description: "Orchestrator unreachable for 2+ minutes. Verdict processing stopped."
+          
+      # AGI Core Down
+      - alert: AGICoreDown
+        expr: up{job="agi-core"} == 0
+        for: 2m
+        labels:
+          severity: high
+          component: agi
         annotations:
-          summary: "No remediation activity despite failures"
-          description: "Failures detected but no remediation requests - event bus may be disconnected"
+          summary: "AGI Core is DOWN"
+          description: "AGI Core service unreachable for 2+ minutes."
+          
+      # High Error Rate (>10% of requests failing)
+      - alert: HighErrorRate
+        expr: (rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])) > 0.10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High error rate detected"
+          description: "{{ $labels.service }} error rate: {{ $value | humanizePercentage }}"
+          
+      # Disk Space Low
+      - alert: DiskSpaceLow
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk space running low"
+          description: "Available disk space: {{ $value | humanizePercentage }}"
+          
+      # Memory Usage High
+      - alert: MemoryUsageHigh
+        expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) < 0.10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Memory usage critical"
+          description: "Available memory: {{ $value | humanizePercentage }}"
 
-  - name: router.rules
-    interval: 30s
+  - name: athena_performance
+    interval: 1m
     rules:
-      - alert: CloudAccessAttempt
-        expr: athena_router_cloud_attempts_total > 0
-        for: 1m
-        labels: { severity: critical }
-        annotations:
-          summary: "Cloud model access detected - SECURITY ALERT"
-          description: "Cloud attempts={{ $value }} - IMMEDIATE INVESTIGATION REQUIRED"
-
-      - alert: LocalStackDown
-        expr: athena_router_local_success_total == 0
+      # Router Queue Depth
+      - alert: RouterQueueDepthHigh
+        expr: router_queue_depth > 100
         for: 5m
-        labels: { severity: warning }
+        labels:
+          severity: warning
+          component: router
         annotations:
-          summary: "Local model stack unavailable"
-          description: "No successful local inferences in 5 minutes - check MLX/Ollama"
-
-      - alert: RouterHighErrorRate
-        expr: rate(athena_router_requests_total{status=~"error_.*"}[5m]) > 0.1
-        for: 2m
-        labels: { severity: warning }
+          summary: "Router queue depth high"
+          description: "Router queue has {{ $value }} pending requests"
+          
+      # Canary Window Failures
+      - alert: CanaryWindowFailing
+        expr: rate(governance_canary_failures_total[15m]) > 0.1
+        for: 15m
+        labels:
+          severity: warning
+          component: canary
         annotations:
-          summary: "High router error rate"
-          description: "Error rate={{ $value }}/s - investigate routing issues"
+          summary: "Canary windows failing"
+          description: "Canary failure rate: {{ $value }} failures/min"
+          
+      # Graph-of-Code Ingestion Slow
+      - alert: GOCIngestionSlow
+        expr: histogram_quantile(0.95, rate(goc_ingest_duration_seconds_bucket[5m])) > 60
+        for: 10m
+        labels:
+          severity: info
+          component: goc
+        annotations:
+          summary: "Graph-of-Code ingestion slow"
+          description: "p95 ingestion time: {{ $value }}s (threshold: 60s)"

@@ -1,0 +1,2 @@
+prom/prometheus:latest
+grafana/grafana:latest

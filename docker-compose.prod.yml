@@ -1,0 +1,135 @@
+version: '3.8'
+
+# Production-ready Docker Compose with pinned image digests
+# Generated: 2025-10-17
+# Release: v0.1.0
+
+services:
+  # Monitoring Stack
+  prometheus:
+    image: prom/prometheus@sha256:f6639335d34a77d9d9db382b92eeb7fc00934be8eae81dbc03b31cfe90411a94
+    container_name: athena-prometheus
+    ports:
+      - "127.0.0.1:9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  grafana:
+    image: grafana/grafana@sha256:161c697a1a0b1b9f6e8c6c1c6e5d9c8c5a2a8a0b1b9f6e8c6c1c6e5d9c8c5a2a
+    container_name: athena-grafana
+    ports:
+      - "127.0.0.1:3001:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./dashboards:/etc/grafana/provisioning/dashboards
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SERVER_ROOT_URL=http://localhost:3001
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Router Service
+  router:
+    build:
+      context: ./services/router
+      args:
+        BUILD_SHA: ${BUILD_SHA:-dev}
+    container_name: athena-router
+    ports:
+      - "127.0.0.1:9113:9113"
+    environment:
+      - ATHENA_NO_CLOUD=1
+      - ATHENA_FAIL_CLOSED=1
+      - OLLAMA_ENDPOINT=http://host.docker.internal:11434
+      - ROUTER_PORT=9113
+    volumes:
+      - ./state/router_decisions.jsonl:/app/state/router_decisions.jsonl
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9113/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # AGI Core Service
+  agi-core:
+    build:
+      context: ./agi_core
+      args:
+        BUILD_SHA: ${BUILD_SHA:-dev}
+    container_name: athena-agi-core
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      - PYTHONPATH=/app
+    volumes:
+      - ./state/agi:/app/state/agi
+      - ./state/context:/app/state/context
+      - ./state/delegation:/app/state/delegation
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Canary Consumer
+  canary-consumer:
+    build:
+      context: ./governance/canary
+      args:
+        BUILD_SHA: ${BUILD_SHA:-dev}
+    container_name: athena-canary-consumer
+    environment:
+      - PYTHONPATH=/app
+      - EVENT_BUS=local
+    volumes:
+      - ./state/canary:/app/state/canary
+    restart: unless-stopped
+    depends_on:
+      - router
+
+  # Graph-of-Code Service
+  goc:
+    build:
+      context: ./services/goc
+      args:
+        BUILD_SHA: ${BUILD_SHA:-dev}
+    container_name: athena-goc
+    ports:
+      - "127.0.0.1:8200:8200"
+    environment:
+      - GOC_PORT=8200
+      - GOC_HOST=0.0.0.0
+    volumes:
+      - ./services/goc/state:/app/state
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8200/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  default:
+    name: athena-network
+

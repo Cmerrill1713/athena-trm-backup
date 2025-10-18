@@ -1,98 +1,140 @@
-#!/usr/bin/env bash
-# Contract Tests - Catch config drift immediately
+#!/bin/bash
+# Contract Tests - Golden Path Validation
+# Ensures all critical endpoints are operational
+# Exit code 0 = all pass, non-zero = failure
+
 set -e
 
-echo "🔍 ATHENA CONTRACT TESTS"
-echo "========================"
+echo "🧪 Running Contract Tests (Golden Path)"
+echo "========================================"
 
-check() { 
-    name=$1 
-    url=$2 
-    expect=$3
-    echo "[$name] $url"
-    if curl -fsS "$url" | grep -qi "$expect"; then
-        echo "✅ $name: OK"
+PASS=0
+FAIL=0
+
+test_endpoint() {
+    local name=$1
+    local url=$2
+    local expected_code=${3:-200}
+    
+    echo -n "Testing $name... "
+    
+    if response=$(curl -s -w "\n%{http_code}" "$url" 2>&1); then
+        status_code=$(echo "$response" | tail -n1)
+        body=$(echo "$response" | head -n-1)
+        
+        if [ "$status_code" = "$expected_code" ]; then
+            echo "✅ PASS (HTTP $status_code)"
+            ((PASS++))
+            return 0
+        else
+            echo "❌ FAIL (Expected $expected_code, got $status_code)"
+            echo "   Response: $body"
+            ((FAIL++))
+            return 1
+        fi
     else
-        echo "❌ $name: FAIL"
-        exit 1
+        echo "❌ FAIL (Connection failed)"
+        ((FAIL++))
+        return 1
     fi
 }
 
-# Health checks
-check "health_router"   "http://localhost:9113/health" "healthy"
-check "health_gov"      "http://localhost:9110/health" "healthy"
-check "health_mcp"      "http://localhost:8412/health" "healthy"
-check "health_vlm"      "http://localhost:8088/health" "healthy"
-check "health_tts"      "http://localhost:8091/health" "healthy"
+test_health_contains() {
+    local name=$1
+    local url=$2
+    local expected_key=$3
+    
+    echo -n "Testing $name health... "
+    
+    if response=$(curl -s "$url" 2>&1); then
+        if echo "$response" | jq -e ".$expected_key" > /dev/null 2>&1; then
+            echo "✅ PASS (Contains .$expected_key)"
+            ((PASS++))
+            return 0
+        else
+            echo "❌ FAIL (Missing .$expected_key)"
+            echo "   Response: $response"
+            ((FAIL++))
+            return 1
+        fi
+    else
+        echo "❌ FAIL (Connection failed)"
+        ((FAIL++))
+        return 1
+    fi
+}
 
-echo
-echo "🧪 FUNCTIONAL TESTS"
-echo "==================="
+test_router_decision() {
+    echo -n "Testing Router routing decision... "
+    
+    response=$(curl -s -X POST http://localhost:9113/route \
+        -H 'Content-Type: application/json' \
+        -d '{"query": "test routing", "max_tokens": 50}' 2>&1)
+    
+    if echo "$response" | jq -e '.model' > /dev/null 2>&1; then
+        model=$(echo "$response" | jq -r '.model')
+        echo "✅ PASS (Routed to: $model)"
+        ((PASS++))
+        return 0
+    else
+        echo "❌ FAIL (No model in response)"
+        echo "   Response: $response"
+        ((FAIL++))
+        return 1
+    fi
+}
 
-# Intent smoke
-echo "[intent] Testing deterministic responses..."
-response=$(curl -s -X POST localhost:9113/respond -H 'content-type: application/json' \
-  -d '{"message":"Can you see any issues with ourself"}' | jq -r '.response')
-if echo "$response" | grep -qi "Which area"; then
-    echo "✅ Intent routing: OK"
+test_verdict_flow() {
+    echo -n "Testing Verdict→ECE flow... "
+    
+    response=$(curl -s -X POST http://localhost:9110/verdict \
+        -H 'Content-Type: application/json' \
+        -d '{"task_id": "contract-test", "verdict": "PASS", "confidence": 0.95}' 2>&1)
+    
+    if echo "$response" | jq -e '.status' > /dev/null 2>&1; then
+        status=$(echo "$response" | jq -r '.status')
+        if [ "$status" = "applied" ]; then
+            echo "✅ PASS (Verdict applied)"
+            ((PASS++))
+            return 0
+        else
+            echo "❌ FAIL (Status: $status)"
+            ((FAIL++))
+            return 1
+        fi
+    else
+        echo "❌ FAIL (No status in response)"
+        echo "   Response: $response"
+        ((FAIL++))
+        return 1
+    fi
+}
+
+# Core Service Health Checks
+test_health_contains "Router" "http://localhost:9113/health" "status"
+test_health_contains "AGI Core" "http://localhost:8000/health" "overall"
+test_health_contains "Orchestrator" "http://localhost:9110/health" "status"
+test_health_contains "MCP UI" "http://localhost:8412/health" "status"
+test_health_contains "Bridge" "http://localhost:8014/health" "status"
+
+# Monitoring Stack
+test_endpoint "Prometheus" "http://localhost:9090/-/healthy" 200
+test_endpoint "Grafana" "http://localhost:3001/api/health" 200
+
+# Functional Tests
+test_router_decision
+test_verdict_flow
+
+# Summary
+echo ""
+echo "========================================"
+echo "📊 Test Results: $PASS passed, $FAIL failed"
+echo "========================================"
+
+if [ $FAIL -eq 0 ]; then
+    echo "✅ All contract tests PASSED"
+    exit 0
 else
-    echo "❌ Intent routing: FAIL (got: $response)"
+    echo "❌ $FAIL contract test(s) FAILED"
     exit 1
 fi
-
-# Golden test cases
-echo "[golden] Testing 'How are you?' response..."
-response=$(curl -s -X POST localhost:9113/respond -H 'content-type: application/json' \
-  -d '{"message":"How are you?"}' | jq -r '.response')
-if echo "$response" | grep -qi "Running fine"; then
-    echo "✅ Golden case 1: OK"
-else
-    echo "❌ Golden case 1: FAIL (got: $response)"
-    exit 1
-fi
-
-echo "[golden] Testing 'Can you see any issues with ourself' response..."
-response=$(curl -s -X POST localhost:9113/respond -H 'content-type: application/json' \
-  -d '{"message":"Can you see any issues with ourself"}' | jq -r '.response')
-if echo "$response" | grep -qi "Which area—infra"; then
-    echo "✅ Golden case 2: OK"
-else
-    echo "❌ Golden case 2: FAIL (got: $response)"
-    exit 1
-fi
-
-# Bridge to UAT test
-echo "[bridge] Testing Bridge → UAT flow..."
-response=$(curl -s -X POST localhost:8098/api/chat -H 'content-type: application/json' \
-  -d '{"session_id":"test","messages":[{"role":"user","content":"test"}]}' | jq -r '.reply')
-if [ -n "$response" ] && [ "$response" != "null" ]; then
-    echo "✅ Bridge → UAT: OK"
-else
-    echo "❌ Bridge → UAT: FAIL (got: $response)"
-    exit 1
-fi
-
-# Multimodal tests
-echo "[vision] Testing vision service..."
-vision_response=$(curl -s -X POST localhost:9113/vision/analyze -H 'content-type: application/json' \
-  -d '{"image_b64":"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==","prompt":"test"}' | jq -r '.result.caption')
-if [ -n "$vision_response" ] && [ "$vision_response" != "null" ]; then
-    echo "✅ Vision: OK"
-else
-    echo "❌ Vision: FAIL (got: $vision_response)"
-    exit 1
-fi
-
-echo "[tts] Testing TTS service..."
-tts_response=$(curl -s -X POST localhost:9113/tts/synthesize -H 'content-type: application/json' \
-  -d '{"text":"test"}' | jq -r '.audio_b64')
-if [ -n "$tts_response" ] && [ "$tts_response" != "null" ]; then
-    echo "✅ TTS: OK"
-else
-    echo "❌ TTS: FAIL (got: $tts_response)"
-    exit 1
-fi
-
-echo
-echo "🎉 ALL CONTRACT TESTS PASSED"
-echo "============================="

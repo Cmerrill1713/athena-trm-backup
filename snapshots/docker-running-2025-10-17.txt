@@ -1,0 +1,26 @@
+IMAGE                                             NAMES                         STATUS                          PORTS
+athena-governance-canary-monitor                  governance-canary-monitor     Up 3 hours (unhealthy)          127.0.0.1:9111->9111/tcp
+agi-system/ai-tools/knowledge-gateway:latest      athena-knowledge-gateway      Up 3 hours                      127.0.0.1:8093->8080/tcp
+agi-system/ai-tools/knowledge-context:latest      athena-knowledge-context      Up 3 hours                      127.0.0.1:8092->8080/tcp
+prom/node-exporter:latest                         governance-exporter           Up 3 hours                      127.0.0.1:9108->9100/tcp
+athena-agi-remediator                             agi-remediator                Up 3 hours (unhealthy)          127.0.0.1:9112->9112/tcp
+athena-governance-orchestrator                    governance-orchestrator       Up 3 hours (unhealthy)          127.0.0.1:9110->8000/tcp
+universal-ai-tools-python-api:latest              athena-api                    Up 3 hours (healthy)            127.0.0.1:8888->8000/tcp
+unified-docker-platform-evolutionary-api:latest   athena-evolutionary           Up 3 hours (healthy)            127.0.0.1:8014->8004/tcp
+athena-governance-metrics-exporter                governance-metrics-exporter   Up 3 hours (unhealthy)          127.0.0.1:9109->8000/tcp
+agi-system/ai-tools/knowledge-sync:latest         athena-knowledge-sync         Up 3 hours                      127.0.0.1:8089->8080/tcp
+oliver006/redis_exporter:latest                   athena-redis-exporter         Up 3 hours                      127.0.0.1:9121->9121/tcp
+grafana/grafana:latest                            athena-grafana                Up 3 hours (healthy)            127.0.0.1:3001->3000/tcp
+prometheuscommunity/postgres-exporter:latest      athena-postgres-exporter      Up 3 hours                      127.0.0.1:9187->9187/tcp
+postgres:15-alpine                                athena-postgres               Up 3 hours (healthy)            127.0.0.1:5432->5432/tcp
+redis:7-alpine                                    athena-redis                  Up 3 hours (healthy)            127.0.0.1:6379->6379/tcp
+76947e7ef22f                                      athena-prometheus             Up 3 hours (healthy)            127.0.0.1:9090->9090/tcp
+athena-kokoro-tts                                 athena-kokoro                 Up 3 hours (unhealthy)          127.0.0.1:8091->8091/tcp
+athena-athena-mcp-ecosystem                       athena-mcp-ecosystem          Up 3 hours (unhealthy)          127.0.0.1:8412->8412/tcp
+athena-fastvlm                                    athena-fastvlm                Up 3 hours (unhealthy)          127.0.0.1:8088->8088/tcp
+f25fa57f3534                                      athena-router                 Restarting (3) 54 seconds ago   
+netdata/netdata:latest                            athena-netdata                Up 3 hours (healthy)            127.0.0.1:19999->19999/tcp
+prom/pushgateway:latest                           prometheus-pushgateway        Up 3 hours (healthy)            127.0.0.1:9091->9091/tcp
+prom/node-exporter:latest                         athena-node-exporter          Up 3 hours                      127.0.0.1:9100->9100/tcp
+semitechnologies/weaviate:1.21.0                  athena-weaviate               Up 3 hours                      127.0.0.1:50051->50051/tcp, 127.0.0.1:8090->8080/tcp
+searxng/searxng:latest                            athena-searxng                Up 3 hours                      127.0.0.1:8081->8080/tcp

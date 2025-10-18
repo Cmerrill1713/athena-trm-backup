@@ -13,6 +13,7 @@ Graph-of-Code is a symbol dependency graph service for impact analysis and test 
 ## 🚀 **Features**
 
 ### **Core Capabilities**
+
 - ✅ Symbol dependency graph building
 - ✅ Impact analysis (direct + transitive dependents)
 - ✅ Test coverage mapping
@@ -22,6 +23,7 @@ Graph-of-Code is a symbol dependency graph service for impact analysis and test 
 - ✅ FastAPI REST endpoints
 
 ### **Supported Languages**
+
 - ✅ **Python** - Full implementation using AST parsing
 - ⚠️ **Swift** - Stub (use sourcekit-lsp or swift-syntax)
 - ⚠️ **Rust** - Stub (use rust-analyzer)
@@ -32,6 +34,7 @@ Graph-of-Code is a symbol dependency graph service for impact analysis and test 
 ## 📊 **Architecture**
 
 ### **Database Schema**
+
 ```sql
 symbols (symbol, kind, file, line, language, signature)
 dependencies (source, target, edge_type, weight)
@@ -40,6 +43,7 @@ test_coverage (test_name, symbol, coverage_type)
 ```
 
 ### **Ingestors**
+
 Language-specific code parsers that extract symbols and dependencies:
 
 - `PythonIngestor` - Uses Python `ast` module
@@ -52,13 +56,17 @@ Language-specific code parsers that extract symbols and dependencies:
 ## 🔧 **API Endpoints**
 
 ### **GET /**
+
 Service information and status
 
 ### **GET /health**
+
 Health check with symbol and dependency counts
 
 ### **POST /ingest**
+
 Ingest code files to build the graph
+
 ```json
 {
   "files": ["path/to/file1.py", "path/to/file2.py"],
@@ -68,7 +76,9 @@ Ingest code files to build the graph
 ```
 
 ### **GET /impact?symbol=X**
+
 Analyze impact of changing a symbol
+
 ```json
 {
   "symbol": "my_function",
@@ -82,7 +92,9 @@ Analyze impact of changing a symbol
 ```
 
 ### **GET /tests?file=Y**
+
 Find tests covering a file
+
 ```json
 {
   "file": "src/utils.py",
@@ -94,6 +106,7 @@ Find tests covering a file
 ```
 
 ### **GET /metrics**
+
 Prometheus metrics endpoint
 
 ---
@@ -101,12 +114,14 @@ Prometheus metrics endpoint
 ## 🧪 **Testing**
 
 ### **Run Tests**
+
 ```bash
 cd /Users/christianmerrill/Documents/GitHub
 python3 services/goc/test_goc.py
 ```
 
 ### **Test Results**
+
 ```
 ✅ Database Initialization
 ✅ Add Symbol
@@ -123,6 +138,7 @@ python3 services/goc/test_goc.py
 ## 🚀 **Quick Start**
 
 ### **1. Start the Service**
+
 ```bash
 cd /Users/christianmerrill/Documents/GitHub
 python3 services/goc/app.py
@@ -131,6 +147,7 @@ python3 services/goc/app.py
 Service runs on `http://127.0.0.1:8200` by default.
 
 ### **2. Ingest Code**
+
 ```bash
 curl -X POST http://127.0.0.1:8200/ingest \
   -H 'Content-Type: application/json' \
@@ -141,11 +158,13 @@ curl -X POST http://127.0.0.1:8200/ingest \
 ```
 
 ### **3. Query Impact**
+
 ```bash
 curl 'http://127.0.0.1:8200/impact?symbol=my_function'
 ```
 
 ### **4. Query Test Coverage**
+
 ```bash
 curl 'http://127.0.0.1:8200/tests?file=src/utils.py'
 ```
@@ -167,12 +186,14 @@ Prometheus metrics exposed at `/metrics`:
 ## 🔮 **Future Enhancements**
 
 ### **Language Support**
+
 - [ ] Swift - Integrate sourcekit-lsp
 - [ ] Rust - Integrate rust-analyzer
 - [ ] Go - Integrate gopls
 - [ ] TypeScript/JavaScript - Use TypeScript compiler API
 
 ### **Features**
+
 - [ ] Call hierarchy visualization
 - [ ] Circular dependency detection
 - [ ] Code complexity metrics
@@ -181,6 +202,7 @@ Prometheus metrics exposed at `/metrics`:
 - [ ] Graph export to Neo4j/GraphML
 
 ### **Performance**
+
 - [ ] Incremental updates (only re-ingest changed files)
 - [ ] Graph caching and indexing
 - [ ] Distributed graph storage
@@ -191,6 +213,7 @@ Prometheus metrics exposed at `/metrics`:
 ## 📝 **Examples**
 
 ### **Example: Impact Analysis**
+
 ```python
 # If I change function_a, what breaks?
 GET /impact?symbol=function_a
@@ -206,6 +229,7 @@ Response:
 ```
 
 ### **Example: Test Coverage**
+
 ```python
 # Which tests cover utils.py?
 GET /tests?file=src/utils.py
@@ -238,6 +262,7 @@ Response:
 - ✅ 6/6 tests passing
 
 **Next Steps:**
+
 - Implement Swift/Rust/Go ingestors
 - Add incremental update support
 - Integrate with CI/CD
@@ -245,5 +270,4 @@ Response:
 
 ---
 
-*Graph-of-Code service built on 2025-10-17. Part of the Athena ecosystem.*
-
+_Graph-of-Code service built on 2025-10-17. Part of the Athena ecosystem._
