@@ -4,7 +4,7 @@
 
 **Port:** 8413  
 **Purpose:** Local-first frontend verification pipeline  
-**Status:** Production-ready  
+**Status:** Production-ready
 
 ---
 
@@ -14,6 +14,7 @@
 **Solution:** Automated build→launch→test loop that catches regressions
 
 **Benefits:**
+
 - ✅ Repeatable verification (no manual testing every time)
 - ✅ Fast feedback (<25 seconds per run)
 - ✅ Fails fast on focus regressions
@@ -26,6 +27,7 @@
 ## 🔧 **TOOLS AVAILABLE**
 
 ### **1. file_apply_patch**
+
 Apply regex patches to files safely
 
 ```bash
@@ -42,6 +44,7 @@ curl -X POST http://localhost:8413/tool/file_apply_patch \
 **Safety:** Allowlist prevents editing random files
 
 ### **2. xcode_build**
+
 Build Xcode projects
 
 ```bash
@@ -57,6 +60,7 @@ curl -X POST http://localhost:8413/tool/xcode_build \
 **Returns:** Build success/fail, errors, duration
 
 ### **3. app_launch**
+
 Launch macOS apps, kill existing instances
 
 ```bash
@@ -71,6 +75,7 @@ curl -X POST http://localhost:8413/tool/app_launch \
 **Uses:** AppleScript to bring app to front
 
 ### **4. ui_typing_probe**
+
 Synthetic typing test - verifies focus persists
 
 ```bash
@@ -86,19 +91,21 @@ curl -X POST http://localhost:8413/tool/ui_typing_probe \
 ```
 
 **Returns:**
+
 ```json
 {
   "pass": true,
   "iterations": [
-    {"iteration": 1, "success": true},
-    {"iteration": 2, "success": true},
-    {"iteration": 3, "success": true}
+    { "iteration": 1, "success": true },
+    { "iteration": 2, "success": true },
+    { "iteration": 3, "success": true }
   ],
   "details": "Focus intact across 3 sends"
 }
 ```
 
 ### **5. swift_frontend_reflex**
+
 Auto-apply known-good focus fixes
 
 ```bash
@@ -108,6 +115,7 @@ curl -X POST http://localhost:8413/tool/swift_frontend_reflex
 **Applies:** Focus management, hit testing, design tokens
 
 ### **6. frontend_verify** ⭐ **ORCHESTRATION**
+
 One-button build→launch→test
 
 ```bash
@@ -121,6 +129,7 @@ curl -X POST http://localhost:8413/tool/frontend_verify \
 ```
 
 **Returns:**
+
 ```json
 {
   "build": {"success": true, "errors": []},
@@ -135,6 +144,7 @@ curl -X POST http://localhost:8413/tool/frontend_verify \
 ## 🚀 **QUICK START**
 
 ### **1. Start the Service**
+
 ```bash
 cd /Users/christianmerrill/Documents/GitHub
 python3 services/mcp_frontend_tools.py
@@ -143,11 +153,13 @@ python3 services/mcp_frontend_tools.py
 Service runs on `http://localhost:8413`
 
 ### **2. Run Automated Loop**
+
 ```bash
 ./scripts/verify-frontend-loop.sh
 ```
 
 **What it does:**
+
 1. Builds NeuroForgeApp
 2. Launches app clean (kills existing)
 3. Runs 3 typing iterations
@@ -160,12 +172,14 @@ Service runs on `http://localhost:8413`
 ## 🧪 **VERIFICATION PIPELINE**
 
 ### **Automated Test:**
+
 ```bash
 # One command to verify everything
 ./scripts/verify-frontend-loop.sh
 ```
 
 ### **Expected Output:**
+
 ```
 ✅ Frontend verification PASSED
    Focus persists across sends
@@ -174,6 +188,7 @@ Service runs on `http://localhost:8413`
 ```
 
 ### **If It Fails:**
+
 ```
 ❌ Frontend verification FAILED
 
@@ -188,20 +203,22 @@ Next steps:
 ## 📊 **CI INTEGRATION**
 
 ### **Add to GitHub Actions:**
+
 ```yaml
 - name: Verify Frontend
   run: |
     # Start MCP tools
     python3 services/mcp_frontend_tools.py &
     sleep 3
-    
+
     # Run verification
     ./scripts/verify-frontend-loop.sh
-    
+
     # Returns exit code 0 = pass, non-zero = fail
 ```
 
 ### **Pre-commit Hook:**
+
 ```bash
 #!/bin/bash
 # .git/hooks/pre-commit
@@ -221,6 +238,7 @@ fi
 ## 🔒 **SAFETY FEATURES**
 
 ### **Path Allowlist**
+
 ```python
 ALLOWED_PATHS = [
     "/Users/christianmerrill/Documents/GitHub/NeuroForgeApp",
@@ -230,11 +248,13 @@ ALLOWED_PATHS = [
 Only allowed paths can be modified
 
 ### **Timeouts**
+
 - Build: 120 seconds max
 - Launch: 10 seconds max
 - Typing probe: Configurable (default 10s)
 
 ### **Backups**
+
 file_apply_patch creates timestamped backups before modifying
 
 ---
@@ -242,12 +262,15 @@ file_apply_patch creates timestamped backups before modifying
 ## 📈 **MONITORING**
 
 ### **MCP Metrics**
+
 Prometheus metrics at `/metrics`:
+
 - `mcp_frontend_verifications_total`
 - `mcp_frontend_verification_duration_seconds`
 - `mcp_typing_probe_failures_total`
 
 ### **Logs**
+
 ```bash
 tail -f /tmp/mcp-frontend.log
 ```
@@ -257,6 +280,7 @@ tail -f /tmp/mcp-frontend.log
 ## 🎯 **USE CASES**
 
 ### **1. Pre-Merge Verification**
+
 ```bash
 # Before merging frontend PR
 ./scripts/verify-frontend-loop.sh
@@ -266,12 +290,14 @@ tail -f /tmp/mcp-frontend.log
 ```
 
 ### **2. Continuous Regression Testing**
+
 ```bash
 # Run every 5 minutes in dev
 */5 * * * * /path/to/verify-frontend-loop.sh
 ```
 
 ### **3. Auto-Fix on Failure**
+
 ```bash
 # If probe fails, auto-apply fixes
 if ! ./scripts/verify-frontend-loop.sh; then
@@ -285,6 +311,7 @@ fi
 ## 📋 **EXAMPLE WORKFLOW**
 
 ### **Manual Test Loop:**
+
 ```bash
 # 1. Start MCP tools
 python3 services/mcp_frontend_tools.py &
@@ -309,12 +336,14 @@ curl -X POST http://localhost:8413/tool/swift_frontend_reflex
 ## 🏆 **BENEFITS**
 
 ### **Before (Manual Testing):**
+
 - 5-10 minutes per test
 - Easy to forget steps
 - Subjective ("feels okay")
 - Hard to reproduce issues
 
 ### **After (Automated):**
+
 - 25 seconds per test
 - Repeatable always
 - Objective (pass/fail)
@@ -329,11 +358,10 @@ curl -X POST http://localhost:8413/tool/swift_frontend_reflex
 **Current:** Production-ready  
 **Tools:** 6/6 implemented  
 **Testing:** Automated loop ready  
-**Integration:** Script + CI examples provided  
+**Integration:** Script + CI examples provided
 
 **Next:** Start service and run verification loop!
 
 ---
 
-*MCP Frontend Tools - Part of the Athena local-first ecosystem*
-
+_MCP Frontend Tools - Part of the Athena local-first ecosystem_
