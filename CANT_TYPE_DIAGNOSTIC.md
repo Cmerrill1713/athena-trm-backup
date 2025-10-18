@@ -3,7 +3,7 @@
 ## **Pure AppKit Window Can't Accept Input**
 
 **Critical Finding:** Even pure AppKit NSTextField doesn't allow typing  
-**This means:** NOT a SwiftUI issue - something more fundamental  
+**This means:** NOT a SwiftUI issue - something more fundamental
 
 ---
 
@@ -13,6 +13,7 @@
 **Bad News:** It's not SwiftUI - it's deeper
 
 **Possible Causes:**
+
 1. macOS Privacy/Security permissions
 2. Accessibility permissions required
 3. Sandbox entitlements missing
@@ -26,6 +27,7 @@
 ### **Run the app and look for these prints:**
 
 **On launch, you should see:**
+
 ```
 🚀 Keyboard probe installed
 🪟 Floating chat window opened
@@ -40,12 +42,14 @@
 ```
 
 **When you CLICK the text field:**
+
 ```
 👆 Field clicked! Focus should be set now.
    - firstResponder: <NSTextView...>
 ```
 
 **When you TYPE (if it works):**
+
 ```
 🔑 keyDown in app: h  mods:256
 ✏️ Text changed: "h"
@@ -58,6 +62,7 @@
 ## 🚨 **FAILURE MODES**
 
 ### **Mode A: Window Not Key**
+
 ```
 isKeyWindow: false  ❌
 canBecomeKey: false  ❌
@@ -67,6 +72,7 @@ canBecomeKey: false  ❌
 **Fix:** Add `.canBecomeKey` override or check window level
 
 ### **Mode B: No First Responder**
+
 ```
 makeFirstResponder: false  ❌
 firstResponder: nil  ❌
@@ -76,17 +82,20 @@ firstResponder: nil  ❌
 **Fix:** Check if field is editable, check parent view hierarchy
 
 ### **Mode C: No Keyboard Events**
+
 ```
 [No 🔑 keyDown logs when typing]  ❌
 ```
 
 **Problem:** Global keyboard interception or permissions  
 **Fixes:**
+
 1. Check System Preferences → Security & Privacy → Accessibility
 2. Add app to "Input Monitoring" if needed
 3. Check for other apps intercepting keyboard
 
 ### **Mode D: Field Not Editable**
+
 ```
 input.acceptsFirstResponder: false  ❌
 ```
@@ -101,11 +110,13 @@ input.acceptsFirstResponder: false  ❌
 ### **1. macOS Privacy Settings**
 
 **Check if app needs permissions:**
+
 ```
 System Preferences → Security & Privacy → Privacy
 ```
 
 **Look for:**
+
 - ✅ Accessibility (may be required)
 - ✅ Input Monitoring (may be required for keyboard probe)
 
@@ -115,6 +126,7 @@ System Preferences → Security & Privacy → Privacy
 ### **2. Check Window State**
 
 **From the diagnostic prints, verify:**
+
 - `isKeyWindow: true` ✅
 - `canBecomeKey: true` ✅
 - `makeFirstResponder: true` ✅
@@ -125,6 +137,7 @@ System Preferences → Security & Privacy → Privacy
 ### **3. Check for Global Blockers**
 
 **Are other apps running that might intercept keyboard?**
+
 - Screen recorders
 - Keyboard remappers (Karabiner, etc.)
 - Security software
@@ -139,6 +152,7 @@ System Preferences → Security & Privacy → Privacy
 **Please copy/paste the diagnostic output showing:**
 
 1. **Window creation logs:**
+
    ```
    🪟 Window created:
    - isKeyWindow: ?
@@ -148,6 +162,7 @@ System Preferences → Security & Privacy → Privacy
    ```
 
 2. **When you click the field:**
+
    ```
    👆 Field clicked! ...
    ```
@@ -163,16 +178,20 @@ System Preferences → Security & Privacy → Privacy
 ## 💡 **LIKELY CULPRITS**
 
 ### **Most Likely: macOS Privacy**
+
 If `isKeyWindow: true` but no 🔑 events appear:
+
 - App needs Accessibility permission
 - App needs Input Monitoring permission
 
 **How to fix:**
+
 1. System Preferences → Security & Privacy → Privacy
 2. Add NeuroForgeApp to Accessibility
 3. Restart app
 
 ### **Second Most Likely: Sandbox Entitlements**
+
 If app is sandboxed, it might not receive keyboard events
 
 **Check:** Does your app have sandbox entitlements?  
@@ -183,6 +202,7 @@ If app is sandboxed, it might not receive keyboard events
 ## 🔧 **NUCLEAR OPTION: CHECK PERMISSIONS**
 
 Run this to see if permissions are the issue:
+
 ```bash
 # Check TCC database for app permissions
 sqlite3 ~/Library/Application\ Support/com.apple.TCC/TCC.db \
@@ -204,5 +224,4 @@ sqlite3 ~/Library/Application\ Support/com.apple.TCC/TCC.db \
 
 ---
 
-*This is actually progress - we've ruled out SwiftUI and isolated it to a macOS permission or window focus issue.*
-
+_This is actually progress - we've ruled out SwiftUI and isolated it to a macOS permission or window focus issue._

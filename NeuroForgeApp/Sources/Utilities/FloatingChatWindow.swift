@@ -25,7 +25,7 @@ final class FloatingChatWindow: NSWindow, NSTextFieldDelegate {
         input.bezelStyle = .roundedBezel
         input.font = .systemFont(ofSize: 14)
         input.delegate = self
-        
+
         // Add click handler to verify events reach the field
         input.target = self
         input.action = #selector(fieldClicked)
@@ -51,25 +51,27 @@ final class FloatingChatWindow: NSWindow, NSTextFieldDelegate {
 
         makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
-        
+
         // EXTREME DIAGNOSTICS
         print("🪟 Window created:")
         print("   - isKeyWindow: \(isKeyWindow)")
         print("   - canBecomeKey: \(canBecomeKey)")
         print("   - level: \(level.rawValue)")
-        
-        DispatchQueue.main.async { 
+
+        DispatchQueue.main.async {
             let didBecomeFirstResponder = self.input.window?.makeFirstResponder(self.input) ?? false
             print("   - makeFirstResponder: \(didBecomeFirstResponder)")
             print("   - firstResponder: \(self.input.window?.firstResponder?.description ?? "nil")")
             print("   - input.acceptsFirstResponder: \(self.input.acceptsFirstResponder)")
-            
+
             // Force it again
             self.makeKey()
             self.orderFront(nil)
             _ = self.makeFirstResponder(self.input)
-            
-            print("   - After force: isKeyWindow=\(self.isKeyWindow), firstResponder=\(self.firstResponder?.description ?? "nil")")
+
+            print(
+                "   - After force: isKeyWindow=\(self.isKeyWindow), firstResponder=\(self.firstResponder?.description ?? "nil")"
+            )
         }
     }
 
@@ -78,7 +80,7 @@ final class FloatingChatWindow: NSWindow, NSTextFieldDelegate {
         print("👆 Field clicked! Focus should be set now.")
         print("   - firstResponder: \(self.firstResponder?.description ?? "nil")")
     }
-    
+
     // Return sends (Shift+Return is just Return in NSTextField — single-line by design)
     func control(_ control: NSControl, textView: NSTextView, doCommandBy sel: Selector) -> Bool {
         print("⌨️ control:doCommandBy called - selector: \(sel)")
@@ -89,7 +91,7 @@ final class FloatingChatWindow: NSWindow, NSTextFieldDelegate {
         }
         return false
     }
-    
+
     // Text did change - verify typing works
     func controlTextDidChange(_ obj: Notification) {
         print("✏️ Text changed: \"\(input.stringValue)\"")
