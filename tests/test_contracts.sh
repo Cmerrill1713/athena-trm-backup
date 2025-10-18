@@ -19,8 +19,8 @@ test_endpoint() {
     echo -n "Testing $name... "
     
     if response=$(curl -s -w "\n%{http_code}" "$url" 2>&1); then
-        status_code=$(echo "$response" | tail -n1)
-        body=$(echo "$response" | head -n-1)
+        status_code=$(echo "$response" | tail -n 1)
+        body=$(echo "$response" | sed '$d')
         
         if [ "$status_code" = "$expected_code" ]; then
             echo "✅ PASS (HTTP $status_code)"
