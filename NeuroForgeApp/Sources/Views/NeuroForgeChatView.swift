@@ -232,33 +232,34 @@ struct TypingIndicator: View {
 struct NeuroForgeChatView: View {
     let profile: UserProfile
     let navigationSelection: String?
-    @StateObject private var chatService: ChatService
+    
+    // Use LLM Gateway (working) instead of ChatService (broken chain)
+    @StateObject private var llmService: LLMGatewayService
     @StateObject private var inputVM = ChatInputVM()
     @State private var focusTrigger = false
 
     init(profile: UserProfile, navigationSelection: String? = nil) {
         self.profile = profile
         self.navigationSelection = navigationSelection
-        // Initialize ChatService with profile ID
-        _chatService = StateObject(
-            wrappedValue: ChatService(
-                userID: profile.id, threadID: "thread_\(profile.id)_\(UUID().uuidString)"
+        // Initialize LLM Gateway Service
+        _llmService = StateObject(
+            wrappedValue: LLMGatewayService(
             ))
     }
 
     var body: some View {
         VStack(spacing: 0) {
             ChatHeader(
-                connected: chatService.isConnected,
+                connected: llmService.isConnected,
                 profile: profile,
-                currentRoute: chatService.currentRoute,
-                currentLatency: chatService.currentLatency,
-                routerHealthy: chatService.routerHealthy
+                currentRoute: llmService.currentRoute,
+                currentLatency: llmService.currentLatency,
+                routerHealthy: llmService.routerHealthy
             )
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: NFTheme.Spacing.md, pinnedViews: []) {
-                        ForEach(Array(chatService.messages.enumerated()), id: \.1.id) {
+                        ForEach(Array(llmService.messages.enumerated()), id: \.1.id) {
                             idx, msg in
                             Bubble(message: msg, isLastInGroup: groupBoundary(at: idx))
                                 .id(msg.id)
@@ -268,9 +269,9 @@ struct NeuroForgeChatView: View {
                     .padding(.top, NFTheme.Spacing.md)
                 }
                 .background(AppleColors.controlBackground.ignoresSafeArea())
-                .onChange(of: chatService.messages.count) { _, _ in
+                .onChange(of: llmService.messages.count) { _, _ in
                     withAnimation {
-                        if let last = chatService.messages.last {
+                        if let last = llmService.messages.last {
                             proxy.scrollTo(last.id, anchor: .bottom)
                         }
                     }
@@ -280,8 +281,8 @@ struct NeuroForgeChatView: View {
             ChatInputBar(vm: inputVM)
                 .onAppear {
                     // Wire up the send handler
-                    inputVM.onSend = { [chatService] text in
-                        await chatService.sendMessage(text)
+                    inputVM.onSend = { [llmService] text in
+                        await llmService.sendMessage(text)
                     }
                 }
         }
@@ -289,9 +290,9 @@ struct NeuroForgeChatView: View {
     }
 
     private func groupBoundary(at index: Int) -> Bool {
-        guard index + 1 < chatService.messages.count else { return true }
-        let a = chatService.messages[index]
-        let b = chatService.messages[index + 1]
+        guard index + 1 < llmService.messages.count else { return true }
+        let a = llmService.messages[index]
+        let b = llmService.messages[index + 1]
         return a.isUser != b.isUser
     }
 }
