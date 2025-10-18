@@ -83,8 +83,8 @@ struct ContentView: View {
             }
             .onAppear {
                 #if os(macOS)
-                // Open floating chat window for testing
-                openFloatingChatWindow()
+                    // Open floating chat window for testing
+                    openFloatingChatWindow()
                 #endif
             }
         } else {

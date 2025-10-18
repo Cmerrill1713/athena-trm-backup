@@ -1,8 +1,8 @@
 import SwiftUI
 
 // Global notification for Cmd+Enter send
-extension Notification.Name { 
-    static let nf_sendMessage = Notification.Name("nf_sendMessage") 
+extension Notification.Name {
+    static let nf_sendMessage = Notification.Name("nf_sendMessage")
 }
 
 @main
@@ -15,11 +15,11 @@ struct NeuroForgeApp: App {
 
     init() {
         #if os(macOS)
-        // Install keyboard event monitor (diagnostic)
-        AppKeyboardProbe.install()
-        print("🚀 Keyboard probe installed")
+            // Install keyboard event monitor (diagnostic)
+            AppKeyboardProbe.install()
+            print("🚀 Keyboard probe installed")
         #endif
-        
+
         // Initialize avatar services (only if available - prevents CLI crashes)
         _ = AvatarNotificationService.shared
         // _ = MobileMetricsService.shared  // TODO: Add when metrics service available
@@ -36,13 +36,15 @@ struct NeuroForgeApp: App {
                         .environmentObject(profileManager)
                         .onAppear {
                             #if os(macOS)
-                            // Activate app and make window key on launch (bulletproof)
-                            NSApp.activate(ignoringOtherApps: true)
-                            if let w = NSApp.windows.first { 
-                                w.makeKeyAndOrderFront(nil) 
-                            }
-                            // Prevent background NSPanel or sheet from stealing first responder
-                            NSApp.windows.forEach { $0.preventsApplicationTerminationWhenModal = false }
+                                // Activate app and make window key on launch (bulletproof)
+                                NSApp.activate(ignoringOtherApps: true)
+                                if let w = NSApp.windows.first {
+                                    w.makeKeyAndOrderFront(nil)
+                                }
+                                // Prevent background NSPanel or sheet from stealing first responder
+                                NSApp.windows.forEach {
+                                    $0.preventsApplicationTerminationWhenModal = false
+                                }
                             #endif
                         }
                         .onReceive(NotificationCenter.default.publisher(for: .ShowCriticalAlert)) {
@@ -82,7 +84,7 @@ struct NeuroForgeApp: App {
         .handlesExternalEvents(matching: Set(["*"]))
         .commands {
             CommandGroup(replacing: .newItem) {}
-            
+
             // Global Cmd+Enter send shortcut
             CommandGroup(after: .textEditing) {
                 Button("Send Message") {
@@ -90,7 +92,7 @@ struct NeuroForgeApp: App {
                 }
                 .keyboardShortcut(.return, modifiers: [.command])
             }
-            
+
             // Debug menu
             CommandMenu("Debug") {
                 Button("Floating LLM Console") {
