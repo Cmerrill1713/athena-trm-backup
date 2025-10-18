@@ -3,6 +3,7 @@
 ## ✅ **WHAT WORKS (PROVEN):**
 
 ### **Backend: 100% Operational**
+
 ```bash
 $ curl http://127.0.0.1:8015/v1/chat/completions ...
 Hello! How can I help you today?
@@ -21,6 +22,7 @@ Hello! How can I help you today?
 ## ❌ **WHAT DOESN'T WORK:**
 
 ### **UI Input: Completely Blocked**
+
 - ❌ Can't type in ANY text field
 - ❌ Can't use keyboard shortcuts (Cmd+Shift+F)
 - ❌ Can't interact with UI elements
@@ -32,6 +34,7 @@ Hello! How can I help you today?
 **App Sandbox is blocking keyboard input**
 
 **Evidence:**
+
 1. No entitlements file exists
 2. Permissions enabled (Accessibility + Input Monitoring) but still blocked
 3. Pure AppKit (no SwiftUI) also blocked
@@ -46,11 +49,13 @@ Hello! How can I help you today?
 ### **Option A: Use Xcode (Proper Way)**
 
 1. **Open project:**
+
    ```bash
    open /Users/christianmerrill/Documents/GitHub/NeuroForgeApp/Package.swift
    ```
 
 2. **In Xcode:**
+
    - Select "NeuroForgeApp" target
    - Go to "Signing & Capabilities" tab
    - Click "+ Capability"
@@ -93,7 +98,7 @@ while true; do
     echo -n "You: "
     read input
     [ -z "$input" ] && break
-    
+
     echo -n "Athena: "
     curl -s http://127.0.0.1:8015/v1/chat/completions \
       -H "Content-Type: application/json" \
@@ -109,16 +114,16 @@ done
 
 ## 📊 **DIAGNOSTIC SUMMARY:**
 
-| Component | Status | Test Method |
-|-----------|--------|-------------|
-| Ollama | ✅ Working | curl http://localhost:11434/api/tags |
-| LLM Gateway | ✅ Working | curl http://localhost:8015/health |
-| AI Responses | ✅ Working | curl chat completions endpoint |
-| Swift App Build | ✅ Working | xcodebuild succeeds |
-| Swift App Launch | ✅ Working | App starts, windows appear |
-| **Keyboard Input** | ❌ **BLOCKED** | Can't type anywhere |
-| macOS Permissions | ✅ Granted | Accessibility + Input Monitoring |
-| App Entitlements | ❌ Missing | No .entitlements file configured |
+| Component          | Status         | Test Method                          |
+| ------------------ | -------------- | ------------------------------------ |
+| Ollama             | ✅ Working     | curl http://localhost:11434/api/tags |
+| LLM Gateway        | ✅ Working     | curl http://localhost:8015/health    |
+| AI Responses       | ✅ Working     | curl chat completions endpoint       |
+| Swift App Build    | ✅ Working     | xcodebuild succeeds                  |
+| Swift App Launch   | ✅ Working     | App starts, windows appear           |
+| **Keyboard Input** | ❌ **BLOCKED** | Can't type anywhere                  |
+| macOS Permissions  | ✅ Granted     | Accessibility + Input Monitoring     |
+| App Entitlements   | ❌ Missing     | No .entitlements file configured     |
 
 ---
 
@@ -140,9 +145,11 @@ This is a **packaging/configuration issue**, not a code issue.
 ## 🎯 **RECOMMENDATIONS:**
 
 ### **Tonight:**
+
 **STOP. You've been at this 5+ hours.**
 
 ### **Tomorrow (Fresh):**
+
 **Option 1:** Open in Xcode, disable sandbox, rebuild (5 minutes)  
 **Option 2:** Build a simple CLI or web UI that uses the working API (15 minutes)  
 **Option 3:** Continue debugging macOS security (could be hours more)
@@ -193,4 +200,3 @@ curl -s http://127.0.0.1:8015/v1/chat/completions \
 ---
 
 **Take a break. Come back fresh. You're so close!** 🚀
-
