@@ -48,6 +48,7 @@ docker-compose up -d athena-weaviate athena-router uai athena-prometheus
 ```
 
 **Health Probes:**
+
 ```bash
 # Weaviate
 curl -s http://127.0.0.1:8090/v1/.well-known/ready | jq .status
@@ -63,6 +64,7 @@ curl -s http://127.0.0.1:9090/-/healthy
 ```
 
 **Fixes:**
+
 - Weaviate not ready → `docker restart athena-weaviate && sleep 15`
 - Router 500 → `docker logs athena-router --tail 100`
 - UAI not responding → `docker-compose restart uai`
@@ -81,6 +83,7 @@ curl -s http://127.0.0.1:8090/v1/graphql \
 **Expect:** Number > 0
 
 **If 0:**
+
 ```bash
 # Restore corpus
 cp -r /Volumes/Untitled/docker-data/volumes/weaviate_data/* volumes/weaviate_data/
@@ -197,7 +200,7 @@ curl -s http://127.0.0.1:8889/metrics | grep -E 'athena_' | head -5
 curl -s 'http://127.0.0.1:9090/api/v1/targets' | jq '.data.activeTargets | length'
 ```
 
-**Expect:** athena_* metrics visible, targets > 0
+**Expect:** athena\_\* metrics visible, targets > 0
 
 **If no metrics:** Check `docker logs athena-otel-collector`
 
@@ -235,6 +238,7 @@ open http://localhost:8082/athena-chat.html
 ```
 
 **Test:**
+
 - Type "Hi Athena"
 - Check 9/9 services ready
 - Verify response is brief and natural
@@ -244,30 +248,35 @@ open http://localhost:8082/athena-chat.html
 ## 🛠️ **Quick Fixes:**
 
 ### **Weaviate 0 docs:**
+
 ```bash
 cp -r /Volumes/Untitled/docker-data/volumes/weaviate_data/* volumes/weaviate_data/
 docker restart athena-weaviate && sleep 15
 ```
 
 ### **OTEL logging error:**
+
 ```bash
 # Remove file exporters from config
 docker restart athena-otel-collector
 ```
 
 ### **Prometheus no targets:**
+
 ```bash
 # Check scrape config
 docker exec athena-prometheus cat /etc/prometheus/prometheus.yml | grep -A5 athena
 ```
 
 ### **SSE hangs:**
+
 ```bash
 # Ensure write deadlines in adapter
 # Disable proxy buffering if using Nginx
 ```
 
 ### **Router 5xx:**
+
 ```bash
 # Check governance latency
 docker logs athena-router --tail 50
@@ -275,6 +284,7 @@ docker logs athena-router --tail 50
 ```
 
 ### **Copilot floods:**
+
 ```bash
 # Enable rate limiting in devd middleware
 # Returns 429 on violation
@@ -285,6 +295,7 @@ docker logs athena-router --tail 50
 ## 📊 **Exit Criteria:**
 
 All checks must pass:
+
 - ✅ Docker running
 - ✅ Weaviate healthy (DocsV2 > 0)
 - ✅ Router healthy
@@ -315,6 +326,7 @@ make -f Makefile.production go-promote-5
 ## 💙 **Bottom Line:**
 
 **One script validates everything:**
+
 ```bash
 ./QUICK_SHIP_CHECK.sh
 ```
@@ -326,4 +338,3 @@ make -f Makefile.production go-promote-5
 ---
 
 **Complete. Validated. Production-Ready. 💙**
-
