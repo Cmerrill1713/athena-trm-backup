@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Athena">
-    <meta name="theme-color" content="#4a9eff">
-    <title>Athena AI — Multimodal Chat</title>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="apple-touch-icon" href="/icon-192.png">
+    <title>Athena — Your Family AI Assistant</title>
     <style>
         * {
             margin: 0;
@@ -18,105 +12,121 @@
         }
 
         :root {
-            --bg: #0f0f0f;
-            --surface: #1a1a1a;
-            --border: #333;
-            --text: #e8e8e8;
-            --text-dim: #888;
-            --primary: #4a9eff;
-            --primary-hover: #6bb0ff;
-            --success: #4ade80;
-            --error: #f87171;
-            --warning: #fbbf24;
-            --user-bg: #2a4a7c;
-            --assistant-bg: #1a3a1a;
-            --code-bg: #2d2d2d;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --primary: #667eea;
+            --primary-hover: #5a67d8;
+            --success: #48bb78;
+            --warning: #ed8936;
+            --border: rgba(0, 0, 0, 0.1);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 15px 50px rgba(0, 0, 0, 0.15);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            justify-content: center;
+            padding: 2rem;
         }
 
-        .header-left {
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            height: 90vh;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            overflow: hidden;
+        }
+
+        /* Main Chat Area */
+        .chat-section {
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
+            border-right: 1px solid var(--border);
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
         }
 
         h1 {
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: var(--bg-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .subtitle {
-            font-size: 0.85rem;
-            color: var(--text-dim);
+            color: var(--text-light);
+            font-size: 0.875rem;
+            margin-left: 3.5rem;
         }
 
-        .header-right {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .status-panel {
+        .status-badges {
             display: flex;
             gap: 0.5rem;
-            align-items: center;
-            font-size: 0.875rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
         }
 
-        .status-indicator {
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 0.25rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            background: var(--code-bg);
         }
 
-        .status-indicator.online {
+        .badge.success {
+            background: rgba(72, 187, 120, 0.1);
             color: var(--success);
         }
 
-        .status-indicator.offline {
-            color: var(--error);
+        .badge.info {
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--primary);
         }
 
-        .status-indicator.loading {
-            color: var(--warning);
-        }
-
+        /* Chat Messages */
         .chat-container {
             flex: 1;
             overflow-y: auto;
             padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            background: linear-gradient(to bottom, #f7fafc 0%, #edf2f7 100%);
         }
 
         .message {
+            margin-bottom: 1.5rem;
             display: flex;
             gap: 1rem;
-            max-width: 800px;
-            animation: fadeIn 0.3s ease-in;
+            animation: fadeIn 0.3s ease;
         }
 
         @keyframes fadeIn {
@@ -125,982 +135,555 @@
         }
 
         .message.user {
-            align-self: flex-end;
             flex-direction: row-reverse;
         }
 
-        .message.assistant {
-            align-self: flex-start;
-        }
-
         .avatar {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
+            font-size: 1.25rem;
             flex-shrink: 0;
         }
 
-        .message.user .avatar {
-            background: var(--user-bg);
-        }
-
         .message.assistant .avatar {
-            background: var(--assistant-bg);
+            background: var(--bg-gradient);
         }
 
-        .message-content-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+        .message.user .avatar {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
 
-        .content {
-            background: var(--surface);
-            padding: 1rem;
-            border-radius: 0.75rem;
+        .message-content {
+            max-width: 70%;
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
             line-height: 1.6;
         }
 
-        .message.user .content {
-            background: var(--user-bg);
+        .message.assistant .message-content {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
-        .message.assistant .content {
-            background: var(--code-bg);
-        }
-
-        .message-meta {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            display: flex;
-            gap: 0.75rem;
-            align-items: center;
-        }
-
-        .message-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .btn-small {
-            background: none;
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 0.25rem 0.5rem;
-            font-size: 0.75rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-small:hover {
-            border-color: var(--primary);
+        .message.user .message-content {
             background: var(--primary);
             color: white;
         }
 
-        .image-preview {
-            max-width: 300px;
-            max-height: 300px;
-            border-radius: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .input-container {
-            background: var(--surface);
+        /* Input Area */
+        .input-section {
+            background: white;
+            padding: 1.5rem 2rem;
             border-top: 1px solid var(--border);
-            padding: 1rem;
-        }
-
-        .input-wrapper {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
         }
 
         .input-tools {
             display: flex;
             gap: 0.5rem;
-            flex-wrap: wrap;
+            margin-bottom: 1rem;
         }
 
         .tool-btn {
-            background: var(--code-bg);
+            padding: 0.5rem 1rem;
             border: 1px solid var(--border);
-            color: var(--text);
-            padding: 0.5rem 0.75rem;
-            font-size: 0.875rem;
-            border-radius: 0.5rem;
+            background: white;
+            border-radius: 12px;
             cursor: pointer;
+            font-size: 0.875rem;
             transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 0.375rem;
+            gap: 0.5rem;
         }
 
         .tool-btn:hover {
+            background: #f7fafc;
             border-color: var(--primary);
-            background: var(--primary);
-            color: white;
-        }
-
-        .tool-btn.active {
-            border-color: var(--primary);
-            background: var(--primary);
-            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .input-row {
             display: flex;
-            gap: 0.75rem;
+            gap: 1rem;
         }
 
         textarea {
             flex: 1;
-            background: var(--bg);
-            color: var(--text);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 16px;
             font-family: inherit;
+            font-size: 0.9375rem;
             resize: none;
-            min-height: 52px;
-            max-height: 200px;
+            transition: all 0.2s;
         }
 
         textarea:focus {
             outline: none;
             border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        button.send-btn {
-            background: var(--primary);
+        .send-btn {
+            padding: 1rem 2rem;
+            background: var(--bg-gradient);
             color: white;
             border: none;
-            border-radius: 0.75rem;
-            padding: 0.75rem 1.5rem;
+            border-radius: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
 
-        button.send-btn:hover:not(:disabled) {
-            background: var(--primary-hover);
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
 
-        button.send-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
-        .status {
-            font-size: 0.875rem;
-            color: var(--text-dim);
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
         }
 
-        .status.connected {
-            color: var(--success);
-        }
-
-        .status.error {
-            color: var(--error);
-        }
-
-        code {
-            background: var(--code-bg);
-            padding: 0.125rem 0.375rem;
-            border-radius: 0.25rem;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.875em;
-        }
-
-        pre {
-            background: var(--code-bg);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            overflow-x: auto;
-            margin: 0.5rem 0;
-        }
-
-        pre code {
-            background: none;
-            padding: 0;
-        }
-
-        .typing {
-            display: inline-block;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        #imageInput {
-            display: none;
-        }
-
-        .system-status {
-            background: var(--code-bg);
-            border: 1px solid var(--border);
-            border-radius: 0.5rem;
-            padding: 0.75rem;
-            margin: 1rem auto;
-            max-width: 800px;
-        }
-
-        .status-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .service-status {
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .family-selector {
+            margin-bottom: 1.5rem;
+        }
+
+        .family-selector label {
+            display: block;
             font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
         }
 
-        .service-status .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+        .family-selector select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: inherit;
+            background: white;
+            cursor: pointer;
         }
 
-        .service-status .dot.online {
-            background: var(--success);
+        .task-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            font-family: inherit;
         }
 
-        .service-status .dot.offline {
-            background: var(--error);
+        .add-task-btn {
+            width: 100%;
+            padding: 0.875rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .service-status .dot.loading {
-            background: var(--warning);
+        .add-task-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .task-list {
+            margin-top: 1.5rem;
+        }
+
+        .task-item {
+            background: #f7fafc;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            gap: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .task-item:hover {
+            background: #edf2f7;
+            transform: translateX(4px);
+        }
+
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .task-desc {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .task-item.completed {
+            opacity: 0.6;
+        }
+
+        .task-item.completed .task-title {
+            text-decoration: line-through;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-light);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Service Status */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .service-status {
+            padding: 0.5rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            background: rgba(72, 187, 120, 0.1);
+            color: var(--success);
+            text-align: center;
+        }
+
+        .service-status.offline {
+            background: rgba(237, 137, 54, 0.1);
+            color: var(--warning);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                height: 100vh;
+                border-radius: 0;
+            }
+            
+            .sidebar {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-left">
-            <h1>🤖 Athena AI</h1>
-            <div class="subtitle">Multimodal | Model-Agnostic | ASI-Safe | Local-First | 🧠 Self-Learning</div>
-        </div>
-        <div class="header-right">
-            <div class="status-panel">
-                <div class="status-indicator loading" id="mainStatus">
-                    <span id="statusText">Connecting...</span>
+    <div class="container">
+        <!-- Main Chat Section -->
+        <div class="chat-section">
+            <div class="header">
+                <div class="header-title">
+                    <span class="logo">💙</span>
+                    <div>
+                        <h1>Athena</h1>
+                        <div class="subtitle">Your Family AI Assistant</div>
+                    </div>
                 </div>
-                <button class="btn-small" onclick="toggleSystemStatus()">📊 Status</button>
+                <div class="status-badges">
+                    <span class="badge success" id="statusBadge">● 0/9 Services Ready</span>
+                    <span class="badge info">🔒 ASI-Safe</span>
+                    <span class="badge info">🧠 Self-Learning</span>
+                    <span class="badge info">🏠 Local-First</span>
+                </div>
+            </div>
+
+            <div class="chat-container" id="chat">
+                <div class="empty-state">
+                    <div class="empty-state-icon">💙</div>
+                    <p>Hi! I'm Athena, your family AI assistant.</p>
+                    <p style="margin-top: 0.5rem;">I can help with homework, manage your calendar, create reminders, and much more!</p>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <div class="input-tools">
+                    <button class="tool-btn" onclick="document.getElementById('imageInput').click()">
+                        📎 Add Image
+                    </button>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImageSelect(event)">
+                    
+                    <button class="tool-btn" id="micBtn" onclick="toggleMicrophone()">
+                        🎤 Voice
+                    </button>
+                    <button class="tool-btn" onclick="toggleTool('search')">
+                        🔍 Web Search
+                    </button>
+                    <button class="tool-btn" onclick="toggleTool('arxiv')">
+                        📚 ArXiv
+                    </button>
+                    <button class="tool-btn" onclick="clearChat()">
+                        🗑️ Clear
+                    </button>
+                </div>
+                <div class="input-row">
+                    <textarea 
+                        id="input" 
+                        placeholder="Ask me anything! I can help with homework, add calendar events, create reminders, and more..."
+                        rows="1"
+                        onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();sendMessage();}"
+                    ></textarea>
+                    <button class="send-btn" onclick="sendMessage()">Send</button>
+                </div>
             </div>
         </div>
-    </header>
 
-    <div id="systemStatus" class="system-status" style="display: none;">
-        <strong>System Services:</strong>
-        <div class="status-grid" id="servicesGrid"></div>
-    </div>
-
-    <div class="chat-container" id="chat"></div>
-
-    <div class="input-container">
-        <div class="input-wrapper">
-            <div class="input-tools">
-                <input type="file" id="imageInput" accept="image/*" onchange="handleImageSelect(event)">
-                <button class="tool-btn" onclick="document.getElementById('imageInput').click()">
-                    📎 Add Image
-                </button>
-                <button class="tool-btn" id="micBtn" onclick="toggleMicrophone()">
-                    🎤 Voice Input
-                </button>
-                <button class="tool-btn" id="searchBtn" onclick="toggleTool('search')">
-                    🔍 Web Search
-                </button>
-                <button class="tool-btn" id="arxivBtn" onclick="toggleTool('arxiv')">
-                    📚 ArXiv
-                </button>
-                <button class="tool-btn" onclick="clearChat()">
-                    🗑️ Clear
-                </button>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    📋 Family Tasks
+                </div>
+                <div class="family-selector">
+                    <label>Family Member:</label>
+                    <select id="familySelect" onchange="loadTasks()">
+                        <option value="all">All Family</option>
+                    </select>
+                </div>
             </div>
-            <div class="input-row">
-            <textarea 
-                id="input" 
-                    placeholder="Ask anything... Athena will choose the best model for your request."
-                rows="1"
-            ></textarea>
-                <button class="send-btn" id="send" onclick="sendMessage()">Send</button>
-            </div>
-        </div>
-    </div>
 
-    <!-- Task Sidebar -->
-    <button class="task-toggle" onclick="toggleTaskSidebar()">📋 Tasks</button>
-    
-    <div class="task-sidebar" id="taskSidebar">
-        <div class="task-header">
-            <h3>📋 Family Tasks</h3>
-            <button class="btn-small" onclick="toggleTaskSidebar()">✕</button>
-        </div>
+            <div class="sidebar-content">
+                <input type="text" id="taskTitle" class="task-input" placeholder="Task title..." />
+                <input type="text" id="taskDesc" class="task-input" placeholder="Description (optional)..." />
+                <button class="add-task-btn" onclick="addTask()">+ Add Task</button>
 
-        <div class="family-selector">
-            <label style="display: block; margin-bottom: 0.25rem; font-size: 0.85rem; color: var(--text-dim);">Family Member:</label>
-            <select id="familyMemberSelect" onchange="loadTasksForMember()">
-                <option value="all">All Family</option>
-            </select>
-        </div>
-
-        <div style="margin-bottom: 1rem;">
-            <input type="text" id="newTaskTitle" class="task-input" placeholder="Task title..." />
-            <input type="text" id="newTaskDesc" class="task-input" placeholder="Description (optional)..." />
-            <button class="btn" style="width: 100%;" onclick="addNewTask()">➕ Add Task</button>
-        </div>
-
-        <div class="task-list" id="taskList">
-            <div style="text-align: center; color: var(--text-dim); padding: 2rem;">
-                Loading tasks...
+                <div class="task-list" id="taskList">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">✨</div>
+                        <p>No tasks yet. Add one above!</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         const BASE_URL = 'http://localhost:8080/v1';
-        const ROUTER_URL = 'http://localhost:9113';
-        const FASTVLM_URL = 'http://localhost:8088';
-        const KOKORO_URL = 'http://localhost:8091';
-        const WHISPER_URL = 'http://localhost:8095';
-        const MCP_URL = 'http://localhost:8412';  // Fixed: MCP is on 8412, not 8082
+        const API_BASE = 'http://localhost:8080/api';
+        const MCP_URL = 'http://localhost:8412';
 
-        const chatContainer = document.getElementById('chat');
-        const input = document.getElementById('input');
-        const sendButton = document.getElementById('send');
-        const mainStatus = document.getElementById('mainStatus');
-        const statusText = document.getElementById('statusText');
-
-        let messages = [];
-        let currentImage = null;
-        let activeTool = null;
-        let mediaRecorder = null;
-        let audioChunks = [];
-
-        // Service health tracking
         const services = {
             'UAI': 'http://localhost:8080/health',
             'Router': 'http://localhost:9113/health',
-            'FastVLM': 'http://localhost:8088/health',
-            'Kokoro': 'http://localhost:8091/health',
+            'MCP': 'http://localhost:8412/health',
             'Whisper': 'http://localhost:8095/health',
-            'MCP': 'http://localhost:8412/health',  // Fixed: MCP is on 8412
+            'Kokoro': 'http://localhost:8091/health',
+            'FastVLM': 'http://localhost:8088/health',
             'Judicial': 'http://localhost:8096/v2/health',
-            'Federation': 'http://localhost:8097/federation/health',
-            'Learning': 'http://localhost:8098/health'
+            'Learning': 'http://localhost:8098/health',
+            'macOS Bridge': 'http://localhost:8099/health'
         };
 
-        async function checkAllServices() {
-            const grid = document.getElementById('servicesGrid');
-            grid.innerHTML = '';
+        let conversation = [];
+        let serviceCount = 0;
 
-            let onlineCount = 0;
-            const total = Object.keys(services).length;
-
+        // Check service health
+        async function checkServices() {
+            serviceCount = 0;
             for (const [name, url] of Object.entries(services)) {
-                const serviceDiv = document.createElement('div');
-                serviceDiv.className = 'service-status';
-                
                 try {
-                    const res = await fetch(url, { method: 'GET', signal: AbortSignal.timeout(2000) });
-                    const isOnline = res.ok;
-                    
-                    serviceDiv.innerHTML = `
-                        <span class="dot ${isOnline ? 'online' : 'offline'}"></span>
-                        <span>${name}</span>
-                    `;
-                    
-                    if (isOnline) onlineCount++;
-                } catch (e) {
-                    serviceDiv.innerHTML = `
-                        <span class="dot offline"></span>
-                        <span>${name}</span>
-                    `;
-                }
-                
-                grid.appendChild(serviceDiv);
+                    const res = await fetch(url, {timeout: 2000});
+                    if (res.ok) serviceCount++;
+                } catch (e) {}
             }
-
-            // Update main status
-            const allOnline = onlineCount === total;
-            mainStatus.className = `status-indicator ${allOnline ? 'online' : (onlineCount > 0 ? 'loading' : 'offline')}`;
-            statusText.textContent = `${onlineCount}/${total} Services`;
+            document.getElementById('statusBadge').textContent = `● ${serviceCount}/${Object.keys(services).length} Services Ready`;
+            document.getElementById('statusBadge').className = serviceCount >= 6 ? 'badge success' : 'badge warning';
         }
 
-        function toggleSystemStatus() {
-            const panel = document.getElementById('systemStatus');
-            if (panel.style.display === 'none') {
-                panel.style.display = 'block';
-                checkAllServices();
-            } else {
-                panel.style.display = 'none';
-            }
-        }
+        // Add message
+        function addMessage(role, content) {
+            const chatContainer = document.getElementById('chat');
+            const emptyState = chatContainer.querySelector('.empty-state');
+            if (emptyState) emptyState.remove();
 
-        function toggleTool(tool) {
-            if (activeTool === tool) {
-                activeTool = null;
-                document.getElementById(tool + 'Btn').classList.remove('active');
-                } else {
-                // Deactivate previous
-                if (activeTool) {
-                    document.getElementById(activeTool + 'Btn').classList.remove('active');
-                }
-                activeTool = tool;
-                document.getElementById(tool + 'Btn').classList.add('active');
-            }
-        }
-
-        function handleImageSelect(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                currentImage = e.target.result;
-                // Show preview in input area
-                input.placeholder = `Image selected: ${file.name}. Type your question about this image...`;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        async function toggleMicrophone() {
-            const micBtn = document.getElementById('micBtn');
-            
-            if (mediaRecorder && mediaRecorder.state === 'recording') {
-                // Stop recording
-                mediaRecorder.stop();
-                micBtn.textContent = '🎤 Voice Input';
-                micBtn.classList.remove('active');
-                input.placeholder = 'Transcribing...';
-            } else {
-                // Start recording
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    audioChunks = [];
-                    
-                    mediaRecorder = new MediaRecorder(stream);
-                    
-                    mediaRecorder.ondataavailable = (event) => {
-                        audioChunks.push(event.data);
-                    };
-                    
-                    mediaRecorder.onstop = async () => {
-                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                        await transcribeAudio(audioBlob);
-                        
-                        // Stop all tracks
-                        stream.getTracks().forEach(track => track.stop());
-                    };
-                    
-                    mediaRecorder.start();
-                    micBtn.textContent = '⏹️ Stop Recording';
-                    micBtn.classList.add('active');
-                    input.placeholder = 'Recording... Click again to stop.';
-                    
-                } catch (error) {
-                    console.error('Microphone error:', error);
-                    input.placeholder = 'Microphone access denied. Please allow microphone access.';
-                }
-            }
-        }
-
-        async function transcribeAudio(audioBlob) {
-            try {
-                const formData = new FormData();
-                formData.append('audio', audioBlob, 'recording.webm');
-                
-                const response = await fetch(`${WHISPER_URL}/transcribe`, {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    input.value = data.text;
-                    input.placeholder = 'Ask anything... Athena will choose the best model for your request.';
-                    input.focus();
-                } else {
-                    input.placeholder = 'Transcription failed. Whisper service may be unavailable.';
-                }
-                
-            } catch (error) {
-                console.error('Transcription error:', error);
-                input.placeholder = 'Transcription error. Is Whisper service running?';
-            }
-        }
-
-        // Check health on load
-        checkAllServices();
-        setInterval(checkAllServices, 30000); // Check every 30s
-
-        // Auto-resize textarea
-        input.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = Math.min(this.scrollHeight, 200) + 'px';
-        });
-
-        // Send on Enter (Shift+Enter for newline)
-        input.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
-        });
-
-        function addMessage(role, content, meta = null) {
             const msg = document.createElement('div');
             msg.className = `message ${role}`;
-            
-            const avatar = document.createElement('div');
-            avatar.className = 'avatar';
-            avatar.textContent = role === 'user' ? 'Y' : '🤖';
-            
-            const contentWrapper = document.createElement('div');
-            contentWrapper.className = 'message-content-wrapper';
-            
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'content';
-            
-            // Simple markdown-like rendering
-            let html = content
-                .replace(/`([^`]+)`/g, '<code>$1</code>')
-                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-                .replace(/\n/g, '<br>');
-            
-            contentDiv.innerHTML = html;
-            contentWrapper.appendChild(contentDiv);
-            
-            // Add metadata and actions for assistant messages
-            if (role === 'assistant' && meta) {
-                const metaDiv = document.createElement('div');
-                metaDiv.className = 'message-meta';
-                metaDiv.innerHTML = `
-                    <span>🔍 ${meta.model_used || 'Unknown model'}</span>
-                    ${meta.latency_ms ? `<span>⚡ ${meta.latency_ms}ms</span>` : ''}
-                `;
-                contentWrapper.appendChild(metaDiv);
-                
-                const actionsDiv = document.createElement('div');
-                actionsDiv.className = 'message-actions';
-                actionsDiv.innerHTML = `
-                    <button class="btn-small" onclick="speakText(\`${content.replace(/`/g, '\\`').replace(/\n/g, ' ')}\`)">🔊 Speak</button>
-                `;
-                contentWrapper.appendChild(actionsDiv);
-            }
-            
-            msg.appendChild(avatar);
-            msg.appendChild(contentWrapper);
+            msg.innerHTML = `
+                <div class="avatar">${role === 'user' ? '👤' : '🤖'}</div>
+                <div class="message-content">${content}</div>
+            `;
             chatContainer.appendChild(msg);
-            
-            // Scroll to bottom
             chatContainer.scrollTop = chatContainer.scrollHeight;
-            
-            return contentDiv;
         }
 
-        async function speakText(text) {
-            try {
-                const response = await fetch(`${KOKORO_URL}/synthesize`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({text: text.substring(0, 500)}) // Limit length
-                });
-                
-                if (response.ok) {
-                    const audioBlob = await response.blob();
-                    const audioUrl = URL.createObjectURL(audioBlob);
-                    const audio = new Audio(audioUrl);
-                    audio.play();
-                } else {
-                    console.warn('TTS service unavailable');
-                }
-            } catch (e) {
-                console.warn('TTS error:', e);
-            }
-        }
-
-        function clearChat() {
-            chatContainer.innerHTML = '';
-            messages = [];
-            currentImage = null;
-            input.placeholder = 'Ask anything... Athena will choose the best model for your request.';
-        }
-
+        // Send message
         async function sendMessage() {
-            const query = input.value.trim();
-            if (!query && !currentImage) return;
+            const input = document.getElementById('input');
+            const message = input.value.trim();
+            if (!message) return;
 
-            // Disable input
-            input.disabled = true;
-            sendButton.disabled = true;
-
-            // Determine what to show in user message
-            let userMessageContent = query;
-            if (currentImage) {
-                userMessageContent += '\n[Image attached]';
-            }
-            if (activeTool) {
-                userMessageContent += `\n[Using tool: ${activeTool}]`;
-            }
-
-            // Add user message
-            messages.push({ role: 'user', content: query });
-            addMessage('user', userMessageContent);
-            
-            const originalPlaceholder = input.placeholder;
+            addMessage('user', message);
             input.value = '';
-            input.style.height = 'auto';
-
-            // Add typing indicator
-            const typingDiv = addMessage('assistant', '<span class="typing">Thinking...</span>');
 
             try {
-                let response;
-                let metadata = {};
-
-                // Route based on input type
-                if (currentImage) {
-                    // Vision request
-                    metadata.model_used = 'FastVLM (vision)';
-                    const startTime = Date.now();
-                    
-                    const formData = new FormData();
-                    // Convert base64 to blob
-                    const base64Response = await fetch(currentImage);
-                    const blob = await base64Response.blob();
-                    formData.append('image', blob, 'image.jpg');
-                    formData.append('prompt', query || 'Describe this image');
-                    
-                    const visionResponse = await fetch(`${FASTVLM_URL}/analyze`, {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
-                    if (visionResponse.ok) {
-                        const data = await visionResponse.json();
-                        response = data.analysis || data.description || JSON.stringify(data);
-                    } else {
-                        response = 'Vision analysis unavailable (FastVLM service not responding)';
-                    }
-                    
-                    metadata.latency_ms = Date.now() - startTime;
-                    currentImage = null;
-                    input.placeholder = originalPlaceholder;
-                    
-                } else if (activeTool) {
-                    // Tool request
-                    metadata.model_used = `MCP Tool: ${activeTool}`;
-                    const startTime = Date.now();
-                    
-                    const toolResponse = await fetch(`${MCP_URL}/tool/${activeTool === 'search' ? 'web_search' : 'arxiv_search'}`, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            arguments: { query: query, num_results: 5, max_results: 5 }
-                        })
-                    });
-                    
-                    if (toolResponse.ok) {
-                        const data = await toolResponse.json();
-                        response = JSON.stringify(data, null, 2);
-                        
-                        // Also send to LLM for natural language summary
-                        const summaryResponse = await fetch(`${BASE_URL}/chat/completions`, {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({
-                                messages: [
-                                    {role: 'system', content: `Summarize these ${activeTool} results naturally:`},
-                                    {role: 'user', content: response}
-                                ]
-                            })
-                        });
-                        
-                        if (summaryResponse.ok) {
-                            const summaryData = await summaryResponse.json();
-                            response = summaryData.choices?.[0]?.message?.content || response;
-                        }
-                    } else {
-                        response = `Tool service unavailable (${activeTool} not responding)`;
-                    }
-                    
-                    metadata.latency_ms = Date.now() - startTime;
-                    toggleTool(activeTool); // Deactivate tool
-                    
-                } else {
-                    // Standard text chat
-                    metadata.model_used = 'Athena (auto-routed)';
-                    const startTime = Date.now();
-                    
-                    const chatResponse = await fetch(`${BASE_URL}/chat/completions`, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            messages: messages,
-                            temperature: 0.2
-                        })
-                    });
-                    
-                    if (chatResponse.ok) {
-                        const data = await chatResponse.json();
-                        response = data.choices?.[0]?.message?.content || 'No response';
-                    } else {
-                        response = 'Chat service unavailable (UAI service not responding)';
-                    }
-                    
-                    metadata.latency_ms = Date.now() - startTime;
-                }
-
-                // Update display with response
-                let html = response
-                        .replace(/`([^`]+)`/g, '<code>$1</code>')
-                        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-                        .replace(/\n/g, '<br>');
-                    typingDiv.innerHTML = html;
-
-                // Add metadata display
-                const parentMessage = typingDiv.closest('.message-content-wrapper');
-                
-                const metaDiv = document.createElement('div');
-                metaDiv.className = 'message-meta';
-                metaDiv.innerHTML = `
-                    <span>🔍 ${metadata.model_used}</span>
-                    ${metadata.latency_ms ? `<span>⚡ ${metadata.latency_ms}ms</span>` : ''}
-                `;
-                parentMessage.appendChild(metaDiv);
-                
-                const actionsDiv = document.createElement('div');
-                actionsDiv.className = 'message-actions';
-                const messageId = Date.now();
-                actionsDiv.innerHTML = `
-                    <button class="btn-small" onclick="speakText(\`${response.replace(/`/g, '\\`').replace(/\n/g, ' ')}\`)">🔊 Speak</button>
-                    <button class="btn-small" id="thumbs-up-${messageId}" onclick="sendFeedback(${messageId}, 'positive', \`${response.substring(0, 100).replace(/`/g, '\\`').replace(/\n/g, ' ')}\`)">👍</button>
-                    <button class="btn-small" id="thumbs-down-${messageId}" onclick="sendFeedback(${messageId}, 'negative', \`${response.substring(0, 100).replace(/`/g, '\\`').replace(/\n/g, ' ')}\`)">👎</button>
-                `;
-                parentMessage.appendChild(actionsDiv);
-
-                // Save to message history
-                messages.push({ role: 'assistant', content: response });
-
-            } catch (error) {
-                typingDiv.innerHTML = `<span style="color: var(--error);">Error: ${error.message}<br>Check that services are running (docker-compose up -d)</span>`;
-                console.error('Chat error:', error);
-            } finally {
-                // Re-enable input
-                input.disabled = false;
-                sendButton.disabled = false;
-                input.focus();
-            }
-        }
-
-        async function sendFeedback(messageId, sentiment, responsePreview) {
-            try {
-                const response = await fetch(`${BASE_URL}/feedback`, {
+                const response = await fetch(`${BASE_URL}/chat/completions`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
-                        message_id: messageId,
-                        sentiment: sentiment,
-                        response_preview: responsePreview,
-                        timestamp: Date.now()
+                        model: 'auto',
+                        messages: [...conversation, {role: 'user', content: message}],
+                        temperature: 0.7
                     })
                 });
+
+                const data = await response.json();
+                const reply = data.choices[0].message.content;
                 
-                if (response.ok) {
-                    // Visual feedback
-                    const btn = document.getElementById(`thumbs-${sentiment === 'positive' ? 'up' : 'down'}-${messageId}`);
-                    if (btn) {
-                        btn.style.background = 'var(--success)';
-                        btn.style.color = 'white';
-                        btn.disabled = true;
-                        btn.textContent = sentiment === 'positive' ? '✓ Thanks!' : '✓ Noted';
-                    }
-                    console.log('✅ Feedback sent to learning pipeline');
-                } else {
-                    console.warn('Feedback submission failed');
-                }
+                addMessage('assistant', reply);
+                conversation.push({role: 'user', content: message});
+                conversation.push({role: 'assistant', content: reply});
             } catch (error) {
-                console.error('Feedback error:', error);
+                addMessage('assistant', '❌ Error connecting to Athena. Is the backend running?');
             }
         }
 
-        // Focus input on load
-        window.addEventListener('load', () => {
-            input.focus();
-            console.log('🤖 Athena AI loaded - Model-Agnostic Multimodal Chat');
-            console.log('Features: Text | Vision | Voice | Search | ArXiv | Learning');
-        });
-    </script>
-</body>
-</html>
-
-    <script>
-        // ========================================
-        // FAMILY FEATURES - Tasks & Calendar
-        // ========================================
-        
-        async function getTasks() {
+        // Task management
+        async function loadTasks() {
             try {
                 const response = await fetch(`${API_BASE}/tasks`);
-                return await response.json();
+                const tasks = await response.json();
+                renderTasks(tasks);
             } catch (error) {
-                console.error('Failed to get tasks:', error);
-                return [];
+                console.error('Failed to load tasks:', error);
             }
-        }
-        
-        async function createTask(title, description = '') {
-            try {
-                const response = await fetch(`${API_BASE}/tasks`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        id: Date.now(),
-                        title: title,
-                        description: description,
-                        completed: false,
-                        created_at: new Date().toISOString()
-                    })
-                });
-                return await response.json();
-            } catch (error) {
-                console.error('Failed to create task:', error);
-                return null;
-            }
-        }
-        
-        async function completeTask(taskId) {
-            try {
-                const response = await fetch(`${API_BASE}/tasks/${taskId}/complete`, {
-                    method: 'PUT'
-                });
-                return await response.json();
-            } catch (error) {
-                console.error('Failed to complete task:', error);
-                return null;
-            }
-        }
-        
-        async function getFamilyMembers() {
-            try {
-                const response = await fetch(`${API_BASE}/users`);
-                return await response.json();
-            } catch (error) {
-                console.error('Failed to get family members:', error);
-                return [];
-            }
-        }
-        
-        // Task Sidebar Management
-        function toggleTaskSidebar() {
-            const sidebar = document.getElementById('taskSidebar');
-            sidebar.classList.toggle('open');
         }
 
-        async function loadFamilyMembers() {
-            const members = await getFamilyMembers();
-            const select = document.getElementById('familyMemberSelect');
-            
-            members.forEach(member => {
-                const option = document.createElement('option');
-                option.value = member.id;
-                option.textContent = member.name;
-                select.appendChild(option);
-            });
-        }
-
-        async function loadTasks() {
-            const tasks = await getTasks();
+        function renderTasks(tasks) {
             const taskList = document.getElementById('taskList');
             taskList.innerHTML = '';
 
             if (tasks.length === 0) {
-                taskList.innerHTML = '<div style="text-align: center; color: var(--text-dim); padding: 2rem;">No tasks yet. Add one above!</div>';
+                taskList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">✨</div>
+                        <p>No tasks yet. Add one above!</p>
+                    </div>
+                `;
                 return;
             }
 
             tasks.forEach(task => {
-                const taskDiv = document.createElement('div');
-                taskDiv.className = `task-item ${task.completed ? 'completed' : ''}`;
-                taskDiv.innerHTML = `
+                const taskEl = document.createElement('div');
+                taskEl.className = `task-item ${task.completed ? 'completed' : ''}`;
+                taskEl.innerHTML = `
                     <input type="checkbox" class="task-checkbox" 
                            ${task.completed ? 'checked' : ''}
-                           onchange="toggleTaskComplete(${task.id})" />
+                           onchange="toggleTask(${task.id})">
                     <div class="task-content">
                         <div class="task-title">${task.title}</div>
                         ${task.description ? `<div class="task-desc">${task.description}</div>` : ''}
                     </div>
                 `;
-                taskList.appendChild(taskDiv);
+                taskList.appendChild(taskEl);
             });
         }
 
-        async function addNewTask() {
-            const titleInput = document.getElementById('newTaskTitle');
-            const descInput = document.getElementById('newTaskDesc');
-            
-            const title = titleInput.value.trim();
-            if (!title) {
-                alert('Please enter a task title');
-                return;
+        async function addTask() {
+            const title = document.getElementById('taskTitle').value.trim();
+            if (!title) return;
+
+            const description = document.getElementById('taskDesc').value.trim();
+
+            try {
+                await fetch(`${API_BASE}/tasks`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        id: Date.now(),
+                        title,
+                        description,
+                        completed: false
+                    })
+                });
+
+                document.getElementById('taskTitle').value = '';
+                document.getElementById('taskDesc').value = '';
+                loadTasks();
+            } catch (error) {
+                console.error('Failed to add task:', error);
             }
-
-            const description = descInput.value.trim();
-            
-            await createTask(title, description);
-            
-            // Clear inputs
-            titleInput.value = '';
-            descInput.value = '';
-            
-            // Reload tasks
-            await loadTasks();
-            
-            console.log(`✅ Task added: ${title}`);
         }
 
-        async function toggleTaskComplete(taskId) {
-            await completeTask(taskId);
-            await loadTasks();
-            console.log(`✅ Task ${taskId} toggled`);
+        async function toggleTask(id) {
+            try {
+                await fetch(`${API_BASE}/tasks/${id}/complete`, {method: 'PUT'});
+                loadTasks();
+            } catch (error) {
+                console.error('Failed to toggle task:', error);
+            }
         }
 
-        async function loadTasksForMember() {
-            // For now, load all tasks (filter by member in future)
-            await loadTasks();
+        function clearChat() {
+            conversation = [];
+            const chatContainer = document.getElementById('chat');
+            chatContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">💙</div>
+                    <p>Hi! I'm Athena, your family AI assistant.</p>
+                    <p style="margin-top: 0.5rem;">I can help with homework, manage your calendar, create reminders, and much more!</p>
+                </div>
+            `;
         }
 
-        // Initialize family features on load
-        window.addEventListener('load', async () => {
-            console.log('🏠 Initializing family features...');
-            
-            // Load family members into selector
-            await loadFamilyMembers();
-            console.log('✅ Family members loaded');
-            
-            // Load tasks
-            await loadTasks();
-            console.log('✅ Tasks loaded');
-            
-            console.log('🎯 Family features ready!');
+        // Stub functions
+        function handleImageSelect(e) { console.log('Image upload not yet connected'); }
+        function toggleMicrophone() { console.log('Voice input not yet connected'); }
+        function toggleTool(tool) { console.log(`${tool} tool toggled`); }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            checkServices();
+            loadTasks();
+            setInterval(checkServices, 30000);
         });
     </script>
 </body>

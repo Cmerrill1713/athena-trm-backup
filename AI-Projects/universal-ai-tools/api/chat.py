@@ -7,10 +7,15 @@ import os
 import httpx
 import time
 import logging
+import hashlib
 from typing import List
 
 # ASI Safety - Judicial oversight
 from api.judicial_client import submit_judicial_event
+
+# Athena's personality
+from api.athena_personality import get_athena_system_prompt
+
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
@@ -132,7 +137,7 @@ class ChatRequest(BaseModel):
 @router.post("/v1/chat/completions")
 async def chat_completions(req: ChatRequest):
     """
-    OpenAI-compatible chat completions with semantic RAG
+    OpenAI-compatible chat completions with semantic RAG + Athena's personality
     """
     model = req.model or DEFAULT_MODEL
     
@@ -150,15 +155,23 @@ async def chat_completions(req: ChatRequest):
         if rag_context and uai_rag_calls:
             uai_rag_calls.inc()
     
-    # Build enriched messages
+    # Build enriched messages with Athena's personality
     enriched_messages = []
     
+    # 1. Athena's personality (ALWAYS FIRST)
+    enriched_messages.append({
+        "role": "system",
+        "content": get_athena_system_prompt()
+    })
+    
+    # 2. RAG context (if available)
     if rag_context:
         enriched_messages.append({
             "role": "system",
             "content": rag_context
         })
     
+    # 3. User conversation history
     for m in req.messages:
         enriched_messages.append({
             "role": m.role,
@@ -171,7 +184,7 @@ async def chat_completions(req: ChatRequest):
         "messages": enriched_messages,
         "stream": False,
         "options": {
-            "temperature": req.temperature or 0.2,
+            "temperature": req.temperature or 0.7,  # Increased for more natural responses
             "num_predict": 512
         }
     }
@@ -179,7 +192,7 @@ async def chat_completions(req: ChatRequest):
     t0 = time.time()
     
     try:
-        logger.info(f"Calling Ollama (semantic RAG: {bool(rag_context)})")
+        logger.info(f"Calling Ollama as Athena (RAG: {bool(rag_context)})")
         
         async with httpx.AsyncClient(timeout=30.0) as client:
             response = await client.post(
