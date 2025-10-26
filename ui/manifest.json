@@ -1,7 +1,7 @@
 {
-    "name": "Athena RAG — Local Knowledge Chat",
+    "name": "Athena AI — Multimodal Family Assistant",
     "short_name": "Athena",
-    "description": "100% local AI chat with your knowledge base",
+    "description": "Local-first AI with macOS control, voice, vision, and family features",
     "start_url": "/athena-chat.html",
     "display": "standalone",
     "background_color": "#0f0f0f",
