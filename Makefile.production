@@ -348,3 +348,82 @@ help-protection:  ## Show drift protection help
 	@echo "  make kb-restore-latest"
 	@echo "  docker-compose down && docker-compose up -d"
 
+
+# ============================================================================
+# CONFIDENCE DRILL & WEEKLY OPS
+# ============================================================================
+
+confidence-drill:  ## Run complete 10-step confidence drill
+	@echo "🔥 Running confidence drill..."
+	@./CONFIDENCE_DRILL.sh
+
+weekly-monday:  ## Monday routine (1 min)
+	@echo "📅 Monday Health Check"
+	@./QUICK_SHIP_CHECK.sh
+	@tail -n 20 artifacts/validation_stdout.log
+
+weekly-wednesday:  ## Wednesday routine (2 min)
+	@echo "📅 Wednesday Baseline Refresh"
+	@make metrics-snapshot
+	@make go-parity
+
+weekly-friday:  ## Friday routine (3 min)
+	@echo "📅 Friday Backup & Review"
+	@make kb-backup
+	@echo ""
+	@echo "Latest backup:"
+	@ls -lh artifacts/backups/ | tail -1
+	@echo ""
+	@echo "Service status:"
+	@docker ps --filter 'name=athena-' --format 'table {{.Names}}\t{{.Status}}'
+
+monthly-drill:  ## Monthly full validation (15 min)
+	@echo "📅 Monthly Full Drill"
+	@./CONFIDENCE_DRILL.sh
+	@./create_baseline_snapshot.sh
+
+emergency-reset:  ## Hard reset (keeps data)
+	@echo "🚨 Emergency Reset (data preserved)"
+	@docker-compose up -d --force-recreate
+	@echo "✅ All containers recreated"
+
+emergency-rollback:  ## Roll back to last baseline
+	@echo "🔙 Rolling back to last golden state..."
+	@git checkout $$(git tag -l 'athena-baseline-*' | tail -n1)
+	@./validate_and_recover.sh
+	@echo "✅ Rolled back to baseline"
+
+clean-old-backups:  ## Remove backups older than 30 days
+	@echo "🧹 Cleaning old backups..."
+	@find artifacts/backups -name "*.tar.gz" -mtime +30 -delete
+	@find artifacts/snapshots -type d -mtime +30 -exec rm -rf {} + 2>/dev/null || true
+	@echo "✅ Old backups removed"
+
+help-ops:  ## Show ops workflow help
+	@echo "📋 WEEKLY OPS WORKFLOW"
+	@echo ""
+	@echo "Daily/Automatic:"
+	@echo "  Auto-validation runs at boot + 3am nightly"
+	@echo "  Alerts sent via macOS notifications"
+	@echo ""
+	@echo "Monday (1 min):"
+	@echo "  make weekly-monday       - Health check + review alerts"
+	@echo ""
+	@echo "Wednesday (2 min):"
+	@echo "  make weekly-wednesday    - Refresh baseline + shadow health"
+	@echo ""
+	@echo "Friday (3 min):"
+	@echo "  make weekly-friday       - Backup + dashboard check"
+	@echo ""
+	@echo "Monthly (15 min):"
+	@echo "  make monthly-drill       - Full confidence drill + new baseline"
+	@echo ""
+	@echo "Emergency:"
+	@echo "  make emergency-reset     - Hard reset (keeps data)"
+	@echo "  make emergency-rollback  - Roll back to last baseline"
+	@echo ""
+	@echo "Maintenance:"
+	@echo "  make clean-old-backups   - Remove old backups (>30 days)"
+	@echo ""
+	@echo "See: WEEKLY_OPS_CHECKLIST.md"
+
