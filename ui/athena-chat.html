@@ -421,6 +421,9 @@
                 <button class="tool-btn" onclick="document.getElementById('imageInput').click()">
                     📎 Add Image
                 </button>
+                <button class="tool-btn" id="micBtn" onclick="toggleMicrophone()">
+                    🎤 Voice Input
+                </button>
                 <button class="tool-btn" id="searchBtn" onclick="toggleTool('search')">
                     🔍 Web Search
                 </button>
@@ -447,6 +450,7 @@
         const ROUTER_URL = 'http://localhost:9113';
         const FASTVLM_URL = 'http://localhost:8088';
         const KOKORO_URL = 'http://localhost:8091';
+        const WHISPER_URL = 'http://localhost:8095';
         const MCP_URL = 'http://localhost:8082';
 
         const chatContainer = document.getElementById('chat');
@@ -458,6 +462,8 @@
         let messages = [];
         let currentImage = null;
         let activeTool = null;
+        let mediaRecorder = null;
+        let audioChunks = [];
 
         // Service health tracking
         const services = {
@@ -465,6 +471,7 @@
             'Router': 'http://localhost:9113/health',
             'FastVLM': 'http://localhost:8088/health',
             'Kokoro': 'http://localhost:8091/health',
+            'Whisper': 'http://localhost:8095/health',
             'MCP': 'http://localhost:8082/health'
         };
 
@@ -540,6 +547,72 @@
                 input.placeholder = `Image selected: ${file.name}. Type your question about this image...`;
             };
             reader.readAsDataURL(file);
+        }
+
+        async function toggleMicrophone() {
+            const micBtn = document.getElementById('micBtn');
+            
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                // Stop recording
+                mediaRecorder.stop();
+                micBtn.textContent = '🎤 Voice Input';
+                micBtn.classList.remove('active');
+                input.placeholder = 'Transcribing...';
+            } else {
+                // Start recording
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    audioChunks = [];
+                    
+                    mediaRecorder = new MediaRecorder(stream);
+                    
+                    mediaRecorder.ondataavailable = (event) => {
+                        audioChunks.push(event.data);
+                    };
+                    
+                    mediaRecorder.onstop = async () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        await transcribeAudio(audioBlob);
+                        
+                        // Stop all tracks
+                        stream.getTracks().forEach(track => track.stop());
+                    };
+                    
+                    mediaRecorder.start();
+                    micBtn.textContent = '⏹️ Stop Recording';
+                    micBtn.classList.add('active');
+                    input.placeholder = 'Recording... Click again to stop.';
+                    
+                } catch (error) {
+                    console.error('Microphone error:', error);
+                    input.placeholder = 'Microphone access denied. Please allow microphone access.';
+                }
+            }
+        }
+
+        async function transcribeAudio(audioBlob) {
+            try {
+                const formData = new FormData();
+                formData.append('audio', audioBlob, 'recording.webm');
+                
+                const response = await fetch(`${WHISPER_URL}/transcribe`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    input.value = data.text;
+                    input.placeholder = 'Ask anything... Athena will choose the best model for your request.';
+                    input.focus();
+                } else {
+                    input.placeholder = 'Transcription failed. Whisper service may be unavailable.';
+                }
+                
+            } catch (error) {
+                console.error('Transcription error:', error);
+                input.placeholder = 'Transcription error. Is Whisper service running?';
+            }
         }
 
         // Check health on load

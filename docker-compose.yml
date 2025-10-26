@@ -187,6 +187,33 @@ services:
       - "athena.port=8091"
       - "athena.modality=voice"
 
+  athena-whisper:
+    build:
+      context: ./services/whisper
+      dockerfile: Dockerfile
+    container_name: athena-whisper
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8095:8095"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PORT=8095
+      - WHISPER_MODEL=base
+    volumes:
+      - whisper_models:/app/models
+    networks:
+      - athena-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8095/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    labels:
+      - "athena.service=whisper-stt"
+      - "athena.port=8095"
+      - "athena.modality=voice"
+
   # ===========================================================================
   # MCP ECOSYSTEM (Port 8412) - Model Context Protocol Tools
   # ===========================================================================
@@ -942,6 +969,7 @@ volumes:
   weaviate_data:
     name: athena_weaviate_data
     external: true
+  whisper_models:
   prometheus_data:
     name: athena_prometheus_data
     external: true
