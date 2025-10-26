@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # FastAPI service for judicial endpoints
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import uvicorn
 import time
@@ -8,6 +9,15 @@ from typing import Dict, Any
 from phase2_judicial_engine import adjudicate
 
 app = FastAPI(title="AI Republic – Judicial API", version="2.0")
+
+# Add CORS middleware for browser access
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class Event(BaseModel):
     event_id: str

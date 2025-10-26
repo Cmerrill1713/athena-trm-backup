@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Athena Service Debug</title>
+    <style>
+        body { font-family: monospace; padding: 2rem; background: #0f0f0f; color: #fff; }
+        .service { margin: 1rem 0; padding: 1rem; background: #1a1a1a; border-radius: 8px; }
+        .healthy { border-left: 4px solid #48bb78; }
+        .failed { border-left: 4px solid #f56565; }
+    </style>
+</head>
+<body>
+    <h1>Athena Service Health Debug</h1>
+    <button onclick="testServices()">Test All Services</button>
+    <div id="results"></div>
+
+    <script>
+        const services = {
+            'UAI': 'http://localhost:8080/health',
+            'Router': 'http://localhost:9113/health',
+            'MCP': 'http://localhost:8412/health',
+            'Whisper': 'http://localhost:8095/health',
+            'Kokoro': 'http://localhost:8091/health',
+            'FastVLM': 'http://localhost:8088/health',
+            'Judicial': 'http://localhost:8096/v2/health',
+            'Learning': 'http://localhost:8098/health',
+            'macOS Bridge': 'http://localhost:8099/health'
+        };
+
+        async function testServices() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<p>Testing...</p>';
+            
+            let count = 0;
+            let html = '';
+            
+            for (const [name, url] of Object.entries(services)) {
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 3000);
+                    
+                    const res = await fetch(url, { signal: controller.signal });
+                    clearTimeout(timeoutId);
+                    
+                    if (res.ok) {
+                        const data = await res.json();
+                        count++;
+                        html += `<div class="service healthy">
+                            OK <strong>${name}</strong> (${url})<br>
+                            Status: ${JSON.stringify(data.status || data.service || 'ok')}<br>
+                            Response time: ${res.headers.get('content-length')} bytes
+                        </div>`;
+                    } else {
+                        html += `<div class="service failed">
+                            FAIL <strong>${name}</strong> (${url})<br>
+                            HTTP Status: ${res.status}
+                        </div>`;
+                    }
+                } catch (e) {
+                    html += `<div class="service failed">
+                        ERROR <strong>${name}</strong> (${url})<br>
+                        Error: ${e.message}<br>
+                        Type: ${e.name}
+                    </div>`;
+                }
+            }
+            
+            html = `<h2>Result: ${count}/9 Services Healthy</h2>` + html;
+            results.innerHTML = html;
+        }
+        
+        window.addEventListener('load', testServices);
+    </script>
+</body>
+</html>
