@@ -15,6 +15,7 @@ from typing import Dict, Any
 from central_learning_coordinator import CentralLearningCoordinator
 from feedback_analyzer import FeedbackAnalysisOrchestrator
 from router_learning_agent import RouterLearningAgent
+from autonomous_improvement import AutonomousImprovementEngine
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -30,8 +31,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize coordinator
+# Initialize coordinator and autonomous engine
 coordinator = CentralLearningCoordinator()
+autonomous_engine = AutonomousImprovementEngine()
 
 @app.get("/health")
 async def health():
@@ -69,6 +71,22 @@ async def learn_routing(hours: int = 24):
     """Analyze routing patterns (standalone)"""
     agent = RouterLearningAgent()
     result = await agent.analyze_routing_patterns(hours)
+    return result
+
+@app.post("/v1/autonomous/improve")
+async def autonomous_improvement():
+    """
+    Run complete autonomous improvement cycle
+    
+    This is THE KEY ENDPOINT that Athena uses to modify her own code:
+    1. Analyzes feedback/patterns
+    2. Generates recommendations
+    3. Executes via AGI Core (Scout-Plan-Build)
+    4. Modifies files autonomously
+    5. Judicial safety review
+    6. Reports results
+    """
+    result = await autonomous_engine.run_improvement_cycle()
     return result
 
 if __name__ == "__main__":
