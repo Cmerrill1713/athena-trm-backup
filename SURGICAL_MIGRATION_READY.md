@@ -9,7 +9,9 @@ Everything you need to **measure, shadow, promote, and rollback** the Go hot pat
 ## 📦 **What You Have Now:**
 
 ### **1. Stable RPC Contracts** ✅
+
 **File:** `proto/athena.proto`
+
 - Router.Decide - Routing decisions
 - Governance.Authorize - Authorization gate
 - RAG.Search - Context retrieval
@@ -17,14 +19,18 @@ Everything you need to **measure, shadow, promote, and rollback** the Go hot pat
 - **Versioned and frozen!**
 
 ### **2. Go Services (Skeletons)** ✅
+
 **Files:** `services/go-router/`, `services/go-gateway/`
+
 - Go Router (port 9115, gRPC)
 - Go Gateway (port 8081, HTTP + SSE)
 - Dockerfiles + go.mod
 - Health checks wired
 
 ### **3. Shadow Testing Infrastructure** ✅
+
 **File:** `scripts/shadow_compare.py`
+
 - Sends same requests to Python + Go
 - Compares outputs via fingerprint
 - Measures parity rate
@@ -32,7 +38,9 @@ Everything you need to **measure, shadow, promote, and rollback** the Go hot pat
 - **Gates:** Parity ≥99%, Improvement ≥20%
 
 ### **4. Load Testing** ✅
+
 **File:** `scripts/k6_load_test.js`
+
 - 50-100 VUs, 5-10 min tests
 - Measures p50/p95/p99
 - Error rate tracking
@@ -40,20 +48,26 @@ Everything you need to **measure, shadow, promote, and rollback** the Go hot pat
 - **Gates:** p95 <2s, errors <1%
 
 ### **5. Shadow Stack** ✅
+
 **File:** `docker-compose.shadow.yml`
+
 - Runs Go services alongside Python
 - No production impact
 - Full OTEL + NATS integration
 - Independent health checks
 
 ### **6. Test Data** ✅
+
 **File:** `seeds/e2e_prompts.jsonl`
+
 - 10 representative prompts
 - Router, RAG, governance, learning queries
 - Ready for parity testing
 
 ### **7. Complete Makefile Automation** ✅
+
 **File:** `Makefile.production` (updated)
+
 - `make go-shadow-up` - Start shadow stack
 - `make go-parity` - Test parity
 - `make go-k6` - Load test
@@ -66,6 +80,7 @@ Everything you need to **measure, shadow, promote, and rollback** the Go hot pat
 ## 🚀 **READY TO USE RIGHT NOW:**
 
 ### **Start Shadow Testing:**
+
 ```bash
 # 1. Start Go services in shadow mode (alongside Python)
 make go-shadow-up
@@ -81,6 +96,7 @@ make go-full-test
 ```
 
 ### **Expected Output:**
+
 ```
 🔬 SHADOW TRAFFIC COMPARISON
 ================================================================================
@@ -123,6 +139,7 @@ Improvement: +20.3%
 ## 📊 **Decision Flow:**
 
 ### **If Gates PASS (Parity ≥99%, p95 ≥20% better):**
+
 ```bash
 # Progressive rollout:
 make go-promote-5      # Week 1: 5% traffic
@@ -137,6 +154,7 @@ make retire-python-gateway
 ```
 
 ### **If Gates FAIL:**
+
 ```bash
 # Keep shadowing, fix issues
 make go-shadow-down
@@ -146,6 +164,7 @@ make go-parity  # Re-test until ≥99%
 ```
 
 ### **Emergency Rollback:**
+
 ```bash
 # One command instant rollback:
 make go-rollback  # 100% → 0% to Python
@@ -156,6 +175,7 @@ make go-rollback  # 100% → 0% to Python
 ## 🎯 **Exit Criteria (Green = Ship):**
 
 ### **Phase 1: Shadow & Validate**
+
 - ✅ Parity ≥ 99% on seed prompts
 - ✅ p95 improved ≥ 20% (k6)
 - ✅ Error rate ≤ 0.3% under 50-100 VUs
@@ -164,6 +184,7 @@ make go-rollback  # 100% → 0% to Python
 - ✅ Rollback verified
 
 ### **Phase 2: Production**
+
 - ✅ 30 days at 100% with no regressions
 - ✅ All SLO gates green
 - ✅ Observability complete
@@ -174,6 +195,7 @@ make go-rollback  # 100% → 0% to Python
 ## 🏗️ **Architecture (After Full Rollout):**
 
 ### **Hot Path (Go):**
+
 ```
 Go Gateway (8081) → Go Router (9115) → Models
      ↓ (gRPC)          ↓ (gRPC)
@@ -181,9 +203,10 @@ Python Governance  Python Judicial
 ```
 
 ### **Flexibility Layer (Python - KEPT!):**
+
 ```
 Python Governance (9110)   - Policy engine, rules, DSLs
-Python Learning (8098)     - Experimentation, A/B tests  
+Python Learning (8098)     - Experimentation, A/B tests
 Python AGI Core (8100)     - Agent logic, rapid iteration
 Python Dev Daemon (8765)   - Auto-context (already great!)
 Python RAG Orchestration   - ML libs, embedding jobs
@@ -196,18 +219,21 @@ Python RAG Orchestration   - ML libs, embedding jobs
 ## 🔥 **Why This Works:**
 
 ### **Python Keeps:**
+
 ✅ Governance - Policy engine (changes weekly)
 ✅ Learning - Experiments (needs ML libs)
 ✅ Agents - Rapid iteration
 ✅ Dev Daemon - Already perfect!
 
 ### **Go Handles:**
+
 ✅ Gateway - SSE streaming, concurrency
 ✅ Router - Hot path, I/O-bound
 ✅ Event bus - NATS producers
 ✅ Lifecycle - Heartbeats, capacity
 
 ### **Benefits:**
+
 ✅ 20-50% latency improvement (Go concurrency)
 ✅ Better SSE backpressure (Go channels)
 ✅ Keep Python flexibility (governance, learning)
@@ -266,6 +292,7 @@ Documentation:
 7. ✅ **Complete automation** (Makefile targets)
 
 **What to do:**
+
 ```bash
 # Shadow test for 30 days:
 make go-shadow-up
@@ -280,9 +307,11 @@ make go-rollback    # Instant safety
 ```
 
 **From:**
+
 - All Python (flexible, slower tail latency)
 
 **To:**
+
 - Go hot path (20-50% faster, better concurrency)
 - Python flexibility (governance, learning, agents)
 - **Best of both worlds!**
@@ -292,4 +321,3 @@ make go-rollback    # Instant safety
 **Surgical. Measured. Gated. Safe. Fast. 🚀💙**
 
 **READY TO PROVE GO HOT PATH IN SHADOW MODE!**
-

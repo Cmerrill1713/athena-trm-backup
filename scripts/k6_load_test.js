@@ -4,8 +4,8 @@
  * 
  * Run: k6 run --vus 50 --duration 5m scripts/k6_load_test.js
  */
-import http from 'k6/http';
 import { check, sleep } from 'k6';
+import http from 'k6/http';
 import { Rate, Trend } from 'k6/metrics';
 
 // Custom metrics
