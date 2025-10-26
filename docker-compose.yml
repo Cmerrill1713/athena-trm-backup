@@ -215,6 +215,66 @@ services:
       - "athena.modality=voice"
 
   # ===========================================================================
+  # ASI SAFETY - AI REPUBLIC GOVERNANCE
+  # ===========================================================================
+
+  ai-republic-judicial:
+    build:
+      context: ./ai_republic/phase2
+      dockerfile: Dockerfile
+    container_name: ai-republic-judicial
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8096:8096"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PORT=8096
+    volumes:
+      - judicial_state:/app/phase2_state
+      - judicial_logs:/app/logs
+    networks:
+      - athena-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8096/v2/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - "athena.service=judicial-enforcement"
+      - "athena.port=8096"
+      - "athena.layer=asi-safety"
+
+  ai-republic-federation:
+    build:
+      context: ./ai_republic/phase3
+      dockerfile: Dockerfile
+    container_name: ai-republic-federation
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8097:8097"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PORT=8097
+    volumes:
+      - federation_state:/app/federation_state
+      - federation_logs:/app/logs
+    networks:
+      - athena-network
+    depends_on:
+      - ai-republic-judicial
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8097/federation/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - "athena.service=federation-gateway"
+      - "athena.port=8097"
+      - "athena.layer=asi-safety"
+
+  # ===========================================================================
   # MCP ECOSYSTEM (Port 8412) - Model Context Protocol Tools
   # ===========================================================================
 
@@ -970,6 +1030,10 @@ volumes:
     name: athena_weaviate_data
     external: true
   whisper_models:
+  judicial_state:
+  judicial_logs:
+  federation_state:
+  federation_logs:
   prometheus_data:
     name: athena_prometheus_data
     external: true

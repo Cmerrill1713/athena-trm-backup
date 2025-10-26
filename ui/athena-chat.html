@@ -395,7 +395,7 @@
     <header>
         <div class="header-left">
             <h1>🤖 Athena AI</h1>
-            <div class="subtitle">Multimodal | Model-Agnostic | Local-First</div>
+            <div class="subtitle">Multimodal | Model-Agnostic | ASI-Safe | Local-First</div>
         </div>
         <div class="header-right">
             <div class="status-panel">
@@ -472,7 +472,9 @@
             'FastVLM': 'http://localhost:8088/health',
             'Kokoro': 'http://localhost:8091/health',
             'Whisper': 'http://localhost:8095/health',
-            'MCP': 'http://localhost:8082/health'
+            'MCP': 'http://localhost:8082/health',
+            'Judicial': 'http://localhost:8096/v2/health',
+            'Federation': 'http://localhost:8097/federation/health'
         };
 
         async function checkAllServices() {
