@@ -288,14 +288,68 @@ async def suggest_context(request: AssistRequest):
     }
 
 @app.post("/assist", response_model=AssistResponse)
-async def assist(request: AssistRequest):
-    """Full assistance: context + LLM answer"""
+async def assist(request: AssistRequest, http_request: Request):
+    """Full assistance: context + LLM answer with governance, tracing, rate limiting, and REP awareness"""
     
     logger.info(f"Assist request for {request.file}, intent: {request.intent}")
     
-    # 1. Gather context
-    ctx_response = await suggest_context(request)
-    snippets = ctx_response["snippets"]
+    # Import all governance, tracing, rate limiting, REP awareness
+    from governance_middleware import governance_gate, capture_editor_context, estimate_plan, emit_audit_event
+    from tracing import ensure_trace, create_span
+    from events_state import emit_ctx_requested, emit_ctx_served, update_user_state
+    from rate_limiter import check_rate_limit, release_rate_limit
+    from rep_awareness import adapt_to_clustering, apply_rep_strategy
+    import time
+    
+    start_time = time.time()
+    
+    # Extract user for rate limiting
+    user_id = "christian"  # TODO: Extract from auth token
+    
+    try:
+        # 0a. Rate Limiting: Check before processing
+        await check_rate_limit(user_id, "/assist")
+    
+    # 0. Tracing: Ensure we have a trace ID
+    trace_id = ensure_trace(dict(http_request.headers))
+    
+    with create_span(trace_id, "dev.assist") as span:
+        # 1. Governance: Check authorization before spending
+        ctx = capture_editor_context(request, http_request)
+        decision = estimate_plan(request)
+        
+        span.set_attribute("user", ctx.get("user"))
+        span.set_attribute("file", ctx.get("file"))
+        span.set_attribute("intent", ctx.get("intent"))
+        
+        try:
+            gov_result = await governance_gate("dev.assist", decision, ctx)
+            span.set_attribute("governance.approved", True)
+            span.set_attribute("governance.decision_id", gov_result.get("decision_id"))
+        except Exception as e:
+            span.set_attribute("governance.approved", False)
+            logger.error(f"Governance denied: {e}")
+            raise
+        
+        # 2. Events: Emit context requested
+        await emit_ctx_requested(ctx, decision, trace_id)
+        
+        # 3. REP Awareness: Adapt to clustering
+        rep_strategy = await adapt_to_clustering()
+        adjusted_config = await apply_rep_strategy(rep_strategy, config)
+        
+        span.set_attribute("rep.strategy", rep_strategy["strategy"])
+        span.set_attribute("rep.clustering_factor", rep_strategy.get("clustering_factor", 0.0))
+        
+        # 4. Gather context (with REP-adjusted config)
+        ctx_response = await suggest_context(request)
+        snippets = ctx_response["snippets"]
+        
+        # Apply REP topK limit if needed
+        if adjusted_config.get("max_snippets"):
+            snippets = snippets[:adjusted_config["max_snippets"]]
+        
+        span.set_attribute("snippets.count", len(snippets))
     
     # 2. Build prompt with context
     context_text = "# Relevant Code Context:\n\n"
@@ -341,6 +395,31 @@ async def assist(request: AssistRequest):
             result = response.json()
             answer = result["choices"][0]["message"]["content"]
             
+            # Calculate latency
+            latency_ms = (time.time() - start_time) * 1000
+            span.set_attribute("latency_ms", latency_ms)
+            
+            # 5. Events: Emit context served
+            await emit_ctx_served(trace_id, len(snippets), latency_ms)
+            
+            # 6. State: Update user activity in etcd
+            await update_user_state(ctx.get("user", "unknown"), {
+                "files": [request.file],
+                "intent": request.intent,
+                "latency_ms": latency_ms,
+                "snippets_count": len(snippets),
+                "total_requests": 1  # TODO: Track cumulative
+            })
+            
+            # 7. Audit: Emit completion event
+            await emit_audit_event("athena.dev.assist.completed", {
+                "trace_id": trace_id,
+                "user": ctx.get("user"),
+                "latency_ms": latency_ms,
+                "snippets_count": len(snippets),
+                "success": True
+            })
+            
             return AssistResponse(
                 snippets=snippets,
                 summary=answer,
@@ -348,9 +427,25 @@ async def assist(request: AssistRequest):
                 nextActions=[]  # TODO: Parse answer for suggested actions
             )
     
+    except HTTPException:
+        # Re-raise HTTP exceptions (rate limits, governance denials)
+        raise
+    
     except Exception as e:
         logger.error(f"Athena call failed: {e}")
+        
+        # Audit failure
+        await emit_audit_event("athena.dev.assist.failed", {
+            "trace_id": trace_id,
+            "user": ctx.get("user", "unknown"),
+            "error": str(e)
+        })
+        
         raise HTTPException(status_code=500, detail=f"Athena unavailable: {str(e)}")
+    
+    finally:
+        # Always release rate limit slot
+        release_rate_limit(user_id)
 
 @app.post("/index/rebuild")
 async def rebuild_index():

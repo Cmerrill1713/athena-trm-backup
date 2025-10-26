@@ -2,8 +2,8 @@
  * Athena VS Code/Cursor Adapter
  * Ultra-thin adapter that forwards to athena-devd
  */
-import * as vscode from 'vscode';
 import fetch from 'node-fetch';
+import * as vscode from 'vscode';
 
 const ATHENA_URL = 'http://localhost:8765';
 

@@ -11,43 +11,51 @@ Athena is now a **universal, editor-agnostic coding copilot** that automatically
 ## 📦 **What We Built:**
 
 ### **1. Athena Dev Daemon** 🤖
+
 - **Service:** `athena-devd`
-- **Port:** `http://localhost:8765`  
+- **Port:** `http://localhost:8765`
 - **Status:** ✅ Running in Docker
 
 **Capabilities:**
+
 - Watches your repo for file changes in real-time
 - Auto-gathers context using **ripgrep + git + semantic search**
 - Returns 6-8 perfect code snippets with file citations
 - Ranks by: exactness, freshness, locality, diagnostics
 
 **APIs:**
+
 - `POST /assist` - Full answer with Athena AI
-- `POST /ctx/suggest` - Just context snippets  
+- `POST /ctx/suggest` - Just context snippets
 - `GET /healthz` - Health check
 
 ---
 
-### **2. Ultra-Thin Adapters** ⚡  
+### **2. Ultra-Thin Adapters** ⚡
+
 **30-100 lines each. Zero prompt engineering per tool!**
 
 #### **Terminal (Works Now!):**
+
 ```bash
 athena-assist "why is routing failing?"
 ```
 
 #### **VS Code / Cursor:**
+
 - File: `.athena/adapters/vscode-cursor.ts`
 - Keybinding: `Cmd+K` → `Cmd+A`
 - Shows answer + clickable file links
 
 #### **Neovim:**
+
 - File: `.athena/adapters/neovim.lua`
 - Install: `cp .athena/adapters/neovim.lua ~/.config/nvim/lua/athena.lua`
 - Add to `init.lua`: `require('athena').setup()`
 - Use: `<leader>aa`
 
 #### **JetBrains (IntelliJ, PyCharm):**
+
 - Create HTTP Request action
 - POST to `http://localhost:8765/assist`
 - Display in tool window
@@ -57,6 +65,7 @@ athena-assist "why is routing failing?"
 ### **3. Smart Configuration** ⚙️
 
 #### **.athena/config.yml:**
+
 ```yaml
 context:
   max_snippets: 8
@@ -65,10 +74,11 @@ context:
 
 athena:
   api_url: "http://localhost:8080/v1/chat/completions"
-  temperature: 0.3  # Lower for code
+  temperature: 0.3 # Lower for code
 ```
 
 #### **.athena/ignore:**
+
 ```
 archive/**
 node_modules/**
@@ -82,16 +92,19 @@ volumes/**
 ## 🚀 **Quick Start:**
 
 ### **Start Daemon:**
+
 ```bash
 make athena-up
 ```
 
 ### **Test from Terminal:**
+
 ```bash
 athena-assist "explain the router service"
 ```
 
 ### **Expected Output:**
+
 ```
 🤖 Athena is thinking...
 
@@ -129,6 +142,7 @@ make athena-hook-install  # Install git hooks
 ## 🎓 **How It Works:**
 
 ### **User Flow:**
+
 1. You select code or get an error
 2. Adapter sends `{file, selection, diagnostics, git}` to daemon
 3. Daemon gathers context:
@@ -190,6 +204,7 @@ Integration:
 ## 🔥 **Why This Is Revolutionary:**
 
 ### **Before:**
+
 - ❌ Copy/paste code into chat
 - ❌ Manually select relevant files
 - ❌ Different prompts for each tool
@@ -197,6 +212,7 @@ Integration:
 - ❌ No file citations
 
 ### **After:**
+
 - ✅ Auto-gathers perfect context
 - ✅ Works in ANY editor
 - ✅ Same workflow everywhere
@@ -208,6 +224,7 @@ Integration:
 ## 🎯 **Use Cases:**
 
 ### **1. Fix Errors:**
+
 ```bash
 # See error in VS Code
 # Select error line
@@ -216,12 +233,14 @@ Integration:
 ```
 
 ### **2. Understand Code:**
+
 ```bash
 athena-assist "how does the router choose models?"
 # Returns: Citations to router logic + explanation
 ```
 
 ### **3. Test Failures:**
+
 ```bash
 # Paste test output
 athena-assist "why is test_rag_route failing?"
@@ -229,6 +248,7 @@ athena-assist "why is test_rag_route failing?"
 ```
 
 ### **4. Refactoring:**
+
 ```bash
 # Select function
 # Cmd+K Cmd+A with query: "optimize this"
@@ -250,11 +270,13 @@ athena-assist "why is test_rag_route failing?"
 ## 📈 **Next Steps:**
 
 ### **For Users:**
+
 1. ✅ Terminal works now
 2. Install VS Code adapter (copy + compile)
 3. Install Neovim adapter (copy to config)
 
 ### **For System:**
+
 1. Add semantic search (when needed)
 2. Add tree-sitter for better symbol parsing
 3. Add LSP bridge for IDE integration

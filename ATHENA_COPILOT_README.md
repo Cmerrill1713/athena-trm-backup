@@ -7,6 +7,7 @@
 ## 🎯 **What This Is**
 
 Athena is now a **universal coding copilot** that works with:
+
 - ✅ VS Code / Cursor
 - ✅ Neovim / Vim
 - ✅ JetBrains (IntelliJ, PyCharm, etc.)
@@ -14,6 +15,7 @@ Athena is now a **universal coding copilot** that works with:
 - ✅ Terminal / CLI
 
 **No more hand-curating prompts!** Athena automatically:
+
 - Watches your repo for changes
 - Gathers relevant code context
 - Uses ripgrep, ctags, and semantic search
@@ -24,6 +26,7 @@ Athena is now a **universal coding copilot** that works with:
 ## 🚀 **Quick Start**
 
 ### **1. Start Athena Daemon**
+
 ```bash
 make athena-up
 ```
@@ -31,16 +34,19 @@ make athena-up
 ### **2. Use from Your Editor**
 
 **Terminal (works everywhere):**
+
 ```bash
 athena-assist "why is the router failing?"
 ```
 
 **VS Code/Cursor:**
+
 1. Select code
 2. Press `Cmd+K` then `Cmd+A`
 3. Athena answers with citations
 
 **Neovim:**
+
 1. Select code
 2. Press `<leader>aa`
 3. Answer opens in split
@@ -50,18 +56,21 @@ athena-assist "why is the router failing?"
 ## 📋 **How It Works**
 
 ### **The Daemon (athena-devd):**
+
 - Runs on `http://localhost:8765`
 - Watches your repo for file changes
 - Maintains a code context graph
 - Provides `/assist` and `/ctx/suggest` APIs
 
 ### **The Adapters:**
+
 - Ultra-thin (30-100 lines each)
 - Forward context to daemon
 - Display answers with citations
 - **No per-editor prompt engineering!**
 
 ### **Context Gathering:**
+
 1. **Ripgrep** - Exact text matches
 2. **Ctags** - Symbol definitions & references
 3. **Semantic** - Similar code via embeddings
@@ -75,12 +84,14 @@ athena-assist "why is the router failing?"
 ## 🛠️ **Installation**
 
 ### **Terminal (works immediately):**
+
 ```bash
 make athena-up
 athena-assist "your question"
 ```
 
 ### **VS Code/Cursor:**
+
 ```bash
 # Install adapter
 cd .athena/adapters
@@ -94,6 +105,7 @@ tsc vscode-cursor.ts
 ```
 
 ### **Neovim:**
+
 ```bash
 # Copy adapter
 cp .athena/adapters/neovim.lua ~/.config/nvim/lua/athena.lua
@@ -105,6 +117,7 @@ require('athena').setup()
 ```
 
 ### **JetBrains:**
+
 ```bash
 # Create HTTP Request action
 # POST to http://localhost:8765/assist
@@ -118,14 +131,15 @@ require('athena').setup()
 ### **POST /assist**
 
 **Request:**
+
 ```json
 {
   "repoRoot": "/path/to/repo",
   "file": "services/router/app.py",
-  "cursor": {"line": 132, "col": 8},
-  "selection": {"start": 100, "end": 150},
+  "cursor": { "line": 132, "col": 8 },
+  "selection": { "start": 100, "end": 150 },
   "diagnostics": [
-    {"file": "app.py", "line": 88, "msg": "NameError: func not defined"}
+    { "file": "app.py", "line": 88, "msg": "NameError: func not defined" }
   ],
   "intent": "explain-and-fix",
   "query": "why is this failing?"
@@ -133,6 +147,7 @@ require('athena').setup()
 ```
 
 **Response:**
+
 ```json
 {
   "snippets": [
@@ -167,18 +182,19 @@ Health check for adapters to detect daemon.
 
 ```yaml
 context:
-  max_snippets: 8           # How many code snippets to return
+  max_snippets: 8 # How many code snippets to return
   max_lines_per_snippet: 300
-  recent_days: 90           # Freshness window
+  recent_days: 90 # Freshness window
 
 athena:
   api_url: "http://localhost:8080/v1/chat/completions"
-  temperature: 0.3          # Lower for code (less creative)
+  temperature: 0.3 # Lower for code (less creative)
 ```
 
 **File:** `.athena/ignore`
 
 Like `.gitignore` but for code context:
+
 ```
 archive/**
 node_modules/**
@@ -192,6 +208,7 @@ volumes/**
 ## 🎯 **Use Cases**
 
 ### **1. Fix Errors**
+
 ```bash
 # See error in VS Code
 # Select error line
@@ -200,12 +217,14 @@ volumes/**
 ```
 
 ### **2. Understand Code**
+
 ```bash
 athena-assist "how does the router choose models?"
 # Returns: Citations to router logic + explanation
 ```
 
 ### **3. Test Failures**
+
 ```bash
 # Paste test output
 athena-assist "why is test_rag_route failing?"
@@ -213,6 +232,7 @@ athena-assist "why is test_rag_route failing?"
 ```
 
 ### **4. Refactoring**
+
 ```bash
 # Select function
 # Cmd+K Cmd+A with query: "optimize this"
@@ -224,16 +244,19 @@ athena-assist "why is test_rag_route failing?"
 ## 🔧 **Maintenance**
 
 ### **Rebuild Index:**
+
 ```bash
 make athena-index
 ```
 
 ### **Check Status:**
+
 ```bash
 curl http://localhost:8765/healthz
 ```
 
 ### **Logs:**
+
 ```bash
 docker logs athena-devd --tail 50
 ```
@@ -263,6 +286,7 @@ docker logs athena-devd --tail 50
 ```
 
 **Flow:**
+
 1. You select code or get error
 2. Adapter sends context to daemon
 3. Daemon gathers snippets (ripgrep + ctags + semantic)
@@ -294,4 +318,3 @@ docker logs athena-devd --tail 50
 - API docs: `http://localhost:8765/docs`
 
 **Athena is now your universal coding companion! 💙**
-
