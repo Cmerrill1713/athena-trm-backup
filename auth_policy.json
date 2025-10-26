@@ -1,0 +1,27 @@
+{
+  "public_endpoints": [
+    "/health",
+    "/metrics",
+    "/ready",
+    "/version"
+  ],
+  "token_required": [
+    "/v1/chat/completions",
+    "/api/tasks/*",
+    "/api/users/*",
+    "/v1/feedback",
+    "/tool/*"
+  ],
+  "mtls_required": [
+    "/v1/learning/trigger",
+    "/v2/judicial/adjudicate",
+    "/reload-policy",
+    "/remediate",
+    "/federation/*"
+  ],
+  "cors_allowed_origins": [
+    "http://localhost:8082",
+    "http://127.0.0.1:8082",
+    "https://athena.local"
+  ]
+}

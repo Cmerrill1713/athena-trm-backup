@@ -1,0 +1,53 @@
+name,type,owner,service,status,risk,slo_latency_ms,slo_error_pct,auth,rate_limit,deps,has_metrics,has_tests,notes
+/v1/chat/completions,endpoint,christian,athena-uai,prod,P0,500,0.1,public,60,"router,weaviate,postgres",True,True,"Main chat with personality, RAG, learning"
+/health,endpoint,christian,athena-uai,prod,P2,50,0.01,public,,none,True,True,Health check
+/api/tasks/,endpoint,christian,athena-uai,prod,P1,200,0.5,token,120,postgres,True,True,Family task management
+/api/users/,endpoint,christian,athena-uai,prod,P1,200,0.5,token,120,postgres,True,True,Family user management
+/v1/feedback,endpoint,christian,athena-uai,prod,P1,100,1.0,public,60,"postgres,learning",True,True,User feedback (👍👎)
+/api/tts/speak,endpoint,christian,athena-uai,prod,P1,800,2.0,public,30,kokoro,True,True,TTS proxy
+/api/tts/voices,endpoint,christian,athena-uai,prod,P2,50,0.1,public,,none,True,True,List TTS voices
+/v1/feedback/stats,endpoint,christian,athena-uai,beta,P2,200,1.0,token,120,postgres,True,False,Feedback analytics
+/metrics,endpoint,system,athena-uai,prod,P2,100,0.1,public,,none,True,True,Prometheus metrics
+/route,endpoint,christian,athena-router,prod,P0,300,0.5,public,120,"ollama,mlx,judicial",True,True,Intelligent routing
+/health,endpoint,system,athena-router,prod,P2,50,0.01,public,,"ollama,mlx,fastvlm,kokoro",True,True,Provider health
+/canary,endpoint,christian,athena-router,prod,P1,100,0.1,token,,none,True,True,Canary deployment status
+/ready,endpoint,system,athena-router,prod,P2,50,0.01,public,,none,True,True,Readiness check
+/reload-policy,endpoint,christian,athena-router,prod,P1,200,0.5,mTLS,10,none,True,False,Hot reload routing policy
+/version,endpoint,system,athena-router,prod,P2,50,0.01,public,,none,True,True,Version info
+/v1/learning/trigger,endpoint,christian,athena-learning,prod,P1,1000,1.0,mTLS,10,"postgres,agi-core,judicial",True,True,Trigger learning cycle
+/v1/learning/history,endpoint,christian,athena-learning,prod,P2,200,0.5,token,60,postgres,True,True,Learning history
+/v1/feedback/analyze,endpoint,christian,athena-learning,prod,P1,500,1.0,mTLS,30,postgres,True,True,Analyze user feedback
+/tool/web_search,endpoint,christian,athena-mcp-ecosystem,prod,P1,2000,2.0,token,30,duckduckgo,True,True,Web search via DuckDuckGo
+/tool/arxiv_search,endpoint,christian,athena-mcp-ecosystem,prod,P1,2000,2.0,token,30,arxiv,True,True,Academic paper search
+/tool/filesystem_read,endpoint,christian,athena-mcp-ecosystem,beta,P1,100,0.5,mTLS,60,host-filesystem,True,False,Read files (sandboxed)
+/transcribe,endpoint,christian,athena-whisper,prod,P1,3000,2.0,public,20,whisper-model,True,True,Speech-to-text
+/analyze,endpoint,christian,athena-fastvlm,beta,P1,2000,2.0,public,20,fastvlm-model,True,False,Image analysis (placeholder)
+/synthesize,endpoint,christian,athena-kokoro,beta,P1,1000,2.0,public,30,torch,False,False,Text-to-speech (needs kokoro lib)
+/v2/health,endpoint,system,ai-republic-judicial,prod,P0,50,0.01,public,,none,True,True,Judicial health
+/v2/judicial/adjudicate,endpoint,christian,ai-republic-judicial,prod,P0,200,0.5,mTLS,120,postgres,True,True,AI decision oversight
+/federation/health,endpoint,system,ai-republic-federation,prod,P0,50,0.01,public,,none,True,True,Federation health
+/federation/disputes,endpoint,christian,ai-republic-federation,beta,P1,300,1.0,mTLS,30,postgres,True,False,Multi-sovereign disputes
+/health,endpoint,system,governance-orchestrator,prod,P1,50,0.01,public,,none,True,True,Governance health
+/metrics,endpoint,system,governance-metrics-exporter,prod,P1,100,0.1,public,,none,True,True,Governance metrics
+Grafana,service,system,athena-grafana,prod,P1,,,token,,prometheus,True,True,Metrics visualization
+Prometheus,service,system,athena-prometheus,prod,P0,,,public,,exporters,True,True,Metrics collection
+Alertmanager,service,system,athena-alertmanager,prod,P1,,,public,,prometheus,True,True,Alert management
+/health,endpoint,system,agi-core,prod,P1,50,0.01,public,,"redis,postgres",True,True,AGI Core health
+/tools,endpoint,christian,agi-core,prod,P1,100,0.5,mTLS,60,none,True,True,List AGI tools
+/status,endpoint,christian,athena-autonomous,prod,P1,100,0.5,mTLS,60,none,True,True,Autonomous orchestrator status
+postgres:agent_insights,schema,christian,athena-postgres,prod,P0,,,internal,,none,False,True,PostgreSQL table: agent_insights
+postgres:conversation_history,schema,christian,athena-postgres,prod,P0,,,internal,,none,False,True,PostgreSQL table: conversation_history
+postgres:learning_cycles,schema,christian,athena-postgres,prod,P0,,,internal,,none,False,True,PostgreSQL table: learning_cycles
+postgres:learning_recommendations,schema,christian,athena-postgres,prod,P0,,,internal,,none,False,True,PostgreSQL table: learning_recommendations
+postgres:model_performance,schema,christian,athena-postgres,prod,P0,,,internal,,none,False,True,PostgreSQL table: model_performance
+postgres:routing_decisions,schema,christian,athena-postgres,prod,P0,,,internal,,none,False,True,PostgreSQL table: routing_decisions
+postgres:task_history,schema,christian,athena-postgres,prod,P0,,,internal,,none,False,True,PostgreSQL table: task_history
+postgres:user_feedback,schema,christian,athena-postgres,prod,P0,,,internal,,none,False,True,PostgreSQL table: user_feedback
+postgres:user_preferences,schema,christian,athena-postgres,prod,P0,,,internal,,none,False,True,PostgreSQL table: user_preferences
+weaviate:AIAgentLog,schema,christian,athena-weaviate,prod,P0,,,internal,,none,False,True,Weaviate class: AIAgentLog
+weaviate:AIContext,schema,christian,athena-weaviate,prod,P0,,,internal,,none,False,True,Weaviate class: AIContext
+weaviate:AICustomTool,schema,christian,athena-weaviate,prod,P0,,,internal,,none,False,True,Weaviate class: AICustomTool
+weaviate:AIMemory,schema,christian,athena-weaviate,prod,P0,,,internal,,none,False,True,Weaviate class: AIMemory
+weaviate:Docs,schema,christian,athena-weaviate,prod,P0,,,internal,,none,False,True,Weaviate class: Docs
+weaviate:DocsV2,schema,christian,athena-weaviate,prod,P0,,,internal,,none,False,True,Weaviate class: DocsV2
+weaviate:LearnedPattern,schema,christian,athena-weaviate,prod,P0,,,internal,,none,False,True,Weaviate class: LearnedPattern

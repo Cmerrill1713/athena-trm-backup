@@ -1,0 +1,272 @@
+[
+  {
+    "path": "/api/security/encrypt",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Use TLS",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/api/security/detect_pii",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Use Presidio directly",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/v1/rag/historical",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Use /v1/chat/completions with RAG",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/respond",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Duplicate of /route",
+    "alternative": "/route",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/federation/register",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Contact admin",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/federation/sync",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Automatic sync",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/federation/consensus",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Judicial adjudicate",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/federation/vote",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Judicial adjudicate",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/federation/reputation/*",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Coming soon",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/v2/adjudicate",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Wrong path",
+    "alternative": "/v2/judicial/adjudicate",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/v2/audit",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Check logs",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/tool/calculator",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Ask in chat",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/tool/wikipedia_search",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Use web_search",
+    "alternative": "/tool/web_search",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/calendar/add_event",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "AppleScript in Docker fails",
+    "alternative": "Use MCP calendar_add proxy",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/calendar/list_events",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "AppleScript in Docker fails",
+    "alternative": "Use MCP proxy",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/reminders/add",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "AppleScript in Docker fails",
+    "alternative": "Use MCP proxy",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/notes/create",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "AppleScript in Docker fails",
+    "alternative": "Use MCP proxy",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/messages/send",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "AppleScript in Docker fails",
+    "alternative": "Use MCP proxy",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/app/launch",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "AppleScript in Docker fails",
+    "alternative": "Use MCP proxy",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/app/install",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "AppleScript in Docker fails",
+    "alternative": "Use MCP proxy",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/execute",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Use /tools",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/workflows",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Coming soon",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/remediate",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Auto-remediation active",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/v1/learning/status",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Use /health",
+    "alternative": "/health",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/v1/learning/metrics",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Use /metrics",
+    "alternative": "/metrics",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/policies",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Contact admin",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  },
+  {
+    "path": "/evaluate",
+    "service": "multiple",
+    "status": "deprecated",
+    "http_code": 410,
+    "reason": "Not implemented",
+    "alternative": "Automatic evaluation",
+    "sunset_date": "2025-11-26",
+    "contact": "christian@athena"
+  }
+]

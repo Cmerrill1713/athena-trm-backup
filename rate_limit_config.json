@@ -1,0 +1,40 @@
+{
+  "global_burst": 120,
+  "global_sustained": 60,
+  "per_endpoint": {
+    "/v1/chat/completions": {
+      "burst": 60,
+      "sustained": 30
+    },
+    "/route": {
+      "burst": 120,
+      "sustained": 60
+    },
+    "/v1/learning/trigger": {
+      "burst": 10,
+      "sustained": 5
+    },
+    "/tool/web_search": {
+      "burst": 30,
+      "sustained": 15
+    },
+    "/synthesize": {
+      "burst": 30,
+      "sustained": 15
+    },
+    "/transcribe": {
+      "burst": 20,
+      "sustained": 10
+    }
+  },
+  "per_key_limits": {
+    "family": {
+      "burst": 120,
+      "sustained": 60
+    },
+    "guest": {
+      "burst": 30,
+      "sustained": 15
+    }
+  }
+}
