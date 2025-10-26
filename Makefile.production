@@ -108,3 +108,71 @@ help-production:  ## Show production workflow
 	@echo "Emergency:"
 	@echo "  make canary-rollback - Instant rollback"
 
+
+# ============================================================================
+# ATHENA DEV DAEMON (Universal Copilot)
+# ============================================================================
+
+athena-up:  ## Start Athena dev daemon
+	@echo "🤖 Starting Athena Dev Daemon..."
+	@docker-compose up -d athena-devd
+	@sleep 3
+	@curl -s http://localhost:8765/healthz | jq .
+	@echo "✅ Athena daemon ready at http://localhost:8765"
+
+athena-index:  ## Rebuild code index
+	@echo "📚 Rebuilding code index..."
+	@curl -s -X POST http://localhost:8765/index/rebuild | jq .
+	@echo "✅ Index rebuild started"
+
+athena-assist:  ## Test Athena from terminal
+	@echo "🤖 Testing Athena assist..."
+	@./.athena/adapters/terminal.sh "explain the router service"
+
+athena-hook-install:  ## Install git hooks
+	@echo "🪝 Installing Athena git hooks..."
+	@mkdir -p .git/hooks
+	@echo '#!/bin/bash' > .git/hooks/pre-commit
+	@echo 'make ship-check' >> .git/hooks/pre-commit
+	@chmod +x .git/hooks/pre-commit
+	@echo "✅ Pre-commit hook installed"
+
+athena-adapter-vscode:  ## Show VS Code adapter installation
+	@echo "📦 VS Code/Cursor Adapter"
+	@echo ""
+	@echo "1. Open VS Code/Cursor in this repo"
+	@echo "2. Install dependencies:"
+	@echo "   cd .athena/adapters && npm init -y && npm install node-fetch"
+	@echo "3. Compile: tsc vscode-cursor.ts"
+	@echo "4. Add keybinding: Cmd+K Cmd+A → athena.explainAndFix"
+	@echo ""
+	@echo "Or just use terminal: make athena-assist"
+
+athena-adapter-neovim:  ## Show Neovim adapter installation
+	@echo "📦 Neovim Adapter"
+	@echo ""
+	@echo "Add to your init.lua or init.vim:"
+	@echo '  require("athena").setup()'
+	@echo ""
+	@echo "Copy neovim.lua to:"
+	@echo "  ~/.config/nvim/lua/athena.lua"
+	@echo ""
+	@echo "Then use: <leader>aa to call Athena"
+
+help-athena:  ## Show Athena copilot help
+	@echo "🤖 ATHENA UNIVERSAL COPILOT"
+	@echo ""
+	@echo "Start daemon:"
+	@echo "  make athena-up           - Start background daemon"
+	@echo ""
+	@echo "Use from editors:"
+	@echo "  VS Code/Cursor: Cmd+K Cmd+A"
+	@echo "  Neovim: <leader>aa"
+	@echo "  Terminal: athena-assist 'your question'"
+	@echo ""
+	@echo "Maintenance:"
+	@echo "  make athena-index        - Rebuild code index"
+	@echo "  make athena-hook-install - Install git hooks"
+	@echo ""
+	@echo "See: ATHENA_COPILOT_README.md"
+

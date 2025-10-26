@@ -1,0 +1,83 @@
+# Athena Context Ignore
+# Exclude these from code context gathering
+
+# Archives & releases
+archive/**
+releases/**
+.archive/**
+
+# Assets & media
+assets/**/*
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.pdf
+*.zip
+*.tar
+*.tar.gz
+*.dylib
+*.so
+*.dll
+
+# Build artifacts
+node_modules/**
+dist/**
+build/**
+.venv/**
+venv/**
+__pycache__/**
+*.pyc
+*.pyo
+*.egg-info/**
+.mypy_cache/**
+.pytest_cache/**
+.tox/**
+target/**
+*.o
+*.a
+
+# Data & models
+volumes/**
+datasets/**
+models/**
+data/**
+*.gguf
+*.bin
+*.safetensors
+*.onnx
+
+# Vendor & dependencies
+vendor/**
+.pnpm/**
+.yarn/**
+
+# Compiled/minified
+*.min.js
+*.min.css
+*.map
+*.wasm
+
+# Large config files
+governance/legislative/policy_compiler/**
+
+# Git internals
+.git/**
+.github/workflows/**
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.key
+*.pem
+*.crt
+.env
+.env.*
+secrets/**
+
+# Logs
+*.log
+logs/**
+

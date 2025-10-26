@@ -1115,6 +1115,43 @@ services:
       - "athena.port=8098"
       - "athena.layer=autonomous"
 
+  # ===========================================================================
+  # ATHENA DEV DAEMON - Universal Editor Copilot
+  # ===========================================================================
+
+  athena-devd:
+    build:
+      context: ./services/athena-devd
+      dockerfile: Dockerfile
+    container_name: athena-devd
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8765:8765"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - ATHENA_REPO_ROOT=/workspace
+      - ATHENA_API_URL=http://athena-uai:8080/v1/chat/completions
+      - WEAVIATE_URL=http://athena-weaviate:8080
+    volumes:
+      - .:/workspace:rw
+      - ./.athena:/workspace/.athena:rw
+      - ./artifacts:/workspace/artifacts:rw
+    networks:
+      - athena-network
+    depends_on:
+      - uai
+      - athena-weaviate
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8765/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    labels:
+      - "athena.service=dev-daemon"
+      - "athena.port=8765"
+      - "athena.layer=developer-tools"
+
 # =============================================================================
 # VOLUMES
 # =============================================================================

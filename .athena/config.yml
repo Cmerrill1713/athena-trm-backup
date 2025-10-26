@@ -1,0 +1,77 @@
+# Athena Dev Daemon Configuration
+
+# Server settings
+server:
+  http_port: 8765
+  unix_socket: .athena/sockets/athena.sock
+  host: 127.0.0.1  # localhost only for security
+
+# Context gathering
+context:
+  max_snippets: 8
+  max_lines_per_snippet: 300
+  token_budget: 16000  # ~4k tokens per snippet
+  
+  # Ranking weights
+  weights:
+    exact_match: 1.0
+    symbol_match: 0.8
+    semantic_match: 0.6
+    freshness_boost: 0.3  # Files changed in last 90 days
+    locality_boost: 0.2   # Same folder/service
+    diagnostic_boost: 0.4 # Files with errors
+  
+  # Freshness window
+  recent_days: 90
+
+# Indexing
+indexing:
+  semantic_model: "all-MiniLM-L6-v2"  # Fast, offline
+  weaviate_url: "http://localhost:8090"
+  rebuild_on_startup: false
+  watch_enabled: true
+  
+  # What to index
+  include_extensions:
+    - .py
+    - .go
+    - .rs
+    - .js
+    - .ts
+    - .tsx
+    - .swift
+    - .md
+    - .yaml
+    - .yml
+    - .sql
+  
+  # Chunk size for semantic index
+  chunk_lines: 50
+  chunk_overlap: 10
+
+# Tools integration
+tools:
+  ctags_enabled: true
+  ripgrep_enabled: true
+  tree_sitter_enabled: false  # Optional, requires setup
+  git_enabled: true
+
+# Privacy
+privacy:
+  offline_only: true
+  strip_secrets: true
+  respect_gitignore: true
+  respect_athena_ignore: true
+
+# Athena backend
+athena:
+  api_url: "http://localhost:8080/v1/chat/completions"
+  model: "athena-dev"  # Router will choose best
+  temperature: 0.3  # Lower for code
+  max_tokens: 2000
+
+# Logging
+logging:
+  level: "INFO"
+  file: "artifacts/athena-devd.log"
+
