@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Athena">
+    <meta name="theme-color" content="#4a9eff">
+    <title>Athena RAG — Local Chat</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0f0f0f;
+            --surface: #1a1a1a;
+            --border: #333;
+            --text: #e8e8e8;
+            --text-dim: #888;
+            --primary: #4a9eff;
+            --primary-hover: #6bb0ff;
+            --user-bg: #2a4a7c;
+            --assistant-bg: #1a3a1a;
+            --code-bg: #2d2d2d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .toggle-label {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-right: 0.5rem;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .model-selector {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        select {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+        }
+
+        select:hover {
+            border-color: var(--primary);
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .message {
+            display: flex;
+            gap: 1rem;
+            max-width: 800px;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message.assistant {
+            align-self: flex-start;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .message.user .avatar {
+            background: var(--user-bg);
+        }
+
+        .message.assistant .avatar {
+            background: var(--assistant-bg);
+        }
+
+        .content {
+            background: var(--surface);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .message.user .content {
+            background: var(--user-bg);
+        }
+
+        .message.assistant .content {
+            background: var(--code-bg);
+        }
+
+        .input-container {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 1rem;
+        }
+
+        .input-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        textarea {
+            flex: 1;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: none;
+            min-height: 52px;
+            max-height: 200px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover:not(:disabled) {
+            background: var(--primary-hover);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .status {
+            font-size: 0.875rem;
+            color: var(--text-dim);
+        }
+
+        .status.connected {
+            color: #4ade80;
+        }
+
+        .status.error {
+            color: #f87171;
+        }
+
+        code {
+            background: var(--code-bg);
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875em;
+        }
+
+        pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 0.5rem 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .typing {
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>🤖 Athena RAG — Local Knowledge Chat</h1>
+            <div class="status" id="status">Connecting...</div>
+        </div>
+        <div class="model-selector">
+            <label for="model">Model:</label>
+            <select id="model">
+                <option value="athena-rag" selected>athena-rag (Semantic Search)</option>
+                <option value="athena-chat">athena-chat (Conversational)</option>
+                <option value="athena-hybrid">athena-hybrid (BM25 + Semantic)</option>
+            </select>
+        </div>
+    </header>
+
+    <div class="chat-container" id="chat"></div>
+
+    <div class="input-container">
+        <div class="input-wrapper">
+            <textarea 
+                id="input" 
+                placeholder="Ask me anything about your knowledge base..."
+                rows="1"
+            ></textarea>
+            <button id="send" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const BASE = 'http://localhost:8080/v1';
+        const chatContainer = document.getElementById('chat');
+        const input = document.getElementById('input');
+        const sendButton = document.getElementById('send');
+        const modelSelect = document.getElementById('model');
+        const status = document.getElementById('status');
+
+        let messages = [];
+
+        // Check health on load
+        async function checkHealth() {
+            try {
+                const res = await fetch(`http://localhost:8080/health`);
+                if (res.ok) {
+                    const data = await res.json();
+                    status.textContent = `✅ Connected (${data.service})`;
+                    status.className = 'status connected';
+                } else {
+                    status.textContent = '⚠️ API unhealthy';
+                    status.className = 'status error';
+                }
+            } catch (e) {
+                status.textContent = '❌ Cannot reach API (start services with docker-compose)';
+                status.className = 'status error';
+            }
+        }
+
+        checkHealth();
+        setInterval(checkHealth, 30000); // Check every 30s
+
+        // Expose for console testing
+        window.sendOnce = async function(prompt, model='athena-rag') {
+            const r = await fetch(`${BASE}/chat/completions`, {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({ model, messages:[{role:'user', content: prompt}], temperature: 0 })
+            });
+            const j = await r.json();
+            return j.choices?.[0]?.message?.content ?? '(no reply)';
+        };
+
+        // Expose streaming for console testing
+        window.sendStream = async function(prompt, model='athena-rag', onChunk) {
+            console.log('sendStream called with:', prompt, model); // Debug log
+            
+            try {
+                const r = await fetch(`${BASE}/chat/completions`, {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({ 
+                        model, 
+                        stream: false, // Disable streaming for now
+                        messages:[{role:'user', content: prompt}],
+                        max_tokens: 500
+                    })
+                });
+                
+                console.log('Stream response status:', r.status); // Debug log
+                
+                if (!r.ok) {
+                    throw new Error(`HTTP ${r.status}: ${r.statusText}`);
+                }
+                
+                const data = await r.json();
+                console.log('Stream response data:', data); // Debug log
+                
+                const content = data.choices?.[0]?.message?.content || 'No response';
+                
+                // Simulate streaming by sending the full response
+                if (onChunk) {
+                    onChunk(content);
+                }
+                
+                return content;
+                
+            } catch (error) {
+                console.error('Stream error:', error);
+                if (onChunk) {
+                    onChunk(`Error: ${error.message}`);
+                }
+                throw error;
+            }
+        };
+
+        // Auto-resize textarea
+        input.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 200) + 'px';
+        });
+
+        // Send on Enter (Shift+Enter for newline)
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        function addMessage(role, content) {
+            const msg = document.createElement('div');
+            msg.className = `message ${role}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'avatar';
+            avatar.textContent = role === 'user' ? 'Y' : '🤖';
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'content';
+            
+            // Simple markdown-like rendering
+            let html = content
+                .replace(/`([^`]+)`/g, '<code>$1</code>')
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+            
+            contentDiv.innerHTML = html;
+            
+            msg.appendChild(avatar);
+            msg.appendChild(contentDiv);
+            chatContainer.appendChild(msg);
+            
+            // Scroll to bottom
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            return contentDiv;
+        }
+
+        async function sendMessage() {
+            const query = input.value.trim();
+            if (!query) return;
+
+            // Disable input
+            input.disabled = true;
+            sendButton.disabled = true;
+
+            // Add user message
+            messages.push({ role: 'user', content: query });
+            addMessage('user', query);
+            input.value = '';
+            input.style.height = 'auto';
+
+            // Add typing indicator
+            const typingDiv = addMessage('assistant', '<span class="typing">Thinking...</span>');
+
+            try {
+                const model = modelSelect.value;
+                
+                // Use streaming
+                let fullResponse = '';
+                const response = await window.sendStream(query, model, (chunk) => {
+                    fullResponse = chunk; // Set the full response
+                    // Update display with formatted response
+                    let html = fullResponse
+                        .replace(/`([^`]+)`/g, '<code>$1</code>')
+                        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\n/g, '<br>');
+                    typingDiv.innerHTML = html;
+                });
+                
+                // Ensure we have the full response
+                if (response && !fullResponse) {
+                    fullResponse = response;
+                    let html = fullResponse
+                        .replace(/`([^`]+)`/g, '<code>$1</code>')
+                        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\n/g, '<br>');
+                    typingDiv.innerHTML = html;
+                }
+
+                // Save to message history
+                messages.push({ role: 'assistant', content: fullResponse });
+
+            } catch (error) {
+                typingDiv.innerHTML = `<span style="color: #f87171;">Error: ${error.message}<br>Is the adapter running? (docker-compose up -d)</span>`;
+                console.error('Chat error:', error);
+            } finally {
+                // Re-enable input
+                input.disabled = false;
+                sendButton.disabled = false;
+                input.focus();
+            }
+        }
+
+        // Register service worker (PWA support)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('Service Worker registered:', reg.scope))
+                .catch(err => console.log('Service Worker registration failed:', err));
+        }
+
+        // Focus input on load
+        window.addEventListener('load', () => {
+            input.focus();
+            console.log('🤖 Athena Chat UI loaded');
+            console.log('Test in console:');
+            console.log('  sendOnce("hello") - Test non-streaming');
+            console.log('  sendStream("count to 5", "athena-rag", chunk => console.log(chunk)) - Test streaming');
+            
+            // Check if running as PWA
+            const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
+                         window.navigator.standalone === true;
+            if (isPWA) {
+                console.log('✅ Running as PWA (installed app)');
+            } else {
+                console.log('ℹ️  Running in browser (add to home screen to install)');
+            }
+        });
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Chat Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .chat { border: 1px solid #ccc; height: 400px; overflow-y: scroll; padding: 10px; }
+        .input { width: 100%; padding: 10px; margin: 10px 0; }
+        .button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .message { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .user { background: #e3f2fd; }
+        .assistant { background: #f3e5f5; }
+        .error { background: #ffebee; color: #c62828; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        .error { background: #ffebee; color: #c62828; }
+    </style>
+</head>
+<body>
+    <h1>Simple Chat Test</h1>
+    
+    <div id="status" class="status">Testing connection...</div>
+    
+    <div class="chat" id="chat"></div>
+    
+    <input type="text" class="input" id="input" placeholder="Type a message..." value="Hello, how are you?">
+    <button class="button" onclick="sendMessage()">Send</button>
+    <button class="button" onclick="testConnection()">Test Connection</button>
+    <button class="button" onclick="clearChat()">Clear</button>
+
+    <script>
+        const API_URL = 'http://localhost:8080/v1/chat/completions';
+        
+        function addMessage(role, content) {
+            const chat = document.getElementById('chat');
+            const div = document.createElement('div');
+            div.className = `message ${role}`;
+            div.innerHTML = `<strong>${role}:</strong> ${content}`;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+        
+        function setStatus(message, type = 'success') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+        }
+        
+        async function testConnection() {
+            setStatus('Testing connection...', 'success');
+            
+            try {
+                const response = await fetch('http://localhost:8080/health');
+                if (response.ok) {
+                    const data = await response.json();
+                    setStatus(`✅ Connected to ${data.service} (${data.model})`, 'success');
+                    addMessage('system', `Connected to ${data.service} using model ${data.model}`);
+                } else {
+                    setStatus(`❌ Connection failed: ${response.status}`, 'error');
+                    addMessage('system', `Connection failed: ${response.status}`);
+                }
+            } catch (error) {
+                setStatus(`❌ Connection error: ${error.message}`, 'error');
+                addMessage('system', `Connection error: ${error.message}`);
+            }
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage('user', message);
+            input.value = '';
+            setStatus('Sending message...', 'success');
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        messages: [{ role: 'user', content: message }],
+                        max_tokens: 200
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const reply = data.choices[0].message.content;
+                    addMessage('assistant', reply);
+                    setStatus('✅ Message sent successfully', 'success');
+                } else {
+                    const errorText = await response.text();
+                    addMessage('error', `HTTP ${response.status}: ${errorText}`);
+                    setStatus(`❌ Request failed: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                addMessage('error', `Error: ${error.message}`);
+                setStatus(`❌ Request error: ${error.message}`, 'error');
+            }
+        }
+        
+        function clearChat() {
+            document.getElementById('chat').innerHTML = '';
+        }
+        
+        // Test connection on load
+        window.onload = function() {
+            testConnection();
+        };
+        
+        // Enter key to send
+        document.getElementById('input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
