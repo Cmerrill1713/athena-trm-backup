@@ -3,8 +3,11 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install dependencies including curl for health checks
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/* && \
-    pip install --no-cache-dir redis
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY agi_core/requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy AGI Core and infra
 COPY agi_core/ /app/agi_core/

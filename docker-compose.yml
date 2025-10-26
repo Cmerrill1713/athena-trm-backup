@@ -290,13 +290,19 @@ services:
       dockerfile: Dockerfile
     container_name: athena-mcp-ecosystem
     restart: unless-stopped
-    network_mode: "host"  # Required for macOS AppleScript access
+    ports:
+      - "127.0.0.1:8412:8412"
     environment:
       - PYTHONUNBUFFERED=1
       - MCP_PORT=8412
-      - MCP_HOST=127.0.0.1  # Bind to localhost in host network mode
+      - MCP_HOST=0.0.0.0
+      - MACOS_BRIDGE_URL=http://host.docker.internal:8099  # For AppleScript via native bridge
     volumes:
       - /Users/christianmerrill:/host-home:rw  # Mount user home for filesystem tools
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Access host services
+    networks:
+      - athena-network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8412/health"]
       interval: 10s
