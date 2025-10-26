@@ -1,0 +1,16 @@
+{
+  "passed": 10,
+  "failed": 6,
+  "new_working": [
+    "TTS Speak endpoint",
+    "TTS Voices list",
+    "Feedback Stats",
+    "Canary status",
+    "Readiness check",
+    "Reload policy",
+    "Version info",
+    "List disputes",
+    "Onboard challenges",
+    "Tool inventory"
+  ]
+}
