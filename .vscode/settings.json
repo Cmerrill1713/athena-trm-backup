@@ -1,0 +1,29 @@
+{
+  "files.exclude": {
+    "**/archive": true,
+    "**/.archive": true,
+    "**/old_iterations": true,
+    "**/pre-consolidation-*": true,
+    "athena-macapp-ui": true,
+    "ollama-source": true,
+    "volumes": true,
+    "artifacts": true
+  },
+  "files.watcherExclude": {
+    "**/archive/**": true,
+    "**/node_modules/**": true,
+    "**/volumes/**": true,
+    "**/models/**": true,
+    "**/datasets/**": true,
+    "**/__pycache__/**": true,
+    "**/ollama-source/**": true
+  },
+  "search.exclude": {
+    "**/archive": true,
+    "**/old_iterations": true,
+    "**/node_modules": true,
+    "**/volumes": true,
+    "**/ollama-source": true,
+    "**/*.gguf": true
+  }
+}
