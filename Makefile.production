@@ -484,3 +484,73 @@ help-ui:  ## Show UI testing help
 	@echo ""
 	@echo "See: UX_INTEGRATION_GUIDE.md"
 
+
+# ============================================================================
+# UI DRILL - CI MODE (Safe for continuous integration)
+# ============================================================================
+
+prewarm-services:  ## Pre-warm services for UI testing (prevents cold-start)
+	@./scripts/prewarm_services.sh
+
+ui-drill-ci:  ## UI drill in CI mode (headless, only fails on critical issues)
+	@echo "🧪 Running UI drill in CI mode..."
+	@make prewarm-services
+	@make offline-ui
+	@sleep 5
+	@UI_HEADFUL=0 python3 test_ui_drill_ci.py
+	@echo ""
+	@echo "📊 Results: artifacts/ui/last-run/report.html"
+	@echo "🎯 Exit code: 0 = all critical passed, 1 = failures"
+
+ui-drill-watch:  ## UI drill with visible browser (for debugging)
+	@echo "👀 Running UI drill with visible browser..."
+	@make prewarm-services
+	@make offline-ui
+	@sleep 5
+	@UI_HEADFUL=1 python3 test_ui_drill_ci.py
+
+ship-check-with-ui:  ## Ship check including UI validation
+	@echo "🚀 COMPLETE SHIP CHECK (Backend + UI)"
+	@echo ""
+	@echo "Phase 1: Backend validation..."
+	@make ship-check
+	@echo ""
+	@echo "Phase 2: UI validation..."
+	@make ui-drill-ci
+	@echo ""
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@echo "✅ COMPLETE SHIP CHECK PASSED!"
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+help-ui-ci:  ## Show UI CI help
+	@echo "🧪 UI CONFIDENCE DRILL (CI MODE)"
+	@echo ""
+	@echo "Preparation:"
+	@echo "  make prewarm-services   - Warm up services (reduces cold-start)"
+	@echo ""
+	@echo "Automated testing:"
+	@echo "  make ui-drill-ci        - Headless CI mode (critical tests only)"
+	@echo "  make ui-drill-watch     - Visible browser (debugging)"
+	@echo ""
+	@echo "Complete validation:"
+	@echo "  make ship-check-with-ui - Backend + UI (complete gate)"
+	@echo ""
+	@echo "Artifacts:"
+	@echo "  artifacts/ui/last-run/report.html  - Test report"
+	@echo "  artifacts/ui/last-run/screenshots/ - Visual proof"
+	@echo "  artifacts/ui/last-run/har/         - Network recording"
+	@echo ""
+	@echo "Critical tests (must pass):"
+	@echo "  ✅ Page load"
+	@echo "  ✅ RAG query"
+	@echo "  ✅ Streaming"
+	@echo "  ✅ Clear chat"
+	@echo ""
+	@echo "Optional tests (nice-to-have):"
+	@echo "  - Router behavior"
+	@echo "  - Multi-turn memory"
+	@echo "  - Profiles"
+	@echo "  - Voice controls"
+	@echo "  - Task sidebar"
+	@echo "  - PWA features"
+
