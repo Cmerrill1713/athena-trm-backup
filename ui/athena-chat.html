@@ -922,3 +922,78 @@
     </script>
 </body>
 </html>
+
+    <script>
+        // ========================================
+        // FAMILY FEATURES - Tasks & Calendar
+        // ========================================
+        
+        async function getTasks() {
+            try {
+                const response = await fetch(`${API_BASE}/tasks`);
+                return await response.json();
+            } catch (error) {
+                console.error('Failed to get tasks:', error);
+                return [];
+            }
+        }
+        
+        async function createTask(title, description = '') {
+            try {
+                const response = await fetch(`${API_BASE}/tasks`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        id: Date.now(),
+                        title: title,
+                        description: description,
+                        completed: false,
+                        created_at: new Date().toISOString()
+                    })
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Failed to create task:', error);
+                return null;
+            }
+        }
+        
+        async function completeTask(taskId) {
+            try {
+                const response = await fetch(`${API_BASE}/tasks/${taskId}/complete`, {
+                    method: 'PUT'
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Failed to complete task:', error);
+                return null;
+            }
+        }
+        
+        async function getFamilyMembers() {
+            try {
+                const response = await fetch(`${API_BASE}/users`);
+                return await response.json();
+            } catch (error) {
+                console.error('Failed to get family members:', error);
+                return [];
+            }
+        }
+        
+        // Test family features on load
+        window.addEventListener('load', async () => {
+            console.log('🏠 Testing family features...');
+            
+            // Test tasks API
+            const tasks = await getTasks();
+            console.log(`✅ Tasks API: ${tasks.length} tasks found`);
+            
+            // Test family members API
+            const members = await getFamilyMembers();
+            console.log(`✅ Family API: ${members.length} members found`);
+            
+            console.log('🎯 Family features ready!');
+        });
+    </script>
+</body>
+</html>
