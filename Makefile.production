@@ -427,3 +427,60 @@ help-ops:  ## Show ops workflow help
 	@echo ""
 	@echo "See: WEEKLY_OPS_CHECKLIST.md"
 
+
+# ============================================================================
+# UI CONFIDENCE DRILL
+# ============================================================================
+
+offline-ui:  ## Start local UI server
+	@echo "🌐 Starting local UI server..."
+	@pkill -f "http.server.*8082" 2>/dev/null || true
+	@python3 -m http.server 8082 -d ui > artifacts/ui_server.log 2>&1 &
+	@sleep 2
+	@echo "✅ UI server running at http://localhost:8082/athena-chat.html"
+
+ui-drill:  ## Run automated UI confidence drill (Playwright)
+	@echo "🔥 Running UI confidence drill..."
+	@make offline-ui
+	@sleep 3
+	@python3 test_ui_confidence_drill.py
+
+ui-drill-quick:  ## Quick UI test (core features only)
+	@echo "⚡ Quick UI test..."
+	@make offline-ui
+	@sleep 2
+	@curl -sf http://localhost:8082/athena-chat.html >/dev/null && echo "✅ UI loads" || echo "❌ UI not loading"
+	@curl -sf http://localhost:8080/health >/dev/null && echo "✅ Backend healthy" || echo "❌ Backend down"
+
+ui-manual-test:  ## Open UI for manual testing
+	@echo "👤 Opening UI for manual testing..."
+	@make offline-ui
+	@open http://localhost:8082/athena-chat.html
+	@echo ""
+	@echo "Manual test checklist:"
+	@echo "  1. Type 'What is TRM?' and check response"
+	@echo "  2. Click wake word button (if present)"
+	@echo "  3. Switch profiles (if present)"
+	@echo "  4. Test clear button"
+	@echo "  5. Check 9/9 services ready"
+
+stop-ui:  ## Stop UI server
+	@pkill -f "http.server.*8082" 2>/dev/null || true
+	@echo "✅ UI server stopped"
+
+help-ui:  ## Show UI testing help
+	@echo "🎨 UI CONFIDENCE DRILL"
+	@echo ""
+	@echo "Automated:"
+	@echo "  make ui-drill           - Full Playwright drill (10 tests)"
+	@echo "  make ui-drill-quick     - Quick smoke test"
+	@echo ""
+	@echo "Manual:"
+	@echo "  make ui-manual-test     - Open UI for manual testing"
+	@echo ""
+	@echo "Server:"
+	@echo "  make offline-ui         - Start UI server only"
+	@echo "  make stop-ui            - Stop UI server"
+	@echo ""
+	@echo "See: UX_INTEGRATION_GUIDE.md"
+
