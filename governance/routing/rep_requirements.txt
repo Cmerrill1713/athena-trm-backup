@@ -1,0 +1,14 @@
+# REP (Ripple Effect Protocol) Requirements
+# Project Iceberg - Multi-Agent Coordination
+
+# Core dependency: Redis client for pubsub
+redis>=5.0.0,<6.0.0
+
+# Already required by Athena (just documenting here)
+# prometheus-client>=0.17.0  # For REP metrics
+# flask>=2.3.0              # For REP API endpoints
+# pydantic>=2.0.0           # For data validation
+
+# Optional: For advanced features
+# redis-py-cluster>=2.1.0   # For Redis cluster support
+

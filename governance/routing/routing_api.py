@@ -456,6 +456,187 @@ def get_usage_report():
         return jsonify({"error": str(e)}), 500
 
 
+# ============================================================================
+# REP (Ripple Effect Protocol) Coordination Endpoints - Project Iceberg
+# ============================================================================
+
+@app.route('/rep/stats', methods=['GET'])
+def get_rep_stats():
+    """
+    Get REP coordination statistics
+    
+    Returns statistics about multi-agent coordination:
+    - Active peer count
+    - Model distribution across peers
+    - System state metrics
+    - Coordination adjustments
+    """
+    try:
+        # Check if router supports REP
+        if not hasattr(router, 'get_rep_stats'):
+            return jsonify({
+                "enabled": False,
+                "message": "REP coordination not enabled on this router"
+            }), 200
+        
+        stats = router.get_rep_stats()
+        return jsonify(stats)
+    
+    except Exception as e:
+        logger.error(f"REP stats error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/rep/peers', methods=['GET'])
+def get_rep_peers():
+    """
+    Get information about active REP peers
+    
+    Returns:
+    - List of peer agent IDs
+    - Their recent decisions
+    - Sensitivity signals
+    """
+    try:
+        if not hasattr(router, 'rep_coordinator') or not router.rep_coordinator:
+            return jsonify({
+                "enabled": False,
+                "peers": []
+            }), 200
+        
+        peer_summary = router.rep_coordinator.get_peer_summary()
+        
+        return jsonify({
+            "enabled": True,
+            "peer_count": peer_summary['peer_count'],
+            "model_distribution": peer_summary['model_distribution'],
+            "avg_confidence": peer_summary['avg_confidence']
+        })
+    
+    except Exception as e:
+        logger.error(f"REP peers error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/rep/sensitivities', methods=['GET'])
+def get_rep_sensitivities():
+    """
+    Get current sensitivity calculations
+    
+    Shows how this agent would respond to system changes
+    """
+    try:
+        if not hasattr(router, 'rep_coordinator') or not router.rep_coordinator:
+            return jsonify({
+                "enabled": False,
+                "sensitivities": []
+            }), 200
+        
+        # Get latest sensitivities from system state
+        from governance.routing.rep_protocol import REPDecision
+        
+        # Mock decision for sensitivity calculation
+        test_decision = REPDecision(
+            model="qwen2.5-coder:7b",
+            confidence=0.85,
+            domain="code"
+        )
+        
+        sensitivities = router.rep_coordinator.sensitivity_calculator.calculate_all(
+            test_decision,
+            router.system_state,
+            router.rep_coordinator.peer_messages
+        )
+        
+        return jsonify({
+            "enabled": True,
+            "sensitivities": [
+                {
+                    "type": s.type.value,
+                    "value": s.value,
+                    "threshold": s.threshold,
+                    "metadata": s.metadata
+                }
+                for s in sensitivities
+            ]
+        })
+    
+    except Exception as e:
+        logger.error(f"REP sensitivities error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/rep/config', methods=['GET'])
+def get_rep_config():
+    """
+    Get REP configuration
+    
+    Returns:
+    - Agent ID
+    - Redis URL (masked for security)
+    - Channel
+    - Enabled status
+    """
+    try:
+        if not hasattr(router, 'rep_coordinator') or not router.rep_coordinator:
+            return jsonify({
+                "enabled": False
+            }), 200
+        
+        coordinator = router.rep_coordinator
+        
+        # Mask Redis URL for security
+        redis_url = coordinator.redis_url
+        if '@' in redis_url:
+            # Mask password
+            parts = redis_url.split('@')
+            redis_url = f"{parts[0].split(':')[0]}://***@{parts[1]}"
+        
+        return jsonify({
+            "enabled": True,
+            "agent_id": coordinator.agent_id,
+            "channel": coordinator.channel,
+            "redis_url": redis_url,
+            "message_ttl_seconds": coordinator.message_ttl_seconds,
+            "peer_message_count": len(coordinator.peer_messages)
+        })
+    
+    except Exception as e:
+        logger.error(f"REP config error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/rep/metrics', methods=['GET'])
+def get_rep_metrics():
+    """
+    Get REP-specific Prometheus metrics
+    
+    This is a convenience endpoint that filters Prometheus metrics
+    to show only REP-related ones
+    """
+    try:
+        from prometheus_client import REGISTRY
+        
+        rep_metrics = []
+        for metric in REGISTRY.collect():
+            if metric.name.startswith('athena_rep_'):
+                rep_metrics.append({
+                    "name": metric.name,
+                    "documentation": metric.documentation,
+                    "type": metric.type,
+                    "samples": len(list(metric.samples))
+                })
+        
+        return jsonify({
+            "metrics": rep_metrics,
+            "count": len(rep_metrics)
+        })
+    
+    except Exception as e:
+        logger.error(f"REP metrics error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route('/cost-weights', methods=['POST'])
 def set_cost_weights():
     """Set cost optimization weights."""

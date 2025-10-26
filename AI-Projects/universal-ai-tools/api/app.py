@@ -9,6 +9,7 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from api.routers import health, tasks, tts, users
 from api import chat, metrics
+from api import feedback
 
 # Configure logging
 logging.basicConfig(
@@ -48,6 +49,7 @@ async def error_box(req: Request, call_next):
 
 # Include routers
 app.include_router(health.router, tags=["health"])
+app.include_router(feedback.router, tags=["feedback"])
 app.include_router(chat.router, tags=["chat"])
 app.include_router(metrics.router, tags=["metrics"])
 app.include_router(users.router, prefix="/api/users", tags=["users"])

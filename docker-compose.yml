@@ -54,6 +54,12 @@ services:
       # Cloud blocked
       - ATHENA_NO_CLOUD=1
       - ATHENA_FAIL_CLOSED=1
+      # REP Coordination (Project Iceberg)
+      - ATHENA_REP_ENABLED=true
+      - ATHENA_REP_REDIS_URL=redis://athena-redis:6379
+      - ATHENA_REP_CHANNEL=athena:rep:routing
+      - ATHENA_REP_AGENT_ID=router_primary
+      - ATHENA_REP_CALCULATOR_MODE=hybrid # hybrid | rule_based | llm_based
     volumes:
       - ./services/router:/app:ro
     extra_hosts:

@@ -1,0 +1,366 @@
+# REP Coordination Policy
+# Project Iceberg - Multi-Agent Coordination Governance
+#
+# This policy defines rules and thresholds for REP (Ripple Effect Protocol)
+# coordination in Athena's multi-agent AI system.
+#
+# Policy Version: 1.0
+# Last Updated: 2025-10-26
+# Owner: Governance System (A3)
+
+metadata:
+  policy_id: "REP-COORD-001"
+  version: "1.0.0"
+  effective_date: "2025-10-26"
+  review_cycle_days: 30
+  owner: "governance_system"
+  classification: "operational"
+
+# ============================================================================
+# CALCULATION MODE
+# ============================================================================
+
+calculation_mode:
+  # Mode: rule_based | llm_based | hybrid
+  mode: "hybrid"
+
+  # Fallback mode if primary fails
+  fallback_mode: "rule_based"
+
+  # Enable LLM reasoning for complex scenarios
+  enable_llm: true
+
+  # Enable canary testing of new policies
+  canary_enabled: true
+  canary_percentage: 5 # 5% of decisions use experimental policies
+
+# ============================================================================
+# RULE-BASED POLICY (Fast Path)
+# ============================================================================
+
+rule_based:
+  # Queue depth sensitivity
+  queue_depth:
+    threshold: 5 # Max queued requests before negative sensitivity
+    high_threshold: 10 # Very high queue
+    sensitivity_low: -0.3 # Below threshold
+    sensitivity_high: -0.8 # Above threshold
+    sensitivity_critical: -0.95 # Above high threshold
+    override_allowed: false
+
+  # Latency threshold sensitivity
+  latency:
+    threshold_ms: 1000 # P95 latency threshold
+    critical_threshold_ms: 2000 # Critical latency
+    sensitivity_normal: -0.2 # Below threshold
+    sensitivity_high: -0.5 # Above threshold
+    sensitivity_critical: -0.9 # Above critical threshold
+    override_allowed: false
+
+  # Cost pressure sensitivity
+  cost:
+    budget_threshold: 0.8 # 80% of budget
+    critical_threshold: 0.9 # 90% of budget
+    sensitivity_normal: -0.1 # Below 50% budget
+    sensitivity_warning: -0.6 # 50-80% budget
+    sensitivity_critical: -0.9 # Above 80% budget
+    sensitivity_emergency: -1.0 # Above 90% budget (must switch)
+    override_allowed: false # Hard budget limit
+
+  # Peer clustering sensitivity
+  peer_clustering:
+    threshold: 3 # Max peers on same model before negative
+    high_threshold: 6 # High clustering
+    sensitivity_low: -0.1 # Below threshold
+    sensitivity_medium: -0.7 # Above threshold
+    sensitivity_high: -0.9 # Above high threshold
+    override_allowed: true # Can override if justified
+
+  # Model availability sensitivity
+  model_availability:
+    sensitivity_available: 0.2 # Model available (slight positive)
+    sensitivity_unavailable: -1.0 # Model down (must switch)
+    override_allowed: false
+
+# ============================================================================
+# LLM-BASED POLICY (Smart Path)
+# ============================================================================
+
+llm_based:
+  # LLM configuration
+  model: "qwen2.5-coder:7b" # Local model only
+  temperature: 0.2 # Low for more deterministic
+  max_tokens: 500
+  timeout_seconds: 2.0
+
+  # When to trigger LLM reasoning
+  trigger_conditions:
+    # Peer count
+    min_peer_count: 5 # Enable LLM if >= 5 peers
+
+    # Complexity indicators
+    enable_on_high_clustering: true
+    enable_on_budget_critical: true
+    enable_on_model_failure: true
+    enable_on_cascading_issues: true
+
+  # LLM reasoning requirements
+  reasoning:
+    require_json_response: true
+    require_reasoning_field: true
+    require_confidence_score: true
+    min_confidence: 0.5 # Minimum LLM confidence
+
+  # Fallback behavior
+  fallback:
+    on_timeout: "rule_based"
+    on_error: "rule_based"
+    on_invalid_response: "rule_based"
+    on_low_confidence: "rule_based"
+
+# ============================================================================
+# HYBRID POLICY (Best of Both Worlds)
+# ============================================================================
+
+hybrid:
+  # Complexity thresholds for scenario classification
+  simple_scenario:
+    max_peers: 5
+    min_budget_remaining: 0.5 # 50%
+    max_queue_depth: 10
+    max_latency_p95_ms: 2000
+
+  complex_scenario:
+    # Anything between simple and critical
+    use_llm_reasoning: true
+
+  critical_scenario:
+    min_budget_remaining: 0.1 # 10%
+    max_queue_depth: 50
+    min_available_models: 2
+    max_peer_clustering: 15
+    use_dual_validation: true # Use both rule and LLM
+
+  # Agreement validation
+  validation:
+    require_agreement: true
+    agreement_threshold: 0.7 # 70% agreement required
+    on_disagreement: "use_conservative" # use_conservative | use_llm | alert
+    log_disagreements: true
+
+# ============================================================================
+# COORDINATION RULES
+# ============================================================================
+
+coordination:
+  # Anti-clustering rules
+  anti_clustering:
+    enabled: true
+    max_agents_per_model: 15
+    distribution_strategy: "least_loaded" # least_loaded | round_robin | random
+    force_distribution_threshold: 10 # Force if >10 on same model
+
+  # Load balancing
+  load_balancing:
+    enabled: true
+    rebalance_threshold: 0.5 # Rebalance if imbalance > 50%
+    preferred_distribution: "proportional" # proportional | equal | weighted
+
+  # Cost optimization
+  cost_optimization:
+    enabled: true
+    prefer_cheaper_models_when: "budget_warning" # always | budget_warning | budget_critical
+    cost_efficiency_weight: 0.3 # Balance cost vs quality (0-1)
+
+  # Failover coordination
+  failover:
+    enabled: true
+    immediate_failover_on_unavailable: true
+    stagger_failover_ms: 100 # Stagger switches by 100ms
+    max_simultaneous_failovers: 5
+
+# ============================================================================
+# OBSERVABILITY & GOVERNANCE
+# ============================================================================
+
+observability:
+  # Metrics
+  metrics:
+    enabled: true
+    track_calculation_mode: true
+    track_complexity_distribution: true
+    track_llm_vs_rules_usage: true
+    track_agreement_rate: true
+
+  # Logging
+  logging:
+    level: "info" # debug | info | warning | error
+    log_all_decisions: false
+    log_complex_scenarios: true
+    log_critical_scenarios: true
+    log_disagreements: true
+    log_llm_failures: true
+
+  # Auditing
+  auditing:
+    enabled: true
+    audit_critical_decisions: true
+    audit_llm_decisions: true
+    audit_policy_violations: true
+    retention_days: 90
+
+# ============================================================================
+# CANARY TESTING
+# ============================================================================
+
+canary:
+  enabled: true
+  percentage: 5 # 5% of decisions
+
+  # Experimental policies to test
+  experiments:
+    - name: "aggressive_cost_optimization"
+      description: "More aggressive cost-based switching"
+      enabled: false
+      override_rules:
+        cost.budget_threshold: 0.7
+        cost.sensitivity_critical: -0.95
+
+    - name: "ml_based_thresholds"
+      description: "Use ML to predict optimal thresholds"
+      enabled: false
+      use_adaptive_thresholds: true
+
+    - name: "hierarchical_coordination"
+      description: "Test multi-level coordination"
+      enabled: false
+      use_coordinator_agents: true
+
+# ============================================================================
+# AUTO-REMEDIATION
+# ============================================================================
+
+auto_remediation:
+  enabled: true
+
+  # Clustering remediation
+  clustering:
+    trigger_threshold: 10 # >10 agents on same model
+    action: "force_distribution"
+    notification: "alert_operations"
+
+  # Budget exhaustion
+  budget:
+    trigger_threshold: 0.95 # 95% budget used
+    action: "switch_to_cheapest_models"
+    notification: "alert_leadership"
+
+  # Model failure
+  model_failure:
+    trigger: "model_unavailable"
+    action: "immediate_failover_all_agents"
+    notification: "alert_oncall"
+
+  # Cascading issues
+  cascading:
+    detect_patterns: true
+    trigger: "multiple_failures"
+    action: "coordinated_fallback"
+    notification: "alert_incident_response"
+
+# ============================================================================
+# COMPLIANCE & SECURITY
+# ============================================================================
+
+compliance:
+  # Local-first enforcement
+  local_first:
+    enforce_athena_no_cloud: true
+    block_external_apis: true
+    require_local_models: true
+
+  # Privacy
+  privacy:
+    no_external_data_sharing: true
+    encrypt_sensitivities: false # Local-only, encryption optional
+    anonymize_agent_ids: false
+
+  # Audit trail
+  audit_trail:
+    record_all_decisions: true
+    record_policy_changes: true
+    record_overrides: true
+    immutable_logs: true
+
+# ============================================================================
+# ALERTS & NOTIFICATIONS
+# ============================================================================
+
+alerts:
+  # Critical alerts
+  critical:
+    - condition: "budget_exhausted"
+      threshold: 0.98
+      action: "page_oncall"
+
+    - condition: "model_cascade_failure"
+      threshold: 3 # 3+ models unavailable
+      action: "incident_response"
+
+    - condition: "coordination_breakdown"
+      threshold: 0.5 # >50% agents failing coordination
+      action: "alert_engineering"
+
+  # Warning alerts
+  warning:
+    - condition: "high_llm_failure_rate"
+      threshold: 0.1 # >10% LLM failures
+      action: "alert_monitoring"
+
+    - condition: "high_disagreement_rate"
+      threshold: 0.2 # >20% rule/LLM disagreement
+      action: "alert_policy_owner"
+
+    - condition: "excessive_clustering"
+      threshold: 8 # >8 agents on one model
+      action: "alert_operations"
+
+# ============================================================================
+# POLICY EVOLUTION
+# ============================================================================
+
+evolution:
+  # Adaptive thresholds (future)
+  adaptive:
+    enabled: false
+    learn_from_history: false
+    adjust_thresholds_based_on: []
+
+  # A/B testing
+  ab_testing:
+    enabled: false
+    concurrent_policies: 1
+
+  # Feedback loop
+  feedback:
+    collect_metrics: true
+    analyze_effectiveness: true
+    auto_tune: false # Manual tuning for now
+
+# ============================================================================
+# NOTES
+# ============================================================================
+
+# This policy is designed to:
+# 1. Balance speed (rules) with intelligence (LLM)
+# 2. Ensure ATHENA_NO_CLOUD=1 compliance
+# 3. Provide safety through dual validation in critical scenarios
+# 4. Enable gradual evolution through canary testing
+# 5. Maintain full audit trail for governance
+#
+# All modifications require:
+# - PRD reference (ST-XXX)
+# - Change request approval
+# - Canary testing before production
+# - Documentation update
+

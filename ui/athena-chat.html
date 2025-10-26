@@ -859,8 +859,11 @@
                 
                 const actionsDiv = document.createElement('div');
                 actionsDiv.className = 'message-actions';
+                const messageId = Date.now();
                 actionsDiv.innerHTML = `
                     <button class="btn-small" onclick="speakText(\`${response.replace(/`/g, '\\`').replace(/\n/g, ' ')}\`)">🔊 Speak</button>
+                    <button class="btn-small" id="thumbs-up-${messageId}" onclick="sendFeedback(${messageId}, 'positive', \`${response.substring(0, 100).replace(/`/g, '\\`').replace(/\n/g, ' ')}\`)">👍</button>
+                    <button class="btn-small" id="thumbs-down-${messageId}" onclick="sendFeedback(${messageId}, 'negative', \`${response.substring(0, 100).replace(/`/g, '\\`').replace(/\n/g, ' ')}\`)">👎</button>
                 `;
                 parentMessage.appendChild(actionsDiv);
 
@@ -878,11 +881,42 @@
             }
         }
 
+        async function sendFeedback(messageId, sentiment, responsePreview) {
+            try {
+                const response = await fetch(`${BASE_URL}/feedback`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        message_id: messageId,
+                        sentiment: sentiment,
+                        response_preview: responsePreview,
+                        timestamp: Date.now()
+                    })
+                });
+                
+                if (response.ok) {
+                    // Visual feedback
+                    const btn = document.getElementById(`thumbs-${sentiment === 'positive' ? 'up' : 'down'}-${messageId}`);
+                    if (btn) {
+                        btn.style.background = 'var(--success)';
+                        btn.style.color = 'white';
+                        btn.disabled = true;
+                        btn.textContent = sentiment === 'positive' ? '✓ Thanks!' : '✓ Noted';
+                    }
+                    console.log('✅ Feedback sent to learning pipeline');
+                } else {
+                    console.warn('Feedback submission failed');
+                }
+            } catch (error) {
+                console.error('Feedback error:', error);
+            }
+        }
+
         // Focus input on load
         window.addEventListener('load', () => {
             input.focus();
             console.log('🤖 Athena AI loaded - Model-Agnostic Multimodal Chat');
-            console.log('Features: Text | Vision | Voice | Search | ArXiv');
+            console.log('Features: Text | Vision | Voice | Search | ArXiv | Learning');
         });
     </script>
 </body>
