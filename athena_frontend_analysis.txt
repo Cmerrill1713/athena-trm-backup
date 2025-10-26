@@ -1,0 +1,9 @@
+🎨 Asking Athena to analyze the frontend...
+
+null
+
+---
+
+📊 Checking which model was selected...
+
+✅ Frontend analysis complete!
