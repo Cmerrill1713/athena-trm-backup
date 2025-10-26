@@ -290,14 +290,13 @@ services:
       dockerfile: Dockerfile
     container_name: athena-mcp-ecosystem
     restart: unless-stopped
-    ports:
-      - "127.0.0.1:8412:8412"
+    network_mode: "host"  # Required for macOS AppleScript access
     environment:
       - PYTHONUNBUFFERED=1
       - MCP_PORT=8412
-      - MCP_HOST=0.0.0.0
-    networks:
-      - athena-network
+      - MCP_HOST=127.0.0.1  # Bind to localhost in host network mode
+    volumes:
+      - /Users/christianmerrill:/host-home:rw  # Mount user home for filesystem tools
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8412/health"]
       interval: 10s
@@ -306,6 +305,7 @@ services:
     labels:
       - "athena.service=mcp-ecosystem"
       - "athena.port=8412"
+      - "athena.macos=true"
 
   # ===========================================================================
   # KNOWLEDGE GROUNDING SERVICES

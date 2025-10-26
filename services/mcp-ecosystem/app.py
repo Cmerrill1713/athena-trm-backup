@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 """
 MCP Ecosystem - Python backend for MCP tools
-Port 8412 - Provides tools for YouTube, arXiv, Wikipedia, etc.
+Port 8412 - Provides tools for YouTube, arXiv, Wikipedia, macOS system control, etc.
 """
 import os
 import logging
 import requests
 import json
+import subprocess
+from pathlib import Path
+from datetime import datetime, timedelta
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -161,7 +164,37 @@ async def health():
         "status": "healthy",
         "service": "mcp-ecosystem",
         "port": 8412,
-        "tools_available": 11
+        "tools_available": 18  # Updated count with macOS tools
+    }
+
+@app.get("/tools")
+async def list_tools():
+    """List all available tools."""
+    return {
+        "tools": [
+            # Web & Research
+            "web_search",
+            "arxiv_search",
+            "youtube_get_transcript",
+            "wikipedia_search",
+            "vision_analyze",
+            "code_execute",
+            # Filesystem
+            "filesystem_read",
+            "filesystem_write",
+            "filesystem_list",
+            # macOS Apps
+            "calendar_add",
+            "calendar_list",
+            "reminder_add",
+            "reminder_list",
+            "notes_create",
+            "mail_send",
+            "messages_send",
+            # App Management
+            "app_launch",
+            "app_install"
+        ]
     }
 
 @app.post("/tool/{tool_name}")
@@ -219,6 +252,445 @@ async def execute_tool(tool_name: str, request: ToolRequest):
                 "stdout": "Hello, World!",
                 "stderr": ""
             }
+        
+        # ================================================================
+        # FILESYSTEM TOOLS
+        # ================================================================
+        
+        elif tool_name == "filesystem_read":
+            path = request.arguments.get("path", "")
+            if not path:
+                raise HTTPException(status_code=400, detail="path required")
+            
+            try:
+                # Security: Only allow access to user home directory
+                expanded_path = os.path.expanduser(path)
+                home_dir = os.path.expanduser("~")
+                if not expanded_path.startswith(home_dir):
+                    raise HTTPException(status_code=403, detail="Access denied: path outside home directory")
+                
+                with open(expanded_path, 'r') as f:
+                    content = f.read()
+                
+                logger.info(f"Read file: {expanded_path}")
+                return {
+                    "success": True,
+                    "path": expanded_path,
+                    "content": content,
+                    "size": len(content)
+                }
+            except FileNotFoundError:
+                raise HTTPException(status_code=404, detail=f"File not found: {path}")
+            except Exception as e:
+                logger.error(f"File read error: {e}")
+                raise HTTPException(status_code=500, detail=str(e))
+        
+        elif tool_name == "filesystem_write":
+            path = request.arguments.get("path", "")
+            content = request.arguments.get("content", "")
+            
+            if not path:
+                raise HTTPException(status_code=400, detail="path required")
+            
+            try:
+                # Security: Only allow access to user home directory
+                expanded_path = os.path.expanduser(path)
+                home_dir = os.path.expanduser("~")
+                if not expanded_path.startswith(home_dir):
+                    raise HTTPException(status_code=403, detail="Access denied: path outside home directory")
+                
+                # Create parent directories if needed
+                os.makedirs(os.path.dirname(expanded_path), exist_ok=True)
+                
+                with open(expanded_path, 'w') as f:
+                    f.write(content)
+                
+                logger.info(f"Wrote file: {expanded_path} ({len(content)} bytes)")
+                return {
+                    "success": True,
+                    "path": expanded_path,
+                    "bytes_written": len(content)
+                }
+            except Exception as e:
+                logger.error(f"File write error: {e}")
+                raise HTTPException(status_code=500, detail=str(e))
+        
+        elif tool_name == "filesystem_list":
+            path = request.arguments.get("path", "~")
+            
+            try:
+                expanded_path = os.path.expanduser(path)
+                home_dir = os.path.expanduser("~")
+                if not expanded_path.startswith(home_dir):
+                    raise HTTPException(status_code=403, detail="Access denied")
+                
+                entries = []
+                for item in os.listdir(expanded_path):
+                    full_path = os.path.join(expanded_path, item)
+                    entries.append({
+                        "name": item,
+                        "path": full_path,
+                        "is_dir": os.path.isdir(full_path),
+                        "is_file": os.path.isfile(full_path)
+                    })
+                
+                logger.info(f"Listed directory: {expanded_path} ({len(entries)} items)")
+                return {
+                    "success": True,
+                    "path": expanded_path,
+                    "entries": entries
+                }
+            except Exception as e:
+                logger.error(f"Directory list error: {e}")
+                raise HTTPException(status_code=500, detail=str(e))
+        
+        # ================================================================
+        # CALENDAR TOOLS (macOS Calendar.app)
+        # ================================================================
+        
+        elif tool_name == "calendar_add":
+            title = request.arguments.get("title", "")
+            date = request.arguments.get("date", "")  # ISO format or relative like "tomorrow"
+            duration_hours = request.arguments.get("duration_hours", 1)
+            calendar_name = request.arguments.get("calendar", "Family")
+            
+            if not title:
+                raise HTTPException(status_code=400, detail="title required")
+            
+            try:
+                # Parse date (simplified - supports "tomorrow", "today", or ISO)
+                if date.lower() == "tomorrow":
+                    date_expr = "(current date) + 1 * days"
+                elif date.lower() == "today":
+                    date_expr = "current date"
+                else:
+                    date_expr = f'date "{date}"'
+                
+                script = f'''
+tell application "Calendar"
+    tell calendar "{calendar_name}"
+        set newEvent to make new event with properties {{summary:"{title}", start date:{date_expr}, end date:{date_expr} + {duration_hours} * hours}}
+    end tell
+end tell
+return "Event created"
+'''
+                
+                result = subprocess.run(
+                    ['osascript', '-e', script],
+                    capture_output=True,
+                    text=True,
+                    timeout=10
+                )
+                
+                success = result.returncode == 0
+                logger.info(f"Calendar add: {title} - {'✅' if success else '❌'}")
+                
+                return {
+                    "success": success,
+                    "title": title,
+                    "calendar": calendar_name,
+                    "output": result.stdout.strip(),
+                    "error": result.stderr.strip() if result.stderr else None
+                }
+            except Exception as e:
+                logger.error(f"Calendar add error: {e}")
+                raise HTTPException(status_code=500, detail=str(e))
+        
+        elif tool_name == "calendar_list":
+            calendar_name = request.arguments.get("calendar", "Family")
+            days_ahead = request.arguments.get("days_ahead", 7)
+            
+            try:
+                script = f'''
+tell application "Calendar"
+    tell calendar "{calendar_name}"
+        set eventList to events whose start date is greater than (current date) and start date is less than ((current date) + {days_ahead} * days)
+        set output to ""
+        repeat with evt in eventList
+            set output to output & summary of evt & " | " & (start date of evt as string) & linefeed
+        end repeat
+        return output
+    end tell
+end tell
+'''
+                
+                result = subprocess.run(
+                    ['osascript', '-e', script],
+                    capture_output=True,
+                    text=True,
+                    timeout=10
+                )
+                
+                events = []
+                if result.stdout.strip():
+                    for line in result.stdout.strip().split('\n'):
+                        if ' | ' in line:
+                            title, date = line.split(' | ', 1)
+                            events.append({"title": title, "date": date})
+                
+                logger.info(f"Calendar list: {len(events)} events")
+                return {
+                    "success": True,
+                    "calendar": calendar_name,
+                    "events": events
+                }
+            except Exception as e:
+                logger.error(f"Calendar list error: {e}")
+                raise HTTPException(status_code=500, detail=str(e))
+        
+        # ================================================================
+        # REMINDERS TOOLS (macOS Reminders.app)
+        # ================================================================
+        
+        elif tool_name == "reminder_add":
+            name = request.arguments.get("name", "")
+            list_name = request.arguments.get("list", "Reminders")
+            due_date = request.arguments.get("due_date", "")
+            
+            if not name:
+                raise HTTPException(status_code=400, detail="name required")
+            
+            try:
+                script = f'''
+tell application "Reminders"
+    tell list "{list_name}"
+        make new reminder with properties {{name:"{name}"}}
+    end tell
+end tell
+return "Reminder created"
+'''
+                
+                result = subprocess.run(
+                    ['osascript', '-e', script],
+                    capture_output=True,
+                    text=True,
+                    timeout=10
+                )
+                
+                success = result.returncode == 0
+                logger.info(f"Reminder add: {name} to {list_name} - {'✅' if success else '❌'}")
+                
+                return {
+                    "success": success,
+                    "name": name,
+                    "list": list_name,
+                    "output": result.stdout.strip()
+                }
+            except Exception as e:
+                logger.error(f"Reminder add error: {e}")
+                raise HTTPException(status_code=500, detail=str(e))
+        
+        elif tool_name == "reminder_list":
+            list_name = request.arguments.get("list", "Reminders")
+            
+            try:
+                script = f'''
+tell application "Reminders"
+    tell list "{list_name}"
+        set reminderList to reminders
+        set output to ""
+        repeat with rem in reminderList
+            set output to output & name of rem & " | " & (completed of rem as string) & linefeed
+        end repeat
+        return output
+    end tell
+end tell
+'''
+                
+                result = subprocess.run(
+                    ['osascript', '-e', script],
+                    capture_output=True,
+                    text=True,
+                    timeout=10
+                )
+                
+                reminders = []
+                if result.stdout.strip():
+                    for line in result.stdout.strip().split('\n'):
+                        if ' | ' in line:
+                            name, completed = line.split(' | ', 1)
+                            reminders.append({"name": name, "completed": completed == "true"})
+                
+                logger.info(f"Reminder list: {len(reminders)} items")
+                return {
+                    "success": True,
+                    "list": list_name,
+                    "reminders": reminders
+                }
+            except Exception as e:
+                logger.error(f"Reminder list error: {e}")
+                raise HTTPException(status_code=500, detail=str(e))
+        
+        # ================================================================
+        # NOTES TOOL (macOS Notes.app)
+        # ================================================================
+        
+        elif tool_name == "notes_create":
+            title = request.arguments.get("title", "")
+            body = request.arguments.get("body", "")
+            folder = request.arguments.get("folder", "Notes")
+            
+            if not title:
+                raise HTTPException(status_code=400, detail="title required")
+            
+            try:
+                script = f'''
+tell application "Notes"
+    tell folder "{folder}"
+        make new note with properties {{name:"{title}", body:"{body}"}}
+    end tell
+end tell
+return "Note created"
+'''
+                
+                result = subprocess.run(
+                    ['osascript', '-e', script],
+                    capture_output=True,
+                    text=True,
+                    timeout=10
+                )
+                
+                success = result.returncode == 0
+                logger.info(f"Note created: {title} - {'✅' if success else '❌'}")
+                
+                return {
+                    "success": success,
+                    "title": title,
+                    "folder": folder
+                }
+            except Exception as e:
+                logger.error(f"Note create error: {e}")
+                raise HTTPException(status_code=500, detail=str(e))
+        
+        # ================================================================
+        # MESSAGES TOOL (macOS Messages.app)
+        # ================================================================
+        
+        elif tool_name == "messages_send":
+            recipient = request.arguments.get("recipient", "")
+            message = request.arguments.get("message", "")
+            
+            if not recipient or not message:
+                raise HTTPException(status_code=400, detail="recipient and message required")
+            
+            try:
+                script = f'''
+tell application "Messages"
+    set targetBuddy to buddy "{recipient}"
+    send "{message}" to targetBuddy
+end tell
+return "Message sent"
+'''
+                
+                result = subprocess.run(
+                    ['osascript', '-e', script],
+                    capture_output=True,
+                    text=True,
+                    timeout=10
+                )
+                
+                success = result.returncode == 0
+                logger.info(f"Message sent to {recipient} - {'✅' if success else '❌'}")
+                
+                return {
+                    "success": success,
+                    "recipient": recipient,
+                    "message_preview": message[:50] + "..." if len(message) > 50 else message
+                }
+            except Exception as e:
+                logger.error(f"Message send error: {e}")
+                raise HTTPException(status_code=500, detail=str(e))
+        
+        # ================================================================
+        # APP MANAGEMENT TOOLS
+        # ================================================================
+        
+        elif tool_name == "app_launch":
+            app_name = request.arguments.get("app_name", "")
+            
+            if not app_name:
+                raise HTTPException(status_code=400, detail="app_name required")
+            
+            try:
+                result = subprocess.run(
+                    ['open', '-a', app_name],
+                    capture_output=True,
+                    text=True,
+                    timeout=10
+                )
+                
+                success = result.returncode == 0
+                logger.info(f"App launch: {app_name} - {'✅' if success else '❌'}")
+                
+                return {
+                    "success": success,
+                    "app_name": app_name
+                }
+            except Exception as e:
+                logger.error(f"App launch error: {e}")
+                raise HTTPException(status_code=500, detail=str(e))
+        
+        elif tool_name == "app_install":
+            app_id = request.arguments.get("app_id", "")
+            app_name = request.arguments.get("app_name", "")
+            
+            # Note: Requires 'mas' CLI to be installed
+            # Install with: brew install mas
+            
+            try:
+                if app_id:
+                    # Install by ID
+                    result = subprocess.run(
+                        ['mas', 'install', app_id],
+                        capture_output=True,
+                        text=True,
+                        timeout=300  # App install can take time
+                    )
+                elif app_name:
+                    # Search first
+                    search_result = subprocess.run(
+                        ['mas', 'search', app_name],
+                        capture_output=True,
+                        text=True,
+                        timeout=30
+                    )
+                    
+                    if search_result.returncode == 0 and search_result.stdout:
+                        # Parse first result
+                        first_line = search_result.stdout.split('\n')[0]
+                        app_id = first_line.split()[0]
+                        
+                        # Install
+                        result = subprocess.run(
+                            ['mas', 'install', app_id],
+                            capture_output=True,
+                            text=True,
+                            timeout=300
+                        )
+                    else:
+                        return {
+                            "success": False,
+                            "error": "App not found in App Store"
+                        }
+                else:
+                    raise HTTPException(status_code=400, detail="app_id or app_name required")
+                
+                success = result.returncode == 0
+                logger.info(f"App install: {app_name or app_id} - {'✅' if success else '❌'}")
+                
+                return {
+                    "success": success,
+                    "app_id": app_id,
+                    "app_name": app_name
+                }
+            except FileNotFoundError:
+                return {
+                    "success": False,
+                    "error": "'mas' CLI not installed. Install with: brew install mas"
+                }
+            except Exception as e:
+                logger.error(f"App install error: {e}")
+                raise HTTPException(status_code=500, detail=str(e))
             
         else:
             raise HTTPException(status_code=404, detail=f"Unknown tool: {tool_name}")
