@@ -1,0 +1,157 @@
+{
+  "passed": 7,
+  "failed": 16,
+  "skipped": 7,
+  "details": [
+    {
+      "name": "Filesystem read",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Filesystem list",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "YouTube transcript",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Calendar add (proxy)",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Feedback submit \u2713",
+      "status": "\u274c",
+      "detail": "422"
+    },
+    {
+      "name": "TTS proxy \u2713",
+      "status": "\u274c",
+      "detail": "404"
+    },
+    {
+      "name": "Create user",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Get user by ID",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Get task by ID",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Provider: mlx",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Provider: ollama",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Provider: mcp_browser",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Circuit breaker (cloud)",
+      "status": "\u2705",
+      "detail": "Blocked: True"
+    },
+    {
+      "name": "Kokoro synthesis \u2713",
+      "status": "\u274c",
+      "detail": "Status: 500"
+    },
+    {
+      "name": "FastVLM analysis",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires image data"
+    },
+    {
+      "name": "Whisper transcribe",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires audio data"
+    },
+    {
+      "name": "Judicial adjudicate \u2713",
+      "status": "\u274c",
+      "detail": "404"
+    },
+    {
+      "name": "Judicial audit log",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Federation register",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Federation sync",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "AGI Core tools list",
+      "status": "\u26a0\ufe0f",
+      "detail": "Port conflict with Kokoro - needs investigation"
+    },
+    {
+      "name": "AGI Core execute",
+      "status": "\u26a0\ufe0f",
+      "detail": "Port conflict with Kokoro - needs investigation"
+    },
+    {
+      "name": "AGI Core workflows",
+      "status": "\u26a0\ufe0f",
+      "detail": "Port conflict with Kokoro - needs investigation"
+    },
+    {
+      "name": "PostgreSQL schema",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires docker exec - tested separately"
+    },
+    {
+      "name": "Weaviate objects",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires docker exec - tested separately"
+    },
+    {
+      "name": "Calendar add event",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Calendar list events",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Reminders add",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Notes create",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "App launch",
+      "status": "\u274c",
+      "detail": ""
+    }
+  ]
+}
