@@ -1,53 +1,64 @@
 # Cursor/IDE Ignore - Don't lint these directories
 # Prevents noise from archived/old projects
 
-# Archives (ALL)
-**/archive/**
-**/.archive/**
-**/old_iterations/**
-**/pre-consolidation-**/**
-
-# Specific archived projects
+# Archives (ALL - use most specific patterns)
 AI-Projects/universal-ai-tools/archive/
 governance/archive/
+archive/
+.archive/
+
+# Old iterations and backups
+**/old_iterations/
+**/pre-consolidation-20251014_223801/
+
+# Specific archived projects
 athena-macapp-ui/
 SwiftUI_MCP_Modernization/
 services/smart_chat/
 
-# External source code (development only)
+# External source code (development only - NOT production Athena)
 ollama-source/
 
 # Build artifacts
-**/node_modules/**
-**/dist/**
-**/build/**
-**/target/**
-**/.venv/**
-**/venv/**
-**/__pycache__/**
+**/node_modules/
+**/dist/
+**/build/
+**/target/
+**/.venv/
+**/venv/
+**/__pycache__/
 **/*.pyc
+**/.next/
 
 # Large data & models
-volumes/**
-datasets/**
-models/**
+volumes/
+datasets/
+models/
 *.gguf
 *.bin
 *.safetensors
 *.onnx
 *.dylib
 *.so
+*.dll
 
 # Generated code
-proto/gen/**
+proto/gen/
 *.pb.go
 *_pb2.py
+*_grpc.py
 
 # Test artifacts
-artifacts/**
-screenshots/**
+artifacts/
+screenshots/
+.playwright/
 
 # Temp files
 *.tmp
 *.log
 .DS_Store
+*.swp
+*.swo
+
+# Git
+.git/
