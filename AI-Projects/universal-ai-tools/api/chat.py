@@ -1,5 +1,5 @@
 """
-Chat endpoint with Weaviate vector search (semantic RAG)
+Chat endpoint - Model-agnostic routing through Athena Router
 """
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -19,9 +19,9 @@ from api.athena_personality import get_athena_system_prompt
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-OLLAMA_URL = os.getenv("OLLAMA_URL", "http://host.docker.internal:11434")
+ROUTER_URL = os.getenv("ROUTER_URL", "http://athena-router:9113")
 WEAVIATE_URL = os.getenv("WEAVIATE_URL", "http://athena-weaviate:8080")
-DEFAULT_MODEL = os.getenv("LLM_MODEL", "qwen2.5:7b")
+OLLAMA_URL = os.getenv("OLLAMA_URL", "http://host.docker.internal:11434")
 
 # Prometheus metrics (lazy-loaded)
 uai_llm_calls = None
@@ -128,20 +128,25 @@ class Message(BaseModel):
 
 
 class ChatRequest(BaseModel):
-    model: str | None = None
+    model: str | None = None  # Ignored - Router decides
     messages: list[Message]
     stream: bool | None = False
-    temperature: float | None = 0.2
+    temperature: float | None = 0.7
 
 
 @router.post("/v1/chat/completions")
 async def chat_completions(req: ChatRequest):
     """
-    OpenAI-compatible chat completions with semantic RAG + Athena's personality
-    """
-    model = req.model or DEFAULT_MODEL
+    Model-agnostic chat completions via Athena Router
     
-    # Extract user query
+    The Router automatically selects the best model based on:
+    - Task complexity
+    - Available models
+    - Load balancing
+    - Circuit breaker status
+    """
+    
+    # Extract user query for RAG
     user_query = ""
     for msg in reversed(req.messages):
         if msg.role == "user":
@@ -178,38 +183,37 @@ async def chat_completions(req: ChatRequest):
             "content": m.content
         })
     
-    # Build Ollama request
-    payload = {
-        "model": model,
+    # Build Router request (model-agnostic)
+    router_payload = {
         "messages": enriched_messages,
-        "stream": False,
-        "options": {
-            "temperature": req.temperature or 0.7,  # Increased for more natural responses
-            "num_predict": 512
-        }
+        "temperature": req.temperature or 0.7,
+        "stream": False
     }
     
     t0 = time.time()
     
     try:
-        logger.info(f"Calling Ollama as Athena (RAG: {bool(rag_context)})")
+        logger.info(f"Routing to Athena (RAG: {bool(rag_context)})")
         
-        async with httpx.AsyncClient(timeout=30.0) as client:
+        async with httpx.AsyncClient(timeout=60.0) as client:
             response = await client.post(
-                f"{OLLAMA_URL}/api/chat",
-                json=payload
+                f"{ROUTER_URL}/route",
+                json=router_payload
             )
             response.raise_for_status()
             data = response.json()
         
-        content = (data.get("message") or {}).get("content", "")
+        # Extract response and metadata
+        content = data.get("content", "")
+        model_used = data.get("model", "unknown")
+        provider = data.get("provider", "unknown")
         
         # Metrics
         if uai_llm_calls:
-            uai_llm_calls.labels(model).inc()
-            uai_llm_lat_s.labels(model).observe(time.time() - t0)
+            uai_llm_calls.labels(model_used).inc()
+            uai_llm_lat_s.labels(model_used).observe(time.time() - t0)
         
-        logger.info(f"Success: {len(content)} chars in {time.time()-t0:.2f}s (RAG: {bool(rag_context)})")
+        logger.info(f"Success: {len(content)} chars in {time.time()-t0:.2f}s (Model: {model_used}, RAG: {bool(rag_context)})")
         
         # ASI Safety: Submit chat decision to judicial oversight
         try:
@@ -224,7 +228,8 @@ async def chat_completions(req: ChatRequest):
                 confidence=0.85,
                 classification="chat_completion",
                 details={
-                    "model": model,
+                    "model": model_used,
+                    "provider": provider,
                     "rag_used": bool(rag_context),
                     "tokens": len(content.split()),
                     "latency_ms": (time.time() - t0) * 1000
@@ -236,7 +241,7 @@ async def chat_completions(req: ChatRequest):
         
         return {
             "object": "chat.completion",
-            "model": model,
+            "model": model_used,  # Return which model was actually used
             "choices": [{
                 "index": 0,
                 "message": {
@@ -249,21 +254,26 @@ async def chat_completions(req: ChatRequest):
                 "prompt_tokens": sum(len(m.content.split()) for m in req.messages),
                 "completion_tokens": len(content.split()),
                 "total_tokens": sum(len(m.content.split()) for m in req.messages) + len(content.split())
+            },
+            "_athena": {
+                "provider": provider,
+                "rag_enabled": bool(rag_context),
+                "routed": True
             }
         }
         
     except httpx.HTTPStatusError as e:
-        logger.error(f"Ollama HTTP error: {e.response.status_code}")
+        logger.error(f"Router HTTP error: {e.response.status_code}")
         if uai_llm_fail:
-            uai_llm_fail.labels(model, "http_error").inc()
-        raise HTTPException(status_code=502, detail=f"Ollama error: {e.response.status_code}")
+            uai_llm_fail.labels("router", "http_error").inc()
+        raise HTTPException(status_code=502, detail=f"Router error: {e.response.status_code}")
     except httpx.TimeoutException:
-        logger.error("Ollama timeout")
+        logger.error("Router timeout")
         if uai_llm_fail:
-            uai_llm_fail.labels(model, "timeout").inc()
+            uai_llm_fail.labels("router", "timeout").inc()
         raise HTTPException(status_code=504, detail="Request timeout")
     except Exception as e:
         logger.error(f"Error: {type(e).__name__}: {e}")
         if uai_llm_fail:
-            uai_llm_fail.labels(model, type(e).__name__).inc()
+            uai_llm_fail.labels("router", type(e).__name__).inc()
         raise HTTPException(status_code=500, detail=str(e))
