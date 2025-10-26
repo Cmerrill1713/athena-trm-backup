@@ -20,6 +20,42 @@ class MCPBrowserProvider(BaseProvider):
         self.enabled = enabled
         logger.info(f"MCP Browser provider initialized: {endpoint}, enabled={enabled}")
     
+    def _extract_search_query(self, prompt: str) -> str:
+        """Extract search terms from browser requests."""
+        prompt_lower = prompt.lower()
+        
+        # Common browser request patterns
+        browser_patterns = [
+            "open a browser and look up",
+            "search for",
+            "look up",
+            "find information about",
+            "research",
+            "browse",
+            "search",
+            "look for"
+        ]
+        
+        # Remove browser request language and extract the actual search terms
+        search_query = prompt
+        for pattern in browser_patterns:
+            if pattern in prompt_lower:
+                # Extract everything after the pattern
+                parts = prompt_lower.split(pattern, 1)
+                if len(parts) > 1:
+                    search_query = parts[1].strip()
+                    break
+        
+        # Clean up the search query
+        search_query = search_query.replace("research papers", "").replace("papers", "").strip()
+        
+        # If no specific search terms found, use common research topics
+        if not search_query or len(search_query) < 3:
+            search_query = "artificial intelligence research"
+        
+        logger.info(f"Extracted search query: '{search_query}' from prompt: '{prompt}'")
+        return search_query
+    
     async def generate(
         self,
         prompt: str,
@@ -30,9 +66,14 @@ class MCPBrowserProvider(BaseProvider):
         if not self.enabled:
             raise Exception("MCP Browser provider is disabled")
         
+        # Extract search terms from browser requests
+        search_query = self._extract_search_query(prompt)
+        
         payload = {
-            "query": prompt,
-            "max_results": 5
+            "arguments": {
+                "query": search_query,
+                "num_results": 5
+            }
         }
         
         try:
@@ -45,14 +86,24 @@ class MCPBrowserProvider(BaseProvider):
                         raise Exception(f"MCP Browser returned {resp.status}: {error_text}")
                     
                     result = await resp.json()
+                    logger.info(f"MCP Browser result: {result}")
+                    
                     # Extract search results and format as text
                     if "results" in result:
                         results = result["results"]
-                        if results:
-                            titles = [r.get("title", "") for r in results[:3]]
-                            return f"Search results: {', '.join(titles)}"
+                        if results and len(results) > 0:
+                            # Format results nicely
+                            formatted_results = []
+                            for r in results[:3]:
+                                title = r.get("title", "Untitled")
+                                snippet = r.get("snippet", "")[:100] + "..." if len(r.get("snippet", "")) > 100 else r.get("snippet", "")
+                                url = r.get("url", "")
+                                source = r.get("source", "")
+                                formatted_results.append(f"• {title} ({source})\n  {snippet}\n  {url}")
+                            
+                            return f"Search results for '{prompt}':\n\n" + "\n\n".join(formatted_results)
                         else:
-                            return "No search results found."
+                            return f"No search results found for '{prompt}'."
                     return result.get("text", result.get("response", "Search completed."))
         
         except Exception as e:

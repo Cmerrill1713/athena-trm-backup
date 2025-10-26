@@ -4,6 +4,7 @@ global:
 
 rule_files:
   - alerts.yml
+  - rules/alerts.yml
 
 alerting:
   alertmanagers:
@@ -70,6 +71,13 @@ scrape_configs:
     static_configs:
       - targets: ["athena-redis-exporter:9121"]
     scrape_interval: 30s
+
+  # OpenTelemetry Collector
+  - job_name: "athena-otel-collector"
+    static_configs:
+      - targets: ["athena-otel-collector:8889"]
+    scrape_interval: 15s
+    metrics_path: "/metrics"
 
   # Prometheus itself
   - job_name: "prometheus"

@@ -395,6 +395,40 @@ services:
       - "athena.port=9111"
       - "athena.layer=a3"
 
+  agi-core:
+    build:
+      context: .
+      dockerfile: agi_core/Dockerfile.agi-service
+    container_name: agi-core
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8100:8100"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - AGI_SERVICE_PORT=8100
+      - REDIS_URL=redis://athena-redis:6379/0
+      - POSTGRES_HOST=athena-postgres
+      - RAG_URL=http://athena-knowledge-gateway:8080
+    volumes:
+      - ./agi_core:/app/agi_core:ro
+      - ./common:/app/common:ro
+      - ./infra:/app/infra:ro
+    depends_on:
+      - athena-redis
+      - athena-knowledge-gateway
+    networks:
+      - athena-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8100/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "athena.service=agi-core"
+      - "athena.port=8100"
+      - "athena.layer=a2"
+
   agi-remediator:
     build:
       context: .
@@ -433,8 +467,65 @@ services:
       - "athena.layer=a3"
 
   # ===========================================================================
-  # OBSERVABILITY: PROMETHEUS + GRAFANA + MONITORING
+  # OBSERVABILITY: PROMETHEUS + GRAFANA + MONITORING + OPENTELEMETRY
   # ===========================================================================
+
+  athena-otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: athena-otel-collector
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4317:4317" # OTLP gRPC receiver
+      - "127.0.0.1:4318:4318" # OTLP HTTP receiver
+      - "127.0.0.1:8889:8889" # Prometheus metrics exporter
+      - "127.0.0.1:13133:13133" # Health check
+      - "127.0.0.1:1777:1777" # pprof
+      - "127.0.0.1:55679:55679" # zpages
+    command:
+      - "--config=/etc/otel-collector-config.yaml"
+    volumes:
+      - ./governance/observability/otel-collector-config.yml:/etc/otel-collector-config.yaml:ro
+      - otel_data:/tmp
+    networks:
+      - athena-network
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:13133/",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "athena.service=otel-collector"
+      - "athena.port=4317"
+      - "athena.layer=observability"
+
+  # ===========================================================================
+  # OLLAMA-ATHENA PROXY (Port 11435) - Smart Routing for Open WebUI
+  # ===========================================================================
+
+  athena-proxy:
+    build:
+      context: ./services/ollama-athena-proxy
+      dockerfile: Dockerfile
+    container_name: athena-proxy
+    restart: unless-stopped
+    ports:
+      - "11435:11435"
+    environment:
+      - PORT=11435
+      - OLLAMA_URL=http://host.docker.internal:11434
+      - ROUTER_URL=http://athena-router:9113
+    networks:
+      - athena-network
+    depends_on:
+      - athena-router
 
   athena-prometheus:
     image: prom/prometheus@sha256:ff7e389acbe064a4823212a500393d40a28a8f362e4b05cbf6742a9a3ef736b2
@@ -445,12 +536,15 @@ services:
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=15d"
+      - "--storage.tsdb.retention.size=10GB"
       - "--web.enable-lifecycle"
       - "--web.console.libraries=/usr/share/prometheus/console_libraries"
       - "--web.console.templates=/usr/share/prometheus/consoles"
     volumes:
       - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - ./monitoring/prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - ./monitoring/prometheus/rules:/etc/prometheus/rules:ro
       - prometheus_data:/prometheus
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -784,7 +878,6 @@ services:
       - "athena.service=searxng"
       - "athena.port=8081"
 
-
   # ===========================================================================
   # UNIVERSAL AI TOOLS (Port 8080) - Additional AI Service Layer
   # ===========================================================================
@@ -851,6 +944,9 @@ volumes:
     name: athena_netdata_data
     external: true
   alertmanager_data:
+  otel_data:
+    name: athena_otel_data
+    external: true
 
 # =============================================================================
 # NETWORKS
@@ -865,4 +961,3 @@ networks:
   # ===========================================================================
   # UNIVERSAL AI TOOLS (Port 8080) - Additional AI Service Layer
   # ===========================================================================
-

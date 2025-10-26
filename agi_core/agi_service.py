@@ -18,6 +18,7 @@ from typing import Dict, List, Any, Optional
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Body
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from prometheus_client import Counter, Histogram, Gauge
 
@@ -40,6 +41,101 @@ app = FastAPI(
     version="1.0.0",
     description="Advanced Agent Intelligence Framework based on IndyDevDan's R&D patterns"
 )
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # In production, specify exact origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Health endpoints
+@app.get("/health")
+async def health():
+    return {"status": "ok", "service": "agi-core"}
+
+@app.get("/ready")
+async def ready():
+    return {"status": "ready", "service": "agi-core"}
+
+@app.get("/trm/policy")
+async def trm_policy_stats():
+    """Get current TRM adaptive policy statistics"""
+    try:
+        from services.trm_adaptive_policy import policy as trm_policy
+        stats = trm_policy.get_stats()
+        return {
+            "status": "ok",
+            "adaptive_available": True,
+            "config": {
+                "trigger_threshold": trm_policy.cfg.trigger_threshold,
+                "min_cycles": trm_policy.cfg.min_cycles,
+                "max_cycles": trm_policy.cfg.max_cycles,
+                "retrain_every": trm_policy.cfg.retrain_every,
+                "history_size": trm_policy.cfg.history_size,
+            },
+            "policy": {
+                "bias": round(trm_policy.bias, 3),
+                "weights": trm_policy.weights,
+            },
+            "stats": stats
+        }
+    except ImportError:
+        return {
+            "status": "unavailable",
+            "adaptive_available": False,
+            "reason": "trm_adaptive_policy not imported"
+        }
+
+# Tool discovery endpoints
+@app.get("/tools")
+async def list_tools():
+    """List all available tools with their specs"""
+    from agi_core.tooling import TOOL_REGISTRY, TOOL_SPECS
+    return {
+        "tools": {
+            name: {
+                "url": url,
+                "category": TOOL_SPECS[name].category if name in TOOL_SPECS else "unknown",
+                "internal": url.startswith("internal://")
+            }
+            for name, url in TOOL_REGISTRY.items()
+        },
+        "count": len(TOOL_REGISTRY)
+    }
+
+@app.post("/tools/refresh")
+async def refresh_tools():
+    """Rediscover tools and validate health"""
+    from agi_core.tooling import discover_tools, TOOL_REGISTRY, ToolSpec, CURIOSITY_ACTIONS
+    
+    CURIOSITY_ACTIONS.labels(kind="refresh").inc()
+    
+    # Build candidates from current registry
+    candidates = [
+        ToolSpec(
+            name=name,
+            url=url,
+            ping_url=url.replace("/tool/", "/health") if "/tool/" in url else None
+        )
+        for name, url in TOOL_REGISTRY.items()
+        if not url.startswith("internal://")
+    ]
+    
+    status = await discover_tools(candidates)
+    return {
+        "refreshed": len(status),
+        "healthy": len([s for s in status.values() if s.get("healthy")]),
+        "details": status
+    }
+
+@app.post("/tools/doctor")
+async def run_doctor():
+    """Run system introspection snapshot"""
+    from agi_core.tooling import doctor_snapshot
+    return await doctor_snapshot()
 
 # Prometheus metrics
 CONTEXT_OPERATIONS = Counter(
@@ -137,6 +233,56 @@ class MultiAgentWorkflowRequest(BaseModel):
     workflow_id: str = Field(..., description="Unique workflow ID")
     tasks: List[Dict[str, Any]] = Field(..., description="List of tasks to coordinate")
     strategy: str = Field("parallel", description="Execution strategy (parallel, sequential)")
+
+
+# ============================================================================
+# AGI Execute Router (Mount Canonical Entrypoint)
+# ============================================================================
+
+from agi_core.api_execute import router as execute_router
+app.include_router(execute_router, tags=["agi"])
+
+
+# ============================================================================
+# Conversational Router (Hybrid Chat + Execute)
+# ============================================================================
+
+from agi_core.conversational_router import ConversationalRouter
+from pydantic import BaseModel
+
+conversational_router = ConversationalRouter()
+
+class ChatRequest(BaseModel):
+    message: str
+    session_id: str = "default"
+    force_mode: Optional[str] = None
+
+class ChatResponse(BaseModel):
+    content: str
+    mode: str
+    session_id: str
+    metadata: Optional[Dict[str, Any]] = None
+
+@app.post("/chat", response_model=ChatResponse)
+async def chat(request: ChatRequest):
+    """
+    Conversational endpoint with automatic routing
+    - Detects if message needs task execution or conversation
+    - Maintains conversation context
+    - Returns natural language responses
+    """
+    result = await conversational_router.route_message(
+        message=request.message,
+        session_id=request.session_id,
+        force_mode=request.force_mode
+    )
+    
+    return ChatResponse(
+        content=result.get('content', ''),
+        mode=result.get('mode', 'unknown'),
+        session_id=result.get('session_id', request.session_id),
+        metadata={k: v for k, v in result.items() if k not in ['content', 'mode', 'session_id']}
+    )
 
 
 # ============================================================================

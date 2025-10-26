@@ -68,11 +68,16 @@ class XcodeBuildRequest(BaseModel):
     scheme: str
     configuration: str = "Debug"
     destination: str = "platform=macOS"
+    clean: bool = False
+    emit_tail: int = 0  # Number of lines to capture from end of output
 
 class AppLaunchRequest(BaseModel):
     """Launch a macOS app."""
     bundle_id: str
+    binary_glob: Optional[str] = None  # Glob to discover binary if not installed
     kill_existing: bool = True
+    wait_for_binary_s: int = 0  # Wait for binary to exist before launching
+    activate_frontmost: bool = True
 
 class UITypingProbeRequest(BaseModel):
     """Synthetic typing test."""
@@ -81,6 +86,9 @@ class UITypingProbeRequest(BaseModel):
     send: str = "enter"  # "enter" or "cmd+enter"
     repeat: int = 3
     timeout: int = 10
+    refocus_between_cycles: bool = False
+    preclick_to_focus: bool = False
+    emit_transcript: bool = False
 
 class FrontendVerifyRequest(BaseModel):
     """Orchestrate full frontend verification."""
@@ -154,41 +162,63 @@ async def xcode_build(request: XcodeBuildRequest):
         raise HTTPException(status_code=403, detail=f"Path not allowed: {request.project}")
     
     try:
+        import time
+        t0 = time.time()
+        
         cmd = [
             "xcodebuild",
             "-scheme", request.scheme,
             "-destination", request.destination,
-            "-configuration", request.configuration,
-            "build"
+            "-configuration", request.configuration
         ]
+        
+        # Add clean if requested
+        if request.clean:
+            cmd.append("clean")
+        
+        cmd.append("build")
         
         logger.info(f"Building: {' '.join(cmd)}")
         
         result = subprocess.run(
             cmd,
-            cwd=os.path.dirname(request.project),
+            cwd=os.path.dirname(request.project) if os.path.isfile(request.project) else request.project,
             capture_output=True,
             text=True,
-            timeout=120
+            timeout=300  # Longer timeout for clean builds
         )
         
-        success = result.returncode == 0
+        duration = time.time() - t0
         
         # Extract key info from output
-        build_succeeded = "** BUILD SUCCEEDED **" in result.stdout
-        errors = re.findall(r'error: (.+)', result.stderr + result.stdout)
+        combined_output = result.stdout + result.stderr
+        build_succeeded = "** BUILD SUCCEEDED **" in combined_output
+        errors = re.findall(r'error: (.+)', combined_output)
         
-        logger.info(f"Build {'succeeded' if success else 'failed'}")
+        # Capture tail if requested
+        tail_lines = []
+        if request.emit_tail > 0:
+            output_lines = combined_output.split('\n')
+            tail_lines = output_lines[-request.emit_tail:]
         
-        return {
+        logger.info(f"Build {'succeeded' if build_succeeded else 'failed'} in {duration:.1f}s")
+        
+        response = {
             "success": build_succeeded,
+            "ok": build_succeeded,  # probe_ok compatibility
             "exit_code": result.returncode,
-            "errors": errors[:10],  # Limit to first 10 errors
-            "duration_s": 0  # TODO: Track duration
+            "errors": errors[:10],
+            "duration_s": round(duration, 2)
         }
         
+        # Add tail if requested
+        if tail_lines:
+            response["build_log_tail"] = tail_lines
+        
+        return response
+        
     except subprocess.TimeoutExpired:
-        raise HTTPException(status_code=504, detail="Build timed out after 120s")
+        raise HTTPException(status_code=504, detail="Build timed out after 300s")
     except Exception as e:
         logger.error(f"Build failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -201,38 +231,86 @@ async def xcode_build(request: XcodeBuildRequest):
 async def app_launch(request: AppLaunchRequest):
     """Launch a macOS app, optionally killing existing instances."""
     try:
+        import time
+        import glob
+        
         # Kill existing if requested
         if request.kill_existing:
             app_name = request.bundle_id.split('.')[-1]
             subprocess.run(["pkill", "-x", app_name], check=False)
             logger.info(f"Killed existing instances of {app_name}")
+            time.sleep(0.5)
         
-        # Launch app
-        subprocess.run(
-            ["open", "-b", request.bundle_id],
-            check=True,
-            timeout=10
-        )
+        # Wait for binary if glob provided and wait_for_binary_s > 0
+        binary_path = None
+        if request.binary_glob and request.wait_for_binary_s > 0:
+            logger.info(f"Waiting up to {request.wait_for_binary_s}s for binary: {request.binary_glob}")
+            expanded_glob = os.path.expanduser(request.binary_glob)
+            deadline = time.time() + request.wait_for_binary_s
+            
+            while time.time() < deadline:
+                candidates = glob.glob(expanded_glob)
+                if candidates:
+                    # Pick most recent
+                    binary_path = max(candidates, key=os.path.getmtime)
+                    logger.info(f"Found binary: {binary_path}")
+                    break
+                time.sleep(2)
+            
+            if not binary_path:
+                raise HTTPException(
+                    status_code=404,
+                    detail=f"Binary not found after {request.wait_for_binary_s}s: {request.binary_glob}"
+                )
         
-        # Bring to front with AppleScript
-        script = f'''
+        # Try launch by bundle ID first, fallback to binary path
+        launch_method = None
+        try:
+            subprocess.run(
+                ["open", "-b", request.bundle_id, "--new"],
+                check=True,
+                timeout=10,
+                capture_output=True
+            )
+            launch_method = f"bundle:{request.bundle_id}"
+            logger.info(f"Launched via bundle ID: {request.bundle_id}")
+        except subprocess.CalledProcessError:
+            if binary_path:
+                # Fallback to binary path
+                subprocess.run(
+                    ["open", binary_path],
+                    check=True,
+                    timeout=10
+                )
+                launch_method = f"binary:{binary_path}"
+                logger.info(f"Launched via binary: {binary_path}")
+            else:
+                raise
+        
+        # Wait a moment for app to start
+        time.sleep(2)
+        
+        # Bring to front if requested
+        if request.activate_frontmost:
+            script = f'''
 tell application "System Events"
     set frontmost of first application process whose bundle identifier is "{request.bundle_id}" to true
 end tell
 '''
+            subprocess.run(
+                ["osascript", "-e", script],
+                check=False,
+                timeout=5
+            )
         
-        subprocess.run(
-            ["osascript", "-e", script],
-            check=False,
-            timeout=5
-        )
-        
-        logger.info(f"✅ Launched {request.bundle_id}")
+        logger.info(f"✅ Launched {request.bundle_id} via {launch_method}")
         
         return {
             "success": True,
+            "ok": True,  # probe_ok compatibility
             "bundle_id": request.bundle_id,
-            "frontmost": True
+            "launch_method": launch_method,
+            "frontmost": request.activate_frontmost
         }
         
     except subprocess.TimeoutExpired:
@@ -249,11 +327,41 @@ end tell
 async def ui_typing_probe(request: UITypingProbeRequest):
     """Synthetic typing test - verifies focus persists across sends."""
     try:
+        import time
         app_name = request.bundle_id.split('.')[-1]
         
         results = []
+        transcript = []
+        
+        # Preflight: ensure app is frontmost
+        if request.preclick_to_focus:
+            preflight_script = f'''
+tell application "{app_name}"
+    activate
+end tell
+delay 0.3
+'''
+            subprocess.run(
+                ["osascript", "-e", preflight_script],
+                check=False,
+                timeout=5
+            )
         
         for i in range(request.repeat):
+            # Re-focus between cycles if requested
+            if i > 0 and request.refocus_between_cycles:
+                refocus_script = f'''
+tell application "{app_name}"
+    activate
+end tell
+delay 0.2
+'''
+                subprocess.run(
+                    ["osascript", "-e", refocus_script],
+                    check=False,
+                    timeout=3
+                )
+            
             # Type text via AppleScript
             type_script = f'''
 tell application "{app_name}"
@@ -268,42 +376,67 @@ tell application "System Events"
 end tell
 '''
             
+            t0 = time.time()
             result = subprocess.run(
                 ["osascript", "-e", type_script],
                 capture_output=True,
                 text=True,
                 timeout=request.timeout
             )
+            duration = time.time() - t0
             
             iteration_pass = result.returncode == 0
-            results.append({
+            
+            iteration_data = {
                 "iteration": i + 1,
                 "success": iteration_pass,
+                "duration_s": round(duration, 3),
                 "stderr": result.stderr if result.stderr else None
-            })
+            }
+            results.append(iteration_data)
+            
+            # Build transcript if requested
+            if request.emit_transcript:
+                transcript.append({
+                    "cycle": i + 1,
+                    "text": request.text,
+                    "send_key": request.send,
+                    "success": iteration_pass,
+                    "duration_s": round(duration, 3)
+                })
             
             if not iteration_pass:
                 break
         
         all_pass = all(r["success"] for r in results)
+        passed_count = len([r for r in results if r["success"]])
         
-        logger.info(f"Typing probe: {len([r for r in results if r['success']])}/{request.repeat} passed")
+        logger.info(f"Typing probe: {passed_count}/{request.repeat} passed")
         
-        return {
+        response = {
             "pass": all_pass,
+            "ok": all_pass,  # probe_ok compatibility
+            "success": all_pass,  # probe_ok compatibility
             "iterations": results,
-            "details": f"Focus intact across {len([r for r in results if r['success']])} sends"
+            "details": f"Focus intact across {passed_count} sends"
         }
+        
+        if request.emit_transcript:
+            response["transcript"] = transcript
+        
+        return response
         
     except subprocess.TimeoutExpired:
         return {
             "pass": False,
+            "ok": False,
             "error": f"Probe timed out after {request.timeout}s"
         }
     except Exception as e:
         logger.error(f"Probe failed: {e}")
         return {
             "pass": False,
+            "ok": False,
             "error": str(e)
         }
 

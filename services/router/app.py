@@ -193,6 +193,8 @@ class RouteRequest(BaseModel):
     max_tokens: Optional[int] = None
     temperature: Optional[float] = 0.7
     model_hint: Optional[str] = None
+    use_browser: Optional[bool] = False
+    modality: Optional[str] = "text"
 
 class RouteResponse(BaseModel):
     """Routing response with inference result."""
@@ -582,11 +584,25 @@ async def route_request(request: RouteRequest):
     # Get provider health
     provider_health = health_monitor.get_all_status()
     
+    # Detect browser requests and prioritize MCP browser
+    browser_keywords = ['search', 'browser', 'web', 'research', 'papers', 'look up', 'find', 'google', 'arxiv']
+    is_browser_request = (
+        request.use_browser or 
+        any(keyword in request.prompt.lower() for keyword in browser_keywords)
+    )
+    
+    # Adjust provider order for browser requests
+    if is_browser_request:
+        provider_order = ['mcp_browser'] + [p for p in config.order if p != 'mcp_browser']
+        logger.info(f"🌐 Browser request detected, prioritizing MCP browser")
+    else:
+        provider_order = config.order
+    
     # Try providers in order
     last_error = None
     failover_from = None
     
-    for provider_name in config.order:
+    for provider_name in provider_order:
         provider = providers.get(provider_name)
         if not provider:
             continue

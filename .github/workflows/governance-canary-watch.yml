@@ -2,8 +2,10 @@ name: governance-canary-watch
 on:
   workflow_dispatch:
     inputs:
-      window_minutes: { description: "Observe minutes", default: "15", required: true }
-      min_samples: { description: "Min tasks in window", default: "200", required: true }
+      window_minutes:
+        { description: "Observe minutes", default: "15", required: true }
+      min_samples:
+        { description: "Min tasks in window", default: "200", required: true }
 
 jobs:
   watch:
@@ -127,4 +129,5 @@ jobs:
 
       - name: Hold (insufficient data)
         if: ${{ steps.decide.outputs.exit_code == '10' }}
-        run: echo "HOLD: Not enough signal yet; rerun later."
+        run: |
+          echo "HOLD: Not enough signal yet; rerun later."

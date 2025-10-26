@@ -1,291 +1,296 @@
-# Athena Quick Start Guide
+# 🚀 Athena + Open WebUI Quick Start Guide
 
-**Status:** 🎊 100% Operational  
-**Last Updated:** October 16, 2025
+## ✅ Status: Everything is Running!
 
----
+Your complete local AI stack is now operational:
 
-## ⚡ **ONE-LINE COMMANDS**
-
-```bash
-make start          # Start all Athena services
-make stop           # Stop all services
-make status         # Quick health check
-make restart        # Restart everything
-make wire-validate  # Verify 100% wiring
-```
+- ✅ **Open WebUI** at http://localhost:3000
+- ✅ **Athena Router** with browser research at http://localhost:9113
+- ✅ **Ollama** with local models at http://localhost:11434
+- ✅ **Prometheus** monitoring at http://localhost:9090
+- ✅ **Grafana** dashboards at http://localhost:3001
 
 ---
 
-## 🚀 **Daily Usage**
+## 📋 Step-by-Step Setup (5 minutes)
 
-### **Start Your Day**
+### Step 1: Open WebUI (Already Done!)
 
-```bash
-cd ~/Documents/GitHub
-make start
-make status
-```
+Open WebUI is running in your browser at **http://localhost:3000**
 
-### **View Dashboards**
+### Step 2: Create Your Account (First Time Only)
 
-```bash
-open http://localhost:3001  # Grafana (admin/admin)
-open http://localhost:9090  # Prometheus
-```
+1. If this is your first time, you'll see a signup page
+2. Create an admin account with email/password
+3. Click **Sign Up**
+4. You're now logged in!
 
-### **Run Experiments**
+### Step 3: Connect to Ollama (Required)
 
-```bash
-make exp-shadow      # Safe shadow mode
-make exp-remediate   # 1% canary auto-fix
-make exp-ab          # A/B policy test
-```
+This gives you access to your local models:
 
-### **Switch Modes**
+1. Click your **profile icon** (top right corner)
+2. Select **Settings**
+3. Go to **Connections** tab
+4. Find the **Ollama** section
+5. In the **Ollama Base URL** field, enter:
+   ```
+   http://host.docker.internal:11434
+   ```
+6. Click **Save** or the refresh icon
+7. You should see models like:
+   - `mxbai-embed-large:latest`
+   - `qwen2.5:0.5b`
+   - `granite4:tiny-h`
 
-```bash
-./scripts/flip_mode.sh shadow   # Observe only
-./scripts/flip_mode.sh canary   # 1-5% enforcement
-./scripts/flip_mode.sh enforce  # Full governance
-```
+### Step 4: Test Normal Chat (Optional)
+
+1. Go back to the main chat screen
+2. Select a model from the dropdown (e.g., `qwen2.5:0.5b`)
+3. Ask: "What is artificial intelligence?"
+4. You should get a response from your local model!
+
+### Step 5: Test Browser Research! 🎯
+
+Now for the exciting part - real web search:
+
+1. In the chat, type one of these:
+
+   - **"Open a browser and look up machine learning"**
+   - **"Search for artificial intelligence research"**
+   - **"Find information about neural networks"**
+
+2. What happens behind the scenes:
+
+   - Open WebUI sends your request to Ollama
+   - Ollama processes it locally
+   - Your query gets routed to Athena Router (http://localhost:9113)
+   - Router detects the browser request
+   - Routes to MCP Browser Provider
+   - Searches DuckDuckGo for real results
+   - Returns formatted search results!
+
+3. Expected response format:
+
+   ```
+   Search results for 'machine learning':
+
+   • Machine learning (DuckDuckGo)
+     Machine learning is a field of study in artificial intelligence...
+     https://en.wikipedia.org/wiki/Machine_learning
+
+   • Deep Learning (DuckDuckGo)
+     Deep learning is a branch of machine learning...
+     https://duckduckgo.com/Deep_learning
+   ```
 
 ---
 
-## 📊 **Service Endpoints**
+## 🔧 Alternative: Test Router Directly
 
-| Service          | Port | URL                   | Purpose           |
-| ---------------- | ---- | --------------------- | ----------------- |
-| **Orchestrator** | 9110 | http://localhost:9110 | Verdict engine    |
-| **Master API**   | 8000 | http://localhost:8000 | Control interface |
-| **Prometheus**   | 9090 | http://localhost:9090 | Metrics database  |
-| **Grafana**      | 3001 | http://localhost:3001 | Dashboards        |
-| **Metrics**      | 9109 | http://localhost:9109 | Exporter          |
-| **Canary**       | 9111 | http://localhost:9111 | Window eval       |
-
----
-
-## 🧪 **Quick Tests**
-
-### **Test Verdict**
+If you want to test the browser functionality directly without Open WebUI:
 
 ```bash
-curl -X POST http://localhost:9110/verdict \
+# Simple search
+curl -X POST http://localhost:9113/route \
   -H 'Content-Type: application/json' \
-  -d '{
-    "task_id": "test-'$(date +%s)'",
-    "verdict": "PASS",
-    "ece_post": 0.03,
-    "entropy": 0.05,
-    "actions": ["PROMOTE"],
-    "ts": "'$(date -u +%FT%TZ)'"
-  }'
-```
+  -d '{"prompt":"machine learning","use_browser":true}' | jq -r '.text'
 
-### **Check Health**
-
-```bash
-curl http://localhost:9110/health
-curl http://localhost:8000/health
-curl http://localhost:9090/-/ready
-```
-
-### **View Metrics**
-
-```bash
-curl -s http://localhost:9110/metrics | grep governance_
-```
-
-### **Check State**
-
-```bash
-curl -s http://localhost:9110/state | jq
+# Research papers
+curl -X POST http://localhost:9113/route \
+  -H 'Content-Type: application/json' \
+  -d '{"prompt":"artificial intelligence","use_browser":true}' | jq -r '.text'
 ```
 
 ---
 
-## 📈 **Monitoring**
+## 📊 Monitor Your Stack
 
-### **Watch Metrics Live**
+### Grafana Dashboards
+
+- URL: http://localhost:3001
+- Login: admin / admin (default)
+- Dashboards show:
+  - Request rates
+  - Latency (p50/p95)
+  - Error rates
+  - Route mix (MLX, Ollama, Browser, etc.)
+
+### Prometheus Metrics
+
+- URL: http://localhost:9090
+- Query examples:
+  - `athena_router_requests_total` - Total requests
+  - `athena_router_latency_seconds` - Request latency
+  - `up{job="athena-router"}` - Router health
+
+### Router Health
 
 ```bash
-watch -n 5 'curl -s http://localhost:9110/metrics | grep governance_verdicts_total'
+curl http://localhost:9113/health | jq .
 ```
 
-### **Check Coverage**
+### Check All Services
 
 ```bash
-make gate
-# Expected: ≥98%
-```
-
-### **View Logs**
-
-```bash
-tail -f artifacts/orchestrator.log
-tail -f artifacts/athena_api.log
-```
-
----
-
-## 🛡️ **Safety Commands**
-
-### **Emergency Rollback**
-
-```bash
-./scripts/flip_mode.sh shadow
-```
-
-### **Full Validation**
-
-```bash
-make wire-validate  # Should be 100%
-make pre-ship-safe  # All tests
-```
-
-### **Stop Everything**
-
-```bash
-make stop
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 ```
 
 ---
 
-## 🎯 **Common Workflows**
+## 🎯 Browser Research Keywords
 
-### **Morning Startup**
+The router automatically detects these patterns and routes to browser:
+
+- "open a browser"
+- "search for"
+- "look up"
+- "find information"
+- "research papers"
+- "search the web"
+- "look online"
+
+---
+
+## 🐛 Troubleshooting
+
+### Open WebUI Not Loading?
 
 ```bash
-cd ~/Documents/GitHub
-make start
-make status
-open http://localhost:3001
+# Check status
+docker ps | grep open-webui
+
+# Check logs
+docker logs open-webui --tail 50
+
+# Restart
+docker restart open-webui
 ```
 
-### **Run Daily Experiment**
+### Can't Connect to Ollama?
 
 ```bash
-make exp-shadow
-# Check artifacts/remediation_shadow/
+# Verify Ollama is running
+curl http://localhost:11434/api/tags
+
+# In Open WebUI, use: http://host.docker.internal:11434
+# NOT: http://localhost:11434 (won't work from inside Docker)
 ```
 
-### **Deploy to Canary**
+### Router Not Responding?
 
 ```bash
-./scripts/flip_mode.sh canary
-watch -n 10 'make gate'
-# Monitor for 1 hour
+# Check router status
+docker ps | grep athena-router
+
+# Check router logs
+docker logs athena-router --tail 50
+
+# Test directly
+curl http://localhost:9113/health
 ```
 
-### **Check System Health**
+### Browser Research Not Working?
 
 ```bash
-make wire-validate
-make status
-curl http://localhost:9110/metrics | grep governance_
+# Test MCP ecosystem
+curl http://localhost:8412/health
+
+# Check MCP logs
+docker logs athena-mcp-ecosystem --tail 20
+
+# Test direct search
+curl -X POST http://localhost:8412/tool/web_search \
+  -H 'Content-Type: application/json' \
+  -d '{"arguments":{"query":"machine learning","num_results":3}}' | jq .
 ```
 
 ---
 
-## 📚 **Documentation**
+## 🚀 Advanced Usage
 
-| File                          | Purpose                    |
-| ----------------------------- | -------------------------- |
-| `STATUS.md`                   | Current system status      |
-| `NEXT_STEPS.md`               | Roadmap (15 min → 1 month) |
-| `SYSTEM_ARCHITECTURE.md`      | Architecture details       |
-| `WIRING_DEFINITION.md`        | Wiring explanation         |
-| `IN_PATH_GOVERNANCE_GUIDE.md` | Deployment guide           |
-| `CURSOR_SETUP_GUIDE.md`       | Development setup          |
-
----
-
-## 🚨 **Troubleshooting**
-
-### **Service Won't Start**
+### Add More Models to Ollama
 
 ```bash
-# Check if port is in use
-lsof -i :9110
-lsof -i :8000
+# Pull a model
+docker exec -it $(docker ps -qf "name=ollama") ollama pull qwen2.5-coder:7b
 
-# Kill and restart
-make stop
-make start
+# List all models
+docker exec -it $(docker ps -qf "name=ollama") ollama list
 ```
 
-### **100% Wiring Failed**
+### Configure Model Parameters
+
+In Open WebUI:
+
+1. Go to **Workspace** → **Models**
+2. Select a model
+3. Configure:
+   - Temperature (creativity)
+   - Max tokens (response length)
+   - Top-p, Top-k (sampling parameters)
+
+### View Real-time Metrics
 
 ```bash
-# Check individual services
-make status
+# Watch router metrics
+watch -n 1 'curl -s http://localhost:9113/metrics | grep athena_router_requests_total'
 
-# View detailed report
-cat artifacts/wiring/wiring_report.json | jq
-```
-
-### **Metrics Not Showing**
-
-```bash
-# Check Prometheus targets
-curl -s http://localhost:9090/api/v1/targets | jq
-
-# Restart Prometheus
-docker compose -f docker-compose.athena-governance.yml restart athena-prometheus
+# Watch all service health
+watch -n 2 'docker ps --format "table {{.Names}}\t{{.Status}}"'
 ```
 
 ---
 
-## 🎊 **Success Indicators**
+## 📝 Quick Commands
 
-✅ `make status` shows all services green  
-✅ `make wire-validate` shows 100%  
-✅ `make gate` shows coverage ≥98%  
-✅ Grafana dashboards show live data  
-✅ `curl localhost:9110/metrics` returns governance metrics
+```bash
+# Start everything
+cd /Users/christianmerrill/Documents/GitHub
+docker-compose up -d
+docker start open-webui
 
----
+# Stop everything
+docker-compose down
+docker stop open-webui
 
-## 📞 **Quick Help**
+# Restart just Open WebUI
+docker restart open-webui
 
-**"Services won't start"**  
-→ `make stop && make start`
+# View logs
+docker logs -f open-webui
+docker logs -f athena-router
+docker logs -f athena-mcp-ecosystem
 
-**"Need fresh start"**  
-→ `make restart`
-
-**"What's running?"**  
-→ `make status`
-
-**"Is everything wired?"**  
-→ `make wire-validate`
-
-**"What mode am I in?"**  
-→ `curl http://localhost:9110/state | jq .mode`
-
-**"How do I view dashboards?"**  
-→ `open http://localhost:3001`
+# Health check all services
+curl http://localhost:3000/health    # Open WebUI
+curl http://localhost:9113/health    # Router
+curl http://localhost:8412/health    # MCP Ecosystem
+curl http://localhost:11434/api/tags # Ollama
+```
 
 ---
 
-## 🎯 **Next Actions**
+## 🎉 You're All Set!
 
-**Today:**
+Your local AI assistant with **real browser research capabilities** is now ready!
 
-1. `make start` - Get everything running
-2. `make status` - Verify all green
-3. `make exp-shadow` - Run experiment
-4. `open http://localhost:3001` - View results
+**Try it now:**
 
-**This Week:**
+1. Go to http://localhost:3000
+2. Select a model
+3. Ask: "Search for the latest AI research papers"
+4. Watch as Athena searches DuckDuckGo and returns real results!
 
-1. Run 10 shadow experiments
-2. Deploy to canary mode
-3. Monitor KPIs
-4. Review NEXT_STEPS.md
+**No cloud required. No data leaves your machine. 100% local and private.** 🔒
 
 ---
 
-**🚀 Athena is ready to govern your AI systems!**
+## 📚 Learn More
 
-For detailed guidance, see `NEXT_STEPS.md`
+- **Router Policies**: `/Users/christianmerrill/Documents/GitHub/services/router/policies/`
+- **MCP Ecosystem**: `/Users/christianmerrill/Documents/GitHub/services/mcp-ecosystem/`
+- **Grafana Dashboards**: `/Users/christianmerrill/Documents/GitHub/monitoring/grafana/dashboards/`
+- **Prometheus Rules**: `/Users/christianmerrill/Documents/GitHub/monitoring/prometheus/rules/`
+
+**Happy researching!** 🚀

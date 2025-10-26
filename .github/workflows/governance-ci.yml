@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: { python-version: '3.11' }
+        with: { python-version: "3.11" }
       - run: pip install jsonschema pyyaml
       - name: Validate Exec receipts
         run: |
@@ -23,4 +23,5 @@ jobs:
         run: |
           python legislative/policy_compiler.py policy/governance_policy.yaml policy/god_judge_verdict_mapping.yaml
       - name: Freeze bundle hash
-        run: git diff --exit-code manifests/policy_bundle.json || (echo '❌ policy changed: commit bundle'; exit 1)
+        run: |
+          git diff --exit-code manifests/policy_bundle.json || (echo '❌ policy changed: commit bundle'; exit 1)
