@@ -12,11 +12,8 @@ RUN pip install --no-cache-dir \
     fastapi==0.104.1 \
     uvicorn==0.24.0
 
-# Copy learning agents
-COPY feedback_analyzer.py .
-COPY router_learning_agent.py .
-COPY central_learning_coordinator.py .
-COPY api.py .
+# Copy learning agents (all Python files)
+COPY *.py .
 
 EXPOSE 8098
 
