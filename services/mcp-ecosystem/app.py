@@ -263,11 +263,17 @@ async def execute_tool(tool_name: str, request: ToolRequest):
                 raise HTTPException(status_code=400, detail="path required")
             
             try:
-                # Security: Only allow access to user home directory
-                expanded_path = os.path.expanduser(path)
-                home_dir = os.path.expanduser("~")
-                if not expanded_path.startswith(home_dir):
-                    raise HTTPException(status_code=403, detail="Access denied: path outside home directory")
+                # Map paths: ~ means /host-home (mounted user home)
+                if path.startswith("~/"):
+                    expanded_path = path.replace("~", "/host-home", 1)
+                elif path.startswith("/host-home"):
+                    expanded_path = path
+                else:
+                    expanded_path = os.path.join("/host-home", path.lstrip("/"))
+                
+                # Security: Only allow access to /host-home
+                if not expanded_path.startswith("/host-home"):
+                    raise HTTPException(status_code=403, detail="Access denied: path must start with ~/ or /host-home/")
                 
                 with open(expanded_path, 'r') as f:
                     content = f.read()
@@ -293,11 +299,17 @@ async def execute_tool(tool_name: str, request: ToolRequest):
                 raise HTTPException(status_code=400, detail="path required")
             
             try:
-                # Security: Only allow access to user home directory
-                expanded_path = os.path.expanduser(path)
-                home_dir = os.path.expanduser("~")
-                if not expanded_path.startswith(home_dir):
-                    raise HTTPException(status_code=403, detail="Access denied: path outside home directory")
+                # Map paths: ~ means /host-home (mounted user home)
+                if path.startswith("~/"):
+                    expanded_path = path.replace("~", "/host-home", 1)
+                elif path.startswith("/host-home"):
+                    expanded_path = path
+                else:
+                    expanded_path = os.path.join("/host-home", path.lstrip("/"))
+                
+                # Security: Only allow access to /host-home
+                if not expanded_path.startswith("/host-home"):
+                    raise HTTPException(status_code=403, detail="Access denied: path must start with ~/ or /host-home/")
                 
                 # Create parent directories if needed
                 os.makedirs(os.path.dirname(expanded_path), exist_ok=True)
@@ -319,10 +331,17 @@ async def execute_tool(tool_name: str, request: ToolRequest):
             path = request.arguments.get("path", "~")
             
             try:
-                expanded_path = os.path.expanduser(path)
-                home_dir = os.path.expanduser("~")
-                if not expanded_path.startswith(home_dir):
-                    raise HTTPException(status_code=403, detail="Access denied")
+                # Map paths: ~ means /host-home (mounted user home)
+                if path == "~" or path.startswith("~/"):
+                    expanded_path = path.replace("~", "/host-home", 1)
+                elif path.startswith("/host-home"):
+                    expanded_path = path
+                else:
+                    expanded_path = os.path.join("/host-home", path.lstrip("/"))
+                
+                # Security: Only allow access to /host-home
+                if not expanded_path.startswith("/host-home"):
+                    raise HTTPException(status_code=403, detail="Access denied: path must start with ~/ or /host-home/")
                 
                 entries = []
                 for item in os.listdir(expanded_path):
