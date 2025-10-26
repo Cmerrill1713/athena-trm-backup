@@ -1,0 +1,16 @@
+{
+  "passed": 9,
+  "failed": 4,
+  "total_tested": 13,
+  "new_discoveries": [
+    "Health",
+    "Prometheus metrics",
+    "Info",
+    "V1 API",
+    "AGI Core on port 8100",
+    "List tools",
+    "Alertmanager on port 9093",
+    "List alerts",
+    "OpenAPI docs"
+  ]
+}

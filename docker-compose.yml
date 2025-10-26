@@ -294,11 +294,11 @@ services:
       - PYTHONUNBUFFERED=1
       - MCP_PORT=8412
       - MCP_HOST=0.0.0.0
-      - MACOS_BRIDGE_URL=http://host.docker.internal:8099  # For AppleScript via native bridge
+      - MACOS_BRIDGE_URL=http://host.docker.internal:8099 # For AppleScript via native bridge
     volumes:
-      - /Users/christianmerrill:/host-home:rw  # Mount user home for filesystem tools
+      - /Users/christianmerrill:/host-home:rw # Mount user home for filesystem tools
     extra_hosts:
-      - "host.docker.internal:host-gateway"  # Access host services
+      - "host.docker.internal:host-gateway" # Access host services
     networks:
       - athena-network
     healthcheck:
@@ -630,7 +630,15 @@ services:
     depends_on:
       - athena-router
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:11435/"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:11435/",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -972,7 +980,11 @@ services:
     networks:
       - athena-network
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/v1/.well-known/ready || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=1 --spider http://localhost:8080/v1/.well-known/ready || exit 1",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -1055,10 +1067,9 @@ services:
       - "athena.service=uai"
       - "athena.port=8080"
 
-# =============================================================================
-# VOLUMES
-# =============================================================================
-
+  # =============================================================================
+  # VOLUMES
+  # =============================================================================
 
   # ===========================================================================
   # ATHENA LEARNING SYSTEM - Distributed Learning Agents
