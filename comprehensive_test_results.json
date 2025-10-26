@@ -1,154 +1,117 @@
 {
-  "timestamp": "2025-10-26T09:22:35.152655",
-  "tests": {
-    "Service: UAI": {
-      "status": "PASS",
-      "details": "port 8080"
-    },
-    "Service: Router": {
-      "status": "PASS",
-      "details": "port 9113"
-    },
-    "Service: MCP": {
-      "status": "PASS",
-      "details": "port 8412"
-    },
-    "Service: Whisper": {
-      "status": "PASS",
-      "details": "port 8095"
-    },
-    "Service: Kokoro": {
-      "status": "PASS",
-      "details": "port 8091"
-    },
-    "Service: FastVLM": {
-      "status": "PASS",
-      "details": "port 8088"
-    },
-    "Service: Judicial": {
-      "status": "PASS",
-      "details": "port 8096"
-    },
-    "Service: Learning": {
-      "status": "PASS",
-      "details": "port 8098"
-    },
-    "Service: macOS Bridge": {
-      "status": "PASS",
-      "details": "port 8099"
-    },
-    "Chat: Brief response": {
-      "status": "PASS",
-      "details": "32 chars"
-    },
-    "Chat: Contains emoji": {
-      "status": "FAIL",
+  "passed": 17,
+  "failed": 4,
+  "skipped": 1,
+  "tests": [
+    {
+      "name": "Health check",
+      "status": "\u2705",
       "details": ""
     },
-    "Learning: Correction detected": {
-      "status": "FAIL",
+    {
+      "name": "Chat completions",
+      "status": "\u2705",
       "details": ""
     },
-    "Learning: Preference loaded": {
-      "status": "FAIL",
+    {
+      "name": "Feedback submission",
+      "status": "\u274c",
       "details": ""
     },
-    "Learning: Response adapted": {
-      "status": "PASS",
-      "details": "31 chars"
+    {
+      "name": "List tasks",
+      "status": "\u2705",
+      "details": "4 tasks"
     },
-    "Database: Preferences stored": {
-      "status": "PASS",
+    {
+      "name": "Create task",
+      "status": "\u274c",
+      "details": ""
+    },
+    {
+      "name": "List users",
+      "status": "\u2705",
       "details": "2 users"
     },
-    "RAG: Search activated": {
-      "status": "PASS",
+    {
+      "name": "Prometheus metrics",
+      "status": "\u2705",
       "details": ""
     },
-    "RAG: Knowledge retrieved": {
-      "status": "PASS",
-      "details": "TRM definition found"
+    {
+      "name": "Security APIs (encryption/PII)",
+      "status": "\u26a0\ufe0f",
+      "details": "Not tested - requires setup"
     },
-    "Multimodal: FastVLM (Vision)": {
-      "status": "PASS",
+    {
+      "name": "Health + providers",
+      "status": "\u2705",
+      "details": "7 providers"
+    },
+    {
+      "name": "Route request",
+      "status": "\u2705",
       "details": ""
     },
-    "Multimodal: Kokoro (TTS)": {
-      "status": "PASS",
+    {
+      "name": "Router metrics",
+      "status": "\u2705",
       "details": ""
     },
-    "Multimodal: Whisper (STT)": {
-      "status": "PASS",
+    {
+      "name": "Health check",
+      "status": "\u2705",
       "details": ""
     },
-    "macOS: Bridge running": {
-      "status": "PASS",
+    {
+      "name": "Learning history",
+      "status": "\u2705",
+      "details": ""
+    },
+    {
+      "name": "Trigger learning cycle",
+      "status": "\u2705",
+      "details": ""
+    },
+    {
+      "name": "Whisper STT health",
+      "status": "\u2705",
+      "details": ""
+    },
+    {
+      "name": "FastVLM vision health",
+      "status": "\u2705",
+      "details": ""
+    },
+    {
+      "name": "Kokoro TTS synthesis",
+      "status": "\u274c",
+      "details": ""
+    },
+    {
+      "name": "MCP health + tools",
+      "status": "\u2705",
+      "details": "18 tools available"
+    },
+    {
+      "name": "Web search tool",
+      "status": "\u274c",
+      "details": ""
+    },
+    {
+      "name": "macOS Bridge health",
+      "status": "\u2705",
       "details": "9 tools"
     },
-    "macOS: MCP Ecosystem": {
-      "status": "PASS",
-      "details": "18 tools"
-    },
-    "ASI Safety: Judicial running": {
-      "status": "PASS",
+    {
+      "name": "Judicial health",
+      "status": "\u2705",
       "details": ""
     },
-    "ASI Safety: Federation running": {
-      "status": "PASS",
-      "details": ""
-    },
-    "UI: Service detection": {
-      "status": "PASS",
-      "details": "\u25cf 9/9 Services Ready"
-    },
-    "UI: Input field works": {
-      "status": "PASS",
-      "details": ""
-    },
-    "UI: Send button visible": {
-      "status": "PASS",
-      "details": ""
-    },
-    "UI: Task sidebar loaded": {
-      "status": "PASS",
-      "details": ""
-    },
-    "Tasks: Create task": {
-      "status": "FAIL",
-      "details": ""
-    },
-    "Tasks: List tasks": {
-      "status": "FAIL",
-      "details": ""
-    },
-    "Conversation: Message sent": {
-      "status": "PASS",
-      "details": "2 messages"
-    },
-    "Conversation: Response received": {
-      "status": "PASS",
-      "details": "'Hey there! What's up?...'"
-    },
-    "Conversation: Adapted to correction": {
-      "status": "PASS",
-      "details": "19 chars"
-    },
-    "Database: PostgreSQL running": {
-      "status": "PASS",
-      "details": ""
-    },
-    "Database: Has user preferences": {
-      "status": "PASS",
+    {
+      "name": "Federation health",
+      "status": "\u2705",
       "details": ""
     }
-  },
-  "failures": [
-    "Chat: Contains emoji",
-    "Learning: Correction detected",
-    "Learning: Preference loaded",
-    "Tasks: Create task",
-    "Tasks: List tasks"
-  ],
-  "passed": 30,
-  "failed": 5
+  ]
 }

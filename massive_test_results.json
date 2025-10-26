@@ -1,0 +1,182 @@
+{
+  "passed": 20,
+  "failed": 8,
+  "skipped": 0,
+  "categories": [
+    {
+      "name": "UAI",
+      "tests": [
+        {
+          "feature": "Chat completions",
+          "status": "\u2705",
+          "details": ""
+        },
+        {
+          "feature": "Feedback submission",
+          "status": "\u274c",
+          "details": "Status: 422"
+        },
+        {
+          "feature": "List tasks",
+          "status": "\u2705",
+          "details": "4 tasks"
+        },
+        {
+          "feature": "Create task",
+          "status": "\u274c",
+          "details": "Status: 307"
+        },
+        {
+          "feature": "Complete task",
+          "status": "\u274c",
+          "details": ""
+        },
+        {
+          "feature": "List users",
+          "status": "\u2705",
+          "details": "2 users"
+        },
+        {
+          "feature": "TTS proxy",
+          "status": "\u274c",
+          "details": ""
+        },
+        {
+          "feature": "Prometheus metrics",
+          "status": "\u2705",
+          "details": ""
+        },
+        {
+          "feature": "Health check",
+          "status": "\u2705",
+          "details": ""
+        }
+      ]
+    },
+    {
+      "name": "Router",
+      "tests": [
+        {
+          "feature": "Health + providers",
+          "status": "\u2705",
+          "details": "7 providers: mlx, ollama, mcp_browser"
+        },
+        {
+          "feature": "Route request",
+          "status": "\u2705",
+          "details": ""
+        },
+        {
+          "feature": "Metrics endpoint",
+          "status": "\u2705",
+          "details": ""
+        }
+      ]
+    },
+    {
+      "name": "Learning",
+      "tests": [
+        {
+          "feature": "Health check",
+          "status": "\u2705",
+          "details": ""
+        },
+        {
+          "feature": "Learning history",
+          "status": "\u2705",
+          "details": "2 cycles"
+        },
+        {
+          "feature": "Trigger learning",
+          "status": "\u2705",
+          "details": ""
+        },
+        {
+          "feature": "Feedback analysis",
+          "status": "\u2705",
+          "details": ""
+        },
+        {
+          "feature": "Router learning",
+          "status": "\u2705",
+          "details": ""
+        }
+      ]
+    },
+    {
+      "name": "Multimodal",
+      "tests": [
+        {
+          "feature": "Whisper STT health",
+          "status": "\u2705",
+          "details": ""
+        },
+        {
+          "feature": "FastVLM health",
+          "status": "\u2705",
+          "details": ""
+        },
+        {
+          "feature": "Kokoro TTS synthesis",
+          "status": "\u274c",
+          "details": "Status: 500"
+        },
+        {
+          "feature": "Kokoro metrics",
+          "status": "\u2705",
+          "details": ""
+        }
+      ]
+    },
+    {
+      "name": "MCP",
+      "tests": [
+        {
+          "feature": "Health + tool count",
+          "status": "\u2705",
+          "details": "18 tools"
+        },
+        {
+          "feature": "Web search tool",
+          "status": "\u274c",
+          "details": ""
+        },
+        {
+          "feature": "ArXiv search tool",
+          "status": "\u274c",
+          "details": ""
+        }
+      ]
+    },
+    {
+      "name": "macOS",
+      "tests": [
+        {
+          "feature": "Health + tool count",
+          "status": "\u2705",
+          "details": "9 native tools"
+        }
+      ]
+    },
+    {
+      "name": "ASI Safety",
+      "tests": [
+        {
+          "feature": "Judicial health",
+          "status": "\u2705",
+          "details": ""
+        },
+        {
+          "feature": "Judicial adjudication",
+          "status": "\u274c",
+          "details": ""
+        },
+        {
+          "feature": "Federation health",
+          "status": "\u2705",
+          "details": ""
+        }
+      ]
+    }
+  ]
+}
