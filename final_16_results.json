@@ -1,0 +1,71 @@
+{
+  "passed": 2,
+  "failed": 5,
+  "skipped": 5,
+  "new_working": [
+    "Autonomous: Port 9114",
+    "Autonomous: Status"
+  ],
+  "details": [
+    {
+      "name": "Autonomous: Port 9114",
+      "status": "\u2705",
+      "detail": "autonomous-orchestrator"
+    },
+    {
+      "name": "Autonomous: Status",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Autonomous: Features",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Autonomous: Rollback",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Autonomous: Evolution status",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Database: Status via UAI",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Weaviate: Status via UAI",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "WebSocket: Realtime feedback",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires WebSocket client"
+    },
+    {
+      "name": "WebSocket: Streaming chat",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires WebSocket client"
+    },
+    {
+      "name": "FastVLM: Image analysis",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires actual image file"
+    },
+    {
+      "name": "Whisper: Audio transcription",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires actual audio file"
+    },
+    {
+      "name": "Docker container scan",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires docker ps inspection"
+    }
+  ]
+}
