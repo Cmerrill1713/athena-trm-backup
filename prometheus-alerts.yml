@@ -1,0 +1,168 @@
+groups:
+  - name: openai_compat_alerts
+    interval: 30s
+    rules:
+      # High Error Rate
+      - alert: HighErrorRate
+        expr: |
+          (
+            sum(rate(http_requests_total{code=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total[5m]))
+          ) > 0.005
+        for: 5m
+        labels:
+          severity: critical
+          component: openai-compat
+        annotations:
+          summary: "High 5xx error rate ({{ $value | humanizePercentage }})"
+          description: "OpenAI adapter has {{ $value | humanizePercentage }} 5xx errors over the last 5 minutes"
+          runbook: "Check adapter logs and upstream backend health"
+
+      # High Latency
+      - alert: HighLatencyP95
+        expr: |
+          histogram_quantile(0.95, 
+            sum(rate(http_request_duration_seconds_bucket[10m])) by (le)
+          ) > 1.5
+        for: 10m
+        labels:
+          severity: warning
+          component: openai-compat
+        annotations:
+          summary: "High p95 latency ({{ $value }}s)"
+          description: "OpenAI adapter p95 latency is {{ $value }}s, exceeding 1.5s threshold"
+          runbook: "Check RAG gateway and Weaviate performance"
+
+      # Upstream Backend Errors
+      - alert: UpstreamBackendErrors
+        expr: |
+          sum(rate(upstream_errors_total[5m])) by (backend) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          component: openai-compat
+        annotations:
+          summary: "High upstream errors from {{ $labels.backend }}"
+          description: "Backend {{ $labels.backend }} has {{ $value }} errors/sec"
+          runbook: "Check {{ $labels.backend }} service health and logs"
+
+      # Stream Errors
+      - alert: HighStreamErrorRate
+        expr: |
+          (
+            sum(rate(stream_events_total{status="errored"}[5m]))
+            /
+            sum(rate(stream_events_total[5m]))
+          ) > 0.02
+        for: 5m
+        labels:
+          severity: warning
+          component: openai-compat
+        annotations:
+          summary: "High streaming error rate ({{ $value | humanizePercentage }})"
+          description: "{{ $value | humanizePercentage }} of streams are failing"
+          runbook: "Check adapter streaming implementation and nginx buffering settings"
+
+      # No Requests (Service Down?)
+      - alert: NoRequests
+        expr: |
+          sum(rate(http_requests_total[5m])) == 0
+        for: 5m
+        labels:
+          severity: critical
+          component: openai-compat
+        annotations:
+          summary: "No requests received in last 5 minutes"
+          description: "OpenAI adapter has received zero requests - service may be down or unreachable"
+          runbook: "Check service health, networking, and load balancer configuration"
+
+      # Empty Responses
+      - alert: HighEmptyResponseRate
+        expr: |
+          (
+            sum(rate(empty_responses_total[10m]))
+            /
+            sum(rate(http_requests_total{code="200"}[10m]))
+          ) > 0.05
+        for: 10m
+        labels:
+          severity: warning
+          component: openai-compat
+        annotations:
+          summary: "High empty response rate ({{ $value | humanizePercentage }})"
+          description: "{{ $value | humanizePercentage }} of responses have empty or minimal content"
+          runbook: "Check Weaviate data availability and RAG gateway logic"
+
+      # Backend Latency Spike
+      - alert: BackendLatencySpike
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(backend_request_duration_seconds_bucket[5m])) by (backend, le)
+          ) > 2.0
+        for: 5m
+        labels:
+          severity: warning
+          component: openai-compat
+        annotations:
+          summary: "Backend {{ $labels.backend }} latency spike ({{ $value }}s)"
+          description: "Backend {{ $labels.backend }} p95 latency is {{ $value }}s"
+          runbook: "Check {{ $labels.backend }} resource usage and Weaviate/Ollama performance"
+
+      # Memory Usage High
+      - alert: HighMemoryUsage
+        expr: |
+          (
+            process_resident_memory_bytes
+            /
+            (1024 * 1024 * 1024)
+          ) > 1.5
+        for: 10m
+        labels:
+          severity: warning
+          component: openai-compat
+        annotations:
+          summary: "High memory usage ({{ $value }}GB)"
+          description: "OpenAI adapter is using {{ $value }}GB of memory"
+          runbook: "Check for memory leaks, restart service if necessary"
+
+      # CPU Usage High
+      - alert: HighCPUUsage
+        expr: |
+          rate(process_cpu_seconds_total[5m]) > 0.8
+        for: 10m
+        labels:
+          severity: warning
+          component: openai-compat
+        annotations:
+          summary: "High CPU usage ({{ $value | humanizePercentage }})"
+          description: "OpenAI adapter CPU usage is at {{ $value | humanizePercentage }}"
+          runbook: "Check for performance bottlenecks or increase resource limits"
+
+  - name: rag_gateway_alerts
+    interval: 30s
+    rules:
+      # RAG Gateway Down
+      - alert: RAGGatewayDown
+        expr: up{job="rag-gateway"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          component: rag-gateway
+        annotations:
+          summary: "RAG Gateway is down"
+          description: "RAG Gateway has been unreachable for 2 minutes"
+          runbook: "Check RAG gateway container health and logs"
+
+      # Weaviate Connection Issues
+      - alert: WeaviateConnectionErrors
+        expr: |
+          sum(rate(upstream_errors_total{backend="rag", reason="connection"}[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          component: weaviate
+        annotations:
+          summary: "Weaviate connection errors"
+          description: "{{ $value }} connection errors/sec to Weaviate"
+          runbook: "Check Weaviate service health and network connectivity"

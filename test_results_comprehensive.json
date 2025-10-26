@@ -1,0 +1,281 @@
+{
+  "timestamp": "2025-10-25 23:31:29",
+  "total": 39,
+  "passed": 38,
+  "failed": 1,
+  "results": [
+    {
+      "name": "UAI Health",
+      "method": "GET",
+      "url": "http://localhost:8080/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "UAI Chat",
+      "method": "POST",
+      "url": "http://localhost:8080/v1/chat/completions",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "UAI Tasks List",
+      "method": "GET",
+      "url": "http://localhost:8080/api/tasks/",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "UAI Task Detail",
+      "method": "GET",
+      "url": "http://localhost:8080/api/tasks/1",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "UAI Users List",
+      "method": "GET",
+      "url": "http://localhost:8080/api/users/",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "UAI User Detail",
+      "method": "GET",
+      "url": "http://localhost:8080/api/users/1",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "UAI TTS Voices",
+      "method": "GET",
+      "url": "http://localhost:8080/api/tts/voices",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "UAI Metrics",
+      "method": "GET",
+      "url": "http://localhost:8080/metrics",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Router Health",
+      "method": "GET",
+      "url": "http://localhost:9113/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Router Ready",
+      "method": "GET",
+      "url": "http://localhost:9113/ready",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Router Version",
+      "method": "GET",
+      "url": "http://localhost:9113/version",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Router Route",
+      "method": "POST",
+      "url": "http://localhost:9113/route",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Router Respond",
+      "method": "POST",
+      "url": "http://localhost:9113/respond",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Router Vision",
+      "method": "POST",
+      "url": "http://localhost:9113/vision/analyze",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Router TTS",
+      "method": "POST",
+      "url": "http://localhost:9113/tts/synthesize",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Router Policy Reload",
+      "method": "POST",
+      "url": "http://localhost:9113/reload-policy",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Autonomous Health",
+      "method": "GET",
+      "url": "http://localhost:9114/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Autonomous Status",
+      "method": "GET",
+      "url": "http://localhost:9114/status",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Adaptive TRM Decide",
+      "method": "POST",
+      "url": "http://localhost:9114/trm/decide",
+      "status": 422,
+      "passed": false
+    },
+    {
+      "name": "Adaptive TRM Feedback",
+      "method": "POST",
+      "url": "http://localhost:9114/feedback",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Auto-Rollback Evaluate",
+      "method": "POST",
+      "url": "http://localhost:9114/rollback/evaluate",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Knowledge Gateway Health",
+      "method": "GET",
+      "url": "http://localhost:8093/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Knowledge Gateway Search",
+      "method": "POST",
+      "url": "http://localhost:8093/search",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Knowledge Context Health",
+      "method": "GET",
+      "url": "http://localhost:8092/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Knowledge Sync Health",
+      "method": "GET",
+      "url": "http://localhost:8089/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "FastVLM Health",
+      "method": "GET",
+      "url": "http://localhost:8088/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "FastVLM Analyze",
+      "method": "POST",
+      "url": "http://localhost:8088/analyze",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Kokoro Health",
+      "method": "GET",
+      "url": "http://localhost:8091/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Kokoro Synthesize",
+      "method": "POST",
+      "url": "http://localhost:8091/synthesize",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "MCP Health",
+      "method": "GET",
+      "url": "http://localhost:8412/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "MCP Web Search",
+      "method": "POST",
+      "url": "http://localhost:8412/tool/web_search",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "MCP arXiv Search",
+      "method": "POST",
+      "url": "http://localhost:8412/tool/arxiv_search",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Governance Health",
+      "method": "GET",
+      "url": "http://localhost:9110/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Governance State",
+      "method": "GET",
+      "url": "http://localhost:9110/state",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Prometheus Status",
+      "method": "GET",
+      "url": "http://localhost:9090/api/v1/status/config",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Grafana Health",
+      "method": "GET",
+      "url": "http://localhost:3001/api/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Weaviate Meta",
+      "method": "GET",
+      "url": "http://localhost:8090/v1/meta",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Weaviate Schema",
+      "method": "GET",
+      "url": "http://localhost:8090/v1/schema",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "Weaviate Objects",
+      "method": "GET",
+      "url": "http://localhost:8090/v1/objects?limit=5",
+      "status": 200,
+      "passed": true
+    }
+  ]
+}

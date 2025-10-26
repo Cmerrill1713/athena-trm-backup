@@ -1,0 +1,29 @@
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# Xcode
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+DerivedData/
+
+# macOS
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Build artifacts
+build/
+*.app
+*.dSYM
+
+# Logs
+*.log
+logs/
+artifacts/
+build-dmg/
+.env
+*.xcresult

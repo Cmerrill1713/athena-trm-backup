@@ -1,0 +1,350 @@
+# Makefile.integration - AGI + RAG + TRM Integration Targets
+# ============================================================================
+
+.PHONY: help integration-help bridge-up bridge-smoke router-test unified-metrics trm-train
+
+# ============================================================================
+# HELP
+# ============================================================================
+
+integration-help:
+	@echo "════════════════════════════════════════════════════════════════════════"
+	@echo "  AGI + RAG + TRM INTEGRATION TARGETS"
+	@echo "════════════════════════════════════════════════════════════════════════"
+	@echo ""
+	@echo "📦 SETUP:"
+	@echo "  integration-setup    - Install all integration dependencies"
+	@echo "  integration-up       - Start all services (AGI + RAG + TRM + Router + Metrics)"
+	@echo "  integration-down     - Stop all services"
+	@echo ""
+	@echo "🚀 SHIP CHECKS (START HERE!):"
+	@echo "  ship-check           - Comprehensive acceptance test (steps 0-4)"
+	@echo "  ship-preflight       - Quick preflight checks only"
+	@echo "  ship-quick           - Fast health + bridge + router test"
+	@echo ""
+	@echo "🕯️  CANARY DEPLOYMENT:"
+	@echo "  canary-start         - Start canary at 5%"
+	@echo "  canary-promote       - Promote to next level (25%→50%→100%)"
+	@echo "  canary-rollback      - Rollback to baseline"
+	@echo "  canary-watch         - Watch canary metrics (live)"
+	@echo "  canary-status        - Check current canary state"
+	@echo ""
+	@echo "📅 DAY-2 OPERATIONS:"
+	@echo "  day2-check           - Daily operational runbook"
+	@echo "  day2-quick           - Quick health + metrics check"
+	@echo ""
+	@echo "🔗 AGI-RAG BRIDGE:"
+	@echo "  bridge-smoke         - Test /kb/search endpoint"
+	@echo "  bridge-test          - Test AGI agent KB search tool"
+	@echo "  bridge-demo          - Run demo of AGI agent using KB"
+	@echo ""
+	@echo "🧭 RAG-AWARE ROUTER:"
+	@echo "  router-test          - Test routing decisions"
+	@echo "  router-eval          - Evaluate routing quality (A/B vs control)"
+	@echo "  router-report        - Generate routing performance report"
+	@echo ""
+	@echo "📊 UNIFIED METRICS:"
+	@echo "  unified-metrics      - Start unified metrics service"
+	@echo "  metrics-snapshot     - Get current metrics snapshot"
+	@echo "  metrics-gates        - Check quality gates"
+	@echo "  metrics-dashboard    - Open Grafana unified dashboard"
+	@echo ""
+	@echo "🎓 TRM TRAINING LOOP:"
+	@echo "  trm-train            - Generate training data from RAG corpus"
+	@echo "  trm-finetune         - Fine-tune TRM on training data"
+	@echo "  trm-eval-rag         - Evaluate TRM with RAG grounding"
+	@echo ""
+	@echo "🧪 TESTING:"
+	@echo "  integration-smoke    - Fast smoke tests (30s)"
+	@echo "  integration-test     - Unit tests (2min)"
+	@echo "  integration-e2e      - Full E2E test (10min)"
+	@echo "  soak-quick           - 5-minute soak test"
+	@echo "  soak-30m             - 30-minute soak test"
+	@echo "  soak-2h              - 2-hour soak test"
+	@echo ""
+	@echo "🚀 NIGHTLY CI:"
+	@echo "  nightly              - Run nightly validation (rag-eval + delta + router + gates)"
+	@echo ""
+	@echo "🎯 ACCEPTANCE:"
+	@echo "  acceptance-full      - ship-check + canary + watch"
+	@echo "  acceptance-quick     - ship-check only"
+	@echo ""
+
+# ============================================================================
+# SETUP
+# ============================================================================
+
+integration-setup:
+	@echo "Installing integration dependencies..."
+	pip install -q httpx fastapi uvicorn pydantic prometheus-client
+	@echo "✓ Integration setup complete"
+
+integration-up:
+	@echo "Starting all services..."
+	docker-compose -f docker-compose.full-stack.yml up -d
+	@echo "Waiting for services to be healthy..."
+	@sleep 5
+	@make integration-health
+	@echo "✓ All services running"
+
+integration-down:
+	@echo "Stopping all services..."
+	docker-compose -f docker-compose.full-stack.yml down
+	@echo "✓ All services stopped"
+
+integration-health:
+	@echo "Checking service health..."
+	@curl -sf http://localhost:8088/health > /dev/null && echo "✓ RAG Gateway (8088)" || echo "✗ RAG Gateway"
+	@curl -sf http://localhost:8089/health > /dev/null && echo "✓ TRM Service (8089)" || echo "✗ TRM Service"
+	@curl -sf http://localhost:9113/health > /dev/null && echo "✓ Router (9113)" || echo "✗ Router"
+	@curl -sf http://localhost:3000/healthz > /dev/null && echo "✓ OpenAI Adapter (3000)" || echo "✗ Adapter"
+	@curl -sf http://localhost:8092/health > /dev/null && echo "✓ Unified Metrics (8092)" || echo "✗ Metrics"
+
+# ============================================================================
+# AGI-RAG BRIDGE
+# ============================================================================
+
+bridge-smoke:
+	@echo "Testing /kb/search endpoint..."
+	@curl -s http://localhost:8088/kb/search \
+		-H "Content-Type: application/json" \
+		-d '{"query":"How to train recursive models?","topK":3,"mode":"nearText"}' \
+		| jq -r '.hits | length as $$len | "✓ Returned \($$len) hits"'
+
+bridge-test:
+	@echo "Testing AGI KB search tool..."
+	@python3 -c "import asyncio; from agi_core.tools import kb_search; \
+		results = asyncio.run(kb_search('What is RAG?', top_k=3)); \
+		print(f'✓ KB Search returned {len(results)} results')"
+
+bridge-demo:
+	@echo "Running AGI agent with KB search demo..."
+	@python3 scripts/demo_agi_rag_bridge.py
+
+# ============================================================================
+# RAG-AWARE ROUTER
+# ============================================================================
+
+router-test:
+	@echo "Testing RAG-aware routing..."
+	@python3 -c "import asyncio; from services.router.rag_router import route_query; \
+		queries = ['What is TRM?', 'Brainstorm ideas', 'Compare A vs B']; \
+		for q in queries: \
+			result = asyncio.run(route_query(q)); \
+			print(f'{q[:30]:30s} → {result.route.value:10s} ({result.confidence:.2f})')"
+
+router-eval:
+	@echo "Evaluating router performance (A/B vs control)..."
+	@python3 scripts/router_ab_eval.py \
+		--seed-file seeds/router_eval.jsonl \
+		--output artifacts/router_ab_report.json
+	@cat artifacts/router_ab_report.json | jq '.summary'
+
+router-report:
+	@echo "Generating routing performance report..."
+	@curl -s http://localhost:9113/metrics | grep "athena_router" | head -20
+
+# ============================================================================
+# UNIFIED METRICS
+# ============================================================================
+
+unified-metrics:
+	@echo "Starting unified metrics service..."
+	@cd services && python3 unified_metrics.py &
+	@sleep 2
+	@curl -sf http://localhost:8092/health && echo "✓ Unified Metrics running on :8092"
+
+metrics-snapshot:
+	@echo "Getting current metrics snapshot..."
+	@curl -s http://localhost:8092/snapshot | jq '.'
+
+metrics-gates:
+	@echo "Checking quality gates..."
+	@curl -s http://localhost:8092/gates \
+		-H "Content-Type: application/json" \
+		-d '{"rag_hit_at_5":0.97,"rag_support_at_3":0.95,"agi_utility_score":0.80}' \
+		| jq -r 'if .passed then "✓ All gates passed" else "✗ Failed gates:\n  " + (.failures | join("\n  ")) end'
+
+metrics-dashboard:
+	@echo "Opening Grafana unified dashboard..."
+	@open http://localhost:3001/d/unified-agi-rag-trm/unified-dashboard
+
+# ============================================================================
+# TRM TRAINING LOOP
+# ============================================================================
+
+trm-train:
+	@echo "Generating TRM training data from RAG corpus..."
+	@python3 scripts/trm_rag_training_pipeline.py \
+		--num-examples 1000 \
+		--output data/trm_training/trm_training_data.jsonl
+	@wc -l data/trm_training/trm_training_data.jsonl
+
+trm-finetune:
+	@echo "Fine-tuning TRM on RAG corpus..."
+	@cd TinyRecursiveModels && python3 train.py \
+		--data-file ../data/trm_training/trm_training_data.jsonl \
+		--model-name trm-rag-v1 \
+		--epochs 3 \
+		--learning-rate 1e-4
+	@echo "✓ TRM fine-tuning complete"
+
+trm-eval-rag:
+	@echo "Evaluating TRM with RAG grounding..."
+	@python3 scripts/eval_trm_rag.py \
+		--model trm-rag-v1 \
+		--test-set seeds/rag_eval_seeds.jsonl \
+		--output artifacts/trm_rag_eval.json
+	@cat artifacts/trm_rag_eval.json | jq '.summary'
+
+# ============================================================================
+# INTEGRATION TESTS
+# ============================================================================
+
+integration-test:
+	@echo "Running integration tests..."
+	@pytest tests/integration/ -v --tb=short
+
+integration-e2e:
+	@echo "Running full E2E integration test..."
+	@bash scripts/e2e_integration.sh
+
+# ============================================================================
+# NIGHTLY CI
+# ============================================================================
+
+nightly:
+	@echo "════════════════════════════════════════════════════════════════════════"
+	@echo "  NIGHTLY VALIDATION"
+	@echo "════════════════════════════════════════════════════════════════════════"
+	@echo ""
+	@echo "1/4 RAG Evaluation..."
+	@make rag-eval
+	@echo ""
+	@echo "2/4 RAG Delta Report..."
+	@make rag-delta
+	@echo ""
+	@echo "3/4 Router Evaluation..."
+	@make router-eval
+	@echo ""
+	@echo "4/4 Quality Gates..."
+	@make metrics-gates
+	@echo ""
+	@echo "✓ Nightly validation complete"
+
+# ============================================================================
+# QUICK SMOKE TESTS
+# ============================================================================
+
+integration-smoke:
+	@echo "Running quick smoke tests..."
+	@echo ""
+	@echo "1. KB Search:"
+	@make bridge-smoke
+	@echo ""
+	@echo "2. Router:"
+	@make router-test
+	@echo ""
+	@echo "3. Metrics:"
+	@curl -sf http://localhost:8092/health && echo "✓ Metrics OK" || echo "✗ Metrics DOWN"
+	@echo ""
+	@echo "✓ Smoke tests complete"
+
+# ============================================================================
+# DEMO SCRIPTS
+# ============================================================================
+
+demo-all:
+	@echo "Running complete integration demo..."
+	@echo ""
+	@echo "1. AGI agent queries KB..."
+	@make bridge-demo
+	@echo ""
+	@echo "2. Router makes intelligent routing decisions..."
+	@make router-test
+	@echo ""
+	@echo "3. TRM uses RAG context for reasoning..."
+	@python3 scripts/demo_trm_rag.py
+	@echo ""
+	@echo "✓ Demo complete"
+
+# ============================================================================
+# SHIP CHECKS & ACCEPTANCE TESTING
+# ============================================================================
+
+ship-check:
+	@echo "Running comprehensive ship check (steps 0-4)..."
+	@bash scripts/ship_check.sh
+
+ship-preflight:
+	@echo "Preflight checks only (step 0)..."
+	@bash scripts/ship_check.sh | head -40
+
+ship-quick:
+	@echo "Quick ship check (preflight + bridge + router)..."
+	@make integration-health
+	@make bridge-smoke
+	@make router-test
+
+# ============================================================================
+# CANARY DEPLOYMENT
+# ============================================================================
+
+canary-start:
+	@echo "Starting canary deployment at 5%..."
+	@bash scripts/canary_deploy.sh start
+
+canary-promote:
+	@echo "Promoting canary to next level..."
+	@bash scripts/canary_deploy.sh promote
+
+canary-rollback:
+	@echo "Rolling back canary deployment..."
+	@bash scripts/canary_deploy.sh rollback
+
+canary-watch:
+	@echo "Watching canary metrics (Ctrl+C to stop)..."
+	@bash scripts/canary_deploy.sh watch
+
+canary-status:
+	@bash scripts/canary_deploy.sh status
+
+# ============================================================================
+# DAY-2 OPERATIONS
+# ============================================================================
+
+day2-check:
+	@echo "Running Day-2 operational checks..."
+	@bash scripts/day2_runbook.sh
+
+day2-quick:
+	@echo "Quick Day-2 health check..."
+	@make integration-health
+	@make metrics-snapshot
+
+# ============================================================================
+# SOAK TESTING
+# ============================================================================
+
+soak-2h:
+	@echo "Running 2-hour soak test with k6..."
+	@k6 run --vus 30 --duration 2h k6-rag.js
+
+soak-30m:
+	@echo "Running 30-minute soak test..."
+	@k6 run --vus 20 --duration 30m k6-rag.js
+
+soak-quick:
+	@echo "Running 5-minute smoke soak..."
+	@k6 run --vus 10 --duration 5m k6-rag.js
+
+# ============================================================================
+# COMPREHENSIVE ACCEPTANCE
+# ============================================================================
+
+acceptance-full: ship-check canary-start canary-watch
+	@echo "✓ Full acceptance complete - monitor canary for 30min"
+
+acceptance-quick: ship-check
+	@echo "✓ Quick acceptance complete"
+

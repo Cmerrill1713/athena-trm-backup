@@ -1,0 +1,35 @@
+{
+  "objective": "Fix the Swift frontend typing/focus so input never loses first responder; add automated verification.",
+  "context": {
+    "repo": "/Users/christianmerrill/Documents/GitHub/NeuroForgeApp",
+    "branch": "feat/agi-fix-frontend",
+    "limits": {
+      "max_steps": 14
+    },
+    "acceptance": [
+      "Typing works on first launch without clicking.",
+      "Enter sends; focus remains in the field for the next message.",
+      "Cmd+Shift+P ping hits gateway and increments metrics.",
+      "Automated probe passes 3 consecutive send cycles.",
+      "All changes committed and PR opened against main."
+    ]
+  },
+  "tools": [
+    "mcp.web_search",
+    "mcp.fs.patch",
+    "mcp.fs.read",
+    "mcp.fs.write",
+    "mcp.shell",
+    "frontend.xcode_build",
+    "frontend.app_launch",
+    "frontend.ui_typing_probe",
+    "frontend.swift_frontend_reflex",
+    "git.commit_push_pr",
+    "uai.chat"
+  ],
+  "inputs": {
+    "gateway_url": "http://127.0.0.1:8015/v1",
+    "uai_url": "http://127.0.0.1:8080/v1",
+    "probe_repeats": 3
+  }
+}

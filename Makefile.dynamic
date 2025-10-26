@@ -1,0 +1,509 @@
+# Dynamic RAG + Model Pool - Production Targets
+
+.PHONY: help stack-up stack-down stack-status rag-seed-full rag-golden rag-load agi-fix-frontend
+
+help: ## Show this help
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+##@ Stack Management
+
+stack-up: ## Start all services (Weaviate, Embedding, RAG, Model Pool)
+	@echo "🚀 Starting complete intelligent stack..."
+	@docker start weaviate-clean 2>/dev/null || \
+		docker run -d --name weaviate-clean \
+			-p 8090:8080 \
+			-e QUERY_DEFAULTS_LIMIT=25 \
+			-e AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED=true \
+			-e PERSISTENCE_DATA_PATH='/var/lib/weaviate' \
+			-e DEFAULT_VECTORIZER_MODULE='none' \
+			-e ENABLE_MODULES='' \
+			-e CLUSTER_HOSTNAME='node1' \
+			semitechnologies/weaviate:1.21.0
+	@sleep 5
+	@echo "Starting Embedding Service..."
+	@pkill -f "embedding_service.py" || true
+	@PORT=8086 python3 services/embedding_service.py > /tmp/embedding-service.log 2>&1 & echo $$! > /tmp/embedding-service.pid
+	@sleep 3
+	@echo "Starting Dynamic RAG Gateway..."
+	@pkill -f "dynamic_app.py" || true
+	@EMBEDDING_SERVICE_URL=http://localhost:8086 PORT=8087 python3 services/rag-gateway/dynamic_app.py > /tmp/dynamic-rag-gateway.log 2>&1 & echo $$! > /tmp/rag-gateway.pid
+	@sleep 3
+	@echo "Starting Model Pool Manager..."
+	@pkill -f "model_pool.py" || true
+	@PORT=8085 python3 services/model_pool.py > /tmp/model-pool.log 2>&1 & echo $$! > /tmp/model-pool.pid
+	@sleep 5
+	@echo "✅ Stack started"
+	@$(MAKE) stack-status
+
+stack-down: ## Stop all services
+	@echo "🛑 Stopping stack..."
+	@pkill -f "embedding_service.py" || true
+	@pkill -f "dynamic_app.py" || true
+	@pkill -f "model_pool.py" || true
+	@docker stop weaviate-clean 2>/dev/null || true
+	@echo "✅ Stack stopped"
+
+stack-status: ## Check service health
+	@echo "══════════════════════════════════════════════════════════"
+	@echo "  📊 STACK STATUS"
+	@echo "══════════════════════════════════════════════════════════"
+	@echo -n "Weaviate (8090): " && curl -sf http://localhost:8090/v1/.well-known/ready > /dev/null && echo "✅ READY" || echo "❌ DOWN"
+	@echo -n "Embedding Service (8086): " && curl -sf http://localhost:8086/health > /dev/null && echo "✅ UP" || echo "❌ DOWN"
+	@echo -n "Dynamic RAG (8087): " && curl -sf http://localhost:8087/health > /dev/null && echo "✅ UP" || echo "❌ DOWN"
+	@echo -n "Model Pool (8085): " && curl -sf http://localhost:8085/health > /dev/null && echo "✅ UP" || echo "❌ DOWN"
+	@echo ""
+	@echo "Model Pool Status:"
+	@curl -s http://localhost:8085/status | jq '{active_model, vram_mb, queue_depth, hotswaps_5m, loaded}'
+
+##@ Data Seeding
+
+rag-seed-full: ## Seed all tiers with full repo
+	@echo "📚 Seeding all tiers (ChunkMini/Base/Long)..."
+	@export SEED_ROOT=/Users/christianmerrill/Documents/GitHub && \
+	 export WEAVIATE_URL=http://localhost:8090 && \
+	 export EMBEDDING_SERVICE_URL=http://localhost:8086 && \
+	 python3 tools/rag_seed_dynamic.py
+
+rag-seed-agi: ## Seed just agi_core directory (fast)
+	@echo "📚 Seeding agi_core only..."
+	@export SEED_ROOT=/Users/christianmerrill/Documents/GitHub/agi_core && \
+	 export WEAVIATE_URL=http://localhost:8090 && \
+	 export EMBEDDING_SERVICE_URL=http://localhost:8086 && \
+	 python3 tools/rag_seed_dynamic.py
+
+##@ Testing
+
+rag-golden: ## Run golden questions correctness test
+	@bash tests/rag_golden_questions.sh
+
+rag-load: ## Load test RAG (60s, 5 QPS)
+	@bash tests/rag_load_test.sh 60 5
+
+test-dynamic-rag: ## Test dynamic RAG intelligence
+	@echo "Testing RAG intelligence..."
+	@echo "LOW complexity:"
+	@curl -s http://localhost:8087/query -X POST \
+		-H 'Content-Type: application/json' \
+		-d '{"query":"health","top_k":3}' | jq '{complexity, lanes: .plan.lanes, hits: .total_hits, ms: .took_ms}'
+	@echo ""
+	@echo "MEDIUM complexity:"
+	@curl -s http://localhost:8087/query -X POST \
+		-H 'Content-Type: application/json' \
+		-d '{"query":"How does the planner work?","top_k":5}' | jq '{complexity, lanes: .plan.lanes, hits: .total_hits, ms: .took_ms}'
+	@echo ""
+	@echo "HIGH complexity (forced):"
+	@curl -s http://localhost:8087/query -X POST \
+		-H 'Content-Type: application/json' \
+		-d '{"query":"architecture","top_k":6,"importance":"high"}' | jq '{complexity, lanes: .plan.lanes, hits: .total_hits, ms: .took_ms}'
+
+test-model-pool: ## Test model pool hot-swap
+	@echo "Testing model pool hot-swap..."
+	@echo "Request 1 (fast):"
+	@curl -s http://localhost:8085/infer -X POST \
+		-H 'Content-Type: application/json' \
+		-d '{"model":"fast","prompt":"Hello","max_tokens":5}' | jq '{model, swapped: .swap_performed, total_ms, state: .warm_state}'
+	@echo ""
+	@echo "Request 2 (balanced - should swap):"
+	@curl -s http://localhost:8085/infer -X POST \
+		-H 'Content-Type: application/json' \
+		-d '{"model":"balanced","prompt":"Task","max_tokens":5}' | jq '{model, swapped: .swap_performed, swap_ms, total_ms, state: .warm_state}'
+	@echo ""
+	@echo "Request 3 (balanced - should be hot):"
+	@curl -s http://localhost:8085/infer -X POST \
+		-H 'Content-Type: application/json' \
+		-d '{"model":"balanced","prompt":"Another","max_tokens":5}' | jq '{model, swapped: .swap_performed, total_ms, state: .warm_state}'
+
+test-complete: ## Run complete stack test
+	@./test_complete_stack.sh
+
+##@ Metrics & Monitoring
+
+metrics: ## Show all metrics
+	@echo "Model Pool Metrics:"
+	@curl -s http://localhost:9092/metrics | grep -E "model_pool_" | grep -v "^#" | head -15
+	@echo ""
+	@echo "RAG Metrics:"
+	@curl -s http://localhost:9090/metrics 2>/dev/null | grep -E "rag_dynamic_" | grep -v "^#" | head -15 || echo "(RAG metrics port may vary)"
+	@echo ""
+	@echo "Embedding Metrics:"
+	@curl -s http://localhost:9091/metrics 2>/dev/null | grep -E "embeddings_" | grep -v "^#" | head -10 || echo "(Embedding metrics port may vary)"
+
+##@ Production Operations
+
+prod-sanity: ## Production sanity checks
+	@echo "Running production sanity checks..."
+	@./test_complete_stack.sh
+	@$(MAKE) rag-golden
+	@$(MAKE) rag-load
+
+prod-restart: ## Restart all services cleanly
+	@$(MAKE) stack-down
+	@sleep 5
+	@$(MAKE) stack-up
+	@sleep 10
+	@$(MAKE) stack-status
+
+agi-fix-frontend: ## End-to-end AGI autonomy test
+	@echo "🤖 Testing AGI autonomy..."
+	@curl -X POST http://localhost:8000/api/execute \
+		-H 'Content-Type: application/json' \
+		-d '{"objective":"Build and launch the frontend app","tools":[],"max_steps":5}' | jq .
+
+##@ TRM Reasoning Service
+
+trm-up: ## Start TRM reasoning service
+	@echo "🧠 Starting TRM Reasoning Service..."
+	@pkill -f "trm_service.py" || true
+	@PORT=8420 python3 services/trm_service.py > /tmp/trm-service.log 2>&1 & echo $$! > /tmp/trm-service.pid
+	@sleep 3
+	@echo "✅ TRM service started on port 8420"
+	@curl -s http://localhost:8420/health | jq .
+
+trm-down: ## Stop TRM reasoning service
+	@echo "🛑 Stopping TRM service..."
+	@pkill -f "trm_service.py" || true
+	@echo "✅ TRM service stopped"
+
+trm-test: ## Test all TRM modes (classify, deliberate, critique)
+	@echo "══════════════════════════════════════════════════════════"
+	@echo "  🧠 TRM REASONING SERVICE - MODE TESTS"
+	@echo "══════════════════════════════════════════════════════════"
+	@echo ""
+	@echo "1️⃣  TRM Classify:"
+	@curl -s http://localhost:8420/v1/trm/classify -X POST \
+		-H 'Content-Type: application/json' \
+		-d '{"objective":"Build a simple web app","signals":{"rag_hits":0,"tools_len":2}}' | \
+		jq '{complexity, confidence, cycles_used, took_ms, fallback}'
+	@echo ""
+	@echo "2️⃣  TRM Deliberate (with context):"
+	@curl -s http://localhost:8420/v1/trm/deliberate -X POST \
+		-H 'Content-Type: application/json' \
+		-d '{"question":"How should I structure the AGI planner?","context":"RAG context: The planner uses Scout-Plan-Build workflow...","cycles":12}' | \
+		jq '{used_cycles, took_ms, answer: (.answer[:150]), fallback}'
+	@echo ""
+	@echo "3️⃣  TRM Critique:"
+	@curl -s http://localhost:8420/v1/trm/critique -X POST \
+		-H 'Content-Type: application/json' \
+		-d '{"plan":["Step 1: Build","Step 2: Test","Step 3: Deploy"],"constraints":["timeout<=300s"]}' | \
+		jq '{issues, suggestions, cycles_used, took_ms, fallback}'
+
+trm-metrics: ## Show TRM metrics
+	@echo "TRM Reasoning Metrics:"
+	@curl -s http://localhost:9093/metrics | grep -E "trm_" | grep -v "^#"
+
+trm-status: ## Check TRM service status
+	@echo "TRM Service Status:"
+	@curl -s http://localhost:8420/health | jq .
+
+##@ Production Cutover
+
+prod-cutover: ## One-shot production cutover (tag, snapshot, canary, monitor)
+	@echo "══════════════════════════════════════════════════════════"
+	@echo "  🚀 PRODUCTION CUTOVER - Adaptive TRM"
+	@echo "══════════════════════════════════════════════════════════"
+	@echo ""
+	@echo "1️⃣  Tagging release..."
+	@git tag prod-agi-$(shell date +%Y%m%d) || echo "Tag already exists"
+	@echo "  ✅ Tagged: prod-agi-$(shell date +%Y%m%d)"
+	@echo ""
+	@echo "2️⃣  Saving policy snapshot..."
+	@mkdir -p snapshots/prod-$(shell date +%Y%m%d)
+	@curl -s http://localhost:8000/trm/policy > snapshots/prod-$(shell date +%Y%m%d)/policy_checkpoint.json
+	@cp config/routing_policy.yaml snapshots/prod-$(shell date +%Y%m%d)/ 2>/dev/null || true
+	@cp Makefile.dynamic snapshots/prod-$(shell date +%Y%m%d)/ 2>/dev/null || true
+	@echo "  ✅ Snapshot saved to snapshots/prod-$(shell date +%Y%m%d)/"
+	@echo ""
+	@echo "3️⃣  Starting 10% canary (1 hour)..."
+	@echo "  Traffic split: 10% adaptive, 90% static"
+	@echo "  Duration: 3600 seconds"
+	@echo ""
+	@./scripts/ab_test_trm.sh 3600 0.1 &
+	@echo "  ✅ Canary started (background)"
+	@echo ""
+	@echo "4️⃣  Monitor at:"
+	@echo "  - Grafana: http://localhost:3000/d/adaptive-trm"
+	@echo "  - Policy: curl http://localhost:8000/trm/policy | jq"
+	@echo "  - Metrics: curl http://localhost:9093/metrics | grep trm_"
+	@echo ""
+	@echo "══════════════════════════════════════════════════════════"
+	@echo "  ✅ CUTOVER IN PROGRESS"
+	@echo "══════════════════════════════════════════════════════════"
+	@echo ""
+	@echo "📊 Watch for:"
+	@echo "  - Error rate < 0.5%"
+	@echo "  - Latency P95 < 2s"
+	@echo "  - Policy accuracy trending up"
+	@echo "  - Zero-hit rate < 2%"
+	@echo ""
+	@echo "🔙 Rollback if needed:"
+	@echo "  export TRM_TRIGGER_THRESH=1.0 && make stack-restart"
+
+prod-rollback: ## Emergency rollback to last stable
+	@echo "🚨 ROLLING BACK TO LAST STABLE"
+	@LAST_TAG=$$(git tag | grep prod-agi | sort -r | head -1) && \
+	echo "  Checking out: $$LAST_TAG" && \
+	git checkout $$LAST_TAG
+	@make stack-down
+	@sleep 3
+	@OTEL_SDK_DISABLED=true make stack-up
+	@echo "✅ Rolled back and restarted"
+
+system-smoke: ## Complete system verification (all endpoints)
+	@./scripts/system_smoke.sh
+
+# Operational automation
+smoke-cron-setup: ## Set up hourly smoke test cron job
+	@echo "⏰ Setting up hourly smoke test cron job..."
+	@echo "0 * * * * $(PWD)/scripts/hourly_smoke_cron.sh" | crontab -
+	@echo "✅ Hourly smoke test scheduled"
+
+smoke-cron-remove: ## Remove hourly smoke test cron job
+	@echo "🗑️ Removing hourly smoke test cron job..."
+	@crontab -l | grep -v "hourly_smoke_cron.sh" | crontab -
+	@echo "✅ Hourly smoke test removed"
+
+rag-delta-setup: ## Set up nightly RAG delta seed cron job
+	@echo "🌙 Setting up nightly RAG delta seed cron job..."
+	@echo "0 2 * * * $(PWD)/scripts/rag_seed_delta.sh" | crontab -
+	@echo "✅ Nightly RAG delta seed scheduled"
+
+grafana-import-health: ## Import system health dashboard to Grafana
+	@echo "📊 Importing system health dashboard to Grafana..."
+	@curl -X POST http://localhost:3000/api/dashboards/db \
+		-H "Content-Type: application/json" \
+		-H "Authorization: Bearer $(GRAFANA_TOKEN)" \
+		-d @config/grafana_system_health_dashboard.json
+	@echo "✅ System health dashboard imported"
+
+# Quick operational commands
+ops-status: ## Quick operational status check
+	@echo "🔍 Quick operational status check..."
+	@echo "=== Services ==="
+	@docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" | grep -E "(athena|agi|rag|trm|uai|mcp|router)"
+	@echo ""
+	@echo "=== Recent Smoke Tests ==="
+	@tail -5 logs/hourly_smoke.log 2>/dev/null || echo "No smoke test logs yet"
+	@echo ""
+	@echo "=== RAG Seed Status ==="
+	@cat .rag_seed_state.json 2>/dev/null || echo "No RAG seed state file"
+
+ops-logs: ## Show recent operational logs
+	@echo "📋 Recent operational logs..."
+	@echo "=== Smoke Test Logs ==="
+	@tail -10 logs/hourly_smoke.log 2>/dev/null || echo "No smoke test logs"
+	@echo ""
+	@echo "=== RAG Delta Logs ==="
+	@tail -10 logs/rag_delta.log 2>/dev/null || echo "No RAG delta logs"
+
+##@ Production Testing
+
+stage-chaos-test: ## Run chaos testing in staging environment
+	@./scripts/stage_chaos_test.sh
+
+traffic-shadow-start: ## Start shadow traffic mirroring (5% default)
+	@./scripts/traffic_shadow.sh 5 start 60
+
+traffic-shadow-stop: ## Stop shadow traffic mirroring
+	@./scripts/traffic_shadow.sh 0 stop
+
+traffic-shadow-stats: ## Show shadow traffic statistics
+	@./scripts/traffic_shadow.sh 0 stats
+
+canary-deploy: ## Deploy canary with risk-based segmentation
+	@./scripts/canary_by_risk.sh 5 60 low deploy
+
+canary-rollback: ## Rollback canary deployment
+	@./scripts/canary_by_risk.sh 0 0 low rollback
+
+canary-status: ## Show canary deployment status
+	@./scripts/canary_by_risk.sh 0 0 low status
+
+human-validation: ## Run human validation spot checks
+	@./scripts/human_validation.sh 50 spot_check
+
+red-team-test: ## Run red team adversarial testing
+	@./scripts/human_validation.sh 10 red_team
+
+policy-validation: ## Validate system policies
+	@./scripts/human_validation.sh 1 policy
+
+production-test-suite: ## Run complete production testing suite
+	@echo "🧪 Running complete production testing suite..."
+	@echo "1. Stage chaos testing..."
+	@make stage-chaos-test
+	@echo "2. Shadow traffic mirroring..."
+	@make traffic-shadow-start
+	@echo "3. Canary deployment..."
+	@make canary-deploy
+	@echo "4. Human validation..."
+	@make human-validation
+	@echo "5. Red team testing..."
+	@make red-team-test
+	@echo "✅ Production testing suite completed"
+
+##@ Production Pipeline
+
+prod-rollout: ## Complete shadow → canary → expand production rollout
+	@./scripts/prod_rollout_pipeline.sh 24 10 25 100 run
+
+prod-rollout-quick: ## Quick production rollout (12h shadow, 5% canary)
+	@./scripts/prod_rollout_pipeline.sh 12 5 25 100 run
+
+prod-rollout-status: ## Check production rollout status
+	@./scripts/prod_rollout_pipeline.sh 0 0 0 0 status
+
+prod-rollout-rollback: ## Emergency rollback production rollout
+	@./scripts/prod_rollout_pipeline.sh 0 0 0 0 rollback
+
+drift-monitor: ## Start continuous drift monitoring
+	@./scripts/drift_monitoring.sh 60 monitor
+
+drift-check: ## Run one-time drift check
+	@./scripts/drift_monitoring.sh 0 check-drift
+
+drift-status: ## Show drift monitoring status
+	@./scripts/drift_monitoring.sh 0 status
+
+drift-update-baseline: ## Update drift monitoring baselines
+	@./scripts/drift_monitoring.sh 0 update-baseline
+
+##@ CI/CD Integration
+
+cicd-pre-deploy: ## Run pre-deploy validation checks
+	@./scripts/cicd_hooks.sh $(shell date +%Y%m%d_%H%M%S) pre-deploy production
+
+cicd-post-deploy: ## Run post-deploy validation
+	@./scripts/cicd_hooks.sh $(shell date +%Y%m%d_%H%M%S) post-deploy production
+
+cicd-shadow-validation: ## Run shadow traffic validation
+	@./scripts/cicd_hooks.sh $(shell date +%Y%m%d_%H%M%S) shadow-validation production
+
+cicd-canary-promotion: ## Check canary promotion eligibility
+	@./scripts/cicd_hooks.sh $(shell date +%Y%m%d_%H%M%S) canary-promotion production 10
+
+cicd-rollback: ## Trigger automated rollback
+	@./scripts/cicd_hooks.sh $(shell date +%Y%m%d_%H%M%S) rollback production
+
+cicd-full-pipeline: ## Run complete CI/CD pipeline
+	@./scripts/cicd_hooks.sh $(shell date +%Y%m%d_%H%M%S) full-pipeline production
+
+##@ Real-World Validation
+
+phase0-preconditions: ## Set up Phase 0 preconditions for production validation
+	@./scripts/phase0_preconditions.sh run
+
+phase0-status: ## Check Phase 0 preconditions status
+	@./scripts/phase0_preconditions.sh status
+
+shadow-validation-gates: ## Run shadow traffic validation gates
+	@./scripts/shadow_validation_gates.sh validate 60
+
+shadow-validation-status: ## Check shadow validation gates status
+	@./scripts/shadow_validation_gates.sh status
+
+real-world-validation: ## Complete real-world validation pipeline (12h shadow, 1% canary)
+	@./scripts/real_world_validation.sh 12 1 5 run
+
+real-world-validation-quick: ## Quick real-world validation (6h shadow, 1% canary)
+	@./scripts/real_world_validation.sh 6 1 5 run
+
+real-world-validation-status: ## Check real-world validation status
+	@./scripts/real_world_validation.sh 0 0 0 status
+
+real-world-validation-rollback: ## Rollback real-world validation
+	@./scripts/real_world_validation.sh 0 0 0 rollback
+
+##@ Validation Checklist
+
+validation-checklist: ## Run complete real-world validation checklist
+	@./scripts/validation_checklist.sh run
+
+validation-smoke-probes: ## Run smoke probes for validation
+	@./scripts/validation_checklist.sh smoke-probes
+
+validation-evidence-pack: ## Create evidence pack for validation
+	@./scripts/validation_checklist.sh evidence-pack
+
+validation-checklist-status: ## Check validation checklist status
+	@./scripts/validation_checklist.sh status
+
+##@ Playbook Fixes
+
+playbook-rag-zero-hits: ## Fix RAG zero-hit bursts
+	@./scripts/playbook_fixes.sh rag-zero-hits
+
+playbook-trm-oscillation: ## Fix TRM oscillation / swap-storm
+	@./scripts/playbook_fixes.sh trm-oscillation
+
+playbook-latency-drift: ## Fix latency drift > +10%
+	@./scripts/playbook_fixes.sh latency-drift
+
+playbook-error-spikes: ## Fix error spikes
+	@./scripts/playbook_fixes.sh error-spikes
+
+playbook-minimal-chaos: ## Run minimal chaos test
+	@./scripts/playbook_fixes.sh minimal-chaos
+
+playbook-help: ## Show available playbook fixes
+	@./scripts/playbook_fixes.sh help
+
+##@ Smoke Probes
+
+smoke-health: ## Run health & inventory smoke probes
+	@echo "=== Health & Inventory ==="
+	@curl -s http://localhost:8000/health | jq
+	@echo ""
+	@curl -s http://localhost:8000/tools | jq '.[].name'
+	@echo ""
+	@curl -s http://localhost:8000/trm/policy | jq '.stats'
+
+smoke-rag: ## Run RAG sanity smoke probes
+	@echo "=== RAG Sanity (Dynamic Gateway) ==="
+	@curl -s http://localhost:8087/query -H 'Content-Type: application/json' \
+		-d '{"query":"Where is the router MCP provider configured?","top_k":8}' | \
+		jq '.hits|length'
+
+smoke-router-uai: ## Run LLM-agnostic router → UAI path smoke probes
+	@echo "=== LLM-Agnostic Router → UAI Path ==="
+	@curl -s http://localhost:8080/v1/chat/completions -H 'Content-Type: application/json' \
+		-d '{"model":"auto","messages":[{"role":"user","content":"Say hello in 3 words"}]}' | \
+		jq '.choices[0].message'
+
+smoke-e2e-agi: ## Run end-to-end AGI exec smoke probes
+	@echo "=== End-to-End AGI Exec (Real Flow) ==="
+	@curl -s http://localhost:8000/api/execute -H 'Content-Type: application/json' \
+		-d '{"objective":"Where are agent experts wired in the codebase? show file paths","tools":[],"max_steps":6,"flags":{"adaptive_trm":true}}' | \
+		jq '.trace[-5:]'
+
+##@ Turn-Key Validation Runner
+
+run-validation: ## Run complete validation checklist (turn-key)
+	@./scripts/run_validation.sh
+
+run-validation-local: ## Run validation locally with custom params
+	@echo "Usage: ENV_STAGE=prod SHADOW_DURATION_MIN=120 CANARY_DURATION_MIN=30 CHAOS=false make run-validation-local"
+	@ENV_STAGE=prod SHADOW_DURATION_MIN=120 CANARY_DURATION_MIN=30 CHAOS=false ./scripts/run_validation.sh
+
+run-validation-quick: ## Run quick validation (short durations)
+	@ENV_STAGE=prod SHADOW_DURATION_MIN=10 CANARY_DURATION_MIN=5 CHAOS=false ./scripts/run_validation.sh
+
+run-validation-chaos: ## Run validation with chaos testing
+	@ENV_STAGE=prod SHADOW_DURATION_MIN=120 CANARY_DURATION_MIN=30 CHAOS=true ./scripts/run_validation.sh
+
+##@ TRM Adaptive Policy
+
+trm-ab: ## Run A/B test (adaptive vs static policy)
+	@./scripts/ab_test_trm.sh 1800 0.5
+
+trm-policy-stats: ## Show adaptive policy statistics
+	@echo "🧠 TRM Adaptive Policy Stats:"
+	@cd /Users/christianmerrill/Documents/GitHub && /usr/bin/python3 -c "from services.trm_adaptive_policy import policy; import json; print(json.dumps(policy.get_stats(), indent=2))"
+
+trm-policy-dump: ## Dump current policy weights and bias
+	@echo "📊 TRM Policy Configuration:"
+	@cd /Users/christianmerrill/Documents/GitHub && /usr/bin/python3 -c "from services.trm_adaptive_policy import policy; print(f'Weights: {policy.weights}'); print(f'Bias: {policy.bias:.3f}'); print(f'History size: {len(policy.history)}')"
+
+trm-policy-metrics: ## Show policy-specific Prometheus metrics
+	@echo "📈 TRM Policy Metrics:"
+	@curl -s http://localhost:9093/metrics 2>/dev/null | grep -E "trm_policy|trm_adaptive|trm_improvement|trm_context_waste" | grep -v "^#" || echo "No policy metrics yet (need outcomes recorded)"
+

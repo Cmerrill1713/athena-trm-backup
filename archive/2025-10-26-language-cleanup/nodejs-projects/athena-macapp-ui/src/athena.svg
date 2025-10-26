@@ -1,0 +1,71 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Athena Shield Background -->
+  <defs>
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="owlGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Shield Shape -->
+  <path d="M100 20 L160 40 L160 120 C160 140 140 160 100 180 C60 160 40 140 40 120 L40 40 Z" 
+        fill="url(#shieldGradient)" 
+        stroke="white" 
+        stroke-width="2"
+        filter="url(#glow)"/>
+  
+  <!-- Athena Owl -->
+  <g transform="translate(100, 100)">
+    <!-- Owl Head -->
+    <ellipse cx="0" cy="-10" rx="25" ry="20" fill="url(#owlGradient)" stroke="white" stroke-width="1.5"/>
+    
+    <!-- Owl Eyes -->
+    <circle cx="-12" cy="-15" r="6" fill="white"/>
+    <circle cx="12" cy="-15" r="6" fill="white"/>
+    <circle cx="-12" cy="-15" r="3" fill="#1f2937"/>
+    <circle cx="12" cy="-15" r="3" fill="#1f2937"/>
+    
+    <!-- Owl Beak -->
+    <path d="M-3 -5 L3 -5 L0 2 Z" fill="#f59e0b"/>
+    
+    <!-- Owl Wings -->
+    <ellipse cx="-20" cy="5" rx="8" ry="15" fill="url(#owlGradient)" opacity="0.8"/>
+    <ellipse cx="20" cy="5" rx="8" ry="15" fill="url(#owlGradient)" opacity="0.8"/>
+    
+    <!-- Owl Body -->
+    <ellipse cx="0" cy="15" rx="15" ry="20" fill="url(#owlGradient)"/>
+  </g>
+  
+  <!-- Sparkle Effects -->
+  <g opacity="0.8">
+    <circle cx="50" cy="50" r="2" fill="white">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="150" cy="60" r="1.5" fill="white">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="60" cy="140" r="1" fill="white">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="140" cy="150" r="1.5" fill="white">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Athena Text -->
+  <text x="100" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+    ATHENA
+  </text>
+</svg>

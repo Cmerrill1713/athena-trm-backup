@@ -1,0 +1,41 @@
+name: Code Inventory
+
+on:
+  push:
+    branches: [ main, v0.9.* ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  inventory:
+    name: Generate Code Inventory
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Generate inventory
+        run: python3 tools/code_inventory.py
+
+      - name: Display results
+        run: cat CODE_INVENTORY.md
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-inventory
+          path: |
+            CODE_INVENTORY.md
+            state/code_inventory.json

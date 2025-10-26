@@ -1,0 +1,324 @@
+/* Athena Desktop UI - World-Class Design System */
+
+/* Custom CSS Variables for Premium Design */
+:root {
+  /* Primary Color Palette */
+  --athena-primary-50: #f0f9ff;
+  --athena-primary-100: #e0f2fe;
+  --athena-primary-200: #bae6fd;
+  --athena-primary-300: #7dd3fc;
+  --athena-primary-400: #38bdf8;
+  --athena-primary-500: #0ea5e9;
+  --athena-primary-600: #0284c7;
+  --athena-primary-700: #0369a1;
+  --athena-primary-800: #075985;
+  --athena-primary-900: #0c4a6e;
+
+  /* Secondary Color Palette */
+  --athena-secondary-50: #f8fafc;
+  --athena-secondary-100: #f1f5f9;
+  --athena-secondary-200: #e2e8f0;
+  --athena-secondary-300: #cbd5e1;
+  --athena-secondary-400: #94a3b8;
+  --athena-secondary-500: #64748b;
+  --athena-secondary-600: #475569;
+  --athena-secondary-700: #334155;
+  --athena-secondary-800: #1e293b;
+  --athena-secondary-900: #0f172a;
+
+  /* Accent Colors */
+  --athena-accent-blue: #3b82f6;
+  --athena-accent-emerald: #10b981;
+  --athena-accent-violet: #8b5cf6;
+  --athena-accent-amber: #f59e0b;
+  --athena-accent-rose: #f43f5e;
+
+  /* Gradients */
+  --athena-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --athena-gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --athena-gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --athena-gradient-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+
+  /* Shadows */
+  --athena-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --athena-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --athena-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --athena-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --athena-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  /* Border Radius */
+  --athena-radius-sm: 0.375rem;
+  --athena-radius-md: 0.5rem;
+  --athena-radius-lg: 0.75rem;
+  --athena-radius-xl: 1rem;
+  --athena-radius-2xl: 1.5rem;
+  --athena-radius-3xl: 2rem;
+
+  /* Transitions */
+  --athena-transition-fast: 150ms ease-in-out;
+  --athena-transition-normal: 300ms ease-in-out;
+  --athena-transition-slow: 500ms ease-in-out;
+}
+
+/* Global Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* Premium Button Styles */
+.athena-button {
+  @apply relative overflow-hidden;
+  @apply bg-gradient-to-r from-slate-700 via-blue-600 to-indigo-600;
+  @apply text-white font-semibold;
+  @apply px-6 py-3 rounded-xl;
+  @apply shadow-xl hover:shadow-2xl;
+  @apply transition-all duration-300;
+  @apply transform hover:-translate-y-0.5;
+  @apply hover:brightness-110;
+}
+
+.athena-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.athena-button:hover::before {
+  left: 100%;
+}
+
+/* Premium Card Styles */
+.athena-card {
+  @apply bg-white/90 backdrop-blur-sm;
+  @apply rounded-2xl shadow-xl;
+  @apply border border-slate-200/50;
+  @apply hover:shadow-2xl;
+  @apply transition-all duration-300;
+  @apply transform hover:-translate-y-1;
+}
+
+.athena-card:hover {
+  @apply border-slate-300/60;
+}
+
+/* Premium Icon Containers */
+.athena-icon-container {
+  @apply w-16 h-16 rounded-2xl;
+  @apply flex items-center justify-center;
+  @apply shadow-lg;
+  @apply transition-all duration-300;
+}
+
+.athena-icon-container:hover {
+  @apply scale-110 shadow-xl;
+}
+
+/* Premium Text Gradients */
+.athena-text-gradient {
+  @apply bg-gradient-to-r from-slate-800 via-blue-700 to-indigo-600;
+  @apply bg-clip-text text-transparent;
+  @apply drop-shadow-sm;
+}
+
+/* Premium Code Blocks */
+.athena-code {
+  @apply bg-white/80 backdrop-blur-sm;
+  @apply px-4 py-3 rounded-xl;
+  @apply text-sm font-mono;
+  @apply border border-slate-200;
+  @apply shadow-lg;
+}
+
+/* Premium Input Fields */
+.athena-input {
+  @apply bg-white/80 backdrop-blur-sm;
+  @apply px-4 py-3 rounded-xl;
+  @apply border border-slate-200;
+  @apply shadow-md hover:shadow-lg;
+  @apply transition-all duration-200;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500/20;
+}
+
+/* Premium Animations */
+@keyframes athena-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes athena-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes athena-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.6); }
+}
+
+.athena-float {
+  animation: athena-float 3s ease-in-out infinite;
+}
+
+.athena-pulse {
+  animation: athena-pulse 2s ease-in-out infinite;
+}
+
+.athena-glow {
+  animation: athena-glow 2s ease-in-out infinite;
+}
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}
+
+/* Premium Focus States */
+.athena-focus {
+  @apply focus:outline-none;
+  @apply focus:ring-2 focus:ring-blue-500/20;
+  @apply focus:border-blue-500/30;
+}
+
+/* Premium Hover Effects */
+.athena-hover-lift {
+  @apply transition-all duration-300;
+  @apply hover:-translate-y-1;
+  @apply hover:shadow-xl;
+}
+
+.athena-hover-scale {
+  @apply transition-all duration-300;
+  @apply hover:scale-105;
+}
+
+.athena-hover-glow {
+  @apply transition-all duration-300;
+  @apply hover:shadow-lg;
+  @apply hover:shadow-blue-500/20;
+}
+
+/* Premium Glass Morphism */
+.athena-glass {
+  @apply bg-white/10 backdrop-blur-md;
+  @apply border border-white/20;
+  @apply shadow-xl;
+}
+
+/* Premium Loading States */
+.athena-loading {
+  @apply animate-pulse;
+  @apply bg-gradient-to-r from-slate-200 via-slate-300 to-slate-200;
+  @apply bg-[length:200%_100%];
+  @apply animate-[shimmer_1.5s_ease-in-out_infinite];
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Premium Typography */
+.athena-heading-1 {
+  @apply text-4xl font-bold tracking-tight;
+  @apply athena-text-gradient;
+}
+
+.athena-heading-2 {
+  @apply text-3xl font-bold tracking-tight;
+  @apply athena-text-gradient;
+}
+
+.athena-heading-3 {
+  @apply text-2xl font-bold tracking-tight;
+  @apply text-slate-800;
+}
+
+.athena-body {
+  @apply text-base text-slate-600;
+  @apply leading-relaxed;
+}
+
+.athena-caption {
+  @apply text-sm text-slate-500;
+  @apply leading-normal;
+}
+
+/* Premium Spacing System */
+.athena-space-xs { @apply space-y-1; }
+.athena-space-sm { @apply space-y-2; }
+.athena-space-md { @apply space-y-4; }
+.athena-space-lg { @apply space-y-6; }
+.athena-space-xl { @apply space-y-8; }
+.athena-space-2xl { @apply space-y-12; }
+
+/* Premium Responsive Design */
+@media (max-width: 768px) {
+  .athena-card {
+    @apply rounded-xl p-6;
+  }
+  
+  .athena-icon-container {
+    @apply w-12 h-12;
+  }
+  
+  .athena-heading-1 {
+    @apply text-3xl;
+  }
+  
+  .athena-heading-2 {
+    @apply text-2xl;
+  }
+}
+
+/* Premium Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --athena-primary-50: #0f172a;
+    --athena-primary-100: #1e293b;
+    --athena-primary-200: #334155;
+    --athena-primary-300: #475569;
+    --athena-primary-400: #64748b;
+    --athena-primary-500: #94a3b8;
+    --athena-primary-600: #cbd5e1;
+    --athena-primary-700: #e2e8f0;
+    --athena-primary-800: #f1f5f9;
+    --athena-primary-900: #f8fafc;
+  }
+  
+  .athena-card {
+    @apply bg-slate-800/90 border-slate-700/50;
+  }
+  
+  .athena-text-gradient {
+    @apply bg-gradient-to-r from-slate-200 via-blue-300 to-indigo-400;
+  }
+}

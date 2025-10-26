@@ -1,0 +1,105 @@
+version: "3.8"
+
+# Online Mode Overlay — Controlled Internet Access
+# Add this to full-stack.yml for research paper ingestion
+
+services:
+  # ============================================================================
+  # Egress Proxy (Controlled Internet Access)
+  # ============================================================================
+
+  egress-proxy:
+    image: bitnami/squid:latest
+    networks:
+      - athena
+    ports:
+      - "3128:3128" # Optional external access for debugging
+    volumes:
+      - ./egress/acl.conf:/opt/bitnami/squid/etc/squid.conf:ro
+      - ./logs/squid:/opt/bitnami/squid/var/logs
+    environment:
+      - SQUID_CACHE_DIR=/opt/bitnami/squid/var/cache
+      - SQUID_LOG_DIR=/opt/bitnami/squid/var/logs
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "squidclient -h localhost -p 3128 mgr:info | grep -q 'HTTP/1.1 200 OK'",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ============================================================================
+  # SearXNG (Self-Hosted Meta-Search)
+  # ============================================================================
+
+  searxng:
+    image: searxng/searxng:latest
+    networks:
+      - athena
+    ports:
+      - "8081:8080"
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:8081/
+      - SEARXNG_HOSTNAME=searxng
+      # Use egress proxy for all searches
+      - HTTP_PROXY=http://egress-proxy:3128
+      - HTTPS_PROXY=http://egress-proxy:3128
+    volumes:
+      - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
+      - ./searxng/limiter.toml:/etc/searxng/limiter.toml:ro
+    depends_on:
+      egress-proxy:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  # ============================================================================
+  # Paper Ingestion Worker (Fetch + Embed Pipeline)
+  # ============================================================================
+
+  paper-ingest:
+    build: ./services/paper-ingest
+    networks:
+      - athena
+    environment:
+      - WEAVIATE_URL=http://weaviate:8080
+      - SEARXNG_URL=http://searxng:8080
+      - HTTP_PROXY=http://egress-proxy:3128
+      - HTTPS_PROXY=http://egress-proxy:3128
+      - QUEUE_PATH=/data/queue
+      - PDF_STORAGE=/data/pdfs
+      - EMBEDDING_MODEL=all-MiniLM-L6-v2
+      - ATHENA_NO_CLOUD=1 # Still no cloud LLMs
+    volumes:
+      - ./data/papers:/data
+      - ./scripts:/app/scripts:ro
+    depends_on:
+      - searxng
+      - weaviate
+    profiles:
+      - ingest # Optional service (only when ingesting)
+
+  # ============================================================================
+  # Update Existing Services with Proxy Support
+  # ============================================================================
+
+  openai-compat:
+    environment:
+      HTTP_PROXY: "${HTTP_PROXY:-}" # Empty by default (offline)
+      HTTPS_PROXY: "${HTTPS_PROXY:-}"
+      NO_PROXY: "localhost,127.0.0.1,rag-gateway,smart-chat,weaviate"
+
+  rag-gateway:
+    environment:
+      HTTP_PROXY: "${HTTP_PROXY:-}"
+      HTTPS_PROXY: "${HTTPS_PROXY:-}"
+
+  smart-chat:
+    environment:
+      HTTP_PROXY: "${HTTP_PROXY:-}"
+      HTTPS_PROXY: "${HTTPS_PROXY:-}"

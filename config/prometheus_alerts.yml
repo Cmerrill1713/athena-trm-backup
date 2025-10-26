@@ -1,0 +1,171 @@
+# Prometheus Alert Rules - Intelligent Stack
+# Deploy to Prometheus /etc/prometheus/alerts/
+
+groups:
+  - name: model_pool
+    interval: 30s
+    rules:
+      - alert: ModelPoolSwapStorm
+        expr: rate(model_pool_hotswaps_total[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+          component: model-pool
+        annotations:
+          summary: "Model pool swap storm detected"
+          description: "Swap rate {{ $value | humanize }} swaps/sec (>30 per 5min). Check keep_alive settings or enable warm-on-deck."
+
+      - alert: ModelPoolColdStartLatency
+        expr: histogram_quantile(0.95, sum(rate(model_pool_first_token_latency_ms_bucket{warm_state="cold"}[5m])) by (le)) > 1500
+        for: 5m
+        labels:
+          severity: info
+          component: model-pool
+        annotations:
+          summary: "High cold start latency"
+          description: "P95 cold start latency {{ $value | humanize }}ms. Consider pre-warming frequently used models."
+
+      - alert: ModelPoolQueueBackpressure
+        expr: max_over_time(model_pool_queue_depth[2m]) > 20
+        for: 1m
+        labels:
+          severity: critical
+          component: model-pool
+        annotations:
+          summary: "Model pool queue backpressure"
+          description: "Queue depth {{ $value }} exceeds threshold. Auto-shedding heavy models or scale horizontally."
+
+      - alert: ModelPoolVRAMHigh
+        expr: model_pool_vram_used_mb > 12000
+        for: 5m
+        labels:
+          severity: warning
+          component: model-pool
+        annotations:
+          summary: "High VRAM usage"
+          description: "VRAM usage {{ $value }}MB. Consider evicting or using smaller quantization."
+
+  - name: dynamic_rag
+    interval: 30s
+    rules:
+      - alert: RAGZeroHits
+        expr: increase(rag_dynamic_queries_total{outcome="ok"}[10m]) > 50 and increase(rag_dynamic_hits_total[10m]) == 0
+        for: 5m
+        labels:
+          severity: warning
+          component: rag
+        annotations:
+          summary: "RAG returning zero hits"
+          description: "{{ $value }} queries but no hits. Check Weaviate health and run incremental seed."
+
+      - alert: RAGLatencySpike
+        expr: histogram_quantile(0.95, sum(rate(rag_dynamic_latency_ms_bucket[5m])) by (le)) > 500
+        for: 5m
+        labels:
+          severity: warning
+          component: rag
+        annotations:
+          summary: "RAG latency spike"
+          description: "P95 latency {{ $value }}ms. Check Weaviate performance and lane distribution."
+
+      - alert: RAGErrorRate
+        expr: rate(rag_dynamic_queries_total{outcome="error"}[5m]) > 0.05
+        for: 2m
+        labels:
+          severity: critical
+          component: rag
+        annotations:
+          summary: "High RAG error rate"
+          description: "Error rate {{ $value | humanizePercentage }}. Check Weaviate and embedding service connectivity."
+
+      - alert: RAGContextBudgetExceeded
+        expr: rate(rag_context_chars_total[5m]) / rate(rag_dynamic_queries_total[5m]) > 4000
+        for: 5m
+        labels:
+          severity: info
+          component: rag
+        annotations:
+          summary: "RAG context budget high"
+          description: "Average context {{ $value }} chars/query. Consider tightening budgets or improving deduplication."
+
+  - name: embeddings
+    interval: 30s
+    rules:
+      - alert: EmbeddingServiceDown
+        expr: up{job="embedding-service"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: embeddings
+        annotations:
+          summary: "Embedding service is down"
+          description: "Embedding service unreachable. RAG and seeding will fail."
+
+      - alert: EmbeddingLatencySlow
+        expr: histogram_quantile(0.95, sum(rate(embedding_latency_ms_bucket[5m])) by (le, tier)) > 500
+        for: 5m
+        labels:
+          severity: warning
+          component: embeddings
+        annotations:
+          summary: "Embedding latency high for {{ $labels.tier }}"
+          description: "P95 latency {{ $value }}ms. Check Ollama performance or consider model caching."
+
+  - name: slo_compliance
+    interval: 60s
+    rules:
+      - alert: SLOViolationSimple
+        expr: histogram_quantile(0.95, sum(rate(model_pool_first_token_latency_ms_bucket[5m])) by (le)) + histogram_quantile(0.95, sum(rate(rag_dynamic_latency_ms_bucket{lane="low"}[5m])) by (le)) > 800
+        for: 10m
+        labels:
+          severity: warning
+          component: slo
+          tier: simple
+        annotations:
+          summary: "SLO violation - Simple queries"
+          description: "P95 end-to-end {{ $value }}ms exceeds 800ms target for simple queries."
+
+      - alert: SLOViolationMedium
+        expr: histogram_quantile(0.95, sum(rate(model_pool_first_token_latency_ms_bucket{warm_state="hot"}[5m])) by (le)) + histogram_quantile(0.95, sum(rate(rag_dynamic_latency_ms_bucket{lane="medium"}[5m])) by (le)) > 1200
+        for: 10m
+        labels:
+          severity: warning
+          component: slo
+          tier: medium
+        annotations:
+          summary: "SLO violation - Medium queries"
+          description: "P95 end-to-end {{ $value }}ms exceeds 1.2s target for medium queries."
+
+      - alert: SLOViolationComplexWarm
+        expr: histogram_quantile(0.95, sum(rate(model_pool_first_token_latency_ms_bucket{warm_state=~"hot|warm"}[5m])) by (le)) + histogram_quantile(0.95, sum(rate(rag_dynamic_latency_ms_bucket{lane="high"}[5m])) by (le)) > 2000
+        for: 10m
+        labels:
+          severity: info
+          component: slo
+          tier: complex
+        annotations:
+          summary: "SLO violation - Complex queries (warm)"
+          description: "P95 end-to-end {{ $value }}ms exceeds 2s target for complex warm queries."
+
+  - name: weaviate
+    interval: 30s
+    rules:
+      - alert: WeaviateNotReady
+        expr: probe_success{job="weaviate"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          component: weaviate
+        annotations:
+          summary: "Weaviate is not ready"
+          description: "Weaviate health check failing. RAG queries will fail."
+
+      - alert: WeaviateMemoryHigh
+        expr: container_memory_usage_bytes{name="weaviate-clean"} / container_spec_memory_limit_bytes{name="weaviate-clean"} > 0.85
+        for: 5m
+        labels:
+          severity: warning
+          component: weaviate
+        annotations:
+          summary: "Weaviate memory usage high"
+          description: "Memory usage {{ $value | humanizePercentage }}. Consider compaction or scaling."

@@ -1,0 +1,51 @@
+# AI Republic Phase 2 - Reputation Scoring Rules
+# Defines how reputation scores are calculated and updated based on verdicts
+
+reputation:
+  # Base reputation for new entities
+  initial_score: 0.5
+
+  # Reputation bounds
+  min_score: 0.0
+  max_score: 1.0
+
+  # Scoring weights for different verdict types
+  verdict_weights:
+    ALLOW: 0.1 # Small positive for allowed actions
+    WARN: -0.05 # Small negative for warnings
+    BLOCK: -0.2 # Moderate negative for blocks
+    QUARANTINE: -0.3 # Significant negative for quarantine
+    TRIBUNAL: -0.4 # Major negative for tribunal cases
+
+  # Time decay factor (reputation recovers over time)
+  decay_factor: 0.95 # 5% recovery per time window
+
+  # Reputation thresholds for actions
+  thresholds:
+    trusted: 0.8 # Above this: full access
+    verified: 0.6 # Above this: normal access
+    monitored: 0.4 # Above this: enhanced monitoring
+    restricted: 0.2 # Above this: limited access
+    quarantined: 0.0 # Below this: quarantine
+
+  # Bonus multipliers for good behavior
+  bonuses:
+    consecutive_allows: 0.02 # +2% per consecutive allow
+    max_consecutive_bonus: 0.1 # Cap at 10% bonus
+
+  # Penalty multipliers for bad behavior
+  penalties:
+    consecutive_blocks: -0.05 # -5% per consecutive block
+    max_consecutive_penalty: -0.2 # Cap at -20% penalty
+
+  # Reputation update intervals
+  update_window_s: 3600 # Update every hour
+
+  # Minimum events for reputation calculation
+  min_events: 10
+
+  # Reputation persistence
+  persistence:
+    enabled: true
+    file: "state/ai_republic/reputation_scores.json"
+    backup_interval_s: 86400 # Daily backups

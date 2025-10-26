@@ -1,0 +1,443 @@
+{
+    "dashboard": {
+        "title": "Intelligent Stack - Dynamic RAG + Model Pool",
+        "tags": [
+            "athena",
+            "rag",
+            "model-pool",
+            "intelligence"
+        ],
+        "timezone": "browser",
+        "schemaVersion": 16,
+        "version": 1,
+        "refresh": "10s",
+        "panels": [
+            {
+                "id": 1,
+                "title": "Model Pool - Active Model & Swaps",
+                "type": "stat",
+                "gridPos": {
+                    "h": 6,
+                    "w": 6,
+                    "x": 0,
+                    "y": 0
+                },
+                "targets": [
+                    {
+                        "expr": "model_pool_hotswaps_total",
+                        "legendFormat": "Total Swaps"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "title": "Model Pool - Hot vs Warm vs Cold (First Token Latency)",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 6,
+                    "y": 0
+                },
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.95, sum(rate(model_pool_first_token_latency_ms_bucket{warm_state=\"hot\"}[5m])) by (le))",
+                        "legendFormat": "P95 HOT"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.95, sum(rate(model_pool_first_token_latency_ms_bucket{warm_state=\"warm\"}[5m])) by (le))",
+                        "legendFormat": "P95 WARM"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.95, sum(rate(model_pool_first_token_latency_ms_bucket{warm_state=\"cold\"}[5m])) by (le))",
+                        "legendFormat": "P95 COLD"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "ms",
+                        "label": "Latency"
+                    },
+                    {
+                        "show": false
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "title": "Model Pool - Queue Depth",
+                "type": "graph",
+                "gridPos": {
+                    "h": 6,
+                    "w": 6,
+                    "x": 18,
+                    "y": 0
+                },
+                "targets": [
+                    {
+                        "expr": "model_pool_queue_depth",
+                        "legendFormat": "Queue Depth"
+                    }
+                ],
+                "alert": {
+                    "name": "Queue Backpressure",
+                    "conditions": [
+                        {
+                            "evaluator": {
+                                "type": "gt",
+                                "params": [
+                                    20
+                                ]
+                            },
+                            "operator": {
+                                "type": "and"
+                            },
+                            "query": {
+                                "params": [
+                                    "A",
+                                    "5m",
+                                    "now"
+                                ]
+                            },
+                            "type": "query"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": 4,
+                "title": "Model Pool - Swap Rate (5min window)",
+                "type": "graph",
+                "gridPos": {
+                    "h": 6,
+                    "w": 6,
+                    "x": 0,
+                    "y": 6
+                },
+                "targets": [
+                    {
+                        "expr": "rate(model_pool_hotswaps_total[5m])",
+                        "legendFormat": "Swaps/sec ({{from_model}} → {{to_model}})"
+                    }
+                ],
+                "alert": {
+                    "name": "Swap Storm",
+                    "conditions": [
+                        {
+                            "evaluator": {
+                                "type": "gt",
+                                "params": [
+                                    0.1
+                                ]
+                            },
+                            "reducer": {
+                                "type": "avg"
+                            },
+                            "query": {
+                                "params": [
+                                    "A",
+                                    "5m",
+                                    "now"
+                                ]
+                            },
+                            "type": "query"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": 5,
+                "title": "Model Pool - VRAM Usage",
+                "type": "graph",
+                "gridPos": {
+                    "h": 6,
+                    "w": 6,
+                    "x": 6,
+                    "y": 8
+                },
+                "targets": [
+                    {
+                        "expr": "model_pool_vram_used_mb",
+                        "legendFormat": "VRAM (MB)"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "decmbytes",
+                        "label": "VRAM"
+                    },
+                    {
+                        "show": false
+                    }
+                ]
+            },
+            {
+                "id": 6,
+                "title": "Model Pool - Evictions by Reason",
+                "type": "graph",
+                "gridPos": {
+                    "h": 6,
+                    "w": 6,
+                    "x": 12,
+                    "y": 8
+                },
+                "targets": [
+                    {
+                        "expr": "rate(model_pool_evicts_total[5m])",
+                        "legendFormat": "{{model}} ({{reason}})"
+                    }
+                ]
+            },
+            {
+                "id": 7,
+                "title": "Dynamic RAG - Queries by Lane",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 14
+                },
+                "targets": [
+                    {
+                        "expr": "rate(rag_dynamic_queries_total{outcome=\"ok\"}[5m])",
+                        "legendFormat": "{{lane}} lane"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "qps",
+                        "label": "Queries/sec"
+                    },
+                    {
+                        "show": false
+                    }
+                ]
+            },
+            {
+                "id": 8,
+                "title": "Dynamic RAG - Hits per Class",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 14
+                },
+                "targets": [
+                    {
+                        "expr": "rate(rag_dynamic_hits_total[5m])",
+                        "legendFormat": "{{class}}"
+                    }
+                ]
+            },
+            {
+                "id": 9,
+                "title": "Dynamic RAG - Latency by Lane (P95)",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 22
+                },
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.95, sum(rate(rag_dynamic_latency_ms_bucket[5m])) by (le, lane))",
+                        "legendFormat": "P95 {{lane}}"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.50, sum(rate(rag_dynamic_latency_ms_bucket[5m])) by (le, lane))",
+                        "legendFormat": "P50 {{lane}}"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "ms",
+                        "label": "Latency"
+                    },
+                    {
+                        "show": false
+                    }
+                ],
+                "alert": {
+                    "name": "RAG Latency Spike",
+                    "conditions": [
+                        {
+                            "evaluator": {
+                                "type": "gt",
+                                "params": [
+                                    500
+                                ]
+                            },
+                            "query": {
+                                "params": [
+                                    "A",
+                                    "5m",
+                                    "now"
+                                ]
+                            },
+                            "type": "query"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": 10,
+                "title": "Dynamic RAG - Fusion Operations",
+                "type": "stat",
+                "gridPos": {
+                    "h": 4,
+                    "w": 6,
+                    "x": 12,
+                    "y": 22
+                },
+                "targets": [
+                    {
+                        "expr": "rate(rag_fusion_operations_total[5m])",
+                        "legendFormat": "Fusions/sec"
+                    }
+                ]
+            },
+            {
+                "id": 11,
+                "title": "Embedding Service - Latency by Tier",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 30
+                },
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.95, sum(rate(embedding_latency_ms_bucket[5m])) by (le, tier))",
+                        "legendFormat": "P95 {{tier}}"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "ms",
+                        "label": "Latency"
+                    },
+                    {
+                        "show": false
+                    }
+                ]
+            },
+            {
+                "id": 12,
+                "title": "End-to-End SLO Compliance",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 30
+                },
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.95, sum(rate(model_pool_first_token_latency_ms_bucket[5m])) by (le)) + histogram_quantile(0.95, sum(rate(rag_dynamic_latency_ms_bucket[5m])) by (le))",
+                        "legendFormat": "P95 End-to-End"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "ms",
+                        "label": "Latency"
+                    },
+                    {
+                        "show": false
+                    }
+                ],
+                "thresholds": [
+                    {
+                        "value": 800,
+                        "colorMode": "critical",
+                        "op": "gt",
+                        "fill": true
+                    },
+                    {
+                        "value": 1200,
+                        "colorMode": "custom",
+                        "op": "gt"
+                    },
+                    {
+                        "value": 2000,
+                        "colorMode": "custom",
+                        "op": "gt"
+                    }
+                ]
+            },
+            {
+                "id": 13,
+                "title": "Active Model Timeline",
+                "type": "table",
+                "gridPos": {
+                    "h": 6,
+                    "w": 12,
+                    "x": 0,
+                    "y": 38
+                },
+                "targets": [
+                    {
+                        "expr": "model_pool_active_seconds_total",
+                        "format": "table",
+                        "instant": true
+                    }
+                ],
+                "transformations": [
+                    {
+                        "id": "organize",
+                        "options": {
+                            "excludeByName": {
+                                "Time": true
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 14,
+                "title": "RAG Context Budget Utilization",
+                "type": "graph",
+                "gridPos": {
+                    "h": 6,
+                    "w": 12,
+                    "x": 12,
+                    "y": 38
+                },
+                "targets": [
+                    {
+                        "expr": "rate(rag_context_chars_total[5m])",
+                        "legendFormat": "Context chars/sec"
+                    }
+                ]
+            }
+        ],
+        "annotations": {
+            "list": [
+                {
+                    "name": "Model Swaps",
+                    "datasource": "Prometheus",
+                    "enable": true,
+                    "expr": "changes(model_pool_hotswaps_total[1m]) > 0",
+                    "iconColor": "orange",
+                    "tagKeys": "from_model,to_model"
+                },
+                {
+                    "name": "Evictions",
+                    "datasource": "Prometheus",
+                    "enable": true,
+                    "expr": "changes(model_pool_evicts_total[1m]) > 0",
+                    "iconColor": "red",
+                    "tagKeys": "model,reason"
+                }
+            ]
+        },
+        "time": {
+            "from": "now-30m",
+            "to": "now"
+        }
+    }
+}

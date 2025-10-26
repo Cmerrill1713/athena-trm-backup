@@ -1,0 +1,140 @@
+version: "3.8"
+
+# Air-Gapped RAG Stack — Zero Internet Access
+# Internal network with egress blocked
+
+networks:
+  rag_core:
+    internal: true # No internet access
+    driver: bridge
+  edge:
+    driver: bridge # Exposed to host only
+
+services:
+  # ============================================================================
+  # Core Services (Internal Network Only - No Egress)
+  # ============================================================================
+
+  weaviate:
+    image: semitechnologies/weaviate:latest
+    ports:
+      - "8080:8080" # Exposed for local access
+    environment:
+      QUERY_DEFAULTS_LIMIT: "25"
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
+      PERSISTENCE_DATA_PATH: "/var/lib/weaviate"
+      DEFAULT_VECTORIZER_MODULE: "none" # Client-side embeddings only
+      ENABLE_MODULES: ""
+      CLUSTER_HOSTNAME: "node1"
+    volumes:
+      - ./volumes/weaviate_data:/var/lib/weaviate
+    networks:
+      - rag_core
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--spider",
+          "-q",
+          "http://localhost:8080/v1/.well-known/ready",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434" # Exposed for local access
+    environment:
+      OLLAMA_OFFLINE: "1" # Prevent model pulls
+    volumes:
+      - ./volumes/ollama:/root/.ollama
+    networks:
+      - rag_core
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  rag-gateway:
+    build: ./services/rag-gateway
+    ports:
+      - "8090:8090"
+    environment:
+      WEAVIATE_URL: "http://weaviate:8080"
+      RAG_DEFAULT_TOPK: "8"
+      RAG_MIN_SCORE: "0.55"
+      ATHENA_NO_CLOUD: "1"
+      ATHENA_FAIL_CLOSED: "1"
+    depends_on:
+      weaviate:
+        condition: service_healthy
+    networks:
+      - rag_core
+
+  smart-chat:
+    build: ./services/smart_chat
+    ports:
+      - "8088:8088"
+    environment:
+      OLLAMA_URL: "http://ollama:11434"
+      MODEL: "qwen2.5:7b"
+      ROUTER_URL: "http://router:9113"
+      ATHENA_NO_CLOUD: "1"
+    depends_on:
+      - ollama
+    networks:
+      - rag_core
+
+  # ============================================================================
+  # OpenAI Adapter (Bridge Network - Air-Gapped with iptables)
+  # ============================================================================
+
+  openai-compat:
+    build:
+      context: ./services/openai-compat
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      RAG_API_BASE_URL: "http://rag-gateway:8090"
+      CHAT_API_BASE_URL: "http://smart-chat:8088"
+      RAG_API_TOKEN: "${RAG_API_TOKEN:-}"
+      PORT: "3000"
+      NODE_ENV: "production"
+      TIMEOUT_MS: "30000"
+      ENABLE_STREAMING: "true"
+      DEFAULT_MODE: "nearText"
+      DEFAULT_TOP_K: "5"
+      CORS_ORIGIN: "http://localhost:8080"
+      ATHENA_NO_CLOUD: "1"
+    depends_on:
+      rag-gateway:
+        condition: service_started
+      smart-chat:
+        condition: service_started
+    networks:
+      - rag_core # Internal for backend access
+      - edge # External for UI access
+    cap_add:
+      - NET_ADMIN # Required for iptables in entrypoint
+    entrypoint: ["/bin/sh", "/app/entrypoint.sh"]
+    volumes:
+      - ./services/openai-compat/entrypoint.sh:/app/entrypoint.sh:ro
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})",
+        ]
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3

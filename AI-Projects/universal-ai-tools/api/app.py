@@ -6,6 +6,7 @@ import logging
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from api.routers import health, tasks, tts, users
 from api import chat, metrics
 
@@ -21,6 +22,15 @@ app = FastAPI(
     title="Universal AI Tools API",
     description="UAI - Local-first AI with Ollama integration",
     version="1.0.0"
+)
+
+# CRITICAL: Add CORS middleware for browser access
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins for local development
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Error handling middleware

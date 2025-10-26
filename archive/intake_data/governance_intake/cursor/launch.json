@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:GitHub}/AI-Projects/universal-ai-tools/NeuroForgeApp",
+            "name": "Debug NeuroForgeApp (AI-Projects/universal-ai-tools/NeuroForgeApp)",
+            "program": "${workspaceFolder:GitHub}/AI-Projects/universal-ai-tools/NeuroForgeApp/.build/debug/NeuroForgeApp",
+            "preLaunchTask": "swift: Build Debug NeuroForgeApp (AI-Projects/universal-ai-tools/NeuroForgeApp)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:GitHub}/AI-Projects/universal-ai-tools/NeuroForgeApp",
+            "name": "Release NeuroForgeApp (AI-Projects/universal-ai-tools/NeuroForgeApp)",
+            "program": "${workspaceFolder:GitHub}/AI-Projects/universal-ai-tools/NeuroForgeApp/.build/release/NeuroForgeApp",
+            "preLaunchTask": "swift: Build Release NeuroForgeApp (AI-Projects/universal-ai-tools/NeuroForgeApp)"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 """
-Chat endpoint for UAI → Ollama
+Chat endpoint with Weaviate vector search (semantic RAG)
 """
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -7,29 +7,112 @@ import os
 import httpx
 import time
 import logging
+from typing import List
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://host.docker.internal:11434")
+WEAVIATE_URL = os.getenv("WEAVIATE_URL", "http://athena-weaviate:8080")
 DEFAULT_MODEL = os.getenv("LLM_MODEL", "qwen2.5:7b")
 
-# Prometheus metrics (will be lazy-loaded to avoid import errors)
+# Prometheus metrics (lazy-loaded)
 uai_llm_calls = None
 uai_llm_fail = None
 uai_llm_lat_s = None
+uai_rag_calls = None
 
 def _init_metrics():
-    global uai_llm_calls, uai_llm_fail, uai_llm_lat_s
+    global uai_llm_calls, uai_llm_fail, uai_llm_lat_s, uai_rag_calls
     try:
         from prometheus_client import Counter, Histogram
         uai_llm_calls = Counter("uai_llm_calls_total", "LLM calls", ["model"])
         uai_llm_fail = Counter("uai_llm_fail_total", "LLM fails", ["model", "reason"])
         uai_llm_lat_s = Histogram("uai_llm_latency_seconds", "LLM latency", ["model"])
+        uai_rag_calls = Counter("uai_rag_calls_total", "RAG enrichment calls")
     except ImportError:
-        logger.warning("prometheus_client not available, metrics disabled")
+        logger.warning("prometheus_client not available")
 
 _init_metrics()
+
+
+async def get_embedding(text: str) -> List[float]:
+    """Get text embedding from Ollama"""
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        response = await client.post(
+            f"{OLLAMA_URL}/api/embeddings",
+            json={"model": "nomic-embed-text", "prompt": text[:2000]}
+        )
+        response.raise_for_status()
+        return response.json()["embedding"]
+
+
+async def semantic_search(query: str, limit: int = 3) -> str:
+    """
+    Semantic RAG: Search Weaviate vector database
+    """
+    try:
+        # Get query embedding
+        query_embedding = await get_embedding(query)
+        
+        # Search Weaviate
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            response = await client.post(
+                f"{WEAVIATE_URL}/v1/graphql",
+                json={
+                    "query": f"""
+                    {{
+                      Get {{
+                        DocsV2(
+                          nearVector: {{
+                            vector: {query_embedding}
+                          }}
+                          limit: {limit}
+                        ) {{
+                          source
+                          content
+                          _additional {{
+                            distance
+                          }}
+                        }}
+                      }}
+                    }}
+                    """
+                }
+            )
+            response.raise_for_status()
+            
+            results = response.json()["data"]["Get"]["DocsV2"]
+            
+            if not results:
+                return ""
+            
+            # Format context with similarity scores
+            context_parts = []
+            for r in results:
+                if r and r.get("content"):
+                    similarity = 1 - r["_additional"]["distance"]
+                    if similarity > 0.5:  # Only include if >50% similar
+                        context_parts.append(
+                            f"**From {r['source']}** (relevance: {similarity:.0%})\n{r['content']}"
+                        )
+            
+            if not context_parts:
+                return ""
+            
+            context = "\n\n".join(context_parts)
+            
+            return f"""
+<knowledge_base>
+{context}
+</knowledge_base>
+
+Use the above knowledge base to answer accurately. Cite sources when possible.
+"""
+    
+    except Exception as e:
+        logger.warning(f"Semantic search failed: {e}")
+        return ""  # Fail gracefully
 
 
 class Message(BaseModel):
@@ -47,14 +130,43 @@ class ChatRequest(BaseModel):
 @router.post("/v1/chat/completions")
 async def chat_completions(req: ChatRequest):
     """
-    OpenAI-compatible chat completions endpoint that proxies to Ollama
+    OpenAI-compatible chat completions with semantic RAG
     """
     model = req.model or DEFAULT_MODEL
+    
+    # Extract user query
+    user_query = ""
+    for msg in reversed(req.messages):
+        if msg.role == "user":
+            user_query = msg.content
+            break
+    
+    # Semantic RAG enrichment
+    rag_context = ""
+    if user_query:
+        rag_context = await semantic_search(user_query)
+        if rag_context and uai_rag_calls:
+            uai_rag_calls.inc()
+    
+    # Build enriched messages
+    enriched_messages = []
+    
+    if rag_context:
+        enriched_messages.append({
+            "role": "system",
+            "content": rag_context
+        })
+    
+    for m in req.messages:
+        enriched_messages.append({
+            "role": m.role,
+            "content": m.content
+        })
     
     # Build Ollama request
     payload = {
         "model": model,
-        "messages": [{"role": m.role, "content": m.content} for m in req.messages],
+        "messages": enriched_messages,
         "stream": False,
         "options": {
             "temperature": req.temperature or 0.2,
@@ -65,7 +177,7 @@ async def chat_completions(req: ChatRequest):
     t0 = time.time()
     
     try:
-        logger.info(f"Calling Ollama at {OLLAMA_URL} with model {model}")
+        logger.info(f"Calling Ollama (semantic RAG: {bool(rag_context)})")
         
         async with httpx.AsyncClient(timeout=30.0) as client:
             response = await client.post(
@@ -75,7 +187,6 @@ async def chat_completions(req: ChatRequest):
             response.raise_for_status()
             data = response.json()
         
-        # Extract response
         content = (data.get("message") or {}).get("content", "")
         
         # Metrics
@@ -83,9 +194,8 @@ async def chat_completions(req: ChatRequest):
             uai_llm_calls.labels(model).inc()
             uai_llm_lat_s.labels(model).observe(time.time() - t0)
         
-        logger.info(f"Success: {len(content)} chars in {time.time()-t0:.2f}s")
+        logger.info(f"Success: {len(content)} chars in {time.time()-t0:.2f}s (RAG: {bool(rag_context)})")
         
-        # Return OpenAI-compatible format
         return {
             "object": "chat.completion",
             "model": model,
@@ -105,20 +215,17 @@ async def chat_completions(req: ChatRequest):
         }
         
     except httpx.HTTPStatusError as e:
-        logger.error(f"Ollama HTTP error: {e.response.status_code} - {e.response.text}")
+        logger.error(f"Ollama HTTP error: {e.response.status_code}")
         if uai_llm_fail:
             uai_llm_fail.labels(model, "http_error").inc()
-        raise HTTPException(
-            status_code=502,
-            detail=f"Ollama returned {e.response.status_code}: {e.response.text}"
-        )
+        raise HTTPException(status_code=502, detail=f"Ollama error: {e.response.status_code}")
     except httpx.TimeoutException:
-        logger.error("Ollama request timed out")
+        logger.error("Ollama timeout")
         if uai_llm_fail:
             uai_llm_fail.labels(model, "timeout").inc()
-        raise HTTPException(status_code=504, detail="Request to Ollama timed out")
+        raise HTTPException(status_code=504, detail="Request timeout")
     except Exception as e:
-        logger.error(f"Unexpected error: {type(e).__name__}: {e}")
+        logger.error(f"Error: {type(e).__name__}: {e}")
         if uai_llm_fail:
             uai_llm_fail.labels(model, type(e).__name__).inc()
         raise HTTPException(status_code=500, detail=str(e))

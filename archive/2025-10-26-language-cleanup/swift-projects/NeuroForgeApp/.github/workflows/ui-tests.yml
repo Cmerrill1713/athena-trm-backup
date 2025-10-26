@@ -1,0 +1,67 @@
+name: NeuroForge UI Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  macos-ui-tests:
+    runs-on: macos-14
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+
+    - name: Start backend services (optional)
+      run: |
+        echo "Starting backend services..."
+        # Add your backend startup commands here
+        # docker compose up -d || true
+        # make green || true
+
+    - name: Warm up services
+      run: |
+        cd NeuroForgeApp
+        bash scripts/warmup_services.sh || true
+
+    - name: Run UI tests
+      run: |
+        cd NeuroForgeApp
+        mkdir -p artifacts
+        xcodebuild \
+          -workspace NeuroForgeApp.xcworkspace \
+          -scheme NeuroForgeApp \
+          -destination 'platform=macOS' \
+          -resultBundlePath artifacts/NeuroForgeUI.xcresult \
+          -derivedDataPath DerivedData \
+          test | tee artifacts/xcodebuild-ui-tests.log
+
+    - name: Collect artifacts
+      run: |
+        cd NeuroForgeApp
+        /usr/bin/zip -qry artifacts/UITestArtifacts.zip \
+          artifacts/NeuroForgeUI.xcresult \
+          DerivedData/Logs || true
+
+    - name: Upload test artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: ui-test-artifacts
+        path: NeuroForgeApp/artifacts/UITestArtifacts.zip
+        retention-days: 7
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: xcodebuild-log
+        path: NeuroForgeApp/artifacts/xcodebuild-ui-tests.log
+        retention-days: 7

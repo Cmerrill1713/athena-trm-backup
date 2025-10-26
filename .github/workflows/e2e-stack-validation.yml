@@ -1,0 +1,203 @@
+name: End-to-End Stack Validation
+
+on:
+  pull_request:
+    paths:
+      - "services/**"
+      - "docker-compose*.yml"
+      - "scripts/e2e_*.sh"
+      - "scripts/rag_delta_report.py"
+      - "scripts/eval_rag_hit_support.py"
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  ADAPTER: http://localhost:3000
+  UI: http://localhost:8080
+  WEAVIATE_URL: http://localhost:8080
+  RAG_API_BASE_URL: http://localhost:8090
+  ATHENA_NO_CLOUD: 1
+  ATHENA_FAIL_CLOSED: 1
+
+jobs:
+  e2e-test:
+    name: E2E Full Stack Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: services/openai-compat/package-lock.json
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests pytest jq
+
+      - name: Install OpenAI adapter dependencies
+        run: |
+          cd services/openai-compat
+          npm ci
+
+      - name: Start Full Stack
+        run: |
+          docker-compose -f docker-compose.full-stack.yml up -d
+          echo "⏳ Waiting for services to be healthy..."
+          sleep 45
+
+      - name: Check Service Health
+        run: |
+          echo "Checking service health..."
+          docker-compose -f docker-compose.full-stack.yml ps
+
+          # Wait for adapter to be healthy
+          for i in {1..30}; do
+            if curl -sf http://localhost:3000/healthz >/dev/null; then
+              echo "✅ Adapter healthy"
+              break
+            fi
+            echo "Waiting for adapter... ($i/30)"
+            sleep 2
+          done
+
+      - name: Run E2E Tests
+        id: e2e
+        run: |
+          make -f Makefile.e2e e2e-ci
+        continue-on-error: false
+
+      - name: View Service Logs (on failure)
+        if: failure()
+        run: |
+          echo "=== OpenAI Adapter Logs ==="
+          docker-compose -f docker-compose.full-stack.yml logs --tail=100 openai-compat
+
+          echo ""
+          echo "=== RAG Gateway Logs ==="
+          docker-compose -f docker-compose.full-stack.yml logs --tail=50 rag-gateway
+
+          echo ""
+          echo "=== Smart Chat Logs ==="
+          docker-compose -f docker-compose.full-stack.yml logs --tail=50 smart-chat
+
+      - name: Collect Artifacts
+        if: always()
+        run: |
+          mkdir -p test-artifacts
+
+          # Delta reports
+          cp -r artifacts/delta_* test-artifacts/ 2>/dev/null || echo "No delta reports"
+          cp -r artifacts/eval_* test-artifacts/ 2>/dev/null || echo "No eval reports"
+
+          # Metrics snapshot
+          curl -sf http://localhost:3000/metrics > test-artifacts/metrics.txt || echo "Metrics not available"
+
+          # Health snapshot
+          curl -sf http://localhost:3000/healthz > test-artifacts/healthz.json || echo "Health not available"
+
+          # Service status
+          docker-compose -f docker-compose.full-stack.yml ps > test-artifacts/services.txt
+
+      - name: Upload Test Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: e2e-test-results
+          path: test-artifacts/
+          retention-days: 30
+
+      - name: Post E2E Summary to PR
+        if: always() && github.event_name == 'pull_request'
+        run: |
+          echo "## 🧪 E2E Stack Validation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.e2e.outcome }}" == "success" ]; then
+            echo "### ✅ All Gates Passed" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ Adapter health check" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ Models endpoint" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ Non-streaming completion" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ Streaming (SSE)" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ Model routing (3 models)" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ Contract validation" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ❌ E2E Tests Failed" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Check logs in build artifacts for details." >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "**Build:** [${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
+
+          # Include delta report if available
+          LATEST_MD=$(ls -t artifacts/delta_*.md 2>/dev/null | head -1)
+          if [ -f "$LATEST_MD" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "## 📊 RAG Delta Report" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            cat "$LATEST_MD" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker-compose -f docker-compose.full-stack.yml down -v
+
+  load-test:
+    name: Load Test (Optional)
+    runs-on: ubuntu-latest
+    needs: e2e-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install k6
+        run: |
+          sudo gpg -k
+          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install k6
+
+      - name: Start Full Stack
+        run: |
+          docker-compose -f docker-compose.full-stack.yml up -d
+          sleep 45
+
+      - name: Run Load Test
+        run: |
+          k6 run k6-rag.js
+        continue-on-error: true
+
+      - name: Upload Load Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: load-test-results
+          path: summary.json
+          retention-days: 30
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker-compose -f docker-compose.full-stack.yml down -v

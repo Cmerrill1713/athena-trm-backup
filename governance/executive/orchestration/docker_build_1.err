@@ -1,0 +1,114 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.ai-republic
+#1 transferring dockerfile: 2.30kB 0.0s done
+#1 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 ...
+
+#3 [auth] docker/dockerfile:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 DONE 0.9s
+
+#4 docker-image://docker.io/docker/dockerfile:1@sha256:b6afd42430b15f2d2a4c5a02b919e98a525b785b1aaff16747d2f623364e39b6
+#4 resolve docker.io/docker/dockerfile:1@sha256:b6afd42430b15f2d2a4c5a02b919e98a525b785b1aaff16747d2f623364e39b6 done
+#4 sha256:0285701bc73306b992f78de737bc58aa979843b49a277151b4bab0835ab77f6b 0B / 12.52MB 0.2s
+#4 sha256:0285701bc73306b992f78de737bc58aa979843b49a277151b4bab0835ab77f6b 4.19MB / 12.52MB 0.3s
+#4 sha256:0285701bc73306b992f78de737bc58aa979843b49a277151b4bab0835ab77f6b 6.29MB / 12.52MB 0.5s
+#4 sha256:0285701bc73306b992f78de737bc58aa979843b49a277151b4bab0835ab77f6b 8.39MB / 12.52MB 0.6s
+#4 sha256:0285701bc73306b992f78de737bc58aa979843b49a277151b4bab0835ab77f6b 12.52MB / 12.52MB 0.7s done
+#4 extracting sha256:0285701bc73306b992f78de737bc58aa979843b49a277151b4bab0835ab77f6b 0.1s done
+#4 DONE 0.9s
+
+#5 [internal] load metadata for docker.io/library/ubuntu:22.04
+#5 ...
+
+#6 [auth] library/ubuntu:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/ubuntu:22.04
+#5 DONE 0.4s
+
+#7 [internal] load .dockerignore
+#7 transferring context: 2B done
+#7 DONE 0.0s
+
+#8 [ 1/18] FROM docker.io/library/ubuntu:22.04@sha256:09506232a8004baa32c47d68f1e5c307d648fdd59f5e7eaa42aaf87914100db3
+#8 resolve docker.io/library/ubuntu:22.04@sha256:09506232a8004baa32c47d68f1e5c307d648fdd59f5e7eaa42aaf87914100db3 done
+#8 DONE 0.0s
+
+#9 [internal] load build context
+#9 transferring context: 215.30MB 5.0s
+#9 transferring context: 218.04MB 6.6s done
+#9 DONE 6.6s
+
+#10 [ 6/18] RUN /app/venv/bin/pip install     pytest     pyyaml     requests
+#10 CACHED
+
+#11 [ 7/18] COPY ai_republic/ /app/ai_republic/
+#11 CACHED
+
+#12 [ 8/18] COPY athena/ /app/athena/
+#12 CACHED
+
+#13 [ 4/18] WORKDIR /app
+#13 CACHED
+
+#14 [ 3/18] RUN mkdir -p /home/developer/.local/share/ai-republic/{src,spikes,logs,run}
+#14 CACHED
+
+#15 [ 2/18] RUN apt-get update && apt-get install -y     python3     python3-pip     python3-venv     curl     && rm -rf /var/lib/apt/lists/*
+#15 CACHED
+
+#16 [ 5/18] RUN python3 -m venv /app/venv &&     /app/venv/bin/pip install --upgrade pip
+#16 CACHED
+
+#17 [ 9/18] COPY burn_in_*.py spikes.py triggers.py /app/
+#17 CACHED
+
+#18 [10/18] COPY setup_*.sh /app/
+#18 DONE 0.3s
+
+#19 [11/18] RUN mkdir -p /home/developer/.local/share/ai-republic/src &&     mkdir -p /home/developer/.local/share/ai-republic/spikes
+#19 DONE 0.1s
+
+#20 [12/18] COPY docker/config_flags.py /home/developer/.local/share/ai-republic/src/config_flags.py
+#20 DONE 0.0s
+
+#21 [13/18] COPY docker/spikes/ /home/developer/.local/share/ai-republic/spikes/
+#21 DONE 0.0s
+
+#22 [14/18] COPY docker/scripts/ /home/developer/.local/share/ai-republic/
+#22 DONE 0.0s
+
+#23 [15/18] RUN chmod +x /home/developer/.local/share/ai-republic/run_tests.sh /home/developer/.local/share/ai-republic/TEST_NOW.sh
+#23 DONE 0.1s
+
+#24 [16/18] COPY NeuroForgeApp/ /app/NeuroForgeApp/
+#24 DONE 1.4s
+
+#25 [17/18] RUN useradd -m -s /bin/bash developer &&     chown -R developer:developer /app /home/developer
+#25 0.138 useradd: warning: the home directory /home/developer already exists.
+#25 0.138 useradd: Not copying any file from skel directory into it.
+#25 DONE 5.5s
+
+#26 [18/18] WORKDIR /app
+#26 DONE 0.1s
+
+#27 exporting to image
+#27 exporting layers
+#27 exporting layers 16.1s done
+#27 exporting manifest sha256:3db3bafe9fb7eb25ce19df69e9d695946e4cdfcd378e6dec2993cf545c60140a
+#27 exporting manifest sha256:3db3bafe9fb7eb25ce19df69e9d695946e4cdfcd378e6dec2993cf545c60140a done
+#27 exporting config sha256:b61c346316eeddb9d5e5062faec75f5c078d6f724c1357d06b469b23a9f10df9 done
+#27 exporting attestation manifest sha256:e1b4330f1aa42deae99ec81f5f62d58848f14c9600004389d516c2425df165b0 done
+#27 exporting manifest list sha256:382be64084739b370d819a266a16249dd452475955220f34d1be973a901590f1 done
+#27 naming to docker.io/library/ai-republic:smoke done
+#27 unpacking to docker.io/library/ai-republic:smoke
+#27 unpacking to docker.io/library/ai-republic:smoke 5.3s done
+#27 DONE 21.5s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/y53i2unq3rq11qc6rt1izlvkc

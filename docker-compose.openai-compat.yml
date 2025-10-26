@@ -1,0 +1,84 @@
+version: "3.8"
+
+# OpenAI-Compatible Adapter Stack
+# Wraps your existing RAG + Chat services to be OpenAI-compatible
+
+services:
+  # RAG Gateway (existing)
+  rag-gateway:
+    build: ./services/rag-gateway
+    ports:
+      - "8090:8090"
+    environment:
+      WEAVIATE_URL: "${WEAVIATE_URL:-http://weaviate:8080}"
+      RAG_DEFAULT_TOPK: "8"
+      RAG_MIN_SCORE: "0.55"
+    depends_on:
+      - weaviate
+    networks:
+      - athena
+
+  # Smart Chat (existing)
+  smart-chat:
+    build: ./services/smart_chat
+    ports:
+      - "8088:8088"
+    environment:
+      OLLAMA_URL: "${OLLAMA_URL:-http://ollama:11434}"
+      MODEL: "${MODEL:-qwen2.5:7b}"
+      ROUTER_URL: "http://router:9113"
+    networks:
+      - athena
+
+  # OpenAI-Compatible Adapter (NEW)
+  openai-compat:
+    build: ./services/openai-compat
+    ports:
+      - "3000:3000"
+    environment:
+      RAG_API_BASE_URL: "http://rag-gateway:8090"
+      CHAT_API_BASE_URL: "http://smart-chat:8088"
+      RAG_API_TOKEN: "${RAG_API_TOKEN:-}"
+      PORT: "3000"
+      NODE_ENV: "production"
+    depends_on:
+      - rag-gateway
+      - smart-chat
+    networks:
+      - athena
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})",
+        ]
+      interval: 30s
+      timeout: 3s
+      start_period: 5s
+      retries: 3
+
+  # Weaviate (if not already running)
+  weaviate:
+    image: semitechnologies/weaviate:latest
+    ports:
+      - "8080:8080"
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
+      PERSISTENCE_DATA_PATH: "/var/lib/weaviate"
+      DEFAULT_VECTORIZER_MODULE: "text2vec-transformers"
+      ENABLE_MODULES: "text2vec-transformers"
+      CLUSTER_HOSTNAME: "node1"
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+    networks:
+      - athena
+
+networks:
+  athena:
+    driver: bridge
+
+volumes:
+  weaviate_data:

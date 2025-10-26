@@ -1,0 +1,136 @@
+# RAG Evaluation Makefile Targets
+# ===============================
+
+# Evaluate retrieval gates (fails CI if thresholds not met)
+rag-eval:
+	@mkdir -p artifacts
+	python3 scripts/eval_rag_hit_support.py \
+	  --weaviate-url "$(WEAVIATE_URL)" \
+	  --class DocsV2 \
+	  --seed seeds/eval_seed.jsonl \
+	  --k 5 --support-k 3 \
+	  --expect-hit 0.97 --expect-support 0.95 \
+	  --mode nearText \
+	  --report artifacts/eval_rag_$(shell date -u +%Y%m%dT%H%M%SZ).json
+
+# Evaluate with BM25 baseline
+rag-eval-bm25:
+	@mkdir -p artifacts
+	python3 scripts/eval_rag_hit_support.py \
+	  --weaviate-url "$(WEAVIATE_URL)" \
+	  --class DocsV2 \
+	  --seed seeds/eval_seed.jsonl \
+	  --k 5 --support-k 3 \
+	  --expect-hit 0.90 --expect-support 0.85 \
+	  --mode bm25 \
+	  --report artifacts/eval_rag_bm25_$(shell date -u +%Y%m%dT%H%M%SZ).json
+
+# Evaluate with hybrid mode (BM25 + semantic)
+rag-eval-hybrid:
+	@mkdir -p artifacts
+	python3 scripts/eval_rag_hit_support.py \
+	  --weaviate-url "$(WEAVIATE_URL)" \
+	  --class DocsV2 \
+	  --seed seeds/eval_seed.jsonl \
+	  --k 5 --support-k 3 \
+	  --expect-hit 0.98 --expect-support 0.96 \
+	  --mode hybrid \
+	  --report artifacts/eval_rag_hybrid_$(shell date -u +%Y%m%dT%H%M%SZ).json
+
+# Compare semantic vs BM25 performance
+rag-compare:
+	@echo "🔍 Comparing semantic vs BM25 performance..."
+	@mkdir -p artifacts
+	@echo "Running semantic evaluation..."
+	@python3 scripts/eval_rag_hit_support.py \
+	  --weaviate-url "$(WEAVIATE_URL)" \
+	  --class DocsV2 \
+	  --seed seeds/eval_seed.jsonl \
+	  --k 5 --support-k 3 \
+	  --mode nearText \
+	  --report artifacts/eval_semantic_$(shell date -u +%Y%m%dT%H%M%SZ).json || true
+	@echo "Running BM25 evaluation..."
+	@python3 scripts/eval_rag_hit_support.py \
+	  --weaviate-url "$(WEAVIATE_URL)" \
+	  --class DocsV2 \
+	  --seed seeds/eval_seed.jsonl \
+	  --k 5 --support-k 3 \
+	  --mode bm25 \
+	  --report artifacts/eval_bm25_$(shell date -u +%Y%m%dT%H%M%SZ).json || true
+	@echo "📊 Comparison complete! Check artifacts/ directory for reports."
+
+# Compare BM25 vs Semantic, emit JSON + Markdown delta
+rag-delta:
+	@mkdir -p artifacts
+	python3 scripts/rag_delta_report.py \
+	  --eval-script scripts/eval_rag_hit_support.py \
+	  --baseline-mode bm25 \
+	  --treatment-mode nearText \
+	  --weaviate-url "$(WEAVIATE_URL)" \
+	  --clazz DocsV2 \
+	  --seed seeds/eval_seed.jsonl \
+	  --k 5 --support-k 3 \
+	  --expect-hit 0.97 --expect-support 0.95
+
+# Delta with minimum improvement gates
+rag-delta-gates:
+	@mkdir -p artifacts
+	python3 scripts/rag_delta_report.py \
+	  --eval-script scripts/eval_rag_hit_support.py \
+	  --baseline-mode bm25 \
+	  --treatment-mode nearText \
+	  --weaviate-url "$(WEAVIATE_URL)" \
+	  --clazz DocsV2 \
+	  --seed seeds/eval_seed.jsonl \
+	  --k 5 --support-k 3 \
+	  --expect-hit 0.97 --expect-support 0.95 \
+	  --min-delta-hit 0.01 \
+	  --min-delta-support 0.01 \
+	  --max-delta-latency-p95 0.1 \
+	  --min-delta-mrr 0.01 \
+	  --fail-on-delta-gates
+
+# Optional: Hybrid vs BM25
+rag-delta-hybrid:
+	@mkdir -p artifacts
+	python3 scripts/rag_delta_report.py \
+	  --baseline-mode bm25 \
+	  --treatment-mode hybrid \
+	  --weaviate-url "$(WEAVIATE_URL)" \
+	  --clazz DocsV2 \
+	  --seed seeds/eval_seed.jsonl \
+	  --k 5 --support-k 3 \
+	  --expect-hit 0.97 --expect-support 0.95
+
+# Run all evaluations
+rag-eval-all: rag-eval rag-eval-bm25 rag-eval-hybrid
+	@echo "🎯 All RAG evaluations completed!"
+
+# Clean evaluation artifacts
+rag-clean:
+	@echo "🧹 Cleaning evaluation artifacts..."
+	@rm -rf artifacts/eval_rag_*.json
+	@echo "✅ Cleanup complete"
+
+# Help target
+rag-help:
+	@echo "🎯 RAG Evaluation Targets:"
+	@echo "  rag-eval        - Evaluate semantic search (DocsV2)"
+	@echo "  rag-eval-bm25   - Evaluate BM25 baseline"
+	@echo "  rag-eval-hybrid - Evaluate hybrid mode (BM25 + semantic)"
+	@echo "  rag-compare     - Compare semantic vs BM25 performance"
+	@echo "  rag-delta       - Delta report: BM25 → Semantic (JSON + MD)"
+	@echo "  rag-delta-gates - Delta with minimum improvement gates"
+	@echo "  rag-delta-hybrid- Delta report: BM25 → Hybrid"
+	@echo "  rag-eval-all    - Run all evaluations"
+	@echo "  rag-clean       - Clean evaluation artifacts"
+	@echo "  rag-help        - Show this help"
+	@echo ""
+	@echo "📋 Usage:"
+	@echo "  make rag-eval WEAVIATE_URL=http://127.0.0.1:8090"
+	@echo ""
+	@echo "📊 Quality Gates:"
+	@echo "  hit@5 ≥ 0.97     (97% of queries find relevant docs)"
+	@echo "  support@3 ≥ 0.95 (95% of queries have good docs)"
+	@echo "  MRR@5            (Mean Reciprocal Rank)"
+	@echo "  P50/P95 latency (Performance metrics)"

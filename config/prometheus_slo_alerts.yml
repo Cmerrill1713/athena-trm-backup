@@ -1,0 +1,168 @@
+# Prometheus SLO Alerts for Production Validation
+# Hard gates (non-negotiable)
+
+groups:
+  - name: validation_gates
+    interval: 30s
+    rules:
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # Shadow pass gates (≥ 120 min)
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      
+      - alert: ShadowOutputMismatchHigh
+        expr: |
+          sum(rate(agi_shadow_mismatch_total[5m])) / sum(rate(agi_shadow_compares_total[5m])) > 0.001
+        for: 10m
+        labels:
+          severity: critical
+          gate: shadow
+        annotations:
+          summary: "Shadow output mismatch > 0.1%"
+          description: "Output mismatch rate is {{ $value | humanizePercentage }}. Gate: ≤ 0.1%"
+          
+      - alert: ShadowLatencyDeltaHigh
+        expr: |
+          (
+            histogram_quantile(0.95, sum by(le)(rate(http_request_duration_seconds_bucket{lane="candidate"}[5m]))) -
+            histogram_quantile(0.95, sum by(le)(rate(http_request_duration_seconds_bucket{lane="control"}[5m])))
+          ) /
+          histogram_quantile(0.95, sum by(le)(rate(http_request_duration_seconds_bucket{lane="control"}[5m])))
+          > 0.10
+        for: 15m
+        labels:
+          severity: critical
+          gate: shadow
+        annotations:
+          summary: "Shadow P95 latency delta > +10%"
+          description: "P95 latency delta is {{ $value | humanizePercentage }}. Gate: ≤ +10%"
+          
+      - alert: ShadowErrorRateDeltaHigh
+        expr: |
+          (
+            sum(rate(http_request_errors_total{lane="candidate"}[5m])) / sum(rate(http_requests_total{lane="candidate"}[5m])) -
+            sum(rate(http_request_errors_total{lane="control"}[5m])) / sum(rate(http_requests_total{lane="control"}[5m]))
+          ) > 0.003
+        for: 10m
+        labels:
+          severity: critical
+          gate: shadow
+        annotations:
+          summary: "Shadow error rate delta > +0.3%"
+          description: "Error rate delta is {{ $value | humanizePercentage }}. Gate: ≤ +0.3%"
+      
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # Canary step gates (each ≥ 30 min, 1%/5%/10%)
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      
+      - alert: CanarySLOBurnRateHigh
+        expr: |
+          (
+            sum(rate(http_request_errors_total{service="agi-core"}[1h])) /
+            sum(rate(http_requests_total{service="agi-core"}[1h])) /
+            (1 - 0.995)
+          ) > 2.0
+          and
+          (
+            sum(rate(http_request_errors_total{service="agi-core"}[6h])) /
+            sum(rate(http_requests_total{service="agi-core"}[6h])) /
+            (1 - 0.995)
+          ) > 1.0
+        for: 5m
+        labels:
+          severity: critical
+          gate: canary
+        annotations:
+          summary: "Canary SLO burn rate critical"
+          description: "1h burn: {{ $value }}x, 6h burn > 1.0x. Gate: < 2.0x on 1h/6h pairs"
+          
+      - alert: CanaryNewErrorRateHigh
+        expr: |
+          (
+            sum(rate(http_request_errors_total{service="agi-core",canary="true"}[5m])) /
+            sum(rate(http_requests_total{service="agi-core",canary="true"}[5m]))
+          ) -
+          (
+            sum(rate(http_request_errors_total{service="agi-core",canary="false"}[5m])) /
+            sum(rate(http_requests_total{service="agi-core",canary="false"}[5m]))
+          ) > 0.003
+        for: 10m
+        labels:
+          severity: critical
+          gate: canary
+        annotations:
+          summary: "Canary new 5xx rate > existing +0.3%"
+          description: "New 5xx rate delta is {{ $value | humanizePercentage }}. Gate: ≤ +0.3%"
+          
+      - alert: CanaryTailLatencyRegressionHigh
+        expr: |
+          (
+            histogram_quantile(0.99, sum by(le)(rate(http_request_duration_seconds_bucket{service="agi-core",canary="true"}[5m]))) -
+            histogram_quantile(0.99, sum by(le)(rate(http_request_duration_seconds_bucket{service="agi-core",canary="false"}[5m])))
+          ) /
+          histogram_quantile(0.99, sum by(le)(rate(http_request_duration_seconds_bucket{service="agi-core",canary="false"}[5m])))
+          > 0.15
+        for: 15m
+        labels:
+          severity: critical
+          gate: canary
+        annotations:
+          summary: "Canary P99 latency regression > +15%"
+          description: "P99 latency regression is {{ $value | humanizePercentage }}. Gate: ≤ +15%"
+      
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # RAG data sanity checks
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      
+      - alert: RAGZeroHitBurst
+        expr: |
+          sum(rate(rag_queries_total{outcome="ok"}[5m])) > 50
+          and
+          sum(rate(rag_hits_total[5m])) == 0
+        for: 10m
+        labels:
+          severity: warning
+          gate: rag
+        annotations:
+          summary: "RAG zero-hit burst detected"
+          description: "Queries are succeeding but returning zero hits for 10+ minutes"
+          
+      - alert: RAGHitAtKLow
+        expr: |
+          sum(rate(rag_hits_at_k_total{k="5"}[30m])) / sum(rate(rag_queries_total[30m])) < 0.97
+        for: 15m
+        labels:
+          severity: warning
+          gate: rag
+        annotations:
+          summary: "RAG hit@5 < 0.97"
+          description: "Hit rate at k=5 is {{ $value | humanizePercentage }}. Gate: ≥ 0.97"
+      
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # Router/TRM checks
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      
+      - alert: ModelSwapStorm
+        expr: |
+          rate(model_pool_hotswaps_total[5m]) > 30
+        for: 5m
+        labels:
+          severity: warning
+          gate: model_pool
+        annotations:
+          summary: "Model swap storm detected"
+          description: "Model pool is swapping at {{ $value }} swaps/sec. Gate: < 30/5m"
+          
+      - alert: TRMPolicyDrift
+        expr: |
+          abs(
+            sum(rate(trm_policy_predictions_total{decision="invoke"}[1h])) /
+            sum(rate(trm_policy_predictions_total[1h])) -
+            0.50
+          ) > 0.40
+        for: 30m
+        labels:
+          severity: warning
+          gate: trm
+        annotations:
+          summary: "TRM policy drift detected"
+          description: "TRM invocation rate is {{ $value | humanizePercentage }} from expected 50%. Possible policy miscalibration"

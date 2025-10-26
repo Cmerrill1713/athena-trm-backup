@@ -1,0 +1,4 @@
+  File "/Users/christianmerrill/Documents/GitHub/scripts/integrate_governance_drift_detection.py", line 285
+    print("
+           ^
+SyntaxError: EOL while scanning string literal

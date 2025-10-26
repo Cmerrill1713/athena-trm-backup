@@ -1,0 +1,480 @@
+{
+    "dashboard": {
+        "title": "Adaptive TRM - Production Monitor",
+        "tags": [
+            "agi",
+            "trm",
+            "adaptive",
+            "production"
+        ],
+        "timezone": "browser",
+        "schemaVersion": 16,
+        "version": 1,
+        "refresh": "30s",
+        "time": {
+            "from": "now-1h",
+            "to": "now"
+        },
+        "panels": [
+            {
+                "id": 1,
+                "title": "Decision Funnel",
+                "type": "graph",
+                "gridPos": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 12,
+                    "h": 8
+                },
+                "targets": [
+                    {
+                        "expr": "sum(increase(trm_policy_predictions_total{result='pred'}[5m]))",
+                        "legendFormat": "Predictions",
+                        "refId": "A"
+                    },
+                    {
+                        "expr": "sum(increase(agi_curiosity_actions_total{kind='trm_deliberate'}[5m]))",
+                        "legendFormat": "TRM Invoked",
+                        "refId": "B"
+                    },
+                    {
+                        "expr": "sum(increase(trm_requests_total{mode='deliberate',outcome='ok'}[5m]))",
+                        "legendFormat": "TRM Success",
+                        "refId": "C"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "short",
+                        "label": "Count"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "title": "Policy Accuracy",
+                "type": "singlestat",
+                "gridPos": {
+                    "x": 12,
+                    "y": 0,
+                    "w": 6,
+                    "h": 4
+                },
+                "targets": [
+                    {
+                        "expr": "trm_policy_accuracy",
+                        "refId": "A"
+                    }
+                ],
+                "format": "percentunit",
+                "valueName": "current",
+                "thresholds": "0.6,0.75",
+                "colors": [
+                    "#d44a3a",
+                    "#e0b400",
+                    "#299c46"
+                ]
+            },
+            {
+                "id": 3,
+                "title": "TRM Value Score",
+                "type": "singlestat",
+                "gridPos": {
+                    "x": 18,
+                    "y": 0,
+                    "w": 6,
+                    "h": 4
+                },
+                "targets": [
+                    {
+                        "expr": "trm_value_score",
+                        "refId": "A"
+                    }
+                ],
+                "format": "none",
+                "valueName": "current",
+                "thresholds": "0.8,1.1",
+                "colors": [
+                    "#d44a3a",
+                    "#e0b400",
+                    "#299c46"
+                ],
+                "postfix": " ROI"
+            },
+            {
+                "id": 4,
+                "title": "Adaptive Cycles Distribution",
+                "type": "graph",
+                "gridPos": {
+                    "x": 0,
+                    "y": 8,
+                    "w": 12,
+                    "h": 8
+                },
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.5, sum(rate(trm_adaptive_cycles_bucket[5m])) by (le,mode))",
+                        "legendFormat": "P50 - {{mode}}",
+                        "refId": "A"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.95, sum(rate(trm_adaptive_cycles_bucket[5m])) by (le,mode))",
+                        "legendFormat": "P95 - {{mode}}",
+                        "refId": "B"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "short",
+                        "label": "Cycles",
+                        "min": 0,
+                        "max": 24
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 5,
+                "title": "Context Waste Ratio",
+                "type": "graph",
+                "gridPos": {
+                    "x": 12,
+                    "y": 8,
+                    "w": 12,
+                    "h": 8
+                },
+                "targets": [
+                    {
+                        "expr": "trm_context_waste_ratio{mode='deliberate'}",
+                        "legendFormat": "Deliberate",
+                        "refId": "A"
+                    },
+                    {
+                        "expr": "trm_context_waste_ratio{mode='critique'}",
+                        "legendFormat": "Critique",
+                        "refId": "B"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "percentunit",
+                        "label": "Waste %",
+                        "min": 0,
+                        "max": 1
+                    },
+                    {
+                        "format": "short"
+                    }
+                ],
+                "alert": {
+                    "conditions": [
+                        {
+                            "evaluator": {
+                                "params": [
+                                    0.5
+                                ],
+                                "type": "gt"
+                            },
+                            "operator": {
+                                "type": "and"
+                            },
+                            "query": {
+                                "params": [
+                                    "A",
+                                    "15m",
+                                    "now"
+                                ]
+                            },
+                            "reducer": {
+                                "params": [],
+                                "type": "avg"
+                            },
+                            "type": "query"
+                        }
+                    ],
+                    "executionErrorState": "alerting",
+                    "frequency": "5m",
+                    "handler": 1,
+                    "name": "Context waste >50%",
+                    "noDataState": "no_data",
+                    "notifications": []
+                }
+            },
+            {
+                "id": 6,
+                "title": "RAG Hit Rate",
+                "type": "graph",
+                "gridPos": {
+                    "x": 0,
+                    "y": 16,
+                    "w": 12,
+                    "h": 8
+                },
+                "targets": [
+                    {
+                        "expr": "rate(rag_hits_total[5m]) / rate(rag_queries_total[5m])",
+                        "legendFormat": "Hit Rate",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "percentunit",
+                        "label": "Hit Rate",
+                        "min": 0,
+                        "max": 1
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 7,
+                "title": "API Latency (P50/P95/P99)",
+                "type": "graph",
+                "gridPos": {
+                    "x": 12,
+                    "y": 16,
+                    "w": 12,
+                    "h": 8
+                },
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.5, rate(http_request_duration_seconds_bucket{route='/api/execute'}[5m]))",
+                        "legendFormat": "P50",
+                        "refId": "A"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{route='/api/execute'}[5m]))",
+                        "legendFormat": "P95",
+                        "refId": "B"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{route='/api/execute'}[5m]))",
+                        "legendFormat": "P99",
+                        "refId": "C"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "s",
+                        "label": "Latency",
+                        "logBase": 1
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 8,
+                "title": "Error Rate",
+                "type": "graph",
+                "gridPos": {
+                    "x": 0,
+                    "y": 24,
+                    "w": 12,
+                    "h": 8
+                },
+                "targets": [
+                    {
+                        "expr": "rate(http_requests_total{status=~'5..'}[5m]) / rate(http_requests_total[5m])",
+                        "legendFormat": "5xx Rate",
+                        "refId": "A"
+                    },
+                    {
+                        "expr": "rate(agi_tool_calls_total{outcome='error'}[5m]) / rate(agi_tool_calls_total[5m])",
+                        "legendFormat": "Tool Error Rate",
+                        "refId": "B"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "percentunit",
+                        "label": "Error Rate",
+                        "min": 0
+                    },
+                    {
+                        "format": "short"
+                    }
+                ],
+                "alert": {
+                    "conditions": [
+                        {
+                            "evaluator": {
+                                "params": [
+                                    0.005
+                                ],
+                                "type": "gt"
+                            },
+                            "operator": {
+                                "type": "and"
+                            },
+                            "query": {
+                                "params": [
+                                    "A",
+                                    "5m",
+                                    "now"
+                                ]
+                            },
+                            "reducer": {
+                                "params": [],
+                                "type": "avg"
+                            },
+                            "type": "query"
+                        }
+                    ],
+                    "executionErrorState": "alerting",
+                    "frequency": "1m",
+                    "handler": 1,
+                    "name": "Error rate >0.5%",
+                    "noDataState": "no_data",
+                    "notifications": []
+                }
+            },
+            {
+                "id": 9,
+                "title": "Model Pool Swaps",
+                "type": "graph",
+                "gridPos": {
+                    "x": 12,
+                    "y": 24,
+                    "w": 12,
+                    "h": 8
+                },
+                "targets": [
+                    {
+                        "expr": "rate(model_pool_hotswaps_total[5m])",
+                        "legendFormat": "{{from}} → {{to}}",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "ops",
+                        "label": "Swaps/sec"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 10,
+                "title": "Policy Bias Drift",
+                "type": "graph",
+                "gridPos": {
+                    "x": 0,
+                    "y": 32,
+                    "w": 12,
+                    "h": 8
+                },
+                "targets": [
+                    {
+                        "expr": "trm_policy_bias",
+                        "legendFormat": "Current Bias",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "none",
+                        "label": "Bias",
+                        "min": -0.6,
+                        "max": -0.1
+                    },
+                    {
+                        "format": "short"
+                    }
+                ],
+                "thresholds": [
+                    {
+                        "value": -0.65,
+                        "colorMode": "critical",
+                        "op": "lt",
+                        "fill": true,
+                        "line": true
+                    },
+                    {
+                        "value": -0.05,
+                        "colorMode": "critical",
+                        "op": "gt",
+                        "fill": true,
+                        "line": true
+                    }
+                ]
+            },
+            {
+                "id": 11,
+                "title": "TRM Latency by Mode",
+                "type": "graph",
+                "gridPos": {
+                    "x": 12,
+                    "y": 32,
+                    "w": 12,
+                    "h": 8
+                },
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.95, sum(rate(trm_latency_ms_bucket[5m])) by (le,mode))",
+                        "legendFormat": "P95 - {{mode}}",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "ms",
+                        "label": "Latency",
+                        "logBase": 1
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 12,
+                "title": "Success Rate: With TRM vs Without",
+                "type": "graph",
+                "gridPos": {
+                    "x": 0,
+                    "y": 40,
+                    "w": 24,
+                    "h": 8
+                },
+                "targets": [
+                    {
+                        "expr": "trm_improvement_ratio",
+                        "legendFormat": "Improvement Ratio (with/without)",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "none",
+                        "label": "Ratio",
+                        "min": 0.5,
+                        "max": 1.5
+                    },
+                    {
+                        "format": "short"
+                    }
+                ],
+                "thresholds": [
+                    {
+                        "value": 1.0,
+                        "colorMode": "custom",
+                        "fillColor": "rgba(31,120,193,0.2)",
+                        "op": "gt"
+                    }
+                ]
+            }
+        ]
+    }
+}

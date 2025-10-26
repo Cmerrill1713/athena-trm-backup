@@ -1,0 +1,113 @@
+# SearXNG Configuration — Research-Focused Meta-Search
+# Optimized for academic paper discovery
+
+use_default_settings: true
+
+general:
+  debug: false
+  instance_name: "Athena Research Portal"
+  contact_url: false
+  enable_metrics: true
+
+search:
+  safe_search: 0 # No filtering
+  autocomplete: ""
+  default_lang: "en"
+  ban_time_on_fail: 5
+  max_ban_time_on_fail: 120
+  formats:
+    - html
+    - json
+
+server:
+  port: 8080
+  bind_address: "0.0.0.0"
+  secret_key: "replace-with-random-key" # Generate with: openssl rand -hex 32
+  limiter: true
+  image_proxy: true
+  http_protocol_version: "1.1"
+
+ui:
+  static_use_hash: true
+  default_theme: simple
+  default_locale: en
+  theme_args:
+    simple_style: dark
+  results_on_new_tab: false
+  advanced_search: true
+  query_in_title: false
+
+# Enabled engines (research-focused)
+engines:
+  - name: arxiv
+    engine: arxiv
+    shortcut: ar
+    timeout: 4.0
+    disabled: false
+    categories: [science]
+
+  - name: google scholar
+    engine: google_scholar
+    shortcut: gsc
+    timeout: 10.0
+    disabled: false
+    categories: [science]
+
+  - name: semantic scholar
+    engine: semantic_scholar
+    shortcut: se
+    timeout: 6.0
+    disabled: false
+    categories: [science]
+
+  - name: pubmed
+    engine: pubmed
+    shortcut: pub
+    timeout: 6.0
+    disabled: false
+    categories: [science]
+
+  - name: crossref
+    engine: crossref
+    shortcut: cr
+    timeout: 4.0
+    disabled: false
+    categories: [science]
+
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+    timeout: 3.0
+    disabled: false
+    categories: [general]
+
+  # Disable non-research engines
+  - name: bing
+    disabled: true
+  - name: yahoo
+    disabled: true
+  - name: wikipedia
+    disabled: false # Useful for background
+  - name: wikidata
+    disabled: false
+
+# Privacy settings
+outgoing:
+  request_timeout: 10.0
+  max_request_timeout: 20.0
+  useragent_suffix: "Athena Research"
+  pool_connections: 100
+  pool_maxsize: 20
+  enable_http2: true
+
+# No external services
+enabled_plugins: []
+disabled_plugins:
+  - "Open Access DOI rewrite" # Don't auto-rewrite DOIs
+
+# Categories
+categories_as_tabs:
+  science:
+    name: Research Papers
+  general:
+    name: General

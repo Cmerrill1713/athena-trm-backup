@@ -1,0 +1,8 @@
+Warning: athena_notifications not fully available: No module named 'athena_notifications'
+🧪 Running Emergency Spike Test
+==================================================
+[spike] Running 2 scenario(s) in dry-run mode
+[spike:dry-run] emergency_api_timeout trigger=api_timeout_spike expected={'alert': 'critical', 'circuit_breaker': True, 'failover': 'enabled'}
+[spike:dry-run] emergency_network_congestion trigger=network_congestion expected={'quarantine': True, 'alert': 'critical', 'rollback': 'allowed'}
+[spike] completed dry-run with 2 scenarios
+✅ Emergency spike test completed successfully

@@ -1,0 +1,284 @@
+{
+    "system_name": "Athena AGI-RAG-TRM Integrated System",
+    "version": "1.0.0",
+    "capabilities": {
+        "core_systems": {
+            "agi_core": {
+                "description": "16 specialized expert agents with context engineering",
+                "sub_agents": [
+                    "Scout Agent - Context gathering and exploration",
+                    "Plan Agent - Strategic planning and workflow design",
+                    "Build Agent - Implementation and code generation",
+                    "Debug Agent - Error detection and fixing",
+                    "Optimize Agent - Performance improvement",
+                    "Security Agent - Security analysis and hardening",
+                    "Database Agent - Data modeling and queries",
+                    "API Agent - API design and integration",
+                    "Frontend Agent - UI/UX development",
+                    "Backend Agent - Server-side logic",
+                    "DevOps Agent - Infrastructure and deployment",
+                    "Testing Agent - Test generation and validation",
+                    "Documentation Agent - Documentation generation",
+                    "Research Agent - Information gathering",
+                    "Analysis Agent - Data analysis and insights",
+                    "Integration Agent - System integration"
+                ],
+                "workflows": [
+                    "Scout-Plan-Build - Full development workflow",
+                    "Debug-Optimize - Error fixing and performance",
+                    "Research-Analysis-Implementation - Feature development"
+                ],
+                "path": "agi_core/",
+                "tools": "agi_core/tools/"
+            },
+            "rag_system": {
+                "description": "Retrieval-Augmented Generation with 768-dim vectors",
+                "components": {
+                    "rag_gateway": {
+                        "port": 8088,
+                        "endpoint": "http://localhost:8088",
+                        "capabilities": [
+                            "BM25 keyword search",
+                            "Semantic nearText search",
+                            "Hybrid search (BM25 + semantic)",
+                            "Knowledge base search via /kb/search",
+                            "Document retrieval with citations"
+                        ]
+                    },
+                    "weaviate": {
+                        "port": 8080,
+                        "endpoint": "http://localhost:8080",
+                        "schema": "DocsV2",
+                        "vector_dimensions": 768,
+                        "embedding_model": "nomic-embed-text"
+                    },
+                    "embedding_service": {
+                        "port": 8086,
+                        "endpoint": "http://localhost:8086",
+                        "models": [
+                            "nomic-embed-text (768-dim)",
+                            "sentence-transformers (384-dim)"
+                        ],
+                        "tiers": [
+                            "mini",
+                            "base"
+                        ]
+                    }
+                },
+                "features": [
+                    "Delta A/B testing",
+                    "Offline/air-gapped mode",
+                    "Paper ingestion",
+                    "Citation tracking",
+                    "Hit@k and support@k metrics"
+                ]
+            },
+            "trm_system": {
+                "description": "Tiny Recursive Models - 7M parameter training pipeline",
+                "capabilities": [
+                    "PyTorch + MLX training",
+                    "Dataset building from RAG corpus",
+                    "Fine-tuning on real misses",
+                    "Hard negative mining",
+                    "Knowledge distillation",
+                    "ARC/AGI evaluation"
+                ],
+                "models": [
+                    "7M base models",
+                    "Fine-tuned domain models"
+                ],
+                "pipeline": "scripts/trm_rag_training_pipeline.py"
+            }
+        },
+        "inference_and_routing": {
+            "smart_chat": {
+                "description": "Main chat service with personality and intelligence",
+                "port": 8089,
+                "endpoint": "http://localhost:8089",
+                "features": [
+                    "Smart routing to optimal models",
+                    "RAG integration",
+                    "Context management",
+                    "Session memory",
+                    "English response enforcement",
+                    "Tool awareness",
+                    "Code access"
+                ]
+            },
+            "smart_router": {
+                "description": "Intelligent model selection based on query analysis",
+                "available_models": [
+                    "qwen2.5:0.5b - Fast, simple queries",
+                    "qwen2.5:7b - General purpose",
+                    "qwen2.5:14b - Complex reasoning",
+                    "qwen3-coder:30b - Code generation",
+                    "gpt-oss:20b - Advanced tasks"
+                ],
+                "routing_factors": [
+                    "Query complexity (word count, technical terms)",
+                    "Query type (factual, creative, code, diagnostic)",
+                    "Urgency (latency requirements)",
+                    "RAG needs (factual vs creative)",
+                    "Resource availability"
+                ]
+            },
+            "ollama": {
+                "port": 11434,
+                "endpoint": "http://localhost:11434",
+                "models_available": [
+                    "qwen2.5:0.5b",
+                    "qwen2.5:7b",
+                    "qwen2.5:14b",
+                    "qwen3-coder:30b",
+                    "nomic-embed-text"
+                ]
+            }
+        },
+        "tools_and_integrations": {
+            "code_access_tool": {
+                "path": "agi_core/tools/code_access_tool.py",
+                "capabilities": [
+                    "read_file - Read any file in codebase",
+                    "list_files - Browse directory structure",
+                    "analyze_code - Parse Python files for functions/classes",
+                    "search_code - Search across all code files",
+                    "execute_script - Run Python scripts and commands",
+                    "get_system_info - Get codebase information"
+                ],
+                "usage": "from agi_core.tools.code_access_tool import CodeAccessTool"
+            },
+            "kb_search_tool": {
+                "path": "agi_core/tools/kb_search_tool.py",
+                "capabilities": [
+                    "Search DocsV2 knowledge base",
+                    "Multiple modes: bm25, nearText, hybrid",
+                    "Return citations with doc_id, title, chunk, score",
+                    "Format results for agent consumption"
+                ],
+                "endpoint": "POST http://localhost:8088/kb/search"
+            },
+            "self_healing_agent": {
+                "path": "scripts/self_healing_agent.py",
+                "capabilities": [
+                    "System diagnostics",
+                    "Health checks on all services",
+                    "KB search for diagnostic info",
+                    "Auto-fix attempts",
+                    "Health report generation"
+                ]
+            }
+        },
+        "frameworks_and_libraries": {
+            "dspy": {
+                "description": "DSPy framework for structured LLM programs",
+                "usage": "Compose LLM calls with typed signatures",
+                "features": [
+                    "Prompt optimization",
+                    "Few-shot learning",
+                    "Chain-of-thought reasoning",
+                    "Structured outputs"
+                ],
+                "integration_status": "Available for agent workflows"
+            },
+            "langchain": {
+                "description": "LangChain for agent orchestration",
+                "features": [
+                    "Agent chains",
+                    "Memory management",
+                    "Tool integration",
+                    "Document loaders"
+                ]
+            },
+            "fastapi": {
+                "description": "Modern API framework",
+                "services": [
+                    "rag-gateway",
+                    "smart_chat",
+                    "unified_metrics",
+                    "embedding_service"
+                ]
+            }
+        },
+        "monitoring_and_observability": {
+            "unified_metrics": {
+                "port": 9114,
+                "endpoint": "http://localhost:9114",
+                "capabilities": [
+                    "Collect metrics from AGI, RAG, TRM",
+                    "Snapshot of system state",
+                    "Quality gates enforcement",
+                    "Performance tracking",
+                    "Error rate monitoring"
+                ],
+                "endpoints": [
+                    "/snapshot - Current system metrics",
+                    "/metrics - Prometheus format"
+                ]
+            },
+            "prometheus": {
+                "description": "Metrics collection and monitoring",
+                "scraped_services": [
+                    "rag-gateway",
+                    "smart_chat",
+                    "unified_metrics"
+                ]
+            },
+            "grafana": {
+                "description": "Metrics visualization and dashboards"
+            }
+        },
+        "self_modification": {
+            "capabilities": [
+                "Read own source code",
+                "Analyze code structure",
+                "Execute diagnostic scripts",
+                "Modify files when appropriate",
+                "Run tests and validation",
+                "Deploy changes"
+            ],
+            "guardrails": [
+                "Test coverage ≥ 85%",
+                "Performance budget < 50ms",
+                "Security review required",
+                "Eval pass-rate maintained"
+            ]
+        },
+        "operational_commands": {
+            "system_check": "python3 scripts/complete_system_check.sh",
+            "ship_check": "bash scripts/ship_check.sh",
+            "self_healing": "python3 scripts/self_healing_agent.py",
+            "demonstrate_code_access": "python3 demonstrate_code_access.py",
+            "health_checks": {
+                "rag_gateway": "curl http://localhost:8088/health",
+                "smart_chat": "curl http://localhost:8089/health",
+                "weaviate": "curl http://localhost:8080/v1/.well-known/ready",
+                "ollama": "curl http://localhost:11434/api/tags",
+                "unified_metrics": "curl http://localhost:9114/snapshot"
+            }
+        }
+    },
+    "current_status": {
+        "services_running": [
+            "RAG Gateway (8088)",
+            "Smart Chat (8089)",
+            "Weaviate (8080)",
+            "Embedding Service (8086)",
+            "Ollama (11434)",
+            "Unified Metrics (9114)"
+        ],
+        "knowledge_base": {
+            "class": "DocsV2",
+            "documents": "Demo corpus (3 docs)",
+            "vector_dimensions": 768,
+            "embedding_model": "nomic-embed-text"
+        },
+        "features_active": [
+            "Smart routing",
+            "RAG integration",
+            "Code access",
+            "Self-healing capabilities",
+            "Tool awareness",
+            "English response enforcement"
+        ]
+    }
+}

@@ -3,6 +3,9 @@
 
 FROM python:3.11-slim
 
+# Install curl and procps for health checks
+RUN apt-get update && apt-get install -y curl procps && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 # Install dependencies
@@ -17,4 +20,3 @@ COPY . /app/governance/executive/
 
 # Run canary controller
 CMD ["python", "/app/governance/executive/canary_controller.py"]
-

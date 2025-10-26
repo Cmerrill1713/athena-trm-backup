@@ -1,0 +1,101 @@
+name: Repo Hygiene
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+      - develop
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  hygiene:
+    name: Repository Hygiene Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check non-executable shell scripts (outside archive/)
+        id: check-shell
+        run: |
+          echo "🔍 Checking shell script permissions..."
+          BAD=$(find . -type f -name '*.sh' -not -path '*/archive/*' -not -perm -111 -print)
+          if [ -n "$BAD" ]; then
+            echo "❌ Non-executable shell scripts found:"
+            echo "$BAD"
+            echo "Fix with: make qa-fix-perms"
+            exit 1
+          else
+            echo "✅ All shell scripts are executable"
+          fi
+
+      - name: Check executable Python without shebang
+        id: check-python
+        run: |
+          echo "🐍 Checking Python file permissions..."
+          BAD=$(find . -type f -name '*.py' -perm -111 -not -path '*/archive/*' -exec awk 'NR==1 {if ($0 !~ /^#!/) print FILENAME}' {} + 2>/dev/null)
+          if [ -n "$BAD" ]; then
+            echo "❌ Executable Python files without shebang:"
+            echo "$BAD"
+            echo "These should either have a shebang or not be executable"
+            exit 1
+          else
+            echo "✅ Python files have correct permissions"
+          fi
+
+      - name: Check broken symlinks (outside archive/)
+        id: check-symlinks
+        run: |
+          echo "🔗 Checking for broken symlinks..."
+          BAD=$(find . -type l ! -exec test -e {} \; -not -path './archive/*' -not -path './AI-Projects/*' -print 2>/dev/null)
+          if [ -n "$BAD" ]; then
+            echo "⚠️  Broken symlinks found outside archive:"
+            echo "$BAD"
+            echo "Fix with: make qa-fix-archive-symlinks"
+            # Warning only, don't fail
+          else
+            echo "✅ No broken symlinks in active code"
+          fi
+
+      - name: Check empty directories
+        id: check-empties
+        run: |
+          echo "📁 Checking for empty directories..."
+          EMPTY=$(find . -type d -empty -not -path '*/.git/*' -print 2>/dev/null | head -10)
+          COUNT=$(find . -type d -empty -not -path '*/.git/*' -print 2>/dev/null | wc -l | xargs)
+          if [ "$COUNT" -gt "0" ]; then
+            echo "⚠️  Found $COUNT empty directories (showing first 10):"
+            echo "$EMPTY"
+            echo "Fix with: make qa-clean-empties"
+            # Warning only, don't fail
+          else
+            echo "✅ No empty directories"
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo ""
+          echo "=== Repository Hygiene Summary ==="
+          echo "Shell scripts:    ${{ steps.check-shell.outcome }}"
+          echo "Python files:     ${{ steps.check-python.outcome }}"
+          echo "Symlinks:         ${{ steps.check-symlinks.outcome }}"
+          echo "Empty dirs:       ${{ steps.check-empties.outcome }}"
+          echo ""
+          echo "💡 To fix issues locally: make qa-full"
+
+  makefile-targets:
+    name: Verify Makefile QA Targets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Test qa-dry target
+        run: |
+          echo "Testing Makefile QA targets..."
+          make qa-dry
+          echo "✅ Makefile QA targets work correctly"

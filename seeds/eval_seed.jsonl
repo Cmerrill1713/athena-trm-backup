@@ -1,0 +1,10 @@
+{"query":"reset password", "expected_ids":["doc_12","doc_98"], "support_ids":["doc_12"]}
+{"query":"refund policy",  "expected_ids":["doc_7"]}
+{"query":"cancel subscription", "expected_ids":["doc_33","doc_34"]}
+{"query":"authentication setup", "expected_ids":["auth_config.md","security_setup.md"]}
+{"query":"API rate limiting", "expected_ids":["rate_limiting.md","api_docs.md"]}
+{"query":"database connection pooling", "expected_ids":["db_config.md","performance_tuning.md"]}
+{"query":"error handling best practices", "expected_ids":["error_handling.md","best_practices.md"]}
+{"query":"monitoring and alerting setup", "expected_ids":["monitoring.md","alerts.md"]}
+{"query":"deployment configuration", "expected_ids":["deploy.md","config.md"]}
+{"query":"troubleshooting guide", "expected_ids":["troubleshooting.md","debug.md"]}

@@ -1,0 +1,21 @@
+[0;35mSELF-LEARNING CAPABILITY AUDIT PROMPT[0m
+[0;35m================================================================================[0m
+[0;36mCopy this prompt into Cursor's chat:[0m
+
+🧠 SELF-LEARNING CAPABILITY AUDIT
+
+"List all active self-learning and self-optimization capabilities currently implemented in this system.
+
+For each capability:
+	•	Name the mechanism (e.g., neural encoder, bandit, federated learning, automated strategy generation, governance feedback).
+	•	Describe how it learns over time (e.g., gradient updates, policy improvement, reinforcement signals, federated aggregation, constitutional evolution).
+	•	Specify what triggers adaptation (e.g., performance drift, new data, federated updates, constitutional reweighting, safety violations, user feedback).
+	•	Identify its scope of impact (local only, federated, global).
+	•	List any governance or safety constraints attached to its evolution.
+	•	State the current level of autonomy (manual, semi-auto, full-auto).
+	•	Show where in the pipeline this self-learning loop is applied (routing, retrieval, reranking, governance, privacy, scheduling, etc.).
+
+Finally, provide a confidence score (0–100%) on the completeness of this self-learning inventory based on the system's internal registry."
+
+[1;33mAfter Cursor responds with the audit results, run:[0m
+[0;36m  ./scripts/run_self_learning_audit.sh analyze < audit_results.txt[0m

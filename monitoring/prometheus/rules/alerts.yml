@@ -1,0 +1,159 @@
+groups:
+  - name: athena-core
+    rules:
+      - alert: TargetDown
+        expr: up{job=~"athena-.*"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: "{{ $labels.job }}"
+        annotations:
+          summary: "Athena target {{ $labels.job }} is down"
+          description: "Target {{ $labels.job }} ({{ $labels.instance }}) has been down for more than 2 minutes"
+          runbook_url: "https://github.com/your-org/athena/blob/main/docs/runbooks/target-down.md"
+
+      - alert: HighErrorRate
+        expr: |
+          (
+            sum(rate(athena_requests_total{code=~"5.."}[5m])) by (service)
+            /
+            sum(rate(athena_requests_total[5m])) by (service)
+          ) > 0.01
+        for: 5m
+        labels:
+          severity: warning
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "High 5xx error rate for {{ $labels.service }}"
+          description: "5xx error rate is {{ $value | humanizePercentage }} for service {{ $labels.service }} over the last 5 minutes"
+          runbook_url: "https://github.com/your-org/athena/blob/main/docs/runbooks/high-error-rate.md"
+
+      - alert: P95LatencySLOViolated
+        expr: |
+          histogram_quantile(0.95, 
+            sum by (le, service) (rate(athena_request_latency_seconds_bucket[5m]))
+          ) > 1.5
+        for: 10m
+        labels:
+          severity: warning
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "P95 latency SLO violated for {{ $labels.service }}"
+          description: "P95 latency is {{ $value }}s for service {{ $labels.service }}, exceeding 1.5s SLO"
+          runbook_url: "https://github.com/your-org/athena/blob/main/docs/runbooks/latency-slo-violation.md"
+
+      - alert: RouterDown
+        expr: up{job="athena-router"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: "athena-router"
+        annotations:
+          summary: "Athena Router is down"
+          description: "The Athena Router service is not responding"
+          runbook_url: "https://github.com/your-org/athena/blob/main/docs/runbooks/router-down.md"
+
+      - alert: CanaryActiveWithIssues
+        expr: |
+          athena_governance_canary_active == 1
+          and (
+            histogram_quantile(0.95, sum by (le) (rate(athena_request_latency_seconds_bucket[5m]))) > 1.1
+            or
+            (sum(rate(athena_requests_total{code=~"5.."}[5m])) / sum(rate(athena_requests_total[5m]))) > 0.003
+          )
+        for: 2m
+        labels:
+          severity: critical
+          service: "athena-canary"
+        annotations:
+          summary: "Canary deployment showing issues"
+          description: "Canary is active but showing elevated latency or error rates"
+          runbook_url: "https://github.com/your-org/athena/blob/main/docs/runbooks/canary-issues.md"
+
+      - alert: StreamErrorsHigh
+        expr: |
+          sum(rate(athena_stream_errors_total[5m])) by (reason) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          reason: "{{ $labels.reason }}"
+        annotations:
+          summary: "High SSE stream error rate"
+          description: "Stream errors for reason '{{ $labels.reason }}' are {{ $value }} errors/sec"
+          runbook_url: "https://github.com/your-org/athena/blob/main/docs/runbooks/stream-errors.md"
+
+      - alert: RouteSelectionImbalanced
+        expr: |
+          (
+            sum(rate(athena_route_selection_created[5m])) by (route)
+            /
+            sum(rate(athena_route_selection_created[5m]))
+          ) > 0.8
+        for: 10m
+        labels:
+          severity: warning
+          route: "{{ $labels.route }}"
+        annotations:
+          summary: "Route selection heavily imbalanced"
+          description: "Route '{{ $labels.route }}' is handling {{ $value | humanizePercentage }} of all requests"
+          runbook_url: "https://github.com/your-org/athena/blob/main/docs/runbooks/route-imbalance.md"
+
+      - alert: OTELCollectorDown
+        expr: up{job="athena-otel-collector"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: "athena-otel-collector"
+        annotations:
+          summary: "OpenTelemetry Collector is down"
+          description: "The OTEL collector is not responding, metrics collection may be affected"
+          runbook_url: "https://github.com/your-org/athena/blob/main/docs/runbooks/otel-collector-down.md"
+
+      - alert: PrometheusTargetScrapeErrors
+        expr: |
+          increase(prometheus_target_scrape_pool_errors_total[5m]) > 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Prometheus scrape errors detected"
+          description: "Prometheus is experiencing scrape errors for some targets"
+          runbook_url: "https://github.com/your-org/athena/blob/main/docs/runbooks/prometheus-scrape-errors.md"
+
+  - name: athena-infrastructure
+    rules:
+      - alert: HighMemoryUsage
+        expr: |
+          (
+            node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes
+          ) / node_memory_MemTotal_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage on {{ $labels.instance }}"
+          description: "Memory usage is {{ $value | humanizePercentage }} on {{ $labels.instance }}"
+
+      - alert: HighCPUUsage
+        expr: |
+          100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is {{ $value }}% on {{ $labels.instance }}"
+
+      - alert: DiskSpaceLow
+        expr: |
+          (
+            node_filesystem_avail_bytes{mountpoint="/"}
+            /
+            node_filesystem_size_bytes{mountpoint="/"}
+          ) < 0.1
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low disk space on {{ $labels.instance }}"
+          description: "Disk space is {{ $value | humanizePercentage }} available on {{ $labels.instance }}"

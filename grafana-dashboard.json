@@ -1,0 +1,298 @@
+{
+    "dashboard": {
+        "title": "OpenAI-Compatible RAG Adapter",
+        "tags": [
+            "openai",
+            "rag",
+            "adapter"
+        ],
+        "timezone": "browser",
+        "refresh": "30s",
+        "time": {
+            "from": "now-1h",
+            "to": "now"
+        },
+        "panels": [
+            {
+                "id": 1,
+                "title": "Request Rate",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 0
+                },
+                "targets": [
+                    {
+                        "expr": "sum(rate(http_requests_total[1m])) by (code)",
+                        "legendFormat": "{{code}}",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "reqps",
+                        "label": "Requests/sec"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "title": "Error Rate",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 0
+                },
+                "targets": [
+                    {
+                        "expr": "sum(rate(http_requests_total{code=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m]))",
+                        "legendFormat": "5xx rate",
+                        "refId": "A"
+                    },
+                    {
+                        "expr": "sum(rate(upstream_errors_total[5m]))",
+                        "legendFormat": "Upstream errors",
+                        "refId": "B"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "percentunit",
+                        "label": "Error Rate"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ],
+                "alert": {
+                    "conditions": [
+                        {
+                            "evaluator": {
+                                "params": [
+                                    0.005
+                                ],
+                                "type": "gt"
+                            },
+                            "operator": {
+                                "type": "and"
+                            },
+                            "query": {
+                                "params": [
+                                    "A",
+                                    "5m",
+                                    "now"
+                                ]
+                            },
+                            "reducer": {
+                                "type": "avg"
+                            },
+                            "type": "query"
+                        }
+                    ],
+                    "executionErrorState": "alerting",
+                    "frequency": "60s",
+                    "handler": 1,
+                    "name": "High Error Rate",
+                    "noDataState": "no_data"
+                }
+            },
+            {
+                "id": 3,
+                "title": "Latency (p50, p95, p99)",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 8
+                },
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+                        "legendFormat": "p50",
+                        "refId": "A"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+                        "legendFormat": "p95",
+                        "refId": "B"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+                        "legendFormat": "p99",
+                        "refId": "C"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "s",
+                        "label": "Latency"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "title": "Model Usage",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 8
+                },
+                "targets": [
+                    {
+                        "expr": "sum(rate(model_usage_total[5m])) by (model)",
+                        "legendFormat": "{{model}}",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "reqps",
+                        "label": "Requests/sec"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 5,
+                "title": "Backend Latency",
+                "type": "graph",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 16
+                },
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.95, sum(rate(backend_request_duration_seconds_bucket[5m])) by (backend, le))",
+                        "legendFormat": "{{backend}} p95",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "s",
+                        "label": "Latency"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 6,
+                "title": "RAG Mode Usage",
+                "type": "piechart",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 16
+                },
+                "targets": [
+                    {
+                        "expr": "sum(increase(rag_mode_total[1h])) by (mode)",
+                        "legendFormat": "{{mode}}",
+                        "refId": "A"
+                    }
+                ]
+            },
+            {
+                "id": 7,
+                "title": "Active Requests",
+                "type": "graph",
+                "gridPos": {
+                    "h": 6,
+                    "w": 8,
+                    "x": 0,
+                    "y": 24
+                },
+                "targets": [
+                    {
+                        "expr": "sum(active_requests) by (route)",
+                        "legendFormat": "{{route}}",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "short",
+                        "label": "Active Requests"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 8,
+                "title": "Stream Status",
+                "type": "graph",
+                "gridPos": {
+                    "h": 6,
+                    "w": 8,
+                    "x": 8,
+                    "y": 24
+                },
+                "targets": [
+                    {
+                        "expr": "sum(rate(stream_events_total[5m])) by (status)",
+                        "legendFormat": "{{status}}",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "ops",
+                        "label": "Events/sec"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            },
+            {
+                "id": 9,
+                "title": "Memory Usage",
+                "type": "graph",
+                "gridPos": {
+                    "h": 6,
+                    "w": 8,
+                    "x": 16,
+                    "y": 24
+                },
+                "targets": [
+                    {
+                        "expr": "process_resident_memory_bytes / (1024*1024)",
+                        "legendFormat": "RSS (MB)",
+                        "refId": "A"
+                    }
+                ],
+                "yaxes": [
+                    {
+                        "format": "decmbytes",
+                        "label": "Memory"
+                    },
+                    {
+                        "format": "short"
+                    }
+                ]
+            }
+        ]
+    }
+}

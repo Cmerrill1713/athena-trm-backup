@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/christianmerrill/Documents/GitHub/scripts/test_governance_drift_detection.py", line 30, in <module>
+    from core.governance_drift_detection import (
+  File "/Users/christianmerrill/Documents/GitHub/scripts/../AI-Projects/universal-ai-tools/src/core/governance_drift_detection.py", line 24, in <module>
+    import pandas as pd
+ModuleNotFoundError: No module named 'pandas'

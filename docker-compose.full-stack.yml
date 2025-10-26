@@ -1,0 +1,200 @@
+version: "3.8"
+
+# Complete Local RAG Stack with OpenAI-Compatible UI
+# Includes: Weaviate, Ollama, RAG Gateway, Smart Chat, Adapter, Open WebUI
+
+networks:
+  athena:
+    driver: bridge
+
+# Volumes removed - using host directories for offline operation
+# All data in ./volumes/* for easy backup/restore
+
+services:
+  # ============================================================================
+  # Core Infrastructure
+  # ============================================================================
+
+  weaviate:
+    image: semitechnologies/weaviate:latest
+    ports:
+      - "8080:8080"
+    environment:
+      QUERY_DEFAULTS_LIMIT: "25"
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
+      PERSISTENCE_DATA_PATH: "/var/lib/weaviate"
+      DEFAULT_VECTORIZER_MODULE: "text2vec-transformers"
+      ENABLE_MODULES: "text2vec-transformers"
+      CLUSTER_HOSTNAME: "node1"
+    volumes:
+      # Mount from host directory (pre-seeded with 5.8GB corpus)
+      - ./volumes/weaviate_data:/var/lib/weaviate
+    networks:
+      - athena
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--spider",
+          "-q",
+          "http://localhost:8080/v1/.well-known/ready",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      # Mount from host directory (pre-seeded with models if used)
+      - ./volumes/ollama:/root/.ollama
+    networks:
+      - athena
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # ============================================================================
+  # Athena Backend Services
+  # ============================================================================
+
+  rag-gateway:
+    build: ./services/rag-gateway
+    ports:
+      - "8090:8090"
+    environment:
+      WEAVIATE_URL: "http://weaviate:8080"
+      RAG_DEFAULT_TOPK: "8"
+      RAG_MIN_SCORE: "0.55"
+    depends_on:
+      weaviate:
+        condition: service_healthy
+    networks:
+      - athena
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python3",
+          "-c",
+          "import requests; requests.get('http://localhost:8090/health').raise_for_status()",
+        ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  smart-chat:
+    build: ./services/smart_chat
+    ports:
+      - "8088:8088"
+    environment:
+      OLLAMA_URL: "http://ollama:11434"
+      MODEL: "qwen2.5:7b"
+      ROUTER_URL: "http://router:9113"
+    depends_on:
+      - ollama
+    networks:
+      - athena
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python3",
+          "-c",
+          "import requests; requests.get('http://localhost:8088/health').raise_for_status()",
+        ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  # ============================================================================
+  # OpenAI-Compatible Adapter
+  # ============================================================================
+
+  openai-compat:
+    build: ./services/openai-compat
+    ports:
+      - "3000:3000"
+    environment:
+      # Backend URLs
+      RAG_API_BASE_URL: "http://rag-gateway:8090"
+      CHAT_API_BASE_URL: "http://smart-chat:8088"
+
+      # Optional auth
+      RAG_API_TOKEN: "${RAG_API_TOKEN:-}"
+
+      # Server config
+      PORT: "3000"
+      NODE_ENV: "production"
+
+      # Performance tuning
+      TIMEOUT_MS: "30000"
+      ENABLE_STREAMING: "true"
+
+      # Defaults
+      DEFAULT_MODE: "nearText"
+      DEFAULT_TOP_K: "5"
+
+      # CORS (restrict to local UI)
+      CORS_ORIGIN: "http://localhost:8080"
+    depends_on:
+      rag-gateway:
+        condition: service_healthy
+      smart-chat:
+        condition: service_healthy
+    networks:
+      - athena
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})",
+        ]
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3
+
+  # ============================================================================
+  # Open WebUI (Frontend) - DISABLED (requires internet to pull image)
+  # ============================================================================
+
+  # COMMENTED OUT: Open WebUI requires pulling from ghcr.io (cloud)
+  # To use Open WebUI:
+  #   1. Pull image on a machine with internet: docker pull ghcr.io/open-webui/open-webui:main
+  #   2. Save image: docker save ghcr.io/open-webui/open-webui:main | gzip > open-webui.tar.gz
+  #   3. Load on this machine: docker load < open-webui.tar.gz
+  #   4. Uncomment service below
+  #
+  # Alternative: Use web-based UIs that connect to http://localhost:3000/v1
+  #   - ChatBot UI (Next.js)
+  #   - LibreChat
+  #   - Continue.dev (VS Code)
+  #   - Any OpenAI-compatible client
+
+  # open-webui:
+  #   image: ghcr.io/open-webui/open-webui:main
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     OPENAI_API_BASE_URL: "http://openai-compat:3000/v1"
+  #     OPENAI_API_KEY: "dummy"
+  #     WEBUI_NAME: "Athena RAG"
+  #     DEFAULT_MODELS: "athena-rag,athena-chat,athena-hybrid"
+  #     ENABLE_SIGNUP: "false"
+  #   depends_on:
+  #     openai-compat:
+  #       condition: service_healthy
+  #   networks:
+  #     - athena
+  #   volumes:
+  #     - ./data/open-webui:/app/backend/data

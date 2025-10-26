@@ -1,0 +1,198 @@
+name: RAG Delta Validation
+
+on:
+  pull_request:
+    paths:
+      - "seeds/**"
+      - "backend/rag/**"
+      - "scripts/eval_*.py"
+      - "scripts/rag_delta_report.py"
+  workflow_dispatch: # Allow manual trigger
+
+env:
+  WEAVIATE_URL: http://127.0.0.1:8080
+  ATHENA_NO_CLOUD: 1
+  ATHENA_FAIL_CLOSED: 1
+
+jobs:
+  delta-report:
+    name: RAG Delta Check (BM25 → Semantic)
+    runs-on: ubuntu-latest
+
+    services:
+      weaviate:
+        image: semitechnologies/weaviate:latest
+        ports:
+          - 8080:8080
+        env:
+          QUERY_DEFAULTS_LIMIT: 25
+          AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
+          PERSISTENCE_DATA_PATH: "/var/lib/weaviate"
+          DEFAULT_VECTORIZER_MODULE: "text2vec-transformers"
+          ENABLE_MODULES: "text2vec-transformers"
+          CLUSTER_HOSTNAME: "node1"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests pytest
+
+      - name: Wait for Weaviate
+        run: |
+          timeout 60 bash -c 'until curl -f http://127.0.0.1:8080/v1/.well-known/ready; do sleep 2; done'
+
+      - name: Run Delta Report (BM25 → Semantic)
+        id: delta
+        run: |
+          make rag-delta WEAVIATE_URL=${{ env.WEAVIATE_URL }}
+        continue-on-error: true
+
+      - name: Run Delta Report with Gates
+        id: delta-gates
+        run: |
+          make rag-delta-gates WEAVIATE_URL=${{ env.WEAVIATE_URL }}
+        continue-on-error: false # Fail job if gates not met
+
+      - name: Upload Delta Reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: rag-delta-reports
+          path: |
+            artifacts/delta_*.json
+            artifacts/delta_*.md
+            artifacts/eval_*.json
+          retention-days: 30
+
+      - name: Post Summary to PR
+        if: always() && github.event_name == 'pull_request'
+        run: |
+          echo "## 📊 RAG Delta Validation Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Find the most recent markdown report
+          LATEST_MD=$(ls -t artifacts/delta_*.md 2>/dev/null | head -1)
+
+          if [ -f "$LATEST_MD" ]; then
+            cat "$LATEST_MD" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ No delta report generated" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "📦 Full reports available in build artifacts" >> $GITHUB_STEP_SUMMARY
+
+      - name: Comment on PR
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const glob = require('@actions/glob');
+
+            // Find latest markdown report
+            const globber = await glob.create('artifacts/delta_*.md');
+            const files = await globber.glob();
+
+            if (files.length === 0) {
+              console.log('No delta report found');
+              return;
+            }
+
+            const latestReport = files.sort().reverse()[0];
+            const reportContent = fs.readFileSync(latestReport, 'utf8');
+
+            // Find JSON report for structured data
+            const jsonGlobber = await glob.create('artifacts/delta_*.json');
+            const jsonFiles = await jsonGlobber.glob();
+
+            let passedIcon = '✅';
+            let statusText = 'PASSED';
+
+            if (jsonFiles.length > 0) {
+              const jsonReport = JSON.parse(fs.readFileSync(jsonFiles[0], 'utf8'));
+              if (jsonReport.delta_gates && !jsonReport.delta_gates.passed) {
+                passedIcon = '❌';
+                statusText = 'FAILED';
+              }
+            }
+
+            const comment = `## ${passedIcon} RAG Delta Validation — ${statusText}
+
+            ${reportContent}
+
+            <details>
+            <summary>📝 What does this mean?</summary>
+
+            This report compares two retrieval strategies:
+            - **Baseline:** BM25 (keyword matching)
+            - **Treatment:** Semantic search (embedding-based)
+
+            **Key metrics:**
+            - \`hit@k\`: % of queries that find relevant docs in top-k
+            - \`support@k\`: % of queries with strong supporting docs
+            - \`mrr@k\`: Mean reciprocal rank (higher = better)
+            - \`latency\`: Query response times
+
+            **Quality gates:** Treatment must improve by ≥1% on hit/support with ≤100ms latency increase.
+
+            </details>
+
+            ---
+            **Build:** [${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment
+            });
+
+      - name: Fail if gates not met
+        if: steps.delta-gates.outcome == 'failure'
+        run: |
+          echo "❌ RAG delta quality gates not met!"
+          echo "   Review the delta report to understand the regression."
+          exit 1
+
+  unit-tests:
+    name: Delta Report Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pytest
+
+      - name: Run tests
+        run: |
+          python3 -m pytest tests/rag/test_delta_report.py -v --tb=short
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: pytest-results.xml
+          retention-days: 7

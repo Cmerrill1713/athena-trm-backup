@@ -1,0 +1,122 @@
+# Research Paper Ingestion Pipeline
+# ==================================
+
+# Toggle online/offline mode
+online: ## Enable controlled internet access (egress proxy + SearXNG)
+	@echo "🔓 Enabling online mode (controlled egress)..."
+	@docker-compose -f docker-compose.full-stack.yml -f docker-compose.online.yml up -d egress-proxy searxng
+	@echo "✅ Online mode ON"
+	@echo "   - Egress proxy: http://localhost:3128"
+	@echo "   - SearXNG: http://localhost:8081"
+
+offline-mode: ## Disable internet access
+	@echo "🔒 Disabling online mode..."
+	@docker-compose -f docker-compose.online.yml rm -sf egress-proxy searxng || true
+	@echo "✅ Online mode OFF (back to offline-only)"
+
+# Search for papers
+papers-search: ## Search for research papers (requires online mode)
+	@test -n "$(Q)" || (echo "Usage: make papers-search Q='your query'" && exit 1)
+	@mkdir -p artifacts
+	@echo "🔍 Searching for: $(Q)"
+	@curl -s "http://localhost:8081/search?q=$(Q)&categories=science&format=json" \
+		> artifacts/search_$(shell date +%Y%m%d_%H%M%S).json
+	@echo "✅ Results saved to artifacts/search_*.json"
+
+# Curate and queue papers
+papers-queue: ## Add search results to ingestion queue
+	@test -f "$(FILE)" || (echo "Usage: make papers-queue FILE=artifacts/search_*.json" && exit 1)
+	@python3 scripts/curate_add.py "$(FILE)" --min-score $(MIN_SCORE)
+
+papers-queue-latest: ## Queue most recent search results
+	@FILE=$$(ls -t artifacts/search_*.json | head -1); \
+	if [ -z "$$FILE" ]; then \
+		echo "❌ No search results found. Run: make papers-search Q='query'"; \
+		exit 1; \
+	fi; \
+	python3 scripts/curate_add.py "$$FILE" --min-score ${MIN_SCORE:-0.6}
+
+# Fetch PDFs from queue
+papers-fetch: ## Download PDFs from queue (requires online mode)
+	@mkdir -p data/papers/pdfs
+	@HTTP_PROXY=http://localhost:3128 python3 scripts/fetch_pdfs.py \
+		--out data/papers/pdfs \
+		--limit ${LIMIT:-10} \
+		--throttle ${THROTTLE:-2.0}
+
+# Embed papers to Weaviate
+papers-embed: ## Embed PDFs and upload to Weaviate
+	@python3 scripts/embed_docs_v2.py \
+		--input data/papers/pdfs \
+		--class ${CLASS:-DocsV2} \
+		--model ${MODEL:-all-MiniLM-L6-v2} \
+		--weaviate-url ${WEAVIATE_URL:-http://localhost:8080}
+
+# Validate quality after ingestion
+papers-eval: ## Run RAG evaluation after paper ingestion
+	@echo "🎯 Running RAG evaluation to validate quality..."
+	@make rag-eval WEAVIATE_URL=${WEAVIATE_URL:-http://localhost:8080}
+
+# Complete pipeline
+papers-ingest: ## Complete pipeline: search → queue → fetch → embed → eval
+	@echo "📚 Complete paper ingestion pipeline"
+	@echo "This will:"
+	@echo "  1. Enable online mode"
+	@echo "  2. Search for papers"
+	@echo "  3. Curate and queue results"
+	@echo "  4. Fetch PDFs"
+	@echo "  5. Embed and index"
+	@echo "  6. Validate quality"
+	@echo ""
+	@read -p "Query: " query; \
+	make online && \
+	make papers-search Q="$$query" && \
+	make papers-queue-latest && \
+	make papers-fetch && \
+	make papers-embed && \
+	make papers-eval && \
+	make offline-mode
+	@echo "✅ Pipeline complete - back to offline mode"
+
+# Show queue status
+papers-status: ## Show ingestion queue status
+	@sqlite3 data/papers/queue.db \
+		"SELECT status, COUNT(*) as count FROM papers GROUP BY status" \
+		-header -column || echo "No queue database found"
+
+# Clean failed/error papers
+papers-clean-errors: ## Remove failed papers from queue
+	@sqlite3 data/papers/queue.db \
+		"DELETE FROM papers WHERE status = 'error'"; \
+	echo "✅ Cleaned error entries from queue"
+
+# Help
+papers-help: ## Show paper ingestion help
+	@echo "📚 Research Paper Ingestion:"
+	@echo "  online           - Enable internet (egress proxy + SearXNG)"
+	@echo "  offline-mode     - Disable internet (back to offline)"
+	@echo "  papers-search    - Search for papers (Q='query')"
+	@echo "  papers-queue     - Add results to queue (FILE=...)"
+	@echo "  papers-fetch     - Download PDFs from queue"
+	@echo "  papers-embed     - Embed PDFs to Weaviate"
+	@echo "  papers-eval      - Validate RAG quality"
+	@echo "  papers-ingest    - Complete pipeline (interactive)"
+	@echo "  papers-status    - Show queue status"
+	@echo ""
+	@echo "Example workflow:"
+	@echo "  make online"
+	@echo "  make papers-search Q='transformers retrieval'"
+	@echo "  make papers-queue-latest"
+	@echo "  make papers-fetch"
+	@echo "  make papers-embed"
+	@echo "  make papers-eval"
+	@echo "  make offline-mode"
+	@echo ""
+	@echo "Variables:"
+	@echo "  Q=          Search query"
+	@echo "  MIN_SCORE=  Minimum score (default: 0.6)"
+	@echo "  LIMIT=      Max papers to fetch (default: 10)"
+	@echo "  THROTTLE=   Seconds between fetches (default: 2.0)"
+	@echo "  CLASS=      Weaviate class (default: DocsV2)"
+	@echo "  MODEL=      Embedding model (default: all-MiniLM-L6-v2)"
+

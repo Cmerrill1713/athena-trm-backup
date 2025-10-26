@@ -1,0 +1,38 @@
+# ===========================================================================
+# AGI CORE (Port 8000) - Scout-Plan-Build Multi-Agent System
+# ===========================================================================
+
+agi-core:
+  build:
+    context: .
+    dockerfile: agi_core/Dockerfile.core
+  container_name: athena-agi-core
+  restart: unless-stopped
+  ports:
+    - "127.0.0.1:8000:8000"
+  environment:
+    - PYTHONUNBUFFERED=1
+    - AGI_STATE_DIR=/app/state/agi
+    - MCP_URL=http://athena-mcp-ecosystem:8412
+    - UAI_URL=http://uai:8080
+    - GATEWAY_URL=http://athena-api:8000
+    - FASTVLM_URL=http://athena-fastvlm:8088
+    - KOKORO_URL=http://athena-kokoro:8091
+  volumes:
+    - ./state/agi:/app/state/agi
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
+  networks:
+    athena-network:
+      aliases:
+        - agi-core
+  healthcheck:
+    test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
+    interval: 15s
+    timeout: 5s
+    retries: 3
+    start_period: 20s
+  labels:
+    - "athena.service=agi-core"
+    - "athena.port=8000"
+    - "athena.layer=intelligence"

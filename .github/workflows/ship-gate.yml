@@ -1,0 +1,110 @@
+name: Ship Gate
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+
+jobs:
+  ship-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install httpx pydantic fastapi jq bc
+
+      - name: Start services
+        run: |
+          docker-compose -f docker-compose.full-stack.yml up -d
+          echo "Waiting for services to be healthy..."
+          sleep 30
+
+      - name: Verify services are up
+        run: |
+          curl -sf http://localhost:8088/health || exit 1
+          curl -sf http://localhost:9113/health || exit 1
+          curl -sf http://localhost:8090/v1/meta || exit 1
+
+      - name: Run ship check
+        id: ship-check
+        run: |
+          make ship-check
+        # Fails build if any of the 8 gates trip:
+        # - health (all 6 services)
+        # - bridge latency (<300ms)
+        # - router decisions (correct routing)
+        # - metrics (valid data)
+        # - rag-eval (hit@5≥0.97, support@3≥0.95)
+        # - delta (no regression)
+        # - integration smoke (8 tests)
+        # - DocsV2 presence (corpus populated)
+
+      - name: Save baseline metrics
+        if: success()
+        run: |
+          mkdir -p artifacts/baselines
+          make metrics-snapshot > artifacts/baselines/baseline_${{ github.sha }}.json
+          echo "Baseline saved for commit ${{ github.sha }}"
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: ship-check-artifacts-${{ github.sha }}
+          path: |
+            artifacts/*.json
+            artifacts/*.md
+            /tmp/ship_check_smoke.log
+          retention-days: 30
+
+      - name: Comment on PR
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const outcome = '${{ steps.ship-check.outcome }}';
+            const exitCode = outcome === 'success' ? 0 : 1;
+
+            let comment = '## 🚀 Ship Check Results\n\n';
+
+            if (exitCode === 0) {
+              comment += '✅ **SHIP IT!** All gates passed.\n\n';
+              comment += '**Next steps:**\n';
+              comment += '1. Merge this PR\n';
+              comment += '2. Deploy with canary: `make canary-start`\n';
+              comment += '3. Monitor: `make canary-watch`\n';
+              comment += '4. Promote: `make canary-promote` (3x)\n';
+            } else {
+              comment += '❌ **DO NOT SHIP** - Gate failures detected.\n\n';
+              comment += '**Fix the issues above before merging.**\n';
+            }
+
+            comment += '\n---\n';
+            comment += `Commit: \`${{ github.sha }}\`\n`;
+            comment += `[View artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})\n`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Stop services
+        if: always()
+        run: |
+          docker-compose -f docker-compose.full-stack.yml down
+
+      - name: Fail if gates failed
+        if: steps.ship-check.outcome != 'success'
+        run: exit 1

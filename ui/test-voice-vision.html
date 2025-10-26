@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice & Vision Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0f0f0f;
+            color: #e8e8e8;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        button {
+            background: #4a9eff;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 0.5rem;
+        }
+        button:hover { background: #6bb0ff; }
+        .status {
+            background: #1a1a1a;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        .success { color: #22c55e; }
+        .error { color: #ef4444; }
+        pre {
+            background: #1a1a1a;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Voice & Vision Test</h1>
+    
+    <h2>🗣️ Voice Test</h2>
+    <button onclick="testVoice()">Test Kokoro Voice</button>
+    <div id="voiceStatus" class="status"></div>
+    
+    <h2>👁️ Vision Test</h2>
+    <input type="file" id="imageUpload" accept="image/*" onchange="testVision(this.files[0])">
+    <div id="visionStatus" class="status"></div>
+    
+    <h2>📊 Service Health</h2>
+    <button onclick="checkHealth()">Check All Services</button>
+    <div id="healthStatus" class="status"></div>
+    
+    <script>
+        async function testVoice() {
+            const statusDiv = document.getElementById('voiceStatus');
+            statusDiv.innerHTML = '🔄 Testing voice...';
+            
+            try {
+                const response = await fetch('http://localhost:8091/synthesize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        text: 'Hello! This is Athena speaking with Kokoro voice. Can you hear me?',
+                        voice: 'en_US-female',
+                        format: 'wav'
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('Voice response:', data);
+                
+                const audioData = data.audio_b64 || data.audio;
+                const audio = new Audio(`data:audio/wav;base64,${audioData}`);
+                
+                audio.onplay = () => {
+                    statusDiv.innerHTML = `<span class="success">✅ Voice playing! (${data.duration_ms}ms audio, ${data.sample_rate}Hz)</span>`;
+                };
+                
+                audio.onerror = (e) => {
+                    statusDiv.innerHTML = `<span class="error">❌ Audio playback failed: ${e.message}</span>`;
+                };
+                
+                await audio.play();
+                
+            } catch (error) {
+                statusDiv.innerHTML = `<span class="error">❌ Voice test failed: ${error.message}</span>`;
+                console.error('Voice test error:', error);
+            }
+        }
+        
+        async function testVision(file) {
+            const statusDiv = document.getElementById('visionStatus');
+            if (!file) return;
+            
+            statusDiv.innerHTML = '🔄 Analyzing image...';
+            
+            try {
+                const reader = new FileReader();
+                reader.onload = async (e) => {
+                    const base64 = e.target.result.split(',')[1];
+                    
+                    const response = await fetch('http://localhost:8094/vision/analyze', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            image_b64: base64,
+                            prompt: 'Describe this image in detail'
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    console.log('Vision response:', data);
+                    
+                    statusDiv.innerHTML = `
+                        <span class="success">✅ Vision analysis complete!</span>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                };
+                reader.readAsDataURL(file);
+                
+            } catch (error) {
+                statusDiv.innerHTML = `<span class="error">❌ Vision test failed: ${error.message}</span>`;
+                console.error('Vision test error:', error);
+            }
+        }
+        
+        async function checkHealth() {
+            const statusDiv = document.getElementById('healthStatus');
+            statusDiv.innerHTML = '🔄 Checking services...';
+            
+            const services = {
+                'Kokoro TTS (8091)': 'http://localhost:8091/health',
+                'Multimodal Chat (8094)': 'http://localhost:8094/health',
+                'Router (9113)': 'http://localhost:9113/health',
+                'RAG Gateway (8088)': 'http://localhost:8088/health'
+            };
+            
+            let html = '<table style="width:100%">';
+            html += '<tr><th>Service</th><th>Status</th></tr>';
+            
+            for (const [name, url] of Object.entries(services)) {
+                try {
+                    const response = await fetch(url);
+                    const status = response.ok ? '<span class="success">✅ HEALTHY</span>' : '<span class="error">❌ DOWN</span>';
+                    html += `<tr><td>${name}</td><td>${status}</td></tr>`;
+                } catch (error) {
+                    html += `<tr><td>${name}</td><td><span class="error">❌ ERROR</span></td></tr>`;
+                }
+            }
+            
+            html += '</table>';
+            statusDiv.innerHTML = html;
+        }
+        
+        // Auto-check health on load
+        window.addEventListener('DOMContentLoaded', checkHealth);
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+[0;34m================================================================================[0m
+[0;34mCONSTITUTIONAL AI FRAMEWORK - PRODUCTION VALIDATION SUITE[0m
+[0;34m================================================================================[0m
+[0;34m================================================================================[0m
+[0;34mDEPENDENCY CHECKS[0m
+[0;34m================================================================================[0m
+[0;32m[SUCCESS][0m psql found: psql (PostgreSQL) 14.19 (Homebrew)
+[0;32m[SUCCESS][0m Validation SQL file found
+[0;32m[SUCCESS][0m Alerts YAML file found
+[0;34m================================================================================[0m
+[0;34mPROMETHEUS ALERTS VALIDATION[0m
+[0;34m================================================================================[0m
+[1;33m[WARNING][0m yamllint not found - skipping YAML validation
+[0;32m[SUCCESS][0m All required safety alerts defined
+[0;34m================================================================================[0m
+[0;34mSQL VALIDATION SUITE EXECUTION[0m
+[0;34m================================================================================[0m
+[0;34m[INFO][0m Running comprehensive SQL validation suite...
+[0;34m[INFO][0m This may take 2-5 minutes depending on data volume...
+[0;31m[ERROR][0m SQL validation failed to execute
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: No such file or directory
+	Is the server running locally and accepting connections on that socket?

@@ -1,0 +1,18 @@
+# SearXNG Rate Limiter Configuration
+
+[botdetection.ip_limit]
+# Limit requests per IP
+link_token = true
+
+[botdetection.ip_limit.filter_link_local]
+# Allow local network access
+filter_link_local = false
+
+[botdetection.ip_limit.link_token]
+# Rate limits
+burst = 200
+long_max = 600       # Max 600 requests per long window
+long_window = 3600   # 1 hour
+short_max = 50       # Max 50 requests per short window
+short_window = 60    # 1 minute
+

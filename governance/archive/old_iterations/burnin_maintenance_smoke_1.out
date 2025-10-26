@@ -1,0 +1,4 @@
+Warning: athena_notifications not fully available: No module named 'athena_notifications'
+✅ PASS health_context: Location: home
+✅ PASS health_spike: Alerts: 0
+✅ PASS health_voice: Response length: 93

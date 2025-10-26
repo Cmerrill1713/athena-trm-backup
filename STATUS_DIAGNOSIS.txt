@@ -1,0 +1,58 @@
+═══════════════════════════════════════════════════════════════════════════════
+ DIAGNOSIS - Corpus Restore Issue
+═══════════════════════════════════════════════════════════════════════════════
+
+SITUATION:
+  - Filesystem: 5.7GB of data in volumes/weaviate_data/
+  - Weaviate logs: Cached 1,526,400 vectors (Docs class)
+  - Weaviate API: Only shows 1 object in Docs class
+  - DocsV2: Empty (0 objects)
+
+ISSUE:
+  Schema/data mismatch - Weaviate can't properly read the restored data
+  
+  Possible causes:
+    1. Weaviate version mismatch (old data, new Weaviate)
+    2. Schema changed (class names/properties don't match)
+    3. Vectorizer mismatch (data has vectors, schema expects different format)
+
+═══════════════════════════════════════════════════════════════════════════════
+ SOLUTION OPTIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+OPTION A: Use existing research papers from external drive
+  - You mentioned having research papers downloaded
+  - We can ingest those into DocsV2 properly
+  - Command: make papers-fetch && make papers-embed
+
+OPTION B: Fresh ingest (if you have source docs)
+  - If you have the original PDFs/docs
+  - Ingest fresh into DocsV2 with correct schema
+  - Command: python3 scripts/embed_docs_v2.py --input <docs-dir>
+
+OPTION C: Demo mode (small test corpus)
+  - Create tiny corpus just to prove the stack works
+  - Ingest README files from your repo
+  - Quick validation of AGI-RAG integration
+
+═══════════════════════════════════════════════════════════════════════════════
+ RECOMMENDED: OPTION C (Demo Mode - 5 minutes)
+═══════════════════════════════════════════════════════════════════════════════
+
+This proves the stack works end-to-end while you locate the proper corpus source.
+
+Commands ready to execute:
+  1. Create small test corpus
+  2. Ingest into DocsV2
+  3. Test KB search (should return hits)
+  4. Run ship-check
+  5. Deploy full when you have proper corpus
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Want me to:
+  A) Create demo corpus and prove the stack works
+  B) Help locate your original research papers
+  C) Something else
+
+═══════════════════════════════════════════════════════════════════════════════

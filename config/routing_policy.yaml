@@ -1,0 +1,131 @@
+# Routing Policy - Dynamic RAG + Model Pool
+# This config drives both RAG tier selection and model pool routing
+
+routing:
+  # Complexity-based routing
+  complexity:
+    low:
+      model: fast
+      rag_lanes: ["mini:8"]
+      max_context_chars: 1000
+      keep_alive_seconds: 300
+      description: "Simple facts, health checks, basic queries"
+
+    medium:
+      model: balanced
+      rag_lanes: ["mini:8", "base:12"]
+      max_context_chars: 3000
+      keep_alive_seconds: 180
+      description: "Technical questions, how-to queries, moderate complexity"
+
+    high:
+      model: precise
+      rag_lanes: ["mini:8", "base:16", "long:20"]
+      max_context_chars: 5000
+      keep_alive_seconds: 60
+      description: "Architecture analysis, complex reasoning, code generation"
+
+  # Conversation policies
+  sticky_conversation: escalate_only # Never downgrade mid-conversation
+  warm_on_deck_threshold: 0.35 # Predictively warm when P(next_model != active) > 0.35
+
+  # Model specifications
+  models:
+    fast:
+      ollama_model: "qwen2.5:0.5b"
+      vram_mb: 512
+      n_gpu_layers: -1 # All layers (model is tiny)
+      max_concurrent: 1
+
+    balanced:
+      ollama_model: "qwen2.5:7b"
+      vram_mb: 4096
+      n_gpu_layers: -1
+      max_concurrent: 1
+
+    precise:
+      ollama_model: "qwen2.5:14b"
+      vram_mb: 8192
+      n_gpu_layers: -1
+      max_concurrent: 1
+
+    code:
+      ollama_model: "qwen3-coder:30b"
+      vram_mb: 16384
+      n_gpu_layers: 30 # Partial offload for memory efficiency
+      max_concurrent: 1
+
+  # SLO targets (P95 end-to-end latency)
+  slo_targets:
+    simple_p95_ms: 800 # 80% of queries
+    medium_p95_ms: 1200 # 15% of queries
+    complex_p95_ms: 2000 # 5% of queries (warm)
+    complex_cold_p95_ms: 4000 # Cold start acceptable
+
+  # RAG reliability
+  rag:
+    seed_cadence: "commit_to_main" # Incremental seed on main branch commits
+    max_context_budget_pct: 25 # Max 25% of model context for RAG
+    semantic_dedup_threshold: 0.85 # Jaccard similarity threshold
+    fail_closed_second_pass: true # Run BM25 fallback if vector returns 0
+    min_confidence_for_skip: 0.6 # Below this, always run second pass
+
+# Guardrails
+guardrails:
+  max_queue_depth: 20 # Reject requests if queue > 20
+  swap_storm_threshold: 30 # Max swaps per 5 minutes
+  eviction_reasons:
+    - idle_timeout
+    - backpressure
+    - oom_prevention
+    - manual
+
+  # Backpressure policy
+  backpressure:
+    queue_depth_threshold: 15
+    action: evict_heavy_models # Evict precise/code, keep fast/balanced
+
+# Observability
+metrics:
+  export_port: 9092
+  buckets_ms: [10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000]
+
+  required_metrics:
+    - model_pool_hotswaps_total
+    - model_pool_active_seconds_total
+    - model_pool_first_token_latency_ms
+    - model_pool_warmup_latency_ms
+    - model_pool_queue_depth
+    - model_pool_evicts_total
+    - rag_queries_total
+    - rag_hits_total
+    - rag_context_chars_total
+    - rag_second_pass_total
+    - rag_latency_ms
+
+# Alerts (Prometheus AlertManager)
+alerts:
+  swap_storm:
+    condition: rate(model_pool_hotswaps_total[5m]) > 30
+    severity: warning
+    description: "Model pool swap storm detected"
+
+  cold_start_latency:
+    condition: histogram_quantile(0.95, sum(rate(model_pool_first_token_latency_ms_bucket{warm_state="cold"}[5m])) by (le)) > 1500
+    severity: info
+    description: "Cold start latency high"
+
+  queue_backpressure:
+    condition: max_over_time(model_pool_queue_depth[2m]) > 20
+    severity: critical
+    description: "Queue backpressure - auto-shedding heavy models"
+
+  rag_zero_hits:
+    condition: increase(rag_queries_total{outcome="ok"}[10m]) > 50 and increase(rag_hits_total[10m]) == 0
+    severity: warning
+    description: "RAG returning zero hits despite queries"
+
+  rag_latency_spike:
+    condition: histogram_quantile(0.95, sum(rate(rag_latency_ms_bucket[5m])) by (le)) > 500
+    severity: warning
+    description: "RAG latency spike"

@@ -122,3 +122,33 @@ fastvlm/ml-fastvlm/
 external/
 A2A/
 TinyRecursiveModels/
+
+# Large binary files and archives
+*.dylib
+*.tar
+*.tar.gz
+*.zip
+*.dmg
+*.iso
+
+# Large state/data files
+.rag_seed_state.json
+.dynamic_rag_seed_state.json
+**/UITestArtifacts*.zip
+
+# Docker images and large artifacts
+*.dockerimage
+postgres_*.tar
+grafana_*.tar
+prom_*.tar
+policy_compiler_dump.*
+
+
+# Archive and evaluation artifacts
+governance/judicial/evaluation/*.tar
+governance/judicial/evaluation/*.zip
+governance/executive/orchestration/*.tar
+archive/**/*.tar.gz
+archive/**/*.tar
+archive/**/*.zip
+

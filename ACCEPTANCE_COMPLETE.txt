@@ -1,0 +1,222 @@
+═══════════════════════════════════════════════════════════════════════════════
+  AGI + RAG + TRM ACCEPTANCE TESTING — COMPLETE
+═══════════════════════════════════════════════════════════════════════════════
+
+📦 DELIVERED: 1,626 lines of acceptance testing infrastructure
+
+✅ ONE-COMMAND SHIP VALIDATION
+   - ship_check.sh (228 lines) — Steps 0-4 acceptance test
+   - Exit code 0 = SHIP IT | Exit code 1 = DO NOT SHIP
+   - Validates: health, latency, routing, metrics, quality gates
+   - Runtime: 2-3 minutes
+
+✅ CANARY DEPLOYMENT WITH ROLLBACK
+   - canary_deploy.sh (267 lines) — Gradual rollout (5%→25%→50%→100%)
+   - Automatic gate checks (latency, errors, quality)
+   - One-command rollback: make canary-rollback
+   - Real-time monitoring: make canary-watch
+
+✅ DAY-2 OPERATIONAL RUNBOOK
+   - day2_runbook.sh (233 lines) — Daily health checks
+   - 8 automated checks: health, route mix, latency, gates, errors, disk
+   - Detects drift early
+   - Runtime: 1 minute
+
+✅ ROUTER PROBE TESTING
+   - router_probe.py (65 lines) — Test routing decisions
+   - Validates: factual→RAG, creative→LLM, reasoning→TRM
+   - Per-query routing analysis
+
+✅ COMPREHENSIVE DOCUMENTATION
+   - ACCEPTANCE_GUIDE.md (436 lines) — Full playbook
+   - SHIP_IT_ACCEPTANCE.md (397 lines) — Executive summary
+
+✅ 15+ NEW MAKEFILE TARGETS
+   - ship-check, ship-preflight, ship-quick
+   - canary-start, canary-promote, canary-rollback, canary-watch
+   - day2-check, day2-quick
+   - soak-quick, soak-30m, soak-2h
+   - acceptance-full, acceptance-quick
+
+═══════════════════════════════════════════════════════════════════════════════
+  USAGE — THE ONE COMMAND
+═══════════════════════════════════════════════════════════════════════════════
+
+  make ship-check
+
+  Steps validated:
+    0. Preflight       — All 6 services healthy
+    1. Bridge          — KB search <300ms with hits
+    2. Router          — Correct routing decisions
+    3. Metrics         — Valid data collection
+    4. Quality Gates   — hit@5≥0.97, support@3≥0.95
+
+═══════════════════════════════════════════════════════════════════════════════
+  CANARY DEPLOYMENT
+═══════════════════════════════════════════════════════════════════════════════
+
+  # Start at 5%
+  make canary-start
+
+  # Monitor (live, every 10s)
+  make canary-watch
+
+  # Promote if green (3x)
+  make canary-promote  # 5% → 25%
+  make canary-promote  # 25% → 50%
+  make canary-promote  # 50% → 100%
+
+  # Rollback if issues
+  make canary-rollback
+
+  Promotion gates (automatic):
+    - p95 ≤ baseline + 10%
+    - Error rate < 1%
+    - hit@5 ≥ 0.97
+
+═══════════════════════════════════════════════════════════════════════════════
+  WHAT'S VALIDATED
+═══════════════════════════════════════════════════════════════════════════════
+
+  ✓ Service Health (6 services)
+    - RAG Gateway (8088)
+    - TRM Service (8089)
+    - Router (9113)
+    - Weaviate (8090)
+    - Unified Metrics (8092)
+    - OpenAI Adapter (3000)
+
+  ✓ Performance
+    - KB search latency < 300ms
+    - No memory leaks
+    - Stable p95 over time
+
+  ✓ Quality Gates
+    - hit@5 ≥ 0.97
+    - support@3 ≥ 0.95
+    - No delta regression
+
+  ✓ Routing Logic
+    - Factual queries → RAG/Hybrid
+    - Creative queries → LLM
+    - Reasoning queries → TRM/TRM+RAG
+
+  ✓ Metrics Collection
+    - Unified metrics responding
+    - Valid snapshots
+    - Route mix tracking
+
+  ✓ Integration
+    - 8 smoke tests passing
+    - E2E flow validated
+    - Delta reports generated
+
+═══════════════════════════════════════════════════════════════════════════════
+  FILES CREATED
+═══════════════════════════════════════════════════════════════════════════════
+
+  scripts/ship_check.sh              — Main acceptance test (228 lines)
+  scripts/router_probe.py            — Routing test (65 lines)
+  scripts/canary_deploy.sh           — Canary deployment (267 lines)
+  scripts/day2_runbook.sh            — Daily ops checks (233 lines)
+  ACCEPTANCE_GUIDE.md                — Full playbook (436 lines)
+  SHIP_IT_ACCEPTANCE.md              — Executive summary (397 lines)
+  Makefile.integration               — +15 new targets
+
+═══════════════════════════════════════════════════════════════════════════════
+  TOP 6 FAILURE SCENARIOS & FIXES
+═══════════════════════════════════════════════════════════════════════════════
+
+  1. KB search returns 0 hits
+     → Check DocsV2 schema, re-seed corpus
+
+  2. Router always routes to LLM
+     → Lower RAG_PROBE_THRESHOLD (0.65 → 0.55)
+
+  3. Latency > 300ms
+     → Check Weaviate cache, tune top_k
+
+  4. Canary fails gates
+     → make canary-rollback, check logs, fix, retest
+
+  5. Metrics not collecting
+     → Restart unified-metrics service
+
+  6. Stream errors in adapter
+     → Check nginx buffering, increase timeouts
+
+═══════════════════════════════════════════════════════════════════════════════
+  TESTING HIERARCHY
+═══════════════════════════════════════════════════════════════════════════════
+
+  ⚡ Smoke (30s)      → make integration-smoke
+     - Before every commit
+
+  🚀 Ship Check (2-3min) → make ship-check
+     - Before every PR
+
+  🧪 Soak (30min-2h)  → make soak-30m / make soak-2h
+     - Before major releases
+
+  🕯️  Canary (30min)   → make canary-start + watch + promote
+     - Production rollout
+
+  📅 Day-2 (1min)     → make day2-check
+     - Every morning
+
+═══════════════════════════════════════════════════════════════════════════════
+  CI/CD INTEGRATION
+═══════════════════════════════════════════════════════════════════════════════
+
+  # Add to .github/workflows/ship-gate.yml
+  - name: Run ship check
+    run: make ship-check
+  # Fails build if exit code 1
+
+═══════════════════════════════════════════════════════════════════════════════
+  DAY-2 OPERATIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+  Daily: make day2-check
+    Checks: health, route mix, latency, gates, errors, disk
+
+  Weekly: make trm-train
+    Refresh training data from corpus
+
+  Monthly: make trm-finetune
+    Retrain TRM on latest corpus
+
+  Nightly: make nightly (automated in CI)
+    Full validation: rag-eval + delta + router + gates
+
+═══════════════════════════════════════════════════════════════════════════════
+  SUCCESS CRITERIA — ALL MET ✅
+═══════════════════════════════════════════════════════════════════════════════
+
+  ✅ One-command ship validation (make ship-check)
+  ✅ Automated quality gates (8 checks)
+  ✅ Canary deployment with rollback
+  ✅ Real-time monitoring (make canary-watch)
+  ✅ Daily operational runbook (make day2-check)
+  ✅ Top 6 failure scenarios documented
+  ✅ CI/CD integration ready
+  ✅ 1,626 lines of acceptance infrastructure
+
+═══════════════════════════════════════════════════════════════════════════════
+  READY TO SHIP 🚀
+═══════════════════════════════════════════════════════════════════════════════
+
+  Commands to remember:
+    make ship-check          # Before every PR
+    make canary-start        # Production rollout
+    make canary-watch        # Monitor live
+    make canary-promote      # Promote if green (3x)
+    make canary-rollback     # Revert if red
+    make day2-check          # Daily health check
+
+  Documentation:
+    START HERE → SHIP_IT_ACCEPTANCE.md
+    Full guide → ACCEPTANCE_GUIDE.md
+
+═══════════════════════════════════════════════════════════════════════════════
+

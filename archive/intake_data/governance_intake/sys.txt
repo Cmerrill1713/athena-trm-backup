@@ -1,0 +1,148 @@
+=== SYSTEM ===
+ProductName:		macOS
+ProductVersion:		15.7.1
+BuildVersion:		24G231
+Apple M2 Ultra
+Hardware:
+
+    Hardware Overview:
+
+      Model Name: Mac Studio
+      Model Identifier: Mac14,14
+      Model Number: FQH63LL/A
+      Chip: Apple M2 Ultra
+      Total Number of Cores: 24 (16 performance and 8 efficiency)
+      Memory: 64 GB
+      System Firmware Version: 13822.1.2
+      OS Loader Version: 11881.140.96
+      Serial Number (system): C962H43Q15
+      Hardware UUID: 1A5599AA-C0A4-5FC1-A844-0655883CFF3C
+      Provisioning UDID: 00006022-000241020C44A01E
+      Activation Lock Status: Enabled
+
+Graphics/Displays:
+
+    Apple M2 Ultra:
+
+      Chipset Model: Apple M2 Ultra
+      Type: GPU
+      Bus: Built-In
+      Total Number of Cores: 60
+      Vendor: Apple (0x106b)
+      Metal Support: Metal 3
+      Displays:
+        S34CG50:
+          Resolution: 3440 x 1440 (UWQHD - Ultra-Wide Quad HD)
+          UI Looks like: 3440 x 1440 @ 100.00Hz
+          Main Display: Yes
+          Mirror: Off
+          Online: Yes
+          Rotation: Supported
+
+=== DISK ===
+Filesystem        Size    Used   Avail Capacity iused ifree %iused  Mounted on
+/dev/disk3s1s1   926Gi    10Gi   240Gi     5%    426k  2.5G    0%   /
+devfs            238Ki   238Ki     0Bi   100%     824     0  100%   /dev
+/dev/disk3s6     926Gi   2.0Gi   240Gi     1%       2  2.5G    0%   /System/Volumes/VM
+/dev/disk3s2     926Gi   6.9Gi   240Gi     3%    1.3k  2.5G    0%   /System/Volumes/Preboot
+/dev/disk3s4     926Gi   2.0Mi   240Gi     1%      58  2.5G    0%   /System/Volumes/Update
+/dev/disk1s2     500Mi   6.0Mi   483Mi     2%       1  4.9M    0%   /System/Volumes/xarts
+/dev/disk1s1     500Mi   5.6Mi   483Mi     2%      30  4.9M    0%   /System/Volumes/iSCPreboot
+/dev/disk1s3     500Mi   588Ki   483Mi     1%      62  4.9M    0%   /System/Volumes/Hardware
+/dev/disk3s5     926Gi   666Gi   240Gi    74%    4.3M  2.5G    0%   /System/Volumes/Data
+map auto_home      0Bi     0Bi     0Bi   100%       0     0     -   /System/Volumes/Data/home
+/dev/disk7s1     466Gi    28Gi   438Gi     6%    319k  4.6G    0%   /Volumes/Untitled
+/dev/disk5s1     8.0Gi   7.8Gi   252Mi    97%    290k  2.6M   10%   /Library/Developer/CoreSimulator/Volumes/watchOS_23R5346a
+/dev/disk9s1     8.5Gi   8.2Gi   251Mi    98%      13  2.6M    0%   /Library/Developer/CoreSimulator/Cryptex/Images/bundle/SimRuntimeBundle-301AA8C8-FC2D-4BC1-A9D4-F418FAACAE3B
+/dev/disk11s1     19Gi    19Gi   495Mi    98%    557k  5.1M   10%   /Library/Developer/CoreSimulator/Volumes/iOS_22E238
+/dev/disk13s1     16Gi    15Gi   423Mi    98%    594k  4.3M   12%   /Library/Developer/CoreSimulator/Volumes/iOS_23A5326a
+/dev/disk15s1    8.5Gi   8.2Gi   252Mi    98%      13  2.6M    0%   /Library/Developer/CoreSimulator/Cryptex/Images/bundle/SimRuntimeBundle-97F0EBED-438B-47DD-B6A4-D9D0E6BF986C
+/dev/disk17s1     19Gi    19Gi   495Mi    98%    559k  5.1M   10%   /Library/Developer/CoreSimulator/Volumes/iOS_22G86
+=== TOP PORTS ===
+ARDAgent *:3283
+com.docke *:3001
+com.docke *:8412
+com.docke *:9090
+com.docke *:9093
+com.docke 127.0.0.1:19999
+com.docke 127.0.0.1:50051
+com.docke 127.0.0.1:5432
+com.docke 127.0.0.1:6379
+com.docke 127.0.0.1:8014
+com.docke 127.0.0.1:8081
+com.docke 127.0.0.1:8088
+com.docke 127.0.0.1:8089
+com.docke 127.0.0.1:8090
+com.docke 127.0.0.1:8091
+com.docke 127.0.0.1:8888
+com.docke 127.0.0.1:9100
+com.docke 127.0.0.1:9121
+com.docke 127.0.0.1:9187
+COMMAND NAME
+ControlCe *:5000
+ControlCe *:7000
+node [::1]:9323
+ollama *:11434
+Ollama 127.0.0.1:49153
+Python *:8085
+Python *:9876
+rapportd *:49152
+=== DOCKER ===
+CONTAINER ID   IMAGE                                             COMMAND                  CREATED        STATUS                  PORTS                                                  NAMES
+55e8bca7e306   universal-ai-tools-mcp-ecosystem                  "python3 /mcp/start_…"   17 hours ago   Up 17 hours (healthy)   0.0.0.0:8412->8412/tcp, [::]:8412->8412/tcp            mcp-ecosystem
+9a192b10b49e   universal-ai-tools-python-api:latest              "python -m uvicorn a…"   17 hours ago   Up 17 hours (healthy)   127.0.0.1:8888->8000/tcp                               athena-api
+a71e90a95b70   agi-system/ai-tools/knowledge-sync:latest         "./main"                 17 hours ago   Up 17 hours             127.0.0.1:8089->8080/tcp                               athena-knowledge-sync
+bd9267ae534e   agi-system/ai-tools/knowledge-context:latest      "./main"                 17 hours ago   Up 17 hours             127.0.0.1:8091->8080/tcp                               athena-knowledge-context
+4983c1db5e93   agi-system/ai-tools/knowledge-gateway:latest      "./main"                 17 hours ago   Up 17 hours             127.0.0.1:8088->8080/tcp                               athena-knowledge-gateway
+6216e7d9a155   searxng/searxng:latest                            "/usr/local/searxng/…"   17 hours ago   Up 17 hours             127.0.0.1:8081->8080/tcp                               athena-searxng
+b1f851724be6   netdata/netdata:latest                            "/usr/sbin/run.sh"       17 hours ago   Up 17 hours (healthy)   127.0.0.1:19999->19999/tcp                             athena-netdata
+c76cb892c5d2   oliver006/redis_exporter:latest                   "/redis_exporter"        17 hours ago   Up 17 hours             127.0.0.1:9121->9121/tcp                               athena-redis-exporter
+1c9dc172919a   prometheuscommunity/postgres-exporter:latest      "/bin/postgres_expor…"   17 hours ago   Up 17 hours             127.0.0.1:9187->9187/tcp                               athena-postgres-exporter
+68c5cc02c4ed   prom/node-exporter:latest                         "/bin/node_exporter …"   17 hours ago   Up 17 hours             127.0.0.1:9100->9100/tcp                               athena-node-exporter
+5ec8f20572ae   unified-docker-platform-evolutionary-api:latest   "python src/api/api_…"   17 hours ago   Up 17 hours (healthy)   127.0.0.1:8014->8004/tcp                               athena-evolutionary
+39820e37b5ba   postgres:15-alpine                                "docker-entrypoint.s…"   17 hours ago   Up 17 hours (healthy)   127.0.0.1:5432->5432/tcp                               athena-postgres
+089152da398c   redis:7-alpine                                    "docker-entrypoint.s…"   17 hours ago   Up 17 hours (healthy)   127.0.0.1:6379->6379/tcp                               athena-redis
+c868593c3a0c   semitechnologies/weaviate:1.21.0                  "/bin/weaviate --hos…"   17 hours ago   Up 17 hours             127.0.0.1:50051->50051/tcp, 127.0.0.1:8090->8080/tcp   athena-weaviate
+95e7a100bdd0   prom/alertmanager                                 "/bin/alertmanager -…"   17 hours ago   Up 17 hours             0.0.0.0:9093->9093/tcp, [::]:9093->9093/tcp            alertmanager
+99c032a47862   grafana/grafana                                   "/run.sh"                17 hours ago   Up 17 hours             0.0.0.0:3001->3000/tcp, [::]:3001->3000/tcp            grafana
+edf39ad90429   prom/prometheus                                   "/bin/prometheus --c…"   17 hours ago   Up 17 hours             0.0.0.0:9090->9090/tcp, [::]:9090->9090/tcp            prometheus
+=== HOMEBREW SERVICES ===
+Name          Status User File
+black         none                 
+nginx         none                 
+postgresql@14 none                 
+postgresql@15 none                 
+redis         none                 
+unbound       none                 
+=== REDIS ===
+# Server
+redis_version:7.4.5
+redis_git_sha1:00000000
+redis_git_dirty:0
+redis_build_id:921351e8a62ba254
+redis_mode:standalone
+os:Linux 6.10.14-linuxkit aarch64
+arch_bits:64
+monotonic_clock:POSIX clock_gettime
+multiplexing_api:epoll
+atomicvar_api:c11-builtin
+gcc_version:14.2.0
+process_id:1
+process_supervised:no
+run_id:dc29e944303a9d712fb4a63aedfd5e2dfc66c2b4
+tcp_port:6379
+server_time_usec:1760484943595421
+uptime_in_seconds:60130
+uptime_in_days:0
+hz:10
+configured_hz:10
+lru_clock:15654479
+executable:/data/redis-server
+config_file:
+io_threads_active:0
+listener0:name=tcp,bind=*,bind=-::*,port=6379
+=== POSTGRES ===
+=== GIT ===
+/Users/christianmerrill/Documents/GitHub
+feature/v1.0.3-morph-cleanup
+6a3e6376 docs: add session complete and day-zero actions

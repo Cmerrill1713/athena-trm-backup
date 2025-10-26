@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Athena Multimodal">
+    <meta name="theme-color" content="#4a9eff">
+    <title>Athena RAG — Multimodal Chat</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0f0f0f;
+            --surface: #1a1a1a;
+            --border: #333;
+            --text: #e8e8e8;
+            --text-dim: #888;
+            --primary: #4a9eff;
+            --primary-hover: #6bb0ff;
+            --user-bg: #2a4a7c;
+            --assistant-bg: #1a3a1a;
+            --code-bg: #2d2d2d;
+            --voice-bg: #3a2a4a;
+            --vision-bg: #2a4a3a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            color: var(--text-dim);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+        }
+
+        .status-dot.disconnected {
+            background: #ef4444;
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .message {
+            display: flex;
+            gap: 1rem;
+            max-width: 800px;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message.assistant {
+            align-self: flex-start;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .message.user .avatar {
+            background: var(--user-bg);
+            color: white;
+        }
+
+        .message.assistant .avatar {
+            background: var(--assistant-bg);
+            color: #90EE90;
+        }
+
+        .message-content {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1rem 1.25rem;
+            max-width: 600px;
+            word-wrap: break-word;
+        }
+
+        .message.user .message-content {
+            background: var(--user-bg);
+            border-color: #4a7c9a;
+        }
+
+        .message.assistant .message-content {
+            background: var(--assistant-bg);
+            border-color: #4a7a4a;
+        }
+
+        .message-text {
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-meta {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .action-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .input-area {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 1.5rem;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-end;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .message-input {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            resize: none;
+            min-height: 48px;
+            max-height: 120px;
+            font-family: inherit;
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .input-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .multimodal-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 48px;
+            height: 48px;
+        }
+
+        .multimodal-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .multimodal-btn.recording {
+            background: #ef4444;
+            border-color: #ef4444;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .send-btn {
+            background: var(--primary);
+            border: 1px solid var(--primary);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            height: 48px;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            background: var(--primary-hover);
+            border-color: var(--primary-hover);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .audio-player {
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dim);
+            font-style: italic;
+            margin: 0.5rem 0;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--text-dim);
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { opacity: 0.3; }
+            40% { opacity: 1; }
+        }
+
+        .error-message {
+            background: #7f1d1d;
+            border: 1px solid #dc2626;
+            color: #fca5a5;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .chat-container {
+                padding: 1rem;
+            }
+            
+            .input-area {
+                padding: 1rem;
+            }
+            
+            .message {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>
+            🎭 Athena RAG — Multimodal Chat
+        </h1>
+        <div class="status">
+            <div class="status-indicator">
+                <div class="status-dot" id="chatStatus"></div>
+                <span>Chat</span>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot" id="voiceStatus"></div>
+                <span>Voice</span>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot" id="visionStatus"></div>
+                <span>Vision</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="chat-container" id="chatContainer">
+        <div class="message assistant">
+            <div class="avatar">🤖</div>
+            <div class="message-content">
+                <div class="message-text">
+                    Hello! I'm Athena with full multimodal capabilities! I can:
+                    <br><br>
+                    🗣️ <strong>Voice:</strong> Speak responses using Kokoro-82M TTS<br>
+                    👁️ <strong>Vision:</strong> Analyze images using FastVLM<br>
+                    🧠 <strong>Intelligence:</strong> Smart routing across 0.5B to 30B models<br>
+                    📚 <strong>Knowledge:</strong> Search through 42 documents<br>
+                    <br>
+                    Try uploading an image, asking me to speak, or just chat normally!
+                </div>
+                <div class="message-meta">
+                    <span>Athena Multimodal</span>
+                    <span>Ready</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="input-area">
+        <div class="input-container">
+            <div class="input-wrapper">
+                <textarea 
+                    id="messageInput" 
+                    class="message-input" 
+                    placeholder="Ask me anything... (supports voice input and image upload)"
+                    rows="1"
+                ></textarea>
+                <input type="file" id="imageInput" class="file-input" accept="image/*">
+            </div>
+            <div class="input-actions">
+                <button id="voiceBtn" class="multimodal-btn" title="Voice Input">
+                    🎤
+                </button>
+                <button id="imageBtn" class="multimodal-btn" title="Upload Image">
+                    📷
+                </button>
+                <button id="sendBtn" class="send-btn">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const BASE_URL = 'http://localhost:8094';
+        let isRecording = false;
+        let mediaRecorder = null;
+        let audioChunks = [];
+
+        // DOM elements
+        const chatContainer = document.getElementById('chatContainer');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const voiceBtn = document.getElementById('voiceBtn');
+        const imageBtn = document.getElementById('imageBtn');
+        const imageInput = document.getElementById('imageInput');
+        const chatStatus = document.getElementById('chatStatus');
+        const voiceStatus = document.getElementById('voiceStatus');
+        const visionStatus = document.getElementById('visionStatus');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkServices();
+            setupEventListeners();
+            autoResizeTextarea();
+        });
+
+        // Service health checks
+        async function checkServices() {
+            // Check chat service
+            try {
+                const response = await fetch(`${BASE_URL}/health`);
+                const data = await response.json();
+                chatStatus.classList.toggle('disconnected', !response.ok);
+                console.log('Chat service:', data);
+            } catch (error) {
+                chatStatus.classList.add('disconnected');
+                console.error('Chat service check failed:', error);
+            }
+
+            // Check voice service (direct Kokoro endpoint)
+            try {
+                const response = await fetch('http://localhost:8091/health');
+                const data = await response.json();
+                const kokoroReady = data.status === 'healthy' && data.model_loaded;
+                voiceStatus.classList.toggle('disconnected', !kokoroReady);
+                console.log('Voice service:', kokoroReady ? '✅' : '❌', data);
+            } catch (error) {
+                voiceStatus.classList.add('disconnected');
+                console.error('Voice check failed:', error);
+            }
+
+            // Check vision service (via multimodal chat health)
+            try {
+                const response = await fetch(`${BASE_URL}/health`);
+                const data = await response.json();
+                // Vision is ready if multimodal service is healthy
+                const visionReady = data.status === 'healthy';
+                visionStatus.classList.toggle('disconnected', !visionReady);
+                console.log('Vision service:', visionReady ? '✅' : '❌');
+            } catch (error) {
+                visionStatus.classList.add('disconnected');
+                console.error('Vision check failed:', error);
+            }
+        }
+
+        // Event listeners
+        function setupEventListeners() {
+            sendBtn.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            voiceBtn.addEventListener('click', toggleVoiceRecording);
+            imageBtn.addEventListener('click', () => imageInput.click());
+            imageInput.addEventListener('change', handleImageUpload);
+
+            // Auto-resize textarea
+            messageInput.addEventListener('input', autoResizeTextarea);
+        }
+
+        function autoResizeTextarea() {
+            messageInput.style.height = 'auto';
+            messageInput.style.height = Math.min(messageInput.scrollHeight, 120) + 'px';
+        }
+
+        // Voice recording
+        async function toggleVoiceRecording() {
+            if (isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        }
+
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    await processVoiceInput(audioBlob);
+                    stream.getTracks().forEach(track => track.stop());
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                voiceBtn.classList.add('recording');
+                voiceBtn.title = 'Stop Recording';
+
+            } catch (error) {
+                console.error('Voice recording failed:', error);
+                addErrorMessage('Voice recording not available. Please check microphone permissions.');
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+                voiceBtn.classList.remove('recording');
+                voiceBtn.title = 'Voice Input';
+            }
+        }
+
+        async function processVoiceInput(audioBlob) {
+            // For now, just show a placeholder
+            // In a real implementation, you'd send the audio to a speech-to-text service
+            addMessage('user', '🎤 [Voice message - transcription would go here]');
+            messageInput.value = 'Voice input detected - please type your message for now.';
+            sendBtn.focus();
+        }
+
+        // Image handling
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imageData = e.target.result;
+                    sendImageMessage(imageData, file.name);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        async function sendImageMessage(imageData, filename) {
+            const formData = new FormData();
+            formData.append('image', imageData);
+            formData.append('message', 'What do you see in this image?');
+
+            try {
+                const response = await fetch(`${BASE_URL}/chat/vision`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                // Show image in chat
+                addMessage('user', `📷 Uploaded: ${filename}`, imageData);
+                
+                // Show Athena's response
+                addMessage('assistant', data.conversational_response, null, data.vision_analysis);
+                
+            } catch (error) {
+                console.error('Image analysis failed:', error);
+                addErrorMessage('Image analysis failed. Please try again.');
+            }
+        }
+
+        // Chat functionality
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage('user', message);
+            messageInput.value = '';
+            autoResizeTextarea();
+
+            // Disable input while processing
+            setInputDisabled(true);
+
+            try {
+                const response = await fetch(`${BASE_URL}/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        session_id: 'multimodal',
+                        use_router: true
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                // Add Athena's response
+                addMessage('assistant', data.reply, null, null, data.audio_b64);
+                
+            } catch (error) {
+                console.error('Chat failed:', error);
+                addErrorMessage('Failed to get response from Athena. Please try again.');
+            } finally {
+                setInputDisabled(false);
+            }
+        }
+
+        function addMessage(role, content, imageData = null, visionData = null, audioData = null) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            
+            const avatar = role === 'user' ? '👤' : '🤖';
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            
+            // Message text
+            const textDiv = document.createElement('div');
+            textDiv.className = 'message-text';
+            textDiv.textContent = content;
+            messageContent.appendChild(textDiv);
+            
+            // Image preview
+            if (imageData) {
+                const img = document.createElement('img');
+                img.src = imageData;
+                img.className = 'image-preview';
+                messageContent.appendChild(img);
+            }
+            
+            // Vision analysis
+            if (visionData) {
+                const visionDiv = document.createElement('div');
+                visionDiv.style.cssText = 'background: var(--vision-bg); padding: 0.5rem; border-radius: 0.375rem; margin-top: 0.5rem; font-size: 0.875rem;';
+                visionDiv.innerHTML = `
+                    <strong>👁️ Vision Analysis:</strong><br>
+                    ${visionData.caption || 'Analysis available'}
+                `;
+                messageContent.appendChild(visionDiv);
+            }
+            
+            // Audio player
+            if (audioData) {
+                const audio = document.createElement('audio');
+                audio.src = `data:audio/wav;base64,${audioData}`;
+                audio.controls = true;
+                audio.className = 'audio-player';
+                messageContent.appendChild(audio);
+            }
+            
+            // Message meta
+            const metaDiv = document.createElement('div');
+            metaDiv.className = 'message-meta';
+            metaDiv.innerHTML = `
+                <span>${role === 'user' ? 'You' : 'Athena Multimodal'}</span>
+                <span>${new Date().toLocaleTimeString()}</span>
+            `;
+            messageContent.appendChild(metaDiv);
+            
+            // Message actions
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'message-actions';
+            actionsDiv.innerHTML = `
+                <button class="action-btn" onclick="copyToClipboard('${content.replace(/'/g, "\\'")}')">Copy</button>
+                ${role === 'assistant' ? `<button class="action-btn" onclick="speakText('${content.replace(/'/g, "\\'")}')">Speak</button>` : ''}
+            `;
+            messageContent.appendChild(actionsDiv);
+            
+            messageDiv.innerHTML = `
+                <div class="avatar">${avatar}</div>
+            `;
+            messageDiv.appendChild(messageContent);
+            
+            chatContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function addErrorMessage(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            chatContainer.appendChild(errorDiv);
+            scrollToBottom();
+        }
+
+        function setInputDisabled(disabled) {
+            messageInput.disabled = disabled;
+            sendBtn.disabled = disabled;
+            voiceBtn.disabled = disabled;
+            imageBtn.disabled = disabled;
+            
+            if (disabled) {
+                sendBtn.textContent = 'Thinking...';
+            } else {
+                sendBtn.textContent = 'Send';
+            }
+        }
+
+        function scrollToBottom() {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Utility functions
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                console.log('Copied to clipboard');
+            });
+        }
+
+        async function speakText(text) {
+            console.log('🗣️ Speaking:', text.substring(0, 50));
+            try {
+                // Use direct Kokoro endpoint (verified working!)
+                const response = await fetch('http://localhost:8091/synthesize', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        voice: 'en_US-female',
+                        format: 'wav'
+                    })
+                });
+
+                console.log('TTS response status:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('TTS data keys:', Object.keys(data));
+                    
+                    // Handle both 'audio' and 'audio_b64' keys
+                    const audioData = data.audio_b64 || data.audio;
+                    if (!audioData) {
+                        throw new Error('No audio data in response');
+                    }
+                    
+                    const audio = new Audio(`data:audio/wav;base64,${audioData}`);
+                    audio.onplay = () => console.log('✅ Audio playing!');
+                    audio.onerror = (e) => console.error('Audio playback error:', e);
+                    await audio.play();
+                    console.log('✅ Kokoro voice synthesis successful!');
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`TTS returned ${response.status}: ${errorText}`);
+                }
+            } catch (error) {
+                console.error('❌ TTS failed:', error);
+                alert(`Voice synthesis failed: ${error.message}. Check console for details.`);
+                // Fallback to browser TTS
+                const utterance = new SpeechSynthesisUtterance(text);
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Periodic service checks
+        setInterval(checkServices, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+# End-to-End Testing Makefile
+# ============================
+
+# Complete E2E test (Frontend → Adapter → Backend → Weaviate)
+e2e:
+	@echo "🧪 Running End-to-End Tests..."
+	@bash scripts/e2e_frontend_backend.sh
+
+# E2E with full stack startup
+e2e-full:
+	@echo "🚀 Starting full stack..."
+	@docker-compose -f docker-compose.full-stack.yml up -d
+	@echo "⏳ Waiting 30s for services to be healthy..."
+	@sleep 30
+	@make e2e
+
+# E2E with load test
+e2e-load:
+	@make e2e
+	@echo ""
+	@echo "🔥 Running load test (5 min, 20 VUs)..."
+	@k6 run k6-rag.js || echo "⚠️  k6 not installed - skipping load test"
+
+# Quick smoke test (just adapter, no RAG eval)
+e2e-quick:
+	@bash -c 'cd services/openai-compat && ./smoke-test.sh'
+
+# CI-friendly (non-interactive, strict)
+e2e-ci:
+	@echo "🤖 CI Mode: Strict validation with hard gates"
+	@STRICT_MODE=1 bash scripts/e2e_frontend_backend.sh
+
+# Cleanup
+e2e-clean:
+	@echo "🧹 Cleaning up E2E test artifacts..."
+	@docker-compose -f docker-compose.full-stack.yml down -v
+	@rm -rf artifacts/e2e_* summary.json
+
+# Help
+e2e-help:
+	@echo "🎯 End-to-End Test Targets:"
+	@echo "  e2e          - Run full E2E test suite"
+	@echo "  e2e-full     - Start stack + run E2E"
+	@echo "  e2e-load     - E2E + k6 load test"
+	@echo "  e2e-quick    - Quick smoke test only"
+	@echo "  e2e-ci       - CI mode (strict gates)"
+	@echo "  e2e-clean    - Cleanup test artifacts"
+	@echo ""
+	@echo "📋 Test Gates:"
+	@echo "  1. Adapter health check"
+	@echo "  2. Models endpoint (/v1/models)"
+	@echo "  3. Non-streaming completion"
+	@echo "  4. Streaming completion (SSE)"
+	@echo "  5. Model routing (3 models)"
+	@echo "  6. RAG evaluation gates"
+	@echo "  7. BM25 vs Semantic delta"
+	@echo "  8. Adapter smoke tests"
+	@echo "  9. Open WebUI reachability"
+	@echo "  10. Metrics endpoint"
+	@echo ""
+	@echo "Usage:"
+	@echo "  make e2e"
+	@echo "  make e2e-full"
+	@echo "  make e2e-load"
+

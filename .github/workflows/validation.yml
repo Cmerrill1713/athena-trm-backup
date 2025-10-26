@@ -1,0 +1,55 @@
+name: Prod Validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      env_stage: { description: "Stage/Env", default: "prod", required: true }
+      shadow_minutes:
+        { description: "Shadow duration (min)", default: "120", required: true }
+      canary_minutes:
+        {
+          description: "Per-step canary duration (min)",
+          default: "30",
+          required: true,
+        }
+      chaos: { description: "Run chaos test", default: "false", required: true }
+  schedule:
+    - cron: "0 9 * * 1-5" # 09:00 UTC weekdays (adjust)
+
+concurrency:
+  group: prod-validation
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      ENV_STAGE: ${{ github.event.inputs.env_stage || 'prod' }}
+      SHADOW_DURATION_MIN: ${{ github.event.inputs.shadow_minutes || '120' }}
+      CANARY_DURATION_MIN: ${{ github.event.inputs.canary_minutes || '30' }}
+      CHAOS: ${{ github.event.inputs.chaos || 'false' }}
+      # Add any tokens/urls your make targets expect:
+      # GRAFANA_API_TOKEN: ${{ secrets.GRAFANA_API_TOKEN }}
+      # SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y make jq curl
+
+      - name: Run validation
+        run: |
+          chmod +x scripts/run_validation.sh
+          scripts/run_validation.sh
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-artifacts
+          path: artifacts/
