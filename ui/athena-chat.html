@@ -435,11 +435,11 @@
                 </button>
             </div>
             <div class="input-row">
-                <textarea 
-                    id="input" 
+            <textarea 
+                id="input" 
                     placeholder="Ask anything... Athena will choose the best model for your request."
-                    rows="1"
-                ></textarea>
+                rows="1"
+            ></textarea>
                 <button class="send-btn" id="send" onclick="sendMessage()">Send</button>
             </div>
         </div>
@@ -480,7 +480,7 @@
         const FASTVLM_URL = 'http://localhost:8088';
         const KOKORO_URL = 'http://localhost:8091';
         const WHISPER_URL = 'http://localhost:8095';
-        const MCP_URL = 'http://localhost:8082';
+        const MCP_URL = 'http://localhost:8412';  // Fixed: MCP is on 8412, not 8082
 
         const chatContainer = document.getElementById('chat');
         const input = document.getElementById('input');
@@ -501,7 +501,7 @@
             'FastVLM': 'http://localhost:8088/health',
             'Kokoro': 'http://localhost:8091/health',
             'Whisper': 'http://localhost:8095/health',
-            'MCP': 'http://localhost:8082/health',
+            'MCP': 'http://localhost:8412/health',  // Fixed: MCP is on 8412
             'Judicial': 'http://localhost:8096/v2/health',
             'Federation': 'http://localhost:8097/federation/health',
             'Learning': 'http://localhost:8098/health'
@@ -558,7 +558,7 @@
             if (activeTool === tool) {
                 activeTool = null;
                 document.getElementById(tool + 'Btn').classList.remove('active');
-            } else {
+                } else {
                 // Deactivate previous
                 if (activeTool) {
                     document.getElementById(activeTool + 'Btn').classList.remove('active');
@@ -871,10 +871,10 @@
 
                 // Update display with response
                 let html = response
-                    .replace(/`([^`]+)`/g, '<code>$1</code>')
-                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\n/g, '<br>');
-                typingDiv.innerHTML = html;
+                        .replace(/`([^`]+)`/g, '<code>$1</code>')
+                        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\n/g, '<br>');
+                    typingDiv.innerHTML = html;
 
                 // Add metadata display
                 const parentMessage = typingDiv.closest('.message-content-wrapper');
