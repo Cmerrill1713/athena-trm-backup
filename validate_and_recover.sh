@@ -246,6 +246,17 @@ echo "Issues auto-fixed: $ISSUES_FIXED"
 echo "Unresolved: $((ISSUES_FOUND - ISSUES_FIXED))"
 echo ""
 
+# Save results for alert system
+cat > artifacts/validation_latest.json << RESULTS
+{
+  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "issues_found": $ISSUES_FOUND,
+  "issues_fixed": $ISSUES_FIXED,
+  "doc_count": ${DOC_COUNT:-0},
+  "drift_pct": 0
+}
+RESULTS
+
 if [ $ISSUES_FOUND -eq 0 ]; then
     echo -e "${GREEN}"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -256,6 +267,12 @@ if [ $ISSUES_FOUND -eq 0 ]; then
     echo "Athena is running perfectly!"
     echo "Log saved to: $LOG_FILE"
     echo ""
+    
+    # Send success alert
+    if [ -x "scripts/alert_system.sh" ]; then
+        ./scripts/alert_system.sh
+    fi
+    
     exit 0
 elif [ $ISSUES_FIXED -eq $ISSUES_FOUND ]; then
     echo -e "${GREEN}"
@@ -267,6 +284,12 @@ elif [ $ISSUES_FIXED -eq $ISSUES_FOUND ]; then
     echo "Found $ISSUES_FOUND issues and fixed them all!"
     echo "System is now healthy."
     echo ""
+    
+    # Send recovery alert
+    if [ -x "scripts/alert_system.sh" ]; then
+        ./scripts/alert_system.sh
+    fi
+    
     exit 0
 else
     echo -e "${YELLOW}"
@@ -278,6 +301,12 @@ else
     echo "Found $ISSUES_FOUND issues, fixed $ISSUES_FIXED"
     echo "Please review log: $LOG_FILE"
     echo ""
+    
+    # Send failure alert
+    if [ -x "scripts/alert_system.sh" ]; then
+        ./scripts/alert_system.sh
+    fi
+    
     exit 1
 fi
 

@@ -282,3 +282,69 @@ help-go:  ## Show Go migration help
 	@echo ""
 	@echo "See: GO_MIGRATION_PLAN.md"
 
+
+# ============================================================================
+# DRIFT PROTECTION & ALERTS
+# ============================================================================
+
+baseline-lock:  ## Create baseline snapshot (golden state)
+	@echo "🔒 Creating baseline snapshot..."
+	@./create_baseline_snapshot.sh
+
+auto-validation-setup:  ## Setup auto-validation (boot + nightly)
+	@echo "🛡️ Setting up auto-validation..."
+	@./setup_auto_validation.sh
+
+validate-now:  ## Run validation with recovery now
+	@echo "🔍 Running validation..."
+	@RECOVERY_MODE=auto ./validate_and_recover.sh
+
+validate-check:  ## Check only (no recovery)
+	@echo "🔍 Checking system health..."
+	@RECOVERY_MODE=none ./validate_and_recover.sh
+
+test-alerts:  ## Test alert system
+	@echo "🔔 Testing alert system..."
+	@./scripts/alert_system.sh
+
+view-alerts:  ## View alert log
+	@tail -20 artifacts/alerts.log
+
+kb-backup:  ## Backup knowledge base
+	@echo "💾 Backing up knowledge base..."
+	@mkdir -p artifacts/backups
+	@tar -czf artifacts/backups/weaviate_backup_$(date +%Y%m%d_%H%M%S).tar.gz volumes/weaviate_data/
+	@echo "✅ Backup saved to artifacts/backups/"
+
+kb-restore-latest:  ## Restore latest knowledge base backup
+	@echo "⏪ Restoring latest backup..."
+	@latest=$$(ls -t artifacts/backups/weaviate_backup_*.tar.gz | head -1); \
+	 tar -xzf "$$latest" && \
+	 docker-compose restart athena-weaviate && \
+	 echo "✅ Restored from: $$latest"
+
+help-protection:  ## Show drift protection help
+	@echo "🔒 DRIFT PROTECTION & RECOVERY"
+	@echo ""
+	@echo "Setup (once):"
+	@echo "  make baseline-lock          - Create golden state snapshot"
+	@echo "  make auto-validation-setup  - Enable boot + nightly checks"
+	@echo ""
+	@echo "Manual checks:"
+	@echo "  make validate-now           - Run validation with auto-recovery"
+	@echo "  make validate-check         - Check only (no recovery)"
+	@echo "  make test-alerts            - Test alert notifications"
+	@echo ""
+	@echo "Backups:"
+	@echo "  make kb-backup              - Backup knowledge base"
+	@echo "  make kb-restore-latest      - Restore latest backup"
+	@echo ""
+	@echo "Monitoring:"
+	@echo "  make view-alerts            - View alert log"
+	@echo "  tail -f artifacts/validation_stdout.log"
+	@echo ""
+	@echo "Emergency restore:"
+	@echo "  git checkout athena-baseline-<date>"
+	@echo "  make kb-restore-latest"
+	@echo "  docker-compose down && docker-compose up -d"
+
