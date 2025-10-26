@@ -1,95 +1,59 @@
 #!/bin/bash
+# Test Athena's Learning System
 
-echo "🧪 TESTING COMPLETE LEARNING SYSTEM"
-echo "===================================="
-echo ""
+echo "🧪 =========================================="
+echo "🧪 TESTING ATHENA'S LEARNING SYSTEM"
+echo "🧪 =========================================="
 
-echo "1️⃣ Test User Feedback API"
-echo "-------------------------"
-curl -s -X POST http://localhost:8080/v1/feedback \
-  -H "Content-Type: application/json" \
-  -d '{
-    "message_id": 12345,
-    "sentiment": "positive",
-    "response_preview": "Great answer about quantum computing",
-    "timestamp": '$(date +%s000)'
-  }' | jq '.'
+# Check if learning service is running
+echo ""
+echo "1️⃣ Checking Learning Service Health..."
+health=$(curl -s http://localhost:8098/health)
+echo "Response: $health"
 
-echo ""
-echo ""
-echo "2️⃣ Test Feedback Stats"
-echo "----------------------"
-curl -s http://localhost:8080/v1/feedback/stats | jq '.'
+if echo "$health" | grep -q "healthy"; then
+    echo "✅ Learning service is healthy"
+else
+    echo "❌ Learning service not responding"
+    exit 1
+fi
 
+# Test feedback analysis
 echo ""
-echo ""
-echo "3️⃣ Test Learning Safety - Simulate TRM Update"
-echo "----------------------------------------------"
-curl -s -X POST http://localhost:8096/v2/judicial/adjudicate \
-  -H "Content-Type: application/json" \
-  -d '{
-    "event_id":"trm-update-test-001",
-    "instance_id":"athena-learning-system",
-    "actor_id":"trm-learning-agent",
-    "article":"III",
-    "severity":0.65,
-    "confidence":0.90,
-    "classification":"learning_trm_update",
-    "details": {
-      "update_type": "trm_update",
-      "performance_change": 0.05,
-      "bias_change": 0.02
-    }
-  }' | jq '.'
+echo "2️⃣ Testing Feedback Analysis Agent..."
+feedback_result=$(curl -s -X POST "http://localhost:8098/v1/feedback/analyze?hours=24")
+echo "$feedback_result" | jq -r '.status, .feedback_count'
 
+# Test router learning
 echo ""
+echo "3️⃣ Testing Router Learning Agent..."
+router_result=$(curl -s -X POST "http://localhost:8098/v1/router/learn?hours=24")
+echo "$router_result" | jq -r '.agent, .status'
+
+# Trigger complete learning cycle
 echo ""
-echo "4️⃣ Test Critical Learning Decision (Should Block)"
-echo "---------------------------------------------------"
-curl -s -X POST http://localhost:8096/v2/judicial/adjudicate \
-  -H "Content-Type: application/json" \
-  -d '{
-    "event_id":"trm-update-dangerous-001",
-    "instance_id":"athena-learning-system",
-    "actor_id":"trm-learning-agent",
-    "article":"III",
-    "severity":0.95,
-    "confidence":0.98,
-    "classification":"learning_model_fine_tune",
-    "details": {
-      "update_type": "model_fine_tune",
-      "performance_change": -0.15,
-      "bias_change": 0.25,
-      "safety_concern": "High bias increase detected"
-    }
-  }' | jq '.'
+echo "4️⃣ Running Complete Learning Cycle..."
+echo "   (This orchestrates all agents in parallel)"
+
+cycle_result=$(curl -s -X POST "http://localhost:8098/v1/learning/run")
+echo ""
+echo "   Cycle Results:"
+echo "$cycle_result" | jq '{
+    cycle_id: .cycle_id,
+    duration: .duration_seconds,
+    agents: .agents_executed,
+    approved: .approved,
+    verdict: .safety_review.verdict
+}'
+
+# Check learning history
+echo ""
+echo "5️⃣ Checking Learning History..."
+history=$(curl -s http://localhost:8098/v1/learning/history)
+total_cycles=$(echo "$history" | jq -r '.total_cycles')
+echo "   Total learning cycles: $total_cycles"
 
 echo ""
-echo ""
-echo "5️⃣ Check All Service Health"
-echo "----------------------------"
-for service in "UAI:8080" "Judicial:8096" "Federation:8097"; do
-    name=$(echo $service | cut -d: -f1)
-    port=$(echo $service | cut -d: -f2)
-    status=$(curl -s http://localhost:$port/health 2>/dev/null || curl -s http://localhost:$port/v2/health 2>/dev/null || curl -s http://localhost:$port/federation/health 2>/dev/null)
-    if [ ! -z "$status" ]; then
-        echo "✅ $name: Online"
-    else
-        echo "❌ $name: Offline"
-    fi
-done
-
-echo ""
-echo ""
-echo "✅ LEARNING SYSTEM TEST COMPLETE"
-echo ""
-echo "Summary:"
-echo "--------"
-echo "✅ User feedback API working"
-echo "✅ Feedback stored in database"
-echo "✅ Learning safety judicial oversight active"
-echo "✅ Dangerous learning blocked with TRIBUNAL verdict"
-echo "✅ Human review required for critical updates"
-echo ""
-echo "🎯 Athena can now learn safely from user feedback!"
-
+echo "🎯 =========================================="
+echo "🎯 ATHENA'S LEARNING SYSTEM TEST COMPLETE"
+echo "🎯 =========================================="

@@ -1025,6 +1025,55 @@ services:
 # VOLUMES
 # =============================================================================
 
+
+  # ===========================================================================
+  # ATHENA LEARNING SYSTEM - Distributed Learning Agents
+  # ===========================================================================
+
+  athena-learning:
+    build:
+      context: ./services/learning-agents
+      dockerfile: Dockerfile
+    container_name: athena-learning
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8098:8098"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PORT=8098
+      - DB_HOST=athena-postgres
+      - DB_PORT=5432
+      - DB_NAME=athena
+      - DB_USER=athena
+      - DB_PASS=athena_local_2024
+      - OLLAMA_URL=http://host.docker.internal:11434
+      - LLM_MODEL=qwen2.5:7b
+      - JUDICIAL_URL=http://ai-republic-judicial:8096
+    volumes:
+      - learning_state:/app/state
+      - learning_logs:/app/logs
+    networks:
+      - athena-network
+    depends_on:
+      - athena-postgres
+      - ai-republic-judicial
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8098/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    labels:
+      - "athena.service=learning-system"
+      - "athena.port=8098"
+      - "athena.layer=autonomous"
+
+# =============================================================================
+# VOLUMES
+# =============================================================================
+
 volumes:
   postgres_data:
     name: athena_postgres_data
@@ -1040,6 +1089,8 @@ volumes:
   judicial_logs:
   federation_state:
   federation_logs:
+  learning_state:
+  learning_logs:
   prometheus_data:
     name: athena_prometheus_data
     external: true
@@ -1072,7 +1123,3 @@ networks:
     name: athena-network
     driver: bridge
     external: true
-
-  # ===========================================================================
-  # UNIVERSAL AI TOOLS (Port 8080) - Additional AI Service Layer
-  # ===========================================================================
