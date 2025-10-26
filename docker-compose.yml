@@ -331,6 +331,12 @@ services:
       - athena-redis
     networks:
       - athena-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     labels:
       - "athena.service=knowledge-gateway"
       - "athena.port=8093"
@@ -350,6 +356,12 @@ services:
       - athena-redis
     networks:
       - athena-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     labels:
       - "athena.service=knowledge-context"
       - "athena.port=8092"
@@ -368,6 +380,12 @@ services:
       - athena-postgres
     networks:
       - athena-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     labels:
       - "athena.service=knowledge-sync"
       - "athena.port=8089"
@@ -611,6 +629,12 @@ services:
       - athena-network
     depends_on:
       - athena-router
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:11435/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
 
   athena-prometheus:
     image: prom/prometheus@sha256:ff7e389acbe064a4823212a500393d40a28a8f362e4b05cbf6742a9a3ef736b2
@@ -947,6 +971,12 @@ services:
       - weaviate_data:/var/lib/weaviate
     networks:
       - athena-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/v1/.well-known/ready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     labels:
       - "athena.service=weaviate"
       - "athena.port=8090"
