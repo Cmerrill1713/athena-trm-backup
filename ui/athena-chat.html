@@ -445,6 +445,35 @@
         </div>
     </div>
 
+    <!-- Task Sidebar -->
+    <button class="task-toggle" onclick="toggleTaskSidebar()">📋 Tasks</button>
+    
+    <div class="task-sidebar" id="taskSidebar">
+        <div class="task-header">
+            <h3>📋 Family Tasks</h3>
+            <button class="btn-small" onclick="toggleTaskSidebar()">✕</button>
+        </div>
+
+        <div class="family-selector">
+            <label style="display: block; margin-bottom: 0.25rem; font-size: 0.85rem; color: var(--text-dim);">Family Member:</label>
+            <select id="familyMemberSelect" onchange="loadTasksForMember()">
+                <option value="all">All Family</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <input type="text" id="newTaskTitle" class="task-input" placeholder="Task title..." />
+            <input type="text" id="newTaskDesc" class="task-input" placeholder="Description (optional)..." />
+            <button class="btn" style="width: 100%;" onclick="addNewTask()">➕ Add Task</button>
+        </div>
+
+        <div class="task-list" id="taskList">
+            <div style="text-align: center; color: var(--text-dim); padding: 2rem;">
+                Loading tasks...
+            </div>
+        </div>
+    </div>
+
     <script>
         const BASE_URL = 'http://localhost:8080/v1';
         const ROUTER_URL = 'http://localhost:9113';
@@ -980,17 +1009,96 @@
             }
         }
         
-        // Test family features on load
-        window.addEventListener('load', async () => {
-            console.log('🏠 Testing family features...');
-            
-            // Test tasks API
-            const tasks = await getTasks();
-            console.log(`✅ Tasks API: ${tasks.length} tasks found`);
-            
-            // Test family members API
+        // Task Sidebar Management
+        function toggleTaskSidebar() {
+            const sidebar = document.getElementById('taskSidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        async function loadFamilyMembers() {
             const members = await getFamilyMembers();
-            console.log(`✅ Family API: ${members.length} members found`);
+            const select = document.getElementById('familyMemberSelect');
+            
+            members.forEach(member => {
+                const option = document.createElement('option');
+                option.value = member.id;
+                option.textContent = member.name;
+                select.appendChild(option);
+            });
+        }
+
+        async function loadTasks() {
+            const tasks = await getTasks();
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+
+            if (tasks.length === 0) {
+                taskList.innerHTML = '<div style="text-align: center; color: var(--text-dim); padding: 2rem;">No tasks yet. Add one above!</div>';
+                return;
+            }
+
+            tasks.forEach(task => {
+                const taskDiv = document.createElement('div');
+                taskDiv.className = `task-item ${task.completed ? 'completed' : ''}`;
+                taskDiv.innerHTML = `
+                    <input type="checkbox" class="task-checkbox" 
+                           ${task.completed ? 'checked' : ''}
+                           onchange="toggleTaskComplete(${task.id})" />
+                    <div class="task-content">
+                        <div class="task-title">${task.title}</div>
+                        ${task.description ? `<div class="task-desc">${task.description}</div>` : ''}
+                    </div>
+                `;
+                taskList.appendChild(taskDiv);
+            });
+        }
+
+        async function addNewTask() {
+            const titleInput = document.getElementById('newTaskTitle');
+            const descInput = document.getElementById('newTaskDesc');
+            
+            const title = titleInput.value.trim();
+            if (!title) {
+                alert('Please enter a task title');
+                return;
+            }
+
+            const description = descInput.value.trim();
+            
+            await createTask(title, description);
+            
+            // Clear inputs
+            titleInput.value = '';
+            descInput.value = '';
+            
+            // Reload tasks
+            await loadTasks();
+            
+            console.log(`✅ Task added: ${title}`);
+        }
+
+        async function toggleTaskComplete(taskId) {
+            await completeTask(taskId);
+            await loadTasks();
+            console.log(`✅ Task ${taskId} toggled`);
+        }
+
+        async function loadTasksForMember() {
+            // For now, load all tasks (filter by member in future)
+            await loadTasks();
+        }
+
+        // Initialize family features on load
+        window.addEventListener('load', async () => {
+            console.log('🏠 Initializing family features...');
+            
+            // Load family members into selector
+            await loadFamilyMembers();
+            console.log('✅ Family members loaded');
+            
+            // Load tasks
+            await loadTasks();
+            console.log('✅ Tasks loaded');
             
             console.log('🎯 Family features ready!');
         });
