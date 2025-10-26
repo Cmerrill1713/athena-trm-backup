@@ -1,0 +1,137 @@
+{
+  "passed": 26,
+  "failed": 0,
+  "skipped": 0,
+  "details": [
+    {
+      "name": "Chat completions",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Health",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Metrics",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "List tasks",
+      "status": "\u2705",
+      "detail": "5 tasks"
+    },
+    {
+      "name": "Create task \u2713",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Complete task \u2713",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "List users",
+      "status": "\u2705",
+      "detail": "2 users"
+    },
+    {
+      "name": "Health",
+      "status": "\u2705",
+      "detail": "7 providers"
+    },
+    {
+      "name": "Route request",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Metrics",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Health",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Learning history",
+      "status": "\u2705",
+      "detail": "2 cycles"
+    },
+    {
+      "name": "Trigger learning",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Feedback analysis",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Router learning",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Autonomous improve",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Whisper health",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "FastVLM health",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Kokoro health \u2713",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Kokoro metrics",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Health",
+      "status": "\u2705",
+      "detail": "18 tools"
+    },
+    {
+      "name": "Web search \u2713",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "ArXiv search \u2713",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Health",
+      "status": "\u2705",
+      "detail": "9 tools"
+    },
+    {
+      "name": "Judicial health",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Federation health",
+      "status": "\u2705",
+      "detail": ""
+    }
+  ]
+}
