@@ -1,0 +1,172 @@
+{
+  "passed": 16,
+  "failed": 12,
+  "skipped": 5,
+  "details": [
+    {
+      "name": "UAI: Chat",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "UAI: Health",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Router: Health",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Learning: Health",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Route with MLX hint",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Route with Ollama hint",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Route to specific provider",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Filesystem write",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Reminders proxy",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Notes proxy",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Messages proxy",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "App launch proxy",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "App install proxy",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Historical RAG",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Realtime feedback (WebSocket)",
+      "status": "\u26a0\ufe0f",
+      "detail": "WebSocket - needs special client"
+    },
+    {
+      "name": "Security: Encrypt",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Security: PII detect",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Delete task",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Update task",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Delete user",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "PostgreSQL: Tables",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires docker exec"
+    },
+    {
+      "name": "PostgreSQL: Connections",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires docker exec"
+    },
+    {
+      "name": "Weaviate: Objects count",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires docker exec"
+    },
+    {
+      "name": "Weaviate: Schema",
+      "status": "\u26a0\ufe0f",
+      "detail": "Requires docker exec"
+    },
+    {
+      "name": "Prometheus: Router metrics",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Prometheus: UAI metrics",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Prometheus: Learning metrics",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Prometheus: Kokoro metrics",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Learning: Run cycle",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Governance: Health",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Whisper: Languages",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "FastVLM: Models",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Kokoro: Voices",
+      "status": "\u274c",
+      "detail": ""
+    }
+  ]
+}
