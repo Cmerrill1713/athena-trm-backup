@@ -1,0 +1,77 @@
+{
+  "passed": 3,
+  "failed": 8,
+  "skipped": 2,
+  "new_working": [
+    "AGI: Health",
+    "AGI: Metrics",
+    "Governance: Metrics"
+  ],
+  "details": [
+    {
+      "name": "AGI: Health",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "AGI: Metrics",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "AGI: Workflows",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "AGI: Status",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "AGI: Remediate",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Federation: Consensus",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Federation: Vote",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Federation: Reputation",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "MCP: Full tool list",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Redis",
+      "status": "\u26a0\ufe0f",
+      "detail": "No HTTP interface (expected)"
+    },
+    {
+      "name": "Weaviate HTTP",
+      "status": "\u26a0\ufe0f",
+      "detail": "Not found on common ports"
+    },
+    {
+      "name": "Governance: Metrics",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Governance: Policies",
+      "status": "\u274c",
+      "detail": ""
+    }
+  ]
+}

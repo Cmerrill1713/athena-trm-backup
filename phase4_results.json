@@ -1,0 +1,132 @@
+{
+  "passed": 8,
+  "failed": 12,
+  "skipped": 3,
+  "new_working": [
+    "AGI Core found on port 8100",
+    "AGI: List tools",
+    "Federation: List sovereigns",
+    "Route with fallback",
+    "Route with stream flag",
+    "Wikipedia search",
+    "Grafana: Health",
+    "Prometheus: Health"
+  ],
+  "details": [
+    {
+      "name": "Feedback (alt format)",
+      "status": "\u274c",
+      "detail": "Status: 422"
+    },
+    {
+      "name": "List tasks (no slash)",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Patch task",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "AGI Core found on port 8100",
+      "status": "\u2705",
+      "detail": "Service: agi-core"
+    },
+    {
+      "name": "AGI: List tools",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "AGI: Execute",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Federation: List sovereigns",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Federation: Get state",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Federation: Metrics",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Autonomous Orchestrator",
+      "status": "\u26a0\ufe0f",
+      "detail": "Not found on common ports"
+    },
+    {
+      "name": "Route with fallback",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Route with stream flag",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Circuit breaker reset",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Learning: Status",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Learning: Metrics",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Wikipedia search",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Calculator",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "PostgreSQL check",
+      "status": "\u26a0\ufe0f",
+      "detail": "Skipping - requires docker exec"
+    },
+    {
+      "name": "Weaviate check",
+      "status": "\u26a0\ufe0f",
+      "detail": "Skipping - requires docker exec"
+    },
+    {
+      "name": "Grafana: Health",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Prometheus: Health",
+      "status": "\u2705",
+      "detail": ""
+    },
+    {
+      "name": "Judicial: List events",
+      "status": "\u274c",
+      "detail": ""
+    },
+    {
+      "name": "Judicial: Stats",
+      "status": "\u274c",
+      "detail": ""
+    }
+  ]
+}
