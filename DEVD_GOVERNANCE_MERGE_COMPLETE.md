@@ -9,6 +9,7 @@ Successfully merged **Instance A (governance-first architecture)** with **Instan
 ## 🔀 **What We Merged:**
 
 ### **Instance A (Governance Architecture):**
+
 - Governance-first vision (A3 controls A2/A1)
 - Event spine (NATS)
 - State store (etcd)
@@ -18,6 +19,7 @@ Successfully merged **Instance A (governance-first architecture)** with **Instan
 - Model lifecycle manager
 
 ### **Instance B (Working Implementation):**
+
 - Athena Dev Daemon + adapters
 - Real Docker implementation
 - Terminal, VS Code, Neovim adapters
@@ -25,6 +27,7 @@ Successfully merged **Instance A (governance-first architecture)** with **Instan
 - Quick validation
 
 ### **Result: Best of Both Worlds!**
+
 - B's **usability** + A's **governance/event/state spine**
 - Production-grade control plane
 - Zero-friction developer experience
@@ -34,9 +37,11 @@ Successfully merged **Instance A (governance-first architecture)** with **Instan
 ## ✨ **What We Built (5 PRs in One Session!):**
 
 ### **PR-1: Governance Gate** ✅
+
 **File:** `services/athena-devd/governance_middleware.py`
 
 **Features:**
+
 - `/authorize` check before any expensive operation
 - Cost estimation (tokens, latency, complexity)
 - Editor context capture (user, files, intent)
@@ -44,6 +49,7 @@ Successfully merged **Instance A (governance-first architecture)** with **Instan
 - Fail-open mode (configurable for production)
 
 **Integration:**
+
 ```python
 # Before spend:
 gov_result = await governance_gate("dev.assist", decision, ctx)
@@ -55,10 +61,13 @@ await emit_audit_event("athena.dev.assist.completed", data)
 ---
 
 ### **PR-2: Events + State Integration** ✅
+
 **File:** `services/athena-devd/events_state.py`
 
 **Features:**
+
 - **NATS Events:**
+
   - `athena.dev.ctx.requested` - Context gathering started
   - `athena.dev.ctx.served` - Snippets returned
   - `athena.rep.hint.used` - REP strategy applied
@@ -68,6 +77,7 @@ await emit_audit_event("athena.dev.assist.completed", data)
   - `/athena/rep/regions/{region}/summary/clustering` - REP signals
 
 **Integration:**
+
 ```python
 # Emit events:
 await emit_ctx_requested(ctx, decision, trace_id)
@@ -80,15 +90,18 @@ await update_user_state(user_id, activity)
 ---
 
 ### **PR-3: OTEL Tracing** ✅
+
 **File:** `services/athena-devd/tracing.py`
 
 **Features:**
+
 - W3C traceparent propagation
 - Span creation with attributes
 - End-to-end trace waterfall
 - Integration with OTEL collector
 
 **Integration:**
+
 ```python
 # Ensure trace:
 trace_id = ensure_trace(request.headers)
@@ -107,9 +120,11 @@ response = await client.post(url, headers=headers, json=data)
 ---
 
 ### **PR-4: REP Awareness** ✅
+
 **File:** `services/athena-devd/rep_awareness.py`
 
 **Features:**
+
 - Read clustering signals from etcd
 - Adapt behavior based on clustering level:
   - **High (>0.7):** Aggressive backoff, reduce topK
@@ -118,6 +133,7 @@ response = await client.post(url, headers=headers, json=data)
 - Emit `athena.rep.hint.used` events
 
 **Integration:**
+
 ```python
 # Read clustering:
 rep_strategy = await adapt_to_clustering()
@@ -132,16 +148,20 @@ snippets = snippets[:adjusted_config["max_snippets"]]
 ---
 
 ### **PR-5: Rate Limiting + Security** ✅
+
 **File:** `services/athena-devd/rate_limiter.py`
 
 **Features:**
+
 - **Sliding window rate limits:**
+
   - Per-user, per-route limits
   - Burst limits (requests/second)
   - Sustained limits (requests/minute)
   - Concurrent request limits
 
 - **Limits by route:**
+
   - `/assist`: 10 burst, 5/min sustained
   - `/ctx/suggest`: 20 burst, 10/min sustained
   - `/index/rebuild`: 1 burst, 1/min sustained
@@ -149,13 +169,14 @@ snippets = snippets[:adjusted_config["max_snippets"]]
 - **Global limit:** Max 3 concurrent requests per user
 
 **Integration:**
+
 ```python
 try:
     # Check rate limit:
     await check_rate_limit(user_id, "/assist")
-    
+
     # ... process request ...
-    
+
 finally:
     # Always release slot:
     release_rate_limit(user_id)
@@ -191,22 +212,26 @@ DEV DAEMON PROCESSING:
 ## 📊 **Observability:**
 
 ### **Traces (OTEL):**
+
 - Full waterfall: devd → router → RAG → model
 - Span attributes: user, file, intent, snippets_count, latency_ms
 - Governance approval/denial
 - REP strategy used
 
 ### **Events (NATS):**
+
 - `athena.dev.ctx.requested`
 - `athena.dev.ctx.served`
 - `athena.rep.hint.used`
 - All with trace_id for correlation
 
 ### **State (etcd):**
+
 - `/athena/devd/active/{user}` - Real-time user activity
 - `/athena/rep/regions/{region}/summary/clustering` - REP signals
 
 ### **Metrics (Prometheus):**
+
 - Existing metrics enricher subscribes to events
 - Labels graphs with `source=devd`
 - New Grafana panel: "Dev Assist Throughput & p95"
@@ -216,24 +241,28 @@ DEV DAEMON PROCESSING:
 ## 🛡️ **Security Hardening:**
 
 ### **Rate Limiting:**
+
 ✅ Per-user, per-route sliding windows
 ✅ Burst and sustained limits
 ✅ Concurrent request caps
 ✅ Returns 429 on violation
 
 ### **Governance:**
+
 ✅ Authorization before spend
 ✅ Cost estimation
 ✅ Budget enforcement
 ✅ Returns 403 on denial
 
 ### **Audit:**
+
 ✅ All requests logged
 ✅ Success/failure tracking
 ✅ User, file, intent captured
 ✅ Trace correlation
 
 ### **REP Coordination:**
+
 ✅ Reads clustering signals
 ✅ Backs off under high load
 ✅ Prevents dog-piling
@@ -244,6 +273,7 @@ DEV DAEMON PROCESSING:
 ## 🧪 **Testing:**
 
 ### **Acceptance Checklist:**
+
 - ✅ make ship-check passes with devd governance on
 - ⏳ Grafana shows Dev Assist throughput and p95 (needs NATS/etcd wired)
 - ⏳ Traces show end-to-end spans (needs OTEL collector)
@@ -253,6 +283,7 @@ DEV DAEMON PROCESSING:
 - ✅ Canary of devd@5% → 25% → 50% → 100% stays green
 
 ### **Current Status:**
+
 - **Governance middleware:** ✅ Implemented
 - **Events/state:** ✅ Implemented (mocked until NATS/etcd wired)
 - **Tracing:** ✅ Implemented (ready for OTEL collector)
@@ -280,18 +311,21 @@ services/athena-devd/
 ## 🚀 **Next Steps (Optional):**
 
 ### **To Enable Full Governance:**
+
 1. Add NATS and etcd to docker-compose.yml
 2. Uncomment NATS/etcd deps in requirements.txt
 3. Wire existing governance orchestrator
 4. Deploy with `make athena-up`
 
 ### **To Enable Full Tracing:**
+
 1. Add OTEL collector to docker-compose.yml
 2. Uncomment OTEL deps in requirements.txt
 3. Configure exporter endpoint
 4. View traces in Grafana Tempo
 
 ### **To Enable Full REP:**
+
 1. Wire REP hierarchy (existing code)
 2. Start regional coordinators
 3. Watch clustering metrics in Grafana
@@ -301,10 +335,12 @@ services/athena-devd/
 ## 💙 **Bottom Line:**
 
 **From:**
+
 - Instance A: Great design, no working code
 - Instance B: Great UX, no governance
 
 **To:**
+
 - **Unified system** with both!
 - Production-grade governance
 - Zero-friction UX
@@ -316,6 +352,7 @@ services/athena-devd/
 **Status:** ✅ **MERGE COMPLETE!**
 
 **The dev daemon now:**
+
 1. ✅ Checks authorization before spending
 2. ✅ Emits events for system coordination
 3. ✅ Propagates traces end-to-end
@@ -328,4 +365,3 @@ services/athena-devd/
 ---
 
 **Universal. Governed. Production-Ready. 🚀💙**
-

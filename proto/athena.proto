@@ -1,0 +1,113 @@
+syntax = "proto3";
+package athena;
+
+option go_package = "github.com/athena/proto/athena";
+
+// =============================================================================
+// ROUTER SERVICE
+// =============================================================================
+
+message RoutingRequest {
+  string tenant = 1;
+  string user = 2;
+  string intent = 3;           // "rag", "chat", "trm", "dev.assist"
+  string query = 4;
+  int32 top_k = 5;
+  double temperature = 6;
+  int32 max_tokens = 7;
+  map<string,string> tags = 8; // trace_id, route_source, session_id, etc.
+  repeated string visible_files = 9;  // For dev.assist context
+  string file_path = 10;        // Current file for dev.assist
+}
+
+message RoutingDecision {
+  string route = 1;            // "rag"|"llm"|"hybrid"|"trm"
+  string model = 2;            // "qwen2.5:7b"|"mlx"|"fastvlm"
+  string endpoint = 3;         // Full URL to model endpoint
+  double cost_estimate = 4;
+  string reason = 5;
+  map<string,string> metadata = 6;  // latency_estimate_ms, provider, etc.
+}
+
+service Router {
+  rpc Decide (RoutingRequest) returns (RoutingDecision);
+  rpc Health (HealthRequest) returns (HealthResponse);
+}
+
+// =============================================================================
+// GOVERNANCE SERVICE
+// =============================================================================
+
+message AuthorizeRequest {
+  string type = 1;             // "routing"|"dev.assist"|"rag.search"|"model.invoke"
+  string decision_json = 2;    // JSON of original proposal for audit
+  string user = 3;
+  string tenant = 4;
+  map<string,string> context = 5;  // file, intent, selection_lines, etc.
+}
+
+message AuthorizeResponse {
+  bool allowed = 1;
+  string reason = 2;
+  string alternative_json = 3;  // If denied, suggest alternative
+  string decision_id = 4;       // For audit trail
+  map<string,string> metadata = 5;
+}
+
+service Governance {
+  rpc Authorize (AuthorizeRequest) returns (AuthorizeResponse);
+  rpc Audit (AuditRequest) returns (AuditResponse);
+}
+
+message AuditRequest {
+  string event_type = 1;       // "athena.dev.assist.completed"
+  string decision_id = 2;
+  string data_json = 3;
+  string source = 4;
+}
+
+message AuditResponse {
+  bool recorded = 1;
+}
+
+// =============================================================================
+// RAG SERVICE
+// =============================================================================
+
+message RAGRequest {
+  string query = 1;
+  int32 top_k = 2;
+  repeated string filters = 3;  // file types, recency, etc.
+  string trace_id = 4;
+}
+
+message RAGSnippet {
+  string path = 1;
+  int32 start_line = 2;
+  int32 end_line = 3;
+  string text = 4;
+  double score = 5;
+  string reason = 6;
+}
+
+message RAGResponse {
+  repeated RAGSnippet snippets = 1;
+  string summary = 2;
+  int32 total_matches = 3;
+}
+
+service RAG {
+  rpc Search (RAGRequest) returns (RAGResponse);
+}
+
+// =============================================================================
+// SHARED TYPES
+// =============================================================================
+
+message HealthRequest {}
+
+message HealthResponse {
+  string status = 1;           // "healthy"|"degraded"|"unhealthy"
+  map<string,string> checks = 2;  // component → status
+}
+
