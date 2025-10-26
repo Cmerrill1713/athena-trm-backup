@@ -395,7 +395,7 @@ async def execute_tool(tool_name: str, request: ToolRequest):
             try:
                 response = requests.post(
                     f"{bridge_url}/calendar/list",
-                    json={"arguments": request.arguments},
+                    json=request.arguments,
                     timeout=15
                 )
                 response.raise_for_status()
@@ -415,7 +415,7 @@ async def execute_tool(tool_name: str, request: ToolRequest):
             try:
                 response = requests.post(
                     f"{bridge_url}/reminders/add",
-                    json={"arguments": request.arguments},
+                    json=request.arguments,
                     timeout=15
                 )
                 response.raise_for_status()
@@ -466,7 +466,7 @@ return "Reminder created"
         elif tool_name == "reminder_list":
             bridge_url = os.getenv("MACOS_BRIDGE_URL", "http://host.docker.internal:8099")
             try:
-                response = requests.post(f"{bridge_url}/reminders/list", json={"arguments": request.arguments}, timeout=15)
+                response = requests.post(f"{bridge_url}/reminders/list", json=request.arguments, timeout=15)
                 response.raise_for_status()
                 return response.json()
             except requests.exceptions.ConnectionError:
@@ -521,7 +521,7 @@ end tell
         elif tool_name == "notes_create":
             bridge_url = os.getenv("MACOS_BRIDGE_URL", "http://host.docker.internal:8099")
             try:
-                response = requests.post(f"{bridge_url}/notes/create", json={"arguments": request.arguments}, timeout=15)
+                response = requests.post(f"{bridge_url}/notes/create", json=request.arguments, timeout=15)
                 response.raise_for_status()
                 return response.json()
             except requests.exceptions.ConnectionError:
@@ -572,7 +572,7 @@ return "Note created"
         elif tool_name == "messages_send":
             bridge_url = os.getenv("MACOS_BRIDGE_URL", "http://host.docker.internal:8099")
             try:
-                response = requests.post(f"{bridge_url}/messages/send", json={"arguments": request.arguments}, timeout=15)
+                response = requests.post(f"{bridge_url}/messages/send", json=request.arguments, timeout=15)
                 response.raise_for_status()
                 return response.json()
             except requests.exceptions.ConnectionError:
@@ -621,7 +621,7 @@ return "Message sent"
         elif tool_name == "app_launch":
             bridge_url = os.getenv("MACOS_BRIDGE_URL", "http://host.docker.internal:8099")
             try:
-                response = requests.post(f"{bridge_url}/app/launch", json={"arguments": request.arguments}, timeout=15)
+                response = requests.post(f"{bridge_url}/app/launch", json=request.arguments, timeout=15)
                 response.raise_for_status()
                 return response.json()
             except requests.exceptions.ConnectionError:
@@ -656,7 +656,7 @@ return "Message sent"
         elif tool_name == "app_install":
             bridge_url = os.getenv("MACOS_BRIDGE_URL", "http://host.docker.internal:8099")
             try:
-                response = requests.post(f"{bridge_url}/app/install", json={"arguments": request.arguments}, timeout=300)
+                response = requests.post(f"{bridge_url}/app/install", json=request.arguments, timeout=300)
                 response.raise_for_status()
                 return response.json()
             except requests.exceptions.ConnectionError:
