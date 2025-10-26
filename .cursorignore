@@ -1,45 +1,40 @@
-# Cursor Ignore File - Exclude heavy directories from indexing
-# This dramatically improves performance for large monorepos
+# Cursor/IDE Ignore - Don't lint these directories
+# Prevents noise from archived/old projects
 
-# Large AI Projects (Archive candidates)
-AI-Projects/
-fastvlm/
-external/
+# Archives
+archive/**
+.archive/**
+AI-Projects/universal-ai-tools/archive/**
+governance/archive/**
+
+# Old iterations
+**/old_iterations/**
+**/pre-consolidation-*/**
+
+# Archived projects (from previous cleanup)
+athena-macapp-ui/**
+SwiftUI_MCP_Modernization/**
 
 # Build artifacts
-**/node_modules/
-**/__pycache__/
-**/build/
-**/dist/
-**/.next/
+node_modules/**
+dist/**
+build/**
+target/**
+.venv/**
+venv/**
+__pycache__/**
 
-# Cache directories
-**/.pytest_cache/
-**/.mypy_cache/
-**/*.egg-info/
+# External source (Ollama development)
+ollama-source/**
 
-# IDE
-.vscode/.cache/
-.cursor/
+# Large data
+volumes/**
+datasets/**
+models/**
+*.gguf
+*.bin
+*.safetensors
 
-# Git internals
-.git/objects/
-.git/subtree-cache/
-
-# Governance backups
-governance_backup_*/
-infra_snapshot/
-docker_intake/
-
-# Logs and temp
-**/*.log
-**/.DS_Store
-**/Thumbs.db
-
-# Docker artifacts (if not actively working on them)
-# Uncomment to exclude:
-# **/Dockerfile*
-# **/docker-compose*.yml
-
-
-
+# Generated
+proto/gen/**
+*.pb.go
