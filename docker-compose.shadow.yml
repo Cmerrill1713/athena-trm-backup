@@ -1,0 +1,79 @@
+# Shadow Stack Overlay
+# Runs Go services alongside Python for comparison
+#
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.shadow.yml up -d
+
+services:
+  # ===========================================================================
+  # GO ROUTER (Shadow mode - port 9115)
+  # ===========================================================================
+  
+  go-router:
+    build:
+      context: ./services/go-router
+      dockerfile: Dockerfile
+    container_name: athena-go-router
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9115:9115"  # gRPC (shadows Python 9113)
+    environment:
+      - GRPC_PORT=9115
+      - GOVERNANCE_URL=governance-orchestrator:9110
+      - NATS_URL=nats://athena-nats:4222
+      - ETCD_URL=http://athena-etcd:2379
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://athena-otel-collector:4317
+      - RUST_LOG=info
+    networks:
+      - athena-network
+    depends_on:
+      - athena-router  # Shadows this
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9115/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    labels:
+      - "athena.service=go-router"
+      - "athena.port=9115"
+      - "athena.mode=shadow"
+      - "athena.shadows=python-router:9113"
+      - "athena.layer=routing"
+  
+  # ===========================================================================
+  # GO GATEWAY (Shadow mode - port 8081)
+  # ===========================================================================
+  
+  go-gateway:
+    build:
+      context: ./services/go-gateway
+      dockerfile: Dockerfile
+    container_name: athena-go-gateway
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8081:8081"  # HTTP (shadows Python 8080)
+    environment:
+      - HTTP_PORT=8081
+      - ROUTER_URL=go-router:9115
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://athena-otel-collector:4317
+      - RUST_LOG=info
+    networks:
+      - athena-network
+    depends_on:
+      - go-router
+      - uai  # Shadows this
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    labels:
+      - "athena.service=go-gateway"
+      - "athena.port=8081"
+      - "athena.mode=shadow"
+      - "athena.shadows=python-uai:8080"
+      - "athena.layer=gateway"
+
+# No new networks or volumes needed - reuse from main compose file
+

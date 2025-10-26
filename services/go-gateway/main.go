@@ -1,8 +1,6 @@
 package main
 
 import (
-	"bufio"
-	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -53,39 +51,39 @@ type Gateway struct {
 func (g *Gateway) ChatCompletion(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 	ctx := r.Context()
-	
+
 	// Parse request
 	var req ChatCompletionRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, "Invalid request", http.StatusBadRequest)
 		return
 	}
-	
-	log.Printf("Chat completion: model=%s, stream=%v, messages=%d", 
+
+	log.Printf("Chat completion: model=%s, stream=%v, messages=%d",
 		req.Model, req.Stream, len(req.Messages))
-	
+
 	// 1. Extract trace ID from headers
 	traceID := r.Header.Get("traceparent")
 	if traceID == "" {
 		traceID = fmt.Sprintf("go-gateway-%d", time.Now().UnixNano())
 	}
-	
+
 	// 2. Call router via gRPC for routing decision
 	// TODO: routingDecision := g.routerClient.Decide(ctx, ...)
-	
+
 	// 3. Governance gate (optional - can be in router)
 	// TODO: authorized := g.governanceClient.Authorize(ctx, ...)
-	
+
 	// 4. Call actual model endpoint
 	// TODO: Implement actual model call
-	
+
 	// 5. Handle streaming vs non-streaming
 	if req.Stream {
 		g.handleStreamingResponse(w, r, &req, traceID)
 	} else {
 		g.handleNonStreamingResponse(w, r, &req, traceID)
 	}
-	
+
 	log.Printf("Request completed: latency=%dms", time.Since(start).Milliseconds())
 }
 
@@ -96,17 +94,17 @@ func (g *Gateway) handleStreamingResponse(w http.ResponseWriter, r *http.Request
 	w.Header().Set("Cache-Control", "no-cache")
 	w.Header().Set("Connection", "keep-alive")
 	w.Header().Set("X-Trace-ID", traceID)
-	
+
 	flusher, ok := w.(http.Flusher)
 	if !ok {
 		http.Error(w, "Streaming not supported", http.StatusInternalServerError)
 		return
 	}
-	
+
 	// TODO: Stream from actual model
 	// For now, mock streaming
 	tokens := []string{"Hello", " from", " Go", " gateway", "!"}
-	
+
 	for i, token := range tokens {
 		// Check if client disconnected
 		select {
@@ -115,7 +113,7 @@ func (g *Gateway) handleStreamingResponse(w http.ResponseWriter, r *http.Request
 			return
 		default:
 		}
-		
+
 		// Stream chunk
 		chunk := map[string]interface{}{
 			"id":      fmt.Sprintf("chatcmpl-%d", time.Now().UnixNano()),
@@ -132,19 +130,19 @@ func (g *Gateway) handleStreamingResponse(w http.ResponseWriter, r *http.Request
 				},
 			},
 		}
-		
+
 		// Last chunk has finish_reason
 		if i == len(tokens)-1 {
 			chunk["choices"].([]map[string]interface{})[0]["finish_reason"] = "stop"
 		}
-		
+
 		data, _ := json.Marshal(chunk)
 		fmt.Fprintf(w, "data: %s\n\n", data)
 		flusher.Flush()
-		
+
 		time.Sleep(100 * time.Millisecond) // Simulate model latency
 	}
-	
+
 	// Send [DONE]
 	fmt.Fprintf(w, "data: [DONE]\n\n")
 	flusher.Flush()
@@ -153,7 +151,7 @@ func (g *Gateway) handleStreamingResponse(w http.ResponseWriter, r *http.Request
 // handleNonStreamingResponse handles regular JSON response
 func (g *Gateway) handleNonStreamingResponse(w http.ResponseWriter, r *http.Request, req *ChatCompletionRequest, traceID string) {
 	// TODO: Get full response from model
-	
+
 	response := ChatCompletionResponse{
 		ID:      fmt.Sprintf("chatcmpl-%d", time.Now().UnixNano()),
 		Object:  "chat.completion",
@@ -170,7 +168,7 @@ func (g *Gateway) handleNonStreamingResponse(w http.ResponseWriter, r *http.Requ
 			},
 		},
 	}
-	
+
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("X-Trace-ID", traceID)
 	json.NewEncoder(w).Encode(response)
@@ -180,7 +178,7 @@ func (g *Gateway) handleNonStreamingResponse(w http.ResponseWriter, r *http.Requ
 func (g *Gateway) Health(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"status": "healthy",
+		"status":  "healthy",
 		"service": "go-gateway",
 		"checks": map[string]string{
 			"http":       "ok",
@@ -192,22 +190,21 @@ func (g *Gateway) Health(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	log.Println("Starting Athena Go Gateway (OpenAI-compatible)...")
-	
+
 	gateway := &Gateway{}
-	
+
 	// Register routes
 	http.HandleFunc("/v1/chat/completions", gateway.ChatCompletion)
 	http.HandleFunc("/health", gateway.Health)
-	
+
 	// Add middleware for CORS, rate limiting, tracing, etc.
-	
+
 	addr := fmt.Sprintf(":%s", httpPort)
 	log.Printf("Go Gateway listening on HTTP port %s", httpPort)
 	log.Printf("Shadowing Python UAI on port 8080")
 	log.Printf("OpenAI-compatible: POST /v1/chat/completions")
-	
+
 	if err := http.ListenAndServe(addr, nil); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}
 }
-

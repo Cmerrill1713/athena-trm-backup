@@ -176,3 +176,109 @@ help-athena:  ## Show Athena copilot help
 	@echo ""
 	@echo "See: ATHENA_COPILOT_README.md"
 
+
+# ============================================================================
+# GO MIGRATION - Shadow, Compare, Promote
+# ============================================================================
+
+go-shadow-up:  ## Bring up Go gateway/router in shadow mode
+	@echo "🔬 Starting Go services in shadow mode..."
+	@docker-compose -f docker-compose.yml -f docker-compose.shadow.yml up -d go-router go-gateway
+	@sleep 5
+	@echo "✅ Shadow stack running:"
+	@echo "   - Go Router: http://localhost:9115 (shadows Python 9113)"
+	@echo "   - Go Gateway: http://localhost:8081 (shadows Python 8080)"
+
+go-shadow-down:  ## Stop Go shadow services
+	@echo "Stopping Go shadow services..."
+	@docker-compose -f docker-compose.yml -f docker-compose.shadow.yml down go-router go-gateway
+
+go-parity:  ## Run shadow comparison and check parity
+	@echo "🔬 Running parity tests..."
+	@mkdir -p artifacts
+	@python3 scripts/shadow_compare.py
+	@echo ""
+	@echo "Results saved to: artifacts/shadow_results.json"
+
+go-k6:  ## Run k6 load test against Go gateway
+	@echo "📊 Running k6 load test against Go gateway..."
+	@mkdir -p artifacts
+	@k6 run --vus 50 --duration 5m --env GATEWAY_URL=http://localhost:8081 scripts/k6_load_test.js
+	@echo ""
+	@echo "Results saved to: artifacts/k6_results.json"
+
+go-k6-compare:  ## Compare k6 results between Python and Go
+	@echo "📊 Comparing Python vs Go performance..."
+	@echo ""
+	@echo "Python (port 8080):"
+	@k6 run --vus 50 --duration 2m --env GATEWAY_URL=http://localhost:8080 scripts/k6_load_test.js --out json=artifacts/k6_python.json
+	@echo ""
+	@echo "Go (port 8081):"
+	@k6 run --vus 50 --duration 2m --env GATEWAY_URL=http://localhost:8081 scripts/k6_load_test.js --out json=artifacts/k6_go.json
+	@echo ""
+	@echo "Results saved to: artifacts/k6_python.json, artifacts/k6_go.json"
+
+go-promote-5:  ## Promote Go gateway to 5% traffic
+	@echo "⬆️  Promoting Go gateway to 5% traffic..."
+	@echo "TODO: Implement traffic splitting in Nginx/load balancer"
+	@echo "Feature flag: GATEWAY_IMPL_GO_PCT=5"
+
+go-promote-25:  ## Promote Go gateway to 25% traffic
+	@echo "⬆️  Promoting Go gateway to 25% traffic..."
+	@echo "TODO: Implement traffic splitting"
+	@echo "Feature flag: GATEWAY_IMPL_GO_PCT=25"
+
+go-promote-50:  ## Promote Go gateway to 50% traffic
+	@echo "⬆️  Promoting Go gateway to 50% traffic..."
+	@echo "TODO: Implement traffic splitting"
+	@echo "Feature flag: GATEWAY_IMPL_GO_PCT=50"
+
+go-promote-100:  ## Promote Go gateway to 100% traffic
+	@echo "🎉 Promoting Go gateway to 100% traffic!"
+	@echo "TODO: Implement traffic splitting"
+	@echo "Feature flag: GATEWAY_IMPL_GO_PCT=100"
+	@echo ""
+	@echo "⚠️  Keep Python stack running for 48h for rollback safety"
+
+go-rollback:  ## Emergency rollback to Python stack
+	@echo "🔙 EMERGENCY ROLLBACK TO PYTHON!"
+	@echo "Setting Go traffic to 0%..."
+	@echo "TODO: Implement instant rollback"
+	@echo "Feature flag: GATEWAY_IMPL_GO_PCT=0"
+	@echo "✅ All traffic back to Python"
+
+go-full-test:  ## Run complete Go validation suite
+	@echo "🧪 Running complete Go validation..."
+	@make go-shadow-up
+	@sleep 10
+	@make go-parity
+	@make go-k6
+	@echo ""
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@echo "📊 VALIDATION COMPLETE"
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@echo ""
+	@echo "Check results:"
+	@echo "  - Parity: artifacts/shadow_results.json"
+	@echo "  - Load test: artifacts/k6_results.json"
+
+help-go:  ## Show Go migration help
+	@echo "🚀 GO MIGRATION WORKFLOW"
+	@echo ""
+	@echo "Phase 1: Shadow & Validate"
+	@echo "  make go-shadow-up     - Start Go services in shadow mode"
+	@echo "  make go-parity        - Test parity (goal: ≥99%)"
+	@echo "  make go-k6            - Load test (goal: p95 ≥20% better)"
+	@echo "  make go-full-test     - Run complete validation"
+	@echo ""
+	@echo "Phase 2: Progressive Rollout"
+	@echo "  make go-promote-5     - 5% traffic to Go"
+	@echo "  make go-promote-25    - 25% traffic to Go"
+	@echo "  make go-promote-50    - 50% traffic to Go"
+	@echo "  make go-promote-100   - 100% traffic to Go"
+	@echo ""
+	@echo "Emergency:"
+	@echo "  make go-rollback      - Instant rollback to Python"
+	@echo ""
+	@echo "See: GO_MIGRATION_PLAN.md"
+

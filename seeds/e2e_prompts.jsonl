@@ -1,0 +1,11 @@
+{"model": "athena-chat", "messages": [{"role": "user", "content": "What is the router service?"}], "temperature": 0.7, "stream": false}
+{"model": "athena-chat", "messages": [{"role": "user", "content": "Explain RAG in one sentence"}], "temperature": 0.7, "stream": false}
+{"model": "athena-chat", "messages": [{"role": "user", "content": "How does governance work?"}], "temperature": 0.7, "stream": false}
+{"model": "athena-chat", "messages": [{"role": "user", "content": "Describe the learning system"}], "temperature": 0.7, "stream": false}
+{"model": "athena-chat", "messages": [{"role": "user", "content": "What is REP protocol?"}], "temperature": 0.7, "stream": false}
+{"model": "athena-chat", "messages": [{"role": "user", "content": "How does the dev daemon gather context?"}], "temperature": 0.7, "stream": false}
+{"model": "athena-chat", "messages": [{"role": "user", "content": "Explain the ASI safety framework"}], "temperature": 0.7, "stream": false}
+{"model": "athena-chat", "messages": [{"role": "user", "content": "What are the multimodal capabilities?"}], "temperature": 0.7, "stream": false}
+{"model": "athena-chat", "messages": [{"role": "user", "content": "How does rate limiting work?"}], "temperature": 0.7, "stream": false}
+{"model": "athena-chat", "messages": [{"role": "user", "content": "What is TRM and how does it work?"}], "temperature": 0.7, "stream": false}
+
