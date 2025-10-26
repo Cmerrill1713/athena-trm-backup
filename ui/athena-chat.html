@@ -531,12 +531,24 @@
             serviceCount = 0;
             for (const [name, url] of Object.entries(services)) {
                 try {
-                    const res = await fetch(url, {timeout: 2000});
-                    if (res.ok) serviceCount++;
-                } catch (e) {}
+                    // Use AbortController for timeout (browser-compatible)
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 2000);
+                    
+                    const res = await fetch(url, { signal: controller.signal });
+                    clearTimeout(timeoutId);
+                    
+                    if (res.ok) {
+                        serviceCount++;
+                        console.log(`✅ ${name}: healthy`);
+                    }
+                } catch (e) {
+                    console.log(`❌ ${name}: ${e.message}`);
+                }
             }
             document.getElementById('statusBadge').textContent = `● ${serviceCount}/${Object.keys(services).length} Services Ready`;
             document.getElementById('statusBadge').className = serviceCount >= 6 ? 'badge success' : 'badge warning';
+            console.log(`Total: ${serviceCount}/9 services ready`);
         }
 
         // Add message
