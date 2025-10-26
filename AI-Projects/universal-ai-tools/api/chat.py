@@ -9,6 +9,8 @@ import time
 import logging
 from typing import List
 
+# ASI Safety - Judicial oversight
+from api.judicial_client import submit_judicial_event
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
@@ -195,6 +197,29 @@ async def chat_completions(req: ChatRequest):
             uai_llm_lat_s.labels(model).observe(time.time() - t0)
         
         logger.info(f"Success: {len(content)} chars in {time.time()-t0:.2f}s (RAG: {bool(rag_context)})")
+        
+        # ASI Safety: Submit chat decision to judicial oversight
+        try:
+            event_id = f"chat-{hashlib.md5(req.messages[-1].content.encode()).hexdigest()[:8]}-{int(time.time())}"
+            severity = 0.15 if rag_context else 0.05  # Higher if using RAG
+            
+            await submit_judicial_event(
+                event_id=event_id,
+                actor_id="uai-chat-agent",
+                article="II",  # Data access compliance
+                severity=severity,
+                confidence=0.85,
+                classification="chat_completion",
+                details={
+                    "model": model,
+                    "rag_used": bool(rag_context),
+                    "tokens": len(content.split()),
+                    "latency_ms": (time.time() - t0) * 1000
+                }
+            )
+        except Exception as e:
+            logger.debug(f"Judicial oversight failed (non-critical): {e}")
+        
         
         return {
             "object": "chat.completion",

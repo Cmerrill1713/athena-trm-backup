@@ -7,6 +7,7 @@ validates via canary, and promotes/rolls back automatically.
 
 import os
 import json
+from judicial_client import submit_judicial_event_sync
 import logging
 import threading
 import time

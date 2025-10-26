@@ -13,6 +13,7 @@ import httpx
 from auto_rollback import AutoRollbackEngine
 from prompt_evolution import PromptEvolver
 from adaptive_trm import AdaptiveTRMDecider
+from judicial_client import submit_judicial_event
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

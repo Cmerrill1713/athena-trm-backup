@@ -35,6 +35,9 @@ from providers.vision_fastvlm import FastVLMProvider
 from providers.tts_kokoro import KokoroTTSProvider
 from providers.uai_provider import UAIProvider
 
+# ASI Safety - Judicial oversight
+from judicial_client import submit_judicial_event
+
 # Build version tracking
 BUILD = os.getenv("BUILD_SHA", "dev")
 FEATURE_MCP = os.getenv("FEATURE_MCP", "1") == "1"
@@ -665,6 +668,34 @@ async def route_request(request: RouteRequest):
                 tokens_generated=tokens_generated,
                 ece_estimate=ece
             )
+            
+            # ASI Safety: Submit routing decision to judicial oversight
+            try:
+                # Assess routing decision for judicial review
+                severity = 0.1  # Default low severity for normal routing
+                if provider_name == 'cloud':
+                    severity = 0.7  # Higher severity for cloud routing
+                elif failover_from:
+                    severity = 0.3  # Medium severity for failovers
+                
+                event_id = f"route-{hashlib.md5(request.prompt.encode()).hexdigest()[:8]}-{int(time.time())}"
+                
+                await submit_judicial_event(
+                    event_id=event_id,
+                    actor_id="router-agent",
+                    article="I",  # Routing policy compliance
+                    severity=severity,
+                    confidence=0.9,
+                    classification="routing_decision",
+                    details={
+                        "provider": provider_name,
+                        "failover_from": failover_from,
+                        "latency_ms": latency_ms,
+                        "ece": ece
+                    }
+                )
+            except Exception as e:
+                logger.debug(f"Judicial oversight failed (non-critical): {e}")
             
             return RouteResponse(
                 route=provider_name,
